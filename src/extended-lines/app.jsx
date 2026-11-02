@@ -42,7 +42,7 @@ const PRESETS = {
   organ: { extend: "strength", deform: "none", disperse: "echoes", fill: "tonal", abstraction: 0.62, frame: 0.52, light: true },
   alley: { extend: "straight", deform: "none", disperse: "echoes", fill: "tiles", abstraction: 0.58, frame: 0.56, density: 0.1, extendAmt: 0, disperseAmt: 0, fadeAmt: 0.2, fillAmt: 1.48 },
   railings: { extend: "straight", deform: "none", disperse: "echoes", fill: "tonal", abstraction: 0.66, frame: 0.52 },
-  stone: { extend: "strength", deform: "bend", disperse: "fan", fill: "tiles", abstraction: 0.56, frame: 0.5 },
+  stone: { extend: "strength", deform: "gravity", disperse: "fan", fill: "tiles", abstraction: 1, frame: 0.5, density: 0.32, extendAmt: 0.3, deformAmt: 1.58, disperseAmt: 1.37, fadeAmt: 0.79, fillAmt: 1.14 },
   grass: { extend: "strength", deform: "wave", disperse: "scatter", fill: "tiles", abstraction: 0.5, frame: 0.5, density: 0.5, extendAmt: 0.33, disperseAmt: 1.64, fadeAmt: 2, fillAmt: 0.75, light: true, speed: 0.68 },
   filharmonia: { extend: "straight", deform: "bend", disperse: "fan", fill: "tonal", ground: "dark", abstraction: 0.56, frame: 0.54, extendAmt: 0.12, deformAmt: 2, disperseAmt: 0, fadeAmt: 2, fillAmt: 0.53, speed: 1.37, ox: -0.051, oy: 0.012 },
 };
