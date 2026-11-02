@@ -39,17 +39,17 @@ const MODE_HELP = {
 
 // The artist's version of each photo. Visitors can change it, then reset.
 const PRESETS = {
-  organ: { extend: "strength", deform: "none", disperse: "echoes", fill: "tonal", abstraction: 0.62, frame: 0.6, light: true },
-  alley: { extend: "snap", deform: "none", disperse: "echoes", fill: "tiles", abstraction: 0.58, frame: 0.72 },
-  skyline: { extend: "straight", deform: "wave", disperse: "none", fill: "mirror", abstraction: 0.55, frame: 0.66 },
-  railings: { extend: "straight", deform: "none", disperse: "echoes", fill: "tonal", abstraction: 0.66, frame: 0.62 },
-  stone: { extend: "strength", deform: "bend", disperse: "fan", fill: "tiles", abstraction: 0.56, frame: 0.6 },
-  grass: { extend: "strength", deform: "wave", disperse: "scatter", fill: "mirror", abstraction: 0.5, frame: 0.6 },
-  filharmonia: { extend: "strength", deform: "bend", disperse: "echoes", fill: "tonal", abstraction: 0.56, frame: 0.62 },
+  organ: { extend: "strength", deform: "none", disperse: "echoes", fill: "tonal", abstraction: 0.62, frame: 0.52, light: true },
+  alley: { extend: "snap", deform: "none", disperse: "echoes", fill: "tiles", abstraction: 0.58, frame: 0.56 },
+  skyline: { extend: "straight", deform: "wave", disperse: "none", fill: "mirror", abstraction: 0.55, frame: 0.54 },
+  railings: { extend: "straight", deform: "none", disperse: "echoes", fill: "tonal", abstraction: 0.66, frame: 0.52 },
+  stone: { extend: "strength", deform: "bend", disperse: "fan", fill: "tiles", abstraction: 0.56, frame: 0.5 },
+  grass: { extend: "strength", deform: "wave", disperse: "scatter", fill: "mirror", abstraction: 0.5, frame: 0.5 },
+  filharmonia: { extend: "strength", deform: "bend", disperse: "echoes", fill: "tonal", abstraction: 0.56, frame: 0.54 },
 };
 
 const BASE = {
-  abstraction: 0.6, frame: 0.62, density: 1,
+  abstraction: 0.6, frame: 0.52, density: 1,
   extend: "straight", deform: "none", disperse: "none", fill: "none", ground: "auto",
   extendAmt: 1, deformAmt: 1, disperseAmt: 1, fadeAmt: 1, fillAmt: 1,
   decompose: true, light: false, speed: 1, seed: 1, ox: 0, oy: 0,
@@ -96,6 +96,7 @@ function decodeHash(hash) {
 
 // ----------------------------------------------------------------- utils ----
 
+const MAX_FRAME = 0.6;
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = (t) => t * t * (3 - 2 * t);
@@ -134,12 +135,13 @@ function buildLevels(img) {
 // --------------------------------------------------------------- render ----
 
 function layout(W, H, photo, s, mobile) {
-  const maxW = W * s.frame;
-  const maxH = H * s.frame * (mobile ? 0.82 : 1);
+  const fr = clamp(s.frame, 0.15, MAX_FRAME); // never more than 60% of the window
+  const maxW = W * fr;
+  const maxH = H * fr;
   let pw = maxW, ph = pw / photo.aspect;
   if (ph > maxH) { ph = maxH; pw = ph * photo.aspect; }
   const cx = W / 2 + s.ox * W;
-  const cy = H / 2 + s.oy * H - (mobile ? H * 0.04 : 0);
+  const cy = H / 2 + s.oy * H;
   return { x: cx - pw / 2, y: cy - ph / 2, w: pw, h: ph };
 }
 
@@ -625,7 +627,7 @@ export default function App() {
   const theme = light
     ? { fg: "#141416", muted: "rgba(20,20,22,.55)", line: "rgba(20,20,22,.16)", glass: "rgba(236,234,229,.82)" }
     : { fg: "#ECECE8", muted: "rgba(236,236,232,.55)", line: "rgba(236,236,232,.16)", glass: "rgba(14,14,16,.78)" };
-  const uiOpacity = hidden ? 0 : idle && !panel && !index ? 0.28 : 1;
+  const uiOpacity = hidden ? 0 : panel || index ? 1 : idle ? 0.08 : 0.32;
 
   return (
     <div className="el-root" style={{ "--fg": theme.fg, "--muted": theme.muted, "--line": theme.line, "--glass": theme.glass, background: light ? "#ECEAE5" : "#0A0A0B" }}>
@@ -660,7 +662,7 @@ export default function App() {
             </label>
             <label className="el-dial el-dial-small">
               <span className="el-dial-ends"><span>small frame</span><span>large</span></span>
-              <input type="range" min="0.25" max="1" step="0.005" value={s.frame}
+              <input type="range" min="0.2" max={MAX_FRAME} step="0.005" value={s.frame}
                 onChange={(e) => set({ frame: parseFloat(e.target.value) })} aria-label="Frame size" />
             </label>
           </div>
@@ -756,33 +758,36 @@ const CSS = `
 .el-root { position: fixed; inset: 0; overflow: hidden; color: var(--fg); font-family: ${FONT_MONO}; transition: background .6s; }
 .el-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
 .el-loading { position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.el-ui { position: absolute; inset: 0; pointer-events: none; transition: opacity .6s; }
+.el-ui { position: absolute; inset: 0; pointer-events: none; transition: opacity .8s; }
+.el-ui:hover, .el-ui:focus-within { opacity: 1 !important; transition: opacity .25s; }
 .el-ui > * { pointer-events: auto; }
 .el-root button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
 .el-top { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center;
-  padding: max(18px, env(safe-area-inset-top)) 22px 0; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
-.el-top-actions { display: flex; gap: 18px; }
-.el-top-actions button { letter-spacing: .16em; text-transform: uppercase; font-size: 11px; color: var(--muted); padding: 6px 0; }
+  padding: max(14px, env(safe-area-inset-top)) 16px 0; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+.el-top-actions { display: flex; gap: 14px; }
+.el-top-actions button { letter-spacing: .18em; text-transform: uppercase; font-size: 9px; color: var(--muted); padding: 6px 0; }
 .el-top-actions button:hover, .el-top-actions button[aria-expanded="true"] { color: var(--fg); }
-.el-bottom { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 1fr auto auto; align-items: end; gap: 28px;
-  padding: 0 22px max(20px, env(safe-area-inset-bottom)); }
-.el-caption h1 { font-family: ${FONT_SERIF}; font-weight: 400; font-size: clamp(30px, 4vw, 46px); line-height: 1; margin: 4px 0 6px; letter-spacing: -.01em; }
-.el-num-big { font-size: 11px; letter-spacing: .16em; }
+.el-bottom { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 1fr auto auto; align-items: end; gap: 18px;
+  padding: 0 16px max(14px, env(safe-area-inset-bottom)); }
+.el-caption h1 { font-family: ${FONT_SERIF}; font-weight: 400; font-size: 20px; line-height: 1; margin: 3px 0 3px; letter-spacing: 0; }
+.el-num-big { font-size: 9px; letter-spacing: .18em; }
 .el-num-big span, .el-note { color: var(--muted); }
-.el-note { font-size: 11px; letter-spacing: .06em; }
-.el-main-controls { display: grid; gap: 12px; width: min(340px, 34vw); }
-.el-dial { display: grid; gap: 4px; }
-.el-dial-ends { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.el-nav { display: flex; gap: 6px; }
-.el-nav button { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; font-size: 16px; transition: border-color .2s; }
-.el-nav button:hover { border-color: var(--fg); }
+.el-note { font-size: 9px; letter-spacing: .06em; }
+.el-main-controls { display: grid; gap: 2px; width: min(170px, 30vw); }
+.el-dial { display: grid; gap: 0; }
+.el-dial-ends { display: flex; justify-content: space-between; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.el-nav { display: flex; gap: 2px; }
+.el-nav button { width: 28px; height: 28px; border: 0; font-size: 12px; color: var(--muted); }
+.el-nav button:hover { color: var(--fg); }
 .el-root input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: transparent; margin: 0; cursor: pointer; }
 .el-root input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--line); }
 .el-root input[type=range]::-moz-range-track { height: 1px; background: var(--line); }
 .el-root input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--fg); border: 0; }
 .el-root input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--fg); border: 0; }
 .el-root input[type=range]:focus-visible { outline: 1px dashed var(--fg); outline-offset: 2px; }
-.el-dial-small input[type=range]::-webkit-slider-thumb { width: 10px; height: 10px; margin-top: -5px; }
+.el-dial input[type=range] { height: 18px; }
+.el-dial input[type=range]::-webkit-slider-thumb { width: 8px; height: 8px; margin-top: -4px; }
+.el-dial input[type=range]::-moz-range-thumb { width: 8px; height: 8px; }
 .el-panel { position: absolute; top: 56px; right: 16px; bottom: 120px; width: 330px; overflow-y: auto; background: var(--glass);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px 18px; font-size: 11px; }
 .el-panel-head, .el-index-head { display: flex; justify-content: space-between; align-items: center; letter-spacing: .16em; text-transform: uppercase; font-size: 11px; }
@@ -821,12 +826,12 @@ const CSS = `
 .el-index-foot { color: var(--muted); font-size: 10.5px; margin-top: 20px; }
 .el-toast { position: absolute; left: 50%; top: 64px; transform: translateX(-50%); background: var(--fg); color: var(--glass); font-size: 11px; padding: 8px 14px; border-radius: 999px; }
 @media (max-width: 720px) {
-  .el-bottom { grid-template-columns: 1fr auto; gap: 12px 16px; }
+  .el-bottom { grid-template-columns: 1fr auto; gap: 6px 12px; }
   .el-caption { grid-column: 1 / 2; }
   .el-nav { grid-column: 2 / 3; grid-row: 1; align-self: end; }
-  .el-main-controls { grid-column: 1 / -1; width: 100%; }
+  .el-main-controls { grid-column: 1 / -1; width: 46vw; }
   .el-dial-small { display: none; }
-  .el-caption h1 { font-size: 30px; }
+  .el-caption h1 { font-size: 18px; }
   .el-panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 62dvh; border-radius: 16px 16px 0 0; border-left: 0; border-right: 0; border-bottom: 0;
     padding-bottom: max(18px, env(safe-area-inset-bottom)); }
   .el-index-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
