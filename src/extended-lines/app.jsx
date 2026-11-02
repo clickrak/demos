@@ -45,7 +45,7 @@ const PRESETS = {
   railings: { extend: "straight", deform: "none", disperse: "echoes", fill: "tonal", abstraction: 0.66, frame: 0.62 },
   stone: { extend: "strength", deform: "bend", disperse: "fan", fill: "tiles", abstraction: 0.56, frame: 0.6 },
   grass: { extend: "strength", deform: "wave", disperse: "scatter", fill: "mirror", abstraction: 0.5, frame: 0.6 },
-  fog: { extend: "straight", deform: "wave", disperse: "scatter", fill: "tonal", abstraction: 0.48, frame: 0.64 },
+  filharmonia: { extend: "strength", deform: "bend", disperse: "echoes", fill: "tonal", abstraction: 0.56, frame: 0.62 },
 };
 
 const BASE = {
