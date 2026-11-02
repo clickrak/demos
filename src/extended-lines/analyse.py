@@ -27,7 +27,7 @@ PHOTOS = [
     ("railings", "DSC_0635.jpg",            "Railings",     "Stairs, low sun",  dict(detect="mask",  blur=5, min_len=0.06, gap=6, max_lines=30, clip=(0.0, 0.83))),
     ("stone",    "223_2398-1.jpg",          "Stone",        "Field, late summer", dict(detect="poly", blur=6, min_len=0.03, eps=0.008, max_lines=40, level=72)),
     ("grass",    "IMG_20231111_093248.jpg", "Grass in fog", "Meadow",           dict(detect="poly",  blur=4, min_len=0.025, eps=0.007, max_lines=40, level=30, clahe=3.0)),
-    ("fog",      "IMG20251203105550.jpg",   "Fog field",    "December morning", dict(detect="poly",  blur=3, min_len=0.02, eps=0.005, max_lines=50, level=45, clahe=4.0)),
+    ("filharmonia", "IMG_20260613_223131.jpg", "Filharmonia", "Concert hall, before the rehearsal", dict(detect="edges", blur=5, min_len=0.07, gap=5, max_lines=50)),
 ]
 LONG = 1600      # web size
 WORK = 1400      # analysis size
