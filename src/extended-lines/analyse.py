@@ -15,7 +15,7 @@ Each photo has a small recipe below. "detect" picks how edges are found:
            shape (good for silhouettes and railings)
   poly   - split into dark / light, then simplify the outlines into a
            polygon; its sides become the lines (good for soft, organic
-           shapes: skyline, stone, trees in fog, where Hough finds little)
+           shapes: stone, trees in fog, where Hough finds little)
 """
 import cv2, numpy as np, json, math, sys, os
 
@@ -23,7 +23,6 @@ PHOTOS = [
     # id, file, title, place / note, recipe
     ("organ",    "DSC_6137-EDIT.jpg",       "Organ",        "Church interior",  dict(detect="edges", blur=7, min_len=0.07, gap=4, max_lines=48)),
     ("alley",    "20180421_225002.jpg",     "Alley",        "Old town",         dict(detect="edges", blur=5, min_len=0.08, gap=6, max_lines=48)),
-    ("skyline",  "IMGP8058.JPG",            "Skyline",      "City edge",        dict(detect="poly",  blur=1.5, min_len=0.012, eps=0.003, max_lines=60, level=12)),
     ("railings", "DSC_0635.jpg",            "Railings",     "Stairs, low sun",  dict(detect="mask",  blur=5, min_len=0.06, gap=6, max_lines=30, clip=(0.0, 0.83))),
     ("stone",    "223_2398-1.jpg",          "Stone",        "Field, late summer", dict(detect="poly", blur=6, min_len=0.03, eps=0.008, max_lines=40, level=72)),
     ("grass",    "IMG_20231111_093248.jpg", "Grass in fog", "Meadow",           dict(detect="poly",  blur=4, min_len=0.025, eps=0.007, max_lines=40, level=30, clahe=3.0)),
