@@ -5,6 +5,7 @@
   "imageAlt": "Demos: small interactive web experiments",
   "repo": "https://github.com/clickrak/demos",
   "demos": [
-    "rhythm-cartography"
+    "rhythm-cartography",
+    "extended-lines"
   ]
 }

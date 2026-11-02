@@ -5,6 +5,7 @@ Small interactive web demos. Each folder is one demo, served as a plain static p
 | Demo | Folder |
 |---|---|
 | Rhythm Cartography: 50 years of electronic music, mapped and playable | [`rhythm-cartography/`](rhythm-cartography/) |
+| Extended Lines: black and white photographs whose geometry leaks onto the page | [`extended-lines/`](extended-lines/) |
 
 ## How it's organised
 
@@ -14,7 +15,14 @@ preview.png               home page link preview, 1200×627
 rhythm-cartography/
   index.html              the demo as one standalone page (generated)
   preview.png             link preview for LinkedIn, 1200×627
+extended-lines/
+  index.html              (generated)
+  photos/*.jpg            web versions of the photos (written by analyse.py)
 src/
+  extended-lines/
+    analyse.py            offline step: finds the lines in each photo → photos.json
+    photos.json           line model per photo (lines, tones, edge strips)
+    app.jsx               the live pipeline: extend → deform → disperse → decompose + fill
   rhythm-cartography/
     app.jsx               React source: edit this one
     demo.json             title, texts and colours for the page
@@ -42,3 +50,11 @@ Hosting needs no build step: serve the repo root as it is (GitHub Pages, Cloudfl
 ## Link previews (LinkedIn)
 
 LinkedIn builds the post card from the `og:` tags in each page. Those tags need full addresses, which come from `url` in `site.json`: if the site address changes, update it there and rebuild. After publishing, paste the page address into LinkedIn's [Post Inspector](https://www.linkedin.com/post-inspector/) to check the card and refresh LinkedIn's cache.
+
+## Extended Lines: add or change photos
+
+1. Add the photo to `PHOTOS` at the top of `src/extended-lines/analyse.py` with a small recipe
+   (`edges` for crisp architecture, `mask` for silhouettes, `poly` for soft shapes like fog or skylines).
+2. Run `python3 src/extended-lines/analyse.py /folder/with/originals --debug`
+   (needs `pip install opencv-python-headless numpy`; `--debug` writes `/tmp/el_dbg_<id>.png` showing the lines found).
+3. Optionally give it an artist preset in `PRESETS` in `app.jsx`, then build as usual.
