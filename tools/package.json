@@ -1,0 +1,10 @@
+{
+  "name": "demos-tools",
+  "private": true,
+  "description": "Build helpers for the demos site (not needed to view or host it).",
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "playwright-core": "^1.63.0"
+  }
+}

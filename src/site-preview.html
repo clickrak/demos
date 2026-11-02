@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Link-preview image for the home page. Render with:
+     node tools/snap.mjs src/site-preview.html preview.png -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1200px; height: 627px; overflow: hidden; background: #0c0e16; }
+  body { position: relative; color: #eaebf3; font-family: "Inter Display", "Inter", system-ui, sans-serif; }
+  .glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(520px 420px at 82% 38%, rgb(143 162 255 / .17), transparent 70%),
+      radial-gradient(460px 320px at 72% 100%, rgb(61 225 173 / .10), transparent 70%);
+  }
+  .text { position: absolute; left: 84px; top: 0; bottom: 0; width: 600px; display: flex; flex-direction: column; justify-content: center; }
+  .kicker { font-size: 21px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: #8f95ad; margin-bottom: 18px; }
+  h1 { margin: 0; font-size: 176px; line-height: .88; font-weight: 800; letter-spacing: -.05em; }
+  p { margin: 34px 0 0; font: 400 30px/1.36 "Inter", system-ui, sans-serif; color: #b6bacd; white-space: nowrap; }
+  .seq { position: absolute; right: 92px; top: 50%; transform: translateY(-50%); }
+  .grid { display: grid; grid-template-columns: repeat(6, 38px); gap: 22px; position: relative; }
+  .grid i { display: block; width: 38px; height: 38px; border-radius: 50%; background: rgb(255 255 255 / .075); }
+  .head { position: absolute; top: -16px; bottom: -16px; width: 62px; left: calc(2 * 60px - 12px); border-radius: 31px;
+          background: rgb(255 255 255 / .06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .08); }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="text">
+    <div class="kicker">Interactive experiments</div>
+    <h1>Demos</h1>
+    <p>Small things I build to explore ideas.<br>Each one runs right in your browser.</p>
+  </div>
+  <div class="seq"><div class="grid" id="g"><div class="head"></div></div></div>
+  <script>
+    // A little step-sequencer pattern: one row per colour.
+    const rows = [
+      ["#3de1ad", "x..x.."],
+      ["#5ca8ff", "..x..x"],
+      ["#ffc94d", "x.xx.x"],
+      ["#ff5c8a", ".x..x."],
+      ["#b57bff", "x...x."],
+      ["#ff8a4c", "..xx.."],
+      ["#8fa2ff", ".x.x.x"],
+    ];
+    const g = document.getElementById("g");
+    for (const [c, p] of rows) for (const s of p) {
+      const i = document.createElement("i");
+      if (s === "x") { i.style.background = c; i.style.boxShadow = `0 0 22px ${c}55`; }
+      g.appendChild(i);
+    }
+  </script>
+</body>
+</html>

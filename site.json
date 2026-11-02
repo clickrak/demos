@@ -1,0 +1,10 @@
+{
+  "name": "Demos",
+  "url": "https://clickrak.github.io/demos",
+  "tagline": "Small interactive things I build to explore ideas. Each one runs right in your browser.",
+  "imageAlt": "Demos: small interactive web experiments",
+  "repo": "https://github.com/clickrak/demos",
+  "demos": [
+    "rhythm-cartography"
+  ]
+}
