@@ -7,6 +7,12 @@ Small interactive web demos. Each folder is one demo, served as a plain static p
 | Rhythm Cartography: 50 years of electronic music, mapped and playable | [`rhythm-cartography/`](rhythm-cartography/) |
 | Extended Lines: black and white photographs whose geometry leaks onto the page | [`extended-lines/`](extended-lines/) |
 
+Unlisted drafts (not on the home page):
+
+| Draft | Folder |
+|---|---|
+| Ion-trap quantum computer explainer (PIN-locked, encrypted; source kept outside this repo) | [`ion-trap/`](ion-trap/) |
+
 ## How it's organised
 
 ```
