@@ -4,14 +4,9 @@ Small interactive web demos. Each folder is one demo, served as a plain static p
 
 | Demo | Folder |
 |---|---|
+| How to Catch an Atom: an interactive explainer of an ion-trap quantum computer (PL / EN) | [`ion-trap/`](ion-trap/) |
 | Rhythm Cartography: 50 years of electronic music, mapped and playable | [`rhythm-cartography/`](rhythm-cartography/) |
 | Extended Lines: black and white photographs whose geometry leaks onto the page | [`extended-lines/`](extended-lines/) |
-
-Unlisted drafts (not on the home page):
-
-| Draft | Folder |
-|---|---|
-| Ion-trap quantum computer explainer (PIN-locked, encrypted; source kept outside this repo) | [`ion-trap/`](ion-trap/) |
 
 ## How it's organised
 
@@ -25,6 +20,10 @@ extended-lines/
   index.html              (generated)
   photos/*.jpg            web versions of the photos (written by analyse.py)
 src/
+  ion-trap/
+    app.html              hand-written standalone page (no React): edit this one
+    demo.json             "static": "app.html" + link-preview texts
+    preview.html          design of preview.png
   extended-lines/
     analyse.py            offline step: finds the lines in each photo → photos.json
     photos.json           line model per photo (lines, tones, edge strips)
@@ -41,6 +40,8 @@ tools/                    build helpers (not needed for hosting)
 Hosting needs no build step: serve the repo root as it is (GitHub Pages, Cloudflare Pages with no build command, or any static host). React 18 is loaded from cdn.jsdelivr.net; everything else is inside each page.
 
 ## Change or add a demo
+
+A plain HTML page works too: put it in `src/<name>/app.html` with a `<!-- site-head -->` line in its `<head>`, and set `"static": "app.html"` in `demo.json`. The build adds the link-preview tags there and copies the page to `<name>/index.html`.
 
 1. Put the React component in `src/<name>/app.jsx` (default export; only `react` can be imported) and a `demo.json` next to it (copy an existing one).
 2. Add `<name>` to `demos` in `site.json`.

@@ -3,6 +3,7 @@
 //   - each demo: src/<demo>/app.jsx + demo.json  →  <demo>/index.html
 //     (standalone page: React 18 from a CDN, the app compiled to plain
 //      JavaScript and inlined, plus link-preview tags for LinkedIn & co.)
+//   - or a hand-written page: src/<demo>/demo.json with "static": "app.html"
 //   - the home page: index.html, one card per demo listed in site.json
 //
 // Usage (from the repo root):
@@ -90,8 +91,32 @@ function readDemo(demo) {
   return { demo, srcDir, cfg };
 }
 
+// A hand-written standalone page (no React): src/<demo>/<cfg.static>.
+// The build only adds canonical, favicon and link-preview tags where the
+// page has <!-- site-head -->, then copies it to <demo>/index.html.
+function buildStatic(demo, srcDir, cfg) {
+  const url = `${BASE}/${demo}/`;
+  const src = fs.readFileSync(path.join(srcDir, cfg.static), "utf8");
+  if (!src.includes("<!-- site-head -->")) throw new Error(`${demo}: ${cfg.static} has no <!-- site-head --> marker`);
+  const head = `<link rel="canonical" href="${esc(url)}">
+<meta name="theme-color" content="${esc((cfg.theme || {}).background || "#ffffff")}">
+${svgIcon(cfg.faviconSvg)}${previewTags({
+    title: cfg.ogTitle || cfg.title,
+    description: cfg.ogDescription || cfg.description,
+    url,
+    image: `${url}preview.png`,
+    imageAlt: cfg.imageAlt,
+    locale: cfg.locale,
+  })}`;
+  const html = src.replace("<!-- site-head -->", () => head);
+  fs.mkdirSync(path.join(ROOT, demo), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, demo, "index.html"), html);
+  console.log(`Built ${demo}/index.html (static, ${(html.length / 1024).toFixed(1)} KB)  ${url}`);
+}
+
 async function buildDemo(demo) {
   const { srcDir, cfg } = readDemo(demo);
+  if (cfg.static) return buildStatic(demo, srcDir, cfg);
   const entryFile = path.join(srcDir, cfg.entry || "app.jsx");
 
   // Mount the demo's default export, with a small error screen so a crash

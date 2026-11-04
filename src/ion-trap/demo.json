@@ -1,0 +1,12 @@
+{
+  "static": "app.html",
+  "title": "How to Catch an Atom",
+  "ogTitle": "Jak złapać atom i kazać mu liczyć · How an ion-trap quantum computer works",
+  "description": "An interactive explainer (PL / EN) of how an ion-trap quantum computer works, with Poland's MIKOK project as the example: the trap, lasers, qubit, entanglement, calibration, and secure access with QKD.",
+  "cardText": "A scrolling explainer of a quantum computer made of single calcium atoms, with Poland's MIKOK project as the example. Play with the lasers to write, read and reset a qubit, run a Bell circuit, and see how jobs reach the machine securely, including QKD. Polish and English.",
+  "tags": ["Quantum", "Physics", "Explainer", "PL / EN"],
+  "imageAlt": "How to catch an atom and make it compute: a row of glowing calcium ions held in an ion trap",
+  "locale": "pl_PL",
+  "theme": { "background": "#FFFFFF" },
+  "faviconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\"><rect width=\"64\" height=\"64\" rx=\"14\" fill=\"#06070B\"/><g fill=\"#8B5CF6\" opacity=\".35\"><circle cx=\"14\" cy=\"32\" r=\"7\"/><circle cx=\"32\" cy=\"32\" r=\"8\"/><circle cx=\"50\" cy=\"32\" r=\"7\"/></g><g fill=\"#EDE9FE\"><circle cx=\"14\" cy=\"32\" r=\"3.2\"/><circle cx=\"32\" cy=\"32\" r=\"3.6\"/><circle cx=\"50\" cy=\"32\" r=\"3.2\"/></g></svg>"
+}

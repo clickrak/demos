@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jak złapać atom i kazać mu liczyć</title>
+<meta name="description" content="Interaktywne wyjaśnienie, jak działa komputer kwantowy z pojedynczych atomów — na przykładzie polskiego projektu MIKOK. PL / EN.">
+<!-- site-head -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14161b; --muted:#5b6170; --line:#e3e5ea; --paper:#ffffff; --soft:#f5f6f8;
+  --red:#d7263d;
+  --l397:#8b5cf6; --l866:#ec4899; --l729:#ef4444; --l854:#f59e0b; --ion:#38bdf8;
+  --dark:#06070b; --dark-ink:#e8eaf0; --dark-muted:#9aa1b2; --dark-line:#1f2433; --panel:#0d0f16;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;
+  transition:background-color .9s ease,color .9s ease;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.dark{background:var(--dark);color:var(--dark-ink)}
+body[data-lang="pl"] [lang="en"], body[data-lang="en"] [lang="pl"]{display:none !important}
+a{color:inherit}
+p{margin:0 0 .8em}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;scroll-behavior:auto !important}}
+
+/* top bar */
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--red);width:0;z-index:70}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;pointer-events:none}
+.topbar>*{pointer-events:auto}
+.home{font:600 12px/1 var(--sans);padding:8px 12px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.88);backdrop-filter:blur(8px);color:var(--ink);text-decoration:none}
+body.dark .home{background:rgba(20,22,30,.85);border-color:var(--dark-line);color:var(--dark-ink)}
+.langpill{display:flex;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);overflow:hidden}
+.langpill button{border:0;background:transparent;font:600 12px/1 var(--sans);padding:8px 12px;cursor:pointer;color:var(--muted)}
+.langpill button[aria-pressed="true"]{background:var(--ink);color:#fff}
+body.dark .langpill{background:rgba(20,22,30,.85);border-color:var(--dark-line)}
+body.dark .langpill button{color:var(--dark-muted)}
+body.dark .langpill button[aria-pressed="true"]{background:var(--dark-ink);color:var(--dark)}
+
+/* type */
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.kicker{display:inline-block;font:600 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+body.dark .kicker{color:var(--l397)}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.08;letter-spacing:-.01em}
+h1{font-size:clamp(38px,6.4vw,76px);margin:.1em 0 .25em}
+h2{font-size:clamp(28px,4.4vw,50px);margin:.2em 0 .35em}
+h3{font-size:clamp(21px,2.4vw,26px);margin:.1em 0 .4em}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--muted)}
+.muted{color:var(--muted)}
+body.dark .lead, body.dark .muted{color:var(--dark-muted)}
+.small{font-size:14px}
+.mono{font-family:var(--mono)}
+.hint{font:500 13px/1.4 var(--mono);color:var(--muted);margin-top:10px}
+body.dark .hint{color:var(--dark-muted)}
+
+/* scrollytelling */
+.scrolly{position:relative}
+.scrolly .sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:64px 0 16px;overflow:hidden}
+.scrolly .graphic{width:min(52%,600px);margin-left:max(16px,calc((100vw - 1100px)/2 + 16px));display:flex;align-items:center;justify-content:center}
+.scrolly .steps{position:relative;z-index:2;margin-top:-100vh;pointer-events:none}
+.scrolly .card{pointer-events:auto}
+.step{min-height:100vh;display:flex;align-items:center;justify-content:flex-end;padding:0 16px;max-width:1100px;margin:0 auto}
+.card{max-width:390px;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:18px;padding:22px 24px;
+  box-shadow:0 12px 40px rgba(20,22,27,.08);opacity:.3;transition:opacity .45s;color:var(--ink)}
+.card.wide{max-width:470px}
+.step.active .card{opacity:1}
+.card ul{margin:.3em 0 .6em;padding-left:1.1em}
+.card li{margin:.2em 0}
+@media (max-width:820px){
+  .scrolly .sticky{align-items:flex-start;padding-top:56px}
+  .scrolly .graphic{width:100%;margin:0;padding:0 12px;height:50vh}
+  .scrolly .graphic>svg,.scrolly .graphic>.stack{max-height:50vh}
+  .step{align-items:flex-end;justify-content:center;padding-bottom:5vh}
+  .card{max-width:100%;padding:18px 18px}
+  .card h1{font-size:34px}
+  .scrolly .graphic{height:44vh}
+}
+
+/* map */
+#map{width:100%;height:auto;max-height:82vh;overflow:visible}
+#map .pl{fill:#f4f5f8;stroke:var(--ink);stroke-width:1.4;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.6s ease}
+#map.on0 .pl{stroke-dashoffset:0}
+#map .link{fill:none;stroke:var(--red);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s ease}
+#map.on1 .link{stroke-dashoffset:0}
+#map .partner{opacity:0;transition:opacity .6s .7s}
+#map.on1 .partner{opacity:1}
+#map .badge{opacity:0;transform:translateY(8px);transition:opacity .6s,transform .6s}
+#map.on2 .badge{opacity:1;transform:none}
+#map text{font-family:var(--sans);fill:var(--ink)}
+#map .lbl{font-size:13px;font-weight:600}
+#map .lbl2{font-size:11.5px;fill:var(--muted)}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(3.4);opacity:0}}
+
+/* stack */
+.stack{display:flex;flex-direction:column-reverse;gap:8px;width:100%;max-width:540px}
+.blk{position:relative;display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:12px;border:1.5px solid var(--ink);background:#fff;
+  opacity:0;transform:translateY(-26px);transition:opacity .5s,transform .5s,box-shadow .3s;color:var(--ink);width:100%}
+.blk.cur{box-shadow:0 0 0 3px rgba(215,38,61,.25)}
+.ico{width:38px;height:38px;flex:none;border-radius:10px;background:var(--soft);color:var(--ink);display:grid;place-items:center}
+.cardh{display:flex;align-items:center;gap:10px}
+.cardh .ico{width:34px;height:34px}
+.card .ana{background:var(--soft);border-radius:10px;padding:10px 12px;font-size:15px}
+.card .ana b{display:block;font:600 12px/1.3 var(--mono);color:var(--red);margin-bottom:2px}
+.blk.on{opacity:1;transform:none}
+.blk .num{font:600 12px var(--mono);color:var(--red);min-width:22px}
+.blk .nm{font-weight:600;line-height:1.25}
+.blk .an{font:12px/1.3 var(--mono);color:var(--muted)}
+.blk.trap{height:104px;padding:0;border:0;background:transparent;perspective:900px}
+.blk.trap .inside{position:absolute;inset:0;border-radius:12px;background:radial-gradient(circle at 50% 50%,#1b1440 0,#06070b 70%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.blk.trap .inside .glow{width:14px;height:14px;border-radius:50%;background:#c4b5fd;box-shadow:0 0 18px 6px var(--l397),0 0 50px 16px rgba(139,92,246,.45);animation:wob 1.6s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:translate(-3px,1px)}50%{transform:translate(3px,-1px)}}
+.blk.trap .door{position:absolute;inset:0;border:1.5px solid var(--ink);border-radius:12px;background:#fff;display:flex;align-items:center;gap:14px;padding:12px 16px;
+  transform-origin:left center;transition:transform 1.5s cubic-bezier(.6,.1,.2,1),box-shadow 1.5s;backface-visibility:hidden}
+.blk.trap.open .door{transform:rotateY(-82deg);box-shadow:20px 0 40px rgba(0,0,0,.25)}
+
+/* lab (dark) */
+#lab{padding:22vh 0 26vh;position:relative}
+.lab-intro{max-width:760px;margin:0 auto 18vh;padding:0 16px;text-align:center}
+.lab-block{max-width:1100px;margin:0 auto 20vh;padding:0 16px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px;align-items:center}
+.lab-block.wide{grid-template-columns:1fr;gap:22px}
+.lab-block.wide .txt{max-width:760px}
+@media(max-width:820px){.lab-block{grid-template-columns:1fr;gap:18px;margin-bottom:14vh}}
+.step-no{font:600 12px/1 var(--mono);letter-spacing:.12em;color:var(--l397);margin-bottom:10px;display:block}
+.panel{background:var(--panel);border:1px solid var(--dark-line);border-radius:18px;padding:14px;color:var(--dark-ink)}
+.panel canvas{display:block;width:100%;border-radius:10px}
+.cap{font:12px/1.4 var(--mono);color:var(--dark-muted);margin-top:8px}
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+.btn{font:600 14px/1 var(--sans);padding:10px 14px;border-radius:10px;border:1.5px solid currentColor;background:transparent;color:inherit;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.btn:hover{background:rgba(127,127,127,.12)}
+.btn.solid{background:var(--ink);color:#fff;border-color:var(--ink)}
+body.dark .btn.solid{background:var(--dark-ink);color:var(--dark);border-color:var(--dark-ink)}
+.laser{--c:#fff;color:var(--c);border-color:var(--c)}
+.laser.on{background:var(--c);color:#0b0c10;box-shadow:0 0 18px var(--c)}
+.laser .wl{font-family:var(--mono)}
+.laser small{display:block;font:500 11px/1.2 var(--sans);opacity:.85;margin-top:3px}
+.laser.flash{animation:flash .6s}
+@keyframes flash{0%{box-shadow:0 0 0 var(--c)}30%{box-shadow:0 0 26px var(--c);background:var(--c);color:#0b0c10}100%{box-shadow:0 0 0 var(--c)}}
+
+/* energy panel */
+.ep{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px}
+@media(max-width:820px){.ep{grid-template-columns:1fr}}
+#lvl{width:100%;height:auto;display:block}
+#lvl .level{stroke:#cfd3dd;stroke-width:3;stroke-linecap:round}
+#lvl text{font-family:var(--sans);fill:var(--dark-ink);font-size:13px}
+#lvl .sub{fill:var(--dark-muted);font-size:11px}
+#lvl .arrow{stroke-width:3;opacity:0;transition:opacity .3s}
+#lvl .arrow.on{opacity:.9}
+#lvl .arrow.flash{animation:aflash .9s}
+@keyframes aflash{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+#lvl .el{transition:opacity .5s}
+#lvl #lvP1.glow{stroke:var(--l397);filter:drop-shadow(0 0 6px var(--l397))}
+.cam{background:#020204;border:1px solid var(--dark-line);border-radius:12px;height:120px;display:flex;align-items:center;justify-content:center;position:relative}
+.cam .ionv{width:16px;height:16px;border-radius:50%;background:#1e2230;transition:background .25s,box-shadow .25s}
+.cam .ionv.bright{background:#ddd6fe;box-shadow:0 0 14px 6px var(--l397),0 0 46px 18px rgba(139,92,246,.5)}
+.cam .tag{position:absolute;left:10px;top:8px;font:600 10px/1 var(--mono);letter-spacing:.1em;color:var(--dark-muted)}
+.readout{margin-top:10px;font-size:15px}
+.readout b{display:block;font-size:17px}
+.msg{min-height:44px;margin-top:10px;font-size:14px;color:#fde68a}
+.missions{list-style:none;padding:0;margin:14px 0 0;font-size:14px}
+.missions li{padding:6px 0 6px 28px;position:relative;border-top:1px solid var(--dark-line);color:var(--dark-muted)}
+.missions li::before{content:"";position:absolute;left:4px;top:10px;width:14px;height:14px;border-radius:4px;border:1.5px solid var(--dark-muted)}
+.missions li.done{color:var(--dark-ink)}
+.missions li.done::before{background:#22c55e;border-color:#22c55e}
+.missions li.done::after{content:"✓";position:absolute;left:6px;top:5px;font-size:12px;color:#06070b;font-weight:700}
+.tally{font:500 13px/1.4 var(--mono);color:var(--dark-muted);margin-top:8px}
+
+/* bell */
+.hist{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:end;height:130px;margin-top:12px}
+.hist .bar{background:linear-gradient(180deg,var(--ion),#0ea5e9);border-radius:6px 6px 0 0;height:0;transition:height .7s cubic-bezier(.2,.8,.2,1);position:relative}
+.hist .bar span{position:absolute;top:-20px;left:0;right:0;text-align:center;font:600 12px var(--mono);color:var(--dark-ink)}
+.histl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;font:600 13px var(--mono);color:var(--dark-muted);margin-top:6px}
+.frames{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px}
+.frame{aspect-ratio:1.6;background:#020204;border:1px solid var(--dark-line);border-radius:6px;display:flex;align-items:center;justify-content:center;gap:16%}
+.frame i{width:18%;aspect-ratio:1;border-radius:50%;background:#181b25}
+.frame i.b{background:#e0f2fe;box-shadow:0 0 8px 3px var(--ion)}
+.frame.bad{border-color:#f59e0b}
+@media(max-width:520px){.frames{grid-template-columns:repeat(4,1fr)}}
+
+/* fidelity */
+.fid{display:grid;gap:10px}
+.fid label{font-size:14px;color:var(--dark-muted);display:flex;justify-content:space-between}
+.fid input[type=range]{width:100%;accent-color:var(--l397)}
+.big{font:700 clamp(40px,7vw,64px)/1 var(--serif)}
+.meter{height:12px;border-radius:99px;background:#1a1e2b;overflow:hidden}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#a3e635);width:50%;transition:width .3s}
+
+/* white sections */
+.sec{padding:16vh 0}
+.grid2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px;align-items:center;margin-bottom:14vh}
+@media(max-width:820px){.grid2{grid-template-columns:1fr;gap:18px}}
+.wcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;color:var(--ink)}
+#drift{width:100%;height:auto;display:block}
+table.map{width:100%;border-collapse:collapse;font-size:15px}
+table.map th,table.map td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.map th{font:600 12px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+table.map td:first-child{font-family:var(--mono);font-size:14px;white-space:nowrap}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+.jwrap{padding:20px}
+.journey{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.jtrack{position:absolute;left:6%;right:6%;top:22px;height:2px;background:var(--line)}
+.jtrack i{display:block;height:100%;width:0;background:var(--red);transition:width .5s}
+.jn{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:transparent;cursor:pointer;font:inherit;color:var(--muted);padding:0}
+.jn .ic{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:grid;place-items:center;transition:background .3s,border-color .3s,color .3s,box-shadow .3s}
+.jn .lb{font:600 12px/1.25 var(--sans);text-align:center}
+.jn.done{color:var(--ink)} .jn.done .ic{border-color:var(--ink)}
+.jn.cur{color:var(--ink)} .jn.cur .ic{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 0 0 6px rgba(215,38,61,.18)}
+.jn.lockn .ic{border-color:var(--red)} .jn.lockn.cur .ic{background:var(--red);border-color:var(--red)}
+.jn:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:8px}
+.jcap{margin-top:22px;border-top:1px solid var(--line);padding-top:16px;min-height:150px}
+.jcap .n{font:600 12px/1 var(--mono);color:var(--red)}
+.jcap h4{font:700 21px/1.2 var(--serif);margin:6px 0 8px}
+.jcap p{margin:0 0 10px;max-width:760px}
+.jcap .sec{display:inline-flex;gap:8px;align-items:center;font-size:14px;background:var(--soft);border-radius:99px;padding:6px 12px}
+.jcap .sec b{font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.jctrl{color:var(--ink)}
+@media(max-width:720px){.journey{grid-template-columns:repeat(4,1fr);row-gap:14px}.jtrack{display:none}.jn .lb{font-size:11px}.jcap{min-height:210px}}
+.bb{display:grid;gap:10px;color:var(--ink)}
+.bbh{display:grid;gap:4px}
+.bbgrid{display:grid;grid-template-columns:48px repeat(var(--n,12),1fr);gap:4px 3px;align-items:center;font:600 13px/1 var(--mono);text-align:center}
+.bbgrid .rl{font:500 11px/1.1 var(--sans);color:var(--muted);text-align:left}
+.bbgrid .ph svg{display:block;margin:0 auto}
+.bbgrid .ok{color:#16a34a}.bbgrid .bad{color:#dc2626}.bbgrid .drop{color:#c7cbd4}
+.bbgrid .ev{color:#dc2626}
+.bbgrid .new{animation:pop .3s}
+.bbstat{font:500 13px/1.4 var(--mono);color:var(--muted)}
+.qmeter{position:relative;height:12px;border-radius:99px;background:var(--soft);overflow:hidden}
+.qmeter i{display:block;height:100%;width:0;background:#16a34a;transition:width .3s,background .3s}
+.qmeter .thr{position:absolute;top:0;bottom:0;left:36.7%;width:2px;background:var(--ink)}
+.qlbl{display:flex;justify-content:space-between;font:500 11px/1 var(--mono);color:var(--muted)}
+.bbverdict{font-weight:600;min-height:24px}
+.soon{margin-top:8vh;border:1.5px dashed var(--line);border-radius:18px;padding:18px 22px;max-width:760px}
+.soon p{margin:0}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:14px 0 6px;counter-reset:f}
+.flow>div{position:relative;border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.flow>div:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:14px;font:600 14px var(--mono);color:var(--red);z-index:1}
+.flow b{display:block;font:700 17px/1.2 var(--serif);margin-bottom:6px}
+.flow p{font-size:13.5px;margin:0;color:var(--muted)}
+.flow code{font:12px var(--mono);background:var(--soft);padding:1px 4px;border-radius:4px;color:var(--ink)}
+@media(max-width:900px){.flow{grid-template-columns:1fr}.flow>div:not(:last-child)::after{content:"↓";right:auto;left:18px;top:auto;bottom:-15px}}
+.fmake{margin-bottom:9vh}
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:28px}
+.skill{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff;color:var(--ink)}
+.skill .ic{font:600 12px var(--mono);color:var(--red)}
+.skill h4{font:700 19px/1.2 var(--serif);margin:6px 0 10px}
+.skill .k{font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.skill p{font-size:14.5px;margin:.3em 0 0}
+
+footer{border-top:1px solid var(--line);padding:12vh 0 10vh}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:36px}
+footer h3{font-size:22px}
+footer ol,footer ul{padding-left:1.1em;font-size:15px}
+footer li{margin:.35em 0}
+.scroll-cue{display:inline-block;margin-top:10px;font:600 13px var(--mono);color:var(--muted);animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media (max-width:820px){
+  .stack{gap:6px}
+  .blk{padding:6px 12px;gap:10px}
+  .blk .an{display:none}
+  .blk .nm{font-size:15px}
+  .blk.trap{height:64px;padding:0}
+  .blk.trap .door{padding:6px 12px;gap:10px}
+  .ico{width:30px;height:30px}
+  .card .ana{font-size:14px}
+}
+</style>
+</head>
+<body data-lang="pl">
+<div class="progress" id="progress"></div>
+<div class="topbar">
+  <a class="home" href="../">← Demos</a>
+  <div class="langpill" role="group" aria-label="Language">
+    <button data-lang="pl" aria-pressed="true">PL</button>
+    <button data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</div>
+
+<!-- ============ 0. OPENING ============ -->
+<section class="scrolly" id="s-open">
+  <div class="sticky"><div class="graphic"><svg id="map" viewBox="0 0 520 500" role="img" aria-label="Map of Poland"></svg></div></div>
+  <div class="steps">
+    <div class="step" data-step="0"><div class="card wide">
+      <span class="kicker"><span lang="pl">Polska · Warszawa</span><span lang="en">Poland · Warsaw</span></span>
+      <h1><span lang="pl">Jak złapać atom i&nbsp;kazać mu liczyć</span><span lang="en">How to catch an atom and make it compute</span></h1>
+      <p class="lead"><span lang="pl">Ta strona pokazuje, jak działa komputer kwantowy zbudowany z pojedynczych atomów. Polski przykład: projekt MIKOK, budowany w Warszawie, w centrum CEZAMAT Politechniki Warszawskiej.</span><span lang="en">This page shows how a quantum computer made of single atoms works. The Polish example: the MIKOK project, built in Warsaw at the CEZAMAT centre of Warsaw University of Technology.</span></p>
+      <span class="scroll-cue"><span lang="pl">Przewijaj powoli ↓</span><span lang="en">Scroll slowly ↓</span></span>
+    </div></div>
+    <div class="step" data-step="1"><div class="card">
+      <span class="kicker"><span lang="pl">Konsorcjum</span><span lang="en">Consortium</span></span>
+      <h3><span lang="pl">Pięć zespołów, jedna maszyna</span><span lang="en">Five teams, one machine</span></h3>
+      <ul lang="pl">
+        <li><b>Politechnika Warszawska</b> — lider</li>
+        <li>Wojskowa Akademia Techniczna (Warszawa)</li>
+        <li>Wojskowy Instytut Techniki Uzbrojenia (Zielonka)</li>
+        <li>Politechnika Śląska (Gliwice)</li>
+        <li>SONOVERO R&amp;D (Goleniów)</li>
+      </ul>
+      <ul lang="en">
+        <li><b>Warsaw University of Technology</b> — leader</li>
+        <li>Military University of Technology (Warsaw)</li>
+        <li>Military Institute of Armament Technology (Zielonka)</li>
+        <li>Silesian University of Technology (Gliwice)</li>
+        <li>SONOVERO R&amp;D (Goleniów)</li>
+      </ul>
+      <p class="small muted"><span lang="pl">Cel: prototyp komputera kwantowego na jonach wapnia (Ca⁺).</span><span lang="en">Goal: a prototype quantum computer based on calcium ions (Ca⁺).</span></p>
+    </div></div>
+    <div class="step" data-step="2"><div class="card">
+      <span class="kicker"><span lang="pl">Kto i jak długo</span><span lang="en">Who funds it, and for how long</span></span>
+      <h3><span lang="pl">NCBR · program SZAFIR · od 2020</span><span lang="en">NCBR · SZAFIR programme · since 2020</span></h3>
+      <p lang="pl">Projekt finansuje Narodowe Centrum Badań i Rozwoju, w programie SZAFIR — przełomowe technologie dla bezpieczeństwa i obronności państwa.</p>
+      <p lang="en">The project is funded by the National Centre for Research and Development (NCBR), under SZAFIR — its programme for breakthrough technologies for national security and defence.</p>
+      <p lang="pl">Część sprzętu, np. lasery, kupuje się za granicą. Kluczowe elementy — elektronika sterująca i oprogramowanie — powstają w Polsce.</p>
+      <p lang="en">Some equipment, such as lasers, is bought abroad. Key parts — the control electronics and the software — are built in Poland.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 1. STACK ============ -->
+<section class="scrolly" id="s-stack">
+  <div class="sticky"><div class="graphic"><div class="stack" id="stack"></div></div></div>
+  <div class="steps" id="stackSteps"></div>
+</section>
+
+<!-- ============ 2. LAB (dark) ============ -->
+<section id="lab">
+  <div class="lab-intro">
+    <span class="kicker"><span lang="pl">W środku laboratorium</span><span lang="en">Inside the lab</span></span>
+    <h2><span lang="pl">Zejdźmy do jednego atomu</span><span lang="en">Let's zoom in to a single atom</span></h2>
+    <p class="lead"><span lang="pl">Wszystko poniżej to ogólna fizyka pułapek jonowych — tak działa każda taka maszyna.</span><span lang="en">Everything below is general ion-trap physics — this is how every machine of this kind works.</span></p>
+  </div>
+
+  <!-- 2.1 trap -->
+  <div class="lab-block">
+    <div class="txt">
+      <span class="step-no">01 · <span lang="pl">PUŁAPKA</span><span lang="en">THE TRAP</span></span>
+      <h3><span lang="pl">Pole, które trzyma atom w miejscu</span><span lang="en">A field that holds an atom still</span></h3>
+      <p lang="pl">Jon to atom, któremu zabrano jeden elektron — więc ma ładunek. <b>Pole elektryczne, które zmienia kierunek miliony razy na sekundę, trzyma go w miejscu</b>, w próżni, między metalowymi elektrodami.</p>
+      <p lang="en">An ion is an atom that has lost one electron — so it carries a charge. <b>Electric fields that flip millions of times per second hold the ion in place</b>, in vacuum, between metal electrodes.</p>
+    </div>
+    <div class="panel"><canvas id="cvTrap"></canvas>
+      <div class="cap"><span lang="pl">Animacja bardzo spowolniona. Widok z przodu: cztery elektrody, jon w środku.</span><span lang="en">Heavily slowed down. Front view: four electrodes, the ion in the middle.</span></div></div>
+  </div>
+
+  <!-- 2.2 loading + 2.3 cooling -->
+  <div class="lab-block">
+    <div class="txt">
+      <span class="step-no">02 · <span lang="pl">ŁADOWANIE</span><span lang="en">LOADING</span></span>
+      <h3><span lang="pl">Z gazu atomów — kilka jonów</span><span lang="en">From a gas of atoms to a few ions</span></h3>
+      <p lang="pl">Mały piecyk wypuszcza obojętne atomy wapnia. Dwa lasery (423 i 375 nm) wybijają z niektórych po jednym elektronie. Tylko te, które stały się jonami, zostają złapane.</p>
+      <p lang="en">A small oven releases neutral calcium atoms. Two lasers (423 and 375 nm) knock one electron out of some of them. Only the ones that became ions get caught.</p>
+      <span class="step-no" style="margin-top:28px">03 · <span lang="pl">CHŁODZENIE</span><span lang="en">COOLING</span></span>
+      <p lang="pl">Świeżo złapane jony są „gorące” i skaczą chaotycznie. Laser <b>397 nm</b> hamuje je, aż ustawią się w rzędzie jak perły na nitce — kilka mikrometrów od siebie, mniej niż tysięczną część stopnia nad zerem absolutnym.</p>
+      <p lang="en">Freshly caught ions are “hot” and jump around. The <b>397 nm</b> laser slows them down until they line up like pearls on a string — a few micrometres apart, less than a thousandth of a degree above absolute zero.</p>
+    </div>
+    <div class="panel"><canvas id="cvLoad"></canvas>
+      <div class="ctrls">
+        <button class="btn" id="btnLoad"><span lang="pl">Załaduj jony</span><span lang="en">Load ions</span></button>
+        <button class="btn laser" id="btnCool" style="--c:var(--l397)"><span class="wl">397 nm</span> <span lang="pl">chłodzenie</span><span lang="en">cooling</span></button>
+        <span class="cap" id="loadInfo"></span>
+      </div></div>
+  </div>
+
+  <!-- 2.4 energy panel -->
+  <div class="lab-block wide">
+    <div class="txt">
+      <span class="step-no">04 · <span lang="pl">KUBIT</span><span lang="en">THE QUBIT</span></span>
+      <h3><span lang="pl">Piętra elektronu — tu zapisujemy 0 i 1</span><span lang="en">The electron's floors — where 0 and 1 live</span></h3>
+      <p lang="pl">Elektron w jonie może być na różnych „piętrach” energii. <b>Parter (S) to 0. Wysoka półka (D₅/₂) to 1</b> — elektron może tam siedzieć ok. sekundy, co dla atomu jest wiecznością. Każdy laser robi jedną robotę. Spróbuj sam:</p>
+      <p lang="en">The electron in an ion can sit on different energy “floors”. <b>The ground floor (S) is 0. A high shelf (D₅/₂) is 1</b> — the electron can stay there for about a second, which is forever for an atom. Each laser does one job. Try it:</p>
+    </div>
+    <div class="panel">
+      <div class="ep">
+        <div>
+          <svg id="lvl" viewBox="0 0 420 320" role="img" aria-label="Energy levels of a calcium ion">
+            <defs>
+              <marker id="mh" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="context-stroke"/></marker>
+            </defs>
+            <!-- arrows -->
+            <line class="arrow" id="a397" x1="95" y1="276" x2="95" y2="66" stroke="var(--l397)" marker-end="url(#mh)" marker-start="url(#mh)"/>
+            <line class="arrow" id="a866" x1="270" y1="172" x2="135" y2="66" stroke="var(--l866)" marker-end="url(#mh)"/>
+            <line class="arrow" id="a729" x1="165" y1="276" x2="355" y2="148" stroke="var(--l729)" marker-end="url(#mh)" marker-start="url(#mh)"/>
+            <line class="arrow" id="a854" x1="375" y1="140" x2="215" y2="40" stroke="var(--l854)" marker-end="url(#mh)"/>
+            <line class="arrow" id="aDec" x1="185" y1="40" x2="140" y2="272" stroke="#94a3b8" stroke-dasharray="5 5" marker-end="url(#mh)"/>
+            <!-- levels -->
+            <line class="level" x1="40" y1="280" x2="200" y2="280"/>
+            <line class="level" id="lvP1" x1="40" y1="62" x2="150" y2="62"/>
+            <line class="level" x1="140" y1="36" x2="240" y2="36"/>
+            <line class="level" x1="235" y1="176" x2="310" y2="176"/>
+            <line class="level" x1="320" y1="146" x2="405" y2="146"/>
+            <text x="40" y="303">S₁/₂ <tspan class="sub" data-i18n="lvS"></tspan></text>
+            <text x="40" y="54">P₁/₂</text>
+            <text x="200" y="28">P₃/₂</text>
+            <text x="235" y="196">D₃/₂</text>
+            <text x="235" y="210" class="sub" data-i18n="lvD3"></text>
+            <text x="322" y="166">D₅/₂</text>
+            <text x="322" y="180" class="sub" data-i18n="lvD5"></text>
+            <text x="300" y="300" class="sub" data-i18n="lvNote"></text>
+            <!-- electrons -->
+            <circle class="el" id="eS" cx="130" cy="280" r="9" fill="#fde68a"/>
+            <circle class="el" id="eD5" cx="362" cy="146" r="9" fill="#fde68a" opacity="0"/>
+            <circle class="el" id="eD3" cx="272" cy="176" r="9" fill="#fde68a" opacity="0"/>
+            <circle id="eHop" cx="95" cy="280" r="7" fill="#fde68a" opacity="0"/>
+          </svg>
+          <div class="ctrls" id="laserBtns">
+            <button class="btn laser" id="b397" style="--c:var(--l397)"><span class="wl">397</span><small data-i18n="b397"></small></button>
+            <button class="btn laser" id="b866" style="--c:var(--l866)"><span class="wl">866</span><small data-i18n="b866"></small></button>
+            <button class="btn laser" id="b729h" style="--c:var(--l729)"><span class="wl">729 · π/2</span><small data-i18n="b729h"></small></button>
+            <button class="btn laser" id="b729" style="--c:var(--l729)"><span class="wl">729 · π</span><small data-i18n="b729"></small></button>
+            <button class="btn laser" id="b854" style="--c:var(--l854)"><span class="wl">854</span><small data-i18n="b854"></small></button>
+          </div>
+          <div class="cap"><span lang="pl">Kolory umowne: 866 i 854 nm to podczerwień, oko ich nie widzi.</span><span lang="en">Colours are illustrative: 866 and 854 nm are infrared, invisible to the eye.</span></div>
+        </div>
+        <div>
+          <div class="cam"><span class="tag" data-i18n="camera"></span><div class="ionv" id="ionv"></div></div>
+          <div class="readout" id="readout"></div>
+          <div class="msg" id="epMsg" role="status"></div>
+          <button class="btn" id="bAuto" style="margin-top:4px"><span lang="pl">Powtórz 20× superpozycję i pomiar</span><span lang="en">Repeat superposition + measurement 20×</span></button>
+          <div class="tally" id="tally"></div>
+          <ul class="missions" id="missions"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.5 gates + 2.6 camera -->
+  <div class="lab-block">
+    <div class="txt">
+      <span class="step-no">05 · <span lang="pl">BRAMKI</span><span lang="en">GATES</span></span>
+      <h3><span lang="pl">Dwa jony, jedna wspólna drgawka</span><span lang="en">Two ions, one shared wobble</span></h3>
+      <p lang="pl">Jony w rzędzie odpychają się, więc drgają razem — jak kulki połączone sprężyną. Laser na chwilę „wiąże” stan kubitów z tym wspólnym drganiem. Tak powstaje <b>splątanie</b>: dwa jony zaczynają zachowywać się jak jedna całość.</p>
+      <p lang="en">Ions in a row push on each other, so they wobble together — like balls joined by a spring. A laser briefly “ties” the qubit states to this shared wobble. That is how <b>entanglement</b> is made: two ions start to behave as one whole.</p>
+      <p class="small muted"><span lang="pl">Obwód obok to klasyczny „stan Bella”: bramka H, potem CNOT.</span><span lang="en">The circuit is the classic “Bell state”: an H gate, then a CNOT.</span></p>
+    </div>
+    <div class="panel">
+      <canvas id="cvPair"></canvas>
+      <svg viewBox="0 0 360 110" style="width:100%;height:auto;display:block;margin-top:8px" aria-label="Bell circuit">
+        <g stroke="#9aa1b2" stroke-width="1.5" fill="none"><line x1="40" y1="30" x2="320" y2="30"/><line x1="40" y1="80" x2="320" y2="80"/></g>
+        <text x="8" y="35" fill="#e8eaf0" font-family="JetBrains Mono,monospace" font-size="13">q0</text>
+        <text x="8" y="85" fill="#e8eaf0" font-family="JetBrains Mono,monospace" font-size="13">q1</text>
+        <rect x="80" y="14" width="34" height="32" rx="5" fill="#0d0f16" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="97" y="35" fill="#38bdf8" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="600">H</text>
+        <line x1="170" y1="30" x2="170" y2="92" stroke="#38bdf8" stroke-width="1.5"/>
+        <circle cx="170" cy="30" r="5" fill="#38bdf8"/>
+        <circle cx="170" cy="80" r="11" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+        <line x1="159" y1="80" x2="181" y2="80" stroke="#38bdf8" stroke-width="1.5"/>
+        <g fill="#0d0f16" stroke="#9aa1b2" stroke-width="1.5"><rect x="240" y="16" width="34" height="28" rx="5"/><rect x="240" y="66" width="34" height="28" rx="5"/></g>
+        <g stroke="#9aa1b2" stroke-width="1.3" fill="none"><path d="M246 38a11 11 0 0 1 22 0M257 38l7-12"/><path d="M246 88a11 11 0 0 1 22 0M257 88l7-12"/></g>
+      </svg>
+      <div class="ctrls"><button class="btn solid" id="bRun"><span lang="pl">Uruchom 100 razy</span><span lang="en">Run 100 times</span></button></div>
+    </div>
+  </div>
+
+  <div class="lab-block">
+    <div class="txt">
+      <span class="step-no">06 · <span lang="pl">ODCZYT</span><span lang="en">READOUT</span></span>
+      <h3><span lang="pl">Zdjęcie z kamery: oba jasne albo oba ciemne</span><span lang="en">Camera shot: both bright or both dark</span></h3>
+      <p lang="pl">Po każdym uruchomieniu kamera robi zdjęcie. Jasny jon to 0, ciemny to 1. Wynik każdego jonu osobno jest losowy — ale <b>prawie zawsze są takie same</b>.</p>
+      <p lang="pl">Sama zgodność nie dowodzi jeszcze splątania — tak samo wyglądałyby dwie „sklejone” monety. Dlatego mierzy się też w obróconym układzie: przy splątaniu zgodność zostaje, przy sklejonych monetach znika.</p>
+      <p lang="en">After each run a camera takes a picture. A bright ion is 0, a dark one is 1. Each ion's result on its own is random — but <b>they almost always match</b>.</p>
+      <p lang="en">Agreement alone does not prove entanglement yet — two “glued” coins would look the same. So physicists also measure in a rotated basis: with entanglement the agreement stays, with glued coins it disappears.</p>
+      <p class="small muted"><span lang="pl">Obrazy symulowane, nie z prawdziwej kamery. Pomarańczowa ramka = błąd.</span><span lang="en">Simulated images, not from a real camera. Orange frame = an error.</span></p>
+    </div>
+    <div class="panel">
+      <div class="frames" id="frames"></div>
+      <div class="hist" id="hist"><div class="bar"><span></span></div><div class="bar"><span></span></div><div class="bar"><span></span></div><div class="bar"><span></span></div></div>
+      <div class="histl"><span>00</span><span>01</span><span>10</span><span>11</span></div>
+      <div class="cap" id="histCap"></div>
+    </div>
+  </div>
+
+  <!-- 2.7 fidelity -->
+  <div class="lab-block">
+    <div class="txt">
+      <span class="step-no">07 · <span lang="pl">JAKOŚĆ</span><span lang="en">FIDELITY</span></span>
+      <h3><span lang="pl">Błędy się sumują</span><span lang="en">Errors add up</span></h3>
+      <p lang="pl">Każda operacja ma małą szansę na błąd. W długim programie te szanse się mnożą. Dlatego <b>kilka bardzo dobrych kubitów jest wartych więcej niż wiele słabych</b>.</p>
+      <p lang="en">Every operation has a small chance of error. In a long program those chances multiply. That is why <b>a few very good qubits are worth more than many noisy ones</b>.</p>
+    </div>
+    <div class="panel fid">
+      <label><span data-i18n="fidPer"></span><b id="fVal" class="mono"></b></label>
+      <input type="range" id="fSl" min="900" max="999" value="990">
+      <label><span data-i18n="fidSteps"></span><b id="nVal" class="mono"></b></label>
+      <input type="range" id="nSl" min="0" max="100" value="67">
+      <div><span data-i18n="fidOut" class="cap"></span><div class="big" id="pOut"></div></div>
+      <div class="meter"><i id="pBar"></i></div>
+    </div>
+  </div>
+
+  <div class="lab-intro" style="margin-bottom:0">
+    <p class="lead"><span lang="pl">Wychodzimy z próżni. Wracamy do świata ludzi, kolejek i arkuszy z pomiarami.</span><span lang="en">We leave the vacuum. Back to the world of people, queues and measurement logs.</span></p>
+  </div>
+</section>
+
+<!-- ============ 3. SERVING SIDE ============ -->
+<section class="sec" id="s-serve">
+  <div class="wrap">
+    <span class="kicker"><span lang="pl">Strona serwisowa</span><span lang="en">The serving side</span></span>
+    <h2><span lang="pl">Jak utrzymać maszynę w formie</span><span lang="en">How to keep the machine in shape</span></h2>
+    <p class="lead" style="max-width:680px;margin-bottom:10vh"><span lang="pl">Komputer kwantowy to nie tylko fizyka. To też inżynieria oprogramowania: pilnowanie ustawień, zapisywanie pomiarów i bezpieczne udostępnianie maszyny ludziom, którzy są daleko.</span><span lang="en">A quantum computer is not only physics. It is also software engineering: watching the settings, logging measurements, and safely serving the machine to people who are far away.</span></p>
+
+    <div class="grid2">
+      <div>
+        <h3><span lang="pl">Ustawienia „uciekają”</span><span lang="en">Settings drift away</span></h3>
+        <p lang="pl">Częstotliwość lasera, napięcie na elektrodach, długość impulsu — wszystko powoli dryfuje przez temperaturę i czas. Gdy wartość wyjdzie poza dozwolone pole, uruchamia się <b>kalibracja</b> i ściąga ją z powrotem.</p>
+        <p lang="en">Laser frequency, electrode voltage, pulse length — everything slowly drifts with temperature and time. When a value leaves the allowed band, a <b>calibration</b> runs and pulls it back.</p>
+      </div>
+      <div class="wcard">
+        <svg id="drift" viewBox="0 0 600 220" aria-label="Drift chart"></svg>
+        <div class="ctrls" style="color:var(--ink)"><button class="btn" id="bCal"><span lang="pl">Kalibruj teraz</span><span lang="en">Calibrate now</span></button><span class="hint" id="calCount"></span></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <h3><span lang="pl">Ten sam wzorzec co w MLOps</span><span lang="en">The same pattern as MLOps</span></h3>
+        <p lang="pl">Kto prowadził eksperymenty z modelami AI, rozpozna ten układ. Kalibracje można zapisywać i porównywać tak jak treningi modeli, np. w narzędziu typu MLflow.</p>
+        <p lang="en">Anyone who has run AI model experiments will recognise this. Calibrations can be logged and compared the same way as model training runs, e.g. in a tool like MLflow.</p>
+      </div>
+      <div class="wcard" style="overflow-x:auto">
+        <table class="map">
+          <thead><tr><th>MLflow</th><th><span lang="pl">W laboratorium</span><span lang="en">In the lab</span></th></tr></thead>
+          <tbody>
+            <tr><td>experiment</td><td><span lang="pl">jedna procedura kalibracji, np. „strojenie lasera 729”</span><span lang="en">one calibration routine, e.g. “tune the 729 laser”</span></td></tr>
+            <tr><td>run</td><td><span lang="pl">jedno uruchomienie tej procedury</span><span lang="en">one execution of that routine</span></td></tr>
+            <tr><td>parameters</td><td><span lang="pl">ustawienia: częstotliwość, długość impulsu, napięcia</span><span lang="en">settings: frequency, pulse length, voltages</span></td></tr>
+            <tr><td>metrics</td><td><span lang="pl">jakość: kontrast odczytu, wierność bramki</span><span lang="en">quality: readout contrast, gate fidelity</span></td></tr>
+            <tr><td>drift</td><td><span lang="pl">porównanie runów w czasie → kiedy kalibrować znowu</span><span lang="en">comparing runs over time → when to calibrate again</span></td></tr>
+          </tbody>
+        </table>
+        <p class="note"><span lang="pl">To analogia, nie opis narzędzi konkretnego zespołu.</span><span lang="en">This is an analogy, not a description of any specific team's tools.</span></p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:4vh"><span lang="pl">Bezpieczny dostęp: droga jednego zadania</span><span lang="en">Secure access: the journey of one job</span></h3>
+    <p style="max-width:680px"><span lang="pl">Maszyna stoi w laboratorium, a użytkownicy siedzą w innych miastach. Zobacz, przez co przechodzi jedno zadanie — i co je chroni na każdym kroku.</span><span lang="en">The machine sits in a lab, while its users sit in other cities. See what one job goes through — and what protects it at each step.</span></p>
+    <div class="wcard jwrap">
+      <div class="journey" id="journey"><div class="jtrack"><i id="jfill"></i></div></div>
+      <div class="jcap" id="jcap" aria-live="polite"></div>
+      <div class="ctrls jctrl">
+        <button class="btn solid" id="jPlay"></button>
+        <button class="btn" id="jPrev" aria-label="Previous">‹</button>
+        <button class="btn" id="jNext" aria-label="Next">›</button>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin:12vh 0 0">
+      <div>
+        <h3><span lang="pl">Gdzie tu QKD?</span><span lang="en">Where does QKD fit?</span></h3>
+        <p lang="pl">Szyfrowany kanał (krok 2) potrzebuje wspólnego, tajnego klucza. Dziś obie strony uzgadniają go matematyką. Duży komputer kwantowy mógłby kiedyś tę matematykę złamać (algorytm Shora) — a ktoś może nagrywać ruch już dziś i odszyfrować go później.</p>
+        <p lang="en">The encrypted link (step 2) needs a shared secret key. Today both sides agree on it using maths. A large quantum computer could one day break that maths (Shor's algorithm) — and someone could record traffic today and decrypt it later.</p>
+        <p lang="pl">Są dwie odpowiedzi. <b>Kryptografia postkwantowa (PQC)</b>: nowa matematyka w zwykłym oprogramowaniu (standardy NIST z 2024 r.). <b>QKD</b>: klucz z pojedynczych fotonów — fizyka zdradza każdego, kto podsłuchuje.</p>
+        <p lang="en">There are two answers. <b>Post-quantum cryptography (PQC)</b>: new maths in ordinary software (NIST standards from 2024). <b>QKD</b>: a key made from single photons — physics gives away anyone who listens in.</p>
+        <p class="small muted" lang="pl">QKD ma granice: potrzebuje własnego światłowodu lub satelity, jeden odcinek to ok. 100 km, a kanał i tak trzeba uwierzytelnić. W Polsce rozwija się krajowa sieć PIONIER-Q, część europejskiej EuroQCI.</p>
+        <p class="small muted" lang="en">QKD has limits: it needs its own fibre or a satellite, one hop is about 100 km, and the channel must still be authenticated. Poland is developing the national PIONIER-Q network, part of Europe's EuroQCI.</p>
+      </div>
+      <div class="wcard bb">
+        <div class="bbh"><b><span lang="pl">Mini-BB84: Alicja wysyła fotony do Boba</span><span lang="en">Mini BB84: Alice sends photons to Bob</span></b>
+          <span class="small muted"><span lang="pl">Każdy foton niesie losowy bit w losowym układzie (+ lub ×). Bob zgaduje układ. Zostają tylko bity, w których układy się zgadzają.</span><span lang="en">Each photon carries a random bit in a random basis (+ or ×). Bob guesses the basis. Only bits where the bases match are kept.</span></span></div>
+        <div class="bbgrid" id="bbgrid"></div>
+        <div class="ctrls">
+          <button class="btn" id="bbEve"></button>
+          <button class="btn" id="bbFast"><span lang="pl">Wyślij 1000 fotonów</span><span lang="en">Send 1,000 photons</span></button>
+        </div>
+        <div class="bbstat" id="bbStat"></div>
+        <div class="qmeter"><i id="bbBar"></i><span class="thr"></span></div>
+        <div class="qlbl"><span>0%</span><span data-i18n="bbThr"></span><span>30%</span></div>
+        <div class="bbverdict" id="bbVerdict"></div>
+      </div>
+    </div>
+    <div class="soon">
+      <span class="kicker"><span lang="pl">W przygotowaniu</span><span lang="en">Coming soon</span></span>
+      <p><span lang="pl">Osobna interaktywna aplikacja o QKD — od pojedynczego fotonu do gotowego klucza, z sieciami takimi jak PIONIER-Q.</span><span lang="en">A separate interactive app about QKD — from a single photon to a finished key, with networks like PIONIER-Q.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. SKILLS ============ -->
+<section class="sec" id="s-skills" style="padding-top:6vh">
+  <div class="wrap">
+    <span class="kicker"><span lang="pl">Umiejętności</span><span lang="en">Skills</span></span>
+    <h2><span lang="pl">Czego uczy budowa takiej maszyny</span><span lang="en">What building such a machine teaches</span></h2>
+    <p class="lead" style="max-width:680px"><span lang="pl">Komputer kwantowy to osiem trudnych rzemiosł naraz. Każde z nich przydaje się też gdzie indziej.</span><span lang="en">A quantum computer is eight hard crafts at once. Each one is useful elsewhere too.</span></p>
+    <div class="skills" id="skills"></div>
+  </div>
+</section>
+
+<!-- ============ 5. FOOTER ============ -->
+<footer>
+  <div class="wrap fmake">
+    <h3><span lang="pl">Jak powstała ta strona</span><span lang="en">How this page was made</span></h3>
+    <div class="flow">
+      <div><b><span lang="pl">Pomysł</span><span lang="en">Idea</span></b><p lang="pl">Wizyta w laboratorium. Krótki brief z decyzjami: co pokazać, czego nie, dla kogo.</p><p lang="en">A visit to the lab. A short brief with decisions: what to show, what not, for whom.</p></div>
+      <div><b><span lang="pl">Źródła</span><span lang="en">Sources</span></b><p lang="pl">Tylko publiczne: komunikaty PW, publikacja zespołu w BazTech, NCBR, podręcznikowa fizyka ⁴⁰Ca⁺.</p><p lang="en">Public only: WUT news, the team's paper in BazTech, NCBR, textbook ⁴⁰Ca⁺ physics.</p></div>
+      <div><b>Claude</b><p lang="pl">Research, sprawdzenie fizyki, scenariusz i kod. Agent w chmurowym sandboxie, testy w Chrome bez okna (Playwright), na komputerze i telefonie.</p><p lang="en">Research, physics check, storyboard and code. An agent in a cloud sandbox, tests in headless Chrome (Playwright), desktop and phone.</p></div>
+      <div><b><span lang="pl">Kod</span><span lang="en">Code</span></b><p lang="pl">Jeden plik HTML, bez frameworka. SVG i Canvas 2D, <code>IntersectionObserver</code> do przewijania. Małe symulacje w JS: kubit jako kąt θ, P(1)=sin²(θ/2); strzały Bella; BB84 Monte Carlo.</p><p lang="en">One HTML file, no framework. SVG and Canvas 2D, <code>IntersectionObserver</code> for scrolling. Small JS simulations: a qubit as an angle θ, P(1)=sin²(θ/2); Bell shots; BB84 Monte Carlo.</p></div>
+      <div><b>github.io</b><p lang="pl">Statyczny hosting GitHub Pages: <code>git push</code> → strona online w minutę. Bez serwera, bez logowania, bez ciasteczek.</p><p lang="en">Static hosting on GitHub Pages: <code>git push</code> → live in a minute. No server, no login, no cookies.</p></div>
+    </div>
+  </div>
+  <div class="wrap fgrid">
+    <div>
+      <h3><span lang="pl">Autor</span><span lang="en">Author</span></h3>
+      <p>Szymon Domagała</p>
+      <p><a href="https://www.linkedin.com/in/ACoAAANnAjQBw-kRkeI2nsyqt8HqS2Pd2IPuafo" id="linkedin" target="_blank" rel="noopener">LinkedIn ↗</a></p>
+    </div>
+    <div>
+      <h3><span lang="pl">Podziękowania</span><span lang="en">Thanks</span></h3>
+      <p lang="pl">Dla zespołów konsorcjum MIKOK za pracę, która pokazuje, że taką maszynę da się zbudować w Polsce.</p>
+      <p lang="en">To the teams of the MIKOK consortium, for work that shows such a machine can be built in Poland.</p>
+    </div>
+    <div>
+      <h3><span lang="pl">Źródła</span><span lang="en">Sources</span></h3>
+      <ol class="small">
+        <li><a href="https://www.sgmk.edu.pl/pioneering-quantum-computer-prototype-at-warsaw-university-of-technology" target="_blank" rel="noopener">SGMK — MIKOK prototype at WUT</a></li>
+        <li><a href="https://eng.pw.edu.pl/engpw/News/Faculty-of-Electronics-and-Information-Technology-in-quantum-technology-race" target="_blank" rel="noopener">Warsaw University of Technology — news</a></li>
+        <li><a href="https://yadda.icm.edu.pl/baztech/element/bwmeta1.element.baztech-ea6f69ad-1b09-4937-a68a-5cf41811fbce" target="_blank" rel="noopener">BazTech — <span lang="pl">elektroniczny system sterowania (MIKOK)</span><span lang="en">control electronics paper (MIKOK)</span></a></li>
+        <li><a href="https://www.gov.pl/web/ncbr/obronnosc-i-bezpieczenstwo" target="_blank" rel="noopener">NCBR — <span lang="pl">programy obronności</span><span lang="en">defence programmes</span></a></li>
+        <li><a href="https://opi.org.pl/en/powstaje-nowoczesna-infrastruktura-kwantowa-laczaca-niemcy-polske-i-czechy/" target="_blank" rel="noopener">OPI — PIONIER-Q / EuroQCI</a></li>
+        <li><a href="https://csrc.nist.gov/pubs/fips/203/final" target="_blank" rel="noopener">NIST FIPS 203 — <span lang="pl">standard PQC</span><span lang="en">PQC standard</span></a></li>
+        <li><span lang="pl">Ogólna fizyka pułapek ⁴⁰Ca⁺ i protokół BB84 (Bennett, Brassard 1984)</span><span lang="en">General ⁴⁰Ca⁺ trap physics and the BB84 protocol (Bennett, Brassard 1984)</span></li>
+      </ol>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+var LANG=store.get('ion-lang')==='en'?'en':'pl';
+function L(pl,en){return '<span lang="pl">'+pl+'</span><span lang="en">'+en+'</span>'}
+
+/* ---------- strings for dynamic text ---------- */
+var T={
+  docTitle:{pl:'Jak złapać atom i kazać mu liczyć',en:'How to catch an atom and make it compute'},
+  waw1:{pl:'Warszawa',en:'Warsaw'}, waw2:{pl:'PW (lider) · WAT',en:'WUT (leader) · MUT'},
+  zie:{pl:'Zielonka · WITU',en:'Zielonka · MIAT'}, gli:{pl:'Gliwice · Pol. Śląska',en:'Gliwice · Silesian UT'}, gol:{pl:'Goleniów · SONOVERO',en:'Goleniów · SONOVERO'},
+  badge:{pl:'NCBR · SZAFIR · od 2020',en:'NCBR · SZAFIR · since 2020'},
+  lvS:{pl:'parter = 0',en:'ground = 0'}, lvD3:{pl:'„pułapka” na elektron',en:'electron “trap” floor'}, lvD5:{pl:'półka = 1 (~1 s)',en:'shelf = 1 (~1 s)'},
+  lvNote:{pl:'nie w skali',en:'not to scale'},
+  b397:{pl:'świeć / patrz',en:'shine / look'}, b866:{pl:'ratunek z D₃/₂',en:'rescue from D₃/₂'},
+  b729h:{pl:'pół kroku',en:'half step'}, b729:{pl:'zamień 0↔1',en:'flip 0↔1'}, b854:{pl:'reset do 0',en:'reset to 0'},
+  camera:{pl:'KAMERA',en:'CAMERA'},
+  st0:{pl:'|0⟩ — elektron na parterze',en:'|0⟩ — electron on the ground floor'},
+  st1:{pl:'|1⟩ — elektron na półce D₅/₂',en:'|1⟩ — electron on the D₅/₂ shelf'},
+  stSup:{pl:'Superpozycja: {a}% |0⟩ i {b}% |1⟩',en:'Superposition: {a}% |0⟩ and {b}% |1⟩'},
+  stD3:{pl:'Elektron utknął na D₃/₂',en:'Electron stuck on D₃/₂'},
+  rOff:{pl:'397 wyłączony — nie patrzymy na jon.',en:'397 is off — we are not looking at the ion.'},
+  rBright:{pl:'Jon świeci → odczyt 0',en:'Ion glows → reads 0'},
+  rDark:{pl:'Jon ciemny → odczyt 1',en:'Ion dark → reads 1'},
+  rDarkD3:{pl:'Jon ciemny, ale to nie 1 — elektron wpadł w pułapkę.',en:'Ion dark, but this is not a 1 — the electron fell into the trap floor.'},
+  mLeak:{pl:'Jon zgasł! Elektron co jakiś czas spada na D₃/₂ i tam utyka. Włącz 866, żeby go wyciągnąć. (W prawdziwym jonie dzieje się to w ciągu mikrosekund.)',en:'The ion went dark! Now and then the electron falls to D₃/₂ and gets stuck. Turn on 866 to pull it out. (In a real ion this happens within microseconds.)'},
+  mBusy:{pl:'Najpierw wyłącz 397. Światło 397 cały czas „patrzy” na jon, a patrzenie psuje superpozycję.',en:'Turn off 397 first. The 397 light keeps “looking” at the ion, and looking destroys superposition.'},
+  mStuck:{pl:'Elektron siedzi na D₃/₂. Ten laser go nie ruszy — pomoże 866.',en:'The electron sits on D₃/₂. This laser won\'t move it — 866 will.'},
+  mMeasured:{pl:'Pomiar! Superpozycja „wybrała” jeden wynik losowo.',en:'Measured! The superposition “picked” one result at random.'},
+  mReset:{pl:'854 przerzucił elektron przez P₃/₂ z powrotem na parter. Kubit = 0.',en:'854 pushed the electron through P₃/₂ back to the ground floor. Qubit = 0.'},
+  mHalf:{pl:'Elektron jest teraz trochę tu, trochę tam. Włącz 397, by zmierzyć.',en:'The electron is now partly here, partly there. Turn on 397 to measure.'},
+  tally:{pl:'Pomiary superpozycji: jasny (0) {b} · ciemny (1) {d}',en:'Superposition measurements: bright (0) {b} · dark (1) {d}'},
+  ms1:{pl:'Zapal jon: włącz 397 i 866',en:'Light up the ion: turn on 397 and 866'},
+  ms2:{pl:'Sprawdź, co się stanie bez 866',en:'See what happens without 866'},
+  ms3:{pl:'Zapisz 1: wyłącz 397, puls 729·π, włącz 397 → ciemno',en:'Write a 1: 397 off, pulse 729·π, 397 on → dark'},
+  ms4:{pl:'Wyczyść kubit laserem 854',en:'Clear the qubit with the 854 laser'},
+  ms5:{pl:'Superpozycja: 729·π/2, potem pomiar — powtórz kilka razy',en:'Superposition: 729·π/2, then measure — repeat a few times'},
+  fidPer:{pl:'Wierność jednej operacji',en:'Fidelity of one operation'},
+  fidSteps:{pl:'Liczba operacji w programie',en:'Operations in the program'},
+  fidOut:{pl:'Szansa, że cały program przejdzie bez błędu',en:'Chance the whole program runs without an error'},
+  hist:{pl:'{n} uruchomień · zgodne (00 lub 11): {m}%',en:'{n} runs · matching (00 or 11): {m}%'},
+  loaded:{pl:'Złapane jony: {n}/6',en:'Ions caught: {n}/6'},
+  hot:{pl:'gorące',en:'hot'}, cold:{pl:'zimne, w rzędzie',en:'cold, in a row'},
+  driftY:{pl:'ustawienie (np. częstotliwość lasera)',en:'setting (e.g. laser frequency)'},
+  driftBand:{pl:'dozwolone pole',en:'allowed band'}, driftCal:{pl:'kalibracja',en:'calibration'},
+  calCount:{pl:'Kalibracje: {n}',en:'Calibrations: {n}'},
+  jPlay:{pl:'▶ Wyślij zadanie',en:'▶ Send a job'}, jPause:{pl:'❚❚ Pauza',en:'❚❚ Pause'}, jAgain:{pl:'↺ Jeszcze raz',en:'↺ Again'}, jSec:{pl:'Ochrona',en:'Protection'},
+  bbEveOff:{pl:'Ewa podsłuchuje: NIE',en:'Eve listens: NO'}, bbEveOn:{pl:'Ewa podsłuchuje: TAK',en:'Eve listens: YES'},
+  bbA:{pl:'Alicja',en:'Alice'}, bbP:{pl:'foton',en:'photon'}, bbE:{pl:'Ewa',en:'Eve'}, bbB:{pl:'Bob',en:'Bob'}, bbR:{pl:'wynik',en:'result'},
+  bbThr:{pl:'próg ≈ 11%',en:'threshold ≈ 11%'},
+  bbStat:{pl:'Fotony: {n} · zachowane bity: {k} · błędne: {e} ({q}%)',en:'Photons: {n} · kept bits: {k} · wrong: {e} ({q}%)'},
+  bbWait:{pl:'Zbieram dane…',en:'Collecting data…'},
+  bbOk:{pl:'✓ Błędów mało (szum) — klucz można użyć.',en:'✓ Few errors (just noise) — the key can be used.'},
+  bbBad:{pl:'✗ Za dużo błędów — ktoś podsłuchuje. Klucz odrzucony.',en:'✗ Too many errors — someone is listening. Key discarded.'},
+  _end:{pl:'',en:''}
+};
+function t(k,v){var s=(T[k]&&T[k][LANG])||k; if(v){for(var x in v){s=s.split('{'+x+'}').join(v[x])}} return s}
+var langHooks=[];
+function applyLang(){
+  document.body.dataset.lang=LANG; document.documentElement.lang=LANG; document.title=t('docTitle');
+  $$('[data-i18n]').forEach(function(el){el.textContent=t(el.dataset.i18n)});
+  $$('.langpill button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===LANG?'true':'false')});
+  langHooks.forEach(function(f){f()});
+}
+$$('.langpill button').forEach(function(b){b.addEventListener('click',function(){LANG=b.dataset.lang;store.set('ion-lang',LANG);applyLang()})});
+
+/* ---------- helpers ---------- */
+function scrolly(root,onStep){
+  var steps=$$('.step',root);
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){steps.forEach(function(s){s.classList.toggle('active',s===e.target)});onStep(+e.target.dataset.step)}})},{rootMargin:'-45% 0px -45% 0px'});
+  steps.forEach(function(s){io.observe(s)});
+}
+function setupCanvas(c,h){
+  var ctx=c.getContext('2d');
+  function size(){c.style.height=h+'px';var w=c.getBoundingClientRect().width||300;var d=Math.min(2,window.devicePixelRatio||1);c.width=Math.round(w*d);c.height=Math.round(h*d);ctx.setTransform(d,0,0,d,0,0);c._w=w;c._h=h}
+  size(); window.addEventListener('resize',size); return ctx;
+}
+function runWhenVisible(el,frame){
+  var on=false,raf=0,last=0;
+  function loop(ts){if(!on)return;var dt=last?Math.min(50,ts-last):16;last=ts;frame(dt/1000,ts/1000);raf=requestAnimationFrame(loop)}
+  new IntersectionObserver(function(es){var v=es[0].isIntersecting;if(v&&!on){on=true;last=0;raf=requestAnimationFrame(loop)}else if(!v&&on){on=false;cancelAnimationFrame(raf)}}).observe(el);
+}
+function glowDot(ctx,x,y,r,col,a){
+  var g=ctx.createRadialGradient(x,y,0,x,y,r*4);g.addColorStop(0,col);g.addColorStop(.25,col);g.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.globalAlpha=a==null?1:a;ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*4,0,7);ctx.fill();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,r*.55,0,7);ctx.fill();ctx.globalAlpha=1;
+}
+
+/* progress bar */
+window.addEventListener('scroll',function(){var h=document.documentElement;$('#progress').style.width=(100*h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight))+'%'},{passive:true});
+
+/* ---------- 0. MAP ---------- */
+(function(){
+  var PL=[[14.22,53.93],[14.75,54.02],[15.6,54.17],[16.4,54.45],[16.85,54.6],[17.55,54.77],[18.33,54.84],[18.6,54.72],[18.8,54.62],[18.55,54.45],[18.7,54.38],[19.25,54.33],[19.65,54.45],[20.4,54.38],[21.4,54.33],[22.79,54.36],[23.5,54.1],[23.48,53.9],[23.92,53.15],[23.6,52.6],[23.2,52.25],[23.65,52.07],[23.6,51.55],[24.1,51.0],[23.9,50.42],[23.4,50.3],[22.6,49.55],[22.88,49.0],[22.55,49.08],[21.95,49.35],[21.1,49.42],[20.4,49.4],[19.8,49.2],[19.45,49.6],[18.85,49.52],[18.6,49.95],[17.9,49.98],[17.6,50.27],[16.9,50.45],[16.3,50.65],[16.0,50.6],[15.4,50.8],[14.83,50.87],[15.0,51.1],[14.95,51.45],[14.7,52.07],[14.6,52.6],[14.15,52.85],[14.4,53.25],[14.28,53.7]];
+  function P(ll){return [24+(ll[0]-14)*49.26, 20+(54.95-ll[1])*80]}
+  var d='M'+PL.map(function(p){var q=P(p);return q[0].toFixed(1)+','+q[1].toFixed(1)}).join('L')+'Z';
+  var W=P([21.01,52.23]);
+  var parts=[{ll:[21.16,52.30],k:'zie',dx:8,dy:-12,a:'start'},{ll:[18.67,50.29],k:'gli',dx:-10,dy:4,a:'end'},{ll:[14.83,53.56],k:'gol',dx:10,dy:-10,a:'start'}];
+  var s='<path class="pl" pathLength="1" d="'+d+'"/>';
+  parts.forEach(function(p){var q=P(p.ll),mx=(W[0]+q[0])/2,my=(W[1]+q[1])/2-40;
+    s+='<path class="link" pathLength="1" d="M'+W[0]+','+W[1]+'Q'+mx+','+my+' '+q[0]+','+q[1]+'"/>';
+    s+='<g class="partner"><circle cx="'+q[0]+'" cy="'+q[1]+'" r="4.5" fill="var(--ink)"/><text class="lbl" x="'+(q[0]+p.dx)+'" y="'+(q[1]+p.dy)+'" text-anchor="'+p.a+'" data-i18n="'+p.k+'"></text></g>';});
+  s+='<circle class="pulse" cx="'+W[0]+'" cy="'+W[1]+'" r="7" fill="var(--red)"/><circle cx="'+W[0]+'" cy="'+W[1]+'" r="7" fill="var(--red)"/>';
+  s+='<text class="lbl" x="'+(W[0]+12)+'" y="'+(W[1]+22)+'" data-i18n="waw1"></text><text class="lbl2" x="'+(W[0]+12)+'" y="'+(W[1]+38)+'" data-i18n="waw2"></text>';
+  s+='<g class="badge"><rect x="24" y="446" width="236" height="34" rx="17" fill="var(--ink)"/><text x="142" y="468" text-anchor="middle" fill="#fff" style="fill:#fff;font:600 13px JetBrains Mono,monospace" data-i18n="badge"></text></g>';
+  var svg=$('#map');svg.innerHTML=s;
+  requestAnimationFrame(function(){svg.classList.add('on0')});
+  scrolly($('#s-open'),function(i){svg.classList.toggle('on1',i>=1);svg.classList.toggle('on2',i>=2)});
+})();
+
+/* ---------- 1. STACK ---------- */
+var BLOCKS=[
+ {n:L('Pułapka jonowa','Ion trap'),a:L('≈ procesor','≈ the processor'),
+  w:L('Trzyma kilka jonów wapnia w próżni, w polu elektrycznym. Każdy jon to jeden kubit.','Holds a few calcium ions in vacuum, inside an electric field. Each ion is one qubit.'),
+  an:L('To odpowiednik krzemowego procesora: tu fizycznie „mieszkają” bity i tu dzieje się liczenie.','The equivalent of a silicon processor: this is where the bits physically live and where computing happens.'),
+  d:L('Pułapka używa szybko zmiennego pola (prąd radiowy, RF) i stałych napięć. W MIKOK opisano pułapkę typu „blade” dla jonów ⁴⁰Ca⁺, projektowaną do nawet 100 jonów (publikacja zespołu w BazTech).','The trap uses a fast-changing (radio-frequency, RF) field plus static voltages. MIKOK describes a “blade” trap for ⁴⁰Ca⁺ ions, designed for up to 100 ions (team paper in BazTech).')},
+ {n:L('Lasery i optyka','Lasers and optics'),a:L('≈ zapis i odczyt','≈ write and read'),
+  w:L('Światło o różnych kolorach chłodzi jony, zapisuje w nich 0 i 1 oraz odczytuje wynik.','Light of different colours cools the ions, writes 0 and 1 into them, and reads the result.'),
+  an:L('Jak głowica dysku: urządzenie, które zapisuje i czyta bity — tyle że promieniem światła.','Like a disk head: the device that writes and reads bits — but with a beam of light.'),
+  d:L('Dla wapnia: 397 nm (chłodzenie, odczyt), 866 nm (ratunek z D₃/₂), 729 nm (operacje na kubicie), 854 nm (reset), 423 + 375 nm (tworzenie jonów). Lasery to sprzęt, który często kupuje się od zagranicznych dostawców.','For calcium: 397 nm (cooling, readout), 866 nm (rescue from D₃/₂), 729 nm (qubit operations), 854 nm (reset), 423 + 375 nm (making ions). Lasers are often bought from foreign suppliers.')},
+ {n:L('Elektronika sterująca','Control electronics'),a:L('≈ zegar i sterowniki','≈ clock and drivers'),
+  w:L('Włącza i wyłącza lasery i napięcia z dokładnością do nanosekund.','Switches lasers and voltages on and off with nanosecond precision.'),
+  an:L('Jak zegar i sterowniki w komputerze: zamienia polecenia na precyzyjne impulsy w czasie.','Like a computer\'s clock and drivers: turns commands into precisely timed pulses.'),
+  d:L('MIKOK opisuje sterowanie oparte na otwartym sprzęcie Sinara i systemie ARTIQ. Elektronika sterująca to jedna z części rozwijanych w Polsce.','MIKOK describes control based on the open Sinara hardware and the ARTIQ system. The control electronics are one of the parts developed in Poland.')},
+ {n:L('Kalibracja','Calibration'),a:L('≈ autostrojenie','≈ auto-tuning'),
+  w:L('Codziennie mierzy i poprawia ustawienia: częstotliwości laserów, napięcia, długości impulsów.','Measures and fixes the settings every day: laser frequencies, voltages, pulse lengths.'),
+  an:L('Jak strojenie instrumentu przed koncertem — bez tego nawet najlepszy sprzęt fałszuje.','Like tuning an instrument before a concert — without it, even the best hardware plays out of tune.'),
+  d:L('Ustawienia dryfują przez temperaturę, drgania i starzenie się elementów. Procedury kalibracji to w praktyce zautomatyzowane eksperymenty z zapisem wyników.','Settings drift with temperature, vibration and ageing parts. Calibration routines are in practice automated experiments whose results are logged.')},
+ {n:L('Kompilator i symulator','Compiler and simulator'),a:L('≈ kompilator i emulator','≈ compiler and emulator'),
+  w:L('Zamienia program kwantowy na impulsy, które maszyna umie wykonać. Symulator sprawdza wynik na zwykłym komputerze.','Turns a quantum program into pulses the machine can run. A simulator checks the result on a normal computer.'),
+  an:L('Jak kompilator C → kod maszynowy, plus emulator do testów.','Like a C compiler → machine code, plus an emulator for testing.'),
+  d:L('Obwody z bramek (H, CNOT…) przepisuje się na bramki „natywne” pułapki: obroty jednego kubitu i bramkę dwukubitową przez wspólne drganie jonów. Oprogramowanie optymalizujące obliczenia to kolejna część tworzona w Polsce.','Gate circuits (H, CNOT…) are rewritten into the trap\'s “native” gates: single-qubit rotations and a two-qubit gate through the shared ion motion. Software for optimising the computations is another part made in Poland.')},
+ {n:L('Wspólny dostęp','Shared access'),a:L('≈ chmura / kolejka','≈ cloud / job queue'),
+  w:L('Pozwala wielu zespołom bezpiecznie wysyłać zadania do jednej maszyny.','Lets many teams safely send jobs to one machine.'),
+  an:L('Jak chmura obliczeniowa albo kolejka drukarki: logowanie, kolejka zadań, wyniki.','Like a cloud service or a printer queue: login, job queue, results.'),
+  d:L('Trzeba łączyć zadania użytkowników z oknami na kalibrację i pilnować, kto ma do czego dostęp. Pełna droga zadania i miejsce QKD — niżej, w części o stronie serwisowej.','Users\' jobs must be fitted around calibration windows, and access must be controlled. The full journey of a job, and where QKD fits, comes later in the serving section.')}
+];
+var ICONS=[
+ '<circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/><rect x="3" y="3" width="5" height="5" rx="1.5"/><rect x="16" y="3" width="5" height="5" rx="1.5"/><rect x="3" y="16" width="5" height="5" rx="1.5"/><rect x="16" y="16" width="5" height="5" rx="1.5"/>',
+ '<rect x="2" y="9" width="8" height="6" rx="1.2"/><path d="M10 12h11" stroke-dasharray="2.2 2"/><path d="M18 9l3 3-3 3"/>',
+ '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9h3.5M2.5 15h3.5M18 9h3.5M18 15h3.5"/><path d="M10 12h4"/>',
+ '<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/>',
+ '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/>',
+ '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.2c2.8.2 4.6 2.3 4.6 5"/>'
+];
+function icon(i){return '<span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+ICONS[i]+'</svg></span>'}
+var INTRO=L('Komputer kwantowy to stos warstw — jak zwykły komputer: od fizyki na dole do ludzi na górze. Zaczynamy od dołu.','A quantum computer is a stack of layers — like a normal computer: from physics at the bottom to people at the top. We start at the bottom.');
+(function(){
+  var st=$('#stack'),ss=$('#stackSteps'),h='';
+  BLOCKS.forEach(function(b,i){
+    var inner='<span class="num">0'+(i+1)+'</span>'+icon(i)+'<span><span class="nm">'+b.n+'</span><br><span class="an">'+b.a+'</span></span>';
+    if(i===0) h+='<div class="blk trap"><span class="inside"><span class="glow"></span></span><span class="door">'+inner+'</span></div>';
+    else h+='<div class="blk">'+inner+'</div>';
+  });
+  st.innerHTML=h;
+  var cards=BLOCKS.map(function(b,i){
+    return '<div class="step" data-step="'+i+'"><div class="card">'+(i===0?'<p class="small muted" style="margin-bottom:14px">'+INTRO+'</p>':'')+
+      '<span class="kicker">0'+(i+1)+' / 06</span><h3 class="cardh">'+icon(i)+'<span>'+b.n+'</span></h3><p>'+b.w+'</p>'+
+      '<p class="ana"><b>'+b.a+'</b> '+b.an+'</p><p class="small muted">'+b.d+'</p></div></div>'});
+  cards.push('<div class="step" data-step="6"><div class="card"><span class="kicker">↓</span><h3>'+L('Otwórzmy pułapkę','Let\'s open the trap')+'</h3><p>'+L('Wszystko nad nią istnieje po to, by pilnować kilku atomów. Zajrzyjmy do środka.','Everything above it exists to look after a few atoms. Let\'s look inside.')+'</p></div></div>');
+  ss.innerHTML=cards.join('');
+  var blks=$$('.blk',st);
+  scrolly($('#s-stack'),function(i){blks.forEach(function(b,k){b.classList.toggle('on',k<=Math.min(i,5));b.classList.toggle('cur',k===i)});blks[0].classList.toggle('open',i>=6)});
+})();
+
+/* ---------- dark mode for lab ---------- */
+new IntersectionObserver(function(es){document.body.classList.toggle('dark',es[0].isIntersecting)},{rootMargin:'-50% 0px -50% 0px'}).observe($('#lab'));
+
+/* ---------- 2.1 TRAP ---------- */
+(function(){
+  var c=$('#cvTrap'),ctx=setupCanvas(c,260),tt=0;
+  runWhenVisible(c,function(dt){tt+=dt;var W=c._w,H=c._h,cx=W/2,cy=H/2;ctx.clearRect(0,0,W,H);
+    var per=1.4,ph=Math.cos(2*Math.PI*tt/per),pos=ph>0,s=Math.min(W,H)*.3;
+    [[-1,-1,0],[1,1,0],[-1,1,1],[1,-1,1]].forEach(function(r){var plus=r[2]?!pos:pos,col=plus?'#ef4444':'#3b82f6';
+      ctx.beginPath();ctx.arc(cx+r[0]*s,cy+r[1]*s,s*.42,0,7);ctx.fillStyle=plus?'rgba(239,68,68,.15)':'rgba(59,130,246,.15)';ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=col;ctx.stroke();
+      ctx.fillStyle=col;ctx.font='600 22px Inter,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(plus?'+':'−',cx+r[0]*s,cy+r[1]*s)});
+    var ix=cx+7*Math.sin(tt*1.9)+3*ph,iy=cy+5*Math.sin(tt*1.3+1)-3*ph;
+    glowDot(ctx,ix,iy,6,'rgba(139,92,246,.9)');
+  });
+})();
+
+/* ---------- 2.2/2.3 LOAD + COOL ---------- */
+(function(){
+  var c=$('#cvLoad'),ctx=setupCanvas(c,240),atoms=[],ions=[],elec=[],loading=false,spawn=0,cool=false,T=1,tt=0;
+  var ph=[];for(var i=0;i<6;i++)ph.push([Math.random()*6,Math.random()*6,.8+Math.random(),1.1+Math.random()]);
+  function info(){$('#loadInfo').textContent=t('loaded',{n:ions.length})+' · '+(T<.2?t('cold'):t('hot'))}
+  langHooks.push(info);
+  $('#btnLoad').addEventListener('click',function(){ions=[];atoms=[];elec=[];loading=true;T=1;info()});
+  $('#btnCool').addEventListener('click',function(){cool=!cool;$('#btnCool').classList.toggle('on',cool)});
+  runWhenVisible(c,function(dt){tt+=dt;var W=c._w,H=c._h,cx=W*.6,cy=H/2,bx=W*.6;ctx.clearRect(0,0,W,H);
+    // oven
+    ctx.fillStyle='#1a1e2b';ctx.fillRect(4,cy-22,26,44);ctx.fillStyle='#f97316';ctx.fillRect(26,cy-10,4,20);
+    // electrodes
+    ctx.fillStyle='#202536';ctx.fillRect(cx-W*.3,cy-62,W*.6,10);ctx.fillRect(cx-W*.3,cy+52,W*.6,10);
+    // ionization beam
+    if(loading){var g=ctx.createLinearGradient(bx-8,0,bx+8,0);g.addColorStop(0,'rgba(99,102,241,0)');g.addColorStop(.5,'rgba(129,140,248,.45)');g.addColorStop(1,'rgba(99,102,241,0)');ctx.fillStyle=g;ctx.fillRect(bx-8,0,16,H);
+      ctx.fillStyle='#a5b4fc';ctx.font='11px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('423 + 375 nm',bx,14)}
+    // cooling beam
+    if(cool){ctx.fillStyle='rgba(139,92,246,.18)';ctx.fillRect(0,cy-5,W,10)}
+    // spawn atoms
+    if(loading&&ions.length<6){spawn-=dt;if(spawn<=0){spawn=.18;atoms.push({x:30,y:cy+(Math.random()-.5)*36,vx:140+Math.random()*90,vy:(Math.random()-.5)*30,tested:false})}}
+    if(loading&&ions.length>=6)loading=false;
+    atoms=atoms.filter(function(a){a.x+=a.vx*dt;a.y+=a.vy*dt;
+      if(!a.tested&&a.x>bx-3&&loading){a.tested=true;if(Math.random()<.32&&ions.length<6){ions.push({x:a.x,y:a.y});elec.push({x:a.x,y:a.y,vx:(Math.random()-.5)*160,vy:-120-Math.random()*80,l:1});info();return false}}
+      ctx.fillStyle='#6b7280';ctx.beginPath();ctx.arc(a.x,a.y,4,0,7);ctx.fill();ctx.fillStyle='#fde68a';ctx.beginPath();ctx.arc(a.x+6*Math.cos(tt*12+a.y),a.y+6*Math.sin(tt*12+a.y),1.5,0,7);ctx.fill();
+      return a.x<W+10});
+    elec=elec.filter(function(e){e.x+=e.vx*dt;e.y+=e.vy*dt;e.l-=dt;ctx.globalAlpha=Math.max(0,e.l);ctx.fillStyle='#fde68a';ctx.beginPath();ctx.arc(e.x,e.y,2.2,0,7);ctx.fill();ctx.globalAlpha=1;return e.l>0});
+    // temperature
+    var target=cool?.03:1;T+=(target-T)*Math.min(1,dt*(cool?1.1:.6));
+    var n=ions.length,sp=Math.min(40,W*.075),A=Math.min(55,W*.1);
+    ions.forEach(function(o,k){var p=ph[k],ex=cx+(k-(n-1)/2)*sp;
+      var tx=ex+T*A*(Math.sin(tt*p[2]*3+p[0])+.5*Math.sin(tt*p[3]*5+p[1])),ty=cy+T*A*.7*(Math.cos(tt*p[3]*3+p[1])+.4*Math.sin(tt*p[2]*7+p[0]))+(1-T)*.8*Math.sin(tt*20+k);
+      o.x+=(tx-o.x)*Math.min(1,dt*6);o.y+=(ty-o.y)*Math.min(1,dt*6);
+      if(cool) glowDot(ctx,o.x,o.y,5,'rgba(139,92,246,.95)');
+      else {glowDot(ctx,o.x,o.y,5,'rgba(56,189,248,.55)',.8)}
+    });
+    if(Math.random()<.02)info();
+  });
+  info();
+})();
+
+/* ---------- 2.4 ENERGY PANEL ---------- */
+(function(){
+  var S={th:0,d3:false,on397:false,on866:false,b:0,d:0,sup:0,leak:null,busy:false,missions:[0,0,0,0,0],lastMsg:null,lastMsgV:null,afterPi:false};
+  var P=function(){return Math.pow(Math.sin(S.th/2),2)};
+  var MS=['ms1','ms2','ms3','ms4','ms5'];
+  function msg(k,v){S.lastMsg=k;S.lastMsgV=v;$('#epMsg').textContent=k?t(k,v):''}
+  function done(i){if(!S.missions[i]){S.missions[i]=1;renderMissions()}}
+  function renderMissions(){$('#missions').innerHTML=MS.map(function(k,i){return '<li class="'+(S.missions[i]?'done':'')+'">'+t(k)+'</li>'}).join('')}
+  function bright(){return S.on397&&!S.d3&&P()<.5}
+  function flash(id,btn){var a=$(id);a.classList.remove('flash');void a.getBBox();a.classList.add('flash');if(btn){btn.classList.remove('flash');void btn.offsetWidth;btn.classList.add('flash')}}
+  function measure(fromSup){var p=P();if(p>.001&&p<.999){S.th=Math.random()<p?Math.PI:0;if(fromSup!==false){S.sup++;if(S.th===0)S.b++;else S.d++;if(S.sup>=5)done(4)}msg('mMeasured')}else{S.th=p>.5?Math.PI:0}}
+  function schedLeak(){clearTimeout(S.leak);if(bright()&&!S.on866){S.leak=setTimeout(function(){if(bright()&&!S.on866){S.d3=true;done(1);msg('mLeak');update()}},1700)}}
+  function update(){
+    var p=P();
+    $('#eS').setAttribute('opacity',S.d3?0:(1-p).toFixed(2));
+    $('#eD5').setAttribute('opacity',S.d3?0:p.toFixed(2));
+    $('#eD3').setAttribute('opacity',S.d3?1:0);
+    $('#a397').classList.toggle('on',S.on397);$('#a866').classList.toggle('on',S.on866);
+    $('#b397').classList.toggle('on',S.on397);$('#b866').classList.toggle('on',S.on866);
+    var br=bright();$('#ionv').classList.toggle('bright',br);$('#lvP1').classList.toggle('glow',br);
+    if(br&&S.on866)done(0);
+    var st=S.d3?t('stD3'):(p<.01?t('st0'):(p>.99?t('st1'):t('stSup',{a:Math.round((1-p)*100),b:Math.round(p*100)})));
+    var rd=!S.on397?t('rOff'):(S.d3?t('rDarkD3'):(br?t('rBright'):t('rDark')));
+    $('#readout').innerHTML='<b>'+st+'</b>'+rd;
+    $('#tally').textContent=t('tally',{b:S.b,d:S.d});
+  }
+  // hopping electron during fluorescence
+  var hop=$('#eHop'),tt=0;
+  runWhenVisible($('#lvl'),function(dt){tt+=dt;if(bright()){hop.setAttribute('opacity',1);var k=Math.abs(Math.sin(tt*9));hop.setAttribute('cy',(280-218*k).toFixed(1))}else hop.setAttribute('opacity',0)});
+  $('#b397').addEventListener('click',function(){if(S.busy)return;S.on397=!S.on397;
+    if(S.on397){var wasSup=P()>.01&&P()<.99;measure(wasSup);if(!wasSup)msg(null);if(!S.d3&&P()>.5&&S.afterPi)done(2)}
+    schedLeak();update()});
+  $('#b866').addEventListener('click',function(){if(S.busy)return;S.on866=!S.on866;if(S.on866&&S.d3){S.d3=false;S.th=0;msg(null)}schedLeak();update()});
+  function pulse729(a,btn){if(S.busy)return;if(S.on397){msg('mBusy');return}if(S.d3){msg('mStuck');return}
+    flash('#a729',btn);S.th=(S.th+a)%(2*Math.PI);S.afterPi=Math.abs(P()-1)<.01;msg(P()>.01&&P()<.99?'mHalf':null);update()}
+  $('#b729h').addEventListener('click',function(){pulse729(Math.PI/2,this)});
+  $('#b729').addEventListener('click',function(){pulse729(Math.PI,this)});
+  $('#b854').addEventListener('click',function(){if(S.busy)return;if(S.d3){msg('mStuck');return}flash('#a854',this);
+    if(P()>.01){setTimeout(function(){flash('#aDec')},300);S.th=0;done(3);msg('mReset')}S.afterPi=false;update();schedLeak()});
+  $('#bAuto').addEventListener('click',function(){if(S.busy)return;S.busy=true;S.on397=false;S.on866=true;S.d3=false;S.th=0;update();var k=0;
+    (function step(){if(k>=20){S.busy=false;S.on397=false;update();return}k++;
+      S.on397=false;S.th=0;flash('#a854');update();
+      setTimeout(function(){flash('#a729');S.th=Math.PI/2;update();
+        setTimeout(function(){S.on397=true;measure(true);update();setTimeout(step,260)},180)},140)})()});
+  langHooks.push(function(){renderMissions();update();msg(S.lastMsg,S.lastMsgV)});
+  renderMissions();update();
+})();
+
+/* ---------- 2.5/2.6 BELL ---------- */
+(function(){
+  var c=$('#cvPair'),ctx=setupCanvas(c,150),amp=0,tt=0,lastRuns=null;
+  runWhenVisible(c,function(dt){tt+=dt;amp*=Math.pow(.35,dt);var W=c._w,H=c._h,cy=H/2,gap=Math.min(150,W*.32),off=amp*Math.sin(tt*7);
+    var x1=W/2-gap/2+off,x2=W/2+gap/2+off;
+    ctx.clearRect(0,0,W,H);ctx.strokeStyle='#4b5563';ctx.lineWidth=1.5;ctx.beginPath();var n=12;
+    for(var i=0;i<=n;i++){var x=x1+(x2-x1)*i/n,y=cy+(i%2?8:-8)*(i>0&&i<n?1:0);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();
+    glowDot(ctx,x1,cy,7,'rgba(56,189,248,.9)');glowDot(ctx,x2,cy,7,'rgba(56,189,248,.9)');
+    ctx.fillStyle='#9aa1b2';ctx.font='12px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('q0',x1,cy+34);ctx.fillText('q1',x2,cy+34);
+  });
+  function shots(n){var r=[];for(var i=0;i<n;i++){var s=Math.random()<.97?(Math.random()<.5?'00':'11'):(Math.random()<.5?'01':'10');r.push(s)}return r}
+  function show(rs){var cnt={'00':0,'01':0,'10':0,'11':0};rs.forEach(function(s){cnt[s]++});var keys=['00','01','10','11'],mx=Math.max.apply(null,keys.map(function(k){return cnt[k]}));
+    $$('#hist .bar').forEach(function(b,i){b.style.height=(100*cnt[keys[i]]/Math.max(1,mx))+'%';b.firstChild.textContent=cnt[keys[i]]});
+    var fr='';rs.slice(0,12).forEach(function(s){fr+='<div class="frame'+(s[0]!==s[1]?' bad':'')+'"><i class="'+(s[0]==='0'?'b':'')+'"></i><i class="'+(s[1]==='0'?'b':'')+'"></i></div>'});$('#frames').innerHTML=fr;
+    lastRuns=rs;cap()}
+  function cap(){if(!lastRuns){$('#histCap').textContent='';return}var m=lastRuns.filter(function(s){return s[0]===s[1]}).length;$('#histCap').textContent=t('hist',{n:lastRuns.length,m:Math.round(100*m/lastRuns.length)})}
+  langHooks.push(cap);
+  $('#bRun').addEventListener('click',function(){amp=22;show(shots(100))});
+  var fr='';for(var i=0;i<12;i++)fr+='<div class="frame"><i></i><i></i></div>';$('#frames').innerHTML=fr;
+})();
+
+/* ---------- 2.7 FIDELITY ---------- */
+(function(){
+  function nOf(v){return Math.max(1,Math.round(Math.pow(10,v*3/100)))}
+  function upd(){var f=+$('#fSl').value/1000,n=nOf(+$('#nSl').value),p=Math.pow(f,n);
+    $('#fVal').textContent=(f*100).toFixed(1)+'%';$('#nVal').textContent=n;
+    $('#pOut').textContent=(p*100<1?(p*100).toFixed(2):(p*100).toFixed(0))+'%';$('#pBar').style.width=(p*100)+'%'}
+  $('#fSl').addEventListener('input',upd);$('#nSl').addEventListener('input',upd);upd();
+})();
+
+/* ---------- 3. DRIFT ---------- */
+(function(){
+  var svg=$('#drift'),N=150,data=[],marks=[],v=0,drift=.012,cal=0,acc=0;
+  for(var i=0;i<N;i++)data.push(0);
+  var X0=40,X1=590,Y=function(val){return 110-val*55};
+  function draw(){var pts=data.map(function(d,i){return (X0+(X1-X0)*i/(N-1)).toFixed(1)+','+Y(d).toFixed(1)}).join(' ');
+    var s='<rect x="'+X0+'" y="'+Y(1)+'" width="'+(X1-X0)+'" height="'+(Y(-1)-Y(1))+'" fill="rgba(34,197,94,.08)"/>';
+    s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+Y(1)+'" y2="'+Y(1)+'" stroke="#22c55e" stroke-dasharray="4 4"/><line x1="'+X0+'" x2="'+X1+'" y1="'+Y(-1)+'" y2="'+Y(-1)+'" stroke="#22c55e" stroke-dasharray="4 4"/>';
+    s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+Y(0)+'" y2="'+Y(0)+'" stroke="#c7cbd4"/>';
+    marks.forEach(function(m){var x=X0+(X1-X0)*m/(N-1);s+='<line x1="'+x+'" x2="'+x+'" y1="18" y2="202" stroke="#8b5cf6" stroke-dasharray="3 3"/><text x="'+(x+4)+'" y="28" font-size="11" fill="#8b5cf6" font-family="JetBrains Mono,monospace">'+t('driftCal')+'</text>'});
+    s+='<polyline points="'+pts+'" fill="none" stroke="#14161b" stroke-width="2" stroke-linejoin="round"/>';
+    s+='<text x="'+(X0+6)+'" y="'+(Y(1)+14)+'" font-size="11" fill="#16a34a" font-family="Inter,sans-serif">'+t('driftBand')+'</text>';
+    s+='<text x="12" y="110" font-size="11" fill="#5b6170" font-family="Inter,sans-serif" transform="rotate(-90 12 110)" text-anchor="middle">'+t('driftY')+'</text>';
+    svg.innerHTML=s;$('#calCount').textContent=t('calCount',{n:cal})}
+  function recal(){v=(Math.random()-.5)*.15;drift=(Math.random()<.5?-1:1)*(.008+Math.random()*.012);marks.push(N-1);cal++}
+  $('#bCal').addEventListener('click',function(){recal();draw()});
+  runWhenVisible(svg,function(dt){acc+=dt;if(acc<.08)return;acc=0;
+    v+=drift+(Math.random()-.5)*.06;if(Math.abs(v)>1.15)recal();
+    data.push(v);data.shift();marks=marks.map(function(m){return m-1}).filter(function(m){return m>=0});draw()});
+  langHooks.push(draw);draw();
+})();
+
+/* ---------- 3. JOURNEY ---------- */
+(function(){
+  var IC={
+   pc:'<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
+   lock:'<rect x="6" y="11" width="12" height="9" rx="2"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/>',
+   id:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/>',
+   q:'<path d="M4 7h16M4 12h16M4 17h10"/>',
+   cmp:'<path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/>',
+   chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9h3.5M2.5 15h3.5M18 9h3.5M18 15h3.5"/>',
+   trap:'<circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/><rect x="3" y="3" width="5" height="5" rx="1.5"/><rect x="16" y="3" width="5" height="5" rx="1.5"/><rect x="3" y="16" width="5" height="5" rx="1.5"/><rect x="16" y="16" width="5" height="5" rx="1.5"/>',
+   log:'<path d="M5 20V10M10 20V4M15 20v-7M20 20v-11"/>'};
+  var J=[
+   {i:'pc',l:L('Badacz','Researcher'),h:L('Badacz pisze program','A researcher writes a program'),
+    p:L('Obwód z bramek, np. w Pythonie: „zrób stan Bella i zmierz go 1000 razy”. Program nie zna szczegółów laserów — opisuje tylko, co policzyć.','A gate circuit, e.g. in Python: “make a Bell state and measure it 1,000 times”. The program knows nothing about lasers — it only says what to compute.'),
+    s:L('kod i dane zostają u badacza, dopóki nie zostaną zaszyfrowane','code and data stay with the researcher until they are encrypted')},
+   {i:'lock',lk:1,l:L('Szyfrowany kanał','Encrypted link'),h:L('Zadanie jedzie zaszyfrowanym kanałem','The job travels over an encrypted link'),
+    p:L('Jak przelew w banku: w tunelu TLS. Klucz do tunelu ustala się dziś matematyką, w przyszłości także algorytmami postkwantowymi albo kluczem z QKD (niżej).','Like a bank transfer: inside a TLS tunnel. Today the tunnel key is agreed with maths; in future also with post-quantum algorithms or a QKD key (below).'),
+    s:L('poufność i integralność: nikt nie przeczyta ani nie zmieni zadania po drodze','confidentiality and integrity: no one can read or change the job on the way')},
+   {i:'id',l:L('Logowanie','Login'),h:L('Kto to jest i co mu wolno','Who is this, and what may they do'),
+    p:L('Hasło plus drugi składnik. Potem uprawnienia: czy może wysyłać zadania, ile czasu maszyny dostaje, czyje wyniki może oglądać.','A password plus a second factor. Then permissions: may they submit jobs, how much machine time do they get, whose results may they see.'),
+    s:L('zasada minimalnych uprawnień','least privilege')},
+   {i:'q',l:L('Kolejka','Queue'),h:L('Kolejka i harmonogram','Queue and scheduler'),
+    p:L('Bramka sprawdza zadanie (czy jest poprawne i nie za duże) i ustawia je w kolejce. Harmonogram wplata zadania między okna kalibracji i uczciwie dzieli czas między zespoły.','The gateway checks the job (valid, not too big) and queues it. The scheduler fits jobs between calibration windows and shares time fairly between teams.'),
+    s:L('walidacja wejścia i limity','input validation and quotas')},
+   {i:'cmp',l:L('Kompilator','Compiler'),h:L('Kompilator: bramki → impulsy','Compiler: gates → pulses'),
+    p:L('Tłumaczy obwód na bramki natywne pułapki, a potem na sekwencję impulsów laserowych — z wartościami z ostatniej kalibracji.','Translates the circuit into the trap\'s native gates, then into a sequence of laser pulses — using values from the latest calibration.'),
+    s:L('wersjonowanie: wiadomo, z którą kalibracją policzono wynik','versioning: we know which calibration produced the result')},
+   {i:'chip',l:L('Sterowanie','Control'),h:L('Sterowanie w czasie rzeczywistym','Real-time control'),
+    p:L('Sprzęt sterujący odtwarza impulsy z dokładnością do nanosekund. Działa w osobnej, zamkniętej sieci — bez dostępu z internetu.','The control hardware plays the pulses with nanosecond precision. It runs on a separate, closed network — no access from the internet.'),
+    s:L('segmentacja sieci','network segmentation')},
+   {i:'trap',l:L('Pułapka','Trap'),h:L('Pułapka liczy','The trap computes'),
+    p:L('Ten sam obwód powtarza się setki razy, bo każdy pomiar daje losowy wynik. Kamera liczy jasne i ciemne jony.','The same circuit repeats hundreds of times, because each measurement gives a random result. The camera counts bright and dark ions.'),
+    s:L('izolacja: w danej chwili maszyna liczy zadanie jednego użytkownika','isolation: at any moment the machine runs one user\'s job')},
+   {i:'log',l:L('Wyniki','Results'),h:L('Wyniki wracają, wszystko zapisane','Results return, everything is logged'),
+    p:L('Histogram wraca tym samym szyfrowanym kanałem. Każdy krok zostaje w dzienniku: kto, co, kiedy i na jakiej kalibracji.','The histogram returns over the same encrypted link. Every step goes into a log: who, what, when, and with which calibration.'),
+    s:L('ślad audytowy','audit trail')}
+  ];
+  var box=$('#journey'),cur=0,playing=false,timer=0;
+  J.forEach(function(j,i){var b=document.createElement('button');b.className='jn'+(j.lk?' lockn':'');b.dataset.i=i;
+    b.innerHTML='<span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+IC[j.i]+'</svg></span><span class="lb">'+j.l+'</span>';
+    b.addEventListener('click',function(){stop();go(i)});box.appendChild(b)});
+  var nodes=$$('.jn',box);
+  function go(i){cur=i;nodes.forEach(function(n,k){n.classList.toggle('cur',k===i);n.classList.toggle('done',k<i)});
+    $('#jfill').style.width=(100*i/(J.length-1))+'%';var j=J[i];
+    $('#jcap').innerHTML='<span class="n">0'+(i+1)+' / 0'+J.length+'</span><h4>'+j.h+'</h4><p>'+j.p+'</p><span class="sec"><b>'+t('jSec')+'</b>'+j.s+'</span>';btn()}
+  function btn(){$('#jPlay').textContent=playing?t('jPause'):(cur===J.length-1?t('jAgain'):t('jPlay'))}
+  function stop(){playing=false;clearTimeout(timer);btn()}
+  function tick(){if(!playing)return;if(cur>=J.length-1){stop();return}go(cur+1);timer=setTimeout(tick,4200)}
+  $('#jPlay').addEventListener('click',function(){if(playing){stop();return}playing=true;if(cur===J.length-1)go(0);btn();timer=setTimeout(tick,3200)});
+  $('#jPrev').addEventListener('click',function(){stop();go(Math.max(0,cur-1))});
+  $('#jNext').addEventListener('click',function(){stop();go(Math.min(J.length-1,cur+1))});
+  langHooks.push(function(){go(cur)});go(0);
+})();
+
+/* ---------- 3. BB84 ---------- */
+(function(){
+  var S={eve:false,cols:[],n:0,k:0,e:0},grid=$('#bbgrid');
+  function rb(){return Math.random()<.5?1:0}
+  function cols(){return window.innerWidth<560?8:12}
+  function shot(){var a=rb(),ab=rb(),pb=ab,pv=a,eb=null;
+    if(S.eve){eb=rb();pv=(eb===pb)?pv:rb();pb=eb}
+    var bbs=rb(),bv=(bbs===pb)?pv:rb();if(Math.random()<.015)bv^=1;
+    var kept=bbs===ab,err=kept&&bv!==a;S.n++;if(kept){S.k++;if(err)S.e++}
+    return {a:a,ab:ab,eb:eb,bb:bbs,kept:kept,err:err}}
+  function pol(c){var ang=(c.ab?45:0)+(c.a?90:0);return '<svg width="22" height="22" viewBox="-11 -11 22 22"><circle r="9" fill="rgba(139,92,246,.12)"/><line x1="-7" y1="0" x2="7" y2="0" stroke="#8b5cf6" stroke-width="2.4" stroke-linecap="round" transform="rotate('+(-ang)+')"/></svg>'}
+  var B=['+','×'];
+  function render(fresh){var n=cols(),cs=S.cols.slice(-n);grid.style.setProperty('--n',n);
+    var h='<span class="rl">'+t('bbA')+'</span>';cs.forEach(function(c,i){h+='<span class="'+(fresh&&i===cs.length-1?'new':'')+'">'+B[c.ab]+c.a+'</span>'});
+    h+='<span class="rl">'+t('bbP')+'</span>';cs.forEach(function(c){h+='<span class="ph">'+pol(c)+'</span>'});
+    if(S.eve){h+='<span class="rl">'+t('bbE')+'</span>';cs.forEach(function(c){h+='<span class="ev">'+(c.eb==null?'':B[c.eb])+'</span>'})}
+    h+='<span class="rl">'+t('bbB')+'</span>';cs.forEach(function(c){h+='<span>'+B[c.bb]+'</span>'});
+    h+='<span class="rl">'+t('bbR')+'</span>';cs.forEach(function(c){h+='<span class="'+(!c.kept?'drop':(c.err?'bad':'ok'))+'">'+(!c.kept?'·':(c.err?'✗':'✓'))+'</span>'});
+    grid.innerHTML=h;stat()}
+  function stat(){var q=S.k?100*S.e/S.k:0;$('#bbStat').textContent=t('bbStat',{n:S.n,k:S.k,e:S.e,q:q.toFixed(1)});
+    var bar=$('#bbBar');bar.style.width=Math.min(100,q/30*100)+'%';bar.style.background=q>11?'#dc2626':'#16a34a';
+    $('#bbVerdict').textContent=S.k<40?t('bbWait'):(q>11?t('bbBad'):t('bbOk'));$('#bbVerdict').style.color=S.k<40?'':(q>11?'#dc2626':'#16a34a');
+    $('#bbEve').textContent=S.eve?t('bbEveOn'):t('bbEveOff');$('#bbEve').classList.toggle('solid',S.eve)}
+  function reset(){S.cols=[];S.n=S.k=S.e=0}
+  $('#bbEve').addEventListener('click',function(){S.eve=!S.eve;reset();render()});
+  $('#bbFast').addEventListener('click',function(){for(var i=0;i<1000;i++){var c=shot();if(i>=985)S.cols.push(c)}S.cols=S.cols.slice(-24);render()});
+  var acc=0;runWhenVisible(grid,function(dt){acc+=dt;if(acc<.45)return;acc=0;S.cols.push(shot());if(S.cols.length>24)S.cols.shift();render(true)});
+  langHooks.push(function(){render()});render();
+})();
+
+/* ---------- 4. SKILLS ---------- */
+(function(){
+  var S=[
+   [L('Ultrawysoka próżnia','Ultra-high vacuum'),L('Jak budować komory, w których prawie nie ma powietrza.','How to build chambers with almost no air inside.'),L('Jedna cząstka gazu może wybić jon z pułapki. Szczelność musi być ekstremalna.','A single gas particle can knock an ion out. Sealing must be extreme.')],
+   [L('Stabilizacja laserów','Laser stabilisation'),L('Jak utrzymać kolor światła z ogromną precyzją.','How to hold the colour of light with huge precision.'),L('Laser 729 musi trafić w bardzo wąską linię atomu. Drobna zmiana temperatury go rozstraja.','The 729 laser must hit a very narrow atomic line. A tiny temperature change detunes it.')],
+   [L('Optyka i światłowody','Optics and fibres'),L('Jak prowadzić i skupiać wiązki na pojedynczym jonie.','How to guide and focus beams onto a single ion.'),L('Jony są kilka mikrometrów od siebie. Wiązka musi trafić w jeden, nie w sąsiada.','Ions are a few micrometres apart. A beam must hit one, not its neighbour.')],
+   [L('Elektronika i czas w nanosekundach','Electronics and nanosecond timing'),L('Jak sterować dziesiątkami kanałów naraz, w idealnym rytmie.','How to drive dozens of channels at once, in perfect rhythm.'),L('Impuls o kilka nanosekund za długi to już inna operacja na kubicie.','A pulse a few nanoseconds too long is already a different qubit operation.')],
+   [L('Oprogramowanie kalibracji','Calibration software'),L('Jak automatyzować pomiary i decyzje „czy trzeba stroić”.','How to automate measurements and “do we need to retune” decisions.'),L('Dziesiątki parametrów zależą od siebie. Trzeba wiedzieć, co stroić najpierw.','Dozens of parameters depend on each other. You must know what to tune first.')],
+   [L('Kompilator i symulator','Compiler and simulator'),L('Jak tłumaczyć programy kwantowe na impulsy i testować je.','How to translate quantum programs into pulses and test them.'),L('Symulacja rośnie wykładniczo z liczbą kubitów — szybko kończy się pamięć.','Simulation grows exponentially with qubit count — memory runs out fast.')],
+   [L('Bezpieczny dostęp wielu użytkowników','Secure multi-user access'),L('Jak dzielić unikalną maszynę między wiele zespołów.','How to share a unique machine between many teams.'),L('Zadania, kalibracje i uprawnienia muszą się zgrać, bez psucia sobie nawzajem wyników.','Jobs, calibrations and permissions must fit together without spoiling each other\'s results.')],
+   [L('Współpraca wielu instytucji','Getting institutions to build together'),L('Jak kilka uczelni i firm buduje jedną maszynę.','How several universities and companies build one machine.'),L('Różne kultury pracy, zasady i terminy — a sprzęt musi zadziałać jako całość.','Different working cultures, rules and deadlines — yet the hardware must work as one.')]
+  ];
+  $('#skills').innerHTML=S.map(function(s,i){return '<div class="skill"><div class="ic">0'+(i+1)+'</div><h4>'+s[0]+'</h4><div class="k">'+L('Czego się uczysz','What you learn')+'</div><p>'+s[1]+'</p><div class="k">'+L('Dlaczego to trudne','Why it\'s hard')+'</div><p>'+s[2]+'</p></div>'}).join('');
+})();
+
+applyLang();
+})();
+</script>
+</body>
+</html>
