@@ -40,6 +40,11 @@ const CDN = {
 const esc = (s) =>
   String(s ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+// Optional privacy-friendly visit counter (no cookies): set "goatcounter": "<code>"
+// in site.json; stats are then at https://<code>.goatcounter.com
+const counterTag = site.goatcounter
+  ? `<script data-goatcounter="https://${site.goatcounter}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>\n`
+  : "";
 const svgIcon = (svg) => (svg ? `<link rel="icon" href="${esc(`data:image/svg+xml,${encodeURIComponent(svg)}`)}">\n` : "");
 
 // Shared <head> tags for link previews. LinkedIn wants 1200×627 PNG/JPG.
@@ -107,7 +112,7 @@ ${svgIcon(cfg.faviconSvg)}${previewTags({
     image: `${url}preview.png`,
     imageAlt: cfg.imageAlt,
     locale: cfg.locale,
-  })}`;
+  })}${counterTag}`;
   const html = src.replace("<!-- site-head -->", () => head);
   fs.mkdirSync(path.join(ROOT, demo), { recursive: true });
   fs.writeFileSync(path.join(ROOT, demo, "index.html"), html);
@@ -201,7 +206,7 @@ ${fontTags}<style>
   .boot-msg { max-width: 30rem; }
   .boot a { color: ${link}; }
 </style>
-</head>
+${counterTag}</head>
 <body>
 <div id="root"><div class="boot">Loading…</div></div>
 <noscript><div class="boot"><div class="boot-msg">This demo needs JavaScript.</div></div></noscript>
@@ -316,7 +321,7 @@ ${previewTags({
   }
   @media (prefers-reduced-motion: reduce) { .item { transition: none; } .item:hover { transform: none; } }
 </style>
-</head>
+${counterTag}</head>
 <body>
   <div class="wrap">
     <header>

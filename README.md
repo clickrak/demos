@@ -65,3 +65,7 @@ LinkedIn builds the post card from the `og:` tags in each page. Those tags need 
 2. Run `python3 src/extended-lines/analyse.py /folder/with/originals --debug`
    (needs `pip install opencv-python-headless numpy`; `--debug` writes `/tmp/el_dbg_<id>.png` showing the lines found).
 3. Optionally give it an artist preset in `PRESETS` in `app.jsx`, then build as usual.
+
+## Visit statistics
+
+Every page loads a small [GoatCounter](https://www.goatcounter.com) script (no cookies, no personal data). The code is set in `site.json` (`"goatcounter": "clickrak"`); stats are at https://clickrak.goatcounter.com. Remove that line and rebuild to turn it off.
