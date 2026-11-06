@@ -14,6 +14,7 @@ const KIND = {
 const LEVEL = { 1: '🟢 łatwy, dla maluchów', 2: '🟡 średni', 3: '🔴 duża wyprawa' };
 const TASKS = {
   w1: 'Policz kaczki na stawie, a potem znajdź wejście do szkoły.',
+  wbus: 'Znajdź przystanek, kup bilet z dorosłym i policz, ile przystanków jedzie autobus 248. Pomachaj kierowcy!',
   w2: 'Na każdej z trzech ulic znajdź tabliczkę z nazwą i zrób jej zdjęcie.',
   w3: 'Policz przystanki autobusu 248, które miniesz po drodze.',
   w4: 'Przy źródle Będkówki zrób zdjęcie i wypatruj skałek na horyzoncie.',
@@ -39,7 +40,7 @@ export async function createHike({ canvas, ui, toast, onKicker }) {
     jp2: prep(data.jp2), bus: prep(data.bus?.lines || []),
     trails: data.trails.map(t => ({ ...t, lines: prep(t.lines) })),
   };
-  const walks = data.walks.map((w, i) => ({ ...w, n: i + 1, ...prep([w.line])[0] }));
+  const walks = data.walks.map((w, i) => ({ ...w, n: i + 1, legs: w.legs || [['walk', w.line]], ...prep([w.line])[0] }));
   const rocks = data.pois.filter(p => p[0] === 'rock');
   const pois = data.pois.filter(p => p[0] !== 'rock' && KIND[p[0]]);
   // one school marker (kindergarten and school share the buildings)
@@ -208,7 +209,7 @@ export async function createHike({ canvas, ui, toast, onKicker }) {
       sel.points.forEach(([nm, x, y], i) => {
         const last = i === sel.points.length - 1;
         if (last && i > 0 && Math.hypot(x - sel.points[0][1], y - sel.points[0][2]) < 40) return;
-        const [px, py] = P(x, y); if (onScreen(px, py)) label(nm + (i === 0 && sel.points.length > 2 && Math.hypot(x - sel.points.at(-1)[1], y - sel.points.at(-1)[2]) < 40 ? ' (start i meta)' : ''), px, py, { px: 13, force: true, dy: 24, color: col.text });
+        const [px, py] = P(x, y); if (onScreen(px, py)) label(nm + (i === 0 && sel.points.length > 2 && Math.hypot(x - sel.points.at(-1)[1], y - sel.points.at(-1)[2]) < 40 ? ' (start i meta)' : ''), px, py, { px: 13, force: i === 0, dy: 24, color: col.text });
       });
     }
 
@@ -262,9 +263,14 @@ export async function createHike({ canvas, ui, toast, onKicker }) {
 
   function drawWalk(w, b) {
     const s = view.s, p = w.p;
-    ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (let i = 2; i < p.length; i += 2) ctx.lineTo(p[i], p[i + 1]);
-    ctx.setLineDash([]); ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 9 / s; ctx.stroke();
-    ctx.strokeStyle = w.mode === 'bike' ? '#e8461a' : '#ff6a1a'; ctx.lineWidth = 5 / s; ctx.stroke();
+    ctx.setLineDash([]);
+    for (const [kind, f] of w.legs) {
+      ctx.beginPath(); ctx.moveTo(f[0], f[1]); for (let i = 2; i < f.length; i += 2) ctx.lineTo(f[i], f[i + 1]);
+      ctx.setLineDash([]); ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 9 / s; ctx.stroke();
+      ctx.strokeStyle = kind === 'bus' ? '#2f6fd6' : w.mode === 'bike' ? '#e8461a' : '#ff6a1a'; ctx.lineWidth = 5 / s;
+      ctx.setLineDash(kind === 'bus' ? [9 / s, 6 / s] : []); ctx.stroke();
+    }
+    ctx.setLineDash([]);
     // little arrows show the direction
     const every = Math.max(220, 110 / s); let acc = every / 2;
     for (let i = 0; i < p.length - 2; i += 2) {
@@ -341,41 +347,43 @@ export async function createHike({ canvas, ui, toast, onKicker }) {
     const pts = pr.map((h, i) => `${(i / n * 300).toFixed(1)},${(38 - (h - lo) / ((hi - lo) || 1) * 32).toFixed(1)}`);
     return `<svg viewBox="0 0 300 44" preserveAspectRatio="none" role="img" aria-label="Profil wysokości trasy"><polygon points="0,44 ${pts.join(' ')} 300,44" fill="#9cc49055"/><polyline points="${pts.join(' ')}" fill="none" stroke="#9cc490" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><div class="pr"><span>najniżej ${lo} m</span><span>najwyżej ${hi} m n.p.m.</span></div>`;
   }
-  function select(id) {
+  const infoBtn = ui.querySelector('#wkinfo');
+  function select(id, info) {
     sel = id ? walks.find(w => w.id === id) : null;
     walksBar.querySelectorAll('.wk').forEach(b => b.setAttribute('aria-pressed', b.dataset.w === id));
-    if (!sel) { panel.hidden = true; ui.classList.remove('has-panel'); goTo(FOCUS[0], FOCUS[1], defaultScale()); invalidate(); return; }
-    const w = sel;
-    const todo = w.id === 'w2' && !data.restaurant ? '<p class="note">🍴 Restauracji na końcu trasy jeszcze nie ma na mapie. Powiedz, którą wybrać.</p>' : '';
+    closeInfo();
+    infoBtn.hidden = !sel;
+    if (!sel) { goTo(FOCUS[0], FOCUS[1], defaultScale()); invalidate(); return; }
+    walksBar.querySelector(`[data-w="${id}"]`)?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+    fitWalk(sel);
+    if (info) openInfo();
+  }
+  function closeInfo() { panel.hidden = true; ui.classList.remove('has-panel'); }
+  function openInfo() {
+    const w = sel; if (!w) return;
+    const todo = w.points.some(p => p[3] === 'food' && /Pizzeria Matrix/.test(p[0])) ? '<p class="note">🍴 Restaurację na końcu wybrałem orientacyjnie (najbliższa w OpenStreetMap). Powiedz, którą wybrać.</p>' : '';
     const approx = w.points.some(p => p[0] === 'Brama Będkowska') ? '<p class="note">📍 Brama Będkowska jest zaznaczona orientacyjnie.</p>' : '';
     panel.innerHTML = `
       <div class="wp-top"><div class="ico">${w.icon}</div><div><div class="kicker">Spacer ${w.n} · ${LEVEL[w.level]}</div><h3>${w.title}</h3></div><button class="x" aria-label="Zamknij" id="wpx">×</button></div>
-      <div class="stats"><b>${w.mode === 'bike' ? '🚲' : '🥾'} ${fmtKm(w.km)}</b><b>⏱ ${fmtMin(w.min)}</b><b>⬆ ${w.up} m</b><button class="tg" id="wptg" aria-expanded="false">Szczegóły ▾</button></div>
-      <div class="more">
-        ${profileSvg(w)}
-        <p>${w.sub}</p>
-        <ol class="stops">${w.points.map(p => `<li>${p[0]}</li>`).join('')}</ol>
-        <div class="task"><span>Zadanie po drodze</span>${TASKS[w.id]}</div>
-        ${w.bus ? `<p class="note">🚌 ${w.bus}</p>` : ''}${w.back ? `<p class="note">↩ ${w.back}</p>` : ''}${todo}${approx}
-        <p class="fine">Dłuższe trasy tylko z dorosłym. Weź wodę, sprawdź pogodę i godzinę ostatniego autobusu.</p>
-      </div>
-      <div class="row"><button class="nav" id="wprev" aria-label="Poprzedni spacer">‹</button><button class="go" id="wpgo">Pokaż całą trasę</button><button class="nav" id="wnext" aria-label="Następny spacer">›</button></div>`;
-    panel.classList.toggle('open', innerWidth >= 900 && innerHeight >= 760);
-    const tg = panel.querySelector('#wptg'), sync = () => { const o = panel.classList.contains('open'); tg.textContent = o ? 'Mniej ▴' : 'Szczegóły ▾'; tg.setAttribute('aria-expanded', o); };
-    tg.onclick = () => { panel.classList.toggle('open'); sync(); panel.scrollTop = 0; };
-    sync();
-    panel.hidden = false; ui.classList.add('has-panel'); panel.scrollTop = 0;
-    panel.querySelector('#wpx').onclick = () => select(null);
-    panel.querySelector('#wprev').onclick = () => select(walks[(walks.indexOf(w) + walks.length - 1) % walks.length].id);
-    panel.querySelector('#wnext').onclick = () => select(walks[(walks.indexOf(w) + 1) % walks.length].id);
-    panel.querySelector('#wpgo').onclick = () => fitWalk(w);
-    fitWalk(w);
-    walksBar.querySelector(`[data-w="${id}"]`)?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      <div class="stats"><b>${w.mode === 'bike' ? '🚲' : '🥾'} ${fmtKm(w.km)}</b><b>⏱ ${fmtMin(w.min)}</b><b>⬆ ${w.up} m</b></div>
+      ${profileSvg(w)}
+      <p>${w.sub}</p>
+      <ol class="stops">${w.points.map(p => `<li>${p[0]}</li>`).join('')}</ol>
+      <div class="task"><span>Zadanie po drodze</span>${TASKS[w.id] || ''}</div>
+      ${w.bus ? `<p class="note">🚌 ${w.bus}</p>` : ''}${w.back ? `<p class="note">↩ ${w.back}</p>` : ''}${todo}${approx}
+      <p class="fine">Dłuższe trasy tylko z dorosłym. Weź wodę, sprawdź pogodę i godzinę ostatniego autobusu.</p>
+      <div class="row"><button class="nav" id="wprev" aria-label="Poprzedni spacer">‹</button><button class="go" id="wpgo">Wróć do mapy</button><button class="nav" id="wnext" aria-label="Następny spacer">›</button></div>`;
+    panel.classList.add('open'); panel.hidden = false; ui.classList.add('has-panel'); panel.scrollTop = 0;
+    const idx = walks.indexOf(w);
+    panel.querySelector('#wpx').onclick = closeInfo;
+    panel.querySelector('#wpgo').onclick = closeInfo;
+    panel.querySelector('#wprev').onclick = () => select(walks[(idx + walks.length - 1) % walks.length].id, true);
+    panel.querySelector('#wnext').onclick = () => select(walks[(idx + 1) % walks.length].id, true);
   }
+  infoBtn.onclick = () => (panel.hidden ? openInfo() : closeInfo());
   function fitWalk(w) {
-    const wide = innerWidth >= 900, bar = (walksBar.offsetHeight || 60) + 22;
-    if (wide) fitBox(w.x0, w.y0, w.x1, w.y1, bar, ui.classList.contains('has-panel') ? 420 : 0);
-    else fitBox(w.x0, w.y0, w.x1, w.y1, ui.classList.contains('has-panel') ? Math.min(panel.offsetHeight || 0, H * 0.5) + bar : bar);
+    const bar = (walksBar.offsetHeight || 60) + 22;
+    fitBox(w.x0, w.y0, w.x1, w.y1, bar);
   }
   const defaultScale = () => clamp(W / 2300, minS(), 0.5);
 

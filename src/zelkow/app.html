@@ -147,6 +147,10 @@ body.hike header::before{background:linear-gradient(var(--sky-top) 40%,transpare
 .hscale i{display:block;height:6px;border:2px solid var(--ink);border-top:0}
 .walks{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:8px;padding:0 0 max(10px,env(safe-area-inset-bottom));pointer-events:none}
 .walks>*{pointer-events:auto}
+.wk-wrap{display:flex;align-items:center;gap:6px;padding-right:12px}
+.wk-wrap .wk-bar{flex:1;min-width:0}
+.wkinfo{flex:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--sun);color:#2a2410;font:inherit;font-weight:900;font-size:22px;cursor:pointer;box-shadow:0 6px 14px -8px #000a}
+.wkinfo[hidden]{display:none}
 .wk-bar{display:flex;gap:8px;overflow-x:auto;padding:4px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .wk-bar::-webkit-scrollbar{display:none}
 .wk{flex:none;display:flex;gap:8px;align-items:center;text-align:left;border:2px solid var(--forest);background:var(--chip);color:var(--ink);border-radius:18px;
@@ -238,7 +242,7 @@ body:has(#hui.has-panel) .dock,body:has(#hui.has-panel) .hscale{display:none}
   <div class="hscale" id="hscale"></div>
   <section class="walks" aria-label="Spacery">
     <div class="wp" id="wp" hidden></div>
-    <div class="wk-bar" id="wkbar"></div>
+    <div class="wk-wrap"><div class="wk-bar" id="wkbar"></div><button class="wkinfo" id="wkinfo" hidden aria-label="Więcej o tym spacerze">?</button></div>
   </section>
 </div>
 

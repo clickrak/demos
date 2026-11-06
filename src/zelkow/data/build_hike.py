@@ -508,16 +508,22 @@ WIERZ = NODE(1357805915)                   # Jaskinia Wierzchowska Górna
 BRZEZ = NODE(31902659)                     # Brzezinka
 ZABIE = NODE(1710473689)                   # Zabierzów Rynek (bus 248 back to Zelków)
 TERM = NODE(4998127823)                    # Zelków Pętla (bus 248 terminus)
+STAW_BUS = NODE(3289610677)                # przystanek Zelków Staw (248 towards Kraków)
 
 WALKS = [
     {'id': 'w1', 'mode': 0, 'level': 1, 'icon': '🧒',
      'title': 'Szkoła – staw', 'sub': 'Dla najmłodszych: krótki spacer do stawu i z powrotem',
      'points': [('Szkoła i przedszkole', SCHOOL, 'school'), ('Staw', POND, 'pond')],
      'back': 'Wracasz tą samą drogą.'},
+    {'id': 'wbus', 'mode': 0, 'level': 1, 'icon': '🚌',
+     'title': 'Lekcja autobusu', 'sub': 'Dla maluchów: szkoła, Sadowa, Widokowa, pętla, a stamtąd autobusem 248 z powrotem do stawu i szkoły.',
+     'points': [('Szkoła i przedszkole', SCHOOL, 'school'), ('ul. Sadowa', WAY(42813167), 'street'), ('ul. Widokowa', WAY(174316050), 'street'),
+                ('Pętla autobusu 248', TERM, 'bus'), ('Przystanek Zelków Staw', STAW_BUS, 'bus', 'bus'), ('Staw', POND, 'pond'), ('Szkoła i przedszkole', SCHOOL, 'school')],
+     'bus': 'Z pętli jedziesz autobusem 248 do przystanku Zelków Staw (niebieska przerywana linia). Sprawdź rozkład!'},
     {'id': 'w2', 'mode': 0, 'level': 2, 'icon': '🌳',
-     'title': 'Zelkowskie uliczki i zamek', 'sub': 'Staw, szkoła, Sadowa, Widokowa, Modrzewiowa, zamek w Kluczwodzie',
+     'title': 'Uliczki Zelkowa i zamek', 'sub': 'Staw, szkoła, Sadowa, Widokowa, Modrzewiowa i zamek w Białym Kościele',
      'points': [('Staw', POND, 'pond'), ('Szkoła', SCHOOL, 'school'), ('ul. Sadowa', WAY(42813167), 'street'),
-                ('ul. Widokowa', WAY(30324628), 'street'), ('ul. Modrzewiowa', WAY(30783000), 'street'),
+                ('ul. Widokowa', WAY(174316050), 'street'), ('ul. Modrzewiowa', WAY(174322297), 'street'),
                 ('Zamek w Białym Kościele', castle, 'castle')] + ([(rest[2], rest[:2], 'food')] if rest else []),
      'back': 'Do domu autobusem lub tą samą drogą.'},
     {'id': 'w3', 'mode': 0, 'level': 2, 'icon': '🚌',
@@ -540,42 +546,52 @@ WALKS = [
 walks_out = []
 for w in WALKS:
     mode = w['mode']
-    wp = [(nm, xy(*pos), kind) for nm, pos, kind in w['points']]
-    nodes_seq = []
+    wp = [(pt[0], xy(*pt[1]), pt[2], pt[3] if len(pt) > 3 else 'walk') for pt in w['points']]
+    legs = []                                   # (kind, [node ids])
     for k in range(len(wp) - 1):
         a, da = snap(wp[k][1], mode); b, db = snap(wp[k + 1][1], mode)
         path = route(a, b, mode)
         if not path:
             raise SystemExit(f"{w['id']}: no route {wp[k][0]} -> {wp[k + 1][0]}")
-        nodes_seq += path if not nodes_seq else path[1:]
-    pts = [node_xy[i] for i in nodes_seq]
-    dist = length(pts)
-    # elevation profile every ~25 m
-    prof, acc, nxt = [], 0.0, 0.0
-    samples = []
-    for k in range(len(pts) - 1):
-        seg = math.hypot(pts[k + 1][0] - pts[k][0], pts[k + 1][1] - pts[k][1])
-        while nxt <= acc + seg:
-            f = (nxt - acc) / (seg or 1)
-            samples.append(height_at(pts[k][0] + (pts[k + 1][0] - pts[k][0]) * f, pts[k][1] + (pts[k + 1][1] - pts[k][1]) * f))
-            nxt += 25
-        acc += seg
-    asc = desc = 0.0
-    ref = samples[0]
-    for h in samples:
-        if h - ref > 3: asc += h - ref; ref = h
-        elif ref - h > 3: desc += ref - h; ref = h
+        legs.append((wp[k + 1][3], path))
+
+    def sample(pts):
+        out, acc, nxt = [], 0.0, 0.0
+        for k in range(len(pts) - 1):
+            seg = math.hypot(pts[k + 1][0] - pts[k][0], pts[k + 1][1] - pts[k][1])
+            while nxt <= acc + seg:
+                f = (nxt - acc) / (seg or 1)
+                out.append(height_at(pts[k][0] + (pts[k + 1][0] - pts[k][0]) * f, pts[k][1] + (pts[k + 1][1] - pts[k][1]) * f))
+                nxt += 25
+            acc += seg
+        return out
+
+    dist = 0.0; asc = 0.0; samples = []; bus_leg = False; full = []; legs_out = []
+    for kind, nodes in legs:
+        pts = [node_xy[i] for i in nodes]
+        full += pts if not full else pts[1:]
+        legs_out.append([kind, flat(rdp(pts, 1.5))])
+        sm = sample(pts); samples += sm
+        if kind == 'bus':
+            bus_leg = True; continue
+        dist += length(pts)
+        ref = sm[0] if sm else 0
+        for h in sm:
+            if h - ref > 3: asc += h - ref; ref = h
+            elif ref - h > 3: ref = h
     minutes = dist / 1000 / (4.2 if mode == 0 else 13) * 60 + asc / (10 if mode == 0 else 7)
+    if bus_leg:
+        minutes += 15                           # waiting + the ride
     if w['level'] == 1:
         minutes *= 1.5
-    out_pts = rdp(pts, 1.5)
-    print(f"{w['id']}: {dist / 1000:.1f} km, +{asc:.0f} m, {minutes:.0f} min, {len(out_pts)} pts")
+    out_pts = rdp(full, 1.5)
+    print(f"{w['id']}: {dist / 1000:.1f} km walking, +{asc:.0f} m, {minutes:.0f} min, {len(out_pts)} pts")
     step = max(1, len(samples) // 70)
     walks_out.append({
         'id': w['id'], 'mode': 'bike' if mode else 'walk', 'level': w['level'], 'icon': w['icon'], 'title': w['title'], 'sub': w['sub'],
         'km': round(dist / 1000, 1), 'up': int(round(asc, -1)), 'min': int(round(minutes / 5) * 5),
-        'line': flat(out_pts), 'profile': [int(round(h)) for h in samples[::step]],
-        'points': [[nm, int(p[0]), int(p[1]), kind] for nm, p, kind in wp],
+        'line': flat(out_pts), 'legs': legs_out, 'profile': [int(round(h)) for h in samples[::step]],
+        'points': [[nm, int(p[0]), int(p[1]), kind] for nm, p, kind, _ in wp],
         'bus': w.get('bus', ''), 'back': w.get('back', ''),
     })
 
