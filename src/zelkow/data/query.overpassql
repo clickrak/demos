@@ -1,6 +1,6 @@
-[out:json][timeout:180][bbox:50.140,19.750,50.190,19.830];
+[out:json][timeout:180][bbox:50.100,19.730,50.215,19.840];
 (
-  way["building"]; way["highway"]; way["waterway"];
+  way["building"](50.140,19.750,50.190,19.830); way["highway"]; way["waterway"];
   way["landuse"]; way["natural"]; relation["natural"]; relation["landuse"];
   node["natural"~"peak|cave_entrance|rock|stone|spring|cliff"];
   way["natural"~"cliff|bare_rock"];

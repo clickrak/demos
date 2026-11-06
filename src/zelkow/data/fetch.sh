@@ -22,7 +22,7 @@ python3 -c "import json;print(len(json.load(open('osm.json'))['elements']),'OSM 
 mkdir -p terrain
 python3 - <<'PY' > tiles.txt
 import math
-S,W,N,E = 50.140,19.750,50.190,19.830
+S,W,N,E = 50.100,19.730,50.215,19.840
 z=13
 def tile(lat,lon):
     n=2**z; x=int((lon+180)/360*n); r=math.radians(lat)
