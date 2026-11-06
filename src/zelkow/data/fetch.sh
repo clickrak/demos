@@ -8,12 +8,16 @@ cd "$(dirname "$0")"
 UA="clickrak-demos-zelkow (github.com/clickrak/demos)"
 
 ok=0
+for round in 1 2 3; do
+[ "$ok" = 1 ] && break
 for url in https://overpass-api.de/api/interpreter https://overpass.kumi.systems/api/interpreter https://maps.mail.ru/osm/tools/overpass/api/interpreter; do
   echo "Overpass: $url"
   if curl -fsS -m 300 -A "$UA" --data-urlencode "data@query.overpassql" -o osm.tmp "$url" && python3 -c "import json;d=json.load(open('osm.tmp'));assert d['elements']"; then
     mv osm.tmp osm.json; ok=1; break
   fi
   sleep 10
+done
+[ "$ok" = 1 ] || sleep 60
 done
 [ "$ok" = 1 ] || { echo "All Overpass servers failed"; exit 1; }
 python3 -c "import json;print(len(json.load(open('osm.json'))['elements']),'OSM elements')"
