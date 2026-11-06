@@ -1,0 +1,27 @@
+name: Zelków map data
+# Fetches OpenStreetMap + elevation data for the Zelków demo and commits it.
+# Runs when the query or script changes, or by hand: Actions → "Zelków map data" → Run workflow.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - src/zelkow/data/query.overpassql
+      - src/zelkow/data/fetch.sh
+      - .github/workflows/zelkow-data.yml
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash src/zelkow/data/fetch.sh
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/zelkow/data
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Update Zelków map data (OpenStreetMap, elevation)"
+          git push
