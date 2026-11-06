@@ -4,6 +4,7 @@ Small interactive web demos. Each folder is one demo, served as a plain static p
 
 | Demo | Folder |
 |---|---|
+| Odkryj Zelków: an isometric adventure map for kids around Zelków on the Kraków Jura (PL) | [`zelkow/`](zelkow/) |
 | How to Catch an Atom: an interactive explainer of an ion-trap quantum computer (PL / EN) | [`ion-trap/`](ion-trap/) |
 | Rhythm Cartography: 50 years of electronic music, mapped and playable | [`rhythm-cartography/`](rhythm-cartography/) |
 | Extended Lines: black and white photographs whose geometry leaks onto the page | [`extended-lines/`](extended-lines/) |
@@ -53,6 +54,10 @@ A plain HTML page works too: put it in `src/<name>/app.html` with a `<!-- site-h
 4. Make the preview image: design `src/<name>/preview.html` at 1200×627, then run
    `node tools/snap.mjs src/<name>/preview.html <name>/preview.png` (needs Google Chrome).
 5. Commit and push.
+
+## Zelków map
+
+`src/zelkow/app.html` is a hand-written Three.js page (loaded from cdn.jsdelivr.net). The map is stylized from a description of the area, not from OpenStreetMap data: valleys, roads, trails and places are lists of points at the top of the script, and the texts for the 8 places are in `SPOTS`. `app.html?preview` hides the controls; `zelkow/preview.png` is a 1200×627 screenshot of that.
 
 ## Link previews (LinkedIn)
 

@@ -1,0 +1,12 @@
+{
+  "static": "app.html",
+  "title": "Odkryj Zelków",
+  "ogTitle": "Odkryj Zelków · izometryczna mapa przygód dla dzieci na Jurze",
+  "description": "Izometryczna mapa przygód dla dzieci: skałki, doliny, jaskinie i szlaki wokół Zelkowa na Jurze Krakowskiej.",
+  "cardText": "A playful isometric diorama of Zelków, a village on the Kraków Jura, and its three rocky valleys. Kids tap the pins, read a short fact, do a small outdoor task and collect 8 stars, while Lisek Zelek the fox walks the red trail. Day and night modes. In Polish.",
+  "tags": ["Map", "Three.js", "Kids", "Jura", "PL"],
+  "imageAlt": "Isometric 3D map of Zelków: a green plateau with a village, limestone rocks and forested valleys",
+  "locale": "pl_PL",
+  "theme": { "background": "#F1EFE2" },
+  "faviconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\"><rect width=\"64\" height=\"64\" rx=\"14\" fill=\"#253022\"/><circle cx=\"42\" cy=\"24\" r=\"9\" fill=\"#D8A443\"/><path d=\"M4 50 C18 36 30 34 60 44 L60 60 L4 60Z\" fill=\"#4A6B3A\"/><path d=\"M26 40 l3 -14 4 2 3 -6 4 18Z\" fill=\"#A7A495\"/></svg>"
+}
