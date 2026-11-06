@@ -361,7 +361,7 @@ export async function createHike({ canvas, ui, toast, onKicker }) {
   function closeInfo() { panel.hidden = true; ui.classList.remove('has-panel'); }
   function openInfo() {
     const w = sel; if (!w) return;
-    const todo = w.points.some(p => p[3] === 'food' && /Pizzeria Matrix/.test(p[0])) ? '<p class="note">🍴 Restaurację na końcu wybrałem orientacyjnie (najbliższa w OpenStreetMap). Powiedz, którą wybrać.</p>' : '';
+    const todo = '';
     const approx = w.points.some(p => p[0] === 'Brama Będkowska') ? '<p class="note">📍 Brama Będkowska jest zaznaczona orientacyjnie.</p>' : '';
     panel.innerHTML = `
       <div class="wp-top"><div class="ico">${w.icon}</div><div><div class="kicker">Spacer ${w.n} · ${LEVEL[w.level]}</div><h3>${w.title}</h3></div><button class="x" aria-label="Zamknij" id="wpx">×</button></div>

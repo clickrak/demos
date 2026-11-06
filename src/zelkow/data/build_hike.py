@@ -484,15 +484,14 @@ def CEN(kind, i):
 
 
 POND = (50.15976, 19.79682)
-restaurants = [p for p in pois if p[0] == 'food']
 castle = CEN('way', 1419360855)
-cx, cy = xy(*castle)
-rest = None
-cand = [(math.hypot(p[2] - cx, p[3] - cy), p) for p in restaurants if math.hypot(p[2] - cx, p[3] - cy) < 1800]
-if cand:
-    p = min(cand)[1]
-    rest = (LAT0 - p[3] / MZ, LON0 + p[2] / MX, p[1] or 'Restauracja')
-print('restaurant near the castle:', rest)
+# Restauracja Kluczwodzie (Kluczwody 18, Wierzchowie): at the exit of the valley, by the car park on the road to Wierzchowie.
+# Position from the owner's Google Maps plus code 5R88+3G (9F2X5R88+3G); OSM has no entry for it.
+rest = (50.16519, 19.81631, 'Restauracja Kluczwodzie')
+if not any(p[0] == 'food' and 'Kluczwodzie' in p[1] for p in pois):
+    rx, ry = xy(rest[0], rest[1])
+    pois.append(['food', rest[2], int(rx), int(ry)])
+print('restaurant:', rest)
 
 SCHOOL = CEN('way', 322200496)
 JKS = CEN('way', 198090786)
