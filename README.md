@@ -57,7 +57,14 @@ A plain HTML page works too: put it in `src/<name>/app.html` with a `<!-- site-h
 
 ## Zelków map
 
-`src/zelkow/app.html` is a hand-written Three.js page (loaded from cdn.jsdelivr.net). The map is stylized from a description of the area, not from OpenStreetMap data: valleys, roads, trails and places are lists of points at the top of the script, and the texts for the 8 places are in `SPOTS`. `app.html?preview` hides the controls; `zelkow/preview.png` is a 1200×627 screenshot of that.
+`src/zelkow/app.html` is a hand-written Three.js page (loaded from cdn.jsdelivr.net) that draws `zelkow/map.json`.
+
+How the data gets there:
+1. `src/zelkow/data/query.overpassql` is the OpenStreetMap query. Changing it (or `fetch.sh`) and pushing runs the GitHub Action **Zelków map data** (`.github/workflows/zelkow-data.yml`; it can also be started by hand from the Actions tab). It downloads `osm.json` and elevation tiles into `src/zelkow/data/` and commits them.
+2. `python3 src/zelkow/data/build_map.py` (needs Pillow) turns them into `zelkow/map.json`: terrain heights, land cover, buildings, roads, streams, rocks, trails, bus 248, school, pitches, playgrounds, ponds.
+3. `node tools/build.mjs` as usual.
+
+The 8 star places (`SPOTS`), the activity tags (`ACTS`) and the "Mój Zelków" info pins (`INFO`) are at the top of the script in `app.html`. `app.html?preview` hides the controls; `zelkow/preview.png` is a 1200×627 screenshot of that.
 
 ## Link previews (LinkedIn)
 

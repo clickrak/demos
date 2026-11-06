@@ -46,11 +46,19 @@ header>*{pointer-events:auto}
 .kicker{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-ink)}
 :root[data-theme="dark"] .kicker{color:var(--sage)}
 h1{margin:2px 0 0;font-size:clamp(34px,8vw,52px);line-height:.95;font-weight:900;letter-spacing:-.02em}
-.back{display:inline-block;margin-top:6px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
+.back{display:inline-block;margin:6px 12px 0 0;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
 .stars{display:flex;align-items:center;gap:6px;background:var(--forest);color:var(--cream);border-radius:999px;
   padding:8px 14px 8px 10px;font-weight:900;font-size:17px;box-shadow:0 8px 20px -10px #0008;white-space:nowrap}
 .stars b{color:var(--sun);font-size:20px;line-height:1}
 
+.acts{position:fixed;left:0;right:0;top:calc(max(14px,env(safe-area-inset-top)) + 92px);display:flex;gap:8px;overflow-x:auto;padding:4px 16px 8px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;z-index:2}
+.acts::-webkit-scrollbar{display:none}
+.acts button{flex:none;border:2px solid var(--forest);background:var(--chip);color:var(--ink);border-radius:999px;padding:7px 13px;font:inherit;font-weight:800;font-size:14.5px;
+  cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 6px 14px -10px #0007}
+:root[data-theme="dark"] .acts button{border-color:#4a5b45}
+.acts button[aria-pressed="true"]{background:var(--sun);color:#2a2410;border-color:var(--sun)}
+header::before{content:"";position:absolute;inset:0 0 -40px;background:linear-gradient(var(--sky-top) 45%,transparent);z-index:-1;pointer-events:none}
 /* controls */
 .dock{position:fixed;right:12px;bottom:max(16px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;align-items:flex-end}
 .pill{display:flex;gap:2px;background:var(--forest);border-radius:999px;padding:4px;box-shadow:0 8px 20px -10px #0009}
@@ -71,6 +79,8 @@ h1{margin:2px 0 0;font-size:clamp(34px,8vw,52px);line-height:.95;font-weight:900
   border-radius:14px;padding:8px 12px;font-size:12.5px;font-weight:700;line-height:1.55;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:190px}
 .legend i{display:inline-block;width:18px;height:5px;border-radius:3px;margin-right:7px;vertical-align:middle;
   background:repeating-linear-gradient(90deg,var(--c) 0 5px,transparent 5px 8px)}
+.legend i.dot{height:5px;background:radial-gradient(circle,var(--c) 0 2.4px,transparent 2.6px) 0 0/6px 5px}
+.legend .cols b{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:2px;vertical-align:-1px}
 .legend small{display:block;color:var(--muted);font-weight:600;font-size:11px;margin-top:3px}
 .legend summary{cursor:pointer;list-style:none;font-weight:900}
 .legend summary::-webkit-details-marker{display:none}
@@ -113,6 +123,8 @@ body.card-open .legend,body.card-open .dock{opacity:0;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .confetti{position:fixed;top:-20px;font-size:22px;pointer-events:none;z-index:20;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.loading{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);font-weight:800;color:var(--muted);transition:opacity .4s}
+.loading.hide{opacity:0;pointer-events:none}
 .err{position:fixed;inset:0;display:none;place-items:center;text-align:center;padding:30px;font-weight:700}
 @media (max-width:560px){ .legend{display:none} .legend.show{display:block}
   .sheet{padding:14px 14px 12px}.sheet .ico{width:46px;height:46px;font-size:27px}.sheet h2{font-size:21px}
@@ -134,17 +146,27 @@ body.card-open .legend,body.card-open .dock{opacity:0;pointer-events:none}
   <div>
     <div class="kicker">Mapa małego odkrywcy · Jura</div>
     <h1>Zelków</h1>
-    <a class="back" href="../">← Demos</a>
+    <a class="back" href="../">← Demos</a><a class="back osm" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">Mapa: © OpenStreetMap</a>
   </div>
   <div class="stars" aria-live="polite"><b>★</b><span id="count">0/8</span></div>
 </header>
 
+<nav class="acts" id="acts" aria-label="Co chcesz robić?">
+  <button data-a="all" aria-pressed="true">🌍 Wszystko</button>
+  <button data-a="zabawa">🛝 Zabawa</button>
+  <button data-a="rower">🚲 Rower</button>
+  <button data-a="wedrowka">🥾 Wędrówka</button>
+  <button data-a="wspinaczka">🧗 Wspinaczka</button>
+  <button data-a="widoki">🔭 Widoki</button>
+  <button data-a="jaskinie">🦇 Jaskinie</button>
+  <button data-a="bieganie">🏃 Bieganie</button>
+</nav>
 <details class="legend" id="legend" open>
   <summary>Szlaki</summary>
-  <div><i style="--c:#d2453a"></i>czerwony rowerowy</div>
-  <div><i style="--c:#3c74c9"></i>niebieski pieszy</div>
-  <div><i style="--c:#e6b92e"></i>żółty pieszy</div>
-  <small>Mapa orientacyjna, nie w skali.</small>
+  <div><i class="dash" style="--c:#555"></i>kreski: pieszy</div>
+  <div><i class="dot" style="--c:#555"></i>kropki: rowerowy</div>
+  <div class="cols"><b style="--c:#d2453a"></b><b style="--c:#3c74c9"></b><b style="--c:#e6b92e"></b><b style="--c:#3f9a4a"></b><b style="--c:#2b2b2b"></b> kolor jak na znakach</div>
+  <small>Wysokości przesadzone ×2,6, domy i drzewa powiększone.</small>
 </details>
 
 <div class="dock">
@@ -184,7 +206,7 @@ body.card-open .legend,body.card-open .dock{opacity:0;pointer-events:none}
   <div class="box">
     <div class="kicker" style="color:var(--sage)">Hej, odkrywco!</div>
     <h2>Wokół Zelkowa czekają skały, jaskinie i zamek.</h2>
-    <p>Lisek Zelek już wędruje szlakiem. Dołączysz?</p>
+    <p>To prawdziwa mapa okolicy: każdy domek, skałka i szlak jest tam, gdzie naprawdę. Lisek Zelek już wędruje. Dołączysz?</p>
     <ul>
       <li>👆 Dotknij znaczka na mapie</li>
       <li>✋ Przesuwaj palcem, szczypaj, by przybliżyć</li>
@@ -196,6 +218,7 @@ body.card-open .legend,body.card-open .dock{opacity:0;pointer-events:none}
 </div>
 <div class="toast" id="toast"></div>
 <div class="err" id="err">Ta mapa potrzebuje przeglądarki z obsługą WebGL.</div>
+<div class="loading" id="loading">Rozkładam mapę…</div>
 
 <script type="importmap">
 { "imports": {
@@ -217,202 +240,168 @@ function rng(seed) { return () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math
 const R = rng(32082);
 const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
 
-/* ---------------------------------------------------------------- terrain model
-   Stylized, not to scale. x = east, z = south. Zelków sits on the plateau in the
-   middle; Dolina Kluczwody to the east, Kobylańska to the west, Bolechowicka to the
-   south-west, the land drops towards Bolechowice and Kobylany in the south. */
-const HALF = 32;
-function spline(pts, n) {
-  const c = new THREE.CatmullRomCurve3(pts.map(p => new THREE.Vector3(p[0], 0, p[1])), false, 'centripetal');
-  return c.getSpacedPoints(n).map(v => [v.x, v.z]);
-}
-function distPoly(x, z, P) {
-  let best = 1e9;
-  for (let i = 0; i < P.length - 1; i++) {
-    const ax = P[i][0], az = P[i][1], bx = P[i + 1][0] - ax, bz = P[i + 1][1] - az;
-    const t = clamp(((x - ax) * bx + (z - az) * bz) / (bx * bx + bz * bz || 1), 0, 1);
-    const dx = x - ax - bx * t, dz = z - az - bz * t, d = dx * dx + dz * dz;
-    if (d < best) best = d;
-  }
-  return Math.sqrt(best);
-}
-const VALLEYS = {
-  kluczwody: { pts: spline([[18, -34], [16, -22], [18, -10], [16.5, 0], [17.5, 8], [14.5, 16], [15.5, 24], [12, 34]], 110), w: 6, floor: 0.35 },
-  kobylanska: { pts: spline([[-20, -34], [-20.5, -20], [-23, -8], [-20.5, 2], [-22.5, 12], [-20, 22], [-22, 34]], 110), w: 6.4, floor: 0.3 },
-  bolechowicka: { pts: spline([[-1, 34], [-3, 26], [-4.5, 20], [-7, 14], [-9.5, 10]], 50), w: 4.6, floor: 0.45, head: [-9.5, 10] },
-};
-function baseH(x, z) {
-  let h = 3.4 + 0.45 * Math.sin(x * 0.17 + 1.3) * Math.cos(z * 0.13) + 0.25 * Math.sin(x * 0.41 + z * 0.27) + 0.15 * Math.cos(x * 0.6 - z * 0.5);
-  h += 1.7 * Math.exp(-((x - 7) ** 2 + (z - 12) ** 2) / 20);   // Widok hill
-  h += 1.0 * Math.exp(-((x + 8) ** 2 + (z + 20) ** 2) / 60);   // forested hill NW
-  h -= smooth(14, 34, z) * 2.6;                                // down to Bolechowice / Kobylany
-  return h;
-}
+/* ---------------------------------------------------------------- data
+   map.json is made by src/zelkow/data/build_map.py from OpenStreetMap + elevation tiles.
+   World units: x = east, z = south, 1 unit = 90 m, origin = centre of the map. */
+let D;
+try { D = await (await fetch('map.json')).json(); }
+catch (e) { $('#loading').textContent = 'Nie udało się wczytać mapy. Odśwież stronę.'; throw e; }
+const M = D.meta, HX = M.hx, HZ = M.hz;
+const [S0, W0, N0, E0] = M.bounds, LAT0 = (S0 + N0) / 2, LON0 = (W0 + E0) / 2;
+const MX = 111320 * Math.cos(LAT0 * Math.PI / 180) / M.unit, MZ = 110574 / M.unit;
+const ll = (lat, lon) => [(lon - LON0) * MX, (LAT0 - lat) * MZ];
+const { nx: GX, nz: GZ, h: GH } = D.grid;
 function height(x, z) {
-  let h = baseH(x, z);
-  for (const v of Object.values(VALLEYS)) {
-    const d = distPoly(x, z, v.pts);
-    if (d > v.w) continue;
-    let t = 1 - smooth(v.w * 0.3, v.w * 0.85, d);
-    if (v.head) t *= smooth(0.5, 7, Math.hypot(x - v.head[0], z - v.head[1]));
-    h = lerp(h, Math.min(h, v.floor), t);
-  }
-  return h;
+  const fi = clamp((x + HX) / (2 * HX) * (GX - 1), 0, GX - 1.0001), fj = clamp((z + HZ) / (2 * HZ) * (GZ - 1), 0, GZ - 1.0001);
+  const i = Math.floor(fi), j = Math.floor(fj), a = fi - i, b = fj - j, k = j * GX + i;
+  return ((GH[k] * (1 - a) + GH[k + 1] * a) * (1 - b) + (GH[k + GX] * (1 - a) + GH[k + GX + 1] * a) * b) / 100;
 }
-function valleyAt(x, z) { // 0..1, how deep inside any valley
-  let m = 0;
-  for (const v of Object.values(VALLEYS)) { const d = distPoly(x, z, v.pts); if (d < v.w) m = Math.max(m, 1 - d / v.w); }
-  return m;
-}
-function wallPoint(v, f, side, df) {
-  const P = v.pts, i = clamp(Math.round(f * (P.length - 1)), 1, P.length - 2);
-  const tx = P[i + 1][0] - P[i - 1][0], tz = P[i + 1][1] - P[i - 1][1], l = Math.hypot(tx, tz);
-  return [P[i][0] - tz / l * side * df * v.w, P[i][1] + tx / l * side * df * v.w];
-}
-const ROADS = {
-  main: spline([[3, 34], [3.5, 25], [2, 16], [0.5, 6], [-0.5, -4], [-2, -14], [-1, -24], [-3, -34]], 150),
-  gacki: spline([[0.6, 2], [6, 3], [10, 6], [13.2, 9.5], [15.5, 13]], 50),
-  karniowice: spline([[0, 5.5], [-5, 8], [-11, 11], [-13.5, 18], [-14, 26], [-15, 34]], 90),
-  widokowa: spline([[1.4, 9], [4.5, 11.5], [6.6, 12.4]], 20),
-};
-const VILLAGE = [ // stretches of road with houses
-  { road: ROADS.main, from: -18, to: 13 }, { road: ROADS.main, from: 22, to: 34 },
-  { road: ROADS.gacki, from: -99, to: 99 }, { road: ROADS.karniowice, from: 3, to: 9 },
-  { road: ROADS.karniowice, from: 19, to: 34 }, { road: ROADS.widokowa, from: -99, to: 99 },
-];
-const villagePts = VILLAGE.map(s => s.road.filter(p => p[1] >= s.from && p[1] <= s.to)).filter(a => a.length > 1);
-const nearVillage = (x, z) => villagePts.some(P => distPoly(x, z, P) < 3.6);
-const nearRoad = (x, z, d) => Object.values(ROADS).some(P => distPoly(x, z, P) < d);
-const fval = (x, z) => Math.sin(x * 0.23 + 0.7) * Math.cos(z * 0.19 - 0.4) + 0.6 * Math.sin(x * 0.07 - z * 0.11 + 2.0) + 0.35 * Math.sin(x * 0.5 + z * 0.43);
-function forest(x, z) {
-  if (nearVillage(x, z)) return false;
-  for (const v of Object.values(VALLEYS)) {
-    const d = distPoly(x, z, v.pts);
-    if (d > v.w * 0.33 && d < v.w * 1.3 && !(v.head && Math.hypot(x - v.head[0], z - v.head[1]) < 3)) return fval(x, z) > -0.75;
-  }
-  return fval(x, z) > 0.95;
-}
+const LC = D.lc;
+const lcAt = (x, z) => { const i = Math.floor((x + HX) / LC.res), j = Math.floor((z + HZ) / LC.res); return (i < 0 || j < 0 || i >= LC.w || j >= LC.h) ? '.' : LC.d[j * LC.w + i]; };
+const pairs = f => { const o = []; for (let i = 0; i < f.length; i += 2) o.push([f[i], f[i + 1]]); return o; };
+const rockAt = name => D.rocks.find(r => r[0] === name);
 
-/* ---------------------------------------------------------------- places */
-const K = VALLEYS.kluczwody, B = VALLEYS.kobylanska, BO = VALLEYS.bolechowicka;
+/* ---------------------------------------------------------------- the 8 places */
+const TR = { red: '#d2453a', blue: '#3c74c9', yellow: '#e6b92e', green: '#3f9a4a', black: '#2b2b2b' };
+const rp = name => { const r = rockAt(name); return r ? [r[1], r[2]] : null; };
 const P = {
-  start: [0.9, 0.6], widok: [7, 12.3], granica: [-3.6, -15.5],
-  zamek: wallPoint(K, 0.47, 1, 0.48), jaskinia: wallPoint(K, 0.14, -1, 0.5),
-  bramaL: wallPoint(BO, 0.36, 1, 0.36), bramaR: wallPoint(BO, 0.36, -1, 0.36),
-  zabi: wallPoint(B, 0.78, 1, 0.5), wronia: wallPoint(B, 0.4, 1, 0.5),
-  potok: B.pts[Math.round(0.6 * (B.pts.length - 1))],
+  start: ll(50.15976, 19.79682),
+  labaj: rp('Łabajowa Skała') || ll(50.18102, 19.78858),
+  granica: ll(50.16422, 19.8178),
+  zamek: ll(50.16148, 19.82848),
+  jaskinia: ll(50.1747, 19.80662),
+  brama: ll(50.15272, 19.7848),
+  zabi: rp('Żabi Koń') || ll(50.15597, 19.7563),
+  wronia: rp('Wronia Baszta') || ll(50.16205, 19.76533),
 };
-P.brama = [(P.bramaL[0] + P.bramaR[0]) / 2, (P.bramaL[1] + P.bramaR[1]) / 2];
-const TRAIL_RED = '#d2453a', TRAIL_BLUE = '#3c74c9', TRAIL_YEL = '#e6b92e';
+const ACTS = { start: ['zabawa'], labaj: ['wedrowka', 'widoki'], granica: ['wedrowka', 'rower'], zamek: ['wedrowka', 'widoki'], jaskinia: ['jaskinie', 'wedrowka'], brama: ['wspinaczka', 'wedrowka', 'widoki'], zabi: ['wspinaczka', 'rower', 'wedrowka'], wronia: ['wspinaczka', 'rower', 'wedrowka'] };
 const SPOTS = [
-  { id: 'start', at: P.start, ico: '⛪', kind: 'Start', title: 'Serce Zelkowa',
-    chips: [['Wieś na płaskowyżu', '#9cc490']],
-    fact: 'Zelków leży wysoko, na płaskowyżu Jury. Wokół wsi są trzy doliny pełne skał: Kobylańska, Bolechowicka i Kluczwody. To kawałek Parku Krajobrazowego Dolinki Krakowskie.',
-    task: 'Znajdź na mapie wszystkie trzy doliny. Która jest najbliżej Twojego domu?' },
-  { id: 'widok', at: P.widok, ico: '🔭', kind: 'Punkt widokowy', title: 'Patrzymy daleko',
-    chips: [['ul. Widokowa', '#9cc490']],
-    fact: 'Z wysokich miejsc w Zelkowie widać Kraków, a w bardzo przejrzysty dzień nawet Tatry i Babią Górę. Najlepiej rano albo zimą, gdy powietrze jest czyste.',
-    task: 'W pogodny dzień poszukaj gór na horyzoncie. Ile szczytów policzysz?' },
-  { id: 'granica', at: P.granica, ico: '🪧', kind: 'Historia', title: 'Dawna granica',
-    chips: [['Ponad 100 lat temu', '#d8a443']],
-    fact: 'Kiedyś przez te okolice biegła granica między Austrią a Rosją. Zelków był po stronie austriackiej. W Zelkowie stoi znak, który o tym przypomina.',
-    task: 'Wyobraź sobie, że do sąsiedniej wsi trzeba iść z paszportem! Poszukaj tego znaku na spacerze z rodzicami.' },
-  { id: 'zamek', at: P.zamek, ico: '🏰', kind: 'Dolina Kluczwody', title: 'Zamkowa Skała',
-    chips: [['szlak niebieski', TRAIL_BLUE], ['rezerwat', '#9cc490']],
-    fact: 'Na skale wysokiej na około 20 metrów są ruiny dawnego zamku. Cała dolina to rezerwat przyrody od 1989 roku, więc chodzimy tylko ścieżkami.',
+  { id: 'start', at: P.start, ico: '🦆', kind: 'Start', title: 'Staw w sercu Zelkowa',
+    chips: [['przystanek Zelków Staw', '#1d4f91'], ['al. Jana Pawła II', '#f2b632']],
+    fact: 'Przy stawie, szkole i przystanku autobusu 248 jest środek wsi. Zelków leży wysoko, na płaskowyżu Jury. Na zachód jest Dolina Kobylańska, na południe Brama Bolechowicka, a na wschód Dolina Kluczwody.',
+    task: 'Obejdź staw dookoła i policz kroki. Potem znajdź na mapie swój dom!' },
+  { id: 'labaj', at: P.labaj, ico: '⛰️', kind: 'Najwyżej na mapie', title: 'Łabajowa Skała',
+    chips: [['460 m n.p.m.', '#d8a443']],
+    fact: 'To najwyższe miejsce na tej mapie: 460 metrów nad morzem. Pod skałą są małe jaskinie, które nazywa się schroniskami, bo kiedyś chowali się w nich ludzie i zwierzęta.',
+    task: 'Stań na górze i rozejrzyj się. Ile wsi widzisz? Która jest najdalej?' },
+  { id: 'granica', at: P.granica, ico: '🪧', kind: 'Historia', title: 'Słupy graniczne',
+    chips: [['ponad 100 lat temu', '#d8a443']],
+    fact: 'Stoją tu odtworzone słupy graniczne. Kiedyś biegła tędy granica między Austrią a Rosją. Zelków był po stronie austriackiej, a sąsiednie wsie już po rosyjskiej.',
+    task: 'Stań jedną nogą po każdej stronie dawnej granicy. Jak myślisz, czy dzieci z obu wsi mogły się razem bawić?' },
+  { id: 'zamek', at: P.zamek, ico: '🏰', kind: 'Dolina Kluczwody', title: 'Zamek na Zamkowej Skale',
+    chips: [['rezerwat', '#9cc490'], ['szlak zielony', TR.green]],
+    fact: 'Na Zamkowej Skale, nad Białym Kościołem, są ruiny dawnego zamku. Dolina Kluczwody to rezerwat przyrody od 1989 roku, więc chodzimy tylko ścieżkami.',
     task: 'Ile wież miałby Twój zamek? Po powrocie narysuj go i nadaj mu nazwę.' },
-  { id: 'jaskinia', at: P.jaskinia, ico: '🦣', kind: 'Na końcu Doliny Kluczwody', title: 'Jaskinie w Wierzchowiu',
-    chips: [['szlak niebieski', TRAIL_BLUE], ['z przewodnikiem', '#d8a443']],
-    fact: 'Na końcu doliny są jaskinie. Jaskinię Wierzchowską Górną można zwiedzać z przewodnikiem. Obok jest Jaskinia Mamutowa, w Mamutowej Skale.',
+  { id: 'jaskinia', at: P.jaskinia, ico: '🦇', kind: 'Wierzchowie', title: 'Jaskinia Wierzchowska',
+    chips: [['szlak czarny', TR.black], ['z przewodnikiem', '#d8a443']],
+    fact: 'Jaskinię Wierzchowską Górną można zwiedzać z przewodnikiem. Niedaleko, w Mamutowej Skale, jest Jaskinia Mamutowa. W jaskiniach mieszkają nietoperze, więc jesteśmy tam cicho.',
     task: 'W jaskini jest chłodno nawet w upalne lato. Jak myślisz, dlaczego? Zapytaj przewodnika!' },
   { id: 'brama', at: P.brama, ico: '🚪', kind: 'Dolina Bolechowicka', title: 'Brama Bolechowicka',
-    chips: [['szlak żółty', TRAIL_YEL], ['wspinaczka', '#a7a495']],
-    fact: 'Dwie skały, każda wysoka na około 30 metrów, tworzą ogromną bramę. To tak wysoko jak 10-piętrowy blok! Wspinacze wchodzą tu tylko z liną.',
+    chips: [['szlak czarny', TR.black], ['wspinaczka', '#a7a495']],
+    fact: 'Dwie skały, Filar Abazego i Filar Pokutników, mają po około 30 metrów i tworzą ogromną bramę. To tak wysoko jak 10-piętrowy blok! Tuż obok, przy Krzyżu Milenijnym, jest punkt widokowy.',
     task: 'Przejdź przez bramę i zadrzyj głowę. Czy widzisz wspinaczy? Policz ich.' },
   { id: 'zabi', at: P.zabi, ico: '🐸', kind: 'Dolina Kobylańska', title: 'Żabi Koń',
-    chips: [['szlak czerwony', TRAIL_RED], ['kapliczka w skale', '#d8a443']],
-    fact: 'W skale Żabi Koń wykuto kapliczkę. Prowadzą do niej strome schodki, więc trzymaj się mocno dorosłego.',
+    chips: [['szlak czerwony rowerowy', TR.red], ['kapliczka', '#d8a443']],
+    fact: 'Obok skały Żabi Koń jest kapliczka Matki Boskiej, a do niej prowadzą strome schodki. Obok stoją skały Żabi Mnich, Żabia Lalka i Skrzek. Prawdziwa żabia rodzina!',
     task: 'Dlaczego skała nazywa się Żabi Koń? Popatrz z różnych stron. Widzisz żabę czy konia?' },
-  { id: 'potok', at: P.potok, ico: '💧', kind: 'Dolina Kobylańska', title: 'Potok i Wronia Baszta',
-    chips: [['szlak czerwony', TRAIL_RED], ['4 km doliny', '#9cc490']],
-    fact: 'Ścieżka kilka razy przechodzi przez potok Kobylanka. Nad nim stoją skały o śmiesznych nazwach: Wronia Baszta, Pieninki, Skalny Mur. Uczyli się tu wspinać słynni polscy wspinacze.',
-    task: 'Wymyśl nazwę dla swojej skałki. A po deszczu: kalosze i skakanie po kamieniach!' },
+  { id: 'wronia', at: P.wronia, ico: '🐦‍⬛', kind: 'Dolina Kobylańska', title: 'Wronia Baszta i potok',
+    chips: [['szlak czerwony rowerowy', TR.red], ['skały-zwierzaki', '#9cc490']],
+    fact: 'W Dolinie Kobylańskiej skały mają śmieszne nazwy: Wronia Baszta, Okręt, Wielbłąd, Żabka, Mnich, a nawet Prawie K2! Ścieżka kilka razy przechodzi przez potok Kobylanka.',
+    task: 'Znajdź skałę, która wygląda jak wielbłąd albo statek. A po deszczu: kalosze i skakanie po kamieniach!' },
 ];
+
+/* "Mój Zelków": places to find your way around (no stars, just info) */
+const ZK = D.zelkow;
+const inZelkow = (x, z) => x > -7 && x < 19 && z > -2 && z < 19;
+const nearestPlace = (x, z) => D.places.reduce((b, p) => { const d = Math.hypot(p[2] - x, p[3] - z); return d < b[1] ? [p[0], d] : b; }, ['', 1e9])[0];
+const zSchool = ZK.schools.find(s => s.name === 'Zespół Szkolno-Przedszkolny');
+const zJks = ZK.pitches.find(p => /Zelków/.test(p.name));
+const ringC = f => { let x = 0, z = 0; const n = f.length / 2; for (let i = 0; i < f.length; i += 2) { x += f[i]; z += f[i + 1]; } return [x / n, z / n]; };
+const petla = ZK.bus?.stops.find(s => s[0] === 'Zelków Pętla');
+const bChurch = D.b.find(b => b[5] === 2 && Math.hypot(b[0] - ll(50.14787, 19.79281)[0], b[1] - ll(50.14787, 19.79281)[1]) < 0.6);
+const INFO = [
+  zSchool && { id: 'szkola', at: [zSchool.x, zSchool.z], ico: '🏫', title: 'Szkoła i przedszkole',
+    fact: 'Zespół Szkolno-Przedszkolny w Zelkowie: w tym samym budynku jest szkoła podstawowa i przedszkole „Słoneczne Wzgórze”. Obok jest boisko do koszykówki.' },
+  zJks && { id: 'jks', at: ringC(zJks.ring), ico: '⚽', title: 'JKS Zelków',
+    fact: 'Stadion Jurajskiego Klubu Sportowego Zelków. Tu trenują i grają w piłkę nożną drużyny z Zelkowa.' },
+  petla && { id: 'petla', at: [petla[1], petla[2]], ico: '🚌', title: 'Pętla autobusu 248',
+    fact: 'Tu autobus 248 kończy i zaczyna trasę. Jedzie przez Zelków (Kościuszki, Spławy, Staw, Wola) i Bolechowice aż do Krakowa, na pętlę Bronowice Małe.' },
+  ...ZK.playgrounds.filter(g => inZelkow(g.x, g.z)).map((g, i) => ({ id: 'plac' + i, at: [g.x, g.z], ico: '🛝', title: 'Plac zabaw' + (nearestPlace(g.x, g.z) ? ' · ' + nearestPlace(g.x, g.z) : ''),
+    fact: 'Plac zabaw: huśtawki, zjeżdżalnia i dużo miejsca do biegania.' })),
+  bChurch && { id: 'kosciol-b', at: [bChurch[0], bChurch[1]], ico: '⛪', title: 'Kościół w Bolechowicach',
+    fact: 'Kościół Świętych Apostołów Piotra i Pawła w Bolechowicach. Obok jest park imienia Jana Pawła II.' },
+].filter(Boolean).map(o => ({ ...o, info: true, kind: 'Mój Zelków', acts: o.id === 'szkola' ? ['zabawa', 'bieganie'] : o.id === 'jks' ? ['zabawa', 'bieganie'] : o.id.startsWith('plac') ? ['zabawa'] : [] }));
 
 /* ---------------------------------------------------------------- renderer */
 let renderer;
 const canvas = $('#map');
 try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: PREVIEW }); }
-catch (e) { $('#err').style.display = 'grid'; throw e; }
+catch (e) { $('#err').style.display = 'grid'; $('#loading').classList.add('hide'); throw e; }
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
-const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 400);
-const ISO = new THREE.Vector3(1, 0.8165, 1).normalize().multiplyScalar(120);
-const target0 = new THREE.Vector3(0.5, 2.6, 4);
+const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 500);
+const ISO = new THREE.Vector3(1, 0.8165, 1).normalize().multiplyScalar(140);
+const FOCUS = ll(50.1585, 19.8015), PALE = new THREE.Color('#f1efe2');
+const target0 = new THREE.Vector3(FOCUS[0], 3, FOCUS[1]);
 camera.position.copy(target0).add(ISO);
 camera.lookAt(target0);
 
-const hemi = new THREE.HemisphereLight(0xfff7e6, 0x52663f, 1.6);
+const hemi = new THREE.HemisphereLight(0xfffaee, 0x6f8a55, 1.85);
 scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xfff0d4, 2.6);
-sun.position.set(-26, 46, -14);
+sun.position.set(-28, 50, -16);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
-Object.assign(sun.shadow.camera, { left: -50, right: 50, top: 50, bottom: -50, near: 1, far: 140 });
-sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.04;
+sun.shadow.mapSize.set(4096, 4096);
+Object.assign(sun.shadow.camera, { left: -45, right: 45, top: 45, bottom: -45, near: 1, far: 150 });
+sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
 scene.add(sun);
 
 const col = h => new THREE.Color(h);
 const lam = (opts = {}) => new THREE.MeshLambertMaterial({ flatShading: true, ...opts });
 
-/* terrain mesh, flat shaded, one colour per triangle */
+/* ---------------------------------------------------------------- terrain */
 {
-  const N = 128, S = HALF * 2;
-  const g = new THREE.PlaneGeometry(S, S, N, N).rotateX(-Math.PI / 2).toNonIndexed();
+  const g = new THREE.PlaneGeometry(2 * HX, 2 * HZ, GX - 1, GZ - 1).rotateX(-Math.PI / 2).toNonIndexed();
   const pos = g.attributes.position;
   for (let i = 0; i < pos.count; i++) pos.setY(i, height(pos.getX(i), pos.getZ(i)));
   g.computeVertexNormals();
   const colors = new Float32Array(pos.count * 3), nrm = g.attributes.normal;
-  const FIELDS = ['#9db866', '#b3bf6e', '#cdbb6c', '#86a85a', '#a8b46a', '#bfc77e', '#93b061'].map(col);
-  const C = { forest: col('#3d5a32'), forest2: col('#34502c'), lawn: col('#86ad5c'), meadow: col('#7fae5a'), wall: col('#8c9677'), wall2: col('#9aa184'), floor: col('#79a956') };
-  const a = 0.38, ca = Math.cos(a), sa = Math.sin(a), c = new THREE.Color();
+  const FIELDS = ['#c6dc8a', '#d6e39a', '#e9dc9a', '#b7d67f', '#d0e2a0', '#e4e5aa', '#bcd98a'].map(col);
+  const C = {
+    w: [col('#5c8f49'), col('#679a51'), col('#55853f')], m: [col('#a8d47c'), col('#b1d985')], o: [col('#98c66c')], s: [col('#9fb26a'), col('#a8b872')],
+    r: [col('#cfe3a8'), col('#d6e8b0')], y: [col('#e0d6b8')], a: [col('#4fb6e3')], b: [col('#e2dbc4')], '.': [col('#b3d888')],
+    steep: [col('#b3b79c'), col('#bcc0a6')],
+  };
+  const a = 0.42, ca = Math.cos(a), sa = Math.sin(a), c = new THREE.Color();
   for (let f = 0; f < pos.count; f += 3) {
     const x = (pos.getX(f) + pos.getX(f + 1) + pos.getX(f + 2)) / 3, z = (pos.getZ(f) + pos.getZ(f + 1) + pos.getZ(f + 2)) / 3;
-    const y = (pos.getY(f) + pos.getY(f + 1) + pos.getY(f + 2)) / 3, ny = nrm.getY(f);
-    const vin = valleyAt(x, z);
-    if (ny < 0.72) c.copy(R() < 0.5 ? C.wall : C.wall2);
-    else if (vin > 0.62) c.copy(C.floor);
-    else if (forest(x, z)) c.copy(R() < 0.5 ? C.forest : C.forest2);
-    else if (nearVillage(x, z)) c.copy(C.lawn);
-    else if (vin > 0.1) c.copy(C.meadow);
-    else {
-      const u = Math.floor((x * ca + z * sa) / 4.2), v = Math.floor((-x * sa + z * ca) / 2.2);
-      c.copy(FIELDS[Math.abs((u * 73856093) ^ (v * 19349663)) % FIELDS.length]);
-    }
-    c.offsetHSL(0, 0, (R() - 0.5) * 0.03 + (y - 2.5) * 0.008);
-    for (let k = 0; k < 3; k++) c.toArray(colors, (f + k) * 3);
+    const y = (pos.getY(f) + pos.getY(f + 1) + pos.getY(f + 2)) / 3, ny = nrm.getY(f), k = lcAt(x, z);
+    if (k === 'f') { const u = Math.floor((x * ca + z * sa) / 1.3), v = Math.floor((-x * sa + z * ca) / 0.55); c.copy(FIELDS[Math.abs((u * 73856093) ^ (v * 19349663)) % FIELDS.length]); }
+    else if (ny < 0.62 && k !== 'a') c.copy(C.steep[f % 2]);
+    else { const arr = C[k] || C['.']; c.copy(arr[Math.floor(R() * arr.length)]); }
+    c.offsetHSL(0, 0, (R() - 0.5) * 0.025 + (y - 3) * 0.006);
+    c.lerp(PALE, smooth(13, 30, Math.hypot(x - FOCUS[0], z - FOCUS[1])) * 0.32); // soft spotlight on Zelków
+    for (let q = 0; q < 3; q++) c.toArray(colors, (f + q) * 3);
   }
   g.setAttribute('color', new THREE.BufferAttribute(colors, 3));
   const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ vertexColors: true }));
   m.receiveShadow = true;
   scene.add(m);
 
-  // diorama sides: limestone band on top of earth
-  const sp = [], sc = [], lime = col('#ddd4b6'), lime2 = col('#c9c0a2'), earth = col('#6b5a45'), earth2 = col('#57483a'), BOT = -3.2;
+  // diorama sides: limestone on top, earth below
+  const sp = [], sc = [], lime = col('#ddd4b6'), lime2 = col('#c9c0a2'), earth = col('#6b5a45'), earth2 = col('#57483a'), BOT = -3.4;
   const quad = (a, b, ya1, yb1, ya2, yb2, cc) => {
     sp.push(a[0], ya1, a[1], b[0], yb1, b[1], b[0], yb2, b[1], a[0], ya1, a[1], b[0], yb2, b[1], a[0], ya2, a[1]);
-    for (let k = 0; k < 6; k++) sc.push(cc.r, cc.g, cc.b);
+    for (let q = 0; q < 6; q++) sc.push(cc.r, cc.g, cc.b);
   };
-  const edges = [[[-HALF, HALF], [HALF, HALF]], [[HALF, HALF], [HALF, -HALF]], [[HALF, -HALF], [-HALF, -HALF]], [[-HALF, -HALF], [-HALF, HALF]]];
-  for (const [p0, p1] of edges) {
-    for (let i = 0; i < N; i++) {
-      const a2 = [lerp(p0[0], p1[0], i / N), lerp(p0[1], p1[1], i / N)], b2 = [lerp(p0[0], p1[0], (i + 1) / N), lerp(p0[1], p1[1], (i + 1) / N)];
-      const ha = height(...a2), hb = height(...b2);
-      quad(a2, b2, ha, hb, ha - 0.9, hb - 0.9, i % 7 < 4 ? lime : lime2);
-      quad(a2, b2, ha - 0.9, hb - 0.9, BOT, BOT, i % 9 < 5 ? earth : earth2);
-    }
+  const edges = [[[-HX, HZ], [HX, HZ], GX], [[HX, HZ], [HX, -HZ], GZ], [[HX, -HZ], [-HX, -HZ], GX], [[-HX, -HZ], [-HX, HZ], GZ]];
+  for (const [p0, p1, n] of edges) for (let i = 0; i < n - 1; i++) {
+    const A = [lerp(p0[0], p1[0], i / (n - 1)), lerp(p0[1], p1[1], i / (n - 1))], B = [lerp(p0[0], p1[0], (i + 1) / (n - 1)), lerp(p0[1], p1[1], (i + 1) / (n - 1))];
+    const ha = height(...A), hb = height(...B);
+    quad(A, B, ha, hb, ha - 0.9, hb - 0.9, i % 9 < 5 ? lime : lime2);
+    quad(A, B, ha - 0.9, hb - 0.9, BOT, BOT, i % 11 < 6 ? earth : earth2);
   }
   const sg = new THREE.BufferGeometry();
   sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
@@ -421,185 +410,232 @@ const lam = (opts = {}) => new THREE.MeshLambertMaterial({ flatShading: true, ..
   scene.add(new THREE.Mesh(sg, new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide })));
 }
 
-/* ribbons: roads and streams lying on the terrain */
-function ribbon(P, w, color, lift, yFn = height) {
+/* ---------------------------------------------------------------- roads & streams (one mesh per style) */
+function densify(P_, step) { const out = [P_[0]]; for (let i = 1; i < P_.length; i++) { const a = P_[i - 1], b = P_[i], n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / step)); for (let k = 1; k <= n; k++) out.push([lerp(a[0], b[0], k / n), lerp(a[1], b[1], k / n)]); } return out; }
+function ribbons(lines, w, color, lift) {
   const v = [];
-  for (let i = 0; i < P.length - 1; i++) {
-    const [ax, az] = P[i], [bx, bz] = P[i + 1], l = Math.hypot(bx - ax, bz - az) || 1, nx = -(bz - az) / l * w / 2, nz = (bx - ax) / l * w / 2;
-    const A1 = [ax + nx, az + nz], A2 = [ax - nx, az - nz], B1 = [bx + nx, bz + nz], B2 = [bx - nx, bz - nz];
-    const y = p => yFn(p[0], p[1]) + lift;
-    v.push(...A1.slice(0, 1), y(A1), A1[1], A2[0], y(A2), A2[1], B1[0], y(B1), B1[1], B1[0], y(B1), B1[1], A2[0], y(A2), A2[1], B2[0], y(B2), B2[1]);
+  for (const flatLine of lines) {
+    const P_ = densify(pairs(flatLine), 0.25);
+    for (let i = 0; i < P_.length - 1; i++) {
+      const [ax, az] = P_[i], [bx, bz] = P_[i + 1], l = Math.hypot(bx - ax, bz - az) || 1, nx = -(bz - az) / l * w / 2, nz = (bx - ax) / l * w / 2;
+      const p = (x, z) => [x, height(x, z) + lift, z];
+      const A1 = p(ax + nx, az + nz), A2 = p(ax - nx, az - nz), B1 = p(bx + nx, bz + nz), B2 = p(bx - nx, bz - nz);
+      v.push(...A1, ...A2, ...B1, ...B1, ...A2, ...B2);
+    }
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3));
   g.computeVertexNormals();
-  const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ color, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
-  m.receiveShadow = true;
-  scene.add(m);
-  return m;
+  const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ color, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, side: THREE.DoubleSide }));
+  m.receiveShadow = true; scene.add(m); return m;
 }
-const densify = (P, step) => { const out = [P[0]]; for (let i = 1; i < P.length; i++) { const a = P[i - 1], b = P[i], n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / step)); for (let k = 1; k <= n; k++) out.push([lerp(a[0], b[0], k / n), lerp(a[1], b[1], k / n)]); } return out; };
-for (const [k, P_] of Object.entries(ROADS)) ribbon(densify(P_, 0.35), k === 'main' ? 0.85 : 0.6, '#d8cfae', 0.06);
-const streams = [];
-for (const v of [VALLEYS.kluczwody, VALLEYS.kobylanska]) {
-  const pts = densify(v.pts, 0.35);
-  streams.push({ pts, mesh: ribbon(pts, 0.55, '#63acc9', 0.05, () => v.floor) , floor: v.floor });
-}
+ribbons(D.roads[0], 0.26, '#ffffff', 0.05);
+ribbons(D.roads[1], 0.17, '#fbf7ec', 0.05);
+ribbons(D.roads[2], 0.09, '#d9c9a0', 0.045);
+ribbons(D.roads[3], 0.06, '#c7b088', 0.045);
+const streamMesh = ribbons(D.streams, 0.13, '#63acc9', 0.06);
+const runMesh = ribbons([...D.roads[3], ...D.roads[2]], 0.13, '#ff7a3d', 0.06); runMesh.visible = false;
+const streamPaths = D.streams.map(f => densify(pairs(f), 0.3)).filter(p => p.length > 8);
 
-/* instanced helpers */
+/* ---------------------------------------------------------------- instanced helpers */
 const dummy = new THREE.Object3D();
 function instanced(geo, mat, items, shadow = true) {
-  const m = new THREE.InstancedMesh(geo, mat, items.length);
+  const m = new THREE.InstancedMesh(geo, mat, Math.max(1, items.length));
+  m.count = items.length;
   items.forEach((it, i) => { dummy.position.set(it.x, it.y, it.z); dummy.rotation.set(0, it.r || 0, 0); dummy.scale.set(it.sx || 1, it.sy || 1, it.sz || 1); dummy.updateMatrix(); m.setMatrixAt(i, dummy.matrix); if (it.c) m.setColorAt(i, col(it.c)); });
   m.castShadow = shadow; m.receiveShadow = true;
-  scene.add(m);
-  return m;
+  scene.add(m); return m;
 }
 
-/* landmarks reserve space */
-const RESERVED = [P.start, P.widok, P.granica, P.zamek, P.jaskinia, P.bramaL, P.bramaR, P.zabi, P.wronia];
-const reserved = (x, z, r) => RESERVED.some(p => Math.hypot(x - p[0], z - p[1]) < r);
-
-/* houses */
-const houses = [];
-for (const seg of VILLAGE) {
-  const pts = seg.road.filter(p => p[1] >= seg.from && p[1] <= seg.to);
-  for (let i = 1; i < pts.length - 1; i += 2) {
-    const [x0, z0] = pts[i], tx = pts[i + 1][0] - pts[i - 1][0], tz = pts[i + 1][1] - pts[i - 1][1], l = Math.hypot(tx, tz);
-    for (const side of [-1, 1]) {
-      if (R() > 0.62) continue;
-      const off = 1.5 + R() * 0.9, x = x0 - tz / l * side * off, z = z0 + tx / l * side * off;
-      if (Math.abs(x) > HALF - 1 || Math.abs(z) > HALF - 1) continue;
-      if (valleyAt(x, z) > 0.3 || reserved(x, z, 2.2) || houses.some(h => Math.hypot(h.x - x, h.z - z) < 1.45)) continue;
-      houses.push({ x, z, y: height(x, z), r: Math.atan2(tx, tz), big: R() < 0.25 });
-    }
-  }
-}
-const WALLS = ['#f1ece0', '#e9e1cf', '#f5f1e8', '#e3dccb', '#efe6d2'], ROOFS = ['#b5523b', '#a34a36', '#5b5f63', '#8a3f31', '#c0653f', '#4f6146'];
-const hBody = instanced(new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0), lam(), houses.map(h => ({ ...h, y: h.y - 0.15, sx: h.big ? 1.1 : 0.85, sy: h.big ? 0.95 : 0.75, sz: h.big ? 1.4 : 1.0, c: WALLS[Math.floor(R() * WALLS.length)] })));
-const hRoof = instanced(new THREE.CylinderGeometry(0, 0.82, 0.65, 4, 1).rotateY(Math.PI / 4).translate(0, 0.32, 0), lam(), houses.map(h => ({ ...h, y: h.y - 0.15 + (h.big ? 0.95 : 0.75), sx: h.big ? 1.05 : 0.82, sz: h.big ? 1.35 : 0.98, c: ROOFS[Math.floor(R() * ROOFS.length)] })));
+/* ---------------------------------------------------------------- buildings (real footprints, a bit enlarged) */
+const houses = D.b.map(([x, z, l, w, r, kind]) => {
+  const L = Math.max(0.13, l * 1.45), Wd = Math.max(0.1, w * 1.45);
+  return { x, z, y: height(x, z), L, W: Wd, r, kind, H: kind === 1 ? 0.2 : kind === 2 ? 0.42 : 0.17 + R() * 0.05 };
+});
+// gable roof: a prism with the ridge along local z
+const roofGeo = (() => { const g = new THREE.BufferGeometry(), v = [
+  -0.5, 0, -0.5, 0.5, 0, -0.5, 0, 1, -0.5,   0.5, 0, 0.5, -0.5, 0, 0.5, 0, 1, 0.5,
+  -0.5, 0, 0.5, -0.5, 0, -0.5, 0, 1, -0.5,   -0.5, 0, 0.5, 0, 1, -0.5, 0, 1, 0.5,
+  0.5, 0, -0.5, 0.5, 0, 0.5, 0, 1, 0.5,      0.5, 0, -0.5, 0, 1, 0.5, 0, 1, -0.5];
+  g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3)); g.computeVertexNormals(); return g; })();
+const WALLS = ['#f1ece0', '#e9e1cf', '#f5f1e8', '#e3dccb', '#efe6d2'], ROOFS = ['#b5523b', '#a34a36', '#5b5f63', '#8a3f31', '#c0653f', '#4f6146', '#6d4a3a'];
+houses.forEach(h => { h.wc = h.kind === 3 ? '#ffd166' : h.kind === 1 ? '#e6dfcb' : WALLS[Math.floor(R() * WALLS.length)]; h.rc = h.kind === 3 ? '#e8573d' : h.kind === 1 ? '#8a8d88' : h.kind === 2 ? '#4f6146' : ROOFS[Math.floor(R() * ROOFS.length)]; if (h.kind === 3) h.H = 0.3; });
+const hBody = instanced(new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0), lam(), houses.map(h => ({ x: h.x, y: h.y - 0.08, z: h.z, r: h.r, sx: h.W, sy: h.H + 0.08, sz: h.L, c: h.wc })));
+const hRoof = instanced(roofGeo, lam(), houses.map(h => ({ x: h.x, y: h.y + h.H, z: h.z, r: h.r, sx: h.W * 1.08, sy: Math.min(h.W, 0.4) * 0.55, sz: h.L * 1.04, c: h.rc })));
 const winMat = new THREE.MeshBasicMaterial({ color: 0xffd36e, transparent: true, opacity: 0 });
-const hWin = instanced(new THREE.BoxGeometry(0.22, 0.2, 0.04), winMat, houses.map(h => { const s = Math.sin(h.r), c = Math.cos(h.r), off = (h.big ? 0.7 : 0.5) + 0.03; return { x: h.x + s * off, y: h.y + 0.32, z: h.z + c * off, r: h.r }; }), false);
+const hWin = instanced(new THREE.BoxGeometry(0.05, 0.045, 0.012), winMat, houses.filter(h => h.kind !== 1).map(h => { const s = Math.sin(h.r + Math.PI / 2), c = Math.cos(h.r + Math.PI / 2), off = h.W / 2 + 0.008; return { x: h.x + s * off, y: h.y + h.H * 0.55, z: h.z + c * off, r: h.r + Math.PI / 2 }; }), false);
+// church towers
+for (const h of houses.filter(h => h.kind === 2)) {
+  const g = new THREE.Group(); g.position.set(h.x, h.y, h.z); g.rotation.y = h.r; scene.add(g);
+  const t = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.7, 0.16).translate(0, 0.35, 0), lam({ color: 0xf1ece0 })); t.position.z = h.L / 2; t.castShadow = true; g.add(t);
+  const s = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.32, 4).rotateY(Math.PI / 4), lam({ color: 0x4f6146 })); s.position.set(0, 0.86, h.L / 2); s.castShadow = true; g.add(s);
+}
 
-/* trees */
+/* ---------------------------------------------------------------- trees from the land cover */
 const trees = [];
-for (let i = 0; i < 4200 && trees.length < 1300; i++) {
-  const x = (R() * 2 - 1) * (HALF - 0.6), z = (R() * 2 - 1) * (HALF - 0.6);
-  if (!forest(x, z) || nearRoad(x, z, 1.0) || reserved(x, z, 2.4) || valleyAt(x, z) > 0.68) continue;
-  if (houses.some(h => Math.hypot(h.x - x, h.z - z) < 1.2)) continue;
-  trees.push({ x, z, y: height(x, z), s: 0.7 + R() * 0.7, pine: R() < 0.45 });
+const houseNear = (() => { const cell = 0.5, grid = new Map(); for (const h of houses) { const k = Math.floor(h.x / cell) + ',' + Math.floor(h.z / cell); grid.set(k, true); } return (x, z) => grid.has(Math.floor(x / cell) + ',' + Math.floor(z / cell)); })();
+const roadCells = (() => { const cell = 0.25, s = new Set(); for (const cls of [0, 1]) for (const f of D.roads[cls]) for (const [x, z] of densify(pairs(f), 0.12)) s.add(Math.floor(x / cell) + ',' + Math.floor(z / cell)); return s; })();
+const onRoad = (x, z) => roadCells.has(Math.floor(x / 0.25) + ',' + Math.floor(z / 0.25));
+for (let j = 0; j < LC.h; j++) for (let i = 0; i < LC.w; i++) {
+  const k = LC.d[j * LC.w + i], x0 = -HX + (i + 0.5) * LC.res, z0 = -HZ + (j + 0.5) * LC.res;
+  const p = k === 'w' ? 0.62 : k === 'o' ? 0.34 : k === 's' ? 0.16 : k === 'r' ? 0.035 : 0;
+  if (!p || R() > p) continue;
+  const x = x0 + (R() - 0.5) * LC.res * (k === 'o' ? 0.2 : 0.9), z = z0 + (R() - 0.5) * LC.res * (k === 'o' ? 0.2 : 0.9);
+  if (onRoad(x, z) || (k !== 'w' && houseNear(x, z))) continue;
+  const pine = k === 'w' && R() < 0.5;
+  trees.push({ x, z, y: height(x, z), s: (k === 'w' ? 0.34 + R() * 0.2 : k === 's' ? 0.16 + R() * 0.08 : 0.22 + R() * 0.08), pine, bush: k === 's' });
 }
-// a few garden trees in the village
-for (const h of houses) if (R() < 0.35) { const a = R() * 6.28, x = h.x + Math.cos(a) * 1.3, z = h.z + Math.sin(a) * 1.3; if (!nearRoad(x, z, 0.8) && valleyAt(x, z) < 0.3) trees.push({ x, z, y: height(x, z), s: 0.55 + R() * 0.3, pine: false }); }
-const PINES = ['#2f4a2a', '#35532e', '#2a4226', '#3b5a31'], LEAF = ['#4f7a3a', '#5e8a42', '#456e34', '#6b9448', '#7d9b4a'];
+const PINES = ['#4b7d43', '#578b4a', '#46763f', '#619453'], LEAF = ['#6fa64e', '#7db658', '#64994a', '#8cbf60', '#9ec46a'];
 const pines = trees.filter(t => t.pine), leafy = trees.filter(t => !t.pine);
-const trunkGeo = new THREE.CylinderGeometry(0.07, 0.1, 0.5, 5).translate(0, 0.25, 0);
-instanced(trunkGeo, lam({ color: 0x6b5340 }), trees.map(t => ({ x: t.x, y: t.y - 0.05, z: t.z, sx: t.s, sy: t.s, sz: t.s })));
-const pineM = instanced(new THREE.ConeGeometry(0.5, 1.5, 6).translate(0, 1.1, 0), lam(), pines.map(t => ({ x: t.x, y: t.y - 0.05, z: t.z, r: R() * 6, sx: t.s, sy: t.s * (0.9 + R() * 0.4), sz: t.s, c: PINES[Math.floor(R() * PINES.length)] })));
-const leafM = instanced(new THREE.IcosahedronGeometry(0.55, 0).translate(0, 0.85, 0), lam(), leafy.map(t => ({ x: t.x, y: t.y - 0.05, z: t.z, r: R() * 6, sx: t.s, sy: t.s * 1.05, sz: t.s, c: LEAF[Math.floor(R() * LEAF.length)] })));
+instanced(new THREE.CylinderGeometry(0.07, 0.1, 0.5, 5).translate(0, 0.25, 0), lam({ color: 0x6b5340 }), trees.filter(t => !t.bush).map(t => ({ x: t.x, y: t.y - 0.05, z: t.z, sx: t.s, sy: t.s, sz: t.s })), false);
+instanced(new THREE.ConeGeometry(0.5, 1.5, 6).translate(0, 1.1, 0), lam(), pines.map(t => ({ x: t.x, y: t.y - 0.05, z: t.z, r: R() * 6, sx: t.s, sy: t.s * (0.9 + R() * 0.4), sz: t.s, c: PINES[Math.floor(R() * PINES.length)] })));
+instanced(new THREE.IcosahedronGeometry(0.55, 0).translate(0, 0.85, 0), lam(), leafy.map(t => ({ x: t.x, y: t.y - (t.bush ? 0.4 * t.s : 0.05), z: t.z, r: R() * 6, sx: t.s, sy: t.s * 1.05, sz: t.s, c: LEAF[Math.floor(R() * LEAF.length)] })));
 
-/* limestone rocks (ostańce) along the valley walls */
+/* ---------------------------------------------------------------- limestone rocks from OSM cliffs and bare rock */
 const rocks = [];
-const ROCK = ['#d9d2bc', '#cbc4ad', '#bdb7a2', '#e2dcc8', '#b3ad98'];
-function rockCluster(x, z, size, n) {
-  const base = height(x, z);
+const ROCK = ['#ddd6c0', '#cfc8b1', '#c2bca6', '#e5dfcb', '#b9b39e'];
+function spire(x, z, s, tall = 1) {
+  const n = 2 + Math.floor(R() * 2), base = height(x, z);
   for (let k = 0; k < n; k++) {
-    const a = R() * 6.28, d = R() * 0.7 * size, px = x + Math.cos(a) * d, pz = z + Math.sin(a) * d;
-    const hgt = size * (1.1 + R() * 1.6) * (k === 0 ? 1.35 : 1);
-    rocks.push({ x: px, z: pz, y: Math.min(base, height(px, pz)) - 0.3, r: R() * 6, sx: size * (0.55 + R() * 0.4), sy: hgt, sz: size * (0.55 + R() * 0.4), c: ROCK[Math.floor(R() * ROCK.length)] });
+    const a = R() * 6.28, d = R() * 0.13 * s, px = x + Math.cos(a) * d, pz = z + Math.sin(a) * d;
+    rocks.push({ x: px, z: pz, y: Math.min(base, height(px, pz)) - 0.12, r: R() * 6, sx: 0.2 * s * (0.7 + R() * 0.5), sy: s * tall * (0.45 + R() * 0.55) * (k === 0 ? 1.3 : 1), sz: 0.2 * s * (0.7 + R() * 0.5), c: ROCK[Math.floor(R() * ROCK.length)] });
   }
 }
-for (const v of Object.values(VALLEYS)) {
-  for (let i = 3; i < v.pts.length - 3; i += 2) {
-    for (const side of [-1, 1]) {
-      if (R() > 0.42) continue;
-      const [x, z] = wallPoint(v, i / (v.pts.length - 1), side, 0.4 + R() * 0.18);
-      if (Math.abs(x) > HALF - 1.2 || Math.abs(z) > HALF - 1.2 || reserved(x, z, 2.6) || nearRoad(x, z, 1.2)) continue;
-      if (v.head && Math.hypot(x - v.head[0], z - v.head[1]) < 4) continue;
-      rockCluster(x, z, 0.8 + R() * 0.5, 2 + Math.floor(R() * 4));
-    }
-  }
+for (const [x, z, s] of D.spires) spire(x, z, s);
+// the famous ones a bit taller
+for (const [name, tall] of [['Filar Abazego', 2.6], ['Filar Pokutników', 2.4], ['Żabi Koń', 1.6], ['Wronia Baszta', 1.8], ['Okręt', 1.4], ['Wielbłąd', 1.4], ['Zamkowa Skała I', 1.5], ['Mamutowa Skała', 1.4], ['Łabajowa Skała', 1.6], ['Leśna Baszta', 1.4], ['Gackowa Baszta', 1.3]]) {
+  const r = rockAt(name); if (r) spire(r[1], r[2], 1.15, tall);
 }
-// named rocks, bigger
-const bigRock = (p, size, n, extra = 0) => { const s = rocks.length; rockCluster(p[0], p[1], size, n); for (let i = s; i < rocks.length; i++) rocks[i].sy += extra; };
-bigRock(P.wronia, 1.25, 5, 1.2);
-bigRock(P.zabi, 1.3, 4, 0.6);
-bigRock(P.zamek, 1.3, 4, 0.2);
-bigRock(P.jaskinia, 1.4, 5, 0.4);
-rocks.push(...[P.bramaL, P.bramaR].map(p => ({ x: p[0], z: p[1], y: height(p[0], p[1]) - 0.3, r: R(), sx: 1.25, sy: 5.3, sz: 1.25, c: '#ddd6c0' })));
-const rockGeo = new THREE.CylinderGeometry(0.42, 0.62, 1, 5, 1).translate(0, 0.5, 0);
-const rockM = instanced(rockGeo, lam(), rocks);
+const rockM = instanced(new THREE.CylinderGeometry(0.42, 0.62, 1, 5, 1).translate(0, 0.5, 0), lam(), rocks);
+const topNear = (x, z, rad = 0.6) => rocks.reduce((m, r) => Math.hypot(r.x - x, r.z - z) < rad ? Math.max(m, r.y + r.sy) : m, height(x, z));
 
-/* special builds */
-const group = (x, z, yOff = 0) => { const g = new THREE.Group(); g.position.set(x, height(x, z) + yOff, z); scene.add(g); return g; };
-const mesh = (geo, color, parent, x = 0, y = 0, z = 0, opt = {}) => { const m = new THREE.Mesh(geo, lam({ color, ...opt })); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; parent.add(m); return m; };
-// chapel in the middle of the village
-{ const g = group(...P.start); g.rotation.y = 0.2;
-  mesh(new THREE.BoxGeometry(1.1, 1.2, 1.6).translate(0, 0.6, 0), 0xf4efe4, g);
-  mesh(new THREE.CylinderGeometry(0, 0.95, 0.8, 4).rotateY(Math.PI / 4).scale(0.85, 1, 1.25), 0x4f6146, g, 0, 1.6, 0);
-  mesh(new THREE.BoxGeometry(0.6, 0.9, 0.6).translate(0, 1.6, 0), 0xf4efe4, g, 0, 0, 0.8);
-  mesh(new THREE.ConeGeometry(0.45, 0.9, 4).rotateY(Math.PI / 4), 0x4f6146, g, 0, 2.95, 0.8);
-  mesh(new THREE.BoxGeometry(0.05, 0.45, 0.05), 0xd8a443, g, 0, 3.6, 0.8); mesh(new THREE.BoxGeometry(0.25, 0.05, 0.05), 0xd8a443, g, 0, 3.65, 0.8); }
-// viewpoint deck with telescope
-{ const g = group(...P.widok); g.rotation.y = -0.7;
-  for (const [x, z] of [[-0.7, -0.7], [0.7, -0.7], [-0.7, 0.7], [0.7, 0.7]]) mesh(new THREE.BoxGeometry(0.14, 1.8, 0.14).translate(0, 0.9, 0), 0x7a5a3c, g, x, 0, z);
-  mesh(new THREE.BoxGeometry(1.8, 0.14, 1.8), 0x9a7650, g, 0, 1.8, 0);
-  mesh(new THREE.BoxGeometry(1.8, 0.4, 0.08), 0x7a5a3c, g, 0, 2.1, 0.86);
-  mesh(new THREE.BoxGeometry(0.08, 0.4, 1.8), 0x7a5a3c, g, 0.86, 2.1, 0);
-  const t = mesh(new THREE.CylinderGeometry(0.08, 0.12, 0.6, 8).rotateZ(Math.PI / 2.6), 0x3c4a5a, g, 0.2, 2.3, 0.2); t.rotation.y = 0.6;
-  mesh(new THREE.BoxGeometry(1.2, 0.12, 0.35), 0x9a7650, g, -0.2, 0.45, -1.4); }
-// old border marker
-{ const g = group(...P.granica);
-  mesh(new THREE.BoxGeometry(0.5, 1.0, 0.35).translate(0, 0.5, 0), 0xddd6c0, g);
-  mesh(new THREE.CylinderGeometry(0.28, 0.25, 0.12, 6), 0xcfc8b0, g, 0, 1.05, 0);
-  for (let i = 0; i < 6; i++) mesh(new THREE.BoxGeometry(0.1, 0.32, 0.1), i % 2 ? 0x1f1f1f : 0xe2b93b, g, 1.1, 0.16 + i * 0.32, 0);
-  mesh(new THREE.BoxGeometry(0.9, 0.5, 0.06), 0xf4efe4, g, 1.1, 1.95, 0); }
-// castle ruins on Zamkowa Skała
-{ const top = Math.max(...rocks.filter(r => Math.hypot(r.x - P.zamek[0], r.z - P.zamek[1]) < 2).map(r => r.y + r.sy));
-  const g = new THREE.Group(); g.position.set(P.zamek[0], top - 0.5, P.zamek[1]); scene.add(g);
+/* ---------------------------------------------------------------- little landmarks */
+const group = (x, z, y = height(x, z)) => { const g = new THREE.Group(); g.position.set(x, y, z); scene.add(g); return g; };
+const mesh = (geo, color, parent, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geo, lam({ color })); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; parent.add(m); return m; };
+{ // signpost in the middle of Zelków
+  const g = group(...P.start); g.scale.setScalar(0.45);
+  mesh(new THREE.BoxGeometry(0.08, 1.2, 0.08).translate(0, 0.6, 0), 0x7a5a3c, g);
+  for (const [y, r, c] of [[1.05, 0.5, 0xd8a443], [0.85, -0.9, 0xe9ebdf], [0.65, 2.2, 0x9cc490]]) { const a = mesh(new THREE.BoxGeometry(0.6, 0.13, 0.03).translate(0.3, 0, 0), c, g, 0, y, 0); a.rotation.y = r; }
+}
+{ // border posts: Austrian black-yellow, Russian black-white-red
+  const g = group(...P.granica); g.scale.setScalar(0.45);
+  const post = (x, cols) => { for (let i = 0; i < 6; i++) mesh(new THREE.BoxGeometry(0.16, 0.24, 0.16), cols[i % cols.length], g, x, 0.12 + i * 0.24, 0); mesh(new THREE.BoxGeometry(0.3, 0.2, 0.05), 0xf4efe4, g, x, 1.55, 0); };
+  post(-0.45, [0x1f1f1f, 0xe2b93b]); post(0.45, [0x1f1f1f, 0xf4efe4, 0xc4523a]);
+}
+let flag;
+{ // castle ruins on Zamkowa Skała
+  const top = topNear(...P.zamek, 0.8); const g = group(P.zamek[0], P.zamek[1], top - 0.15); g.scale.setScalar(0.42);
   const stone = 0xbdb39b;
   mesh(new THREE.BoxGeometry(2.2, 0.35, 2.2), 0xcfc6ad, g, 0, 0.1, 0);
   mesh(new THREE.BoxGeometry(0.9, 2.0, 0.9).translate(0, 1, 0), stone, g, -0.55, 0.2, -0.5);
   for (const dx of [-0.42, -0.14, 0.14, 0.42]) mesh(new THREE.BoxGeometry(0.16, 0.25, 0.9), stone, g, -0.55 + dx * 0.9, 2.32, -0.5);
   mesh(new THREE.BoxGeometry(1.8, 0.9, 0.3).translate(0, 0.45, 0), stone, g, 0.1, 0.2, 0.75);
   mesh(new THREE.BoxGeometry(0.3, 1.3, 1.2).translate(0, 0.65, 0), stone, g, 0.85, 0.2, 0.05);
-  const flag = mesh(new THREE.BoxGeometry(0.03, 0.9, 0.03), 0x4a3b2c, g, -0.55, 2.8, -0.5);
-  const cloth = mesh(new THREE.BoxGeometry(0.5, 0.3, 0.02), 0xc4523a, g, -0.3, 3.05, -0.5); cloth.userData.flag = true;
-  window.__flag = cloth; }
-// cave mouth
-{ const [x, z] = P.jaskinia, v = VALLEYS.kluczwody, i = Math.round(0.14 * (v.pts.length - 1));
-  const g = group(x, z, 0.1); const cx = v.pts[i][0] - x, cz = v.pts[i][1] - z; g.rotation.y = Math.atan2(cx, cz);
-  const m = new THREE.Mesh(new THREE.CircleGeometry(0.7, 12, 0, Math.PI), new THREE.MeshBasicMaterial({ color: 0x14130f, side: THREE.DoubleSide }));
-  m.position.set(0, 0.3, 1.25); g.add(m); }
-// little chapel in Żabi Koń + steps
-{ const [x, z] = P.zabi; const top = Math.max(...rocks.filter(r => Math.hypot(r.x - x, r.z - z) < 2).map(r => r.y + r.sy));
-  const g = new THREE.Group(); g.position.set(x, top * 0.55, z); scene.add(g);
-  mesh(new THREE.BoxGeometry(0.5, 0.6, 0.5), 0xf4efe4, g, 0, 0, 1.1);
-  mesh(new THREE.ConeGeometry(0.45, 0.4, 4).rotateY(Math.PI / 4), 0x3c74c9, g, 0, 0.5, 1.1); }
-
-/* trail markers: little coloured dashes like painted blazes */
-const B_ = VALLEYS.kobylanska.pts, K_ = VALLEYS.kluczwody.pts, BO_ = VALLEYS.bolechowicka.pts;
-const slice = (P_, f0, f1) => { const a = Math.round(f0 * (P_.length - 1)), b = Math.round(f1 * (P_.length - 1)); return a <= b ? P_.slice(a, b + 1) : P_.slice(b, a + 1).reverse(); };
-const near = (P_, f) => P_[Math.round(f * (P_.length - 1))];
-const TRAILS = [
-  { color: TRAIL_RED, pts: [...slice(B_, 0.99, 0.36).filter((_, i) => i % 4 === 0).map(p => [p[0] + 0.5, p[1]]), [-16, -8.5], [-9, -9], [-3, -6], [-0.6, -2], [0.3, 6], [2, 16], [3.3, 25], [3.4, 33.5]] },
-  { color: TRAIL_BLUE, pts: [[6.5, 33.5], [8.5, 25], [12, 17], ...slice(K_, 0.74, 0.03).filter((_, i) => i % 4 === 0).map(p => [p[0] - 0.5, p[1]])] },
-  { color: TRAIL_YEL, pts: [...slice(BO_, 0.99, 0.95), ...slice(BO_, 0.85, 0.05).filter((_, i) => i % 3 === 0).map(p => [p[0] + 0.4, p[1]]), [-12, 10.5], [-13.3, 14]] },
-];
-const trailCurves = [];
-for (const t of TRAILS) {
-  const c2 = new THREE.CatmullRomCurve3(t.pts.map(p => new THREE.Vector3(p[0], 0, p[1])), false, 'centripetal');
-  const L = c2.getLength(), n = Math.floor(L / 0.8), items = [];
-  const pts3 = c2.getSpacedPoints(Math.floor(L / 0.5)).map(v => new THREE.Vector3(v.x, height(v.x, v.z) + 0.12, v.z));
-  trailCurves.push(new THREE.CatmullRomCurve3(pts3));
-  for (let i = 0; i < n; i++) {
-    const p = c2.getPointAt(i / n), d = c2.getTangentAt(i / n);
-    items.push({ x: p.x, y: height(p.x, p.z) + 0.11, z: p.z, r: Math.atan2(d.x, d.z) });
-  }
-  instanced(new THREE.BoxGeometry(0.16, 0.06, 0.42), new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.15 }), items, false);
+  mesh(new THREE.BoxGeometry(0.03, 0.9, 0.03), 0x4a3b2c, g, -0.55, 2.8, -0.5);
+  flag = mesh(new THREE.BoxGeometry(0.5, 0.3, 0.02).translate(0.25, 0, 0), 0xc4523a, g, -0.55, 3.05, -0.5);
+}
+{ // flag on Łabajowa Skała
+  const top = topNear(...P.labaj, 0.6); const g = group(P.labaj[0], P.labaj[1], top - 0.05); g.scale.setScalar(0.5);
+  mesh(new THREE.BoxGeometry(0.04, 1.0, 0.04).translate(0, 0.5, 0), 0x4a3b2c, g);
+  mesh(new THREE.BoxGeometry(0.45, 0.28, 0.02).translate(0.22, 0, 0), 0xd8a443, g, 0, 0.85, 0);
 }
 
-/* fox mascot "Lisek Zelek" walking the red trail */
+/* ---------------------------------------------------------------- Zelków layer: pond, pitches, playgrounds, al. JP2, bus 248 */
+function flatPoly(f, color, lift, outline) {
+  const pts = pairs(f); if (pts.length < 3) return null;
+  const hs = pts.map(p => height(...p)), y = hs.reduce((a, b) => a + b, 0) / hs.length;
+  const shape = new THREE.Shape(pts.map(([x, z]) => new THREE.Vector2(x, -z)));
+  const g = new THREE.ShapeGeometry(shape).rotateX(-Math.PI / 2);
+  const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ color, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 }));
+  m.position.y = Math.max(y, Math.max(...hs) - 0.15) + lift; m.receiveShadow = true; scene.add(m);
+  if (outline) { const l = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts.map(([x, z]) => new THREE.Vector3(x, m.position.y + 0.01, z))), new THREE.LineBasicMaterial({ color: outline })); scene.add(l); }
+  return m;
+}
+const ponds = [];
+for (const w of ZK.waters) { const m = flatPoly(w.ring, '#4fb6e3', 0.06); if (m) ponds.push({ m, c: ringC(w.ring), r: Math.sqrt(new THREE.Box3().setFromObject(m).getSize(new THREE.Vector3()).x * new THREE.Box3().setFromObject(m).getSize(new THREE.Vector3()).z) / 3 }); }
+const PITCH = { soccer: '#5cc85c', tennis: '#de7f4f', basketball: '#e39a4f', multi: '#4fa8de' };
+for (const p of ZK.pitches) flatPoly(p.ring, PITCH[(p.sport || 'soccer').split(';')[0]] || PITCH.multi, 0.07, '#ffffff');
+// ducks on the pond in the middle of Zelków
+const ducks = [];
+{ const pond = ponds.reduce((b, p) => (!b || Math.hypot(p.c[0] - P.start[0], p.c[1] - P.start[1]) < Math.hypot(b.c[0] - P.start[0], b.c[1] - P.start[1])) ? p : b, null);
+  if (pond) for (let i = 0; i < 2; i++) { const d = new THREE.Group(); d.scale.setScalar(0.18);
+    mesh(new THREE.BoxGeometry(0.5, 0.3, 0.8), 0xffffff, d, 0, 0.15, 0); mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), 0xffffff, d, 0, 0.42, 0.32); mesh(new THREE.BoxGeometry(0.14, 0.08, 0.2), 0xf29d38, d, 0, 0.42, 0.55);
+    d.userData = { pond, ph: i * Math.PI, r: Math.max(0.12, pond.r) }; scene.add(d); ducks.push(d); } }
+// playgrounds: sand + slide + swing
+for (const g of ZK.playgrounds) {
+  if (g.ring.length) flatPoly(g.ring, '#f6d77c', 0.075);
+  const grp = group(g.x, g.z); grp.scale.setScalar(0.32); grp.rotation.y = R() * 6;
+  mesh(new THREE.BoxGeometry(0.1, 0.9, 0.1).translate(0, 0.45, 0), 0xe8573d, grp, -0.5, 0, -0.2); mesh(new THREE.BoxGeometry(0.1, 0.9, 0.1).translate(0, 0.45, 0), 0xe8573d, grp, 0.5, 0, -0.2);
+  mesh(new THREE.BoxGeometry(1.1, 0.08, 0.08), 0xe8573d, grp, 0, 0.9, -0.2);
+  mesh(new THREE.BoxGeometry(0.25, 0.04, 0.12), 0x3c74c9, grp, 0, 0.35, -0.2);
+  const sl = mesh(new THREE.BoxGeometry(0.3, 0.05, 1.1), 0xffd166, grp, 0.2, 0.4, 0.55); sl.rotation.x = 0.55;
+  mesh(new THREE.BoxGeometry(0.35, 0.8, 0.3).translate(0, 0.4, 0), 0x4fa8de, grp, 0.2, 0, 0.05);
+}
+// al. Jana Pawła II, highlighted
+const jp2Mesh = ribbons(ZK.jp2, 0.24, '#f2b632', 0.065);
+// bus 248: dotted line, stops, a driving bus, and an arrow out of the map
+const BUS = '#2f6fd6';
+const busLine = ZK.bus ? densify(ZK.bus.lines.map(pairs).sort((a, b) => b.length - a.length)[0], 0.2) : null;
+let busPath = null, bus = null;
+if (busLine) {
+  const items = [];
+  const c2 = new THREE.CatmullRomCurve3(busLine.map(p => new THREE.Vector3(p[0], 0, p[1])), false, 'catmullrom', 0.1), L = c2.getLength(), n = Math.floor(L / 0.36);
+  for (let i = 0; i < n; i++) { const p = c2.getPointAt(i / n), d = c2.getTangentAt(i / n), x = p.x - d.z * 0.14, z = p.z + d.x * 0.14; items.push({ x, y: height(x, z) + 0.1, z, r: Math.atan2(d.x, d.z) }); }
+  instanced(new THREE.BoxGeometry(0.13, 0.04, 0.24), new THREE.MeshLambertMaterial({ color: BUS, emissive: BUS, emissiveIntensity: 0.25 }), items, false);
+  busPath = c2;
+  // start the path at the terminus
+  const pe = petla ? new THREE.Vector3(petla[1], 0, petla[2]) : null;
+  if (pe && c2.getPointAt(0).distanceTo(pe) < c2.getPointAt(1).distanceTo(pe)) busPath = new THREE.CatmullRomCurve3([...c2.points].reverse(), false, 'catmullrom', 0.1);
+  bus = new THREE.Group();
+  mesh(new THREE.BoxGeometry(0.42, 0.36, 1.1).translate(0, 0.25, 0), BUS, bus);
+  mesh(new THREE.BoxGeometry(0.44, 0.12, 1.0), 0xdfeaf5, bus, 0, 0.33, 0);
+  mesh(new THREE.BoxGeometry(0.38, 0.03, 1.06), 0xffffff, bus, 0, 0.44, 0);
+  for (const [x, z] of [[-0.2, 0.35], [0.2, 0.35], [-0.2, -0.35], [0.2, -0.35]]) mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.06, 8).rotateZ(Math.PI / 2), 0x222222, bus, x, 0.07, z);
+  bus.scale.setScalar(0.55); bus.userData = { u: 0, dir: 1, wait: 2 }; scene.add(bus);
+}
+const stopMarks = [];
+for (const [name, x, z] of ZK.bus?.stops || []) {
+  if (stopMarks.some(s => s.name === name)) continue;
+  const g = group(x, z); g.scale.setScalar(0.4);
+  mesh(new THREE.BoxGeometry(0.06, 1.0, 0.06).translate(0, 0.5, 0), 0x9aa0a6, g);
+  mesh(new THREE.BoxGeometry(0.42, 0.42, 0.05), 0xffd23f, g, 0, 1.05, 0);
+  mesh(new THREE.BoxGeometry(0.3, 0.3, 0.06), 0x1d8f4e, g, 0, 1.05, 0);
+  stopMarks.push({ name, x, z, terminus: /Pętla/.test(name) });
+}
+const exitArrow = (() => {
+  const e = ZK.bus?.exit; if (!e) return null;
+  const [x, z, dx, dz] = e, g = new THREE.Group(), y = height(x - dx * 0.3, z - dz * 0.3);
+  g.position.set(x + dx * 1.6, y + 0.6, z + dz * 1.6); g.rotation.y = Math.atan2(dx, dz); scene.add(g);
+  mesh(new THREE.BoxGeometry(0.35, 0.12, 1.4), 0xf2b632, g, 0, 0, -0.3);
+  mesh(new THREE.ConeGeometry(0.42, 0.75, 3).rotateX(Math.PI / 2).rotateZ(Math.PI), 0xf2b632, g, 0, 0, 0.7);
+  return { x: x + dx * 2.4, z: z + dz * 2.4, y: y + 1.6 };
+})();
+
+/* ---------------------------------------------------------------- trails: dashes = walking, dots = cycling */
+const trailItems = new Map(), trailMeshes = [];
+let foxLine = null, foxLen = 0;
+D.trails.forEach((t, ti) => {
+  const key = t.kind + t.colour; if (!trailItems.has(key)) trailItems.set(key, { kind: t.kind, colour: t.colour, items: [] });
+  const bucket = trailItems.get(key).items, off = ((ti % 3) - 1) * 0.07;
+  for (const f of t.lines) {
+    const pts = pairs(f); if (pts.length < 2) continue;
+    const c2 = new THREE.CatmullRomCurve3(pts.map(p => new THREE.Vector3(p[0], 0, p[1])), false, 'catmullrom', 0.1);
+    const L = c2.getLength(), step = t.kind === 'hiking' ? 0.3 : 0.24, n = Math.floor(L / step);
+    for (let i = 0; i < n; i++) {
+      const p = c2.getPointAt(i / n), d = c2.getTangentAt(i / n), x = p.x - d.z * off, z = p.z + d.x * off;
+      bucket.push({ x, y: height(x, z) + 0.07, z, r: Math.atan2(d.x, d.z) });
+    }
+    if (t.colour === TR.red && t.kind === 'bicycle' && L > foxLen) { foxLen = L; foxLine = pts; }
+  }
+});
+for (const { kind, colour, items } of trailItems.values()) {
+  const geo = kind === 'hiking' ? new THREE.BoxGeometry(0.07, 0.03, 0.17) : new THREE.CylinderGeometry(0.05, 0.05, 0.03, 8);
+  trailMeshes.push({ kind, m: instanced(geo, new THREE.MeshLambertMaterial({ color: colour, emissive: colour, emissiveIntensity: 0.2, transparent: true }), items, false) });
+}
+if (!foxLine) foxLine = pairs(D.roads[0][0]);
+const foxPath = new THREE.CatmullRomCurve3(densify(foxLine, 0.3).map(p => new THREE.Vector3(p[0], 0, p[1])));
+
+/* ---------------------------------------------------------------- fox mascot "Lisek Zelek" */
 const fox = new THREE.Group();
 { const orange = 0xe07a2e, white = 0xf6efe2, dark = 0x2b2420;
   mesh(new THREE.BoxGeometry(0.42, 0.36, 0.8), orange, fox, 0, 0.45, 0);
@@ -608,65 +644,59 @@ const fox = new THREE.Group();
   mesh(new THREE.BoxGeometry(0.07, 0.07, 0.06), dark, fox, 0, 0.72, 0.87);
   mesh(new THREE.ConeGeometry(0.09, 0.22, 4), orange, fox, -0.12, 1.0, 0.45); mesh(new THREE.ConeGeometry(0.09, 0.22, 4), orange, fox, 0.12, 1.0, 0.45);
   mesh(new THREE.BoxGeometry(0.06, 0.06, 0.02), dark, fox, -0.1, 0.8, 0.675); mesh(new THREE.BoxGeometry(0.06, 0.06, 0.02), dark, fox, 0.1, 0.8, 0.675);
-  const tail = mesh(new THREE.ConeGeometry(0.17, 0.75, 6).rotateX(-Math.PI / 2.4), orange, fox, 0, 0.62, -0.62); tail.userData.tail = true; fox.userData.tail = tail;
+  fox.userData.tail = mesh(new THREE.ConeGeometry(0.17, 0.75, 6).rotateX(-Math.PI / 2.4), orange, fox, 0, 0.62, -0.62);
   mesh(new THREE.ConeGeometry(0.08, 0.2, 6).rotateX(-Math.PI / 2.4), white, fox, 0, 0.75, -0.98);
   fox.userData.legs = [[-0.13, 0.25], [0.13, 0.25], [-0.13, -0.28], [0.13, -0.28]].map(([x, z]) => mesh(new THREE.BoxGeometry(0.1, 0.3, 0.1).translate(0, -0.15, 0), dark, fox, x, 0.34, z));
-  // hiking backpack
   mesh(new THREE.BoxGeometry(0.34, 0.28, 0.26), 0x3c74c9, fox, 0, 0.72, -0.08);
-  fox.scale.setScalar(2.1);
+  fox.scale.setScalar(0.7);
   scene.add(fox); }
-const foxPath = trailCurves[0];
 
-/* clouds and birds */
+/* ---------------------------------------------------------------- clouds, birds, sparkles, fireflies */
 const clouds = [];
-const cloudMat = lam({ color: 0xffffff, transparent: true, opacity: 0.9 });
-for (let i = 0; i < 4; i++) {
-  const g = new THREE.Group();
-  const n = 3 + Math.floor(R() * 2);
-  for (let k = 0; k < n; k++) { const s = (k === 1 ? 1.15 : 0.7) + R() * 0.35, m = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 1), cloudMat); m.position.set(k * 1.05 - n * 0.5, R() * 0.3, (R() - 0.5) * 0.8); m.castShadow = true; g.add(m); }
-  g.position.set((R() * 2 - 1) * 40, 13 + R() * 3, (R() * 2 - 1) * 26); g.userData.v = 0.6 + R() * 0.6;
+const cloudMat = lam({ color: 0xffffff, transparent: true, opacity: 0.8 });
+for (let i = 0; i < 3; i++) {
+  const g = new THREE.Group(), n = 3 + Math.floor(R() * 2); g.scale.setScalar(0.6);
+  for (let k = 0; k < n; k++) { const s = (k === 1 ? 1.1 : 0.7) + R() * 0.35, m = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 1), cloudMat); m.position.set(k * 1.05 - n * 0.5, R() * 0.3, (R() - 0.5) * 0.8); m.castShadow = true; g.add(m); }
+  g.position.set((R() * 2 - 1) * 40, 18 + R() * 3, -10 - R() * 20); g.userData.v = 0.5 + R() * 0.5;
   scene.add(g); clouds.push(g);
 }
 const birds = [];
-function bird(cx, cz, r, h, color, speed) {
+function bird(cx, cz, r, h, color, speed, size) {
   const g = new THREE.Group(), wingGeo = new THREE.BufferGeometry();
   wingGeo.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0.15, 0, 0, -0.15, 0.7, 0, 0], 3)); wingGeo.computeVertexNormals();
   const mat = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
   const l = new THREE.Mesh(wingGeo, mat), rr = new THREE.Mesh(wingGeo, mat); rr.scale.x = -1;
-  g.add(l, rr); g.userData = { cx, cz, r, h, speed, ph: R() * 6.28, l, rr }; scene.add(g); birds.push(g);
+  g.add(l, rr); g.scale.setScalar(size); g.userData = { cx, cz, r, h, speed, ph: R() * 6.28, l, rr }; scene.add(g); birds.push(g);
 }
-for (let i = 0; i < 4; i++) bird(P.wronia[0], P.wronia[1], 2 + R() * 2, height(...P.wronia) + 6 + R() * 2, 0x1d1d1d, 0.8 + R() * 0.4);
-for (let i = 0; i < 3; i++) bird(2, 0, 9 + R() * 6, 11 + R() * 3, 0x3b3b3b, 0.35 + R() * 0.2);
-
-/* stream sparkles + fireflies */
+for (let i = 0; i < 4; i++) bird(P.wronia[0], P.wronia[1], 0.8 + R() * 1, topNear(...P.wronia) + 2 + R(), 0x1d1d1d, 0.9 + R() * 0.4, 0.6);
+for (let i = 0; i < 3; i++) bird(P.start[0], P.start[1], 8 + R() * 6, 12 + R() * 3, 0x3b3b3b, 0.3 + R() * 0.2, 1);
 const sparkles = [];
-for (const s of streams) for (let i = 0; i < 16; i++) sparkles.push({ s, u: R(), v: 0.03 + R() * 0.03 });
-const sparkM = new THREE.InstancedMesh(new THREE.SphereGeometry(0.09, 6, 4), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 }), sparkles.length);
-scene.add(sparkM);
+for (let i = 0; i < 90 && streamPaths.length; i++) sparkles.push({ p: streamPaths[Math.floor(R() * streamPaths.length)], u: R(), v: 0.02 + R() * 0.03 });
+const sparkM = new THREE.InstancedMesh(new THREE.SphereGeometry(0.045, 6, 4), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 }), Math.max(1, sparkles.length));
+sparkM.count = sparkles.length; scene.add(sparkM);
 const flies = [];
-for (let i = 0; i < 260 && flies.length < 70; i++) { const t = trees[Math.floor(R() * trees.length)]; if (t) flies.push({ x: t.x + (R() - 0.5) * 2, z: t.z + (R() - 0.5) * 2, y: t.y + 0.8 + R() * 1.5, ph: R() * 6.28 }); }
-const flyM = new THREE.InstancedMesh(new THREE.SphereGeometry(0.08, 6, 4), new THREE.MeshBasicMaterial({ color: 0xfff08a }), flies.length);
+for (let i = 0; i < 400 && flies.length < 120; i++) { const t = trees[Math.floor(R() * trees.length)]; if (t && !t.bush) flies.push({ x: t.x + (R() - 0.5), z: t.z + (R() - 0.5), y: t.y + 0.4 + R() * 0.8, ph: R() * 6.28 }); }
+const flyM = new THREE.InstancedMesh(new THREE.SphereGeometry(0.05, 6, 4), new THREE.MeshBasicMaterial({ color: 0xfff08a }), Math.max(1, flies.length));
 flyM.visible = false; scene.add(flyM);
 
-/* ---------------------------------------------------------------- labels and pins (sprites) */
-function textSprite(text, { size = 1.3, color = '#1f2a1c', stroke = 'rgba(241,239,226,.92)', weight = 900, spacing = 0 } = {}) {
-  const c = document.createElement('canvas'), x = c.getContext('2d'), fs = 64;
-  x.font = `${weight} ${fs}px Nunito, system-ui, sans-serif`;
-  if (spacing) x.letterSpacing = spacing + 'px';
-  const w = Math.ceil(x.measureText(text).width) + 40;
-  c.width = w; c.height = fs + 36;
-  x.font = `${weight} ${fs}px Nunito, system-ui, sans-serif`; if (spacing) x.letterSpacing = spacing + 'px';
-  x.textAlign = 'center'; x.textBaseline = 'middle'; x.lineJoin = 'round';
-  x.lineWidth = 14; x.strokeStyle = stroke; x.strokeText(text, w / 2, c.height / 2);
-  x.fillStyle = color; x.fillText(text, w / 2, c.height / 2);
+/* ---------------------------------------------------------------- sprites: labels, pins, small icons */
+function canvasSprite(c, w, h, center = [0.5, 0.5]) {
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
   const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true }));
-  s.userData.base = [w / c.height * size, size]; s.scale.set(...s.userData.base, 1); s.renderOrder = 5;
-  scene.add(s);
-  return s;
+  s.center.set(...center); s.userData.base = [w, h]; s.scale.set(w, h, 1); scene.add(s); return s;
+}
+function textSprite(text, { size = 1, color = '#1f2a1c', weight = 900, spacing = 0, italic = false } = {}) {
+  const c = document.createElement('canvas'), x = c.getContext('2d'), fs = 64, font = `${italic ? 'italic ' : ''}${weight} ${fs}px Nunito, system-ui, sans-serif`;
+  x.font = font; if (spacing) x.letterSpacing = spacing + 'px';
+  const w = Math.ceil(x.measureText(text).width) + 40; c.width = w; c.height = fs + 36;
+  x.font = font; if (spacing) x.letterSpacing = spacing + 'px';
+  x.textAlign = 'center'; x.textBaseline = 'middle'; x.lineJoin = 'round';
+  x.lineWidth = 14; x.strokeStyle = 'rgba(241,239,226,.92)'; x.strokeText(text, w / 2, c.height / 2);
+  x.fillStyle = color; x.fillText(text, w / 2, c.height / 2);
+  const s = canvasSprite(c, w / c.height * size, size); s.renderOrder = 5; return s;
 }
 const labels = [];
-function label(text, x, z, opts, yOff = 1.2) { const s = textSprite(text, opts); s.position.set(x, height(x, z) + yOff, z); labels.push(s); return s; }
+function label(text, x, z, opts, yOff = 0.8, minZoom = 0) { const s = textSprite(text, opts); s.position.set(x, height(x, z) + yOff, z); s.userData.minZoom = minZoom; labels.push(s); return s; }
 
 function pinTexture(spot, done) {
   const c = document.createElement('canvas'); c.width = 160; c.height = 200; const x = c.getContext('2d');
@@ -682,83 +712,116 @@ function pinTexture(spot, done) {
 const pins = SPOTS.map((s, i) => {
   const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: pinTexture(s, false), depthTest: false, transparent: true }));
   sp.center.set(0.5, 0.02); sp.renderOrder = 10;
-  let top = height(...s.at);
-  for (const r of rocks) if (Math.hypot(r.x - s.at[0], r.z - s.at[1]) < 1.8) top = Math.max(top, r.y + r.sy);
-  if (s.id === 'start') top += 3.6; if (s.id === 'widok') top += 2.4; if (s.id === 'granica') top += 2.2; if (s.id === 'zamek') top += 2.6; if (s.id === 'potok') top += 0.4;
-  sp.position.set(s.at[0], top + 0.6, s.at[1]); sp.userData = { spot: s, i, y0: top + 0.6 };
-  scene.add(sp);
-  return sp;
+  const extra = { start: 0.6, granica: 0.75, zamek: 1.3, labaj: 0.6 }[s.id] || 0.15;
+  const y0 = topNear(s.at[0], s.at[1], 0.5) + extra;
+  sp.position.set(s.at[0], y0, s.at[1]); sp.userData = { spot: s, i, y0 };
+  scene.add(sp); return sp;
 });
+function infoTexture(o) {
+  const c = document.createElement('canvas'); c.width = 140; c.height = 170; const x = c.getContext('2d');
+  x.fillStyle = '#1d4f91'; x.beginPath(); x.moveTo(52, 118); x.lineTo(70, 164); x.lineTo(88, 118); x.fill();
+  x.fillStyle = '#1d4f91'; x.beginPath(); x.roundRect(8, 8, 124, 118, 30); x.fill();
+  x.fillStyle = '#ffd166'; x.beginPath(); x.roundRect(18, 18, 104, 98, 22); x.fill();
+  x.font = '58px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(o.ico, 70, 72);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const infoPins = INFO.map((o, i) => {
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: infoTexture(o), depthTest: false, transparent: true }));
+  sp.center.set(0.5, 0.02); sp.renderOrder = 9;
+  const y0 = topNear(o.at[0], o.at[1], 0.3) + (o.id === 'szkola' ? 0.45 : o.id === 'kosciol-b' ? 0.95 : 0.25);
+  sp.position.set(o.at[0], y0, o.at[1]); sp.userData = { info: o, i, y0 }; scene.add(sp); return sp;
+});
+// small icons for caves, springs, viewpoints… (visible when zoomed in, tap = name)
+const ICON_ACT = { cave: ['jaskinie', 'wedrowka'], view: ['widoki', 'wedrowka'], peak: ['widoki', 'wedrowka'], spring: ['wedrowka'], picnic: ['zabawa', 'wedrowka'], camp: ['zabawa'], church: [], shrine: [], attraction: ['wedrowka'] };
+const ICON = { cave: ['🦇', 'Jaskinia'], view: ['👀', 'Punkt widokowy'], peak: ['⛰️', 'Szczyt'], spring: ['💧', 'Źródło'], picnic: ['🧺', 'Miejsce na piknik'], church: ['⛪', 'Kościół'], camp: ['⛺', 'Kemping'], shrine: ['✝️', 'Kapliczka'], attraction: ['⭐', 'Ciekawe miejsce'], castle: ['🏰', 'Zamek'] };
+const icons = [];
+for (const [kind, name, x, z] of D.pois) {
+  if (!ICON[kind] || kind === 'castle' || SPOTS.some(s => Math.hypot(s.at[0] - x, s.at[1] - z) < 0.5)) continue;
+  if (icons.some(o => Math.hypot(o.position.x - x, o.position.z - z) < 0.35)) continue;
+  const c = document.createElement('canvas'); c.width = c.height = 96; const g = c.getContext('2d');
+  g.beginPath(); g.arc(48, 48, 40, 0, 7); g.fillStyle = 'rgba(241,239,226,.95)'; g.fill(); g.lineWidth = 5; g.strokeStyle = '#253022'; g.stroke();
+  g.font = '44px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(ICON[kind][0], 48, 52);
+  const s = canvasSprite(c, 0.7, 0.7, [0.5, 0]); s.renderOrder = 6;
+  s.position.set(x, topNear(x, z, 0.3) + 0.1, z); s.userData = { icon: true, name: name || ICON[kind][1], kind: ICON[kind][1], minZoom: 1.9, acts: ICON_ACT[kind] || [] };
+  icons.push(s);
+}
 
 /* ---------------------------------------------------------------- controls */
 const controls = new OrbitControls(camera, canvas);
 controls.target.copy(target0);
 controls.enableDamping = true; controls.dampingFactor = 0.12;
 controls.screenSpacePanning = false;
-controls.minZoom = 0.55; controls.maxZoom = 4.5;
-controls.minPolarAngle = 0.6; controls.maxPolarAngle = 1.15;
+controls.minZoom = 0.6; controls.maxZoom = 9;
+controls.minPolarAngle = 0.55; controls.maxPolarAngle = 1.15;
 controls.mouseButtons = { LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.ROTATE };
 controls.touches = { ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_ROTATE };
 controls.zoomToCursor = true;
 controls.addEventListener('change', () => {
-  const t = controls.target, cx = clamp(t.x, -HALF, HALF), cz = clamp(t.z, -HALF, HALF);
+  const t = controls.target, cx = clamp(t.x, -HX, HX), cz = clamp(t.z, -HZ, HZ);
   if (cx !== t.x || cz !== t.z) { camera.position.x += cx - t.x; camera.position.z += cz - t.z; t.x = cx; t.z = cz; }
 });
-
 let viewHalf = 30;
 function resize() {
   const w = innerWidth, h = innerHeight, a = w / h;
   renderer.setSize(w, h, false);
-  const halfW = a < 0.8 ? 25 : a < 1.2 ? 34 : 44;
+  const halfW = a < 0.8 ? 26 : a < 1.2 ? 36 : 46;
   viewHalf = Math.max(halfW / a, 24);
   Object.assign(camera, { left: -viewHalf * a, right: viewHalf * a, top: viewHalf, bottom: -viewHalf });
   camera.updateProjectionMatrix();
 }
 addEventListener('resize', resize); resize();
 
-/* tweens */
 let tween = null;
 function flyTo(x, z, zoom, rot = 0, dur = 0.9) {
   const from = controls.target.clone(), off0 = camera.position.clone().sub(controls.target);
-  const to = new THREE.Vector3(x, Math.max(1.5, height(x, z) * 0.6 + 1), z);
-  tween = { t: 0, dur, from, to, off0, rot, z0: camera.zoom, z1: zoom ?? camera.zoom };
+  tween = { t: 0, dur, from, to: new THREE.Vector3(x, height(clamp(x, -HX, HX), clamp(z, -HZ, HZ)) * 0.8 + 0.5, z), off0, rot, z0: camera.zoom, z1: zoom ?? camera.zoom };
 }
 function stepTween(dt) {
   if (!tween) return;
   tween.t = Math.min(1, tween.t + dt / tween.dur);
   const e = 1 - Math.pow(1 - tween.t, 3);
   controls.target.lerpVectors(tween.from, tween.to, e);
-  const off = tween.off0.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), tween.rot * e);
-  camera.position.copy(controls.target).add(off);
+  camera.position.copy(controls.target).add(tween.off0.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), tween.rot * e));
   camera.zoom = lerp(tween.z0, tween.z1, e); camera.updateProjectionMatrix();
   if (tween.t >= 1) tween = null;
 }
 $('#rl').onclick = () => flyTo(controls.target.x, controls.target.z, null, -Math.PI / 2, 0.7);
 $('#rr').onclick = () => flyTo(controls.target.x, controls.target.z, null, Math.PI / 2, 0.7);
-$('#zin').onclick = () => flyTo(controls.target.x, controls.target.z, clamp(camera.zoom * 1.4, controls.minZoom, controls.maxZoom), 0, 0.4);
-$('#zout').onclick = () => flyTo(controls.target.x, controls.target.z, clamp(camera.zoom / 1.4, controls.minZoom, controls.maxZoom), 0, 0.4);
+$('#zin').onclick = () => flyTo(controls.target.x, controls.target.z, clamp(camera.zoom * 1.5, controls.minZoom, controls.maxZoom), 0, 0.4);
+$('#zout').onclick = () => flyTo(controls.target.x, controls.target.z, clamp(camera.zoom / 1.5, controls.minZoom, controls.maxZoom), 0, 0.4);
 
 /* ---------------------------------------------------------------- stars + card */
-const KEY = 'zelkow-stars-v1';
-const done = new Set((store.get(KEY) || '').split(',').filter(Boolean));
+const KEY = 'zelkow-stars-v2';
+const done = new Set((store.get(KEY) || '').split(',').filter(id => SPOTS.some(s => s.id === id)));
 function refreshStars() {
   $('#count').textContent = `${done.size}/${SPOTS.length}`;
   pins.forEach(p => { const d = done.has(p.userData.spot.id); if (p.userData.d !== d) { p.material.map.dispose(); p.material.map = pinTexture(p.userData.spot, d); p.material.needsUpdate = true; p.userData.d = d; } });
 }
 let current = -1;
+function showCardFor(s, isInfo) {
+  document.querySelector('.task').style.display = isInfo ? 'none' : '';
+  document.querySelector('.sheet .row').style.display = isInfo ? 'none' : '';
+  $('#c-ico').textContent = s.ico; $('#c-kind').textContent = s.kind; $('#c-title').textContent = s.title; $('#c-fact').textContent = s.fact;
+  $('#c-chips').innerHTML = (s.chips || []).map(([t, c]) => `<em><i style="--c:${c}"></i>${t}</em>`).join('');
+  $('#sheet').classList.add('open'); document.body.classList.add('card-open');
+}
+function flyToSpot(at) {
+  const a = innerWidth / innerHeight, zoom = Math.max(camera.zoom, a < 0.8 ? 3.4 : 2.8);
+  const shift = camera.position.clone().sub(controls.target).setY(0).normalize().multiplyScalar((a < 0.8 ? 12 : 6) / zoom);
+  flyTo(at[0] + shift.x, at[1] + shift.z, zoom);
+}
+function openInfo(o) { current = -2; showCardFor(o, true); flyToSpot(o.at); }
 function openCard(i, fly = true) {
   current = (i + SPOTS.length) % SPOTS.length;
   const s = SPOTS[current];
+  showCardFor(s, false);
   $('#c-ico').textContent = s.ico; $('#c-kind').textContent = s.kind; $('#c-title').textContent = s.title;
   $('#c-fact').textContent = s.fact; $('#c-task').textContent = s.task;
   $('#c-chips').innerHTML = s.chips.map(([t, c]) => `<em><i style="--c:${c}"></i>${t}</em>`).join('');
   const b = $('#collect'), d = done.has(s.id);
   b.textContent = d ? '★ Gwiazdka zdobyta!' : 'Zrobione! Daj gwiazdkę ★'; b.classList.toggle('done', d);
   $('#sheet').classList.add('open'); document.body.classList.add('card-open');
-  if (fly) { const a = innerWidth / innerHeight; const zoom = Math.max(camera.zoom, a < 0.8 ? 1.7 : 1.5);
-    // aim a bit "below" the spot so the card does not cover it
-    const shift = camera.position.clone().sub(controls.target).setY(0).normalize().multiplyScalar((a < 0.8 ? 10 : 5) / zoom);
-    flyTo(s.at[0] + shift.x, s.at[1] + shift.z, zoom); }
+  if (fly) flyToSpot(s.at); // aims a bit towards the viewer so the spot sits above the card
 }
 function closeCard() { $('#sheet').classList.remove('open'); document.body.classList.remove('card-open'); current = -1; }
 $('#close').onclick = closeCard;
@@ -778,8 +841,8 @@ function burst(n) {
 }
 let toastT;
 function toast(msg, ms = 2200) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), ms); }
-const FOX_LINES = ['Cześć! Jestem Lisek Zelek 🦊', 'Szukam szyszek. Widziałeś jakąś?', 'Pssst… w skałach mieszkają nietoperze!', 'Mój plecak jest pełen kanapek 🥪', 'Pamiętaj: śmieci zabieramy do domu!', 'Idę czerwonym szlakiem do Bolechowic!'];
-let foxLine = 0;
+const FOX_LINES = ['Cześć! Jestem Lisek Zelek 🦊', 'Jadę czerwonym szlakiem rowerowym!', 'Pssst… w jaskiniach mieszkają nietoperze!', 'Mój plecak jest pełen kanapek 🥪', 'Pamiętaj: śmieci zabieramy do domu!', 'Szukam skały, która wygląda jak wielbłąd 🐫'];
+let foxSay = 0;
 
 /* tap picking (ignore drags) */
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
@@ -789,17 +852,19 @@ canvas.addEventListener('pointerup', e => {
   if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 8 || performance.now() - down.t > 600) return;
   ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
   ray.setFromCamera(ndc, camera);
-  const hit = ray.intersectObjects([...pins, fox], true)[0];
-  if (!hit) { if (current >= 0) closeCard(); return; }
-  let o = hit.object; while (o && !o.userData.spot && o !== fox) o = o.parent;
-  if (o === fox) { toast(FOX_LINES[foxLine++ % FOX_LINES.length]); return; }
+  const hit = ray.intersectObjects([...pins, ...infoPins, ...icons.filter(o => o.visible), fox, ...(bus ? [bus] : [])], true)[0];
+  if (!hit) { if (current !== -1) closeCard(); return; }
+  let o = hit.object; while (o && !o.userData.spot && !o.userData.icon && !o.userData.info && o !== fox && o !== bus) o = o.parent;
+  if (o === bus) { toast('🚌 248: Zelków Pętla ⇄ Kraków Bronowice Małe'); return; }
+  if (o?.userData.info) { openInfo(o.userData.info); return; }
+  if (o === fox) { toast(FOX_LINES[foxSay++ % FOX_LINES.length]); return; }
+  if (o?.userData.icon) { toast(o.userData.name === o.userData.kind ? o.userData.name : `${o.userData.kind}: ${o.userData.name}`); return; }
   if (o?.userData.spot) openCard(o.userData.i);
 });
 
 /* ---------------------------------------------------------------- day / night */
 const mq = matchMedia('(prefers-color-scheme: dark)');
-let themePick = store.get('zelkow-theme') || 'system';
-let night = 0, nightTarget = 0;
+let themePick = store.get('zelkow-theme') || 'system', night = 0, nightTarget = 0;
 function applyTheme() {
   const dark = themePick === 'dark' || (themePick === 'system' && mq.matches);
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
@@ -809,104 +874,144 @@ function applyTheme() {
 document.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { themePick = b.dataset.t; store.set('zelkow-theme', themePick); applyTheme(); });
 mq.addEventListener?.('change', applyTheme);
 applyTheme(); night = nightTarget;
-const dayHemi = [col('#fff7e6'), col('#52663f')], nightHemi = [col('#8fa7c9'), col('#1d2a22')];
+const dayHemi = [col('#fffaee'), col('#6f8a55')], nightHemi = [col('#8fa7c9'), col('#1d2a22')];
 function lights() {
   hemi.color.lerpColors(dayHemi[0], nightHemi[0], night); hemi.groundColor.lerpColors(dayHemi[1], nightHemi[1], night);
-  hemi.intensity = lerp(1.6, 0.75, night);
+  hemi.intensity = lerp(1.85, 0.75, night);
   sun.color.lerpColors(col('#fff0d4'), col('#b9cbe8'), night); sun.intensity = lerp(2.6, 0.7, night);
   winMat.opacity = smooth(0.3, 1, night);
   flyM.visible = night > 0.4;
-  for (const s of streams) s.mesh.material.color.lerpColors(col('#63acc9'), col('#4b7f97'), night);
+  streamMesh.material.color.lerpColors(col('#63acc9'), col('#4b7f97'), night);
 }
 
 /* ---------------------------------------------------------------- labels (after fonts) */
+const BIG = ['Zelków', 'Bolechowice', 'Kobylany', 'Karniowice', 'Wierzchowie', 'Biały Kościół', 'Bębło', 'Będkowice'];
+const SMALL = ['Gacki', 'Wyźrał', 'Morgi', 'Wola', 'Góry', 'Celiny', 'Łączki', 'Krzemionka', 'Studzienki', 'Kolonia Wschodnia'];
+const FUN_ROCKS = ['Wronia Baszta', 'Okręt', 'Wielbłąd', 'Żabi Koń', 'Mnich', 'Pieninki', 'Prawie K2', 'Żabka', 'Filar Abazego', 'Filar Pokutników', 'Zamkowa Skała I', 'Mamutowa Skała', 'Leśna Baszta', 'Gackowa Baszta', 'Mączne skały', 'Łabajowa Skała', 'Asteriks', 'Skalny Mur', 'Dzikie Turnie', 'Sękata Grzęda'];
 const sage = '#3f6a38';
 function makeLabels() {
-  label('ZELKÓW', -4.5, 2.5, { size: 2.73, color: '#253022', spacing: 6 }, 3.2);
-  label('Gacki', 11.5, 11.5, { size: 1.43, color: '#253022' }, 2.4);
-  label('Bolechowice', 7.5, 28.5, { size: 1.69, color: '#253022' }, 2.4);
-  label('Karniowice', -10.5, 25, { size: 1.49, color: '#253022' }, 2.4);
-  label('Kobylany', -26, 30, { size: 1.49, color: '#253022' }, 2.6);
-  label('↑ do Wierzchowia', 6, -30.5, { size: 1.23, color: '#253022' }, 2);
-  label('Dolina Kluczwody', 24.5, -12, { size: 1.49, color: sage }, 1.6);
-  label('Dolina Kobylańska', -14, -18, { size: 1.49, color: sage }, 2);
-  label('Dolina Bolechowicka', -0.5, 18.5, { size: 1.37, color: sage }, 1.8);
+  for (const [name, kind, x, z] of D.places) {
+    if (name === 'Zelków') { label('ZELKÓW', x - 1, z - 1.2, { size: 2.4, color: '#253022', spacing: 6 }, 2.4); continue; }
+    if (BIG.includes(name)) label(name, x + (name === 'Bolechowice' ? -1.6 : 0), z + (name === 'Bolechowice' ? 1.2 : 0), { size: 1.4, color: '#253022' }, 1.4);
+    else if (SMALL.includes(name)) label(name, x, z, { size: 0.75, color: '#3a4636' }, 1, 1.7);
+  }
+  label('Dolina Kobylańska', ...ll(50.1648, 19.7585), { size: 1.05, color: sage, italic: true }, 1.4);
+  label('Dolina Kluczwody', ...ll(50.1555, 19.8235), { size: 1.05, color: sage, italic: true }, 1.4);
+  label('Dolina Bolechowicka', ...ll(50.1555, 19.7838), { size: 0.85, color: sage, italic: true }, 1.2);
+  label('Dolina Będkowska', ...ll(50.1835, 19.7545), { size: 0.85, color: sage, italic: true }, 1.2);
+  if (ZK.jp2.length) { const L = ZK.jp2.map(pairs).sort((a, b) => b.length - a.length)[0], m = L[Math.floor(L.length / 2)]; label('al. Jana Pawła II', m[0], m[1], { size: 0.7, color: '#9a6a00', weight: 900 }, 0.45, 1.4); }
+  for (const s of stopMarks) label((s.terminus ? '🚌 ' : '') + s.name.replace('Zelków ', '').replace('Bolechowice ', 'Bolechowice ') + ' · 248', s.x, s.z, { size: s.terminus ? 0.8 : 0.55, color: '#1d4f91', weight: 900 }, 0.75, s.terminus ? 1.3 : 2.0);
+  if (zJks) { const c = ringC(zJks.ring); label('JKS Zelków', c[0], c[1], { size: 0.6, color: '#2d7a2d' }, 0.5, 1.3); }
+  label('Staw', P.start[0] + 0.5, P.start[1] + 0.4, { size: 0.5, color: '#1f6f99' }, 0.3, 1.6);
+  if (exitArrow) { const s = textSprite('🚌 248 → Kraków Bronowice', { size: 1.3, color: '#1d4f91' }); s.position.set(exitArrow.x, exitArrow.y, exitArrow.z); s.userData.minZoom = 0; labels.push(s); }
+  for (const name of FUN_ROCKS) { const r = rockAt(name); if (!r) continue; const l = label(name.replace(/ I$/, ''), r[1], r[2], { size: 0.42, color: '#5a5442', weight: 800 }, topNear(r[1], r[2], 0.4) - height(r[1], r[2]) + 0.25, 3.2); l.userData.rock = true; }
 }
 (document.fonts?.ready || Promise.resolve()).then(() => { makeLabels(); refreshStars(); });
 
+/* ---------------------------------------------------------------- activity buttons */
+const ACT_INFO = {
+  all: 'Wszystkie miejsca na mapie.',
+  zabawa: '🛝 Place zabaw, boiska i staw z kaczkami.',
+  rower: '🚲 Szlaki rowerowe to kolorowe kropki. Kask na głowę!',
+  wedrowka: '🥾 Szlaki piesze to kolorowe kreski. Wygodne buty i woda w plecaku!',
+  wspinaczka: '🧗 Skałki do wspinania świecą na żółto. Tylko z instruktorem i liną!',
+  widoki: '🔭 Punkty widokowe i szczyty. Najlepiej w pogodny dzień.',
+  jaskinie: '🦇 Jaskinie i schroniska skalne. Latarka i cisza dla nietoperzy!',
+  bieganie: '🏃 Ścieżki i drogi polne (na pomarańczowo) oraz stadion JKS.',
+};
+let act = 'all';
+const matches = acts => act === 'all' || (acts || []).includes(act);
+function setAct(a) {
+  act = a;
+  document.querySelectorAll('[data-a]').forEach(b => b.setAttribute('aria-pressed', b.dataset.a === a));
+  pins.forEach(p => p.material.opacity = matches(ACTS[p.userData.spot.id]) ? 1 : 0.18);
+  infoPins.forEach(p => p.material.opacity = (p.userData.info.id === 'petla' && a === 'all') || matches(p.userData.info.acts) ? 1 : 0.15);
+  icons.forEach(o => { o.material.opacity = matches(o.userData.acts) ? 1 : 0.15; o.userData.minZoom = a !== 'all' && matches(o.userData.acts) ? 0 : 1.9; });
+  trailMeshes.forEach(t => { const on = a === 'all' || (t.kind === 'hiking' && a === 'wedrowka') || (t.kind === 'bicycle' && a === 'rower'); t.m.material.opacity = on ? 1 : 0.12; t.m.scale.set(1, 1, 1); });
+  runMesh.visible = a === 'bieganie';
+  rockM.material.emissive.set(a === 'wspinaczka' ? 0xffc23a : 0x000000);
+  for (const l of labels) if (l.userData.rock) l.userData.minZoom = a === 'wspinaczka' ? 1.6 : 3.2;
+  toast(ACT_INFO[a], 2600);
+  // frame the matching places
+  let pts = [...SPOTS.filter(s => matches(ACTS[s.id])).map(s => s.at), ...INFO.filter(o => a !== 'all' && matches(o.acts)).map(o => o.at)];
+  if (pts.length < 2 && a !== 'all') pts = pts.concat(icons.filter(o => matches(o.userData.acts)).map(o => [o.position.x, o.position.z]));
+  if (a === 'all' || !pts.length) { flyTo(FOCUS[0], FOCUS[1], innerWidth / innerHeight < 0.8 ? 2.3 : 2.2); return; }
+  const xs = pts.map(p => p[0]), zs = pts.map(p => p[1]), cx = (Math.min(...xs) + Math.max(...xs)) / 2, cz = (Math.min(...zs) + Math.max(...zs)) / 2;
+  const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...zs) - Math.min(...zs), 6) * 0.85;
+  flyTo(cx, cz, clamp(viewHalf * Math.min(1, innerWidth / innerHeight) / span, controls.minZoom, 3.4));
+}
+document.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { closeCard(); setAct(b.dataset.a); });
+rockM.material.emissiveIntensity = 0.6;
+
 /* ---------------------------------------------------------------- loop */
 const clock = new THREE.Clock();
-let T = 0, growT = PREVIEW ? 10 : 0, foxU = 0.15, foxDir = 1;
+let T = 0, growT = PREVIEW ? 10 : 0, foxU = 0.3, foxDir = 1;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const needle = $('#needle'), tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3();
+const needle = $('#needle'), tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), NORTH = new THREE.Vector3(0, 0, -10);
+const foxTotal = foxPath.getLength();
 function frame() {
   const dt = Math.min(clock.getDelta(), 0.05); T += dt;
-  stepTween(dt);
-  controls.update();
+  stepTween(dt); controls.update();
   night = lerp(night, nightTarget, 1 - Math.exp(-dt * 3)); lights();
 
-  // houses pop up, from the chapel outwards
-  if (growT < 4) {
+  if (growT < 3.2) { // houses pop up, from Zelków outwards
     growT += dt;
     houses.forEach((h, i) => {
-      const k = easeBack(clamp((growT - 0.25 - Math.hypot(h.x, h.z) * 0.06) / 0.5, 0, 1));
-      for (const [m, y] of [[hBody, h.y - 0.15], [hRoof, null]]) {
-        m.getMatrixAt(i, dummy.matrix); dummy.matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
-        if (!h._s) h._s = {}; const key = m === hBody ? 'b' : 'r';
-        if (!h._s[key]) h._s[key] = { s: dummy.scale.clone(), p: dummy.position.clone() };
-        const o = h._s[key];
-        dummy.scale.set(o.s.x, Math.max(0.001, o.s.y * k), o.s.z);
-        dummy.position.copy(o.p); if (key === 'r') dummy.position.y = h.y - 0.15 + (o.p.y - h.y + 0.15) * k;
-        dummy.updateMatrix(); m.setMatrixAt(i, dummy.matrix);
-      }
+      const k = Math.max(0.001, easeBack(clamp((growT - 0.2 - Math.hypot(h.x - P.start[0], h.z - P.start[1]) * 0.05) / 0.5, 0, 1)));
+      dummy.rotation.set(0, h.r, 0);
+      dummy.position.set(h.x, h.y - 0.08, h.z); dummy.scale.set(h.W, (h.H + 0.08) * k, h.L); dummy.updateMatrix(); hBody.setMatrixAt(i, dummy.matrix);
+      dummy.position.set(h.x, h.y - 0.08 + (h.H + 0.08) * k, h.z); dummy.scale.set(h.W * 1.08, Math.min(h.W, 0.4) * 0.55 * k, h.L * 1.04); dummy.updateMatrix(); hRoof.setMatrixAt(i, dummy.matrix);
     });
     hBody.instanceMatrix.needsUpdate = true; hRoof.instanceMatrix.needsUpdate = true;
   }
-
   if (!reduce) {
-    // fox walks back and forth along the red trail
-    { foxU += foxDir * dt * 1.5 / foxPath.getLength(); if (foxU > 0.985 || foxU < 0.015) foxDir *= -1; foxU = clamp(foxU, 0.015, 0.985); }
+    foxU += foxDir * dt * 0.9 / foxTotal; if (foxU > 0.99 || foxU < 0.01) foxDir *= -1; foxU = clamp(foxU, 0.01, 0.99);
     const p = foxPath.getPointAt(foxU), d = foxPath.getTangentAt(foxU).multiplyScalar(foxDir);
-    fox.position.set(p.x, height(p.x, p.z) + Math.abs(Math.sin(T * 9)) * 0.08, p.z);
+    fox.position.set(p.x, height(p.x, p.z) + Math.abs(Math.sin(T * 9)) * 0.04, p.z);
     fox.rotation.y = Math.atan2(d.x, d.z);
     fox.userData.legs.forEach((l, i) => l.rotation.x = Math.sin(T * 9 + (i % 2 ? 0 : Math.PI) + (i > 1 ? Math.PI : 0)) * 0.6);
     fox.userData.tail.rotation.y = Math.sin(T * 5) * 0.35;
-    // clouds
-    for (const c of clouds) { c.position.x += c.userData.v * dt; if (c.position.x > 48) c.position.x = -48; }
-    // birds
-    for (const b of birds) { const u = b.userData, a = T * u.speed + u.ph; b.position.set(u.cx + Math.cos(a) * u.r, u.h + Math.sin(a * 2) * 0.3, u.cz + Math.sin(a) * u.r); b.rotation.y = -a; const f = Math.sin(T * 10 + u.ph) * 0.6; u.l.rotation.z = f; u.rr.rotation.z = -f; }
-    // pins bob
-    pins.forEach((p, i) => p.position.y = p.userData.y0 + Math.sin(T * 2 + i) * 0.18);
-    if (window.__flag) window.__flag.scale.y = 1 + Math.sin(T * 6) * 0.15;
+    for (const c of clouds) { c.position.x += c.userData.v * dt; if (c.position.x > 50) c.position.x = -50; }
+    for (const b of birds) { const u = b.userData, a = T * u.speed + u.ph; b.position.set(u.cx + Math.cos(a) * u.r, u.h + Math.sin(a * 2) * 0.2, u.cz + Math.sin(a) * u.r); b.rotation.y = -a; const f = Math.sin(T * 10 + u.ph) * 0.6; u.l.rotation.z = f; u.rr.rotation.z = -f; }
+    pins.forEach((p, i) => p.position.y = p.userData.y0 + Math.sin(T * 2 + i) * 0.1 * Math.pow(camera.zoom, -0.5) * 2);
+    if (flag) flag.scale.x = 1 + Math.sin(T * 6) * 0.12;
+    if (bus) { const b = bus.userData, L = busPath.getLength();
+      if (b.wait > 0) b.wait -= dt; else { b.u += b.dir * dt * 1.6 / L; if (b.u >= 1 || b.u <= 0) { b.u = clamp(b.u, 0, 1); b.dir *= -1; b.wait = 3; } }
+      const p = busPath.getPointAt(clamp(b.u, 0, 1)), d = busPath.getTangentAt(clamp(b.u, 0.001, 0.999)).multiplyScalar(b.dir);
+      bus.position.set(p.x, height(p.x, p.z) + 0.05, p.z); bus.rotation.y = Math.atan2(d.x, d.z);
+      bus.visible = Math.abs(p.x) < HX - 0.2 && Math.abs(p.z) < HZ - 0.2; }
+    ducks.forEach(d => { const u = d.userData, a = T * 0.4 + u.ph; d.position.set(u.pond.c[0] + Math.cos(a) * u.r, u.pond.m.position.y + 0.01, u.pond.c[1] + Math.sin(a) * u.r); d.rotation.y = -a; });
   }
-  // stream sparkles
-  sparkles.forEach((s, i) => { s.u = (s.u + s.v * dt) % 1; const P_ = s.s.pts, f = s.u * (P_.length - 1), k = Math.floor(f), a = P_[k], b = P_[Math.min(k + 1, P_.length - 1)];
-    dummy.position.set(lerp(a[0], b[0], f - k), s.s.floor + 0.12, lerp(a[1], b[1], f - k)); dummy.rotation.set(0, 0, 0); dummy.scale.setScalar(0.6 + 0.4 * Math.sin(T * 6 + i)); dummy.updateMatrix(); sparkM.setMatrixAt(i, dummy.matrix); });
+  sparkles.forEach((s, i) => { s.u = (s.u + s.v * dt) % 1; const f = s.u * (s.p.length - 1), k = Math.floor(f), a = s.p[k], b = s.p[Math.min(k + 1, s.p.length - 1)];
+    const x = lerp(a[0], b[0], f - k), z = lerp(a[1], b[1], f - k);
+    dummy.position.set(x, height(x, z) + 0.09, z); dummy.rotation.set(0, 0, 0); dummy.scale.setScalar(0.6 + 0.4 * Math.sin(T * 6 + i)); dummy.updateMatrix(); sparkM.setMatrixAt(i, dummy.matrix); });
   sparkM.instanceMatrix.needsUpdate = true;
-  if (flyM.visible) { flies.forEach((f, i) => { dummy.position.set(f.x + Math.sin(T * 0.7 + f.ph) * 0.6, f.y + Math.sin(T * 1.3 + f.ph) * 0.4, f.z + Math.cos(T * 0.6 + f.ph) * 0.6); dummy.scale.setScalar(Math.max(0.01, Math.sin(T * 3 + f.ph * 3))); dummy.updateMatrix(); flyM.setMatrixAt(i, dummy.matrix); }); flyM.instanceMatrix.needsUpdate = true; }
+  if (flyM.visible) { flies.forEach((f, i) => { dummy.position.set(f.x + Math.sin(T * 0.7 + f.ph) * 0.3, f.y + Math.sin(T * 1.3 + f.ph) * 0.2, f.z + Math.cos(T * 0.6 + f.ph) * 0.3); dummy.scale.setScalar(Math.max(0.01, Math.sin(T * 3 + f.ph * 3))); dummy.updateMatrix(); flyM.setMatrixAt(i, dummy.matrix); }); flyM.instanceMatrix.needsUpdate = true; }
 
-  // keep sprites readable at any zoom
-  const k = Math.pow(camera.zoom, -0.55) * clamp(viewHalf / 30, 1, 1.7);
-  for (const s of labels) s.scale.set(s.userData.base[0] * k, s.userData.base[1] * k, 1);
-  for (const p of pins) p.scale.set(3.2 * k, 4 * k, 1);
-  // compass: where is north on screen
-  tmpA.copy(controls.target).project(camera); tmpB.copy(controls.target).add(new THREE.Vector3(0, 0, -10)).project(camera);
+  // sprites stay readable at any zoom; small things appear as you zoom in
+  const zf = clamp(viewHalf / 30, 1, 1.7), k = Math.pow(camera.zoom, -0.5) * zf * 0.8;
+  for (const s of labels) { s.visible = camera.zoom >= (s.userData.minZoom || 0); s.scale.set(s.userData.base[0] * k, s.userData.base[1] * k, 1); }
+  for (const s of icons) { s.visible = camera.zoom >= s.userData.minZoom; const q = Math.pow(camera.zoom, -0.8) * zf * 1.6; s.scale.set(q, q, 1); }
+  const pk = Math.pow(camera.zoom, -0.75) * zf;
+  for (const p of pins) p.scale.set(3.0 * pk, 3.75 * pk, 1);
+  for (const p of infoPins) { p.scale.set(2.3 * pk, 2.8 * pk, 1); p.visible = camera.zoom > 1.05 || p.userData.info.id === 'petla'; }
+  tmpA.copy(controls.target).project(camera); tmpB.copy(controls.target).add(NORTH).project(camera);
   needle.style.transform = `rotate(${Math.atan2((tmpB.x - tmpA.x) * innerWidth, (tmpB.y - tmpA.y) * innerHeight) * 180 / Math.PI}deg)`;
 
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
 }
 
-// start a little zoomed out and slide in
-camera.zoom = 0.75; camera.updateProjectionMatrix();
-flyTo(target0.x, target0.z, 1, 0, 1.6);
+camera.zoom = 0.8; camera.updateProjectionMatrix();
+flyTo(target0.x, target0.z, innerWidth / innerHeight < 0.8 ? 2.3 : 2.2, 0, 1.6);
 refreshStars();
+$('#loading').classList.add('hide');
 frame();
 
 $('#start').onclick = () => { store.set('zelkow-seen', '1'); $('#intro').classList.add('hide'); setTimeout(() => openCard(0), 450); };
 if (PREVIEW || store.get('zelkow-seen')) $('#intro').classList.add('hide');
 if (innerWidth < 560) { $('#legend').open = false; $('#legend').classList.add('show'); }
-if (PREVIEW) { document.querySelector('.dock').style.display = 'none'; $('#legend').style.display = 'none'; document.querySelector('.back').style.display = 'none'; document.querySelector('.stars').style.display = 'none'; }
+if (PREVIEW) { for (const sel of ['.dock', '#legend', '.stars', '#acts']) $(sel).style.display = 'none'; document.querySelectorAll('.back').forEach(e => e.style.display = e.classList.contains('osm') ? '' : 'none'); }
 </script>
 </body>
 </html>
