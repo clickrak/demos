@@ -57,12 +57,13 @@ A plain HTML page works too: put it in `src/<name>/app.html` with a `<!-- site-h
 
 ## Zelków map
 
-`src/zelkow/app.html` is a hand-written Three.js page (loaded from cdn.jsdelivr.net) that draws `zelkow/map.json`.
+`src/zelkow/app.html` is a hand-written Three.js page (loaded from cdn.jsdelivr.net) that draws `zelkow/map.json`. The **🧭 Szlak** button switches to a flat hiking map (`src/zelkow/hike.js`, a plain 2D canvas with no animation, loaded only when you tap the button) that draws `zelkow/hike.json` on top of `zelkow/hike-light.jpg` / `hike-dark.jpg`. Open it directly with `/zelkow/#szlak`.
 
 How the data gets there:
-1. `src/zelkow/data/query.overpassql` is the OpenStreetMap query. Changing it (or `fetch.sh`) and pushing runs the GitHub Action **Zelków map data** (`.github/workflows/zelkow-data.yml`; it can also be started by hand from the Actions tab). It downloads `osm.json` and elevation tiles into `src/zelkow/data/` and commits them.
-2. `python3 src/zelkow/data/build_map.py` (needs Pillow) turns them into `zelkow/map.json`: terrain heights, land cover, buildings, roads, streams, rocks, trails, bus 248, school, pitches, playgrounds, ponds.
-3. `node tools/build.mjs` as usual.
+1. `src/zelkow/data/query.overpassql` is the OpenStreetMap query. Changing it (or one of the scripts) and pushing runs the GitHub Action **Zelków map data** (`.github/workflows/zelkow-data.yml`; it can also be started by hand from the Actions tab). It downloads the raw data and elevation tiles, runs the two build scripts and commits only the results. The raw `osm.json` (about 76 MB) is not kept in git (it is in `.gitignore`).
+2. `python3 src/zelkow/data/build_map.py` (needs Pillow) turns it into `zelkow/map.json` for the 3D view: terrain heights, land cover, buildings, roads, streams, rocks, trails, bus 248, school, pitches, playgrounds, ponds.
+3. `python3 src/zelkow/data/build_hike.py` (needs Pillow, numpy, scipy, contourpy) makes the flat map: contour lines, the two base pictures, roads, trails, places, and the five walks. **The walks are defined at the bottom of that script** (`WALKS`: waypoints by name or coordinates). Each one is routed along real roads and paths, and the script prints its length, climb and time.
+4. `node tools/build.mjs` as usual.
 
 The 8 star places (`SPOTS`), the activity tags (`ACTS`) and the "Mój Zelków" info pins (`INFO`) are at the top of the script in `app.html`. `app.html?preview` hides the controls; `zelkow/preview.png` is a 1200×627 screenshot of that.
 

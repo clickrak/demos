@@ -115,6 +115,8 @@ ${svgIcon(cfg.faviconSvg)}${previewTags({
   })}${counterTag}`;
   const html = src.replace("<!-- site-head -->", () => head);
   fs.mkdirSync(path.join(ROOT, demo), { recursive: true });
+  // extra files next to the page (e.g. a lazily loaded script): "assets": ["hike.js"] in demo.json
+  for (const f of cfg.assets || []) fs.copyFileSync(path.join(srcDir, f), path.join(ROOT, demo, f));
   fs.writeFileSync(path.join(ROOT, demo, "index.html"), html);
   console.log(`Built ${demo}/index.html (static, ${(html.length / 1024).toFixed(1)} KB)  ${url}`);
 }

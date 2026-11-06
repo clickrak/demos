@@ -1,5 +1,5 @@
 name: Zelków map data
-# Fetches OpenStreetMap + elevation data for the Zelków demo and commits it.
+# Fetches OpenStreetMap + elevation data for the Zelków demo, builds map.json and hike.json from it, and commits them.
 # Runs when the query or script changes, or by hand: Actions → "Zelków map data" → Run workflow.
 on:
   workflow_dispatch:
@@ -8,6 +8,8 @@ on:
     paths:
       - src/zelkow/data/query.overpassql
       - src/zelkow/data/fetch.sh
+      - src/zelkow/data/build_map.py
+      - src/zelkow/data/build_hike.py
       - .github/workflows/zelkow-data.yml
 permissions:
   contents: write
@@ -17,11 +19,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: bash src/zelkow/data/fetch.sh
+      - name: Build map.json (3D) and hike.json (flat hiking map)
+        run: |
+          pip install pillow numpy scipy contourpy
+          python3 src/zelkow/data/build_map.py
+          python3 src/zelkow/data/build_hike.py
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/zelkow/data
+          git add src/zelkow/data zelkow/map.json zelkow/hike.json zelkow/hike-light.jpg zelkow/hike-dark.jpg
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Update Zelków map data (OpenStreetMap, elevation)"
+          git pull --rebase origin main
           git push
