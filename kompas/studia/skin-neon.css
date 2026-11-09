@@ -38,7 +38,7 @@ html[data-skin="neon"] body::after {
 }
 
 /* Type: tight sans titles with a chromatic split, mono for labels. */
-html[data-skin="neon"] body :is(h1, h2, h3, .brand) { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; }
+html[data-skin="neon"] body :is(h1, h2, h3, .brand, .sector b) { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; }
 html[data-skin="neon"] body h1 { text-transform: uppercase; letter-spacing: .01em; font-size: 1.62rem; line-height: 1.15;
   text-shadow: .045em 0 0 color-mix(in srgb, var(--l1) 75%, transparent), -.045em 0 0 color-mix(in srgb, var(--l0) 75%, transparent); }
 html[data-skin="neon"] body.story h1 { font-size: clamp(36px, 5vw, 66px); }
@@ -71,7 +71,7 @@ html[data-skin="neon"] .snav a.on { background: var(--accent); color: var(--on-l
 html[data-skin="neon"] .sprog { background: linear-gradient(90deg, var(--l1), var(--accent)); box-shadow: 0 0 10px var(--glow-c); }
 
 /* Panels: thin neon frame, inner glow, HUD corner brackets on cards. */
-html[data-skin="neon"] :is(.card, .force, .area, .place, .scencard, .needrow, .scard, .epanel, .kitem, .pcard, .scen-b, .grow, .savehelp, .flip .face) {
+html[data-skin="neon"] :is(.card, .force, .area, .place, .scencard, .sector, .needrow, .scard, .epanel, .kitem, .pcard, .scen-b, .grow, .savehelp, .flip .face) {
   border-color: color-mix(in srgb, var(--accent) 26%, var(--line));
   background-color: color-mix(in srgb, var(--card) 90%, transparent);
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--accent) 14%, transparent), 0 0 26px -16px var(--glow-c);
@@ -81,7 +81,7 @@ html[data-skin="neon"] .card { position: relative; }
 html[data-skin="neon"] .card::before, html[data-skin="neon"] .card::after { content: ''; position: absolute; width: 12px; height: 12px; pointer-events: none; }
 html[data-skin="neon"] .card::before { top: -1px; left: -1px; border-top: 2px solid var(--l1); border-left: 2px solid var(--l1); }
 html[data-skin="neon"] .card::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
-html[data-skin="neon"] .force.hot, html[data-skin="neon"] .scencard[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 22px -6px var(--glow-c); }
+html[data-skin="neon"] .force.hot, html[data-skin="neon"] .sector.on, html[data-skin="neon"] .scencard[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 22px -6px var(--glow-c); }
 html[data-skin="neon"] .area-ico { background: color-mix(in srgb, var(--accent) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent); }
 html[data-skin="neon"] .flip .back { background: color-mix(in srgb, var(--l1) 12%, var(--card)); }
 html[data-skin="neon"] .tile { border-radius: 6px; box-shadow: 0 0 18px -10px var(--c); }

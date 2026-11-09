@@ -63,7 +63,12 @@
   "related": [
    "pielegniarstwo",
    "rehabilitacja"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Lekarze",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "pielegniarstwo",
@@ -128,7 +133,12 @@
   "related": [
    "medycyna",
    "rehabilitacja"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Pielęgniarki",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "rehabilitacja",
@@ -188,7 +198,12 @@
   "related": [
    "psychologia",
    "farmacja"
-  ]
+  ],
+  "pay": {
+   "band": 1,
+   "group": "Inni specjaliści ochrony zdrowia (m.in. fizjoterapeuci)",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "psychologia",
@@ -253,6 +268,11 @@
    "level": "równowaga",
    "text": "Psycholodzy i psychoterapeuci są w Krakowie w równowadze: praca jest, ale bez dużego niedoboru.",
    "sourceId": "krk-orp-2026"
+  },
+  "pay": {
+   "band": 2,
+   "group": "Specjaliści z dziedzin społecznych (m.in. psycholodzy)",
+   "sourceId": "gus-2020"
   }
  },
  {
@@ -313,7 +333,12 @@
   "related": [
    "laboratorium",
    "rehabilitacja"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Farmaceuci",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "dane-medyczne",
@@ -374,7 +399,12 @@
   "related": [
    "software",
    "laboratorium"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Analitycy systemów komputerowych i programiści",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "inz-biomed",
@@ -435,7 +465,12 @@
   "related": [
    "rehabilitacja",
    "automatyka"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Inżynierowie",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "sport",
@@ -496,7 +531,12 @@
   "related": [
    "rehabilitacja",
    "sluzby"
-  ]
+  ],
+  "pay": {
+   "band": 1,
+   "group": "Sportowcy, trenerzy i pokrewni",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "sluzby",
@@ -561,7 +601,12 @@
   "related": [
    "medycyna",
    "sport"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Specjaliści ds. ratownictwa medycznego",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "energetyka",
@@ -627,7 +672,12 @@
   "related": [
    "atom",
    "automatyka"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Inżynierowie elektrotechnologii",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "atom",
@@ -689,7 +739,12 @@
   "related": [
    "energetyka",
    "laboratorium"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Inżynierowie elektrotechnologii",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "software",
@@ -755,6 +810,11 @@
    "level": "mieszany",
    "text": "Techników informatyków jest w Krakowie za dużo; inżynierowie z mocną specjalizacją nadal znajdują pracę.",
    "sourceId": "krk-orp-2026"
+  },
+  "pay": {
+   "band": 3,
+   "group": "Analitycy systemów komputerowych i programiści",
+   "sourceId": "gus-2020"
   }
  },
  {
@@ -816,7 +876,12 @@
   "related": [
    "software",
    "obronnosc"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Specjaliści ds. baz danych i sieci komputerowych",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "automatyka",
@@ -877,7 +942,12 @@
   "related": [
    "inz-biomed",
    "energetyka"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Inżynierowie elektrotechnologii",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "obronnosc",
@@ -938,7 +1008,12 @@
   "related": [
    "cyber",
    "automatyka"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Inżynierowie",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "ukraina",
@@ -1003,7 +1078,12 @@
   "related": [
    "ue",
    "logistyka"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Specjaliści ds. administracji i zarządzania",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "ue",
@@ -1068,7 +1148,12 @@
    "en",
    "fr",
    "de"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Specjaliści ds. administracji i zarządzania",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "logistyka",
@@ -1128,7 +1213,12 @@
   "related": [
    "ukraina",
    "finanse"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Inżynierowie",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "woda",
@@ -1188,7 +1278,12 @@
   "related": [
    "energetyka",
    "laboratorium"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Inżynierowie",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "finanse",
@@ -1255,7 +1350,12 @@
   "related": [
    "software",
    "logistyka"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Specjaliści ds. finansowych",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "jezyki",
@@ -1327,6 +1427,11 @@
    "level": "mieszany",
    "text": "W Krakowie brakuje nauczycieli języków obcych, a specjalistów nauk humanistycznych jest za dużo: liczy się specjalizacja.",
    "sourceId": "krk-orp-2026"
+  },
+  "pay": {
+   "band": 2,
+   "group": "Literaci, dziennikarze i filolodzy",
+   "sourceId": "gus-2020"
   }
  },
  {
@@ -1392,6 +1497,11 @@
    "level": "deficyt",
    "text": "W Krakowie brakuje pedagogów i nauczycieli wspierających.",
    "sourceId": "krk-orp-2026"
+  },
+  "pay": {
+   "band": 2,
+   "group": "Nauczyciele i inni specjaliści nauczania",
+   "sourceId": "gus-2020"
   }
  },
  {
@@ -1452,6 +1562,11 @@
   "related": [
    "farmacja",
    "software"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Diagności laboratoryjni",
+   "sourceId": "gus-2020"
+  }
  }
 ]

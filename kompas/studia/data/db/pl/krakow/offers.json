@@ -62,11 +62,18 @@
    "jezyki"
   ],
   "requires": {
-   "main": "angielski",
-   "note": "angielski rozszerzony liczy się najmocniej; UJ liczy tylko wyniki z poziomu rozszerzonego (szczegóły do sprawdzenia)"
+   "must": [
+    "angielski"
+   ],
+   "countFrom": [
+    "niemiecki",
+    "polski"
+   ],
+   "count": 1,
+   "note": "angielski oraz jeden przedmiot z listy języków (m.in. polski, niemiecki); UJ liczy tylko poziom rozszerzony"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
   "next": "praca albo 2-letnie magisterskie, także w Monachium po angielsku"
  },
  {
@@ -81,15 +88,21 @@
    "jezyki"
   ],
   "requires": {
-   "note": "zwykle liczy się język obcy i polski; jest ścieżka dla osób, które dopiero uczą się niemieckiego (do sprawdzenia)"
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "polski"
+   ],
+   "count": 2,
+   "note": "dwa przedmioty z listy języków, w tym polski i angielski: niemiecki z matury nie jest konieczny. Wariant „z językiem angielskim” wymaga niemieckiego oraz angielskiego albo polskiego"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
   "next": "praca z niemieckim w Krakowie albo w Bawarii"
  },
  {
   "id": "uj-filologia-ukrainska",
-  "name": "Filologia ukraińska",
+  "name": "Filologia ukraińska z drugim językiem obcym",
   "institution": "Uniwersytet Jagielloński",
   "kind": "programme",
   "level": "licencjat",
@@ -101,21 +114,23 @@
   ],
   "requires": {
    "countFrom": [
-    "polski",
-    "angielski",
+    "geografia",
     "historia",
+    "angielski",
+    "niemiecki",
+    "polski",
     "WOS"
    ],
    "count": 1,
-   "note": "do sprawdzenia"
+   "note": "kierunek „filologia ukraińska z drugim językiem obcym”: jeden przedmiot z listy, która obejmuje polski i języki obce"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
   "next": "tłumaczenia, współpraca z Ukrainą albo magisterskie"
  },
  {
   "id": "uj-europeistyka",
-  "name": "Europeistyka albo stosunki międzynarodowe",
+  "name": "Studia europejskie albo stosunki międzynarodowe",
   "institution": "Uniwersytet Jagielloński",
   "kind": "programme",
   "level": "licencjat",
@@ -127,17 +142,19 @@
   ],
   "requires": {
    "countFrom": [
-    "WOS",
+    "geografia",
     "historia",
     "angielski",
+    "niemiecki",
     "polski",
-    "geografia"
+    "matematyka",
+    "WOS"
    ],
-   "count": 1,
-   "note": "UJ liczy tylko wyniki z poziomu rozszerzonego (lista do sprawdzenia)"
+   "count": 2,
+   "note": "kierunek „studia europejskie”: dwa przedmioty z listy (język obcy, polski, historia, WOS, geografia, matematyka). Stosunki międzynarodowe: język obcy plus jeden z listy"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
   "next": "staż w instytucji albo magisterskie"
  },
  {
@@ -153,13 +170,15 @@
    "dane-medyczne"
   ],
   "requires": {
-   "extended": [
+   "countFrom": [
+    "informatyka",
     "matematyka"
    ],
-   "note": "matematyka rozszerzona (do sprawdzenia)"
+   "count": 1,
+   "note": "informatyka lub matematyka; UJ liczy tylko poziom rozszerzony"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-uj-2026"
  },
  {
   "id": "ujcm-lekarski",
@@ -252,10 +271,17 @@
    "pielegniarstwo"
   ],
   "requires": {
-   "note": "do sprawdzenia; zwykle biologia"
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "angielski",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: biologia, chemia, angielski, matematyka"
   },
-  "status": "to-verify",
-  "sourceId": "otou-medyczne-krk",
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
   "next": "praca położnej albo magisterskie",
   "firstJob": true
  },
@@ -272,10 +298,23 @@
    "psychologia"
   ],
   "requires": {
-   "note": "do sprawdzenia; zwykle biologia, WOS albo język obcy"
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "geografia",
+    "historia",
+    "informatyka",
+    "angielski",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 1,
+   "note": "jeden przedmiot z długiej listy, która obejmuje polski, angielski i biologię"
   },
-  "status": "to-verify",
-  "sourceId": "otou-medyczne-krk",
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
   "next": "praca w programach zdrowotnych albo magisterskie"
  },
  {
@@ -320,14 +359,14 @@
    ],
    "countFrom": [
     "biologia",
-    "matematyka",
-    "fizyka"
+    "fizyka",
+    "matematyka"
    ],
    "count": 1,
-   "note": "chemia i biologia lub matematyka (do sprawdzenia)"
+   "note": "chemia oraz biologia, fizyka albo matematyka"
   },
-  "status": "to-verify",
-  "sourceId": "otou-medyczne-krk"
+  "status": "sourced",
+  "sourceId": "otou-uj-2026"
  },
  {
   "id": "ujcm-analityka",
@@ -347,13 +386,14 @@
    ],
    "countFrom": [
     "biologia",
+    "fizyka",
     "matematyka"
    ],
    "count": 1,
-   "note": "zwykle chemia i biologia (do sprawdzenia)"
+   "note": "chemia oraz biologia, fizyka albo matematyka"
   },
-  "status": "to-verify",
-  "sourceId": "otou-medyczne-krk",
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
   "next": "diagnosta laboratoryjny w szpitalu albo w laboratorium"
  },
  {
@@ -569,17 +609,18 @@
   "requires": {
    "countFrom": [
     "matematyka",
-    "fizyka",
-    "chemia",
-    "informatyka",
     "biologia",
-    "geografia"
+    "chemia",
+    "fizyka",
+    "geografia",
+    "informatyka",
+    "angielski"
    ],
    "count": 1,
-   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia prawdopodobnie na liście (tabela nieczytelna, do sprawdzenia)"
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy (biologia jest na liście) i drugi z listy z językiem obcym"
   },
-  "status": "to-verify",
-  "sourceId": "agh-2027"
+  "status": "sourced",
+  "sourceId": "otou-agh-iiad"
  },
  {
   "id": "agh-iios",
@@ -643,13 +684,16 @@
    "software"
   ],
   "requires": {
-   "extended": [
-    "matematyka"
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "informatyka"
    ],
-   "note": "matematyka rozszerzona (do sprawdzenia)"
+   "count": 1,
+   "note": "matematyka oraz fizyka, informatyka albo matematyka"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-pk-2026"
  },
  {
   "id": "pk-inz-srodowiska",
@@ -665,16 +709,17 @@
   "requires": {
    "countFrom": [
     "matematyka",
-    "fizyka",
-    "chemia",
     "biologia",
-    "geografia"
+    "chemia",
+    "fizyka",
+    "geografia",
+    "informatyka"
    ],
    "count": 1,
-   "note": "do sprawdzenia"
+   "note": "matematyka oraz jeden z listy, która obejmuje biologię i chemię"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-pk-2026"
  },
  {
   "id": "pk-energetyka",
@@ -690,18 +735,20 @@
   "requires": {
    "countFrom": [
     "matematyka",
+    "chemia",
     "fizyka",
-    "chemia"
+    "geografia",
+    "informatyka"
    ],
    "count": 1,
-   "note": "do sprawdzenia"
+   "note": "matematyka oraz jeden z: chemia, fizyka, geografia, informatyka, matematyka"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-pk-2026"
  },
  {
   "id": "pk-transport",
-  "name": "Transport albo logistyka",
+  "name": "Transport i logistyka",
   "institution": "Politechnika Krakowska",
   "kind": "programme",
   "level": "inżynierskie",
@@ -718,10 +765,10 @@
     "informatyka"
    ],
    "count": 1,
-   "note": "nazwa kierunku i przedmioty do sprawdzenia"
+   "note": "kierunek „transport i logistyka”: matematyka oraz fizyka, geografia, informatyka albo matematyka"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-pk-2026"
  },
  {
   "id": "uek-informatyka-stosowana",
@@ -735,13 +782,17 @@
    "software"
   ],
   "requires": {
-   "extended": [
-    "matematyka"
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "informatyka",
+    "angielski"
    ],
-   "note": "matematyka (do sprawdzenia)"
+   "count": 1,
+   "note": "matematyka oraz fizyka, informatyka albo angielski"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-uek-2026"
  },
  {
   "id": "uek-finanse",
@@ -757,16 +808,20 @@
   "requires": {
    "countFrom": [
     "matematyka",
-    "angielski",
+    "fizyka",
     "geografia",
-    "WOS",
-    "informatyka"
+    "historia",
+    "informatyka",
+    "angielski",
+    "niemiecki",
+    "polski",
+    "WOS"
    ],
    "count": 1,
-   "note": "zwykle matematyka i drugi przedmiot z listy (do sprawdzenia)"
+   "note": "matematyka oraz jeden z listy, która obejmuje polski i języki obce"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-uek-2026",
   "next": "księgowość, analityka albo magisterskie",
   "firstJob": true
  },
@@ -785,16 +840,19 @@
   "requires": {
    "countFrom": [
     "angielski",
-    "WOS",
+    "niemiecki",
+    "polski",
     "geografia",
     "historia",
-    "matematyka"
+    "informatyka",
+    "matematyka",
+    "WOS"
    ],
    "count": 1,
-   "note": "do sprawdzenia"
+   "note": "język obcy oraz jeden z listy, która obejmuje polski"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-uek-2026",
   "next": "handel zagraniczny, instytucje albo magisterskie"
  },
  {
@@ -829,18 +887,20 @@
    "psychologia"
   ],
   "requires": {
+   "must": [
+    "polski"
+   ],
    "countFrom": [
-    "polski",
     "biologia",
-    "angielski",
+    "historia",
     "matematyka",
-    "WOS"
+    "informatyka"
    ],
    "count": 1,
-   "note": "do sprawdzenia"
+   "note": "polski, język obcy i jeden z: biologia, historia, matematyka, informatyka; poziom podstawowy albo rozszerzony"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "uken-inf-2026"
  },
  {
   "id": "uken-pedagogika",
@@ -854,17 +914,13 @@
    "mowa"
   ],
   "requires": {
-   "countFrom": [
-    "polski",
-    "biologia",
-    "WOS",
-    "angielski"
+   "must": [
+    "polski"
    ],
-   "count": 1,
-   "note": "do sprawdzenia"
+   "note": "liczy się polski, poziom podstawowy albo rozszerzony"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "uken-inf-2026",
   "next": "nauczyciel wspierający albo terapeuta; w Krakowie brakuje takich osób"
  },
  {
@@ -879,11 +935,13 @@
    "jezyki"
   ],
   "requires": {
-   "main": "angielski",
-   "note": "angielski liczy się najmocniej (do sprawdzenia)"
+   "extended": [
+    "angielski"
+   ],
+   "note": "angielski na poziomie rozszerzonym"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "uken-inf-2026",
   "next": "nauczyciel angielskiego (w Krakowie brakuje) albo tłumacz"
  },
  {
@@ -899,18 +957,18 @@
    "sluzby"
   ],
   "requires": {
+   "must": [
+    "polski"
+   ],
    "countFrom": [
-    "WOS",
-    "historia",
-    "geografia",
-    "polski",
-    "angielski"
+    "angielski",
+    "niemiecki"
    ],
    "count": 1,
-   "note": "do sprawdzenia"
+   "note": "polski i język obcy, poziom podstawowy albo rozszerzony"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "uken-inf-2026",
   "next": "służby, administracja albo Legia Akademicka i kariera oficerska"
  },
  {
@@ -950,22 +1008,27 @@
   ],
   "requires": {
    "countFrom": [
-    "biologia",
     "polski",
     "angielski",
-    "matematyka"
+    "niemiecki",
+    "matematyka",
+    "fizyka",
+    "biologia",
+    "chemia",
+    "geografia",
+    "historia"
    ],
-   "count": 1,
-   "note": "zwykle egzamin sprawnościowy plus matura (do sprawdzenia)"
+   "count": 3,
+   "note": "trzy przedmioty do wyboru; rozszerzenie liczy się półtora raza"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-awf-2027",
   "next": "trener, instruktor albo nauczyciel WF po magisterskich",
   "firstJob": true
  },
  {
   "id": "awf-sport",
-  "name": "Sport",
+  "name": "Sport w szkolnym wychowaniu fizycznym",
   "institution": "AWF Kraków",
   "kind": "programme",
   "level": "licencjat",
@@ -976,16 +1039,21 @@
   ],
   "requires": {
    "countFrom": [
-    "biologia",
     "polski",
     "angielski",
-    "matematyka"
+    "niemiecki",
+    "matematyka",
+    "fizyka",
+    "biologia",
+    "chemia",
+    "geografia",
+    "historia"
    ],
-   "count": 1,
-   "note": "do sprawdzenia"
+   "count": 3,
+   "note": "trzy przedmioty do wyboru oraz co najmniej III klasa sportowa"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "otou-awf-2027",
   "next": "trener albo przygotowanie motoryczne"
  },
  {
@@ -1001,16 +1069,18 @@
    "farmacja"
   ],
   "requires": {
+   "must": [
+    "biologia"
+   ],
    "countFrom": [
-    "biologia",
     "chemia",
     "matematyka"
    ],
    "count": 1,
-   "note": "do sprawdzenia"
+   "note": "biologia oraz chemia albo matematyka"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-biotech-krk"
  },
  {
   "id": "ur-woda",
@@ -1051,7 +1121,7 @@
   "requires": {
    "note": "przyjęcie na podstawie dokumentów, do wyczerpania miejsc"
   },
-  "status": "to-verify",
+  "status": "sourced",
   "sourceId": "otou-fizjo-priv",
   "private": true,
   "cost": "płatne"
@@ -1209,10 +1279,10 @@
   ],
   "requires": {
    "noMatura": true,
-   "note": "świadectwo szkoły średniej; długość do sprawdzenia"
+   "note": "świadectwo szkoły średniej, bez matury; nauka 2 lata"
   },
-  "status": "to-verify",
-  "sourceId": "zse1-bip",
+  "status": "sourced",
+  "sourceId": "zse1-statut",
   "next": "praca w urzędzie albo biurze; potem np. administracja zaocznie",
   "firstJob": true
  },

@@ -14,7 +14,7 @@ export function buildMarkdown(answers, result, data, today) {
   const st = id => data.strengths.find(s => s.id === id);
   const camp = id => data.campuses.find(c => c.id === id);
   L.push(`# Kompas – ${answers.name || 'ja'}, ${today}`);
-  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v0.96 (testowa)', '');
+  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v1.0', '');
 
   const complete = provenStrengths(answers).length > 0 && (answers.values || []).length > 0;
   if (!complete) {
@@ -39,6 +39,7 @@ export function buildMarkdown(answers, result, data, today) {
     L.push(`### ${title}: ${c.card.name} – ${c.band}`);
     L.push(`Komu pomagam: ${c.card.whoYouHelp}`);
     L.push(`Co mi to daje: ${c.card.whatYouGet}`);
+    if (c.card.pay) L.push(`Zarobki orientacyjnie: ${'$'.repeat(c.card.pay.band)} z $$$ (GUS, październik 2020, grupa „${c.card.pay.group}”)`);
     if (c.strengthsUsed.length) L.push(`Moje mocne strony, które tu pracują: ${c.strengthsUsed.map(p => p.label).join(', ')}`);
     if (c.reasons.length) L.push(`Dlaczego: ${c.reasons.join('; ')}`);
     L.push(`Odporność na scenariusze: ${data.scenarios.scenarios.map(x => `${x.name}: ${c.card.robustness[x.id]}`).join(' · ')}`);

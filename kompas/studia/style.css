@@ -523,3 +523,18 @@ body { -webkit-font-smoothing: antialiased; }
   .chapters button { padding: 6px 7px; }
 }
 @media (max-width: 370px) { .chapters button { padding: 6px 5px; font-size: .76rem; } }
+/* ---- v1.0 ------------------------------------------------------------------ */
+.pay { font: 600 1rem/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .04em; margin-right: 4px; }
+.pay b { color: var(--accent); } .pay i { font-style: normal; color: var(--check); }
+.pay + .small { display: block; margin-top: 4px; }
+.fline { margin: 6px 0 0; font-weight: 600; }
+.force .tags { margin: 8px 0 2px; }
+.sbtn-s { font: inherit; font-size: .8rem; cursor: pointer; color: var(--ink); min-height: 32px; }
+.sectors { display: grid; gap: 10px; margin: 8px 0 12px; }
+@media (min-width: 560px) { .sectors { grid-template-columns: 1fr 1fr; } }
+.sector { font: inherit; color: var(--ink); text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--card); cursor: pointer; transition: opacity .25s, border-color .2s, box-shadow .2s, transform .15s; }
+.sector b { font-family: 'Fraunces', var(--serif); font-size: 1.05rem; }
+.sector.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; background: var(--accent-soft); }
+.sector:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.force { transition: opacity .25s, border-color .2s; }
+.force.dim, .sector.dim { opacity: .45; }

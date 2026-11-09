@@ -36,44 +36,119 @@
    "name": "Demografia",
    "text": "W 2025 r. urodziło się ok. 238 tys. dzieci, zmarło ok. 406 tys. osób. Co roku jest mniej ludzi do pracy.",
    "sourceId": "notes-fertility",
-   "asOf": "2026-05"
+   "asOf": "2026-05",
+   "sectors": [
+    "automatyzacja",
+    "zdrowie",
+    "logistyka"
+   ],
+   "line": "Każda para rąk będzie bardziej potrzebna, a część pracy przejmą maszyny."
   },
   {
    "id": "starzenie",
    "name": "Starzenie się",
    "text": "Mediana wieku przekroczy 50 lat do 2060 r. Więcej osób będzie potrzebować opieki i rehabilitacji.",
    "sourceId": "pr-2060",
-   "asOf": "2026"
+   "asOf": "2026",
+   "sectors": [
+    "zdrowie"
+   ],
+   "line": "Coraz więcej osób będzie potrzebować leczenia, rehabilitacji i opieki."
   },
   {
    "id": "energia",
    "name": "Energia",
    "text": "Pierwszy blok jądrowy planowany na 2036 r.; sieci i OZE do budowy przez dekady.",
    "sourceId": "nucnet",
-   "asOf": "2026-02"
+   "asOf": "2026-02",
+   "sectors": [
+    "energetyka",
+    "woda"
+   ],
+   "line": "Nowe elektrownie i sieci budowane przez dekady."
   },
   {
    "id": "bezpieczenstwo",
    "name": "Bezpieczeństwo",
    "text": "Polska zostaje krajem frontowym NATO.",
    "sourceId": null,
-   "asOf": "2026"
+   "asOf": "2026",
+   "sectors": [
+    "obronnosc",
+    "logistyka"
+   ],
+   "line": "Polska zostaje krajem frontowym NATO."
   },
   {
    "id": "automatyzacja",
    "name": "Automatyzacja i AI",
    "text": "Mniej rąk do pracy oznacza więcej maszyn i oprogramowania.",
    "sourceId": null,
-   "asOf": "2026"
+   "asOf": "2026",
+   "sectors": [
+    "automatyzacja",
+    "obronnosc"
+   ],
+   "line": "Mniej rutyny, więcej pracy z ludźmi i z danymi."
   }
  ],
  "sectors": [
-  "ochrona zdrowia i opieka nad seniorami",
-  "energetyka i sieci",
-  "obronność i cyberbezpieczeństwo",
-  "automatyzacja, robotyka, AI",
-  "logistyka i infrastruktura",
-  "woda i klimat"
+  {
+   "id": "zdrowie",
+   "name": "ochrona zdrowia i opieka nad seniorami",
+   "cards": [
+    "medycyna",
+    "pielegniarstwo",
+    "rehabilitacja",
+    "psychologia",
+    "farmacja",
+    "laboratorium",
+    "mowa",
+    "dane-medyczne",
+    "inz-biomed"
+   ]
+  },
+  {
+   "id": "energetyka",
+   "name": "energetyka i sieci",
+   "cards": [
+    "energetyka",
+    "atom"
+   ]
+  },
+  {
+   "id": "obronnosc",
+   "name": "obronność i cyberbezpieczeństwo",
+   "cards": [
+    "obronnosc",
+    "cyber",
+    "sluzby"
+   ]
+  },
+  {
+   "id": "automatyzacja",
+   "name": "automatyzacja, robotyka, AI",
+   "cards": [
+    "automatyka",
+    "software",
+    "dane-medyczne"
+   ]
+  },
+  {
+   "id": "logistyka",
+   "name": "logistyka i infrastruktura",
+   "cards": [
+    "logistyka",
+    "ukraina"
+   ]
+  },
+  {
+   "id": "woda",
+   "name": "woda i klimat",
+   "cards": [
+    "woda"
+   ]
+  }
  ],
  "shrinking": "Kurczyć się mogą: węgiel, rutynowa praca biurowa, nowe budownictwo poza dużymi miastami."
 }

@@ -116,7 +116,7 @@ export function storyHtml(ctx) {
   const most = opts.find(o => o.no === 'M'), sur = opts.find(o => o.no === 'N'), quick = opts.find(o => o.quick);
   const dims = r.profile.top.map(d => ({ d, name: ctx.dimName(d), v: Math.round(r.profile.score[d]) }));
   const first = o => o.quick ? o.quick.offer : (o.c.offers.find(x => x.check.reachable) || o.c.offers[0])?.offer;
-  const optLine = o => { const f = first(o); return f ? `${esc(f.name)}, ${esc(ctx.shortInst(f.institution))}` : 'brak kierunku w tej wersji'; };
+  const optLine = o => { const f = first(o); return f ? `${esc(f.name)}, ${esc(ctx.shortInst(f.institution))}` : 'brak kierunku w Krakowie w bazie'; };
   const badge = o => `<span class="nb" style="background:${o.color}">${o.no}</span>`;
   const warnLines = lines.filter(l => !l.chk.reachable || l.chk.soft);
   const insts = [...new Set(lines.map(l => ctx.shortInst(l.o.institution)))];
@@ -130,7 +130,7 @@ export function storyHtml(ctx) {
   <header class="sbar">
     <button class="pill" data-go="refleksja">← Pytania</button>
     <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-droga', 'Droga'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
-    <span class="sbar-r"><button class="pill icon" data-skintoggle aria-label="Włącz wygląd neon"></button><button class="pill icon" data-themetoggle aria-label="Zmień motyw"></button><button class="pill strong" data-export="download">Zapisz plik</button></span>
+    <span class="sbar-r"><button class="pill icon" data-skintoggle aria-label="Zmień wygląd"></button><button class="pill icon" data-themetoggle aria-label="Zmień motyw"></button><button class="pill strong" data-export="download">Zapisz plik</button></span>
   </header>
 
   <section class="scrolly" id="s-kompas">

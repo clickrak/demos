@@ -152,5 +152,68 @@
   "title": "SA PSP Kraków: rekrutacja, szkoła policealna technik pożarnictwa 2026/27",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "otou-uj-2026",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4297/Uniwersytet-Jagiellonski-UJ-rekrutacja-na-studia-20262027/przedmioty-maturalne",
+  "title": "UJ: przedmioty maturalne, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uek-2026",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4296/Uniwersytet-Ekonomiczny-UEK-w-Krakowie-rekrutacja-na-studia-20262027/przedmioty-maturalne",
+  "title": "UEK: przedmioty maturalne, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-pk-2026",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4295/progi/przedmioty-maturalne",
+  "title": "Politechnika Krakowska: przedmioty maturalne, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uken-inf-2026",
+  "url": "https://www.uken.krakow.pl/images/dokumenty/rekrutacja/rekrutacja-2026-2027/Informator-dla-kandydatow-na-studia-I-stopnia-i-jednolite-magisterskie-2026-2027.pdf",
+  "title": "UKEN: informator dla kandydatów 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-awf-2027",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/11477/Zasady-rekrutacji-na-AWF-w-Krakowie-20272028",
+  "title": "AWF Kraków: zasady rekrutacji 2027/2028",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-biotech-krk",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1235/Biotechnologia-Krakow/Przedmioty-maturalne",
+  "title": "Biotechnologia w Krakowie: przedmioty maturalne",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-agh-iiad",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/11135/Inzynieria-i-analiza-danych-Krakow/Przedmioty-maturalne",
+  "title": "AGH Inżynieria i analiza danych: przedmioty maturalne",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "zse1-statut",
+  "url": "https://zse1.edu.pl/wp-content/uploads/2022/04/STATUT_ZESPOLU-marzec-2022.pdf",
+  "title": "ZSE nr 1: statut (Szkoła Policealna nr 2, cykl 2-letni)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "gus-2020",
+  "url": "https://www.bankier.pl/wiadomosc/Najlepiej-i-najgorzej-platne-zawody-w-Polsce-Dane-GUS-8273368.html",
+  "title": "GUS: przeciętne wynagrodzenia według zawodów, październik 2020 (zestawienie Bankier.pl)",
+  "asOf": "2020-10",
+  "status": "sourced"
  }
 ]

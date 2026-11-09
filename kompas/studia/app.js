@@ -1,4 +1,4 @@
-// Kompas Studia v0.96. Screens, navigation, results, export.
+// Kompas Studia v1.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -50,8 +50,10 @@ function toast(html) {
 }
 const stamp = () => { const d = new Date(); return `${today()}-${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; };
 let theme = null;       // null follows the system; kept in memory only
-// Optional skin ("neon", cyberpunk). Kept in the address (?skin=neon), not in browser storage.
-let skin = new URLSearchParams(location.search).get('skin') === 'neon' ? 'neon' : null;
+// Optional skins: "neon" (cyberpunk) and "pop" (pop art). Kept in the address (?skin=…), not in browser storage.
+const SKINS = [null, 'neon', 'pop'];
+const SKIN_NAME = { null: 'Spokojny', neon: 'Neon', pop: 'Pop art' };
+let skin = SKINS.includes(new URLSearchParams(location.search).get('skin')) ? new URLSearchParams(location.search).get('skin') : null;
 let tapSel = null;      // the control just tapped, so it can pop once after the re-render
 let lastProg = { ch: null, w: 0 };
 let drawOnce = true;    // the path map draws itself the first time the results open
@@ -72,7 +74,8 @@ function applyTheme() {
 function applySkin(animate) {
   const root = document.documentElement;
   if (skin) root.dataset.skin = skin; else delete root.dataset.skin;
-  document.querySelectorAll('[data-skintoggle]').forEach(b => { b.setAttribute('aria-pressed', String(!!skin)); b.setAttribute('aria-label', skin ? 'Wróć do spokojnego wyglądu' : 'Włącz wygląd neon'); b.innerHTML = ICON.bolt; });
+  const next = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length];
+  document.querySelectorAll('[data-skintoggle]').forEach(b => { b.setAttribute('aria-pressed', String(!!skin)); b.setAttribute('aria-label', `Wygląd: ${SKIN_NAME[skin]}. Zmień na: ${SKIN_NAME[next]}`); b.title = `Wygląd: ${SKIN_NAME[skin]} (dotknij: ${SKIN_NAME[next]})`; b.innerHTML = ICON.palette; });
   document.querySelectorAll('[data-skinpick]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.skinpick || null) === skin)));
   const u = new URL(location.href);
   if (skin) u.searchParams.set('skin', skin); else u.searchParams.delete('skin');
@@ -83,6 +86,7 @@ function applySkin(animate) {
   }
 }
 const ICON = {
+  palette: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7.2" r="1.2"/><circle cx="15" cy="7.4" r="1.2"/></svg>',
   bolt: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
   save: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg>',
   sun: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
@@ -187,7 +191,7 @@ const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="
 function vStart() {
   return `
     <div class="hero">${ILLUS.start}<div>
-    <span class="kicker2">Kompas Studia · wersja testowa</span>
+    <span class="kicker2">Kompas Studia · Kraków 2027</span>
     <h1>Co już umiesz i gdzie się przydasz</h1>
     <p class="lead">Za chwilę zadamy ci kilka pytań. Nie ma złych odpowiedzi — chodzi o to, co cię naprawdę interesuje.</p>
     <p>Trzy krótkie rozdziały: <b>Ja</b> (twoje mocne strony), <b>Świat</b> (gdzie będą potrzebne) i <b>Droga</b> (jak tam dojść). Na końcu dostajesz plik, który zostaje u ciebie.</p>
@@ -208,6 +212,7 @@ function vStart() {
       <span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button>
       <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button>
+      <button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button>
     </div></div></div>
     ${TEST ? `<details class="card noprint"><summary>Tryb testowy</summary>
       <p class="small muted">Wczytaj gotowe odpowiedzi, żeby obejrzeć wyniki bez wypełniania.</p>
@@ -352,16 +357,26 @@ function vScenarios() {
     <p class="small muted">To scenariusz, nie prognoza. Twój wybór nie zmienia dopasowania; pokazuje tylko, która przyszła potrzeba jest ważna dla ciebie, i trafia do twojego pliku.</p>`;
 }
 
+let sectorSel = null; // sector highlighted on the Świat screen
+const sec = id => data.scenarios.sectors.find(x => x.id === id);
 function vForces() {
   const src = id => data.sources.find(s => s.id === id);
   const mine = null; // the main scenario is picked at the end, in "Przyszłość"
   return `<span class="kicker2">Rozdział Świat</span><h1>Świat za 10 lat</h1>
     <p class="lead">Uczysz się teraz, żeby być gotowym na świat, który za 10 lat będzie wyglądał tak. Na to się przygotowujesz:</p>
-    <div class="forces">${data.scenarios.forces.map((f, i) => { const s = src(f.sourceId), hot = mine && mine.emphasis.includes(f.id);
-      return `<div class="force rise${hot ? ' hot' : ''}" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3>${hot ? '<span class="badge">w twoim scenariuszu szczególnie</span>' : ''}<p class="small">${esc(f.text)}</p>
+    <div class="forces">${data.scenarios.forces.map((f, i) => { const s = src(f.sourceId), hot = sectorSel && f.sectors.includes(sectorSel);
+      return `<div class="force rise${hot ? ' hot' : ''}${sectorSel && !hot ? ' dim' : ''}" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3><p class="small">${esc(f.text)}</p>
+        ${f.line ? `<p class="small fline">${esc(f.line)}</p>` : ''}
+        <div class="tags" aria-label="Gdzie rośnie praca">${f.sectors.map(id => { const x = sec(id); return `<button class="tag-s sbtn-s${sectorSel === id ? ' on' : ''}" data-sector="${id}" aria-pressed="${sectorSel === id}">→ ${esc(x.name)}</button>`; }).join('')}</div>
         <p class="small muted">${s ? `<a href="${s.url}" target="_blank" rel="noopener">źródło</a>, ` : ''}stan na ${esc(f.asOf)}</p></div></div>`; }).join('')}</div>
-    <div class="card"><h3>Sektory z pracą na lata</h3><div class="tags">${data.scenarios.sectors.map(x => `<span class="tag-s">${esc(x)}</span>`).join('')}</div>
-      <p class="small muted">${esc(data.scenarios.shrinking)}</p></div>
+    <h2>Gdzie rośnie praca</h2>
+    <p class="small muted">Każdy sektor rośnie z powodu jednej lub kilku sił powyżej. Dotknij sektora, żeby zobaczyć, skąd się bierze.</p>
+    <div class="sectors">${data.scenarios.sectors.map((x, i) => { const why = data.scenarios.forces.filter(f => f.sectors.includes(x.id));
+      const cards = x.cards.map(id => data.opportunities.find(c => c.id === id)).filter(Boolean);
+      return `<button class="sector rise${sectorSel === x.id ? ' on' : ''}${sectorSel && sectorSel !== x.id ? ' dim' : ''}" style="--i:${i}" data-sector="${x.id}" aria-pressed="${sectorSel === x.id}">
+        <b>${esc(x.name)}</b><span class="small">Dlaczego rośnie: ${why.map(f => esc(f.name.toLowerCase())).join(', ')}</span>
+        <span class="small muted">Na przykład: ${cards.slice(0, 4).map(c => esc(c.name)).join(', ')}</span></button>`; }).join('')}</div>
+    <p class="small muted">${esc(data.scenarios.shrinking)}</p>
     <p class="lead">Mniej ludzi do pracy oznacza, że każdy będzie bardziej potrzebny. Zobaczmy, gdzie przydadzą się twoje mocne strony.</p>`;
 }
 
@@ -493,6 +508,15 @@ function offerHtml(o, chk) {
   </div>`;
 }
 
+// Pay band per card: $ / $$ / $$$ relative to other jobs, from a dated GUS ranking. For reflection only.
+const PAY_TXT = { 1: 'niższe niż w wielu zawodach', 2: 'blisko środka', 3: 'wyższe niż w większości zawodów' };
+function payHtml(k) {
+  if (!k.pay) return '';
+  const src = data.sources.find(x => x.id === k.pay.sourceId);
+  const b = k.pay.band;
+  return `<span class="pay" aria-label="poziom zarobków ${b} z 3"><b>${'$'.repeat(b)}</b><i>${'$'.repeat(3 - b)}</i></span> ${PAY_TXT[b]}
+    <span class="small muted">Typowa pensja na etacie w grupie „${esc(k.pay.group)}”, w porównaniu z innymi zawodami (${src ? `<a href="${src.url}" target="_blank" rel="noopener">GUS, październik 2020</a>` : 'GUS'}). Liczy się też to, co lubisz robić.</span>`;
+}
 function cardHtml(slot, c, open, scenario) {
   const k = c.card;
   const force = data.scenarios.forces.find(f => f.id === k.force);
@@ -509,14 +533,15 @@ function cardHtml(slot, c, open, scenario) {
     <section class="grp"><h4>Ty i ta praca</h4><dl>
       <dt>Komu pomagasz</dt><dd>${esc(k.whoYouHelp)}</dd>
       <dt>Co to daje tobie</dt><dd>${esc(k.whatYouGet)}</dd>
+      ${k.pay ? `<dt>Zarobki, orientacyjnie</dt><dd>${payHtml(k)}</dd>` : ''}
       ${c.strengthsUsed.length ? `<dt>Twoje mocne strony, które tu pracują</dt><dd><div class="tags">${c.strengthsUsed.map(p => `<span class="tag-s on">${esc(p.label)}</span>`).join('')}</div></dd>` : ''}
       <dt>Jak wygląda dzień pracy</dt><dd><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul></dd>
       <dt>Jak tu rośniesz</dt><dd><ol class="growth">${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol></dd>
       <dt>Przykładowe role</dt><dd>${esc(k.roles)}</dd></dl></section>
     <section class="grp"><h4>Przyszłość</h4><dl>
       <dt>Dlaczego będzie potrzebne</dt><dd>${esc(k.whyNeeded)}${force ? ` <span class="muted small">(${force.name.toLowerCase()})</span>` : ''}${demand}</dd>
-      <dt>Przyszła potrzeba</dt><dd>${need}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(ocena do sprawdzenia)</span></dd></dl></section>
-    <section class="grp"><h4>W Krakowie</h4>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${hidden.length ? `<details class="small"><summary>Uczelnie prywatne (${hidden.length}), wybrałeś tylko publiczne</summary>${hidden.map(o => offerHtml(o.offer, o.check)).join('')}</details>` : ''}${!c.offers.length ? '<span class="muted">brak danych w tej wersji</span>' : ''}</section>
+      <dt>Przyszła potrzeba</dt><dd>${need}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(ocena orientacyjna)</span></dd></dl></section>
+    <section class="grp"><h4>W Krakowie</h4>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${hidden.length ? `<details class="small"><summary>Uczelnie prywatne (${hidden.length}), wybrałeś tylko publiczne</summary>${hidden.map(o => offerHtml(o.offer, o.check)).join('')}</details>` : ''}${!c.offers.length ? '<span class="muted">brak kierunku w Krakowie w bazie</span>' : ''}</section>
     <section class="grp"><h4>Twoja droga</h4>${first ? `<ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
       <p><b>Mini-eksperyment na 30 dni:</b> ${esc(k.experiment)}</p></section>
     ${TEST ? `<p class="testv">fit ${c.fit.toFixed(1)} · int ${c.parts.interests.toFixed(2)} · styl ${c.parts.workStyle.toFixed(2)} · wart ${c.parts.values.toFixed(2)}</p>` : ''}`;
@@ -829,7 +854,7 @@ function vRoadSvg(o) {
       <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 30 ? st.offer.name.slice(0, 29) + '…' : st.offer.name)}</text>
       <text x="${W - 26}" y="${y + 30}" text-anchor="end" class="vmore">›</text>
       <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc(shortInst(st.offer.institution))} · ${String(st.offer.durationYears).replace('.', ',')} ${st.offer.durationYears < 5 ? 'lata' : 'lat'}${!ok ? ' · wymaga zmiany w maturze' : st.check.soft ? ' · warto dopisać rozszerzenie' : ''}</text></g>`; });
-  if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">brak danych w tej wersji</text>`;
+  if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">brak kierunku w Krakowie w bazie</text>`;
   g += `<path class="vl" style="--d:1.3s" pathLength="1" d="M${trunkX},${yJobs - 10} C${trunkX},${yJobs + 4} ${W / 2},${yJobs - 4} ${W / 2},${yJobs + 6}" stroke="${col}"/>`;
   g += `<text x="12" y="${yJobs - 18}" class="vcap" text-anchor="start" dx="${trunkX + 10}">${o.quick ? 'PIERWSZA PRACA' : 'PRZYKŁADOWE ZAWODY'}</text>`;
   jb.placed.forEach((p, k) => { g += `<g class="vjob" style="--d:${(1.5 + k * 0.1).toFixed(2)}s"><rect x="${p.x}" y="${p.y - 15}" width="${p.w}" height="30" rx="8" style="stroke:${col}"/><text x="${p.x + p.w / 2}" y="${p.y + 5}" text-anchor="middle">${esc(p.t)}</text></g>`; });
@@ -964,11 +989,12 @@ function panelHtml(o) {
     <span class="kicker" style="color:${o.color}">${esc(o.slot)} · ${esc(c.band)}</span><h3>${esc(k.name)}</h3>
     <p>${esc(k.whoYouHelp)}</p><p class="small muted">${c.reasons.map(esc).join(' · ')}</p>
     <h4>Co to daje tobie</h4><p>${esc(k.whatYouGet)}</p>
+    ${k.pay ? `<h4>Zarobki, orientacyjnie</h4><p>${payHtml(k)}</p>` : ''}
     <h4>Jak wygląda dzień pracy</h4><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
     <h4>Jak tu rośniesz</h4><ol>${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol>
     <h4>Dlaczego będzie potrzebne</h4><p>${esc(k.whyNeeded)}</p>${k.demand ? `<p class="small muted">Kraków 2026: ${esc(k.demand.text)}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</p>` : ''}
     <p class="small">Przyszła potrzeba${my ? ` w scenariuszu „${esc(my.name)}”: <b>${esc(k.robustness[my.id])}</b>` : `: ${data.scenarios.scenarios.map(x => `${esc(x.name)} ${esc(k.robustness[x.id])}`).join(' · ')}`}</p>
-    ${c.offers.length ? STUDY_HINT : '<h4>W Krakowie</h4><p class="muted">brak danych w tej wersji</p>'}
+    ${c.offers.length ? STUDY_HINT : '<h4>W Krakowie</h4><p class="muted">brak kierunku w Krakowie w bazie</p>'}
     <h4>Mini-eksperyment na 30 dni</h4><p>${esc(k.experiment)}</p></div></div>`;
 }
 
@@ -1100,14 +1126,15 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button');
   if (!t) return;
   const d = t.dataset;
-  if (d.skintoggle !== undefined) { skin = skin ? null : 'neon'; applySkin(true); return; }
+  if (d.skintoggle !== undefined) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
-  const tk = ['set', 'toggle', 'value', 'strength', 'lang'].find(k => d[k] !== undefined);
+  const tk = ['set', 'toggle', 'value', 'strength', 'lang', 'sector'].find(k => d[k] !== undefined);
   if (tk) tapSel = `[data-${tk}="${CSS.escape(d[tk])}"]` + (d.val !== undefined ? `[data-val="${CSS.escape(d.val)}"]` : '');
   if (d.themetoggle !== undefined) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if (d.term !== undefined) { const open = t.getAttribute('aria-expanded') !== 'true'; t.setAttribute('aria-expanded', String(open)); t.nextElementSibling.hidden = !open; return; }
   if (d.go) { location.hash = '#/' + d.go; return; }
   if (d.scroll) { document.getElementById(d.scroll)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); return; }
+  if (d.sector !== undefined) { sectorSel = sectorSel === d.sector ? null : d.sector; render(); return; }
   if (d.area !== undefined) { areaFilter = d.area || null; render(); return; }
   if (d.pick !== undefined) { pickDirection(d.pick, Number(t.dataset.ang)); return; }
   if (d.goopt) { kierSel = d.goopt; location.hash = '#/w-kierunki'; return; }

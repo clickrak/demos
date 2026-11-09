@@ -1,0 +1,140 @@
+/* Kompas Studia: optional "Pop art" skin, after Warhol's screen prints. Off by default; chosen on the start screen,
+   with the palette button, or ?skin=pop. Flat inks, black outlines, hard offset shadows, halftone dots,
+   and slightly misregistered colour behind titles and drawings. Always light; motion respects reduced motion. */
+
+html[data-skin="pop"] {
+  --l0: #ff2e88; --l1: #ff7a00; --l2: #2f7bff; --l3: #ffcc00; --l4: #12bfae; --l5: #6fcf2b; --on-line: #111;
+  --bg: #fff6df; --card: #ffffff; --ink: #111111; --muted: #4b4740; --line: #111111;
+  --accent: #ff2e88; --accent-soft: #ffd3e6; --warn: #b8470b; --warn-soft: #ffe2c6;
+  --strong: #ff2e88; --good: #12bfae; --check: #cfc6b0; --selc: #ff2e88;
+  --radius: 4px; --serif: 'Fraunces', Georgia, serif;
+  --ink-shadow: 5px 5px 0 #111;
+  --pink: #ffd3e6; --yel: #fff0a3; --tq: #c6f2ec; --org: #ffe0c2;
+  color-scheme: light;
+}
+
+/* Paper with a halftone screen; a big pink dot field fades in from one corner. */
+html[data-skin="pop"] body {
+  background:
+    radial-gradient(circle, rgba(17, 17, 17, .085) 1.1px, transparent 1.5px) 0 0 / 9px 9px,
+    var(--bg);
+}
+html[data-skin="pop"] body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--l0) 55%, transparent) 2.6px, transparent 3.2px) 0 0 / 14px 14px;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000, transparent 45%);
+  mask-image: radial-gradient(circle at 100% 0%, #000, transparent 45%);
+}
+
+/* Type: heavy serif titles with a yellow misprint behind them. */
+html[data-skin="pop"] body :is(h1, h2, h3, .brand, .sector b) { font-family: 'Fraunces', Georgia, serif; }
+html[data-skin="pop"] body h1 { font-weight: 900; text-transform: uppercase; letter-spacing: -.01em; line-height: 1.02; font-size: 2rem;
+  text-shadow: 3px 3px 0 var(--l3), 6px 6px 0 color-mix(in srgb, var(--l4) 70%, transparent); }
+html[data-skin="pop"] body.story h1 { font-size: clamp(40px, 5.6vw, 76px); }
+html[data-skin="pop"] body h2 { font-weight: 900; text-transform: uppercase; letter-spacing: -.005em; }
+html[data-skin="pop"] body h3 { font-weight: 800; }
+html[data-skin="pop"] body.story { --serif2: 'Fraunces', Georgia, serif; --kick: #111; --soft2: #fff0a3; }
+html[data-skin="pop"] :is(.kicker, .kicker2) { background: #111; color: var(--l3); padding: 4px 8px 3px; transform: rotate(-1.5deg); }
+html[data-skin="pop"] .badge { background: var(--l3); color: #111; border: 1.5px solid #111; font-weight: 600; }
+html[data-skin="pop"] .badge.warn { background: var(--org); color: #111; }
+html[data-skin="pop"] a { color: #111; text-decoration-color: var(--l0); text-decoration-thickness: 2px; }
+html[data-skin="pop"] .explain { background: #fff; border: 2px solid #111; border-left-width: 6px; border-left-color: var(--l0); padding: 8px 12px; color: var(--ink); border-radius: 2px; }
+
+/* Header: a yellow band with a black rule. */
+html[data-skin="pop"] .top { background: var(--l3); border-bottom: 3px solid #111; backdrop-filter: none; }
+html[data-skin="pop"] .brand { font-weight: 900; text-transform: uppercase; letter-spacing: .02em; }
+html[data-skin="pop"] .brand span { color: var(--l0); }
+html[data-skin="pop"] .bcomp circle { stroke: #111; stroke-width: 2; fill: #fff; }
+html[data-skin="pop"] .bcomp .bn-n { fill: var(--l0); } html[data-skin="pop"] .bcomp .bn-s { fill: #111; }
+html[data-skin="pop"] .chapters button { color: #111; font-weight: 600; border-radius: 2px; }
+html[data-skin="pop"] .chapters button.on { background: #111; color: var(--l3); }
+html[data-skin="pop"] .iconbtn { border: 2px solid #111; background: #fff; border-radius: 4px; box-shadow: 2px 2px 0 #111; }
+html[data-skin="pop"] [data-themetoggle] { display: none; }
+html[data-skin="pop"] :is(.savebtn, .pill.strong, .sbtn:not(.ghost)) { background: var(--l0); color: #111; border: 2px solid #111; border-radius: 4px; box-shadow: 3px 3px 0 #111; }
+html[data-skin="pop"] .savebtn.dirty::after { background: var(--l3); border-color: #111; }
+html[data-skin="pop"] :is(.pill, .snav) { border: 2px solid #111; background: #fff; border-radius: 4px; box-shadow: 3px 3px 0 #111; backdrop-filter: none; }
+html[data-skin="pop"] .snav a { color: #111; border-radius: 2px; }
+html[data-skin="pop"] .snav a.on { background: #111; color: var(--l3); }
+html[data-skin="pop"] .sprog { background: repeating-linear-gradient(90deg, var(--l0) 0 14px, var(--l3) 14px 28px); height: 5px; }
+
+/* Panels: black outline, hard shadow, and colour panels repeated like a print series. */
+html[data-skin="pop"] :is(.card, .force, .area, .place, .scencard, .needrow, .scard, .epanel, .kitem, .pcard, .scen-b, .grow, .savehelp, .sector, .tile, .prevcard, .eitem, .parthead) {
+  border: 2.5px solid #111; border-radius: 4px; box-shadow: var(--ink-shadow); background-color: #fff;
+}
+html[data-skin="pop"] .flip .face { border: 2.5px solid #111; border-radius: 4px; box-shadow: var(--ink-shadow); }
+html[data-skin="pop"] .flip .front { background-color: #fff; }
+html[data-skin="pop"] :is(.forces, .areas, .sectors, .tiles, .places2, .needlist, .scen, .klist) > :nth-child(4n+1) { background-color: var(--pink); }
+html[data-skin="pop"] :is(.forces, .areas, .sectors, .tiles, .places2, .needlist, .scen, .klist) > :nth-child(4n+2) { background-color: var(--yel); }
+html[data-skin="pop"] :is(.forces, .areas, .sectors, .tiles, .places2, .needlist, .scen, .klist) > :nth-child(4n+3) { background-color: var(--tq); }
+html[data-skin="pop"] :is(.forces, .areas, .sectors, .tiles, .places2, .needlist, .scen, .klist) > :nth-child(4n+4) { background-color: var(--org); }
+html[data-skin="pop"] .savehelp { background: var(--yel); }
+html[data-skin="pop"] .card.reveal, html[data-skin="pop"] .flip .back {
+  background: radial-gradient(circle, color-mix(in srgb, var(--l0) 22%, transparent) 1.6px, transparent 2px) 0 0 / 8px 8px, var(--pink);
+}
+html[data-skin="pop"] :is(.force.hot, .sector.on, .scencard[aria-pressed="true"]) { box-shadow: 5px 5px 0 var(--l0), 0 0 0 2px var(--l0) inset; }
+html[data-skin="pop"] :is(.force.dim, .sector.dim) { opacity: .5; filter: grayscale(.6); }
+html[data-skin="pop"] .area-ico { background: #fff; border: 2px solid #111; }
+html[data-skin="pop"] .tile-ico { border: 2px solid #111; }
+html[data-skin="pop"] .prevcard { border-left-width: 8px; border-left-color: var(--c); }
+
+/* Buttons: yellow ink, black outline, they press down into the page. */
+html[data-skin="pop"] .btn { background: var(--l3); color: #111; border: 2.5px solid #111; border-radius: 4px; box-shadow: 4px 4px 0 #111; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+html[data-skin="pop"] .btn.ghost { background: #fff; color: #111; border: 2.5px solid #111; font-weight: 600; }
+html[data-skin="pop"] .btn:disabled { box-shadow: none; background: #eee5cf; }
+html[data-skin="pop"] .btn:not(:disabled):active, html[data-skin="pop"] :is(.chip, .sector, .optchip):active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 #111; }
+html[data-skin="pop"] .linkbtn { color: #111; text-decoration-color: var(--l0); }
+@media (hover: hover) {
+  html[data-skin="pop"] .btn:not(:disabled):hover { filter: none; transform: translate(-1px, -1px); box-shadow: 6px 6px 0 #111; }
+  html[data-skin="pop"] .btn.ghost:not(:disabled):hover { background: var(--tq); box-shadow: 6px 6px 0 #111; }
+  html[data-skin="pop"] :is(.scencard, .tile, .sector, .eitem):hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #111; }
+  html[data-skin="pop"] .chip:hover { border-color: #111; background: var(--yel); }
+}
+
+/* Chips: white tickets; picked ones get pink ink. */
+html[data-skin="pop"] :is(.chip, .optchip, .rmenu button, .vals li, .tag-s) { border: 2px solid #111; border-radius: 4px; background: #fff; color: #111; box-shadow: 2px 2px 0 #111; }
+html[data-skin="pop"] .chip[aria-pressed="true"] { background: var(--l0); color: #111; border-color: #111; box-shadow: 3px 3px 0 #111; font-weight: 600; }
+html[data-skin="pop"] .tag-s.on { background: var(--l3); }
+html[data-skin="pop"] .vn { background: #111; color: var(--l3); }
+
+/* Inputs, progress, bars. */
+html[data-skin="pop"] :is(input[type=text], input[type=number], textarea) { border: 2.5px solid #111; border-radius: 4px; background: #fff; box-shadow: 3px 3px 0 #111; }
+html[data-skin="pop"] :is(input[type=text], input[type=number], textarea):focus { outline: none; box-shadow: 3px 3px 0 var(--l0); }
+html[data-skin="pop"] .prog { height: 10px; border: 2px solid #111; background: #fff; border-radius: 2px; overflow: hidden; }
+html[data-skin="pop"] .prog i { background: repeating-linear-gradient(-45deg, var(--l0) 0 8px, var(--l3) 8px 16px); border-radius: 0; }
+html[data-skin="pop"] :is(.bar .bt, .mb i, .fbar) { border: 1.5px solid #111; background: #fff; }
+html[data-skin="pop"] :is(.bar.main .bt i, .mb.main b) { background: var(--l0); }
+html[data-skin="pop"] .pay b { color: #111; background: var(--l3); padding: 0 3px; }
+
+/* Drawings: printed slightly off-register, with a yellow ghost behind the black line. */
+html[data-skin="pop"] :is(.illus svg, .bigcompass, .vroad svg, .trammap svg, .pathmap svg, .grow svg, .scrolly .graphic svg, .krk) { filter: drop-shadow(4px 4px 0 color-mix(in srgb, var(--l3) 85%, transparent)); }
+html[data-skin="pop"] .illus path { stroke-width: 4; }
+html[data-skin="pop"] :is(.bigcompass, .scene) .ring { stroke: #111; stroke-width: 3; fill: #fff; }
+
+/* Toast and notices. */
+html[data-skin="pop"] .toast { background: var(--l3); color: #111; border: 2.5px solid #111; border-radius: 4px; box-shadow: 5px 5px 0 #111; }
+html[data-skin="pop"] .toast span { opacity: 1; }
+html[data-skin="pop"] .notice { border: 2px solid #111; box-shadow: 3px 3px 0 #111; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Titles are stamped onto the page. */
+  html[data-skin="pop"] :is(.slide-f, .slide-b) > h1, html[data-skin="pop"] .hero h1 { animation: popstamp .5s cubic-bezier(.2, 1.6, .4, 1) both; }
+  @keyframes popstamp { 0% { opacity: 0; transform: scale(1.25) rotate(-3deg); text-shadow: 0 0 0 var(--l3); } 70% { opacity: 1; transform: scale(.98) rotate(.5deg); } 100% { transform: none; } }
+  html[data-skin="pop"] .brand span { display: inline-block; animation: popwobble 6s ease-in-out infinite; }
+  @keyframes popwobble { 0%, 86%, 100% { transform: none; } 90% { transform: rotate(-6deg) scale(1.1); } 94% { transform: rotate(4deg); } }
+  /* Panels drop in with a small tilt. */
+  html[data-skin="pop"] :is(.forces, .sectors, .areas, .tiles) > * { animation: popdrop .45s cubic-bezier(.2, 1.4, .4, 1) both; animation-delay: calc(var(--i, 0) * 80ms); }
+  @keyframes popdrop { from { opacity: 0; transform: translateY(-14px) rotate(-1.5deg); box-shadow: 0 0 0 #111; } }
+  html[data-skin="pop"] .pop { animation: popbang .42s cubic-bezier(.3, 1.8, .5, 1); }
+  @keyframes popbang { 0% { transform: scale(.9) rotate(-3deg); } 55% { transform: scale(1.08) rotate(2deg); } 100% { transform: none; } }
+  html[data-skin="pop"] .nav .btn:not(.ghost):not(:disabled) { animation: popnudge 3s ease-in-out infinite; }
+  @keyframes popnudge { 0%, 80%, 100% { transform: none; } 86% { transform: rotate(-2deg); } 92% { transform: rotate(2deg); } }
+  html.skin-in[data-skin="pop"] main { animation: popswitch .45s cubic-bezier(.2, 1.4, .4, 1); }
+  @keyframes popswitch { from { opacity: 0; transform: scale(.97) rotate(-1deg); } }
+}
+
+@media print {
+  html[data-skin="pop"] body::before { display: none; }
+  html[data-skin="pop"] body { background: #fff; }
+  html[data-skin="pop"] body h1 { text-shadow: none; }
+  html[data-skin="pop"] * { box-shadow: none !important; filter: none !important; }
+}
