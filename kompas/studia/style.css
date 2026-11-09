@@ -116,3 +116,7 @@ fieldset.langcard { margin: 12px 0; min-width: 0; }
 /* No frame on tap; keyboard users get the station outlined instead. */
 .pathmap svg, .pathmap [data-maprow], .pathmap .scroll { outline: none; -webkit-tap-highlight-color: transparent; }
 .pathmap .stop:focus-visible rect:nth-of-type(2), .pathmap .compass-rose:focus-visible circle:first-child { stroke: var(--ink); stroke-width: 4; }
+
+.q-s { font-family: var(--serif); font-size: 1.15rem; margin: 0 0 12px; }
+.row-s { display: flex; gap: 8px; justify-content: center; margin-top: 10px; }
+.conf { background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; }

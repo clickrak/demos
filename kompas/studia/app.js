@@ -1,4 +1,4 @@
-// Kompas Studia v0.1: flow test. Screens, navigation, results, export.
+// Kompas Studia v0.2. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
 
@@ -9,8 +9,8 @@ let data, A;
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
 const blank = () => ({ name: '', certainty: null, direction: null, rozszerzenia: [], jezyki: { pl: 'bardzo dobry' }, sport: '',
-  sort: {}, sortPos: 0, sliders: {}, values: [], strengths: [], scenario: null, neededWhere: null, homePlaces: [],
-  studyLength: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '' });
+  sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [], scenario: null, neededWhere: null, homePlaces: [],
+  studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '' });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -34,8 +34,9 @@ const screens = [
   { id: 'matura', ch: 'ja', view: vMatura },
   { id: 'jezyki', ch: 'ja', view: vLanguages },
   { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length },
+  { id: 'sytuacje', ch: 'ja', view: vSituations },
   { id: 'styl', ch: 'ja', view: vStyle },
-  { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 3 },
+  { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 5 },
   { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5 },
   { id: 'odbicie', ch: 'ja', view: vReveal },
   { id: 'sily', ch: 'swiat', view: vForces },
@@ -139,6 +140,22 @@ function vSort() {
     </div>${dots}`;
 }
 
+function vSituations() {
+  const qs = data.questions.situations, n = qs.length, pos = Math.min(A.sitPos, n);
+  const dots = `<div class="dots" aria-hidden="true">${qs.map((_, i) => `<i class="${i < pos ? 'done' : ''}"></i>`).join('')}</div>`;
+  if (pos >= n) {
+    const picked = qs.map(q => { const a = q.answers.find(x => x.id === A.situations[q.id]); return a ? `<li>${esc(a.text)}</li>` : ''; }).join('');
+    return `<h1>Co robisz, gdy…</h1><div class="card"><p>Twoje wybory:</p><ul>${picked || '<li class="muted">wszystko pominięte, to też jest odpowiedź</li>'}</ul>
+      <button class="btn ghost" data-sitreset>Przejdź jeszcze raz</button></div>${dots}`;
+  }
+  const q = qs[pos];
+  return `<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
+    <div class="card"><p class="q-s">${esc(q.text)}</p>
+      <div class="chips stack">${q.answers.map(a => chip(`data-sitans="${a.id}"`, esc(a.text), A.situations[q.id] === a.id)).join('')}</div>
+      <div class="row-s"><button class="chip" data-sitans="">pomiń</button>${pos > 0 ? '<button class="chip" data-sitback>cofnij</button>' : ''}</div>
+    </div>${dots}`;
+}
+
 function vStyle() {
   return `<h1>Jak lubisz pracować?</h1><p class="muted">Przesuń w stronę, która bardziej do ciebie pasuje. Środek też jest w porządku.</p>
     ${data.dimensions.workStyle.map(w => `<div class="slider"><div class="ends"><span>${w.left}</span><span>${w.right}</span></div>
@@ -146,7 +163,7 @@ function vStyle() {
 }
 
 function vValues() {
-  return `<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz trzy, w kolejności: najpierw najważniejsze.</p>
+  return `<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz pięć, w kolejności: najpierw najważniejsze.</p>
     <div class="chips">${data.dimensions.values.map(v => { const i = A.values.indexOf(v.id);
       return chip(`data-value="${v.id}"`, `${i >= 0 ? `<span class="n">${i + 1}.</span> ` : ''}${v.name}`, i >= 0); }).join('')}</div>`;
 }
@@ -214,6 +231,8 @@ function vLength() {
   return `<h1>Ile chcesz się uczyć?</h1>
     <div class="chips stack">${data.questions.studyLength.map(o => chip(`data-set="studyLength" data-val="${o.id}"`, o.label, A.studyLength === o.id)).join('')}</div>
     <p class="explain">Krótka droga, np. szkoła policealna (1–2,5 roku, bezpłatna, bez matury) albo 3-letni licencjat, to pełnoprawna opcja. Zostawia otwarte dalsze studia.</p>
+    <p>Czy bierzesz pod uwagę uczelnie prywatne? Są płatne.</p>
+    <div class="chips">${data.questions.privateOk.map(o => chip(`data-set="privateOk" data-val="${o.id}"`, o.label, A.privateOk === o.id)).join('')}</div>
     <label class="field" for="start">Ile minut jedziesz z domu na Dworzec Główny?</label>
     <input id="start" type="number" min="0" max="180" data-field="startMin" value="${esc(A.startMin)}" inputmode="numeric">
     <p class="small muted">Liczymy z tego czas dojazdu na uczelnię. Zostaje na tym urządzeniu.</p>`;
@@ -259,7 +278,7 @@ function cardHtml(slot, c, open, scenario) {
   const k = c.card;
   const force = data.scenarios.forces.find(f => f.id === k.force);
   const conv = c.paths.length >= 2 ? `<p class="converge">Dotarłeś tu ${c.paths.length} drogami: ${c.paths.map(p => esc(p.label)).join(', ')}.</p>` : '';
-  const reach = c.offers.filter(o => o.check.reachable), blocked = c.offers.filter(o => !o.check.reachable);
+  const reach = c.offers.filter(o => o.check.reachable), blocked = c.offers.filter(o => !o.check.reachable && !o.check.hidden), hidden = c.offers.filter(o => o.check.hidden);
   const first = reach[0]?.offer;
   const body = `
     <p class="small muted">${c.reasons.map(esc).join(' · ')}</p>${conv}
@@ -272,7 +291,7 @@ function cardHtml(slot, c, open, scenario) {
       <dt>Jak tu rośniesz</dt><dd>${k.growth.map(esc).join(' → ')}</dd>
       <dt>Odporność na scenariusze</dt><dd>${data.scenarios.scenarios.map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ')}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(propozycja do sprawdzenia)</span></dd>
       <dt>Przykładowe role</dt><dd>${esc(k.roles)}</dd>
-      <dt>W Krakowie</dt><dd>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${!c.offers.length ? '<span class="muted">brak danych w tej wersji</span>' : ''}</dd>
+      <dt>W Krakowie</dt><dd>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${hidden.length ? `<details class="small"><summary>Uczelnie prywatne (${hidden.length}), wybrałeś tylko publiczne</summary>${hidden.map(o => offerHtml(o.offer, o.check)).join('')}</details>` : ''}${!c.offers.length ? '<span class="muted">brak danych w tej wersji</span>' : ''}</dd>
       ${first ? `<dt>Twoja droga</dt><dd><ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul></dd>` : ''}
       <dt>Mini-eksperyment na 30 dni</dt><dd>${esc(k.experiment)}</dd>
     </dl>
@@ -378,6 +397,10 @@ function pathMapSvg(r) {
   return svg + '</svg>';
 }
 
+function confLine(c) {
+  return `<p class="conf small"><b>Pewność wyników: ${c.level}.</b> ${c.missing.length ? `Niższa, bo pominąłeś: ${c.missing.map(esc).join(', ')}. Możesz wrócić i uzupełnić.` : 'Odpowiedziałeś na wszystkie bloki.'}</p>`;
+}
+
 function vResults() {
   if (provenStrengths(A).length < 1 || !A.values.length) {
     return `<h1>Jeszcze trochę</h1><p>Wyniki pojawią się, gdy przejdziesz przez rozdział Ja (mocne strony i wartości).</p><button class="btn" data-go="pewnosc">Wracam do pytań</button>`;
@@ -416,6 +439,7 @@ function vResults() {
 
     <h2>Gdzie się przydasz</h2>
     <p class="muted small">Bez liczb: każda opcja pokazuje, dlaczego się pojawiła. Otwarte są najwyżej trzy karty naraz.</p>
+    ${confLine(r.profile.confidence)}
     ${s.best.map((c, i) => cardHtml('Najlepsze dopasowanie', c, i === 0, sc)).join('')}
     ${s.most ? cardHtml('Most: łączy twoje dwa główne zainteresowania', s.most, false, sc) : ''}
     ${quick}
@@ -490,12 +514,15 @@ document.addEventListener('click', e => {
   if (d.toggle) { const arr = A[d.toggle]; const i = arr.indexOf(d.val); i >= 0 ? arr.splice(i, 1) : arr.push(d.val); save(); render(); return; }
   if (d.lang) { A.jezyki[d.lang] = d.val; save(); render(); return; }
   if (d.sortans !== undefined) { const a = data.questions.activities[A.sortPos]; A.sort[a.id] = Number(d.sortans); A.sortPos++; save(); render(); return; }
+  if (d.sitans !== undefined) { const q = data.questions.situations[A.sitPos]; if (d.sitans) A.situations[q.id] = d.sitans; else delete A.situations[q.id]; A.sitPos++; render(); return; }
+  if (d.sitback !== undefined) { A.sitPos = Math.max(0, A.sitPos - 1); render(); return; }
+  if (d.sitreset !== undefined) { A.sitPos = 0; render(); return; }
   if (d.sortback !== undefined) { A.sortPos = Math.max(0, A.sortPos - 1); save(); render(); return; }
   if (d.sortreset !== undefined) { A.sortPos = 0; save(); render(); return; }
-  if (d.value) { const i = A.values.indexOf(d.value); if (i >= 0) A.values.splice(i, 1); else if (A.values.length < 3) A.values.push(d.value); save(); render(); return; }
+  if (d.value) { const i = A.values.indexOf(d.value); if (i >= 0) A.values.splice(i, 1); else if (A.values.length < 5) A.values.push(d.value); save(); render(); return; }
   if (d.strength) { const i = A.strengths.findIndex(s => s.id === d.strength); if (i >= 0) A.strengths.splice(i, 1); else if (A.strengths.length < 5) A.strengths.push({ id: d.strength, proof: '' }); save(); render(); return; }
   if (d.strong !== undefined) { setA('doubtStrong', d.strong === '1'); return; }
-  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length }); save(); location.hash = '#/wyniki'; render(); return; }
+  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length, sitPos: data.questions.situations.length }); save(); location.hash = '#/wyniki'; render(); return; }
   if (d.export) doExport(d.export);
 });
 

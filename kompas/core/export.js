@@ -14,7 +14,7 @@ export function buildMarkdown(answers, result, data, today) {
   const st = id => data.strengths.find(s => s.id === id);
   const camp = id => data.campuses.find(c => c.id === id);
   L.push(`# Kompas – ${answers.name || 'ja'}, ${today}`);
-  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v0.1', '');
+  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v0.2', '');
 
   L.push('## Moje mocne strony');
   provenStrengths(answers).forEach((s, i) => L.push(`${i + 1}. ${cap(st(s.id).name)} – dowód: „${s.proof.trim()}”`));
@@ -69,7 +69,7 @@ export function buildMarkdown(answers, result, data, today) {
   L.push('Pytaj, nie mów. Reaguj na dowody, nie na opcję. Bez porównań między braćmi. Jeden mały krok w tym miesiącu.', '');
 
   L.push('<!-- dane do ponownego wczytania -->');
-  L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.1', date: today, answers }, null, 1), '```');
+  L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.2', date: today, answers }, null, 1), '```');
   return L.join('\n');
 }
 

@@ -1,46 +1,459 @@
 {
-  "certainty": [
-    { "id": "pewny", "label": "Wiem, co chcę studiować" },
-    { "id": "troche", "label": "Mam pomysł, ale nie jestem pewny" },
-    { "id": "niepewny", "label": "Nie wiem jeszcze" }
-  ],
-  "subjects": ["polski", "matematyka", "angielski", "biologia", "chemia", "fizyka", "geografia", "historia", "WOS", "informatyka", "niemiecki"],
-  "languages": [
-    { "id": "pl", "name": "polski" },
-    { "id": "en", "name": "angielski" },
-    { "id": "de", "name": "niemiecki" },
-    { "id": "uk", "name": "ukraiński" },
-    { "id": "fr", "name": "francuski" }
-  ],
-  "languageLevels": ["brak", "podstawy", "komunikatywny", "bardzo dobry"],
-  "activities": [
-    { "id": "a1", "text": "Znaleźć błąd w programie albo w arkuszu kalkulacyjnym.", "w": { "ana": 2, "sys": 1 } },
-    { "id": "a2", "text": "Wytłumaczyć koledze trudny temat tak, żeby zrozumiał.", "w": { "spo": 2, "twr": 1 } },
-    { "id": "a3", "text": "Zaopiekować się kimś po kontuzji.", "w": { "spo": 2, "tec": 1 } },
-    { "id": "a4", "text": "Zbudować coś fizycznego: model, mebel, układ elektroniczny.", "w": { "tec": 2 } },
-    { "id": "a5", "text": "Przeanalizować dane i znaleźć w nich wzór.", "w": { "ana": 2 } },
-    { "id": "a6", "text": "Rozmawiać z kimś, kto ma problem, i pomóc mu znaleźć wyjście.", "w": { "spo": 2, "prz": 1 } },
-    { "id": "a7", "text": "Przetłumaczyć tekst albo rozmowę tak, żeby nic nie zginęło.", "w": { "twr": 1, "spo": 1, "sys": 1 } },
-    { "id": "a8", "text": "Zaplanować wyjazd albo wydarzenie i dopilnować szczegółów.", "w": { "prz": 1, "sys": 2 } },
-    { "id": "a9", "text": "Prowadzić doświadczenie w laboratorium i notować wyniki.", "w": { "ana": 1, "sys": 1, "tec": 1 } },
-    { "id": "a10", "text": "Napisać tekst, który kogoś poruszy albo przekona.", "w": { "twr": 2, "prz": 1 } }
-  ],
-  "neededWhere": ["moje miasto", "cała Polska", "Ukraina", "Europa i świat"],
-  "homePlaces": ["Kraków", "Małopolska", "Polska", "Ukraina", "Europa", "trudno powiedzieć"],
-  "studyLength": [
-    { "id": "krotko", "label": "Chcę szybko zacząć pracować (do 3 lat)" },
-    { "id": "srednio", "label": "Mogę uczyć się 3–5 lat" },
-    { "id": "dlugo", "label": "Długie studia mi nie przeszkadzają" }
-  ],
-  "doubts": [
-    { "id": "nie_wiem", "label": "Nie wiem, co lubię", "card": "To normalne. Zobacz, co już pokazują twoje odpowiedzi: mocne strony na górze wyników są twoje, nie wymyślone." },
-    { "id": "zle", "label": "Boję się, że wybiorę źle", "card": "Pierwszy wybór to nie wyrok. Kierunek można zmienić, a umiejętności przechodzą między dziedzinami." },
-    { "id": "nie_dosc", "label": "Nie jestem dość dobry z jakiegoś przedmiotu", "card": "Przy każdej opcji widzisz, czego naprawdę wymaga i co możesz zrobić, jeśli czegoś brakuje. Brak rozszerzenia to sprawa do załatwienia, nie zamknięte drzwi." },
-    { "id": "inni", "label": "Inni wiedzą, czego chcą", "card": "Pewność innych bywa mniejsza, niż się wydaje. Liczy się następny krok, nie cały plan." },
-    { "id": "studia", "label": "Nie wiem, czy dam radę na studiach", "card": "Pierwszy rok to głównie nowy rytm: więcej samodzielnej nauki, mniej sprawdzania. Pomagają grupy nauki, konsultacje u prowadzących i biura wsparcia studentów, które ma każda duża uczelnia." }
-  ],
-  "reflection": [
-    { "id": "f1", "text": "Kiedy ostatnio straciłeś poczucie czasu? Co wtedy robiłeś?" },
-    { "id": "f2", "text": "Czego na pewno nie chcesz robić za 10 lat?" }
-  ]
+ "certainty": [
+  {
+   "id": "pewny",
+   "label": "Wiem, co chcę studiować"
+  },
+  {
+   "id": "troche",
+   "label": "Mam pomysł, ale nie jestem pewny"
+  },
+  {
+   "id": "niepewny",
+   "label": "Nie wiem jeszcze"
+  }
+ ],
+ "subjects": [
+  "polski",
+  "matematyka",
+  "angielski",
+  "biologia",
+  "chemia",
+  "fizyka",
+  "geografia",
+  "historia",
+  "WOS",
+  "informatyka",
+  "niemiecki"
+ ],
+ "languages": [
+  {
+   "id": "pl",
+   "name": "polski"
+  },
+  {
+   "id": "en",
+   "name": "angielski"
+  },
+  {
+   "id": "de",
+   "name": "niemiecki"
+  },
+  {
+   "id": "uk",
+   "name": "ukraiński"
+  },
+  {
+   "id": "fr",
+   "name": "francuski"
+  }
+ ],
+ "languageLevels": [
+  "brak",
+  "podstawy",
+  "komunikatywny",
+  "bardzo dobry"
+ ],
+ "activities": [
+  {
+   "id": "a1",
+   "text": "Znaleźć błąd w programie albo w arkuszu kalkulacyjnym.",
+   "w": {
+    "ana": 2,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a2",
+   "text": "Wytłumaczyć koledze trudny temat tak, żeby zrozumiał.",
+   "w": {
+    "spo": 2,
+    "twr": 1
+   }
+  },
+  {
+   "id": "a3",
+   "text": "Zaopiekować się kimś po kontuzji.",
+   "w": {
+    "spo": 2,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a4",
+   "text": "Zbudować coś fizycznego: model, mebel, układ elektroniczny.",
+   "w": {
+    "tec": 2
+   }
+  },
+  {
+   "id": "a5",
+   "text": "Przeanalizować dane i znaleźć w nich wzór.",
+   "w": {
+    "ana": 2
+   }
+  },
+  {
+   "id": "a6",
+   "text": "Rozmawiać z kimś, kto ma problem, i pomóc mu znaleźć wyjście.",
+   "w": {
+    "spo": 2,
+    "prz": 1
+   }
+  },
+  {
+   "id": "a7",
+   "text": "Przetłumaczyć tekst albo rozmowę tak, żeby nic nie zginęło.",
+   "w": {
+    "twr": 1,
+    "spo": 1,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a8",
+   "text": "Zaplanować wyjazd albo wydarzenie i dopilnować szczegółów.",
+   "w": {
+    "prz": 1,
+    "sys": 2
+   }
+  },
+  {
+   "id": "a9",
+   "text": "Prowadzić doświadczenie w laboratorium i notować wyniki.",
+   "w": {
+    "ana": 1,
+    "sys": 1,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a10",
+   "text": "Napisać tekst, który kogoś poruszy albo przekona.",
+   "w": {
+    "twr": 2,
+    "prz": 1
+   }
+  },
+  {
+   "id": "a11",
+   "text": "Trenować regularnie i śledzić swoje postępy.",
+   "w": {
+    "tec": 1,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a12",
+   "text": "Poprowadzić trening albo rozgrzewkę dla młodszych.",
+   "w": {
+    "prz": 1,
+    "spo": 1,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a13",
+   "text": "Rozłożyć urządzenie na części, żeby zrozumieć, jak działa.",
+   "w": {
+    "tec": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a14",
+   "text": "Przekonać grupę do swojego pomysłu.",
+   "w": {
+    "prz": 2
+   }
+  },
+  {
+   "id": "a15",
+   "text": "Uporządkować notatki, pliki albo zdjęcia tak, żeby wszystko łatwo znaleźć.",
+   "w": {
+    "sys": 2
+   }
+  },
+  {
+   "id": "a16",
+   "text": "Dowiedzieć się, jak działa ludzkie ciało albo mózg.",
+   "w": {
+    "ana": 1,
+    "spo": 1
+   }
+  },
+  {
+   "id": "a17",
+   "text": "Pomóc komuś z innego kraju załatwić sprawę w urzędzie albo u lekarza.",
+   "w": {
+    "spo": 2,
+    "prz": 1
+   }
+  },
+  {
+   "id": "a18",
+   "text": "Napisać prosty program, który oszczędzi komuś czas.",
+   "w": {
+    "ana": 2,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a19",
+   "text": "Pracować na zewnątrz, w terenie, przy każdej pogodzie.",
+   "w": {
+    "tec": 2
+   }
+  },
+  {
+   "id": "a20",
+   "text": "Śledzić wiadomości ze świata i rozumieć, dlaczego coś się dzieje.",
+   "w": {
+    "ana": 1,
+    "prz": 1
+   }
+  }
+ ],
+ "neededWhere": [
+  "moje miasto",
+  "cała Polska",
+  "Ukraina",
+  "Europa i świat"
+ ],
+ "homePlaces": [
+  "Kraków",
+  "Małopolska",
+  "Polska",
+  "Ukraina",
+  "Europa",
+  "trudno powiedzieć"
+ ],
+ "studyLength": [
+  {
+   "id": "krotko",
+   "label": "Chcę szybko zacząć pracować (do 3 lat)"
+  },
+  {
+   "id": "srednio",
+   "label": "Mogę uczyć się 3–5 lat"
+  },
+  {
+   "id": "dlugo",
+   "label": "Długie studia mi nie przeszkadzają"
+  }
+ ],
+ "doubts": [
+  {
+   "id": "nie_wiem",
+   "label": "Nie wiem, co lubię",
+   "card": "To normalne. Zobacz, co już pokazują twoje odpowiedzi: mocne strony na górze wyników są twoje, nie wymyślone."
+  },
+  {
+   "id": "zle",
+   "label": "Boję się, że wybiorę źle",
+   "card": "Pierwszy wybór to nie wyrok. Kierunek można zmienić, a umiejętności przechodzą między dziedzinami."
+  },
+  {
+   "id": "nie_dosc",
+   "label": "Nie jestem dość dobry z jakiegoś przedmiotu",
+   "card": "Przy każdej opcji widzisz, czego naprawdę wymaga i co możesz zrobić, jeśli czegoś brakuje. Brak rozszerzenia to sprawa do załatwienia, nie zamknięte drzwi."
+  },
+  {
+   "id": "inni",
+   "label": "Inni wiedzą, czego chcą",
+   "card": "Pewność innych bywa mniejsza, niż się wydaje. Liczy się następny krok, nie cały plan."
+  },
+  {
+   "id": "studia",
+   "label": "Nie wiem, czy dam radę na studiach",
+   "card": "Pierwszy rok to głównie nowy rytm: więcej samodzielnej nauki, mniej sprawdzania. Pomagają grupy nauki, konsultacje u prowadzących i biura wsparcia studentów, które ma każda duża uczelnia."
+  }
+ ],
+ "reflection": [
+  {
+   "id": "f1",
+   "text": "Kiedy ostatnio straciłeś poczucie czasu? Co wtedy robiłeś?"
+  },
+  {
+   "id": "f2",
+   "text": "Czego na pewno nie chcesz robić za 10 lat?"
+  },
+  {
+   "id": "f3",
+   "text": "Za co chwalą cię inni, nawet jeśli tobie to przychodzi łatwo?"
+  }
+ ],
+ "situations": [
+  {
+   "id": "e1",
+   "text": "Wasza grupa oddaje jutro projekt. Wyniki się nie zgadzają, a jedna osoba jest zestresowana i chce odpuścić. Co robisz najpierw?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Siadam do danych i szukam błędu.",
+     "w": {
+      "ana": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Rozmawiam z tą osobą i dzielę zadania na nowo.",
+     "w": {
+      "spo": 2,
+      "prz": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Proponuję inne podejście do całego problemu.",
+     "w": {
+      "twr": 2,
+      "ana": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Piszę do prowadzącego i pytam o przesunięcie terminu.",
+     "w": {
+      "prz": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "e2",
+   "text": "Masz wolny tydzień i trochę pieniędzy na własny projekt. Co wybierasz?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Kurs albo książkę o czymś, co chcę wreszcie zrozumieć.",
+     "w": {
+      "ana": 2
+     }
+    },
+    {
+     "id": "b",
+     "text": "Buduję albo naprawiam coś własnymi rękami.",
+     "w": {
+      "tec": 2
+     }
+    },
+    {
+     "id": "c",
+     "text": "Organizuję wyjazd albo wydarzenie dla znajomych.",
+     "w": {
+      "prz": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Piszę, nagrywam albo tłumaczę coś własnego.",
+     "w": {
+      "twr": 2
+     }
+    },
+    {
+     "id": "e",
+     "text": "Zgłaszam się jako wolontariusz tam, gdzie brakuje rąk.",
+     "w": {
+      "spo": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "e3",
+   "text": "Kolega skręca kostkę na treningu. Co robisz najpierw?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Oglądam nogę, układam ją wyżej, przykładam coś zimnego.",
+     "w": {
+      "tec": 1,
+      "spo": 1,
+      "sys": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Uspokajam go i z nim zostaję.",
+     "w": {
+      "spo": 2
+     }
+    },
+    {
+     "id": "c",
+     "text": "Dzwonię po pomoc i organizuję, jak wróci do domu.",
+     "w": {
+      "prz": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Sprawdzam, co się robi przy skręceniu, i mówię innym.",
+     "w": {
+      "ana": 1,
+      "sys": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "e4",
+   "text": "Klasa robi wspólny projekt o swoim mieście. Jaką rolę bierzesz?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Liczby, ankieta i wykresy.",
+     "w": {
+      "ana": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Teksty i opowieść.",
+     "w": {
+      "twr": 2
+     }
+    },
+    {
+     "id": "c",
+     "text": "Rozmowy z mieszkańcami.",
+     "w": {
+      "spo": 2,
+      "twr": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Plan, terminy i pilnowanie, żeby wszystko się złożyło.",
+     "w": {
+      "sys": 2,
+      "prz": 1
+     }
+    },
+    {
+     "id": "e",
+     "text": "Strona techniczna: zdjęcia, mapa, montaż.",
+     "w": {
+      "tec": 2
+     }
+    }
+   ]
+  }
+ ],
+ "privateOk": [
+  {
+   "id": "tak",
+   "label": "Tak, jeśli warto"
+  },
+  {
+   "id": "nie",
+   "label": "Tylko publiczne, bezpłatne"
+  }
+ ]
 }

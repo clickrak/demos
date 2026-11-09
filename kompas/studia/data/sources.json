@@ -1,14 +1,93 @@
 [
-  { "id": "otou-matura", "url": "https://www.otouczelnie.pl/matura", "title": "Matura 2027, deklaracje", "asOf": "2026-11", "status": "sourced" },
-  { "id": "otou-psych", "url": "https://www.otouczelnie.pl/uczelnia_dzial/837/Psychologia", "title": "Psychologia UJ", "asOf": "2026-11", "status": "sourced" },
-  { "id": "otou-logo-uj", "url": "https://www.otouczelnie.pl/uczelnia_dzial/2473/Logopedia-Uniwersytet-Jagiellonski-w-Krakowie", "title": "Logopedia UJ", "asOf": "2026-11", "status": "sourced" },
-  { "id": "otou-logo-uken", "url": "https://www.otouczelnie.pl/uczelnia_dzial/2354/Logopedia-Uniwersytet-Komisji-Edukacji-Narodowej-w-Krakowie", "title": "Logopedia UKEN", "asOf": "2026-11", "status": "sourced" },
-  { "id": "otou-fizjo-pub", "url": "https://www.otouczelnie.pl/miasto_dzial/1224/Fizjoterapia-Krakow/Uczelnie-publiczne", "title": "Fizjoterapia Kraków, uczelnie publiczne", "asOf": "2026-11", "status": "sourced" },
-  { "id": "otou-fizjo-priv", "url": "https://www.otouczelnie.pl/miasto_dzial/1224/Fizjoterapia-Krakow/Uczelnie-niepubliczne", "title": "Fizjoterapia Kraków, uczelnie niepubliczne", "asOf": "2026-11", "status": "sourced" },
-  { "id": "ksm", "url": "https://www.ksm.krakow.pl/index.php/start", "title": "Krakowska Medyczna Szkoła Policealna nr 1", "asOf": "2026-11", "status": "sourced" },
-  { "id": "pkt-ksm", "url": "https://www.pkt.pl/firma/malopolski-zespol-jednostek-edukacyjnych-w-krakowie-395494", "title": "Długość kursów KSM", "asOf": "2026-11", "status": "sourced" },
-  { "id": "uj-kampus", "url": "https://geo.uj.edu.pl/earthhes2024/venue", "title": "Dojazd do Kampusu 600-lecia UJ", "asOf": "2024-05", "status": "sourced" },
-  { "id": "notes-fertility", "url": "https://notesfrompoland.com/2026/05/28/polands-fertility-rate-fell-to-new-low-in-2025/", "title": "Notes from Poland: dzietność 2025", "asOf": "2026-05", "status": "sourced" },
-  { "id": "pr-2060", "url": "https://www.polskieradio.pl/395/7789/Artykul/3586189", "title": "Polskie Radio: prognoza ludności do 2060", "asOf": "2026", "status": "sourced" },
-  { "id": "nucnet", "url": "https://www.nucnet.org/news/polish-project-company-submits-construction-licence-for-country-s-first-nuclear-power-station-3-2-2026", "title": "NucNet: pierwsza elektrownia jądrowa", "asOf": "2026-02", "status": "sourced" }
+ {
+  "id": "otou-matura",
+  "url": "https://www.otouczelnie.pl/matura",
+  "title": "Matura 2027, deklaracje",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-psych",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/837/Psychologia",
+  "title": "Psychologia UJ",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-logo-uj",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2473/Logopedia-Uniwersytet-Jagiellonski-w-Krakowie",
+  "title": "Logopedia UJ",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-logo-uken",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2354/Logopedia-Uniwersytet-Komisji-Edukacji-Narodowej-w-Krakowie",
+  "title": "Logopedia UKEN",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-fizjo-pub",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1224/Fizjoterapia-Krakow/Uczelnie-publiczne",
+  "title": "Fizjoterapia Kraków, uczelnie publiczne",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-fizjo-priv",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1224/Fizjoterapia-Krakow/Uczelnie-niepubliczne",
+  "title": "Fizjoterapia Kraków, uczelnie niepubliczne",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "ksm",
+  "url": "https://www.ksm.krakow.pl/index.php/start",
+  "title": "Krakowska Medyczna Szkoła Policealna nr 1",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "pkt-ksm",
+  "url": "https://www.pkt.pl/firma/malopolski-zespol-jednostek-edukacyjnych-w-krakowie-395494",
+  "title": "Długość kursów KSM",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uj-kampus",
+  "url": "https://geo.uj.edu.pl/earthhes2024/venue",
+  "title": "Dojazd do Kampusu 600-lecia UJ",
+  "asOf": "2024-05",
+  "status": "sourced"
+ },
+ {
+  "id": "notes-fertility",
+  "url": "https://notesfrompoland.com/2026/05/28/polands-fertility-rate-fell-to-new-low-in-2025/",
+  "title": "Notes from Poland: dzietność 2025",
+  "asOf": "2026-05",
+  "status": "sourced"
+ },
+ {
+  "id": "pr-2060",
+  "url": "https://www.polskieradio.pl/395/7789/Artykul/3586189",
+  "title": "Polskie Radio: prognoza ludności do 2060",
+  "asOf": "2026",
+  "status": "sourced"
+ },
+ {
+  "id": "nucnet",
+  "url": "https://www.nucnet.org/news/polish-project-company-submits-construction-licence-for-country-s-first-nuclear-power-station-3-2-2026",
+  "title": "NucNet: pierwsza elektrownia jądrowa",
+  "asOf": "2026-02",
+  "status": "sourced"
+ },
+ {
+  "id": "krk-orp-2026",
+  "url": "https://www.infor.pl/prawo/praca/7539590,masz-taki-zawod-w-krakowie-czeka-cie-trudna-walka-o-prace-raport.html",
+  "title": "Krakowskie Obserwatorium Rynku Pracy (GUP Kraków): zawody deficytowe i nadwyżkowe 2026, omówienie Infor",
+  "asOf": "2026",
+  "status": "sourced"
+ }
 ]

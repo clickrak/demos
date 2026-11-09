@@ -5,17 +5,33 @@ const ROBUST = { wysoka: 3, 'średnia': 2, niska: 1 };
 
 export function computeProfile(answers, data) {
   const dims = data.dimensions.interests.map(d => d.id);
+  // Activities: lubię +1, obojętne 0, nie lubię -1, mapped to 0..100 per dimension.
   const raw = Object.fromEntries(dims.map(d => [d, 0]));
   const max = Object.fromEntries(dims.map(d => [d, 0]));
   for (const a of data.questions.activities) {
     const v = (answers.sort || {})[a.id] || 0;
     for (const [d, w] of Object.entries(a.w)) { raw[d] += v * w; max[d] += w; }
   }
+  const act = {};
+  for (const d of dims) act[d] = max[d] ? ((raw[d] + max[d]) / (2 * max[d])) * 100 : 50;
+
+  // Situations: the chosen answer's weights against the best each situation could give a dimension.
+  const sit = Object.fromEntries(dims.map(d => [d, 0]));
+  const sitMax = Object.fromEntries(dims.map(d => [d, 0]));
+  let sitN = 0;
+  for (const q of data.questions.situations || []) {
+    const pick = q.answers.find(a => a.id === (answers.situations || {})[q.id]);
+    if (!pick) continue;
+    sitN++;
+    for (const d of dims) sitMax[d] += Math.max(...q.answers.map(a => a.w[d] || 0));
+    for (const [d, w] of Object.entries(pick.w)) sit[d] += w;
+  }
+  const cfg = data.config;
+  const sw = sitN ? (cfg.situationWeight ?? 0.3) : 0;
   const score = {};
-  for (const d of dims) score[d] = max[d] ? ((raw[d] + max[d]) / (2 * max[d])) * 100 : 50;
+  for (const d of dims) score[d] = (1 - sw) * act[d] + sw * (sitMax[d] ? (sit[d] / sitMax[d]) * 100 : 50);
 
   // Strengths with a proof boost the dimensions they map to, capped per dimension.
-  const cfg = data.config;
   const boost = Object.fromEntries(dims.map(d => [d, 0]));
   for (const s of provenStrengths(answers)) {
     const card = data.strengths.find(x => x.id === s.id);
@@ -23,11 +39,35 @@ export function computeProfile(answers, data) {
   }
   for (const d of dims) score[d] = Math.max(0, Math.min(100, score[d] + boost[d]));
 
+  // Centred on his own average, so someone who likes everything still gets a clear top two.
   const mean = dims.reduce((s, d) => s + score[d], 0) / dims.length;
   const centred = Object.fromEntries(dims.map(d => [d, score[d] - mean]));
   const top = [...dims].sort((a, b) => score[b] - score[a]);
   const answered = Object.values(answers.sort || {}).filter(v => v !== 0).length;
-  return { dims, score, centred, top, mean, answered };
+  return { dims, score, centred, top, mean, answered, confidence: confidence(answers, data) };
+}
+
+// Which blocks he answered. Skipped blocks lower the confidence line on the results.
+export function confidence(answers, data) {
+  const acts = data.questions.activities.length;
+  const blocks = [
+    { id: 'zajecia', label: 'co lubisz robić', ok: Object.keys(answers.sort || {}).length >= Math.ceil(acts * 0.6) },
+    { id: 'sytuacje', label: 'sytuacje', ok: Object.keys(answers.situations || {}).length >= Math.min(3, (data.questions.situations || []).length) },
+    { id: 'styl', label: 'styl pracy', ok: Object.values(answers.sliders || {}).some(v => v !== 0) },
+    { id: 'wartosci', label: 'wartości', ok: (answers.values || []).length >= 3 },
+    { id: 'mocne', label: 'mocne strony z przykładem', ok: provenStrengths(answers).length >= 3 },
+    { id: 'matura', label: 'przedmioty rozszerzone', ok: (answers.rozszerzenia || []).length > 0 }
+  ];
+  const missing = blocks.filter(b => !b.ok);
+  const level = missing.length === 0 ? 'wysoka' : missing.length <= 2 ? 'średnia' : 'niska';
+  return { level, missing: missing.map(b => b.label) };
+}
+
+const LEVEL = { brak: 0, podstawy: 1, komunikatywny: 2, 'bardzo dobry': 3 };
+export const LANG_NAMES = { en: 'angielski', de: 'niemiecki', uk: 'ukraiński', fr: 'francuski' };
+// Languages at a working level (komunikatywny or better) that this card can use.
+export function workingLanguages(card, answers) {
+  return (card.languages || []).filter(l => (LEVEL[(answers.jezyki || {})[l]] || 0) >= 2);
 }
 
 export function provenStrengths(answers) {
@@ -56,14 +96,18 @@ export function fitCard(profile, card, answers, data) {
     ? 1 - axes.reduce((s, ax) => s + Math.abs((sl[ax] || 0) - card.workStyle[ax]), 0) / axes.length / 6
     : 0.5;
 
-  const vals = answers.values || [];
-  const wts = [3, 2, 1];
+  // Values: his top picks weighted 5, 4, 3, 2, 1 against the best the card's values could score.
+  const vals = (answers.values || []).slice(0, 5);
+  const wts = [5, 4, 3, 2, 1];
   const matchedValues = vals.filter(v => card.values.includes(v));
-  const values = vals.reduce((s, v, i) => s + (card.values.includes(v) ? wts[i] || 0 : 0), 0) / 6;
+  const best = wts.slice(0, Math.min(card.values.length, vals.length)).reduce((a, b) => a + b, 0) || 1;
+  const values = Math.min(1, vals.reduce((s, v, i) => s + (card.values.includes(v) ? wts[i] : 0), 0) / best);
 
   const w = data.config.weights;
-  const fit = 100 * (w.interests * interests + w.workStyle * workStyle + w.values * values);
-  return { fit, parts: { interests, workStyle, values }, matchedValues };
+  const langs = workingLanguages(card, answers);
+  const langBoost = Math.min(data.config.languageBoostCap ?? 6, langs.length * (data.config.languageBoost ?? 3));
+  const fit = Math.min(100, 100 * (w.interests * interests + w.workStyle * workStyle + w.values * values) + langBoost);
+  return { fit, parts: { interests, workStyle, values, langBoost }, matchedValues, langs };
 }
 
 export function band(fit, config) {
@@ -80,6 +124,7 @@ export function pathsTo(card, profile, answers, data) {
       paths.push({ kind: 'strength', id: s.id, label: st ? st.name : s.id });
     }
   }
+  for (const l of workingLanguages(card, answers)) paths.push({ kind: 'language', id: 'lang-' + l, label: 'język: ' + LANG_NAMES[l] });
   const cardTop = Object.keys(card.interests).sort((a, b) => card.interests[b] - card.interests[a]).slice(0, 2);
   for (const d of profile.top.slice(0, 2)) {
     if (cardTop.includes(d)) {
@@ -99,8 +144,16 @@ export function reasonsFor(card, profile, answers, data) {
     .sort((x, y) => y.s - x.s)
     .slice(0, 2)
     .map(x => `bo zaznaczyłeś: „${x.a.text.replace(/\.$/, '')}”`);
+  const sitPick = (data.questions.situations || [])
+    .map(q => q.answers.find(a => a.id === (answers.situations || {})[q.id]))
+    .filter(Boolean)
+    .map(a => ({ a, s: Object.entries(a.w).reduce((t, [d, w]) => t + w * cc[d], 0) }))
+    .filter(x => x.s > 0).sort((x, y) => y.s - x.s)[0];
+  if (sitPick && liked.length < 2) liked.push(`bo w sytuacji wybrałeś: „${sitPick.a.text.replace(/\.$/, '')}”`);
   const v = (answers.values || []).find(id => card.values.includes(id));
   if (v) liked.push(`bo ważne jest dla ciebie: ${data.dimensions.values.find(x => x.id === v).name}`);
+  const l = workingLanguages(card, answers)[0];
+  if (l) liked.push(`bo mówisz po ${{ en: 'angielsku', de: 'niemiecku', uk: 'ukraińsku', fr: 'francusku' }[l]}`);
   return liked.slice(0, 3);
 }
 
@@ -128,8 +181,12 @@ export function checkOffer(offer, answers, config) {
   const len = answers.studyLength;
   if (len === 'krotko' && offer.durationYears > config.quickStartMaxYears) out.flags.push('dłuższa droga, niż chcesz teraz');
   if (len === 'srednio' && offer.durationYears > 5) out.flags.push('trochę dłużej niż 5 lat');
+  if (offer.private) {
+    if (answers.privateOk === 'nie') { out.hidden = true; out.flags.push('uczelnia prywatna, płatna: wybrałeś tylko publiczne'); }
+    else out.flags.push('uczelnia prywatna: studia są płatne');
+  }
   if (offer.status !== 'sourced') out.flags.push('dane do sprawdzenia na stronie rekrutacji 2027');
-  out.reachable = out.blocked.length === 0;
+  out.reachable = out.blocked.length === 0 && !out.hidden;
   return out;
 }
 

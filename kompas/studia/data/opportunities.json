@@ -1,139 +1,1457 @@
 [
-  {
-    "id": "mowa", "name": "Edukacja i terapia mowy", "cluster": "ludzie",
-    "interests": { "ana": 55, "tec": 10, "spo": 90, "twr": 45, "prz": 25, "sys": 50 },
-    "workStyle": { "zespol": 0, "ludzie": -2, "ruch": 0, "konkret": -1 },
-    "values": ["pomaganie", "pewnosc", "wplyw"],
-    "strengths": ["tlumaczenie", "empatia", "jezyki", "wytrwalosc", "dokladnosc"],
-    "roles": "logopeda, nauczyciel, pedagog",
-    "whoYouHelp": "Dzieci, które nie mówią wyraźnie, i seniorzy, którzy po udarze uczą się mówić od nowa.",
-    "whatYouGet": "Widzisz postęp konkretnej osoby z tygodnia na tydzień. Praca z ludźmi, ale spokojna i uważna.",
-    "force": "starzenie",
-    "whyNeeded": "Coraz więcej seniorów po udarach i coraz większa uwaga na rozwój mowy u dzieci.",
-    "dayInLife": ["Rano dwoje dzieci w przedszkolu: ćwiczenia głosek przez zabawę.", "Po południu pacjent po udarze w poradni.", "Na koniec notatki i plan ćwiczeń do domu."],
-    "growth": ["logopeda w przedszkolu lub poradni", "własny gabinet albo specjalizacja (np. neurologopedia)", "superwizor, szkolenia dla innych"],
-    "robustness": { "A": "wysoka", "B": "wysoka", "C": "wysoka" },
-    "experiment": "Umów się na 20 minut rozmowy z logopedą w szkole lub poradni i zapytaj, jak wygląda jej zwykły dzień.",
-    "related": ["psychologia", "jezyki"]
+ {
+  "id": "medycyna",
+  "name": "Medycyna kliniczna",
+  "cluster": "zdrowie",
+  "interests": {
+   "ana": 80,
+   "tec": 40,
+   "spo": 85,
+   "twr": 15,
+   "prz": 35,
+   "sys": 60
   },
-  {
-    "id": "jezyki", "name": "Języki, przekład i komunikacja", "cluster": "jezyki",
-    "interests": { "ana": 40, "tec": 5, "spo": 65, "twr": 80, "prz": 40, "sys": 45 },
-    "workStyle": { "zespol": -1, "ludzie": -1, "ruch": 2, "konkret": -1 },
-    "values": ["zagranica", "kreatywnosc", "niezaleznosc"],
-    "strengths": ["jezyki", "tlumaczenie", "dokladnosc", "ciekawosc", "szybka_nauka"],
-    "roles": "tłumacz specjalistyczny, asystent międzykulturowy w szkole, specjalista ds. komunikacji",
-    "whoYouHelp": "Uczniowie i rodziny z innych krajów, firmy i urzędy, które muszą się dogadać.",
-    "whatYouGet": "Różnorodność tematów, kontakt z innymi kulturami, często elastyczny czas pracy.",
-    "force": "bezpieczenstwo",
-    "whyNeeded": "Polska współpracuje z Ukrainą i resztą Europy coraz ściślej; potrzebni są ludzie, którzy łączą języki z wiedzą z jakiejś dziedziny.",
-    "dayInLife": ["Rano tłumaczenie dokumentów dla firmy.", "W południe rozmowa z rodzicem ucznia z Ukrainy w szkole.", "Po południu redakcja tekstu na stronę."],
-    "growth": ["tłumacz lub asystent w szkole", "specjalizacja: medycyna, prawo, technika", "tłumacz przysięgły albo kierownik zespołu komunikacji"],
-    "robustness": { "A": "średnia", "B": "średnia", "C": "średnia" },
-    "robustnessNote": "AI zmienia przekład; zostają ludzie, rozmowa i specjalizacja.",
-    "experiment": "Praca wakacyjna albo wolontariat, gdzie używasz języka na co dzień, np. w Niemczech (Augsburg, Monachium), żeby przy okazji podciągnąć niemiecki.",
-    "related": ["ue", "mowa"]
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -2,
+   "ruch": -1,
+   "konkret": -1,
+   "decyzje": 0,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 2
   },
-  {
-    "id": "psychologia", "name": "Psychologia i zdrowie psychiczne", "cluster": "ludzie",
-    "interests": { "ana": 70, "tec": 5, "spo": 90, "twr": 40, "prz": 20, "sys": 30 },
-    "workStyle": { "zespol": 0, "ludzie": -3, "ruch": 1, "konkret": 0 },
-    "values": ["pomaganie", "wplyw", "trudne"],
-    "strengths": ["empatia", "spokoj", "logika", "ciekawosc", "tlumaczenie"],
-    "roles": "psycholog, psychoterapeuta, psycholog szkolny",
-    "whoYouHelp": "Osoby w kryzysie i młodzież, która nie ma z kim pogadać.",
-    "whatYouGet": "Głęboka rozmowa, zrozumienie ludzi, praca, w której liczy się uważność.",
-    "force": "demografia",
-    "whyNeeded": "Na pomoc psychologiczną, zwłaszcza dla młodych, czeka się dziś miesiącami.",
-    "dayInLife": ["Rano dwie konsultacje w poradni.", "W południe spotkanie zespołu: omówienie trudnego przypadku.", "Po południu badanie testem i pisanie opinii."],
-    "growth": ["psycholog w szkole, poradni lub firmie", "szkoła psychoterapii albo specjalizacja kliniczna", "własna praktyka, superwizja, badania"],
-    "robustness": { "A": "wysoka", "B": "wysoka", "C": "wysoka" },
-    "experiment": "Zapytaj psychologa w swojej szkole o 15 minut rozmowy o tym, czym się zajmuje na co dzień.",
-    "related": ["mowa", "rehabilitacja"]
+  "values": [
+   "pomaganie",
+   "prestiz",
+   "pewnosc",
+   "trudne"
+  ],
+  "strengths": [
+   "spokoj",
+   "odpowiedzialnosc",
+   "wytrwalosc",
+   "logika",
+   "empatia"
+  ],
+  "roles": "lekarz, ratownik medyczny",
+  "whoYouHelp": "Chorzy i ich rodziny, często w najtrudniejszym dniu ich życia.",
+  "whatYouGet": "Praca, która ma znaczenie od pierwszego dnia, i wiedza, która się nie starzeje. Dużo odpowiedzialności i długa nauka.",
+  "force": "starzenie",
+  "whyNeeded": "Społeczeństwo się starzeje, a lekarzy brakuje już dziś.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje lekarzy i ratowników medycznych.",
+   "sourceId": "krk-orp-2026"
   },
-  {
-    "id": "rehabilitacja", "name": "Rehabilitacja i ruch", "cluster": "zdrowie",
-    "interests": { "ana": 45, "tec": 40, "spo": 90, "twr": 15, "prz": 20, "sys": 35 },
-    "workStyle": { "zespol": 0, "ludzie": -3, "ruch": -3, "konkret": -2 },
-    "values": ["pomaganie", "pewnosc", "niezaleznosc"],
-    "strengths": ["kondycja", "empatia", "wytrwalosc", "dyscyplina", "odpowiedzialnosc"],
-    "roles": "fizjoterapeuta, terapeuta zajęciowy",
-    "whoYouHelp": "Osoby po urazach i operacjach, sportowcy, seniorzy, którzy chcą zostać samodzielni.",
-    "whatYouGet": "Praca w ruchu, a efekt widać u konkretnego człowieka.",
-    "force": "starzenie",
-    "whyNeeded": "Coraz więcej starszych osób będzie potrzebować rehabilitacji. To praca, po której widać efekt u konkretnego człowieka.",
-    "dayInLife": ["Rano pacjent po operacji kolana: ćwiczenia krok po kroku.", "W południe senior uczący się znowu chodzić po schodach.", "Po południu zawodnik po kontuzji wraca do treningów."],
-    "growth": ["fizjoterapeuta w szpitalu lub przychodni", "specjalizacja: sport, neurologia, dzieci", "własny gabinet albo kierowanie zespołem"],
-    "robustness": { "A": "wysoka", "B": "wysoka", "C": "wysoka" },
-    "experiment": "Poproś fizjoterapeutę z siłowni lub klubu o rozmowę albo pół dnia obserwacji.",
-    "related": ["psychologia", "farmacja"]
+  "dayInLife": [
+   "Obchód: rozmowa z pacjentami i decyzja o dalszym leczeniu.",
+   "Izba przyjęć: szybka ocena, kto potrzebuje pomocy najpierw.",
+   "Dokumentacja i rozmowa z zespołem o trudnym przypadku."
+  ],
+  "growth": [
+   "lekarz na stażu, potem rezydent",
+   "specjalista w wybranej dziedzinie",
+   "ordynator, nauczyciel akademicki albo własna praktyka"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
   },
-  {
-    "id": "laboratorium", "name": "Laboratorium i analityka", "cluster": "analityka",
-    "interests": { "ana": 85, "tec": 50, "spo": 15, "twr": 15, "prz": 10, "sys": 85 },
-    "workStyle": { "zespol": -1, "ludzie": 3, "ruch": 0, "konkret": -1 },
-    "values": ["pewnosc", "trudne", "niezaleznosc"],
-    "strengths": ["dokladnosc", "logika", "dyscyplina", "ciekawosc", "odpowiedzialnosc"],
-    "roles": "technik analityk, diagnosta laboratoryjny, analityk jakości",
-    "whoYouHelp": "Pacjenci czekający na wynik badania, fabryki, ochrona środowiska.",
-    "whatYouGet": "Spokojna, skupiona praca, w której dokładność naprawdę się liczy.",
-    "force": "starzenie",
-    "whyNeeded": "Więcej badań w starzejącym się społeczeństwie i ostrzejsze normy jakości w przemyśle.",
-    "dayInLife": ["Rano przygotowanie próbek i sprzętu.", "W południe pomiary i kontrola wyników.", "Po południu raport i sprawdzenie, czy wszystko się zgadza."],
-    "growth": ["technik w laboratorium", "diagnosta albo specjalista ds. jakości", "kierownik laboratorium"],
-    "robustness": { "A": "wysoka", "B": "średnia", "C": "wysoka" },
-    "experiment": "Zapytaj w swojej szkole (profil chemiczny) o dzień w pracowni albo o kontakt do laboratorium, które przyjmuje praktykantów.",
-    "related": ["farmacja", "software"]
+  "experiment": "Zrób kurs pierwszej pomocy i porozmawiaj 20 minut z lekarzem albo ratownikiem o jego zwykłym dyżurze.",
+  "related": [
+   "pielegniarstwo",
+   "rehabilitacja"
+  ]
+ },
+ {
+  "id": "pielegniarstwo",
+  "name": "Pielęgniarstwo i opieka",
+  "cluster": "zdrowie",
+  "interests": {
+   "ana": 45,
+   "tec": 45,
+   "spo": 95,
+   "twr": 10,
+   "prz": 30,
+   "sys": 60
   },
-  {
-    "id": "farmacja", "name": "Farmacja i biotechnologia", "cluster": "zdrowie",
-    "interests": { "ana": 75, "tec": 25, "spo": 60, "twr": 10, "prz": 30, "sys": 75 },
-    "workStyle": { "zespol": 0, "ludzie": 0, "ruch": 1, "konkret": -1 },
-    "values": ["pewnosc", "pomaganie", "zarobki"],
-    "strengths": ["dokladnosc", "odpowiedzialnosc", "logika", "empatia", "szybka_nauka"],
-    "roles": "farmaceuta, technik farmaceutyczny, analityk laboratoryjny",
-    "whoYouHelp": "Pacjenci, którzy nie wiedzą, jak brać leki, i lekarze, którzy potrzebują rady.",
-    "whatYouGet": "Połączenie wiedzy i rozmowy z ludźmi, pewna praca w każdym mieście.",
-    "force": "starzenie",
-    "whyNeeded": "Starsze osoby biorą coraz więcej leków naraz i potrzebują kogoś, kto to ogarnie.",
-    "dayInLife": ["Rano przyjęcie dostawy i sprawdzenie leków.", "W ciągu dnia rozmowy z pacjentami przy okienku.", "Wieczorem przygotowanie leków robionych na miejscu."],
-    "growth": ["technik farmaceutyczny w aptece", "farmaceuta po studiach", "kierownik apteki albo praca w firmie farmaceutycznej"],
-    "robustness": { "A": "wysoka", "B": "wysoka", "C": "wysoka" },
-    "experiment": "Zapytaj w pobliskiej aptece, czy możesz porozmawiać z technikiem farmaceutycznym o jego pracy.",
-    "related": ["laboratorium", "rehabilitacja"]
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -3,
+   "ruch": -2,
+   "konkret": -2,
+   "decyzje": -1,
+   "zmiana": 0,
+   "projekty": -1,
+   "wspolpraca": 3
   },
-  {
-    "id": "software", "name": "Oprogramowanie i AI", "cluster": "analityka",
-    "interests": { "ana": 90, "tec": 55, "spo": 15, "twr": 55, "prz": 30, "sys": 50 },
-    "workStyle": { "zespol": 0, "ludzie": 3, "ruch": 3, "konkret": 0 },
-    "values": ["zarobki", "trudne", "niezaleznosc", "kreatywnosc"],
-    "strengths": ["logika", "szybka_nauka", "pomyslowosc", "wytrwalosc", "ciekawosc"],
-    "roles": "programista, tester, inżynier ML",
-    "whoYouHelp": "Firmy i urzędy, którym brakuje rąk do pracy.",
-    "whatYouGet": "Zagadki do rozwiązania codziennie, praca zdalna, szybki rozwój.",
-    "force": "automatyzacja",
-    "whyNeeded": "Mniej ludzi do pracy oznacza, że więcej trzeba zautomatyzować.",
-    "dayInLife": ["Rano krótkie spotkanie zespołu.", "Większość dnia: pisanie i poprawianie kodu.", "Po południu przegląd kodu kolegi."],
-    "growth": ["junior developer albo tester", "specjalista w jednej dziedzinie", "architekt albo lider zespołu"],
-    "robustness": { "A": "wysoka", "B": "wysoka", "C": "wysoka" },
-    "experiment": "Zrób darmowy kurs wprowadzający (np. Python) przez 30 dni po 20 minut i zobacz, czy wciąga.",
-    "related": ["laboratorium", "ue"]
+  "values": [
+   "pomaganie",
+   "pewnosc",
+   "zagranica"
+  ],
+  "strengths": [
+   "empatia",
+   "spokoj",
+   "odpowiedzialnosc",
+   "kondycja",
+   "dokladnosc"
+  ],
+  "roles": "pielęgniarz, opiekun medyczny, opieka nad seniorami",
+  "whoYouHelp": "Starsi i przewlekle chorzy, którzy potrzebują kogoś blisko na co dzień.",
+  "whatYouGet": "Pewna praca w każdym mieście. Dyplom pielęgniarza jest uznawany automatycznie w całej Unii Europejskiej.",
+  "force": "starzenie",
+  "whyNeeded": "Seniorów będzie coraz więcej, a pielęgniarek i opiekunów brakuje już dziś.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje pielęgniarek, położnych i opiekunów osób starszych.",
+   "sourceId": "krk-orp-2026"
   },
-  {
-    "id": "ue", "name": "Instytucje międzynarodowe i UE", "cluster": "jezyki",
-    "interests": { "ana": 75, "tec": 5, "spo": 55, "twr": 40, "prz": 75, "sys": 55 },
-    "workStyle": { "zespol": 1, "ludzie": 0, "ruch": 2, "konkret": 2 },
-    "values": ["wplyw", "zagranica", "prestiz"],
-    "strengths": ["jezyki", "organizowanie", "logika", "ciekawosc", "zespol"],
-    "roles": "analityk, ekspert ds. polityk publicznych, koordynator projektów",
-    "whoYouHelp": "Obywatele wielu krajów, miasta odbudowujące się w Ukrainie.",
-    "whatYouGet": "Wielojęzyczne zespoły, sprawy, które dotyczą milionów ludzi.",
-    "force": "bezpieczenstwo",
-    "whyNeeded": "Odbudowa Ukrainy i bezpieczeństwo Europy to praca na dekady.",
-    "dayInLife": ["Rano czytanie raportów i dokumentów.", "W południe spotkanie online z partnerami z trzech krajów.", "Po południu pisanie notatki z rekomendacjami."],
-    "growth": ["staż w instytucji lub organizacji", "analityk albo koordynator projektu", "ekspert, dyplomata, szef programu"],
-    "robustness": { "A": "średnia", "B": "średnia", "C": "średnia" },
-    "experiment": "Zgłoś się do Europejskiego Parlamentu Młodzieży albo na symulację obrad ONZ (MUN) w Krakowie.",
-    "related": ["jezyki", "psychologia"]
+  "dayInLife": [
+   "Przekazanie dyżuru: kto jak się czuje, co się zmieniło w nocy.",
+   "Leki, opatrunki, pomiary i rozmowy z pacjentami.",
+   "Pokazanie rodzinie, jak opiekować się chorym w domu."
+  ],
+  "growth": [
+   "pielęgniarz na oddziale",
+   "specjalizacja, np. anestezjologia albo opieka długoterminowa",
+   "pielęgniarka oddziałowa, koordynator albo praca naukowa"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Spędź jedno popołudnie jako wolontariusz w domu opieki albo w hospicjum.",
+  "related": [
+   "medycyna",
+   "rehabilitacja"
+  ]
+ },
+ {
+  "id": "rehabilitacja",
+  "name": "Rehabilitacja i ruch",
+  "cluster": "zdrowie",
+  "interests": {
+   "ana": 45,
+   "tec": 40,
+   "spo": 90,
+   "twr": 15,
+   "prz": 20,
+   "sys": 35
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": -3,
+   "ruch": -3,
+   "konkret": -2,
+   "decyzje": 0,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pomaganie",
+   "pewnosc",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "kondycja",
+   "empatia",
+   "wytrwalosc",
+   "dyscyplina",
+   "odpowiedzialnosc"
+  ],
+  "roles": "fizjoterapeuta, terapeuta zajęciowy",
+  "whoYouHelp": "Osoby po urazach i operacjach, sportowcy, seniorzy, którzy chcą zostać samodzielni.",
+  "whatYouGet": "Praca w ruchu, a efekt widać u konkretnego człowieka.",
+  "force": "starzenie",
+  "whyNeeded": "Coraz więcej starszych osób będzie potrzebować rehabilitacji. To praca, po której widać efekt u konkretnego człowieka.",
+  "dayInLife": [
+   "Rano pacjent po operacji kolana: ćwiczenia krok po kroku.",
+   "W południe senior uczący się znowu chodzić po schodach.",
+   "Po południu zawodnik po kontuzji wraca do treningów."
+  ],
+  "growth": [
+   "fizjoterapeuta w szpitalu lub przychodni",
+   "specjalizacja: sport, neurologia, dzieci",
+   "własny gabinet albo kierowanie zespołem"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Poproś fizjoterapeutę z siłowni lub klubu o rozmowę albo pół dnia obserwacji.",
+  "related": [
+   "psychologia",
+   "farmacja"
+  ]
+ },
+ {
+  "id": "psychologia",
+  "name": "Psychologia i zdrowie psychiczne",
+  "cluster": "ludzie",
+  "interests": {
+   "ana": 70,
+   "tec": 5,
+   "spo": 90,
+   "twr": 40,
+   "prz": 20,
+   "sys": 30
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": -3,
+   "ruch": 1,
+   "konkret": 0,
+   "decyzje": 2,
+   "zmiana": 0,
+   "projekty": 2,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pomaganie",
+   "wplyw",
+   "trudne"
+  ],
+  "strengths": [
+   "empatia",
+   "spokoj",
+   "logika",
+   "ciekawosc",
+   "tlumaczenie"
+  ],
+  "roles": "psycholog, psychoterapeuta, psycholog szkolny",
+  "whoYouHelp": "Osoby w kryzysie i młodzież, która nie ma z kim pogadać.",
+  "whatYouGet": "Głęboka rozmowa, zrozumienie ludzi, praca, w której liczy się uważność.",
+  "force": "demografia",
+  "whyNeeded": "Na pomoc psychologiczną, zwłaszcza dla młodych, czeka się dziś miesiącami.",
+  "dayInLife": [
+   "Rano dwie konsultacje w poradni.",
+   "W południe spotkanie zespołu: omówienie trudnego przypadku.",
+   "Po południu badanie testem i pisanie opinii."
+  ],
+  "growth": [
+   "psycholog w szkole, poradni lub firmie",
+   "szkoła psychoterapii albo specjalizacja kliniczna",
+   "własna praktyka, superwizja, badania"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Zapytaj psychologa w swojej szkole o 15 minut rozmowy o tym, czym się zajmuje na co dzień.",
+  "related": [
+   "mowa",
+   "rehabilitacja"
+  ],
+  "demand": {
+   "level": "równowaga",
+   "text": "Psycholodzy i psychoterapeuci są w Krakowie w równowadze: praca jest, ale bez dużego niedoboru.",
+   "sourceId": "krk-orp-2026"
   }
+ },
+ {
+  "id": "farmacja",
+  "name": "Farmacja i biotechnologia",
+  "cluster": "zdrowie",
+  "interests": {
+   "ana": 75,
+   "tec": 25,
+   "spo": 60,
+   "twr": 10,
+   "prz": 30,
+   "sys": 75
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 0,
+   "ruch": 1,
+   "konkret": -1,
+   "decyzje": 2,
+   "zmiana": -2,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "pomaganie",
+   "zarobki"
+  ],
+  "strengths": [
+   "dokladnosc",
+   "odpowiedzialnosc",
+   "logika",
+   "empatia",
+   "szybka_nauka"
+  ],
+  "roles": "farmaceuta, technik farmaceutyczny, analityk laboratoryjny",
+  "whoYouHelp": "Pacjenci, którzy nie wiedzą, jak brać leki, i lekarze, którzy potrzebują rady.",
+  "whatYouGet": "Połączenie wiedzy i rozmowy z ludźmi, pewna praca w każdym mieście.",
+  "force": "starzenie",
+  "whyNeeded": "Starsze osoby biorą coraz więcej leków naraz i potrzebują kogoś, kto to ogarnie.",
+  "dayInLife": [
+   "Rano przyjęcie dostawy i sprawdzenie leków.",
+   "W ciągu dnia rozmowy z pacjentami przy okienku.",
+   "Wieczorem przygotowanie leków robionych na miejscu."
+  ],
+  "growth": [
+   "technik farmaceutyczny w aptece",
+   "farmaceuta po studiach",
+   "kierownik apteki albo praca w firmie farmaceutycznej"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Zapytaj w pobliskiej aptece, czy możesz porozmawiać z technikiem farmaceutycznym o jego pracy.",
+  "related": [
+   "laboratorium",
+   "rehabilitacja"
+  ]
+ },
+ {
+  "id": "dane-medyczne",
+  "name": "Dane medyczne i bioinformatyka",
+  "cluster": "analityka",
+  "interests": {
+   "ana": 90,
+   "tec": 40,
+   "spo": 45,
+   "twr": 30,
+   "prz": 20,
+   "sys": 70
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 2,
+   "ruch": 3,
+   "konkret": 1,
+   "decyzje": 2,
+   "zmiana": 1,
+   "projekty": 2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "pomaganie",
+   "zarobki",
+   "zagranica"
+  ],
+  "strengths": [
+   "logika",
+   "dokladnosc",
+   "ciekawosc",
+   "szybka_nauka",
+   "wytrwalosc"
+  ],
+  "roles": "analityk danych medycznych, bioinformatyk",
+  "whoYouHelp": "Lekarze i badacze, którzy dzięki danym szybciej znajdują, co pomaga pacjentom.",
+  "whatYouGet": "Łączysz liczby z sensem: jedna analiza może zmienić sposób leczenia wielu osób.",
+  "force": "automatyzacja",
+  "whyNeeded": "Szpitale i firmy zbierają coraz więcej danych, a mało kto rozumie jednocześnie dane i biologię.",
+  "dayInLife": [
+   "Porządkowanie danych z badania klinicznego.",
+   "Spotkanie z lekarzami: jakie pytanie chcą zadać danym?",
+   "Wykres i krótki raport, który da się zrozumieć bez statystyki."
+  ],
+  "growth": [
+   "młodszy analityk",
+   "specjalista od jednego obszaru, np. genetyki",
+   "lider zespołu danych albo badacz"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Zrób darmowy kurs wstępu do analizy danych i przeanalizuj jeden publiczny zbiór danych o zdrowiu.",
+  "related": [
+   "software",
+   "laboratorium"
+  ]
+ },
+ {
+  "id": "inz-biomed",
+  "name": "Inżynieria biomedyczna",
+  "cluster": "technika",
+  "interests": {
+   "ana": 75,
+   "tec": 85,
+   "spo": 40,
+   "twr": 40,
+   "prz": 20,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 2,
+   "ruch": 1,
+   "konkret": -1,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 2,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pomaganie",
+   "trudne",
+   "kreatywnosc",
+   "zarobki"
+  ],
+  "strengths": [
+   "pomyslowosc",
+   "logika",
+   "dokladnosc",
+   "ciekawosc",
+   "zespol"
+  ],
+  "roles": "konstruktor urządzeń medycznych, inżynier sprzętu szpitalnego",
+  "whoYouHelp": "Pacjenci i personel medyczny, którzy korzystają z protez, aparatury i czujników.",
+  "whatYouGet": "Budujesz rzeczy, które ktoś naprawdę nosi albo które ratują życie. Technika z ludzkim celem.",
+  "force": "starzenie",
+  "whyNeeded": "Starsze społeczeństwo potrzebuje więcej sprzętu: od protez po aparaturę do opieki w domu.",
+  "dayInLife": [
+   "Projekt części w programie do rysunku technicznego.",
+   "Test prototypu z fizjoterapeutą albo lekarzem.",
+   "Poprawki i dokumenty, żeby urządzenie przeszło certyfikację."
+  ],
+  "growth": [
+   "inżynier w zespole projektowym",
+   "specjalista od jednego typu urządzeń",
+   "kierownik projektów albo własna firma"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Wybierz się na dzień otwarty AGH i zapisz jedno urządzenie z laboratorium, które cię zaciekawiło.",
+  "related": [
+   "rehabilitacja",
+   "automatyka"
+  ]
+ },
+ {
+  "id": "sport",
+  "name": "Sport, ruch i zdrowie",
+  "cluster": "ruch",
+  "interests": {
+   "ana": 35,
+   "tec": 70,
+   "spo": 75,
+   "twr": 20,
+   "prz": 50,
+   "sys": 40
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -2,
+   "ruch": -3,
+   "konkret": -3,
+   "decyzje": -1,
+   "zmiana": 1,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pomaganie",
+   "niezaleznosc",
+   "wplyw"
+  ],
+  "strengths": [
+   "kondycja",
+   "dyscyplina",
+   "wytrwalosc",
+   "zespol",
+   "organizowanie"
+  ],
+  "roles": "trener przygotowania motorycznego, instruktor, analityk sportowy",
+  "whoYouHelp": "Sportowcy, dzieci, które dopiero zaczynają się ruszać, i seniorzy, którzy chcą zostać sprawni.",
+  "whatYouGet": "Praca w ruchu i z ludźmi, z widocznym efektem. Twoje własne treningi to już doświadczenie.",
+  "force": "starzenie",
+  "whyNeeded": "Dzieci ruszają się mniej, seniorów jest więcej: rośnie praca przy zapobieganiu, nie tylko przy leczeniu.",
+  "dayInLife": [
+   "Rano trening z grupą zawodników.",
+   "Analiza nagrania i danych z zegarków.",
+   "Wieczorem zajęcia dla seniorów albo dzieci."
+  ],
+  "growth": [
+   "instruktor albo trener",
+   "specjalista, np. przygotowanie motoryczne",
+   "trener kadry, własny klub albo szkolenie trenerów"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Część pracy zależy od tego, ile ludzie wydają na sport.",
+  "experiment": "Poprowadź jedną rozgrzewkę dla młodszych na siłowni albo w klubie i zapytaj ich, co było najlepsze.",
+  "related": [
+   "rehabilitacja",
+   "sluzby"
+  ]
+ },
+ {
+  "id": "sluzby",
+  "name": "Służby i ratownictwo",
+  "cluster": "bezpieczenstwo",
+  "interests": {
+   "ana": 40,
+   "tec": 70,
+   "spo": 75,
+   "twr": 10,
+   "prz": 45,
+   "sys": 65
+  },
+  "workStyle": {
+   "zespol": 3,
+   "ludzie": -1,
+   "ruch": -3,
+   "konkret": -3,
+   "decyzje": -3,
+   "zmiana": 2,
+   "projekty": -2,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pomaganie",
+   "pewnosc",
+   "wplyw"
+  ],
+  "strengths": [
+   "spokoj",
+   "kondycja",
+   "odpowiedzialnosc",
+   "zespol",
+   "dyscyplina"
+  ],
+  "roles": "ratownik medyczny, strażak, żołnierz",
+  "whoYouHelp": "Ludzie w zagrożeniu: po wypadku, w pożarze, w powodzi.",
+  "whatYouGet": "Zespół, na którym możesz polegać, i praca, w której liczy się każda minuta. Stały etat.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Polska zostaje krajem frontowym NATO, a ratowników brakuje już dziś.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje ratowników medycznych.",
+   "sourceId": "krk-orp-2026"
+  },
+  "dayInLife": [
+   "Odprawa i sprawdzenie sprzętu.",
+   "Wyjazd do zdarzenia: szybka ocena i działanie w zespole.",
+   "Trening i ćwiczenia, gdy nie ma wezwań."
+  ],
+  "growth": [
+   "ratownik albo strażak w jednostce",
+   "dowódca zmiany albo instruktor",
+   "kierowanie akcjami albo szkolenie innych"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Zrób kurs pierwszej pomocy albo przyjdź na próbę do ochotniczej straży pożarnej w swojej okolicy.",
+  "related": [
+   "medycyna",
+   "sport"
+  ]
+ },
+ {
+  "id": "energetyka",
+  "name": "Energetyka i sieci",
+  "cluster": "technika",
+  "interests": {
+   "ana": 75,
+   "tec": 85,
+   "spo": 20,
+   "twr": 25,
+   "prz": 35,
+   "sys": 70
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 2,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": 1,
+   "zmiana": 0,
+   "projekty": 2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "zarobki",
+   "wplyw",
+   "trudne"
+  ],
+  "strengths": [
+   "logika",
+   "dokladnosc",
+   "odpowiedzialnosc",
+   "wytrwalosc",
+   "zespol"
+  ],
+  "roles": "inżynier sieci, operator systemu, projektant instalacji OZE",
+  "whoYouHelp": "Każdy dom i każda firma: prąd ma być zawsze i ma być coraz czystszy.",
+  "whatYouGet": "Praca na dekady, konkretne projekty w terenie i przy komputerze.",
+  "force": "energia",
+  "whyNeeded": "Sieci i odnawialne źródła trzeba budować przez dekady.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje inżynierów elektryków i energetyków.",
+   "sourceId": "krk-orp-2026"
+  },
+  "dayInLife": [
+   "Przegląd planu nowej linii albo farmy fotowoltaicznej.",
+   "Wyjazd na stację: pomiary i rozmowa z monterami.",
+   "Symulacja: czy sieć wytrzyma zimowy szczyt?"
+  ],
+  "growth": [
+   "inżynier projektu",
+   "specjalista, np. od magazynów energii",
+   "kierownik budowy, dyspozytor systemu albo ekspert"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Poproś kogoś z fotowoltaiką na dachu o dane z aplikacji i policz, ile energii dała w miesiącu.",
+  "related": [
+   "atom",
+   "automatyka"
+  ]
+ },
+ {
+  "id": "atom",
+  "name": "Energetyka jądrowa",
+  "cluster": "technika",
+  "interests": {
+   "ana": 90,
+   "tec": 70,
+   "spo": 15,
+   "twr": 20,
+   "prz": 20,
+   "sys": 85
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 3,
+   "ruch": 1,
+   "konkret": 1,
+   "decyzje": 3,
+   "zmiana": -2,
+   "projekty": 3,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pewnosc",
+   "trudne",
+   "prestiz",
+   "zarobki"
+  ],
+  "strengths": [
+   "dokladnosc",
+   "logika",
+   "odpowiedzialnosc",
+   "dyscyplina",
+   "szybka_nauka"
+  ],
+  "roles": "inżynier ds. bezpieczeństwa jądrowego, fizyk",
+  "whoYouHelp": "Cały system energetyczny kraju i ludzie, którzy potrzebują stabilnego prądu.",
+  "whatYouGet": "Najtrudniejsza inżynieria, ścisłe procedury i projekt na całą karierę.",
+  "force": "energia",
+  "whyNeeded": "Pierwszy blok jądrowy planowany jest na 2036 r., kiedy będziesz już po studiach.",
+  "dayInLife": [
+   "Analiza procedury bezpieczeństwa linijka po linijce.",
+   "Spotkanie z zespołem z innego kraju, po angielsku.",
+   "Szkolenie na symulatorze."
+  ],
+  "growth": [
+   "młodszy inżynier",
+   "specjalista ds. bezpieczeństwa albo paliwa",
+   "ekspert albo inspektor dozoru jądrowego"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Termin budowy może się przesuwać.",
+  "experiment": "Przeczytaj, jak wygląda plan pierwszej elektrowni jądrowej w Polsce, i wypisz trzy zawody, które będą tam potrzebne.",
+  "related": [
+   "energetyka",
+   "laboratorium"
+  ]
+ },
+ {
+  "id": "software",
+  "name": "Oprogramowanie i AI",
+  "cluster": "analityka",
+  "interests": {
+   "ana": 90,
+   "tec": 55,
+   "spo": 15,
+   "twr": 55,
+   "prz": 30,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 3,
+   "ruch": 3,
+   "konkret": 0,
+   "decyzje": 1,
+   "zmiana": 2,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "zarobki",
+   "trudne",
+   "niezaleznosc",
+   "kreatywnosc"
+  ],
+  "strengths": [
+   "logika",
+   "szybka_nauka",
+   "pomyslowosc",
+   "wytrwalosc",
+   "ciekawosc"
+  ],
+  "roles": "programista, tester, inżynier ML",
+  "whoYouHelp": "Firmy i urzędy, którym brakuje rąk do pracy.",
+  "whatYouGet": "Zagadki do rozwiązania codziennie, praca zdalna, szybki rozwój.",
+  "force": "automatyzacja",
+  "whyNeeded": "Mniej ludzi do pracy oznacza, że więcej trzeba zautomatyzować.",
+  "dayInLife": [
+   "Rano krótkie spotkanie zespołu.",
+   "Większość dnia: pisanie i poprawianie kodu.",
+   "Po południu przegląd kodu kolegi."
+  ],
+  "growth": [
+   "junior developer albo tester",
+   "specjalista w jednej dziedzinie",
+   "architekt albo lider zespołu"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Zrób darmowy kurs wprowadzający (np. Python) przez 30 dni po 20 minut i zobacz, czy wciąga.",
+  "related": [
+   "laboratorium",
+   "ue"
+  ],
+  "demand": {
+   "level": "mieszany",
+   "text": "Techników informatyków jest w Krakowie za dużo; inżynierowie z mocną specjalizacją nadal znajdują pracę.",
+   "sourceId": "krk-orp-2026"
+  }
+ },
+ {
+  "id": "cyber",
+  "name": "Cyberbezpieczeństwo",
+  "cluster": "bezpieczenstwo",
+  "interests": {
+   "ana": 85,
+   "tec": 55,
+   "spo": 15,
+   "twr": 40,
+   "prz": 25,
+   "sys": 80
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 3,
+   "ruch": 3,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 2,
+   "projekty": 0,
+   "wspolpraca": 0
+  },
+  "values": [
+   "trudne",
+   "zarobki",
+   "wplyw",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "logika",
+   "dokladnosc",
+   "ciekawosc",
+   "spokoj",
+   "szybka_nauka"
+  ],
+  "roles": "analityk bezpieczeństwa, pentester",
+  "whoYouHelp": "Banki, szpitale i urzędy, które muszą działać mimo ataków.",
+  "whatYouGet": "Ciągła zagadka: myślisz jak atakujący, żeby obronić innych.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Polska jest częstym celem cyberataków, a każda większa instytucja potrzebuje kogoś, kto je wykryje.",
+  "dayInLife": [
+   "Przegląd alarmów z nocy.",
+   "Analiza podejrzanego pliku albo maila.",
+   "Raport i zalecenie: co poprawić."
+  ],
+  "growth": [
+   "analityk w zespole bezpieczeństwa",
+   "specjalista, np. testy penetracyjne",
+   "lider zespołu bezpieczeństwa"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Spróbuj darmowych zadań picoCTF dla początkujących i rozwiąż trzy.",
+  "related": [
+   "software",
+   "obronnosc"
+  ]
+ },
+ {
+  "id": "automatyka",
+  "name": "Automatyka i robotyka",
+  "cluster": "technika",
+  "interests": {
+   "ana": 75,
+   "tec": 90,
+   "spo": 15,
+   "twr": 40,
+   "prz": 25,
+   "sys": 65
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 3,
+   "ruch": -1,
+   "konkret": -2,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "zarobki",
+   "kreatywnosc",
+   "pewnosc"
+  ],
+  "strengths": [
+   "pomyslowosc",
+   "logika",
+   "dokladnosc",
+   "wytrwalosc",
+   "szybka_nauka"
+  ],
+  "roles": "inżynier automatyk, programista robotów",
+  "whoYouHelp": "Fabryki, w których brakuje ludzi, i pracownicy, którzy nie muszą już dźwigać.",
+  "whatYouGet": "Programujesz rzeczy, które się ruszają. Efekt widzisz od razu.",
+  "force": "automatyzacja",
+  "whyNeeded": "Mniej rąk do pracy oznacza więcej robotów, a ktoś musi je zaprojektować i naprawić.",
+  "dayInLife": [
+   "Program dla robota na linii produkcyjnej.",
+   "Na hali: test i szukanie, dlaczego robot staje.",
+   "Rozmowa z operatorami: co ich męczy w pracy?"
+  ],
+  "growth": [
+   "automatyk na produkcji",
+   "integrator systemów",
+   "kierownik utrzymania ruchu albo projektant"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Zbuduj prosty projekt na Arduino albo w darmowym symulatorze i zaprogramuj jedną rzecz, która się rusza.",
+  "related": [
+   "inz-biomed",
+   "energetyka"
+  ]
+ },
+ {
+  "id": "obronnosc",
+  "name": "Obronność i technologie wojskowe",
+  "cluster": "bezpieczenstwo",
+  "interests": {
+   "ana": 70,
+   "tec": 80,
+   "spo": 30,
+   "twr": 25,
+   "prz": 45,
+   "sys": 80
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": 2,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": 0,
+   "zmiana": -1,
+   "projekty": 2,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pewnosc",
+   "wplyw",
+   "trudne"
+  ],
+  "strengths": [
+   "dyscyplina",
+   "odpowiedzialnosc",
+   "logika",
+   "zespol",
+   "spokoj"
+  ],
+  "roles": "inżynier systemów, oficer, analityk",
+  "whoYouHelp": "Bezpieczeństwo kraju i ludzi, którzy w nim żyją.",
+  "whatYouGet": "Duże projekty, jasna struktura i poczucie, że robisz coś ważnego.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Polska mocno zwiększa wydatki na obronność, więc rośnie przemysł i potrzeba inżynierów.",
+  "dayInLife": [
+   "Testy systemu łączności na poligonie.",
+   "Dokumentacja i procedury.",
+   "Praca w zespole wojskowych i cywilów."
+  ],
+  "growth": [
+   "inżynier albo podchorąży",
+   "specjalista od jednego systemu",
+   "kierownik programu albo dowódca"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "robustnessNote": "Mniejsze napięcie to mniej zamówień, ale nie zero.",
+  "experiment": "Sprawdź program Legia Akademicka dla studentów i porozmawiaj z kimś, kto przez niego przeszedł.",
+  "related": [
+   "cyber",
+   "automatyka"
+  ]
+ },
+ {
+  "id": "ukraina",
+  "name": "Odbudowa Ukrainy i współpraca",
+  "cluster": "jezyki",
+  "interests": {
+   "ana": 45,
+   "tec": 35,
+   "spo": 70,
+   "twr": 40,
+   "prz": 80,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -2,
+   "ruch": -1,
+   "konkret": -2,
+   "decyzje": -1,
+   "zmiana": 3,
+   "projekty": 1,
+   "wspolpraca": 2
+  },
+  "values": [
+   "wplyw",
+   "pomaganie",
+   "zagranica"
+  ],
+  "strengths": [
+   "jezyki",
+   "organizowanie",
+   "odpowiedzialnosc",
+   "zespol",
+   "tlumaczenie"
+  ],
+  "languages": [
+   "uk",
+   "en"
+  ],
+  "roles": "koordynator projektów, tłumacz specjalistyczny, inżynier na budowie",
+  "whoYouHelp": "Miasta i ludzie w Ukrainie, którzy odbudowują domy, szkoły i szpitale.",
+  "whatYouGet": "Praca, w której ukraiński i angielski są narzędziem, nie dodatkiem. Dużo ruchu i zmian.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Polska będzie naturalnym zapleczem odbudowy Ukrainy, gdy tylko pozwoli na to pokój.",
+  "dayInLife": [
+   "Spotkanie online z partnerami w Ukrainie, po ukraińsku i angielsku.",
+   "Harmonogram dostaw materiałów.",
+   "Raport dla instytucji, która daje pieniądze."
+  ],
+  "growth": [
+   "asystent projektu",
+   "koordynator projektu",
+   "kierownik programu albo własna firma"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "niska"
+  },
+  "robustnessNote": "Zależy od pokoju i pieniędzy na odbudowę.",
+  "experiment": "Porozmawiaj z kimś z organizacji pomocowej w Krakowie o tym, kogo szukają do projektów w Ukrainie.",
+  "related": [
+   "ue",
+   "logistyka"
+  ]
+ },
+ {
+  "id": "ue",
+  "name": "Instytucje międzynarodowe i UE",
+  "cluster": "jezyki",
+  "interests": {
+   "ana": 75,
+   "tec": 5,
+   "spo": 55,
+   "twr": 40,
+   "prz": 75,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 0,
+   "ruch": 2,
+   "konkret": 2,
+   "decyzje": 2,
+   "zmiana": 1,
+   "projekty": 2,
+   "wspolpraca": 2
+  },
+  "values": [
+   "wplyw",
+   "zagranica",
+   "prestiz"
+  ],
+  "strengths": [
+   "jezyki",
+   "organizowanie",
+   "logika",
+   "ciekawosc",
+   "zespol"
+  ],
+  "roles": "analityk, ekspert ds. polityk publicznych, koordynator projektów",
+  "whoYouHelp": "Obywatele wielu krajów, miasta odbudowujące się w Ukrainie.",
+  "whatYouGet": "Wielojęzyczne zespoły, sprawy, które dotyczą milionów ludzi.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Odbudowa Ukrainy i bezpieczeństwo Europy to praca na dekady.",
+  "dayInLife": [
+   "Rano czytanie raportów i dokumentów.",
+   "W południe spotkanie online z partnerami z trzech krajów.",
+   "Po południu pisanie notatki z rekomendacjami."
+  ],
+  "growth": [
+   "staż w instytucji lub organizacji",
+   "analityk albo koordynator projektu",
+   "ekspert, dyplomata, szef programu"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "experiment": "Zgłoś się do Europejskiego Parlamentu Młodzieży albo na symulację obrad ONZ (MUN) w Krakowie.",
+  "related": [
+   "jezyki",
+   "psychologia"
+  ],
+  "languages": [
+   "en",
+   "fr",
+   "de"
+  ]
+ },
+ {
+  "id": "logistyka",
+  "name": "Logistyka i infrastruktura",
+  "cluster": "organizacja",
+  "interests": {
+   "ana": 60,
+   "tec": 45,
+   "spo": 35,
+   "twr": 15,
+   "prz": 75,
+   "sys": 85
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": 1,
+   "ruch": 0,
+   "konkret": -2,
+   "decyzje": -2,
+   "zmiana": 1,
+   "projekty": -1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "zarobki",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "organizowanie",
+   "dokladnosc",
+   "spokoj",
+   "logika",
+   "odpowiedzialnosc"
+  ],
+  "roles": "planista, spedytor, inżynier transportu",
+  "whoYouHelp": "Firmy, szpitale, wojsko i ludzie, którzy czekają na dostawę na czas.",
+  "whatYouGet": "Szybkie decyzje i układanie skomplikowanej układanki. Efekt widać każdego dnia.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Polska jest węzłem transportowym NATO i zapleczem dla Ukrainy.",
+  "dayInLife": [
+   "Rano: co dojechało, co utknęło.",
+   "Nowy plan tras po zamknięciu drogi.",
+   "Rozmowa z kierowcami i klientem."
+  ],
+  "growth": [
+   "młodszy planista",
+   "spedytor albo specjalista łańcucha dostaw",
+   "kierownik logistyki"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "experiment": "Zaplanuj w szczegółach jeden wyjazd: trasy, koszty, plan B. Potem sprawdź, co poszło inaczej.",
+  "related": [
+   "ukraina",
+   "finanse"
+  ]
+ },
+ {
+  "id": "woda",
+  "name": "Woda i klimat",
+  "cluster": "technika",
+  "interests": {
+   "ana": 75,
+   "tec": 75,
+   "spo": 40,
+   "twr": 30,
+   "prz": 30,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 1,
+   "ruch": -2,
+   "konkret": -1,
+   "decyzje": 1,
+   "zmiana": 0,
+   "projekty": 2,
+   "wspolpraca": 2
+  },
+  "values": [
+   "wplyw",
+   "pewnosc",
+   "pomaganie"
+  ],
+  "strengths": [
+   "ciekawosc",
+   "logika",
+   "dokladnosc",
+   "wytrwalosc",
+   "zespol"
+  ],
+  "roles": "hydrolog, inżynier środowiska",
+  "whoYouHelp": "Gminy i rolnicy w czasie suszy i powodzi, mieszkańcy, którzy chcą czystej wody.",
+  "whatYouGet": "Praca w terenie i przy danych, z wpływem na miejsce, w którym żyjesz.",
+  "force": null,
+  "whyNeeded": "Susze i powodzie zdarzają się częściej, a gminy muszą się do nich przygotować.",
+  "dayInLife": [
+   "Pomiary w rzece albo w oczyszczalni.",
+   "Model: gdzie zaleje przy dużej ulewie?",
+   "Spotkanie w urzędzie gminy."
+  ],
+  "growth": [
+   "inżynier w biurze projektów",
+   "specjalista, np. od zatrzymywania wody",
+   "kierownik projektów albo ekspert"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Sprawdź, jak twoja gmina przygotowuje się na powódź albo suszę, i zapytaj, kto to zaprojektował.",
+  "related": [
+   "energetyka",
+   "laboratorium"
+  ]
+ },
+ {
+  "id": "finanse",
+  "name": "Finanse i ryzyko",
+  "cluster": "analityka",
+  "interests": {
+   "ana": 85,
+   "tec": 15,
+   "spo": 25,
+   "twr": 20,
+   "prz": 55,
+   "sys": 80
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 3,
+   "ruch": 3,
+   "konkret": 1,
+   "decyzje": 2,
+   "zmiana": -1,
+   "projekty": 1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "zarobki",
+   "pewnosc",
+   "prestiz",
+   "trudne"
+  ],
+  "strengths": [
+   "logika",
+   "dokladnosc",
+   "odpowiedzialnosc",
+   "spokoj",
+   "szybka_nauka"
+  ],
+  "roles": "analityk ryzyka, aktuariusz, księgowy",
+  "whoYouHelp": "Firmy i rodziny, które chcą wiedzieć, na co je stać i czego się bać.",
+  "whatYouGet": "Liczby z konsekwencjami, dobre zarobki i praca w wielu branżach.",
+  "force": "starzenie",
+  "whyNeeded": "Starsze społeczeństwo to więcej pytań o emerytury, oszczędności i ubezpieczenia.",
+  "demand": {
+   "level": "mieszany",
+   "text": "W Krakowie brakuje samodzielnych księgowych, a techników ekonomistów jest za dużo.",
+   "sourceId": "krk-orp-2026"
+  },
+  "dayInLife": [
+   "Model: co się stanie, jeśli wzrosną stopy procentowe?",
+   "Rozmowa z działem sprzedaży o ryzyku klienta.",
+   "Raport dla zarządu."
+  ],
+  "growth": [
+   "młodszy analityk",
+   "specjalista albo aktuariusz po egzaminach",
+   "dyrektor ds. ryzyka"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Rutynową część pracy przejmie AI; zostaje ocena ryzyka.",
+  "experiment": "Przez miesiąc zapisuj swoje wydatki w arkuszu i zrób z nich jeden wykres.",
+  "related": [
+   "software",
+   "logistyka"
+  ]
+ },
+ {
+  "id": "jezyki",
+  "name": "Języki, przekład i komunikacja",
+  "cluster": "jezyki",
+  "interests": {
+   "ana": 40,
+   "tec": 5,
+   "spo": 65,
+   "twr": 80,
+   "prz": 40,
+   "sys": 45
+  },
+  "workStyle": {
+   "zespol": -1,
+   "ludzie": -1,
+   "ruch": 2,
+   "konkret": -1,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "zagranica",
+   "kreatywnosc",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "jezyki",
+   "tlumaczenie",
+   "dokladnosc",
+   "ciekawosc",
+   "szybka_nauka"
+  ],
+  "roles": "tłumacz specjalistyczny, asystent międzykulturowy w szkole, specjalista ds. komunikacji",
+  "whoYouHelp": "Uczniowie i rodziny z innych krajów, firmy i urzędy, które muszą się dogadać.",
+  "whatYouGet": "Różnorodność tematów, kontakt z innymi kulturami, często elastyczny czas pracy.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Polska współpracuje z Ukrainą i resztą Europy coraz ściślej; potrzebni są ludzie, którzy łączą języki z wiedzą z jakiejś dziedziny.",
+  "dayInLife": [
+   "Rano tłumaczenie dokumentów dla firmy.",
+   "W południe rozmowa z rodzicem ucznia z Ukrainy w szkole.",
+   "Po południu redakcja tekstu na stronę."
+  ],
+  "growth": [
+   "tłumacz lub asystent w szkole",
+   "specjalizacja: medycyna, prawo, technika",
+   "tłumacz przysięgły albo kierownik zespołu komunikacji"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "AI zmienia przekład; zostają ludzie, rozmowa i specjalizacja.",
+  "experiment": "Praca wakacyjna albo wolontariat, gdzie używasz języka na co dzień, np. w Niemczech (Augsburg, Monachium), żeby przy okazji podciągnąć niemiecki.",
+  "related": [
+   "ue",
+   "mowa"
+  ],
+  "languages": [
+   "en",
+   "de",
+   "uk",
+   "fr"
+  ],
+  "demand": {
+   "level": "mieszany",
+   "text": "W Krakowie brakuje nauczycieli języków obcych, a specjalistów nauk humanistycznych jest za dużo: liczy się specjalizacja.",
+   "sourceId": "krk-orp-2026"
+  }
+ },
+ {
+  "id": "mowa",
+  "name": "Edukacja i terapia mowy",
+  "cluster": "ludzie",
+  "interests": {
+   "ana": 55,
+   "tec": 10,
+   "spo": 90,
+   "twr": 45,
+   "prz": 25,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": -2,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": 1,
+   "zmiana": -1,
+   "projekty": 1,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pomaganie",
+   "pewnosc",
+   "wplyw"
+  ],
+  "strengths": [
+   "tlumaczenie",
+   "empatia",
+   "jezyki",
+   "wytrwalosc",
+   "dokladnosc"
+  ],
+  "roles": "logopeda, nauczyciel, pedagog",
+  "whoYouHelp": "Dzieci, które nie mówią wyraźnie, i seniorzy, którzy po udarze uczą się mówić od nowa.",
+  "whatYouGet": "Widzisz postęp konkretnej osoby z tygodnia na tydzień. Praca z ludźmi, ale spokojna i uważna.",
+  "force": "starzenie",
+  "whyNeeded": "Coraz więcej seniorów po udarach i coraz większa uwaga na rozwój mowy u dzieci.",
+  "dayInLife": [
+   "Rano dwoje dzieci w przedszkolu: ćwiczenia głosek przez zabawę.",
+   "Po południu pacjent po udarze w poradni.",
+   "Na koniec notatki i plan ćwiczeń do domu."
+  ],
+  "growth": [
+   "logopeda w przedszkolu lub poradni",
+   "własny gabinet albo specjalizacja (np. neurologopedia)",
+   "superwizor, szkolenia dla innych"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Umów się na 20 minut rozmowy z logopedą w szkole lub poradni i zapytaj, jak wygląda jej zwykły dzień.",
+  "related": [
+   "psychologia",
+   "jezyki"
+  ],
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje pedagogów i nauczycieli wspierających.",
+   "sourceId": "krk-orp-2026"
+  }
+ },
+ {
+  "id": "laboratorium",
+  "name": "Laboratorium i analityka",
+  "cluster": "analityka",
+  "interests": {
+   "ana": 85,
+   "tec": 50,
+   "spo": 15,
+   "twr": 15,
+   "prz": 10,
+   "sys": 85
+  },
+  "workStyle": {
+   "zespol": -1,
+   "ludzie": 3,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": 3,
+   "zmiana": -2,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "trudne",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "dokladnosc",
+   "logika",
+   "dyscyplina",
+   "ciekawosc",
+   "odpowiedzialnosc"
+  ],
+  "roles": "technik analityk, diagnosta laboratoryjny, analityk jakości",
+  "whoYouHelp": "Pacjenci czekający na wynik badania, fabryki, ochrona środowiska.",
+  "whatYouGet": "Spokojna, skupiona praca, w której dokładność naprawdę się liczy.",
+  "force": "starzenie",
+  "whyNeeded": "Więcej badań w starzejącym się społeczeństwie i ostrzejsze normy jakości w przemyśle.",
+  "dayInLife": [
+   "Rano przygotowanie próbek i sprzętu.",
+   "W południe pomiary i kontrola wyników.",
+   "Po południu raport i sprawdzenie, czy wszystko się zgadza."
+  ],
+  "growth": [
+   "technik w laboratorium",
+   "diagnosta albo specjalista ds. jakości",
+   "kierownik laboratorium"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "wysoka"
+  },
+  "experiment": "Zapytaj w swojej szkole (profil chemiczny) o dzień w pracowni albo o kontakt do laboratorium, które przyjmuje praktykantów.",
+  "related": [
+   "farmacja",
+   "software"
+  ]
+ }
 ]

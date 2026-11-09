@@ -1,172 +1,229 @@
 [
-  {
-    "id": "A",
-    "label": "Persona A: języki i ludzie, niepewny",
-    "expect": {
-      "topClusters": [
-        "ludzie",
-        "jezyki"
-      ],
-      "notTop": [
-        "software"
-      ]
-    },
-    "answers": {
-      "name": "Persona A",
-      "certainty": "niepewny",
-      "direction": null,
-      "rozszerzenia": [
-        "biologia",
-        "polski"
-      ],
-      "jezyki": {
-        "pl": "bardzo dobry",
-        "en": "bardzo dobry",
-        "de": "podstawy",
-        "uk": "komunikatywny",
-        "fr": "brak"
-      },
-      "sport": "Siłownia teraz, wcześniej wspinaczka.",
-      "sort": {
-        "a1": -1,
-        "a2": 1,
-        "a3": 1,
-        "a4": -1,
-        "a5": 0,
-        "a6": 1,
-        "a7": 1,
-        "a8": 0,
-        "a9": 0,
-        "a10": 1
-      },
-      "sliders": {
-        "zespol": 1,
-        "ludzie": -2,
-        "ruch": -1,
-        "konkret": -1
-      },
-      "values": [
-        "pomaganie",
-        "wplyw",
-        "zagranica"
-      ],
-      "strengths": [
-        {
-          "id": "jezyki",
-          "proof": "Rozmawiam po angielsku bez stresu, po ukraińsku dogadam się z kolegą."
-        },
-        {
-          "id": "tlumaczenie",
-          "proof": "Tłumaczę młodszym, gdy czegoś nie rozumieją."
-        },
-        {
-          "id": "wytrwalosc",
-          "proof": "Na wspinaczce wracałem do trudnej drogi, aż ją przeszedłem."
-        },
-        {
-          "id": "dyscyplina",
-          "proof": "Chodzę na siłownię regularnie od dłuższego czasu."
-        },
-        {
-          "id": "empatia",
-          "proof": "Zauważam, gdy ktoś w klasie ma gorszy dzień, i zagaduję."
-        }
-      ],
-      "scenario": "B",
-      "neededWhere": "cała Polska",
-      "homePlaces": [
-        "Kraków"
-      ],
-      "studyLength": "srednio",
-      "startMin": 30,
-      "doubt": "zle",
-      "doubtStrong": false,
-      "reflection": {
-        "f1": "Gdy czytałem po angielsku o czymś, co mnie wciągnęło.",
-        "f2": "Siedzieć sam cały dzień przy tabelkach."
-      }
-    }
+ {
+  "id": "A",
+  "label": "Persona A: języki i ludzie, niepewny",
+  "expect": {
+   "topClusters": [
+    "ludzie",
+    "jezyki"
+   ],
+   "notTop": [
+    "software",
+    "cyber",
+    "finanse"
+   ]
   },
-  {
-    "id": "B",
-    "label": "Persona B: matematyka i fizyka, woli sam",
-    "expect": {
-      "topClusters": [
-        "analityka"
-      ]
+  "answers": {
+   "name": "Persona A",
+   "certainty": "niepewny",
+   "direction": null,
+   "rozszerzenia": [
+    "biologia",
+    "polski"
+   ],
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "bardzo dobry",
+    "de": "podstawy",
+    "uk": "komunikatywny",
+    "fr": "brak"
+   },
+   "sport": "Siłownia teraz, wcześniej wspinaczka.",
+   "sort": {
+    "a1": -1,
+    "a2": 1,
+    "a3": 1,
+    "a4": -1,
+    "a5": 0,
+    "a6": 1,
+    "a7": 1,
+    "a8": 0,
+    "a9": 0,
+    "a10": 1,
+    "a11": 1,
+    "a12": 0,
+    "a13": -1,
+    "a14": 0,
+    "a15": 0,
+    "a16": 1,
+    "a17": 1,
+    "a18": -1,
+    "a19": 0,
+    "a20": 1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": -2,
+    "ruch": -1,
+    "konkret": -1,
+    "decyzje": 0,
+    "zmiana": 1,
+    "projekty": 0,
+    "wspolpraca": 2
+   },
+   "values": [
+    "pomaganie",
+    "wplyw",
+    "zagranica",
+    "pewnosc",
+    "czas"
+   ],
+   "strengths": [
+    {
+     "id": "jezyki",
+     "proof": "Rozmawiam po angielsku bez stresu, po ukraińsku dogadam się z kolegą."
     },
-    "answers": {
-      "name": "Persona B",
-      "certainty": "troche",
-      "direction": null,
-      "rozszerzenia": [
-        "matematyka",
-        "fizyka"
-      ],
-      "jezyki": {
-        "pl": "bardzo dobry",
-        "en": "komunikatywny",
-        "de": "brak",
-        "uk": "brak",
-        "fr": "brak"
-      },
-      "sport": "Rower.",
-      "sort": {
-        "a1": 1,
-        "a2": -1,
-        "a3": -1,
-        "a4": 1,
-        "a5": 1,
-        "a6": -1,
-        "a7": 0,
-        "a8": 0,
-        "a9": 1,
-        "a10": -1
-      },
-      "sliders": {
-        "zespol": -3,
-        "ludzie": 3,
-        "ruch": 2,
-        "konkret": 1
-      },
-      "values": [
-        "trudne",
-        "zarobki",
-        "niezaleznosc"
-      ],
-      "strengths": [
-        {
-          "id": "logika",
-          "proof": "Rozwiązuję zadania z olimpiady matematycznej dla przyjemności."
-        },
-        {
-          "id": "szybka_nauka",
-          "proof": "Nauczyłem się podstaw Pythona w tydzień."
-        },
-        {
-          "id": "dokladnosc",
-          "proof": "W fizyce sprawdzam jednostki przy każdym kroku."
-        },
-        {
-          "id": "wytrwalosc",
-          "proof": "Siedzę nad trudnym zadaniem, aż wyjdzie."
-        },
-        {
-          "id": "ciekawosc",
-          "proof": "Czytam o fizyce kwantowej dla przyjemności."
-        }
-      ],
-      "scenario": "A",
-      "neededWhere": "Europa i świat",
-      "homePlaces": [],
-      "studyLength": "dlugo",
-      "startMin": 20,
-      "doubt": null,
-      "doubtStrong": false,
-      "reflection": {
-        "f1": "Przy pisaniu małej gry.",
-        "f2": "Pracy z tłumem klientów."
-      }
+    {
+     "id": "tlumaczenie",
+     "proof": "Tłumaczę młodszym, gdy czegoś nie rozumieją."
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "Na wspinaczce wracałem do trudnej drogi, aż ją przeszedłem."
+    },
+    {
+     "id": "dyscyplina",
+     "proof": "Chodzę na siłownię regularnie od dłuższego czasu."
+    },
+    {
+     "id": "empatia",
+     "proof": "Zauważam, gdy ktoś w klasie ma gorszy dzień, i zagaduję."
     }
+   ],
+   "scenario": "B",
+   "neededWhere": "cała Polska",
+   "homePlaces": [
+    "Kraków"
+   ],
+   "studyLength": "srednio",
+   "startMin": 30,
+   "doubt": "zle",
+   "doubtStrong": false,
+   "reflection": {
+    "f1": "Gdy czytałem po angielsku o czymś, co mnie wciągnęło.",
+    "f2": "Siedzieć sam cały dzień przy tabelkach.",
+    "f3": "Że umiem wytłumaczyć coś tak, że inni od razu łapią."
+   },
+   "situations": {
+    "e1": "b",
+    "e2": "d",
+    "e3": "b",
+    "e4": "c"
+   },
+   "privateOk": "nie"
   }
+ },
+ {
+  "id": "B",
+  "label": "Persona B: matematyka i fizyka, woli sam",
+  "expect": {
+   "topClusters": [
+    "analityka",
+    "technika",
+    "bezpieczenstwo"
+   ],
+   "notTop": [
+    "mowa",
+    "jezyki",
+    "ukraina",
+    "psychologia"
+   ]
+  },
+  "answers": {
+   "name": "Persona B",
+   "certainty": "troche",
+   "direction": null,
+   "rozszerzenia": [
+    "matematyka",
+    "fizyka"
+   ],
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "brak",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "sport": "Rower.",
+   "sort": {
+    "a1": 1,
+    "a2": -1,
+    "a3": -1,
+    "a4": 1,
+    "a5": 1,
+    "a6": -1,
+    "a7": 0,
+    "a8": 0,
+    "a9": 1,
+    "a10": -1,
+    "a11": 0,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": 1,
+    "a16": 0,
+    "a17": -1,
+    "a18": 1,
+    "a19": 0,
+    "a20": 0
+   },
+   "sliders": {
+    "zespol": -3,
+    "ludzie": 3,
+    "ruch": 2,
+    "konkret": 1,
+    "decyzje": 3,
+    "zmiana": -1,
+    "projekty": 3,
+    "wspolpraca": -1
+   },
+   "values": [
+    "trudne",
+    "zarobki",
+    "niezaleznosc",
+    "pewnosc",
+    "prestiz"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "Rozwiązuję zadania z olimpiady matematycznej dla przyjemności."
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "Nauczyłem się podstaw Pythona w tydzień."
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "W fizyce sprawdzam jednostki przy każdym kroku."
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "Siedzę nad trudnym zadaniem, aż wyjdzie."
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "Czytam o fizyce kwantowej dla przyjemności."
+    }
+   ],
+   "scenario": "A",
+   "neededWhere": "Europa i świat",
+   "homePlaces": [],
+   "studyLength": "dlugo",
+   "startMin": 20,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {
+    "f1": "Przy pisaniu małej gry.",
+    "f2": "Pracy z tłumem klientów."
+   },
+   "situations": {
+    "e1": "a",
+    "e2": "a",
+    "e3": "d",
+    "e4": "a"
+   },
+   "privateOk": "tak"
+  }
+ }
 ]
