@@ -52,7 +52,8 @@ for (const p of j('../studia/data/personas.json')) {
   console.log('  najlepsze:', s.best.map(c => c.card.id).join(', '));
   console.log('  most    :', s.most?.card.id, '| szybki start:', s.quick?.o.offer.name, '| niespodzianka:', s.surprise?.card.id || '-');
   const clusters = s.best.map(c => c.card.cluster);
-  const okTop = p.expect.topClusters.includes(clusters[0]) && (!s.quick || s.quick.o.offer.firstJob);
+  const okTop = (p.expect.topClusters ? p.expect.topClusters.includes(clusters[0]) : true)
+    && (!p.expect.minClusters || new Set(clusters).size >= p.expect.minClusters) && (!s.quick || s.quick.o.offer.firstJob);
   const okNot = !(p.expect.notTop || []).some(id => s.best.some(c => c.card.id === id));
   console.log('  ' + (okTop && okNot ? 'PASS' : 'FAIL'));
   if (!(okTop && okNot)) bad++;

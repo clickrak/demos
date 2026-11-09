@@ -90,11 +90,13 @@ function render() {
     </div>`;
   const keep = document.activeElement && document.activeElement.id;
   const changed = $app.dataset.screen !== s.id;
+  const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
+  const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
   const inCh = screens.filter(x => x.ch === s.ch && s.ch !== 'wyniki' && s.ch);
   const prog = inCh.length ? `<div class="prog" aria-hidden="true"><i style="width:${Math.round(100 * (inCh.indexOf(s) + 1) / inCh.length)}%"></i></div>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : '';
   notice = '';
-  $app.innerHTML = `<div class="${changed ? 'fade' : ''}">${prog}${note}${body}${nav}</div>`;
+  $app.innerHTML = `<div class="${dir}">${prog}${note}${body}${nav}</div>`;
   if (s.id === 'wyniki' && pendingOpen) {
     const el = $app.querySelector(`[data-card="${pendingOpen}"]`); pendingOpen = null;
     if (el) { if (el.tagName === 'DETAILS') el.open = true; setTimeout(() => el.scrollIntoView({ block: 'start' }), 30); }
@@ -108,6 +110,22 @@ function render() {
   if (changed) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
   else if (keep && document.getElementById(keep)) { const el = document.getElementById(keep); el.focus(); if (el.setSelectionRange && el.value) el.setSelectionRange(el.value.length, el.value.length); }
 }
+
+// Small "?" explanations for terms he may not know; plain details/summary, so it works with a keyboard too.
+const GLOSS = {
+  rozszerzenie: 'Przedmiot na maturze zdawany na wyższym poziomie. Uczelnie liczą go zwykle mocniej, a niektóre (np. UJ) liczą tylko ten poziom.',
+  deklaracja: 'Lista przedmiotów i poziomów, które zdajesz na maturze. Można ją zmienić do 7 lutego 2027, potem już nie.',
+  licencjat: 'Studia pierwszego stopnia, zwykle 3 lata. Po nich możesz pracować albo iść na 2-letnie magisterskie.',
+  inzynier: 'Studia pierwszego stopnia na kierunku technicznym, zwykle 3,5 roku. Potem praca albo magisterskie.',
+  jednolite: 'Studia magisterskie bez podziału na stopnie, 5–6 lat (np. psychologia, fizjoterapia, kierunek lekarski).',
+  policealna: 'Bezpłatna szkoła publiczna po szkole średniej, 1–2,5 roku. Kończy się dyplomem technika i daje szybki start w pracy.',
+  most: 'Opcja, która łączy twoje dwie główne orientacje, np. pracę z ludźmi i pracę z danymi.',
+  szybki: 'Droga do pierwszej pracy w 3 lata albo krócej, która zostawia otwarte dalsze studia.',
+  niespodzianka: 'Opcja spoza twoich głównych obszarów, która i tak dobrze pasuje. Warto ją sprawdzić, nawet jeśli na pierwszy rzut oka nie jest twoja.'
+};
+// A button plus a hidden span (both phrasing content), so it can sit inside a heading or a sentence.
+const term = (key, label) => `<span class="term"><button class="termq" data-term aria-expanded="false" aria-label="Co to znaczy: ${esc(label || key)}">?</button><span class="termtxt" hidden>${esc(GLOSS[key])}</span></span>`;
+const levelTerm = lvl => /policealna/.test(lvl) ? term('policealna', 'szkoła policealna') : /licencjat|I stopnia/.test(lvl) ? term('licencjat', 'licencjat') : /inżynier/.test(lvl) ? term('inzynier', 'studia inżynierskie') : /jednolite/.test(lvl) ? term('jednolite', 'jednolite magisterskie') : '';
 
 const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
 
@@ -144,9 +162,9 @@ function vCertainty() {
 
 function vMatura() {
   return `<h1>Jakie przedmioty zdajesz na poziomie rozszerzonym?</h1>
-    <p class="explain">Rozszerzenie to przedmiot na maturze na wyższym poziomie. Od niego zależy, na które kierunki możesz się dostać.</p>
+    <p class="explain">Rozszerzenie to przedmiot na maturze zdawany na wyższym poziomie. Od niego zależy, na które kierunki możesz się dostać. Uczelnie liczą go zwykle mocniej, a UJ liczy tylko ten poziom.</p>
     <div class="chips">${data.questions.subjects.map(s => chip(`data-toggle="rozszerzenia" data-val="${s}"`, s, A.rozszerzenia.includes(s))).join('')}</div>
-    <p class="small muted">Deklarację można zmienić do ${data.config.declarationDeadline}. Potem już nie.</p>`;
+    <p class="small muted">Deklarację ${term('deklaracja', 'deklaracja maturalna')} można zmienić do ${data.config.declarationDeadline}. Potem już nie.</p>`;
 }
 
 function vLanguages() {
@@ -170,7 +188,7 @@ function vSort() {
       <button class="btn ghost" data-sortreset>Przejdź jeszcze raz</button></div>${dots}`;
   }
   const a = acts[pos];
-  return `<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód.</p>
+  return `<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
     <div class="card sort"><div class="q">${esc(a.text)}</div>
       <div class="row">
         <button class="btn ghost" data-sortans="-1">nie lubię</button>
@@ -196,6 +214,19 @@ function vSituations() {
       <div class="row-s"><button class="chip" data-sitans="">pomiń</button>${pos > 0 ? '<button class="chip" data-sitback>cofnij</button>' : ''}</div>
     </div>${dots}`;
 }
+
+function sortAnswer(v) {
+  const a = data.questions.activities[A.sortPos];
+  if (!a) return;
+  A.sort[a.id] = v; A.sortPos++; render();
+}
+// Swipe on the sort card: right = lubię, left = nie lubię.
+let swipe = null;
+document.addEventListener('pointerdown', e => { const c = e.target.closest('.card.sort'); if (c && !e.target.closest('button')) swipe = { x: e.clientX, c }; });
+document.addEventListener('pointermove', e => { if (swipe) { const dx = e.clientX - swipe.x; swipe.c.style.transform = `translateX(${dx}px) rotate(${dx / 40}deg)`; swipe.c.dataset.lean = dx > 30 ? 'r' : dx < -30 ? 'l' : ''; } });
+document.addEventListener('pointerup', e => { if (!swipe) return; const dx = e.clientX - swipe.x, c = swipe.c; swipe = null; c.style.transform = '';
+  if (Math.abs(dx) > 70) sortAnswer(dx > 0 ? 1 : -1); else c.dataset.lean = ''; });
+document.addEventListener('pointercancel', () => { if (swipe) { swipe.c.style.transform = ''; swipe = null; } });
 
 function vStyle() {
   return `<h1>Jak lubisz pracować?</h1><p class="muted">Przesuń w stronę, która bardziej do ciebie pasuje. Środek też jest w porządku.</p>
@@ -227,12 +258,21 @@ function possibleStrengths(r) {
   return data.strengths.filter(s => !picked.has(s.id) && s.dims.some(d => top.includes(d))).slice(0, 2);
 }
 
+// "Kompas rośnie": a small compass on the last screen of each chapter, one more arc lit per chapter.
+function growCompass(stage) {
+  const names = ['Ja', 'Świat', 'Droga'];
+  const arc = (k, on) => { const a0 = (-90 + k * 120 + 6) * Math.PI / 180, a1 = (-90 + (k + 1) * 120 - 6) * Math.PI / 180, r = 34;
+    return `<path d="M${(40 + r * Math.cos(a0)).toFixed(1)},${(40 + r * Math.sin(a0)).toFixed(1)} A${r},${r} 0 0 1 ${(40 + r * Math.cos(a1)).toFixed(1)},${(40 + r * Math.sin(a1)).toFixed(1)}" class="garc${on ? ' on' : ''}${k === stage - 1 ? ' now' : ''}" pathLength="1"/>`; };
+  return `<div class="grow"><svg viewBox="0 0 80 80" aria-hidden="true">${[0, 1, 2].map(k => arc(k, k < stage)).join('')}<polygon points="40,14 45,40 40,44 35,40" class="gneedle"/><circle cx="40" cy="40" r="3"/></svg>
+    <p><b>Kompas rośnie.</b> Rozdział ${names[stage - 1]} za tobą${stage < 3 ? `, przed tobą: ${names[stage]}` : ', teraz wyniki'}.</p></div>`;
+}
+
 function vReveal() {
   const r = scoreAll(A, data);
   const proven = provenStrengths(A).map(s => { const st = data.strengths.find(x => x.id === s.id);
     return `<li><b>${esc(st.name)}</b><span class="proof">Widać to po tym, że: ${esc(s.proof)}</span></li>`; }).join('');
   const maybe = possibleStrengths(r).map(s => `<li>${esc(s.name)} <span class="badge">możliwa mocna strona</span></li>`).join('');
-  return `<h1>To już widać</h1><p class="lead">Twoje mocne strony, twoimi słowami:</p>
+  return `${growCompass(1)}<h1>To już widać</h1><p class="lead">Twoje mocne strony, twoimi słowami:</p>
     <div class="card reveal"><ul>${proven}</ul></div>
     ${maybe ? `<p>Twoje odpowiedzi podpowiadają jeszcze:</p><div class="card"><ul>${maybe}</ul><p class="small muted">Jeśli przypomnisz sobie przykład, wróć i dopisz.</p></div>` : ''}
     <p>Teraz zobaczmy, gdzie te mocne strony będą potrzebne.</p>`;
@@ -273,7 +313,7 @@ function vCardsPreview() {
   const shown = list.slice(0, 6);
   const fchip = (key, text) => chip(`data-area="${key}"`, text, areaFilter === key);
   const answered = proven.length || Object.keys(A.sort).length;
-  return `<h1>Gdzie możesz się przydać</h1>
+  return `${growCompass(2)}<h1>Gdzie możesz się przydać</h1>
     <p>${answered ? 'Z 23 obszarów pokazujemy sześć, które najlepiej pasują do tego, co już o sobie powiedziałeś. Dotknij orientacji albo mocnej strony, żeby zobaczyć inne.' : 'Odpowiedz najpierw na pytania z rozdziału Ja, a pokażemy obszary dopasowane do ciebie.'}</p>
     <div class="chips filt" role="group" aria-label="Filtruj obszary">${fchip('', 'najlepiej pasujące')}${dims.map(d => fchip('d:' + d.id, d.name.toLowerCase())).join('')}${proven.map(p => fchip('s:' + p.id, data.strengths.find(x => x.id === p.id).name)).join('')}</div>
     <p class="small muted" aria-live="polite">${esc(label)}</p>
@@ -351,7 +391,7 @@ function vDoubt() {
 }
 
 function vReflection() {
-  return `<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
+  return `${growCompass(3)}<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
     ${data.questions.reflection.map(q => `<label class="field" for="rf-${q.id}">${q.text}</label>
       <textarea id="rf-${q.id}" data-refl="${q.id}">${esc(A.reflection[q.id] || '')}</textarea>`).join('')}`;
 }
@@ -378,7 +418,7 @@ function offerHtml(o, chk) {
   const route = routeUrl(c);
   return `<div class="offer">
     <b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
-    <span class="muted">${esc(o.level)} · ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'}</span><br>
+    <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">Wymagania: ${esc(o.requires.note || '-')}</div>
     ${chk.fix ? `<div class="small fix">Co możesz zrobić: ${esc(chk.fix)}</div>` : ''}
@@ -392,32 +432,34 @@ function cardHtml(slot, c, open, scenario) {
   const conv = c.paths.length >= 2 ? `<p class="converge">Dotarłeś tu ${c.paths.length} drogami: ${c.paths.map(p => esc(p.label)).join(', ')}.</p>` : '';
   const reach = c.offers.filter(o => o.check.reachable), blocked = c.offers.filter(o => !o.check.reachable && !o.check.hidden), hidden = c.offers.filter(o => o.check.hidden);
   const first = reach[0]?.offer;
+  const my = data.scenarios.scenarios.find(x => x.id === A.scenario);
+  const need = my ? `w twoim scenariuszu („${esc(my.name)}”): <b>${esc(k.robustness[my.id])}</b>; w pozostałych: ${data.scenarios.scenarios.filter(x => x !== my).map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ')}`
+    : data.scenarios.scenarios.map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ');
+  const demand = k.demand ? (() => { const src = data.sources.find(x => x.id === k.demand.sourceId);
+    return `<p class="small muted">Kraków 2026: ${esc(k.demand.text)}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</p>`; })() : '';
   const body = `
     <p class="small muted">${c.reasons.map(esc).join(' · ')}</p>${conv}
-    <dl>
+    <section class="grp"><h4>Ty i ta praca</h4><dl>
       <dt>Komu pomagasz</dt><dd>${esc(k.whoYouHelp)}</dd>
       <dt>Co to daje tobie</dt><dd>${esc(k.whatYouGet)}</dd>
-      <dt>Dlaczego będzie potrzebne</dt><dd>${esc(k.whyNeeded)}${force ? ` <span class="muted small">(${force.name.toLowerCase()})</span>` : ''}${k.demand ? (() => { const src = data.sources.find(x => x.id === k.demand.sourceId);
-        return `<br><span class="small muted">Kraków 2026: ${esc(k.demand.text)}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</span>`; })() : ''}</dd>
-      ${c.strengthsUsed.length ? `<dt>Twoje mocne strony, które tu pracują</dt><dd>${c.strengthsUsed.map(p => esc(p.label)).join(', ')}</dd>` : ''}
+      ${c.strengthsUsed.length ? `<dt>Twoje mocne strony, które tu pracują</dt><dd><div class="tags">${c.strengthsUsed.map(p => `<span class="tag-s on">${esc(p.label)}</span>`).join('')}</div></dd>` : ''}
       <dt>Jak wygląda dzień pracy</dt><dd><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul></dd>
-      <dt>Jak tu rośniesz</dt><dd>${k.growth.map(esc).join(' → ')}</dd>
-      <dt>Przyszła potrzeba</dt><dd>${(() => { const my = data.scenarios.scenarios.find(x => x.id === A.scenario);
-        return my ? `w twoim scenariuszu („${esc(my.name)}”): <b>${esc(k.robustness[my.id])}</b>; w pozostałych: ${data.scenarios.scenarios.filter(x => x !== my).map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ')}`
-          : data.scenarios.scenarios.map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · '); })()}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(propozycja do sprawdzenia)</span></dd>
-      <dt>Przykładowe role</dt><dd>${esc(k.roles)}</dd>
-      <dt>W Krakowie</dt><dd>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${hidden.length ? `<details class="small"><summary>Uczelnie prywatne (${hidden.length}), wybrałeś tylko publiczne</summary>${hidden.map(o => offerHtml(o.offer, o.check)).join('')}</details>` : ''}${!c.offers.length ? '<span class="muted">brak danych w tej wersji</span>' : ''}</dd>
-      ${first ? `<dt>Twoja droga</dt><dd><ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul></dd>` : ''}
-      <dt>Mini-eksperyment na 30 dni</dt><dd>${esc(k.experiment)}</dd>
-    </dl>
+      <dt>Jak tu rośniesz</dt><dd><ol class="growth">${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol></dd>
+      <dt>Przykładowe role</dt><dd>${esc(k.roles)}</dd></dl></section>
+    <section class="grp"><h4>Przyszłość</h4><dl>
+      <dt>Dlaczego będzie potrzebne</dt><dd>${esc(k.whyNeeded)}${force ? ` <span class="muted small">(${force.name.toLowerCase()})</span>` : ''}${demand}</dd>
+      <dt>Przyszła potrzeba</dt><dd>${need}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(ocena do sprawdzenia)</span></dd></dl></section>
+    <section class="grp"><h4>W Krakowie</h4>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${hidden.length ? `<details class="small"><summary>Uczelnie prywatne (${hidden.length}), wybrałeś tylko publiczne</summary>${hidden.map(o => offerHtml(o.offer, o.check)).join('')}</details>` : ''}${!c.offers.length ? '<span class="muted">brak danych w tej wersji</span>' : ''}</section>
+    <section class="grp"><h4>Twoja droga</h4>${first ? `<ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+      <p><b>Mini-eksperyment na 30 dni:</b> ${esc(k.experiment)}</p></section>
     ${TEST ? `<p class="testv">fit ${c.fit.toFixed(1)} · int ${c.parts.interests.toFixed(2)} · styl ${c.parts.workStyle.toFixed(2)} · wart ${c.parts.values.toFixed(2)}</p>` : ''}`;
   return `<details class="card opt" data-card="${k.id}" ${open ? 'open' : ''}>
-    <summary><span class="badge slot">${slot}</span> <span class="badge">${esc(c.band)}</span>${c.pinned ? ' <span class="badge slot">twój kierunek</span>' : ''}<h3>${esc(k.name)}</h3></summary>${body}</details>`;
+    <summary class="optsum"><span class="area-ico">${icon(k.cluster)}</span><span class="opthead"><span class="small muted">${slot} · ${esc(c.band)}${c.pinned ? ' · twój kierunek' : ''}</span><h3>${esc(k.name)}</h3><span class="small teaser">${esc(k.whoYouHelp)}</span></span></summary>${body}</details>`;
 }
 
 // Path map, left to right: his strengths (roots) → options → Kraków studies.
 // Each shown option is one coloured line; its name is written on the line, so colour is never the only cue.
-const LINE_COLORS = ['#1f6f6b', '#b5562c', '#4a5fa8', '#7a6a1d', '#8a3f78', '#3d7a3a'];
+const LINE_COLORS = ['var(--l0)', 'var(--l1)', 'var(--l2)', 'var(--l3)', 'var(--l4)', 'var(--l5)'];
 
 function wrap(text, max) {
   const words = String(text).split(' '), lines = [''];
@@ -605,11 +647,12 @@ function vResults() {
   const twin = [...s.best, s.most, s.surprise].filter(Boolean).map(c => `<li>${c.paths.length ? c.paths.map(p => esc(p.label)).join(' + ') : 'twoje zainteresowania'} → <b>${esc(c.card.name)}</b> → ${c.offers.filter(o => o.check.reachable).slice(0, 2).map(o => esc(o.offer.name + ', ' + o.offer.institution)).join('; ') || 'brak kierunku bez zmian w maturze'}</li>`).join('');
 
   return `
-    <h1>Twój kompas</h1>
+    <h1>Twoje wyniki</h1>
     ${changesSince(r)}
-    <h2>Twoje mocne strony</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
+    <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
+    <h2 id="r-mocne">Twoje mocne strony</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
     <section class="print-only cutouts"><p class="small">Wytnij karty i połóż je na stole podczas rozmowy.</p><div class="cut">${provenStrengths(A).map(x => `<div class="cutcard"><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span>${esc(x.proof)}</span></div>`).join('')}</div></section>
-    <h2>Twoje drogi</h2>
+    <h2 id="r-drogi">Twoje drogi</h2>
     <p class="muted small">Od lewej: twoje mocne strony, w środku opcje, po prawej konkretne studia. Każda opcja to osobna linia. Grubsza linia to najlepsze dopasowanie, przerywana to droga przez twoje zainteresowania.</p>
     <p class="small noprint">Wybierz, gdzie się przydasz, żeby podświetlić drogi:</p>
     <div class="chips maprows noprint">${[...s.best, s.most, s.surprise].filter(Boolean).map((c, i) => `<button class="chip" data-maprow="${i}" aria-pressed="false">${esc(c.card.name)}</button>`).join('')}</div>
@@ -618,20 +661,20 @@ function vResults() {
       <div class="studies small" aria-live="polite"></div>
       <details class="twin noprint"><summary>Ta sama mapa jako tekst</summary><ul>${twin}</ul></details></div>
 
-    <h2 class="pb">Gdzie się przydasz</h2>
-    <p class="muted small">Bez liczb: każda opcja pokazuje, dlaczego się pojawiła. Otwarte są najwyżej trzy karty naraz.</p>
+    <h2 class="pb" id="r-opcje">Gdzie się przydasz</h2>
+    <p class="muted small">Bez liczb: każda opcja pokazuje, dlaczego się pojawiła. Najpierw trzy najlepsze dopasowania, potem Most ${term('most', 'Most')}, Szybki start ${term('szybki', 'Szybki start')} i Niespodzianka ${term('niespodzianka', 'Niespodzianka')}.</p>
     ${confLine(r.profile.confidence)}
     ${s.best.map((c, i) => cardHtml('Najlepsze dopasowanie', c, i === 0, sc)).join('')}
-    ${s.most ? cardHtml('Most: łączy twoje dwa główne zainteresowania', s.most, false, sc) : ''}
+    ${s.most ? cardHtml('Most', s.most, false, sc) : ''}
     ${quick}
-    ${s.surprise ? cardHtml('Niespodzianka: może cię zaskoczyć', s.surprise, false, sc) : ''}
+    ${s.surprise ? cardHtml('Niespodzianka', s.surprise, false, sc) : ''}
     ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
 
-    <h2>Twoje linie w czasie</h2>
+    <h2 id="r-linie">Twoje linie w czasie</h2>
     <p class="muted small">Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Wspólne przystanki to przesiadki: do jesieni 2027 wszystkie drogi biegną razem, więc zmiana linii jest normalna. Pomarańczowy przystanek oznacza, że przed 7 lutego coś warto zmienić w deklaracji.</p>
     <div class="card trammap">${tramMapSvg(tramLines(r))}${tramLegend(tramLines(r))}</div>
 
-    <h2>Gdzie to jest</h2>
+    <h2 id="r-miejsca">Gdzie to jest</h2>
     <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${transit(p.c)} · ${commute(p.c)} · <a href="${routeUrl(p.c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul>
       <p class="small muted">${data.transport ? `Przystanki, linie i czasy policzone z oficjalnego rozkładu jazdy Krakowa (GTFS, rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Linie i objazdy się zmieniają, więc przed wyjazdem sprawdź trasę.` : 'Czasy dojazdu są jeszcze liczone.'} Mapa Krakowa pojawi się w wersji 1.0.</p></div>
     <details class="card allplaces"><summary>Wszystkie miejsca w bazie (${data.campuses.length})</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b>${c.status === 'do sprawdzenia' ? ' <span class="badge warn">adres do sprawdzenia</span>' : ''}<br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul></details>
@@ -646,7 +689,7 @@ function vResults() {
     <label class="field" for="cando">Dokończ jednym zdaniem. Trafi na górę twojego pliku.</label>
     <input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
 
-    <h2>Twój plik</h2>
+    <h2 id="r-plik">Twój plik</h2>
     <p>Plik powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku możesz do niego wrócić.</p>
     <div class="actions">
       <button class="btn" data-export="download">Pobierz plik .md</button>
@@ -686,6 +729,10 @@ function selectRow(i) {
   }
 }
 document.addEventListener('keydown', e => {
+  if (current().id === 'zajecia' && A.sortPos < data.questions.activities.length && !e.target.closest('input, textarea')) {
+    const v = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 0 }[e.key];
+    if (v !== undefined) { e.preventDefault(); sortAnswer(v); return; }
+  }
   const g = e.target.closest && e.target.closest('[data-maprow]');
   if (g && g.tagName !== 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectRow(Number(g.dataset.maprow)); }
 });
@@ -696,13 +743,15 @@ document.addEventListener('click', e => {
   if (!t) return;
   const d = t.dataset;
   if (d.themetoggle !== undefined) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
+  if (d.term !== undefined) { const open = t.getAttribute('aria-expanded') !== 'true'; t.setAttribute('aria-expanded', String(open)); t.nextElementSibling.hidden = !open; return; }
   if (d.go) { location.hash = '#/' + d.go; return; }
+  if (d.scroll) { document.getElementById(d.scroll)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); return; }
   if (d.area !== undefined) { areaFilter = d.area || null; render(); return; }
   if (d.openopt) { pendingOpen = d.openopt; location.hash = '#/wyniki'; return; }
   if (d.set) { setA(d.set, A[d.set] === d.val && d.set !== 'certainty' && d.set !== 'studyLength' ? null : d.val); return; }
   if (d.toggle) { const arr = A[d.toggle]; const i = arr.indexOf(d.val); i >= 0 ? arr.splice(i, 1) : arr.push(d.val); save(); render(); return; }
   if (d.lang) { A.jezyki[d.lang] = d.val; save(); render(); return; }
-  if (d.sortans !== undefined) { const a = data.questions.activities[A.sortPos]; A.sort[a.id] = Number(d.sortans); A.sortPos++; save(); render(); return; }
+  if (d.sortans !== undefined) { sortAnswer(Number(d.sortans)); return; }
   if (d.sitans !== undefined) { const q = data.questions.situations[A.sitPos]; if (d.sitans) A.situations[q.id] = d.sitans; else delete A.situations[q.id]; A.sitPos++; render(); return; }
   if (d.sitback !== undefined) { A.sitPos = Math.max(0, A.sitPos - 1); render(); return; }
   if (d.sitreset !== undefined) { A.sitPos = 0; render(); return; }

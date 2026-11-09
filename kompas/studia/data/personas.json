@@ -225,5 +225,107 @@
    },
    "privateOk": "tak"
   }
+ },
+ {
+  "id": "C",
+  "label": "Persona C: lubi wszystko, niepewny",
+  "expect": {
+   "minClusters": 2
+  },
+  "answers": {
+   "name": "Persona C",
+   "certainty": "niepewny",
+   "direction": null,
+   "rozszerzenia": [
+    "polski",
+    "angielski"
+   ],
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "brak",
+    "uk": "brak",
+    "fr": "podstawy"
+   },
+   "sport": "Piłka nożna rekreacyjnie.",
+   "sort": {
+    "a1": 1,
+    "a2": 1,
+    "a3": 1,
+    "a4": 1,
+    "a5": 1,
+    "a6": 1,
+    "a7": 1,
+    "a8": 1,
+    "a9": 1,
+    "a10": 1,
+    "a11": 1,
+    "a12": 1,
+    "a13": 1,
+    "a14": 1,
+    "a15": 1,
+    "a16": 1,
+    "a17": 1,
+    "a18": 1,
+    "a19": 1,
+    "a20": 1
+   },
+   "situations": {
+    "e1": "b",
+    "e2": "c",
+    "e3": "a",
+    "e4": "d"
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 0,
+    "ruch": 0,
+    "konkret": 0,
+    "decyzje": 0,
+    "zmiana": 0,
+    "projekty": 0,
+    "wspolpraca": 0
+   },
+   "values": [
+    "pewnosc",
+    "czas",
+    "pomaganie",
+    "zarobki",
+    "kreatywnosc"
+   ],
+   "strengths": [
+    {
+     "id": "zespol",
+     "proof": "W drużynie zawsze pilnuję, żeby każdy grał."
+    },
+    {
+     "id": "organizowanie",
+     "proof": "Organizuję wyjścia klasy."
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "Opiekuję się psem sąsiadów, gdy wyjeżdżają."
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "Szybko łapię nowe gry i programy."
+    },
+    {
+     "id": "spokoj",
+     "proof": "Na egzaminie się nie stresuję."
+    }
+   ],
+   "scenario": "?",
+   "neededWhere": "moje miasto",
+   "homePlaces": [
+    "Kraków"
+   ],
+   "studyLength": "srednio",
+   "privateOk": "tak",
+   "startMin": 25,
+   "doubt": "nie_wiem",
+   "doubtStrong": false,
+   "reflection": {}
+  }
  }
 ]
