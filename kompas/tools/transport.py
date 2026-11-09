@@ -195,12 +195,15 @@ def main():
         for d, s in near(*pos, NEAR_M):
             e = byname.setdefault(stops[s][0], {'m': d, 'lines': set()})
             e['lines'] |= lines_at[s]
-        day = lambda l: not re.fullmatch(r'[69]\d\d', l)  # leave out night and replacement lines
+        # Day lines only: trams 1–59 and buses 100–599 (higher numbers are night, replacement or special lines).
+        def day(l, mode):
+            if not l.isdigit(): return True
+            n = int(l); return n < 60 if mode == 'tram' else 100 <= n < 600
         ns = []
         for n, e in sorted(byname.items(), key=lambda x: x[1]['m'])[:3]:
             ls = sorted(e['lines'], key=lambda x: (len(x[1]), x[1]))
-            ns.append({'name': n, 'm': round(e['m'] / 10) * 10, 'tram': [l for t, l in ls if t == 'tram' and day(l)],
-                       'bus': [l for t, l in ls if t == 'bus' and day(l)][:6]})
+            ns.append({'name': n, 'm': round(e['m'] / 10) * 10, 'tram': [l for t, l in ls if t == 'tram' and day(l, t)],
+                       'bus': [l for t, l in ls if t == 'bus' and day(l, t)][:6]})
         via = max(vias, key=vias.get) if vias else ()
         out['campuses'][c['id']] = {
             'address': c['address'], 'lat': round(c['lat'], 5), 'lon': round(c['lon'], 5), 'geo': c['how'], 'geoVersion': GEO_VERSION, 'handGeo': c.get('geo'),
