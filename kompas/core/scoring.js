@@ -170,10 +170,17 @@ export function checkOffer(offer, answers, config) {
   if (r.must) {
     for (const s of r.must) if (ext.includes(s)) out.ok.push(`masz rozszerzenie: ${s}`);
   }
+  if (r.main) {
+    if (ext.includes(r.main)) out.ok.push(`masz rozszerzenie: ${r.main}, które liczy się tu najmocniej`);
+    else { out.flags.push(`najmocniej liczy się rozszerzony ${r.main}, którego nie zdajesz`); out.soft = r.main; }
+  }
   if (r.countFrom) {
     const hit = r.countFrom.filter(s => ext.includes(s));
     if (hit.length) out.ok.push(`z listy masz rozszerzenie: ${hit.join(', ')}`);
     else out.flags.push('żaden z twoich przedmiotów rozszerzonych nie jest na liście; sprawdź, jak uczelnia liczy poziom podstawowy');
+  }
+  if (!out.blocked.length && out.soft) {
+    out.fix = `Szanse rosną, jeśli dopiszesz rozszerzenie: ${out.soft}, w deklaracji do ${config.declarationDeadline}.`;
   }
   if (out.blocked.length) {
     out.fix = `Możesz dopisać rozszerzenie w deklaracji do ${config.declarationDeadline} albo zdać je jako absolwent w maju 2028 (matura dla absolwentów jest dostępna przez 5 lat).`;
@@ -241,7 +248,7 @@ export function makeSlots(cards, profile, answers, data) {
   if (most) used.add(most.card.id);
 
   const quick = cards
-    .flatMap(c => c.offers.filter(o => o.offer.durationYears <= data.config.quickStartMaxYears && o.check.reachable).map(o => ({ c, o })))
+    .flatMap(c => c.offers.filter(o => o.offer.firstJob && o.offer.durationYears <= data.config.quickStartMaxYears && o.check.reachable).map(o => ({ c, o })))
     .sort((x, y) => (y.c.fit - x.c.fit) || (x.o.offer.durationYears - y.o.offer.durationYears))[0] || null;
 
   const bestClusters = new Set(best.map(c => c.card.cluster));

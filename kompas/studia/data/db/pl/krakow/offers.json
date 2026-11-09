@@ -1,32 +1,1238 @@
 [
-  { "id": "uj-psychologia", "name": "Psychologia", "institution": "Uniwersytet Jagielloński", "kind": "programme", "level": "jednolite magisterskie", "durationYears": 5, "campus": "uj-psych", "cards": ["psychologia"],
-    "requires": { "countFrom": ["polski", "angielski", "biologia", "matematyka", "WOS"], "count": 2, "note": "dwa przedmioty z listy, która obejmuje polski, angielski i biologię" }, "status": "sourced", "sourceId": "otou-psych" },
-  { "id": "uj-logopedia", "name": "Logopedia", "institution": "Uniwersytet Jagielloński, Wydział Polonistyki", "kind": "programme", "level": "studia", "durationYears": 5, "campus": "uj-centrum", "cards": ["mowa"],
-    "requires": { "must": ["polski"], "countFrom": ["biologia", "angielski", "historia"], "count": 1, "note": "polski plus jeden przedmiot z listy, która obejmuje biologię" }, "status": "sourced", "sourceId": "otou-logo-uj" },
-  { "id": "uken-logopedia", "name": "Logopedia", "institution": "UKEN", "kind": "programme", "level": "jednolite magisterskie", "durationYears": 5, "campus": "uken", "cards": ["mowa"],
-    "requires": { "must": ["polski"], "note": "liczy się polski" }, "status": "sourced", "sourceId": "otou-logo-uken" },
-  { "id": "ujcm-fizjoterapia", "name": "Fizjoterapia", "institution": "UJ Collegium Medicum", "kind": "programme", "level": "jednolite magisterskie", "durationYears": 5, "campus": "ujcm-zdrowie", "cards": ["rehabilitacja"],
-    "requires": { "countFrom": ["chemia", "biologia", "angielski", "matematyka"], "count": 1, "note": "jeden z: chemia, biologia, angielski, matematyka; 100 miejsc w 2026/27" }, "status": "sourced", "sourceId": "otou-fizjo-pub" },
-  { "id": "awf-fizjoterapia", "name": "Fizjoterapia", "institution": "AWF Kraków", "kind": "programme", "level": "jednolite magisterskie", "durationYears": 5, "campus": "awf", "cards": ["rehabilitacja"],
-    "requires": { "countFrom": ["biologia", "fizyka", "chemia", "matematyka"], "count": 1, "note": "jeden z: biologia, fizyka, chemia, matematyka" }, "status": "sourced", "sourceId": "otou-fizjo-pub" },
-  { "id": "uafm-fizjoterapia", "name": "Fizjoterapia (uczelnia prywatna, płatna)", "institution": "UAFM", "kind": "programme", "level": "jednolite magisterskie", "durationYears": 5, "campus": "uafm", "cards": ["rehabilitacja"],
-    "requires": { "note": "wymagania do sprawdzenia" }, "status": "to-verify", "sourceId": "otou-fizjo-priv" },
-  { "id": "ujcm-farmacja", "name": "Farmacja", "institution": "UJ Collegium Medicum", "kind": "programme", "level": "jednolite magisterskie", "durationYears": 5.5, "campus": "ujcm-farmacja", "cards": ["farmacja", "laboratorium"],
-    "requires": { "extended": ["chemia"], "countFrom": ["biologia", "matematyka", "fizyka"], "count": 1, "note": "chemia i biologia lub matematyka (do sprawdzenia)" }, "status": "to-verify", "sourceId": null },
-  { "id": "ksm-technik-farmaceutyczny", "name": "Technik farmaceutyczny", "institution": "Krakowska Medyczna Szkoła Policealna nr 1", "kind": "policealna", "level": "szkoła policealna (publiczna, bezpłatna)", "durationYears": 2.5, "campus": "ksm", "cards": ["farmacja"],
-    "requires": { "noMatura": true, "note": "świadectwo szkoły średniej, bez matury i egzaminu wstępnego" }, "next": "praca w aptece; później można iść na farmację", "status": "sourced", "sourceId": "ksm" },
-  { "id": "ksm-elektroradiolog", "name": "Technik elektroradiolog", "institution": "Krakowska Medyczna Szkoła Policealna nr 1", "kind": "policealna", "level": "szkoła policealna (publiczna, bezpłatna)", "durationYears": 2.5, "campus": "ksm", "cards": ["laboratorium"],
-    "requires": { "noMatura": true, "note": "świadectwo szkoły średniej, bez matury" }, "next": "badania RTG i inne badania obrazowe w szpitalach", "status": "sourced", "sourceId": "pkt-ksm" },
-  { "id": "uj-filologia-angielska", "name": "Filologia angielska", "institution": "Uniwersytet Jagielloński", "kind": "programme", "level": "licencjat", "durationYears": 3, "campus": "uj-centrum", "cards": ["jezyki"],
-    "requires": { "must": ["angielski"], "note": "angielski (szczegóły do sprawdzenia)" }, "next": "praca albo 2-letnie magisterskie", "status": "to-verify", "sourceId": null },
-  { "id": "uj-filologia-ukrainska", "name": "Filologia ukraińska", "institution": "Uniwersytet Jagielloński", "kind": "programme", "level": "licencjat", "durationYears": 3, "campus": "uj-centrum", "cards": ["jezyki", "ue"],
-    "requires": { "note": "do sprawdzenia" }, "next": "praca albo 2-letnie magisterskie", "status": "to-verify", "sourceId": null },
-  { "id": "uj-europeistyka", "name": "Europeistyka lub stosunki międzynarodowe", "institution": "Uniwersytet Jagielloński", "kind": "programme", "level": "licencjat", "durationYears": 3, "campus": "uj-kampus", "cards": ["ue"],
-    "requires": { "countFrom": ["WOS", "historia", "angielski", "polski", "geografia"], "count": 1, "note": "do sprawdzenia" }, "next": "staż w instytucji albo magisterskie", "status": "to-verify", "sourceId": null },
-  { "id": "agh-informatyka", "name": "Informatyka", "institution": "AGH", "kind": "programme", "level": "inżynierskie", "durationYears": 3.5, "campus": "agh", "cards": ["software"],
-    "requires": { "extended": ["matematyka"], "countFrom": ["fizyka", "informatyka"], "count": 1, "note": "matematyka rozszerzona plus fizyka lub informatyka (do sprawdzenia)" }, "status": "to-verify", "sourceId": null },
-  { "id": "uek-informatyka-stosowana", "name": "Informatyka stosowana", "institution": "UEK", "kind": "programme", "level": "studia I stopnia", "durationYears": 3.5, "campus": "uek", "cards": ["software"],
-    "requires": { "extended": ["matematyka"], "note": "matematyka (do sprawdzenia)" }, "status": "to-verify", "sourceId": null },
-  { "id": "ur-biotechnologia", "name": "Biotechnologia", "institution": "Uniwersytet Rolniczy", "kind": "programme", "level": "inżynierskie", "durationYears": 3.5, "campus": "ur", "cards": ["laboratorium"],
-    "requires": { "countFrom": ["biologia", "chemia", "matematyka"], "count": 1, "note": "do sprawdzenia" }, "status": "to-verify", "sourceId": null }
+ {
+  "id": "uj-psychologia",
+  "name": "Psychologia",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uj-psych",
+  "cards": [
+   "psychologia"
+  ],
+  "requires": {
+   "countFrom": [
+    "polski",
+    "angielski",
+    "biologia",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "dwa przedmioty z listy, która obejmuje polski, angielski i biologię; UJ liczy tylko wyniki z poziomu rozszerzonego"
+  },
+  "status": "sourced",
+  "sourceId": "otou-psych"
+ },
+ {
+  "id": "uj-logopedia",
+  "name": "Logopedia",
+  "institution": "Uniwersytet Jagielloński, Wydział Polonistyki",
+  "kind": "programme",
+  "level": "studia",
+  "durationYears": 5,
+  "campus": "uj-centrum",
+  "cards": [
+   "mowa"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "countFrom": [
+    "biologia",
+    "angielski",
+    "historia"
+   ],
+   "count": 1,
+   "note": "polski plus jeden przedmiot z listy, która obejmuje biologię"
+  },
+  "status": "sourced",
+  "sourceId": "otou-logo-uj"
+ },
+ {
+  "id": "uj-filologia-angielska",
+  "name": "Filologia angielska",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-filologie",
+  "cards": [
+   "jezyki"
+  ],
+  "requires": {
+   "main": "angielski",
+   "note": "angielski rozszerzony liczy się najmocniej; UJ liczy tylko wyniki z poziomu rozszerzonego (szczegóły do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "praca albo 2-letnie magisterskie, także w Monachium po angielsku"
+ },
+ {
+  "id": "uj-filologia-germanska",
+  "name": "Filologia germańska",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-filologie",
+  "cards": [
+   "jezyki"
+  ],
+  "requires": {
+   "note": "zwykle liczy się język obcy i polski; jest ścieżka dla osób, które dopiero uczą się niemieckiego (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "praca z niemieckim w Krakowie albo w Bawarii"
+ },
+ {
+  "id": "uj-filologia-ukrainska",
+  "name": "Filologia ukraińska",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-filologie",
+  "cards": [
+   "jezyki",
+   "ukraina"
+  ],
+  "requires": {
+   "countFrom": [
+    "polski",
+    "angielski",
+    "historia",
+    "WOS"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "tłumaczenia, współpraca z Ukrainą albo magisterskie"
+ },
+ {
+  "id": "uj-europeistyka",
+  "name": "Europeistyka albo stosunki międzynarodowe",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wsmip",
+  "cards": [
+   "ue",
+   "ukraina"
+  ],
+  "requires": {
+   "countFrom": [
+    "WOS",
+    "historia",
+    "angielski",
+    "polski",
+    "geografia"
+   ],
+   "count": 1,
+   "note": "UJ liczy tylko wyniki z poziomu rozszerzonego (lista do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "staż w instytucji albo magisterskie"
+ },
+ {
+  "id": "uj-informatyka-analityczna",
+  "name": "Informatyka analityczna",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-kampus",
+  "cards": [
+   "software",
+   "dane-medyczne"
+  ],
+  "requires": {
+   "extended": [
+    "matematyka"
+   ],
+   "note": "matematyka rozszerzona (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "ujcm-lekarski",
+  "name": "Kierunek lekarski",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 6,
+  "campus": "ujcm-lekarski",
+  "cards": [
+   "medycyna"
+  ],
+  "requires": {
+   "extended": [
+    "biologia",
+    "chemia"
+   ],
+   "countFrom": [
+    "matematyka",
+    "fizyka"
+   ],
+   "count": 1,
+   "note": "biologia i chemia oraz fizyka lub matematyka, na poziomie rozszerzonym; 252 bezpłatne miejsca w 2026/27"
+  },
+  "status": "sourced",
+  "sourceId": "otou-lekarski"
+ },
+ {
+  "id": "ujcm-pielegniarstwo",
+  "name": "Pielęgniarstwo",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "ujcm-zdrowie",
+  "cards": [
+   "pielegniarstwo"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "angielski",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: biologia, chemia, angielski, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-pielegniarstwo",
+  "next": "praca od razu po licencjacie; dyplom uznawany w całej UE",
+  "firstJob": true
+ },
+ {
+  "id": "ujcm-ratownictwo",
+  "name": "Ratownictwo medyczne",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "ujcm-zdrowie",
+  "cards": [
+   "sluzby",
+   "medycyna"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "angielski",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: biologia, chemia, angielski, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-ratownictwo",
+  "next": "praca w zespole ratownictwa albo na SOR; potem np. magisterskie z zdrowia publicznego",
+  "firstJob": true
+ },
+ {
+  "id": "ujcm-poloznictwo",
+  "name": "Położnictwo",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "ujcm-zdrowie",
+  "cards": [
+   "pielegniarstwo"
+  ],
+  "requires": {
+   "note": "do sprawdzenia; zwykle biologia"
+  },
+  "status": "to-verify",
+  "sourceId": "otou-medyczne-krk",
+  "next": "praca położnej albo magisterskie",
+  "firstJob": true
+ },
+ {
+  "id": "ujcm-zdrowie-publiczne",
+  "name": "Zdrowie publiczne",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "ujcm-zdrowie",
+  "cards": [
+   "dane-medyczne",
+   "psychologia"
+  ],
+  "requires": {
+   "note": "do sprawdzenia; zwykle biologia, WOS albo język obcy"
+  },
+  "status": "to-verify",
+  "sourceId": "otou-medyczne-krk",
+  "next": "praca w programach zdrowotnych albo magisterskie"
+ },
+ {
+  "id": "ujcm-fizjoterapia",
+  "name": "Fizjoterapia",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "ujcm-zdrowie",
+  "cards": [
+   "rehabilitacja"
+  ],
+  "requires": {
+   "countFrom": [
+    "chemia",
+    "biologia",
+    "angielski",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: chemia, biologia, angielski, matematyka; 100 miejsc w 2026/27"
+  },
+  "status": "sourced",
+  "sourceId": "otou-fizjo-pub"
+ },
+ {
+  "id": "ujcm-farmacja",
+  "name": "Farmacja",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5.5,
+  "campus": "ujcm-farmacja",
+  "cards": [
+   "farmacja",
+   "laboratorium"
+  ],
+  "requires": {
+   "extended": [
+    "chemia"
+   ],
+   "countFrom": [
+    "biologia",
+    "matematyka",
+    "fizyka"
+   ],
+   "count": 1,
+   "note": "chemia i biologia lub matematyka (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": "otou-medyczne-krk"
+ },
+ {
+  "id": "ujcm-analityka",
+  "name": "Analityka medyczna",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "ujcm-farmacja",
+  "cards": [
+   "laboratorium",
+   "dane-medyczne"
+  ],
+  "requires": {
+   "extended": [
+    "chemia"
+   ],
+   "countFrom": [
+    "biologia",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "zwykle chemia i biologia (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": "otou-medyczne-krk",
+  "next": "diagnosta laboratoryjny w szpitalu albo w laboratorium"
+ },
+ {
+  "id": "agh-informatyka",
+  "name": "Informatyka",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "software"
+  ],
+  "requires": {
+   "extended": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-cyber",
+  "name": "Cyberbezpieczeństwo",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "cyber"
+  ],
+  "requires": {
+   "extended": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka albo fizyka"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-automatyka",
+  "name": "Automatyka i robotyka",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "automatyka"
+  ],
+  "requires": {
+   "extended": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-energetyka",
+  "name": "Energetyka",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "energetyka",
+   "atom"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka, chemia albo informatyka"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-elektrotechnika",
+  "name": "Elektrotechnika",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "energetyka"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą (lista do sprawdzenia w tabeli)"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-inz-biomed",
+  "name": "Inżynieria biomedyczna",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "inz-biomed"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "informatyka",
+    "biologia",
+    "angielski"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia może być przedmiotem z największą wagą"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-fizyka-medyczna",
+  "name": "Fizyka medyczna",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "inz-biomed",
+   "atom"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "informatyka",
+    "biologia"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia jest na liście"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-fizyka-techniczna",
+  "name": "Fizyka techniczna",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "atom"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-iiad",
+  "name": "Inżynieria i analiza danych",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "dane-medyczne",
+   "software"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "informatyka",
+    "biologia",
+    "geografia"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia prawdopodobnie na liście (tabela nieczytelna, do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-iios",
+  "name": "Inżynieria i ochrona środowiska",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "woda"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "informatyka",
+    "biologia",
+    "geografia"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia i geografia są na liście"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "agh-ekonometria",
+  "name": "Informatyka i ekonometria",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "agh",
+  "cards": [
+   "finanse"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą"
+  },
+  "status": "sourced",
+  "sourceId": "agh-2027"
+ },
+ {
+  "id": "pk-informatyka",
+  "name": "Informatyka",
+  "institution": "Politechnika Krakowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "pk",
+  "cards": [
+   "software"
+  ],
+  "requires": {
+   "extended": [
+    "matematyka"
+   ],
+   "note": "matematyka rozszerzona (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "pk-inz-srodowiska",
+  "name": "Inżynieria środowiska",
+  "institution": "Politechnika Krakowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "pk",
+  "cards": [
+   "woda"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia",
+    "biologia",
+    "geografia"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "pk-energetyka",
+  "name": "Energetyka",
+  "institution": "Politechnika Krakowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "pk",
+  "cards": [
+   "energetyka"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "chemia"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "pk-transport",
+  "name": "Transport albo logistyka",
+  "institution": "Politechnika Krakowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "pk-czyzyny",
+  "cards": [
+   "logistyka"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "geografia",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "nazwa kierunku i przedmioty do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "uek-informatyka-stosowana",
+  "name": "Informatyka stosowana",
+  "institution": "UEK",
+  "kind": "programme",
+  "level": "studia I stopnia",
+  "durationYears": 3.5,
+  "campus": "uek",
+  "cards": [
+   "software"
+  ],
+  "requires": {
+   "extended": [
+    "matematyka"
+   ],
+   "note": "matematyka (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "uek-finanse",
+  "name": "Finanse i rachunkowość",
+  "institution": "UEK",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "finanse"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "angielski",
+    "geografia",
+    "WOS",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "zwykle matematyka i drugi przedmiot z listy (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "księgowość, analityka albo magisterskie",
+  "firstJob": true
+ },
+ {
+  "id": "uek-stosunki",
+  "name": "Stosunki międzynarodowe",
+  "institution": "UEK",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "ue",
+   "logistyka"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "WOS",
+    "geografia",
+    "historia",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "handel zagraniczny, instytucje albo magisterskie"
+ },
+ {
+  "id": "uken-logopedia",
+  "name": "Logopedia",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uken",
+  "cards": [
+   "mowa"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "note": "liczy się polski"
+  },
+  "status": "sourced",
+  "sourceId": "otou-logo-uken"
+ },
+ {
+  "id": "uken-psychologia",
+  "name": "Psychologia",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uken",
+  "cards": [
+   "psychologia"
+  ],
+  "requires": {
+   "countFrom": [
+    "polski",
+    "biologia",
+    "angielski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "uken-pedagogika",
+  "name": "Pedagogika specjalna",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uken",
+  "cards": [
+   "mowa"
+  ],
+  "requires": {
+   "countFrom": [
+    "polski",
+    "biologia",
+    "WOS",
+    "angielski"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "nauczyciel wspierający albo terapeuta; w Krakowie brakuje takich osób"
+ },
+ {
+  "id": "uken-filologia-angielska",
+  "name": "Filologia angielska",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken",
+  "cards": [
+   "jezyki"
+  ],
+  "requires": {
+   "main": "angielski",
+   "note": "angielski liczy się najmocniej (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "nauczyciel angielskiego (w Krakowie brakuje) albo tłumacz"
+ },
+ {
+  "id": "uken-bezpieczenstwo",
+  "name": "Bezpieczeństwo narodowe",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken",
+  "cards": [
+   "obronnosc",
+   "sluzby"
+  ],
+  "requires": {
+   "countFrom": [
+    "WOS",
+    "historia",
+    "geografia",
+    "polski",
+    "angielski"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "służby, administracja albo Legia Akademicka i kariera oficerska"
+ },
+ {
+  "id": "awf-fizjoterapia",
+  "name": "Fizjoterapia",
+  "institution": "AWF Kraków",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "awf",
+  "cards": [
+   "rehabilitacja"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "fizyka",
+    "chemia",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: biologia, fizyka, chemia, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-fizjo-pub"
+ },
+ {
+  "id": "awf-wf",
+  "name": "Wychowanie fizyczne",
+  "institution": "AWF Kraków",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "awf",
+  "cards": [
+   "sport"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "polski",
+    "angielski",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "zwykle egzamin sprawnościowy plus matura (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "trener, instruktor albo nauczyciel WF po magisterskich",
+  "firstJob": true
+ },
+ {
+  "id": "awf-sport",
+  "name": "Sport",
+  "institution": "AWF Kraków",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "awf",
+  "cards": [
+   "sport"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "polski",
+    "angielski",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "trener albo przygotowanie motoryczne"
+ },
+ {
+  "id": "ur-biotechnologia",
+  "name": "Biotechnologia",
+  "institution": "Uniwersytet Rolniczy",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "ur",
+  "cards": [
+   "laboratorium",
+   "farmacja"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "ur-woda",
+  "name": "Inżynieria i gospodarka wodna",
+  "institution": "Uniwersytet Rolniczy",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "ur",
+  "cards": [
+   "woda"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "biologia",
+    "geografia",
+    "fizyka",
+    "chemia"
+   ],
+   "count": 1,
+   "note": "nazwa i przedmioty do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": null
+ },
+ {
+  "id": "uafm-fizjoterapia",
+  "name": "Fizjoterapia",
+  "institution": "Uniwersytet Andrzeja Frycza Modrzewskiego",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uafm",
+  "cards": [
+   "rehabilitacja"
+  ],
+  "requires": {
+   "note": "przyjęcie na podstawie dokumentów, do wyczerpania miejsc"
+  },
+  "status": "to-verify",
+  "sourceId": "otou-fizjo-priv",
+  "private": true,
+  "cost": "płatne"
+ },
+ {
+  "id": "uafm-lekarski",
+  "name": "Kierunek lekarski",
+  "institution": "Uniwersytet Andrzeja Frycza Modrzewskiego",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 6,
+  "campus": "uafm",
+  "cards": [
+   "medycyna"
+  ],
+  "requires": {
+   "note": "przyjęcie na podstawie dokumentów; opłata od ok. 60 tys. zł za pierwszy rok (2026/27)"
+  },
+  "status": "sourced",
+  "sourceId": "otou-lekarski",
+  "private": true,
+  "cost": "od ok. 60 tys. zł za rok"
+ },
+ {
+  "id": "uafm-pielegniarstwo",
+  "name": "Pielęgniarstwo",
+  "institution": "Uniwersytet Andrzeja Frycza Modrzewskiego",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uafm",
+  "cards": [
+   "pielegniarstwo"
+  ],
+  "requires": {
+   "note": "przyjęcie na podstawie dokumentów"
+  },
+  "status": "sourced",
+  "sourceId": "otou-pielegniarstwo",
+  "private": true,
+  "cost": "płatne",
+  "firstJob": true
+ },
+ {
+  "id": "uafm-ratownictwo",
+  "name": "Ratownictwo medyczne",
+  "institution": "Uniwersytet Andrzeja Frycza Modrzewskiego",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uafm",
+  "cards": [
+   "sluzby"
+  ],
+  "requires": {
+   "note": "przyjęcie na podstawie dokumentów, do wyczerpania miejsc"
+  },
+  "status": "sourced",
+  "sourceId": "otou-ratownictwo",
+  "private": true,
+  "cost": "płatne",
+  "firstJob": true
+ },
+ {
+  "id": "ksm-technik-farmaceutyczny",
+  "name": "Technik farmaceutyczny",
+  "institution": "Krakowska Medyczna Szkoła Policealna nr 1",
+  "kind": "policealna",
+  "level": "szkoła policealna (publiczna, bezpłatna)",
+  "durationYears": 2.5,
+  "campus": "ksm",
+  "cards": [
+   "farmacja"
+  ],
+  "requires": {
+   "noMatura": true,
+   "note": "świadectwo szkoły średniej i zaświadczenie od lekarza medycyny pracy; bez matury i egzaminu"
+  },
+  "status": "sourced",
+  "sourceId": "ksm",
+  "next": "praca w aptece; później można iść na farmację",
+  "firstJob": true
+ },
+ {
+  "id": "ksm-elektroradiolog",
+  "name": "Technik elektroradiolog",
+  "institution": "Krakowska Medyczna Szkoła Policealna nr 1",
+  "kind": "policealna",
+  "level": "szkoła policealna (publiczna, bezpłatna)",
+  "durationYears": 2.5,
+  "campus": "ksm",
+  "cards": [
+   "laboratorium",
+   "medycyna"
+  ],
+  "requires": {
+   "noMatura": true,
+   "note": "świadectwo szkoły średniej i zaświadczenie lekarskie"
+  },
+  "status": "sourced",
+  "sourceId": "pkt-ksm",
+  "next": "badania RTG i inne badania obrazowe w szpitalach",
+  "firstJob": true
+ },
+ {
+  "id": "ksm-dentystyczny",
+  "name": "Technik dentystyczny",
+  "institution": "Krakowska Medyczna Szkoła Policealna nr 1",
+  "kind": "policealna",
+  "level": "szkoła policealna (publiczna, bezpłatna)",
+  "durationYears": 2.5,
+  "campus": "ksm",
+  "cards": [
+   "inz-biomed"
+  ],
+  "requires": {
+   "noMatura": true,
+   "note": "świadectwo szkoły średniej i zaświadczenie lekarskie"
+  },
+  "status": "sourced",
+  "sourceId": "ksm-info",
+  "next": "praca w pracowni protetycznej: precyzyjna praca rękami",
+  "firstJob": true
+ },
+ {
+  "id": "ksm-higienistka",
+  "name": "Higienistka stomatologiczna",
+  "institution": "Krakowska Medyczna Szkoła Policealna nr 1",
+  "kind": "policealna",
+  "level": "szkoła policealna (publiczna, bezpłatna)",
+  "durationYears": 2,
+  "campus": "ksm",
+  "cards": [
+   "pielegniarstwo"
+  ],
+  "requires": {
+   "noMatura": true,
+   "note": "świadectwo szkoły średniej i zaświadczenie lekarskie"
+  },
+  "status": "sourced",
+  "sourceId": "ksm-info",
+  "next": "profilaktyka w gabinetach stomatologicznych",
+  "firstJob": true
+ },
+ {
+  "id": "zse1-administracja",
+  "name": "Technik administracji",
+  "institution": "Szkoła Policealna nr 2 (ZSE nr 1)",
+  "kind": "policealna",
+  "level": "szkoła policealna (publiczna, bezpłatna)",
+  "durationYears": 2,
+  "campus": "zse1",
+  "cards": [
+   "logistyka"
+  ],
+  "requires": {
+   "noMatura": true,
+   "note": "świadectwo szkoły średniej; długość do sprawdzenia"
+  },
+  "status": "to-verify",
+  "sourceId": "zse1-bip",
+  "next": "praca w urzędzie albo biurze; potem np. administracja zaocznie",
+  "firstJob": true
+ },
+ {
+  "id": "sapsp-pozarnictwo",
+  "name": "Technik pożarnictwa (Szkoła Aspirantów PSP)",
+  "institution": "Szkoła Aspirantów Państwowej Straży Pożarnej",
+  "kind": "policealna",
+  "level": "szkoła policealna (służba w PSP)",
+  "durationYears": 2,
+  "campus": "sapsp",
+  "cards": [
+   "sluzby"
+  ],
+  "requires": {
+   "note": "zwykle matura, sprawdzian sprawności i badania lekarskie (do sprawdzenia)"
+  },
+  "status": "to-verify",
+  "sourceId": null,
+  "next": "strażak w PSP; dalej oficerska szkoła pożarnicza",
+  "firstJob": true
+ }
 ]

@@ -89,5 +89,61 @@
   "title": "Krakowskie Obserwatorium Rynku Pracy (GUP Kraków): zawody deficytowe i nadwyżkowe 2026, omówienie Infor",
   "asOf": "2026",
   "status": "sourced"
+ },
+ {
+  "id": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/wp-content/uploads/2026/06/uchwala_2027_2028_warunki_rekrutacji.pdf",
+  "title": "AGH: warunki rekrutacji 2027/2028 (uchwała Senatu)",
+  "asOf": "2026-06",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lekarski",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1174/KIERUNEK-LEKARSKI-medycyna",
+  "title": "Kierunek lekarski w Krakowie 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ratownictwo",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1227/Ratownictwo-medyczne-Krakow/Przedmioty-maturalne",
+  "title": "Ratownictwo medyczne w Krakowie: przedmioty maturalne",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-pielegniarstwo",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1225/Pielegniarstwo-Krakow",
+  "title": "Pielęgniarstwo w Krakowie 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-medyczne-krk",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/226/Studia-medyczne-Krakow",
+  "title": "Studia medyczne w Krakowie: lista kierunków",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uj-zasady-2026",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/11390/Zasady-rekrutacji-na-UJ-20262027",
+  "title": "Zasady rekrutacji na UJ 2026/27 (liczy się poziom rozszerzony)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "ksm-info",
+  "url": "https://www.ksm.krakow.pl/pliki_kmsp/informacja_dzialanosc.pdf",
+  "title": "Krakowska Medyczna Szkoła Policealna nr 1: kierunki",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "zse1-bip",
+  "url": "https://zse1.edu.pl/wp-content/uploads/2022/02/Statut-Szkola-Policealna_nr_2_11-.02.2022.pdf",
+  "title": "Statut Szkoły Policealnej nr 2, ZSE nr 1",
+  "asOf": "2022-02",
+  "status": "to-verify"
  }
 ]

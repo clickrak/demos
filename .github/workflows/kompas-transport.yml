@@ -1,0 +1,34 @@
+name: Kompas transport data
+# Geocodes Kompas campuses (OpenStreetMap Nominatim) and computes stops, lines and times
+# from Kraków Główny using the official Kraków GTFS timetables, then commits transport.json.
+# Runs when the campus list or the script changes, every three months, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 1 */3 *'
+  push:
+    branches: [main]
+    paths:
+      - kompas/studia/data/db/pl/krakow/campuses.json
+      - kompas/tools/transport.py
+      - .github/workflows/kompas-transport.yml
+permissions:
+  contents: write
+concurrency:
+  group: kompas-transport
+  cancel-in-progress: true
+jobs:
+  transport:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 kompas/tools/transport.py
+      - name: Commit transport.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add kompas/studia/data/db/pl/krakow/transport.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Update Kompas transport data (Kraków GTFS, OpenStreetMap)"
+          git pull --rebase origin main
+          git push

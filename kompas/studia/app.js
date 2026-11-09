@@ -19,6 +19,9 @@ async function load() {
     'data/opportunities.json', 'data/db/pl/krakow/offers.json', 'data/db/pl/krakow/campuses.json', 'data/sources.json', 'data/personas.json'
   ].map(get));
   data = { dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas };
+  // Stops, lines and times computed from the Kraków GTFS timetables (kompas/tools/transport.py); optional.
+  data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
+  for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
   A = blank();
   window.addEventListener('hashchange', render);
   render();
@@ -256,21 +259,29 @@ function vReflection() {
 const campus = id => data.campuses.find(c => c.id === id);
 
 function commute(c) {
+  const h = c.tr?.fromHub;
+  if (!h) return 'czas dojazdu: jeszcze liczymy';
   const base = Number(A.startMin) || 0;
-  const t = base + c.minFromHub;
-  return `ok. ${t}–${t + 10} min${c.status === 'przyklad' ? ' (przykład)' : ''}`;
+  const lo = base + h.min, hi = base + Math.max(h.median, h.min + 5);
+  return `z domu ok. ${lo}–${hi} min`;
 }
+const lineText = st => [st.tram.length ? `tramwaje ${st.tram.join(', ')}` : '', st.bus.length ? `autobusy ${st.bus.join(', ')}` : ''].filter(Boolean).join('; ');
+function transit(c) {
+  const st = c.tr?.stops?.[0];
+  return st ? `przystanek ${esc(st.name)} (${st.m} m): ${esc(lineText(st))}` : 'linie: jeszcze sprawdzamy';
+}
+const routeUrl = c => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.address + ', Kraków')}&travelmode=transit`;
 
 function offerHtml(o, chk) {
   const c = campus(o.campus);
-  const route = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address + ', Kraków')}`;
+  const route = routeUrl(c);
   return `<div class="offer">
     <b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
     <span class="muted">${esc(o.level)} · ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">Wymagania: ${esc(o.requires.note || '-')}</div>
     ${chk.fix ? `<div class="small fix">Co możesz zrobić: ${esc(chk.fix)}</div>` : ''}
-    <div class="small">${esc(c.name)}, ${esc(c.address)} · ${esc(c.lines)} · z domu ${commute(c)} · <a href="${route}" target="_blank" rel="noopener">Zaplanuj dojazd</a></div>
+    <div class="small">${esc(c.name)}, ${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${route}" target="_blank" rel="noopener">Zaplanuj dojazd</a></div>
   </div>`;
 }
 
@@ -447,7 +458,7 @@ function vResults() {
     ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
 
     <h2>Gdzie to jest</h2>
-    <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${esc(p.c.lines)} · z domu ${commute(p.c)} · <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.c.address + ', Kraków')}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul>
+    <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${transit(p.c)} · ${commute(p.c)} · <a href="${routeUrl(p.c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul>
       <p class="small muted">Czasy dojazdu w tej wersji są przykładowe. Mapa Krakowa pojawi się w wersji 1.0.</p></div>
 
     <div class="card"><h3>Niemcy i dalej</h3>

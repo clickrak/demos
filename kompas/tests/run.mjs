@@ -10,7 +10,8 @@ const data = {
   questions: j('../studia/data/questions.json'),
   opportunities: j('../studia/data/opportunities.json'),
   offers: j('../studia/data/db/pl/krakow/offers.json'),
-  campuses: j('../studia/data/db/pl/krakow/campuses.json')
+  campuses: j('../studia/data/db/pl/krakow/campuses.json'),
+  sources: j('../studia/data/sources.json')
 };
 
 // Data integrity: every link points somewhere.
@@ -22,7 +23,16 @@ for (const o of data.offers) {
   for (const c of o.cards) if (!cardIds.has(c)) { console.log('bad card link', o.id, c); bad++; }
   if (!campusIds.has(o.campus)) { console.log('bad campus', o.id); bad++; }
 }
+const sourceIds = new Set(data.sources.map(s => s.id));
+const seen = new Set();
+for (const o of data.offers) {
+  if (seen.has(o.id)) { console.log('duplicate offer id', o.id); bad++; } seen.add(o.id);
+  if (o.sourceId && !sourceIds.has(o.sourceId)) { console.log('unknown source', o.id, o.sourceId); bad++; }
+  if (o.status === 'sourced' && !o.sourceId) { console.log('sourced without source', o.id); bad++; }
+}
 for (const c of data.opportunities) {
+  if (!data.offers.some(o => o.cards.includes(c.id))) { console.log('card without Kraków offer', c.id); bad++; }
+  if (c.demand && !sourceIds.has(c.demand.sourceId)) { console.log('unknown demand source', c.id); bad++; }
   for (const s of c.strengths) if (!strengthIds.has(s)) { console.log('bad strength', c.id, s); bad++; }
   for (const r of c.related) if (!cardIds.has(r)) { console.log('bad related', c.id, r); bad++; }
 }
@@ -36,7 +46,7 @@ for (const p of j('../studia/data/personas.json')) {
   console.log('  najlepsze:', s.best.map(c => c.card.id).join(', '));
   console.log('  most    :', s.most?.card.id, '| szybki start:', s.quick?.o.offer.name, '| niespodzianka:', s.surprise?.card.id || '-');
   const clusters = s.best.map(c => c.card.cluster);
-  const okTop = p.expect.topClusters.includes(clusters[0]);
+  const okTop = p.expect.topClusters.includes(clusters[0]) && (!s.quick || s.quick.o.offer.firstJob);
   const okNot = !(p.expect.notTop || []).some(id => s.best.some(c => c.card.id === id));
   console.log('  ' + (okTop && okNot ? 'PASS' : 'FAIL'));
   if (!(okTop && okNot)) bad++;
