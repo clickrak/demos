@@ -109,10 +109,12 @@ function vMatura() {
 }
 
 function vLanguages() {
-  const rows = data.questions.languages.map(l => `<div class="lang"><span>${l.name}</span><div class="chips">${
-    data.questions.languageLevels.map(v => chip(`data-lang="${l.id}" data-val="${v}"`, v, (A.jezyki[l.id] || 'brak') === v)).join('')}</div></div>`).join('');
+  const rows = data.questions.languages.map((l, i) => { const lv = A.jezyki[l.id] || 'brak';
+    return `<fieldset class="card langcard" style="border:1px solid var(--line)"><legend class="sr">${l.name}</legend>
+      <h3>${i + 1}. ${l.name[0].toUpperCase() + l.name.slice(1)}</h3><p class="small muted">Twój poziom: <b>${lv}</b></p>
+      <div class="chips" role="radiogroup" aria-label="Poziom: ${l.name}">${data.questions.languageLevels.map(v => chip(`data-lang="${l.id}" data-val="${v}"`, v, lv === v)).join('')}</div></fieldset>`; }).join('');
   return `<h1>Języki i sport</h1>
-    <p>Jak dogadujesz się w tych językach? Języki otwierają drzwi, nigdy ich nie zamykają.</p>${rows}
+    <p>Jak dogadujesz się w każdym z tych języków? Wybierz poziom w każdym bloku. Języki otwierają drzwi, nigdy ich nie zamykają.</p>${rows}
     <label class="field" for="sport">Jaki sport uprawiasz albo uprawiałeś? Od kiedy, jak często?</label>
     <input id="sport" type="text" data-field="sport" value="${esc(A.sport)}" placeholder="np. siłownia od roku, wcześniej wspinaczka">
     <p class="small muted">Sport to dobre źródło dowodów na mocne strony, np. regularność albo wytrwałość.</p>`;
@@ -277,47 +279,80 @@ function cardHtml(slot, c, open, scenario) {
     <summary><span class="badge slot">${slot}</span> <span class="badge">${esc(c.band)}</span>${c.pinned ? ' <span class="badge slot">twój kierunek</span>' : ''}<h3>${esc(k.name)}</h3></summary>${body}</details>`;
 }
 
-function compassSvg(r) {
-  const S = 360, C = S / 2, dims = data.dimensions.interests;
-  const ang = i => (-90 + i * 60 + 30) * Math.PI / 180;
-  const pt = (a, rad) => [C + rad * Math.cos(a), C + rad * Math.sin(a)];
-  const arc = (i, rad, frac) => {
-    const a0 = (-90 + i * 60 + 3) * Math.PI / 180, a1 = a0 + (54 * frac) * Math.PI / 180;
-    const [x0, y0] = pt(a0, rad), [x1, y1] = pt(a1, rad);
-    return `M${x0.toFixed(1)},${y0.toFixed(1)} A${rad},${rad} 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)}`;
-  };
-  const strong = new Set(r.slots.best.map(c => c.card.id));
-  const di = Object.fromEntries(dims.map((d, i) => [d.id, i]));
-  // Each card sits in the sector of its top interest dimension, spread by its index.
-  const perSector = {};
-  const cards = r.cards.map(c => {
-    const top = Object.keys(c.card.interests).sort((a, b) => c.card.interests[b] - c.card.interests[a])[0];
-    const k = perSector[top] = (perSector[top] || 0) + 1;
-    const a = ang(di[top]) + (k - 1.5) * 0.28;
-    return { c, top, a, p: pt(a, 150) };
-  });
-  let svg = `<svg viewBox="0 0 ${S} ${S}" role="img" aria-label="Kompas: twoje mocne strony w środku, zainteresowania w pierwszym pierścieniu, opcje na zewnątrz">`;
-  svg += `<circle cx="${C}" cy="${C}" r="100" fill="none" stroke="var(--line)"/><circle cx="${C}" cy="${C}" r="150" fill="none" stroke="var(--line)" stroke-dasharray="2 4"/>`;
-  for (const k of cards) {
-    const dp = pt(ang(di[k.top]), 100), on = strong.has(k.c.card.id);
-    svg += `<path d="M${C},${C} L${dp[0].toFixed(1)},${dp[1].toFixed(1)} L${k.p[0].toFixed(1)},${k.p[1].toFixed(1)}" fill="none" stroke="${on ? 'var(--strong)' : 'var(--check)'}" stroke-width="${on ? 2.5 : 1}" opacity="${on ? 1 : .5}"/>`;
+// Path map, left to right: his strengths (roots) → options → Kraków studies.
+// Each shown option is one coloured line; its name is written on the line, so colour is never the only cue.
+const LINE_COLORS = ['#1f6f6b', '#b5562c', '#4a5fa8', '#7a6a1d', '#8a3f78', '#3d7a3a'];
+
+function wrap(text, max) {
+  const words = String(text).split(' '), lines = [''];
+  for (const w of words) {
+    const cur = lines[lines.length - 1];
+    if ((cur + ' ' + w).trim().length > max && cur) lines.push(w); else lines[lines.length - 1] = (cur + ' ' + w).trim();
   }
-  dims.forEach((d, i) => {
-    svg += `<path d="${arc(i, 100, 1)}" stroke="var(--line)" stroke-width="10" fill="none" stroke-linecap="round"/>`;
-    svg += `<path d="${arc(i, 100, r.profile.score[d.id] / 100)}" stroke="var(--good)" stroke-width="10" fill="none" stroke-linecap="round"/>`;
-    const [x, y] = pt(ang(i), 76);
-    svg += `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${d.name}</text>`;
+  return lines.slice(0, 3);
+}
+const tspans = (lines, x, y, lh = 15) => lines.map((l, i) => `<tspan x="${x}" y="${y + i * lh - (lines.length - 1) * lh / 2}">${esc(l)}</tspan>`).join('');
+
+function pathMapSvg(r) {
+  const s = r.slots;
+  const rows = [...s.best.map(c => ({ c, slot: 'najlepsze' })), s.most && { c: s.most, slot: 'most' }, s.surprise && { c: s.surprise, slot: 'niespodzianka' }].filter(Boolean);
+  const proven = provenStrengths(A).map(p => ({ id: p.id, name: data.strengths.find(x => x.id === p.id).name }));
+  const topDims = r.profile.top.slice(0, 2).map(d => data.dimensions.interests.find(x => x.id === d).name.toLowerCase());
+  const roots = [...proven, { id: '_int', name: 'zainteresowania: ' + topDims.join(', ') }];
+
+  // Studies column: up to 2 reachable offers per option, plus the quick start.
+  const offers = [];
+  rows.forEach((row, i) => {
+    row.color = LINE_COLORS[i % LINE_COLORS.length];
+    row.offers = row.c.offers.filter(o => o.check.reachable).slice(0, 2).map(o => o.offer);
+    for (const o of row.offers) if (!offers.find(x => x.id === o.id)) offers.push(o);
   });
-  for (const k of cards) {
-    const on = strong.has(k.c.card.id), [x, y] = k.p;
-    svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${on ? 7 : 4}" fill="${on ? 'var(--strong)' : 'var(--card)'}" stroke="var(--strong)"/>`;
-    if (on) {
-      const lx = x + (x > C ? 10 : -10);
-      svg += `<text x="${lx.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${x > C ? 'start' : 'end'}" style="font-weight:600">${esc(k.c.card.name.split(' ')[0])}</text>`;
+  if (s.quick && !offers.find(x => x.id === s.quick.o.offer.id)) offers.push(s.quick.o.offer);
+
+  const W = 860, ROW = 62, CROW = 104, X1 = 200, X2 = 470, X3 = 640;
+  const H = Math.max(roots.length * ROW, rows.length * CROW, offers.length * ROW) + 80;
+  const ys = (n, step) => Array.from({ length: n }, (_, i) => 70 + (H - 80 - n * step) / 2 + i * step + step / 2);
+  const yR = ys(roots.length, ROW), yC = ys(rows.length, CROW), yO = ys(offers.length, ROW);
+  const curve = (x1, y1, x2, y2) => { const m = (x1 + x2) / 2; return `M${x1},${y1.toFixed(1)} C${m},${y1.toFixed(1)} ${m},${y2.toFixed(1)} ${x2},${y2.toFixed(1)}`; };
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Mapa dróg: od twoich mocnych stron, przez opcje, do kierunków w Krakowie">`;
+  svg += `<text x="20" y="28" class="col">TWOJE MOCNE STRONY</text><text x="${X2 - 90}" y="28" class="col">GDZIE SIĘ PRZYDASZ</text><text x="${X3 + 18}" y="28" class="col">STUDIA W KRAKOWIE</text>`;
+
+  rows.forEach((row, i) => {
+    const ids = row.c.paths.filter(p => p.kind === 'strength').map(p => p.id);
+    const fromDim = row.c.paths.some(p => p.kind === 'dimension') || !ids.length;
+    const src = [...ids, ...(fromDim ? ['_int'] : [])];
+    const w = row.slot === 'najlepsze' ? 5 : 3.5;
+    for (const id of src) {
+      const j = roots.findIndex(x => x.id === id);
+      svg += `<path d="${curve(X1, yR[j], X2, yC[i])}" stroke="${row.color}" stroke-width="${w}" fill="none" opacity=".85" ${id === '_int' ? 'stroke-dasharray="6 5"' : ''}/>`;
     }
+    for (const o of row.offers) {
+      const k = offers.findIndex(x => x.id === o.id);
+      svg += `<path d="${curve(X2, yC[i], X3, yO[k])}" stroke="${row.color}" stroke-width="${w}" fill="none" opacity=".85"/>`;
+    }
+  });
+  if (s.quick) {
+    const k = offers.findIndex(x => x.id === s.quick.o.offer.id), i = rows.findIndex(x => x.c === s.quick.c);
+    if (i >= 0) svg += `<path d="${curve(X2, yC[i], X3, yO[k])}" stroke="var(--muted)" stroke-width="2.5" fill="none" stroke-dasharray="2 5"/>`;
   }
-  svg += `<circle cx="${C}" cy="${C}" r="30" fill="var(--accent-soft)"/><text x="${C}" y="${C + 4}" text-anchor="middle" style="font-weight:600">Ty</text></svg>`;
-  return svg;
+
+  roots.forEach((rt, j) => {
+    svg += `<text x="${X1 - 16}" y="${yR[j]}" text-anchor="end" class="lbl">${tspans(wrap(rt.name, 22), X1 - 16, yR[j] + 4)}</text>`;
+    svg += `<circle cx="${X1}" cy="${yR[j]}" r="8" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
+  });
+  rows.forEach((row, i) => {
+    const y = yC[i], label = row.slot === 'most' ? 'Most' : row.slot === 'niespodzianka' ? 'Niespodzianka' : row.c.band;
+    svg += `<rect x="${X2 - 13}" y="${y - 13}" width="26" height="26" rx="13" fill="${row.color}" stroke="var(--card)" stroke-width="3"/>`;
+    svg += `<text text-anchor="middle" class="stn" style="fill:${row.color}">${tspans(wrap(row.c.card.name, 26), X2, y - 32, 15)}</text>`;
+    svg += `<text x="${X2}" y="${y + 30}" text-anchor="middle" class="tag">${esc(label)}</text>`;
+  });
+  offers.forEach((o, k) => {
+    const quick = s.quick && s.quick.o.offer.id === o.id;
+    svg += `<circle cx="${X3}" cy="${yO[k]}" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
+    svg += `<text class="lbl">${tspans([o.name, o.institution + (quick ? ' · szybki start' : '')].flatMap(t => wrap(t, 30)).slice(0, 3), X3 + 16, yO[k] + 4)}</text>`;
+  });
+  return svg + '</svg>';
 }
 
 // Schematic map: positions projected from latitude/longitude; Vistula drawn roughly.
@@ -359,15 +394,16 @@ function vResults() {
   if (s.quick && !seen.has(s.quick.o.offer.campus)) pins.push({ c: campus(s.quick.o.offer.campus), color: 'var(--good)' });
 
   const doubt = data.questions.doubts.find(d => d.id === A.doubt);
-  const twin = s.best.map(c => `<li>${esc(c.card.name)}: ${c.paths.length ? c.paths.map(p => esc(p.label)).join(' → ') : 'z odpowiedzi o zainteresowaniach'}</li>`).join('');
+  const twin = [...s.best, s.most, s.surprise].filter(Boolean).map(c => `<li>${c.paths.length ? c.paths.map(p => esc(p.label)).join(' + ') : 'twoje zainteresowania'} → <b>${esc(c.card.name)}</b> → ${c.offers.filter(o => o.check.reachable).slice(0, 2).map(o => esc(o.offer.name + ', ' + o.offer.institution)).join('; ') || 'brak kierunku bez zmian w maturze'}</li>`).join('');
 
   return `
     <h1>Twój kompas</h1>
     <h2>Twoje mocne strony</h2><div class="card reveal"><ul>${proven}</ul></div>
-    <div class="card compass">${compassSvg(r)}
-      <details class="twin"><summary>Ten sam kompas jako tekst</summary>
-        <p>Twoje najmocniejsze zainteresowania: ${r.profile.top.slice(0, 3).map(d => data.dimensions.interests.find(x => x.id === d).name).join(', ')}.</p>
-        <p>Najmocniejsze ścieżki:</p><ul>${twin}</ul></details></div>
+    <h2>Twoje drogi</h2>
+    <p class="muted small">Od lewej: twoje mocne strony, w środku opcje, po prawej konkretne studia. Każda opcja to osobna linia. Grubsza linia to najlepsze dopasowanie, przerywana to droga przez twoje zainteresowania.</p>
+    <div class="card pathmap"><div class="scroll" tabindex="0" aria-label="Mapa dróg, przewiń w bok">${pathMapSvg(r)}</div>
+      <p class="small muted hint">Przesuń palcem w bok, żeby zobaczyć całą mapę.</p>
+      <details class="twin"><summary>Ta sama mapa jako tekst</summary><ul>${twin}</ul></details></div>
 
     <h2>Gdzie się przydasz</h2>
     <p class="muted small">Bez liczb: każda opcja pokazuje, dlaczego się pojawiła. Otwarte są najwyżej trzy karty naraz.</p>
