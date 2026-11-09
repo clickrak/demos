@@ -97,3 +97,10 @@ details > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 fieldset.langcard { margin: 12px 0; min-width: 0; }
 .places { padding-left: 1.1em; } .places li { margin: 8px 0; }
+.pathmap .seg { opacity: .85; transition: opacity .2s; }
+.pathmap .node, .pathmap .hint-line { transition: opacity .2s; }
+.pathmap svg.sel .seg:not(.on), .pathmap svg.sel .node:not(.on) { opacity: .12; }
+.pathmap svg.sel .seg.on { opacity: 1; }
+.pathmap .stop, .pathmap .compass-rose { cursor: pointer; }
+.pathmap .stop:focus-visible, .pathmap .compass-rose:focus-visible { outline: 3px solid var(--accent); }
+@media (prefers-reduced-motion: reduce) { .pathmap .seg, .pathmap .node { transition: none; } }

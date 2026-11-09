@@ -67,6 +67,7 @@ function render() {
   const changed = $app.dataset.screen !== s.id;
   $app.innerHTML = `<div class="${changed ? 'fade' : ''}">${body}${nav}</div>`;
   $app.dataset.screen = s.id;
+  if (changed) mapSel = null;
   if (changed) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
   else if (keep && document.getElementById(keep)) { const el = document.getElementById(keep); el.focus(); if (el.setSelectionRange && el.value) el.setSelectionRange(el.value.length, el.value.length); }
 }
@@ -311,12 +312,16 @@ function pathMapSvg(r) {
   if (s.quick && !offers.find(x => x.id === s.quick.o.offer.id)) offers.push(s.quick.o.offer);
 
   const W = 860, ROW = 62, CROW = 104, X1 = 200, X2 = 470, X3 = 640;
-  const H = Math.max(roots.length * ROW, rows.length * CROW, offers.length * ROW) + 80;
-  const ys = (n, step) => Array.from({ length: n }, (_, i) => 70 + (H - 80 - n * step) / 2 + i * step + step / 2);
+  const BODY = Math.max(roots.length * ROW, rows.length * CROW, offers.length * ROW), COMPASS = 120;
+  const H = BODY + 80 + COMPASS;
+  const ys = (n, step) => Array.from({ length: n }, (_, i) => 70 + (BODY - n * step) / 2 + i * step + step / 2);
   const yR = ys(roots.length, ROW), yC = ys(rows.length, CROW), yO = ys(offers.length, ROW);
   const curve = (x1, y1, x2, y2) => { const m = (x1 + x2) / 2; return `M${x1},${y1.toFixed(1)} C${m},${y1.toFixed(1)} ${m},${y2.toFixed(1)} ${x2},${y2.toFixed(1)}`; };
 
-  let svg = `<svg viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Mapa dróg: od twoich mocnych stron, przez opcje, do kierunków w Krakowie">`;
+  // Which rows (options) touch each root and each offer: used to fade what is not on the selected road.
+  const rootRows = roots.map(() => new Set()), offerRows = offers.map(() => new Set());
+  const cls = set => [...set].map(i => 'r' + i).join(' ');
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Mapa dróg: od twoich mocnych stron, przez opcje, do kierunków w Krakowie. Wybierz opcję, żeby podświetlić jej drogi.">`;
   svg += `<text x="20" y="28" class="col">TWOJE MOCNE STRONY</text><text x="${X2 - 90}" y="28" class="col">GDZIE SIĘ PRZYDASZ</text><text x="${X3 + 18}" y="28" class="col">STUDIA W KRAKOWIE</text>`;
 
   rows.forEach((row, i) => {
@@ -326,33 +331,50 @@ function pathMapSvg(r) {
     const w = row.slot === 'najlepsze' ? 5 : 3.5;
     for (const id of src) {
       const j = roots.findIndex(x => x.id === id);
-      svg += `<path d="${curve(X1, yR[j], X2, yC[i])}" stroke="${row.color}" stroke-width="${w}" fill="none" opacity=".85" ${id === '_int' ? 'stroke-dasharray="6 5"' : ''}/>`;
+      rootRows[j].add(i);
+      svg += `<path class="seg r${i}" d="${curve(X1, yR[j], X2, yC[i])}" stroke="${row.color}" stroke-width="${w}" fill="none" ${id === '_int' ? 'stroke-dasharray="6 5"' : ''}/>`;
     }
     for (const o of row.offers) {
       const k = offers.findIndex(x => x.id === o.id);
-      svg += `<path d="${curve(X2, yC[i], X3, yO[k])}" stroke="${row.color}" stroke-width="${w}" fill="none" opacity=".85"/>`;
+      offerRows[k].add(i);
+      svg += `<path class="seg r${i}" d="${curve(X2, yC[i], X3, yO[k])}" stroke="${row.color}" stroke-width="${w}" fill="none"/>`;
     }
   });
   if (s.quick) {
     const k = offers.findIndex(x => x.id === s.quick.o.offer.id), i = rows.findIndex(x => x.c === s.quick.c);
-    if (i >= 0) svg += `<path d="${curve(X2, yC[i], X3, yO[k])}" stroke="var(--muted)" stroke-width="2.5" fill="none" stroke-dasharray="2 5"/>`;
+    if (i >= 0) { offerRows[k].add(i); svg += `<path class="seg r${i}" d="${curve(X2, yC[i], X3, yO[k])}" stroke="var(--muted)" stroke-width="2.5" fill="none" stroke-dasharray="2 5"/>`; }
   }
 
   roots.forEach((rt, j) => {
-    svg += `<text x="${X1 - 16}" y="${yR[j]}" text-anchor="end" class="lbl">${tspans(wrap(rt.name, 22), X1 - 16, yR[j] + 4)}</text>`;
-    svg += `<circle cx="${X1}" cy="${yR[j]}" r="8" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
+    svg += `<g class="node ${cls(rootRows[j])}"><text x="${X1 - 16}" y="${yR[j]}" text-anchor="end" class="lbl">${tspans(wrap(rt.name, 22), X1 - 16, yR[j] + 4)}</text>`;
+    svg += `<circle cx="${X1}" cy="${yR[j]}" r="8" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/></g>`;
   });
   rows.forEach((row, i) => {
     const y = yC[i], label = row.slot === 'most' ? 'Most' : row.slot === 'niespodzianka' ? 'Niespodzianka' : row.c.band;
+    svg += `<g class="node stop r${i}" data-maprow="${i}" role="button" tabindex="0" aria-label="Podświetl drogi: ${esc(row.c.card.name)}">`;
+    svg += `<rect x="${X2 - 120}" y="${y - 58}" width="240" height="100" fill="transparent"/>`;
     svg += `<rect x="${X2 - 13}" y="${y - 13}" width="26" height="26" rx="13" fill="${row.color}" stroke="var(--card)" stroke-width="3"/>`;
     svg += `<text text-anchor="middle" class="stn" style="fill:${row.color}">${tspans(wrap(row.c.card.name, 26), X2, y - 32, 15)}</text>`;
-    svg += `<text x="${X2}" y="${y + 30}" text-anchor="middle" class="tag">${esc(label)}</text>`;
+    svg += `<text x="${X2}" y="${y + 30}" text-anchor="middle" class="tag">${esc(label)}</text></g>`;
   });
   offers.forEach((o, k) => {
     const quick = s.quick && s.quick.o.offer.id === o.id;
-    svg += `<circle cx="${X3}" cy="${yO[k]}" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
-    svg += `<text class="lbl">${tspans([o.name, o.institution + (quick ? ' · szybki start' : '')].flatMap(t => wrap(t, 30)).slice(0, 3), X3 + 16, yO[k] + 4)}</text>`;
+    svg += `<g class="node ${cls(offerRows[k])}"><circle cx="${X3}" cy="${yO[k]}" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
+    svg += `<text class="lbl">${tspans([o.name, o.institution + (quick ? ' · szybki start' : '')].flatMap(t => wrap(t, 30)).slice(0, 3), X3 + 16, yO[k] + 4)}</text></g>`;
   });
+
+  // Compass: the needle points at the station of the most probable option (highest fit).
+  const top = rows.reduce((b, row, i) => (row.c.fit > rows[b].c.fit ? i : b), 0);
+  const cx = 70, cy = H - 62, R = 34;
+  const ang = Math.atan2(yC[top] - cy, X2 - 16 - cx), deg = ang * 180 / Math.PI;
+  svg += `<path class="seg r${top} hint-line" d="M${(cx + R * Math.cos(ang)).toFixed(1)},${(cy + R * Math.sin(ang)).toFixed(1)} L${X2 - 16},${yC[top].toFixed(1)}" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="1 6" fill="none"/>`;
+  svg += `<g class="compass-rose" data-maprow="${top}" role="button" tabindex="0" aria-label="Kompas wskazuje: ${esc(rows[top].c.card.name)}">`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>`;
+  for (let t = 0; t < 8; t++) { const a = t * Math.PI / 4, r1 = t % 2 ? R - 5 : R - 9;
+    svg += `<line x1="${(cx + r1 * Math.cos(a)).toFixed(1)}" y1="${(cy + r1 * Math.sin(a)).toFixed(1)}" x2="${(cx + (R - 2) * Math.cos(a)).toFixed(1)}" y2="${(cy + (R - 2) * Math.sin(a)).toFixed(1)}" stroke="var(--muted)" stroke-width="1.5"/>`; }
+  svg += `<g transform="rotate(${deg.toFixed(1)} ${cx} ${cy})"><polygon points="${cx + R - 6},${cy} ${cx},${cy - 6} ${cx},${cy + 6}" fill="${rows[top].color}"/><polygon points="${cx - R + 10},${cy} ${cx},${cy - 6} ${cx},${cy + 6}" fill="var(--check)"/></g>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="3.5" fill="var(--ink)"/></g>`;
+  svg += `<text class="lbl"><tspan x="${cx + R + 16}" y="${cy - 8}" class="col">KOMPAS WSKAZUJE</tspan><tspan x="${cx + R + 16}" y="${cy + 12}" style="font-weight:700;fill:${rows[top].color}">${esc(rows[top].c.card.name)}</tspan><tspan x="${cx + R + 16}" y="${cy + 30}" class="tag">najbardziej prawdopodobna droga, nie jedyna</tspan></text>`;
   return svg + '</svg>';
 }
 
@@ -384,7 +406,9 @@ function vResults() {
     <h1>Twój kompas</h1>
     <h2>Twoje mocne strony</h2><div class="card reveal"><ul>${proven}</ul></div>
     <h2>Twoje drogi</h2>
-    <p class="muted small">Od lewej: twoje mocne strony, w środku opcje, po prawej konkretne studia. Każda opcja to osobna linia. Grubsza linia to najlepsze dopasowanie, przerywana to droga przez twoje zainteresowania.</p>
+    <p class="muted small">Od lewej: twoje mocne strony, w środku opcje, po prawej konkretne studia. Każda opcja to osobna linia. Grubsza linia to najlepsze dopasowanie, przerywana to droga przez twoje zainteresowania. Kompas wskazuje najbardziej prawdopodobną drogę.</p>
+    <p class="small">Wybierz, gdzie się przydasz, żeby podświetlić drogi:</p>
+    <div class="chips maprows noprint">${[...s.best, s.most, s.surprise].filter(Boolean).map((c, i) => `<button class="chip" data-maprow="${i}" aria-pressed="false">${esc(c.card.name)}</button>`).join('')}</div>
     <div class="card pathmap"><div class="scroll" tabindex="0" aria-label="Mapa dróg, przewiń w bok">${pathMapSvg(r)}</div>
       <p class="small muted hint">Przesuń palcem w bok, żeby zobaczyć całą mapę.</p>
       <details class="twin"><summary>Ta sama mapa jako tekst</summary><ul>${twin}</ul></details></div>
@@ -430,7 +454,23 @@ function vResults() {
 }
 
 // ---- events -----------------------------------------------------------------
+// Path map selection: highlight one option's roads, fade the rest. Tapping it again shows all.
+let mapSel = null;
+function selectRow(i) {
+  mapSel = mapSel === i ? null : i;
+  const svg = $app.querySelector('.pathmap svg');
+  if (!svg) return;
+  svg.classList.toggle('sel', mapSel !== null);
+  svg.querySelectorAll('.seg, .node').forEach(el => el.classList.toggle('on', mapSel !== null && el.classList.contains('r' + mapSel)));
+  $app.querySelectorAll('.maprows .chip').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.maprow) === mapSel)));
+}
+document.addEventListener('keydown', e => {
+  const g = e.target.closest && e.target.closest('[data-maprow]');
+  if (g && g.tagName !== 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectRow(Number(g.dataset.maprow)); }
+});
 document.addEventListener('click', e => {
+  const g = e.target.closest('[data-maprow]');
+  if (g) { selectRow(Number(g.dataset.maprow)); return; }
   const t = e.target.closest('button');
   if (!t) return;
   const d = t.dataset;
