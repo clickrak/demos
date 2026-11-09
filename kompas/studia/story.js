@@ -130,7 +130,7 @@ export function storyHtml(ctx) {
   <header class="sbar">
     <button class="pill" data-go="refleksja">← Pytania</button>
     <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-droga', 'Droga'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
-    <span class="sbar-r"><button class="pill icon" data-themetoggle aria-label="Zmień motyw"></button><button class="pill strong" data-export="download">Zapisz plik</button></span>
+    <span class="sbar-r"><button class="pill icon" data-skintoggle aria-label="Włącz wygląd neon"></button><button class="pill icon" data-themetoggle aria-label="Zmień motyw"></button><button class="pill strong" data-export="download">Zapisz plik</button></span>
   </header>
 
   <section class="scrolly" id="s-kompas">

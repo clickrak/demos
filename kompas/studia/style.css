@@ -436,3 +436,90 @@ body { font-family: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif; }
   @keyframes idraw { to { stroke-dashoffset: 0; } }
   @keyframes ifade { to { opacity: 1; } }
 }
+
+/* ---- v0.96: design polish and motion -------------------------------------- */
+::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+h1, h2 { letter-spacing: -.015em; text-wrap: balance; }
+p, li { text-wrap: pretty; }
+body { -webkit-font-smoothing: antialiased; }
+.top { border-bottom-color: color-mix(in srgb, var(--line) 70%, transparent); }
+
+/* Brand: a small compass whose needle swings on every new screen. */
+.brand { display: inline-flex; align-items: center; gap: 7px; }
+.bcomp { width: 22px; height: 22px; flex: none; overflow: visible; }
+.bcomp circle { fill: none; stroke: var(--ink); stroke-width: 1.6; }
+.bcomp .bn-n { fill: var(--accent); } .bcomp .bn-s { fill: var(--check); }
+.bneedle { transform-box: view-box; transform-origin: 12px 12px; }
+
+/* Buttons and chips answer the finger. */
+.btn, .chip, .optchip, .scencard, .tile, .iconbtn, .savebtn { transition: transform .15s ease, box-shadow .2s ease, background-color .2s, border-color .2s, color .2s, filter .2s; }
+.btn:not(:disabled):active, .chip:active, .optchip:active, .iconbtn:active, .savebtn:active { transform: scale(.97); }
+@media (hover: hover) {
+  .btn:not(:disabled):hover { filter: brightness(1.07); box-shadow: 0 6px 18px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
+  .btn.ghost:not(:disabled):hover { filter: none; border-color: var(--accent); box-shadow: none; }
+  .chip:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+  .scencard:hover, .tile:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--ink) 40%, transparent); }
+  .iconbtn:hover { border-color: var(--accent); color: var(--accent); }
+}
+.nav .btn:not(.ghost)::after { content: '→'; display: inline-block; margin-left: 8px; transition: transform .2s; }
+.nav .btn.ghost::before { content: '←'; display: inline-block; margin-right: 8px; transition: transform .2s; }
+@media (hover: hover) { .nav .btn:not(.ghost):not(:disabled):hover::after { transform: translateX(3px); } .nav .btn.ghost:hover::before { transform: translateX(-3px); } }
+.chip[aria-pressed="true"] { box-shadow: 0 4px 14px -8px var(--accent); }
+
+/* Progress: grows from where the last screen left it. */
+.prog { height: 4px; }
+.prog i { background: linear-gradient(90deg, var(--accent), var(--l1)); transition: width .55s cubic-bezier(.3, .9, .4, 1); }
+
+/* Appearance picker on the start screen. */
+.skinpick { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 18px 0 0; }
+.skinpick .chip { min-height: 38px; padding: 6px 14px; }
+.iconbtn[data-skintoggle][aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .brand.spin .bneedle { animation: bspin .9s cubic-bezier(.3, 1.6, .5, 1); }
+  @keyframes bspin { from { transform: rotate(-120deg); } to { transform: rotate(0); } }
+
+  /* A new screen: title, lead and choices arrive one after another. */
+  :is(.slide-f, .slide-b) > :is(h1, .kicker2, .lead, .explain, .illus) { animation: rise .45s ease-out both; }
+  :is(.slide-f, .slide-b) > h1 { animation-delay: .04s; }
+  :is(.slide-f, .slide-b) > .lead, :is(.slide-f, .slide-b) > .explain { animation-delay: .1s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > * { animation: rise .4s ease-out both; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(1) { animation-delay: .12s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(2) { animation-delay: .15s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(3) { animation-delay: .18s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(4) { animation-delay: .21s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(5) { animation-delay: .24s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(6) { animation-delay: .27s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(7) { animation-delay: .3s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(8) { animation-delay: .33s; }
+  :is(.slide-f, .slide-b) :is(.chips, .optpick) > :nth-child(n+9) { animation-delay: .36s; }
+  :is(.slide-f, .slide-b) > .card { animation: rise .45s ease-out .16s both; }
+
+  /* The control just tapped pops once, with a soft ring. */
+  .pop { animation: pop .38s cubic-bezier(.3, 1.6, .5, 1); }
+  @keyframes pop { 0% { transform: scale(.94); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 60% { transform: scale(1.04); } 100% { transform: scale(1); box-shadow: 0 0 0 10px transparent; } }
+
+  /* Each activity card is dealt in from the right. */
+  .card.sort { animation: deal .32s cubic-bezier(.2, .9, .3, 1); }
+  @keyframes deal { from { opacity: 0; transform: translateX(26px) rotate(2deg); } }
+
+  /* Strengths reflected back one by one. */
+  .reveal li { animation: rise .45s ease-out both; }
+  .reveal li:nth-child(2) { animation-delay: .12s; } .reveal li:nth-child(3) { animation-delay: .24s; }
+  .reveal li:nth-child(4) { animation-delay: .36s; } .reveal li:nth-child(5) { animation-delay: .48s; }
+
+  .savebtn.dirty::after { animation: dotpulse 2s ease-in-out infinite; }
+  @keyframes dotpulse { 50% { transform: scale(1.3); } }
+  .skin-in main { animation: skinin .45s ease-out; }
+  @keyframes skinin { from { opacity: .4; transform: translateY(6px); } }
+}
+/* Narrow phones: the header keeps the compass icon instead of the word, so everything fits. */
+@media (max-width: 560px) {
+  .top { padding: 8px 10px; gap: 6px; }
+  .brand { font-size: 0; gap: 0; }
+  .brand .bcomp { width: 28px; height: 28px; }
+  .iconbtn { width: 36px; height: 36px; }
+  .chapters { gap: 0; }
+  .chapters button { padding: 6px 7px; }
+}
+@media (max-width: 370px) { .chapters button { padding: 6px 5px; font-size: .76rem; } }

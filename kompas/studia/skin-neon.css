@@ -1,0 +1,166 @@
+/* Kompas Studia: optional "Neon" skin (cyberpunk). Off by default; turned on with the bolt button,
+   the picker on the start screen, or ?skin=neon in the address. Everything is scoped to html[data-skin="neon"],
+   so the calm default is untouched. Always dark; motion respects prefers-reduced-motion. */
+
+html[data-skin="neon"] {
+  --l0: #00e5ff; --l1: #ff2bd6; --l2: #8a6bff; --l3: #ffd400; --l4: #ff7a45; --l5: #3dff9a; --on-line: #06070d;
+  --bg: #06070d; --card: #0e1022; --ink: #e9f3ff; --muted: #8e97c2; --line: #252a52;
+  --accent: #00e5ff; --accent-soft: #0a2833; --warn: #ffd400; --warn-soft: #2a250a;
+  --strong: #00e5ff; --good: #3dff9a; --check: #3b4174; --selc: #00e5ff;
+  --radius: 6px; --serif: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --glow-c: color-mix(in srgb, var(--accent) 45%, transparent);
+  --glow-m: color-mix(in srgb, var(--l1) 45%, transparent);
+  color-scheme: dark;
+}
+html[data-skin="neon"] body.story { --serif2: 'Inter', system-ui, sans-serif; --kick: var(--l1); --soft2: #0a0c1a; }
+
+/* Backdrop: two coloured hazes, a perspective-free grid that drifts, and faint scanlines. */
+html[data-skin="neon"] body {
+  background:
+    radial-gradient(1100px 560px at 85% -12%, color-mix(in srgb, var(--l1) 16%, transparent), transparent 62%),
+    radial-gradient(900px 520px at -12% 112%, color-mix(in srgb, var(--l0) 13%, transparent), transparent 62%),
+    var(--bg);
+  background-attachment: fixed;
+}
+html[data-skin="neon"] body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--l0) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--l0) 8%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 78%);
+}
+html[data-skin="neon"] body::after {
+  content: ''; position: fixed; inset: 0; z-index: 100; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .028) 0 1px, transparent 1px 3px);
+}
+
+/* Type: tight sans titles with a chromatic split, mono for labels. */
+html[data-skin="neon"] body :is(h1, h2, h3, .brand) { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; }
+html[data-skin="neon"] body h1 { text-transform: uppercase; letter-spacing: .01em; font-size: 1.62rem; line-height: 1.15;
+  text-shadow: .045em 0 0 color-mix(in srgb, var(--l1) 75%, transparent), -.045em 0 0 color-mix(in srgb, var(--l0) 75%, transparent); }
+html[data-skin="neon"] body.story h1 { font-size: clamp(36px, 5vw, 66px); }
+html[data-skin="neon"] body h2 { letter-spacing: 0; }
+html[data-skin="neon"] :is(.kicker, .kicker2) { color: var(--l1); }
+html[data-skin="neon"] :is(.kicker, .kicker2)::before { content: '// '; color: var(--accent); }
+html[data-skin="neon"] :is(.kicker, .kicker2)::after { content: '_'; margin-left: 2px; color: var(--accent); }
+html[data-skin="neon"] :is(.badge, .ctag, .grp h4, .pinfo h4, .tile-start, .testv) { font-family: var(--mono); letter-spacing: .06em; }
+html[data-skin="neon"] .badge { border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); background: color-mix(in srgb, var(--accent) 10%, transparent); text-transform: uppercase; font-size: .7rem; }
+html[data-skin="neon"] .badge.warn { border-color: color-mix(in srgb, var(--warn) 50%, transparent); background: color-mix(in srgb, var(--warn) 10%, transparent); }
+html[data-skin="neon"] a { color: var(--accent); }
+html[data-skin="neon"] .explain { border-left-color: var(--l1); }
+
+/* Header. */
+html[data-skin="neon"] .top { background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  box-shadow: 0 1px 18px -6px var(--glow-c); }
+html[data-skin="neon"] .brand { text-transform: uppercase; letter-spacing: .14em; font-size: .95rem; }
+html[data-skin="neon"] .brand span { color: var(--l1); }
+html[data-skin="neon"] .bcomp circle { stroke: var(--accent); filter: drop-shadow(0 0 3px var(--glow-c)); }
+html[data-skin="neon"] .bcomp .bn-n { fill: var(--l1); }
+html[data-skin="neon"] .chapters button { font-family: var(--mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; border-radius: 3px; }
+html[data-skin="neon"] .chapters button.on { background: transparent; color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); text-shadow: 0 0 8px var(--glow-c); }
+html[data-skin="neon"] .iconbtn { border-radius: 4px; background: transparent; border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+html[data-skin="neon"] [data-themetoggle] { display: none; }
+html[data-skin="neon"] :is(.savebtn, .pill.strong, .sbtn:not(.ghost)) { background: var(--l1); border-color: var(--l1); color: var(--on-line); border-radius: 4px;
+  font-family: var(--mono); text-transform: uppercase; letter-spacing: .06em; box-shadow: 0 0 16px -2px var(--glow-m); }
+html[data-skin="neon"] :is(.pill, .snav) { border-radius: 4px; border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); background: color-mix(in srgb, var(--bg) 80%, transparent); }
+html[data-skin="neon"] .snav a { border-radius: 3px; font-family: var(--mono); text-transform: uppercase; font-size: 11.5px; letter-spacing: .06em; }
+html[data-skin="neon"] .snav a.on { background: var(--accent); color: var(--on-line); box-shadow: 0 0 14px -2px var(--glow-c); }
+html[data-skin="neon"] .sprog { background: linear-gradient(90deg, var(--l1), var(--accent)); box-shadow: 0 0 10px var(--glow-c); }
+
+/* Panels: thin neon frame, inner glow, HUD corner brackets on cards. */
+html[data-skin="neon"] :is(.card, .force, .area, .place, .scencard, .needrow, .scard, .epanel, .kitem, .pcard, .scen-b, .grow, .savehelp, .flip .face) {
+  border-color: color-mix(in srgb, var(--accent) 26%, var(--line));
+  background-color: color-mix(in srgb, var(--card) 90%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--accent) 14%, transparent), 0 0 26px -16px var(--glow-c);
+}
+html[data-skin="neon"] .savehelp { border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+html[data-skin="neon"] .card { position: relative; }
+html[data-skin="neon"] .card::before, html[data-skin="neon"] .card::after { content: ''; position: absolute; width: 12px; height: 12px; pointer-events: none; }
+html[data-skin="neon"] .card::before { top: -1px; left: -1px; border-top: 2px solid var(--l1); border-left: 2px solid var(--l1); }
+html[data-skin="neon"] .card::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+html[data-skin="neon"] .force.hot, html[data-skin="neon"] .scencard[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 22px -6px var(--glow-c); }
+html[data-skin="neon"] .area-ico { background: color-mix(in srgb, var(--accent) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent); }
+html[data-skin="neon"] .flip .back { background: color-mix(in srgb, var(--l1) 12%, var(--card)); }
+html[data-skin="neon"] .tile { border-radius: 6px; box-shadow: 0 0 18px -10px var(--c); }
+html[data-skin="neon"] .tile-ico { box-shadow: 0 0 14px -2px var(--c); }
+html[data-skin="neon"] .prevcard { box-shadow: -4px 0 16px -8px var(--c); }
+
+/* Buttons. */
+html[data-skin="neon"] .btn { border-radius: 4px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .07em; font-size: .86rem; font-weight: 500;
+  background: var(--accent); color: var(--on-line); box-shadow: 0 0 0 1px var(--accent), 0 0 18px -2px var(--glow-c); }
+html[data-skin="neon"] .btn.ghost { background: transparent; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); box-shadow: none; }
+html[data-skin="neon"] .btn:disabled { box-shadow: none; filter: saturate(.3); }
+html[data-skin="neon"] .linkbtn { color: var(--accent); }
+@media (hover: hover) {
+  html[data-skin="neon"] .btn:not(:disabled):hover { filter: none; box-shadow: 0 0 0 1px var(--accent), 0 0 26px 0 var(--glow-c); }
+  html[data-skin="neon"] .btn.ghost:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 10%, transparent); box-shadow: 0 0 16px -4px var(--glow-c); }
+  html[data-skin="neon"] .chip:hover { border-color: var(--accent); box-shadow: 0 0 12px -4px var(--glow-c); }
+}
+
+/* Chips: picked ones turn magenta and glow. */
+html[data-skin="neon"] :is(.chip, .optchip, .rmenu button, .tag-s, .vals li) { border-radius: 4px; border-color: color-mix(in srgb, var(--accent) 28%, var(--line)); background-color: color-mix(in srgb, var(--card) 85%, transparent); }
+html[data-skin="neon"] .chip[aria-pressed="true"] { background: color-mix(in srgb, var(--l1) 20%, var(--card)); border-color: var(--l1); color: var(--ink); box-shadow: 0 0 16px -4px var(--glow-m); }
+html[data-skin="neon"] .stack .chip { border-radius: 4px; }
+html[data-skin="neon"] .tag-s.on { background: color-mix(in srgb, var(--accent) 14%, transparent); border-color: var(--accent); }
+html[data-skin="neon"] .vn { color: var(--on-line); }
+
+/* Inputs, sliders, progress, bars. */
+html[data-skin="neon"] :is(input[type=text], input[type=number], textarea) { background: #080a17; border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); border-radius: 4px; caret-color: var(--l1); }
+html[data-skin="neon"] :is(input[type=text], input[type=number], textarea):focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 18px -4px var(--glow-c); }
+html[data-skin="neon"] .prog { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+html[data-skin="neon"] .prog i { background: linear-gradient(90deg, var(--l1), var(--accent)); box-shadow: 0 0 12px var(--glow-c); }
+html[data-skin="neon"] :is(.bar.main .bt i, .mb.main b) { background: linear-gradient(90deg, var(--l1), var(--accent)); box-shadow: 0 0 10px var(--glow-c); }
+html[data-skin="neon"] .dots i.done { box-shadow: 0 0 8px var(--glow-c); }
+html[data-skin="neon"] .card.sort[data-lean="r"] { box-shadow: 6px 0 18px -6px var(--accent); }
+html[data-skin="neon"] .card.sort[data-lean="l"] { box-shadow: -6px 0 18px -6px var(--l1); }
+
+/* Drawings glow. */
+html[data-skin="neon"] :is(.illus svg, .bigcompass, .vroad svg, .trammap svg, .pathmap svg, .grow svg, .scrolly .graphic svg, .krk) { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 35%, transparent)); }
+html[data-skin="neon"] :is(.bigcompass, .scene) .ring { stroke: var(--accent); }
+
+/* Toast and notices. */
+html[data-skin="neon"] .toast { background: var(--card); color: var(--ink); border: 1px solid var(--accent); box-shadow: 0 0 28px -6px var(--glow-c); border-radius: 6px; }
+html[data-skin="neon"] .notice { border: 1px solid color-mix(in srgb, var(--warn) 45%, transparent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-skin="neon"] body::before { animation: neongrid 24s linear infinite; }
+  @keyframes neongrid { to { background-position: 0 44px, 44px 0; } }
+  /* Titles glitch in on a new screen. */
+  html[data-skin="neon"] :is(.slide-f, .slide-b) > h1, html[data-skin="neon"] .hero h1 { animation: neonglitch .7s steps(2, end) both; }
+  @keyframes neonglitch {
+    0% { opacity: 0; transform: translateX(-6px); clip-path: inset(0 0 60% 0); }
+    20% { opacity: 1; transform: translateX(5px); clip-path: inset(40% 0 20% 0); text-shadow: .12em 0 0 var(--l1), -.12em 0 0 var(--l0); }
+    40% { transform: translateX(-3px); clip-path: inset(10% 0 50% 0); }
+    60% { transform: translateX(2px); clip-path: inset(0 0 0 0); text-shadow: -.08em 0 0 var(--l1), .08em 0 0 var(--l0); }
+    100% { transform: none; clip-path: inset(0 0 0 0); }
+  }
+  /* The brand flickers now and then; the cursor blinks; the main button breathes. */
+  html[data-skin="neon"] .brand span { animation: neonflick 7s linear infinite; }
+  @keyframes neonflick { 0%, 92%, 95%, 100% { opacity: 1; text-shadow: 0 0 8px var(--glow-m); } 93%, 96% { opacity: .35; text-shadow: none; } }
+  html[data-skin="neon"] :is(.kicker, .kicker2)::after { animation: neonblink 1.1s steps(1) infinite; }
+  @keyframes neonblink { 50% { opacity: 0; } }
+  html[data-skin="neon"] .nav .btn:not(.ghost):not(:disabled) { animation: neonbreathe 2.8s ease-in-out infinite; }
+  @keyframes neonbreathe { 50% { box-shadow: 0 0 0 1px var(--accent), 0 0 30px 2px var(--glow-c); } }
+  html[data-skin="neon"] .pop { animation: neonpop .4s cubic-bezier(.3, 1.6, .5, 1); }
+  @keyframes neonpop { 0% { transform: scale(.94); box-shadow: 0 0 0 0 var(--glow-m); } 60% { transform: scale(1.05); } 100% { transform: scale(1); box-shadow: 0 0 0 12px transparent; } }
+  /* Switching the skin on: a short glitch over the page. */
+  html.skin-in[data-skin="neon"] main { animation: neonswitch .5s steps(5, end); }
+  @keyframes neonswitch { 0% { transform: translateX(-4px) skewX(-4deg); opacity: .5; } 40% { transform: translateX(4px) skewX(3deg); } 70% { transform: translateX(-2px); } 100% { transform: none; opacity: 1; } }
+}
+
+@media print {
+  html[data-skin="neon"] { --bg: #fff; --card: #fff; --ink: #000; --muted: #444; --line: #bbb; --accent: #006d7a; --accent-soft: #e6f4f6; --l1: #a1007f; }
+  html[data-skin="neon"] body::before, html[data-skin="neon"] body::after { display: none; }
+  html[data-skin="neon"] body h1 { text-shadow: none; }
+  html[data-skin="neon"] * { box-shadow: none !important; filter: none !important; }
+}
+@media (max-width: 560px) {
+  html[data-skin="neon"] .chapters button { letter-spacing: .02em; font-size: .72rem; padding: 6px 6px; }
+}
+@media (max-width: 400px) {
+  html[data-skin="neon"] .chapters button { font-size: .66rem; padding: 6px 4px; letter-spacing: 0; }
+}
+@media (max-width: 560px) { html[data-skin="neon"] .brand { font-size: 0; } }

@@ -1,4 +1,4 @@
-// Kompas Studia v0.95. Screens, navigation, results, export.
+// Kompas Studia v0.96. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -26,7 +26,7 @@ async function load() {
   data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
   for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
   A = blank();
-  applyTheme();
+  applyTheme(); applySkin();
   matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);
   window.addEventListener('hashchange', render);
   render();
@@ -50,6 +50,10 @@ function toast(html) {
 }
 const stamp = () => { const d = new Date(); return `${today()}-${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; };
 let theme = null;       // null follows the system; kept in memory only
+// Optional skin ("neon", cyberpunk). Kept in the address (?skin=neon), not in browser storage.
+let skin = new URLSearchParams(location.search).get('skin') === 'neon' ? 'neon' : null;
+let tapSel = null;      // the control just tapped, so it can pop once after the re-render
+let lastProg = { ch: null, w: 0 };
 let drawOnce = true;    // the path map draws itself the first time the results open
 let notice = '';        // one-time message shown at the top of the next screen
 let prevFile = null;
@@ -65,7 +69,21 @@ function applyTheme() {
   const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
   document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = dark ? ICON.sun : ICON.moon; });
 }
+function applySkin(animate) {
+  const root = document.documentElement;
+  if (skin) root.dataset.skin = skin; else delete root.dataset.skin;
+  document.querySelectorAll('[data-skintoggle]').forEach(b => { b.setAttribute('aria-pressed', String(!!skin)); b.setAttribute('aria-label', skin ? 'Wróć do spokojnego wyglądu' : 'Włącz wygląd neon'); b.innerHTML = ICON.bolt; });
+  document.querySelectorAll('[data-skinpick]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.skinpick || null) === skin)));
+  const u = new URL(location.href);
+  if (skin) u.searchParams.set('skin', skin); else u.searchParams.delete('skin');
+  history.replaceState(null, '', u);
+  if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    root.classList.remove('skin-in'); void root.offsetWidth; root.classList.add('skin-in');
+    clearTimeout(applySkin.h); applySkin.h = setTimeout(() => root.classList.remove('skin-in'), 700);
+  }
+}
 const ICON = {
+  bolt: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
   save: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg>',
   sun: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
   moon: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>'
@@ -114,7 +132,10 @@ function render() {
   const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
   const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
   const inCh = screens.filter(x => x.ch === s.ch && s.ch !== 'wyniki' && s.ch);
-  const prog = inCh.length ? `<div class="prog" aria-hidden="true"><i style="width:${Math.round(100 * (inCh.indexOf(s) + 1) / inCh.length)}%"></i></div>` : '';
+  const progW = inCh.length ? Math.round(100 * (inCh.indexOf(s) + 1) / inCh.length) : 0;
+  const progFrom = lastProg.ch === s.ch ? lastProg.w : 0;
+  lastProg = { ch: s.ch, w: progW };
+  const prog = inCh.length ? `<div class="prog" aria-hidden="true"><i style="width:${progFrom}%" data-to="${progW}"></i></div>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : '';
   notice = '';
   if (PARTS.some(p => p.id === s.id)) seenParts.add(s.id);
@@ -125,7 +146,12 @@ function render() {
   if (storyCleanup) { storyCleanup(); storyCleanup = null; }
   $app.innerHTML = `<div class="${dir}">${prog}${note}${body}${nav}</div>${tabs}`;
   updateSaveState();
-  if (s.id === 'kompas' && !needResults()) { applyTheme(); storyCleanup = storyInit($app, storyCtx); }
+  const pi = $app.querySelector('.prog i[data-to]');
+  if (pi) requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.width = pi.dataset.to + '%'; }));
+  if (tapSel) { $app.querySelector(tapSel)?.classList.add('pop'); tapSel = null; }
+  if (changed) { const b = document.querySelector('.brand'); if (b) { b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); } }
+  applySkin();
+  if (s.id === 'kompas' && !needResults()) { applyTheme(); applySkin(); storyCleanup = storyInit($app, storyCtx); }
   if (s.id === 'wyniki' && pendingOpen) {
     const el = $app.querySelector(`[data-card="${pendingOpen}"]`); pendingOpen = null;
     if (el) { if (el.tagName === 'DETAILS') el.open = true; setTimeout(() => el.scrollIntoView({ block: 'start' }), 30); }
@@ -177,6 +203,11 @@ function vStart() {
       <h3>Masz już plik z Kompasu?</h3>
       <p class="small muted">Wczytaj go, żeby wrócić do odpowiedzi albo zobaczyć, co się zmieniło. Plik otwiera się tylko na tym urządzeniu.</p>
       <label class="btn ghost filebtn">Wczytaj plik .md<input type="file" accept=".md,text/markdown,text/plain" data-load></label>
+    </div>
+    <div class="skinpick" role="group" aria-label="Wygląd aplikacji">
+      <span class="small muted">Wygląd:</span>
+      <button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button>
+      <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button>
     </div></div></div>
     ${TEST ? `<details class="card noprint"><summary>Tryb testowy</summary>
       <p class="small muted">Wczytaj gotowe odpowiedzi, żeby obejrzeć wyniki bez wypełniania.</p>
@@ -324,8 +355,8 @@ function vScenarios() {
 function vForces() {
   const src = id => data.sources.find(s => s.id === id);
   const mine = null; // the main scenario is picked at the end, in "Przyszłość"
-  return `<h1>Co będzie prawdą w każdym scenariuszu</h1>
-    <p>${mine ? `Wybrałeś scenariusz „${esc(mine.name)}”. Te siły działają jednak w każdym z trzech; zaznaczyliśmy, które w twoim scenariuszu są szczególnie mocne.` : 'Nikt nie wie, jak będzie wyglądał świat za 10 lat. Niezależnie od tego, co się wydarzy, te pięć sił działa w tę samą stronę. Scenariusze zobaczysz na końcu, przy wynikach.'}</p>
+  return `<span class="kicker2">Rozdział Świat</span><h1>Świat za 10 lat</h1>
+    <p class="lead">Uczysz się teraz, żeby być gotowym na świat, który za 10 lat będzie wyglądał tak. Na to się przygotowujesz:</p>
     <div class="forces">${data.scenarios.forces.map((f, i) => { const s = src(f.sourceId), hot = mine && mine.emphasis.includes(f.id);
       return `<div class="force rise${hot ? ' hot' : ''}" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3>${hot ? '<span class="badge">w twoim scenariuszu szczególnie</span>' : ''}<p class="small">${esc(f.text)}</p>
         <p class="small muted">${s ? `<a href="${s.url}" target="_blank" rel="noopener">źródło</a>, ` : ''}stan na ${esc(f.asOf)}</p></div></div>`; }).join('')}</div>
@@ -1069,6 +1100,10 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button');
   if (!t) return;
   const d = t.dataset;
+  if (d.skintoggle !== undefined) { skin = skin ? null : 'neon'; applySkin(true); return; }
+  if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
+  const tk = ['set', 'toggle', 'value', 'strength', 'lang'].find(k => d[k] !== undefined);
+  if (tk) tapSel = `[data-${tk}="${CSS.escape(d[tk])}"]` + (d.val !== undefined ? `[data-val="${CSS.escape(d.val)}"]` : '');
   if (d.themetoggle !== undefined) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if (d.term !== undefined) { const open = t.getAttribute('aria-expanded') !== 'true'; t.setAttribute('aria-expanded', String(open)); t.nextElementSibling.hidden = !open; return; }
   if (d.go) { location.hash = '#/' + d.go; return; }
