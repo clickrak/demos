@@ -68,6 +68,8 @@ export function buildMarkdown(answers, result, data, today) {
     const a = (answers.reflection || {})[q.id];
     if (a) L.push(`**${q.text}** ${a}`);
   }
+  const scen = (data.scenarios.scenarios || []).find(x => x.id === answers.scenario);
+  L.push(`Mój główny scenariusz: ${scen ? scen.name : answers.scenario === '?' ? 'nie wiem, każdy jest możliwy' : '-'}`);
   L.push(`U siebie czuję się: ${(answers.homePlaces || []).join(', ') || '-'} · Chcę być potrzebny: ${answers.neededWhere || '-'}`, '');
 
   L.push('## Pytania do rozmowy z rodzicami');

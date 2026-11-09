@@ -209,7 +209,8 @@ export function scoreAll(answers, data) {
       reasons: reasonsFor(card, profile, answers, data),
       offers,
       reachable: offers.length === 0 || offers.some(o => o.check.reachable),
-      robust: Object.values(card.robustness).reduce((s, v) => s + (ROBUST[v] || 0), 0)
+      // Future need: his chosen main scenario when he picked one, else all three together. Never part of the fit.
+      robust: answers.scenario && card.robustness[answers.scenario] ? 3 * (ROBUST[card.robustness[answers.scenario]] || 0) : Object.values(card.robustness).reduce((s, v) => s + (ROBUST[v] || 0), 0)
     };
   });
   cards.sort(compareCards);
