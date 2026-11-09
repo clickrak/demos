@@ -35,7 +35,10 @@ let theme = null;       // null follows the system; kept in memory only
 let drawOnce = true;    // the path map draws itself the first time the results open
 let notice = '';        // one-time message shown at the top of the next screen
 let prevFile = null;
-let pendingOpen = null; // option to open and scroll to when the results show (from the compass)    // { date, snapshot, missing } after loading an old file
+let pendingOpen = null;
+let compassSel = null;  // option picked on the compass (card id or 'quick'); the compass stays on screen
+let kierSel = null;     // option shown as a vertical road in "Twoje kierunki"
+const seenParts = new Set(); // option to open and scroll to when the results show (from the compass)    // { date, snapshot, missing } after loading an old file
 
 function applyTheme() {
   const root = document.documentElement;
@@ -62,7 +65,6 @@ const screens = [
   { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 5 },
   { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5 },
   { id: 'odbicie', ch: 'ja', view: vReveal },
-  { id: 'scenariusze', ch: 'swiat', view: vScenarios },
   { id: 'sily', ch: 'swiat', view: vForces },
   { id: 'karty', ch: 'swiat', view: vCardsPreview },
   { id: 'dlugosc', ch: 'droga', view: vLength, ok: () => A.studyLength },
@@ -70,6 +72,11 @@ const screens = [
   { id: 'niepokoj', ch: 'droga', view: vDoubt },
   { id: 'refleksja', ch: 'droga', view: vReflection },
   { id: 'kompas', ch: 'wyniki', view: vCompass },
+  { id: 'w-mocne', ch: 'wyniki', view: vPartStrengths },
+  { id: 'w-kierunki', ch: 'wyniki', view: vPartDirections },
+  { id: 'w-droga', ch: 'wyniki', view: vPartPath },
+  { id: 'w-przyszlosc', ch: 'wyniki', view: vPartFuture },
+  { id: 'w-plik', ch: 'wyniki', view: vPartFile },
   { id: 'wyniki', ch: 'wyniki', view: vResults }
 ];
 
@@ -83,7 +90,7 @@ function render() {
   document.querySelectorAll('.chapters [data-ch]').forEach(el => { el.classList.toggle('on', el.dataset.ch === s.ch); el.setAttribute('aria-current', el.dataset.ch === s.ch ? 'step' : 'false'); });
   const i = screens.indexOf(s);
   const body = s.view();
-  const nav = ['start', 'wyniki', 'kompas'].includes(s.id) ? '' : `
+  const nav = s.ch === 'wyniki' || s.id === 'start' ? '' : `
     <div class="nav">
       <button class="btn ghost" data-go="${screens[i - 1].id}">Wstecz</button>
       <button class="btn" data-go="${screens[i + 1].id}" ${s.ok && !s.ok() ? 'disabled' : ''}>${s.id === 'refleksja' ? 'Pokaż wyniki' : 'Dalej'}</button>
@@ -96,7 +103,10 @@ function render() {
   const prog = inCh.length ? `<div class="prog" aria-hidden="true"><i style="width:${Math.round(100 * (inCh.indexOf(s) + 1) / inCh.length)}%"></i></div>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : '';
   notice = '';
-  $app.innerHTML = `<div class="${dir}">${prog}${note}${body}${nav}</div>`;
+  if (PARTS.some(p => p.id === s.id)) seenParts.add(s.id);
+  const tabs = s.ch === 'wyniki' && s.id !== 'wyniki' && provenStrengths(A).length && A.values.length ? tabBar(s.id) : '';
+  document.body.classList.toggle('has-tabs', !!tabs);
+  $app.innerHTML = `<div class="${dir}">${prog}${note}${body}${nav}</div>${tabs}`;
   if (s.id === 'wyniki' && pendingOpen) {
     const el = $app.querySelector(`[data-card="${pendingOpen}"]`); pendingOpen = null;
     if (el) { if (el.tagName === 'DETAILS') el.open = true; setTimeout(() => el.scrollIntoView({ block: 'start' }), 30); }
@@ -290,9 +300,9 @@ function vScenarios() {
 
 function vForces() {
   const src = id => data.sources.find(s => s.id === id);
-  const mine = data.scenarios.scenarios.find(x => x.id === A.scenario);
+  const mine = null; // the main scenario is picked at the end, in "Przyszłość"
   return `<h1>Co będzie prawdą w każdym scenariuszu</h1>
-    <p>${mine ? `Wybrałeś scenariusz „${esc(mine.name)}”. Te siły działają jednak w każdym z trzech; zaznaczyliśmy, które w twoim scenariuszu są szczególnie mocne.` : 'Niezależnie od tego, co się wydarzy, te pięć sił działa w tę samą stronę.'}</p>
+    <p>${mine ? `Wybrałeś scenariusz „${esc(mine.name)}”. Te siły działają jednak w każdym z trzech; zaznaczyliśmy, które w twoim scenariuszu są szczególnie mocne.` : 'Nikt nie wie, jak będzie wyglądał świat za 10 lat. Niezależnie od tego, co się wydarzy, te pięć sił działa w tę samą stronę. Scenariusze zobaczysz na końcu, przy wynikach.'}</p>
     <div class="forces">${data.scenarios.forces.map((f, i) => { const s = src(f.sourceId), hot = mine && mine.emphasis.includes(f.id);
       return `<div class="force rise${hot ? ' hot' : ''}" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3>${hot ? '<span class="badge">w twoim scenariuszu szczególnie</span>' : ''}<p class="small">${esc(f.text)}</p>
         <p class="small muted">${s ? `<a href="${s.url}" target="_blank" rel="noopener">źródło</a>, ` : ''}stan na ${esc(f.asOf)}</p></div></div>`; }).join('')}</div>
@@ -335,9 +345,11 @@ function vCompass() {
   const item = (c, tag, dir, extra) => {
     if (!c) return `<div class="cdir ${dir} empty"></div>`;
     const o = extra ? s.quick.o.offer : firstStudy(c);
-    return `<button class="cdir ${dir}" data-openopt="${extra ? 'quick' : c.card.id}"><span class="ctag">${tag}</span><b>${esc(extra ? o.name : c.card.name)}</b>${o ? `<span class="small muted">${esc(extra ? shortInst(o.institution) : o.name + ', ' + shortInst(o.institution))}</span>` : ''}</button>`;
+    const id = extra ? 'quick' : c.card.id;
+    return `<button class="cdir ${dir}" data-pick="${id}" data-ang="${ANG[dir]}" aria-pressed="${compassSel === id}"><span class="ctag">${tag}</span><b>${esc(extra ? o.name : c.card.name)}</b>${o ? `<span class="small muted">${esc(extra ? shortInst(o.institution) : o.name + ', ' + shortInst(o.institution))}</span>` : ''}</button>`;
   };
   const [b1, b2, b3] = s.best;
+  const ANG = { n: 0, nne: 22.5, nnw: -22.5, e: 90, w: -90, s: 180 };
   const C = 180, R = 118;
   const pt = (deg, r = R) => { const a = (deg - 90) * Math.PI / 180; return [C + r * Math.cos(a), C + r * Math.sin(a)]; };
   const mark = (deg, cls, to) => { const [x, y] = pt(deg); return `<path class="lead ${cls}" d="M${x.toFixed(1)},${y.toFixed(1)} L${to[0]},${to[1]}"/><circle class="dot ${cls}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${cls === 'main' ? 6 : 4.5}"/>`; };
@@ -350,15 +362,16 @@ function vCompass() {
     ${s.surprise ? mark(-90, 'side', [60, 360]) : ''}${s.quick ? mark(180, 'side', [180, 360]) : ''}${s.most ? mark(90, 'side', [300, 360]) : ''}
     <circle cx="${C}" cy="${C}" r="${R}" class="ring"/><circle cx="${C}" cy="${C}" r="${R - 24}" class="ring2"/>${rose}
     ${L(0, 'N')}${L(90, 'E')}${L(180, 'S')}${L(270, 'W')}
-    <g class="needle-big"><polygon points="${C},${C - R + 30} ${C + 11},${C} ${C},${C + 8} ${C - 11},${C}" class="n-head"/><polygon points="${C},${C + R - 38} ${C + 9},${C} ${C},${C - 6} ${C - 9},${C}" class="n-tail"/></g>
+    <g class="needle-big${compassSel ? ' fixed' : ''}" ${compassSel ? `style="transform:rotate(${selAngle(s)}deg)"` : ''}><polygon points="${C},${C - R + 30} ${C + 11},${C} ${C},${C + 8} ${C - 11},${C}" class="n-head"/><polygon points="${C},${C + R - 38} ${C + 9},${C} ${C},${C - 6} ${C - 9},${C}" class="n-tail"/></g>
     <circle cx="${C}" cy="${C}" r="6" class="hub"/></svg>`;
   return `<section class="compass-screen">
     <p class="ctitle">Twój kompas</p>
     <div class="cgrid ctop">${item(b3, '3 · NNW', 'nnw')}${item(b1, '1 · N', 'n')}${item(b2, '2 · NNE', 'nne')}</div>
     ${svg}
     <div class="cgrid cbot">${item(s.surprise, 'W · Niespodzianka', 'w')}${s.quick ? item(s.quick.c, 'S · Szybki start', 's', true) : '<div class="cdir s empty"></div>'}${item(s.most, 'E · Most', 'e')}</div>
-    <p class="clead">Trzy dobre drogi, nie jedna. Dotknij kierunku, żeby zobaczyć szczegóły.</p>
-    <div class="actions center"><button class="btn" data-go="wyniki">Zobacz, skąd te drogi</button><button class="btn ghost" data-go="refleksja">Wstecz</button></div>
+    <div id="cprev" class="cprev" aria-live="polite">${compassSel ? previewHtml(r, compassSel) : '<p class="clead">Trzy dobre drogi, nie jedna. Dotknij kierunku, a kompas pokaże, dokąd prowadzi.</p>'}</div>
+    ${prevFile?.snapshot ? `<div class="cprev">${changesSince(r)}</div>` : ''}
+    ${tilesHtml()}
   </section>`;
 }
 
@@ -618,6 +631,231 @@ function changesSince(r) {
     <p class="small muted">Pytanie do siebie: co zmieniło się u ciebie przez ten czas?</p></div>`;
 }
 
+// Angle of the picked direction, so the needle stays where he pointed it after a re-render.
+function selAngle(s) {
+  if (compassSel === 'quick') return 180;
+  const i = s.best.findIndex(c => c.card.id === compassSel);
+  if (i >= 0) return [0, 22.5, -22.5][i];
+  if (s.most?.card.id === compassSel) return 90;
+  if (s.surprise?.card.id === compassSel) return -90;
+  return 0;
+}
+
+// The options shown in the results, in the same order and colours everywhere (compass, roads, tram lines).
+function shownOptions(r) {
+  const s = r.slots, out = [];
+  s.best.forEach((c, i) => out.push({ c, key: c.card.id, no: String(i + 1), slot: 'Najlepsze dopasowanie', color: LINE_COLORS[i] }));
+  if (s.most) out.push({ c: s.most, key: s.most.card.id, no: 'M', slot: 'Most', color: LINE_COLORS[3] });
+  if (s.surprise) out.push({ c: s.surprise, key: s.surprise.card.id, no: 'N', slot: 'Niespodzianka', color: LINE_COLORS[4] });
+  if (s.quick) out.push({ c: s.quick.c, key: 'quick', no: 'S', slot: 'Szybki start', color: 'var(--muted)', quick: s.quick.o });
+  return out;
+}
+const nameOf = id => data.strengths.find(x => x.id === id)?.name || id;
+
+function previewHtml(r, key) {
+  const o = shownOptions(r).find(x => x.key === key);
+  if (!o) return '';
+  const c = o.c, first = o.quick ? o.quick.offer : (c.offers.find(x => x.check.reachable) || c.offers[0])?.offer;
+  const used = c.strengthsUsed.map(p => p.label);
+  return `<div class="prevcard rise" style="--c:${o.color}">
+    <div class="prevhead"><span class="tno-b" style="background:${o.color}">${o.no}</span><div><span class="ctag">${esc(o.slot)}</span>
+      <h3>${esc(o.quick ? first.name : c.card.name)}</h3>${o.quick ? '' : `<span class="small muted">${esc(c.band)}</span>`}</div></div>
+    <p class="small">${esc(o.quick ? `Pierwsza praca po ${String(first.durationYears).replace('.', ',')} latach, dalsze studia zostają otwarte. Łączy się z obszarem: ${c.card.name}.` : c.card.whoYouHelp)}</p>
+    ${used.length ? `<p class="small muted">Prowadzą tu twoje mocne strony:</p><div class="tags">${used.map(u => `<span class="tag-s on">${esc(u)}</span>`).join('')}</div>` : ''}
+    ${first ? `<p class="small">${icon('school', 'ico sm')} ${esc(first.name)}, ${esc(shortInst(first.institution))} · ${String(first.durationYears).replace('.', ',')} ${first.durationYears < 5 ? 'lata' : 'lat'}</p>` : ''}
+    <div class="actions"><button class="btn" data-goopt="${esc(key)}">Pokaż drogę</button><button class="btn ghost" data-pick="">Zamknij</button></div></div>`;
+}
+
+const PARTS = [
+  { id: 'w-mocne', title: 'Twoje mocne strony', sub: 'karty z twoimi dowodami', ico: 'star', col: 'var(--l0)' },
+  { id: 'w-kierunki', title: 'Twoje kierunki', sub: 'drogi od mocnych stron do zawodów', ico: 'route', col: 'var(--l2)' },
+  { id: 'w-droga', title: 'Twoja droga przez studia', sub: 'kroki z datami i dojazd', ico: 'tram', col: 'var(--l1)' },
+  { id: 'w-przyszlosc', title: 'Przyszłość', sub: 'twoje opcje w trzech scenariuszach', ico: 'future', col: 'var(--l4)' },
+  { id: 'w-plik', title: 'Twój plik', sub: 'zapisz, wydrukuj, wróć za pół roku', ico: 'file', col: 'var(--l3)' }
+];
+
+function tilesHtml() {
+  const n = PARTS.filter(p => seenParts.has(p.id)).length;
+  return `<div class="tiles-h"><h2>Co chcesz zobaczyć?</h2><span class="small muted">odkryto ${n} z ${PARTS.length}</span></div>
+    <div class="tiles">${PARTS.map((p, i) => `<button class="tile rise" style="--i:${i};--c:${p.col}" data-go="${p.id}">
+      <span class="tile-ico">${icon(p.ico)}</span><span class="tile-t"><b>${p.title}</b><span class="small">${p.sub}</span></span>
+      ${seenParts.has(p.id) ? `<span class="tile-ok" aria-label="obejrzane">${icon('check')}</span>` : i === 0 && !n ? '<span class="tile-start">zacznij tutaj</span>' : ''}</button>`).join('')}</div>`;
+}
+
+function tabBar(id) {
+  const t = [['kompas', 'Kompas', 'compass'], ['w-mocne', 'Mocne', 'star'], ['w-kierunki', 'Kierunki', 'route'], ['w-droga', 'Droga', 'tram'], ['w-przyszlosc', 'Przyszłość', 'future']];
+  return `<nav class="tabbar noprint" aria-label="Części wyników">${t.map(([k, l, ic]) => `<button data-go="${k}" ${k === id || (id === 'w-plik' && k === 'kompas') ? 'aria-current="page"' : ''}>${icon(ic)}<span>${l}</span></button>`).join('')}</nav>`;
+}
+
+// Bottom of each part: the next part in the suggested order, so the journey has a direction.
+function nextPart(id) {
+  const i = PARTS.findIndex(p => p.id === id), n = PARTS[i + 1];
+  return `<div class="nextpart noprint">${n ? `<button class="btn" data-go="${n.id}">Dalej: ${n.title} →</button>` : ''}<button class="btn ghost" data-go="kompas">${icon('compass', 'ico sm')} Kompas</button></div>`;
+}
+const needResults = () => provenStrengths(A).length < 1 || !A.values.length;
+const partHead = (p, lead) => `<div class="parthead" style="--c:${p.col}"><span class="tile-ico">${icon(p.ico)}</span><div><h1>${p.title}</h1><p class="small">${lead}</p></div></div>`;
+
+// ---- Mocne strony: flip cards, profile bars, values, "Mogę to zrobić, bo…"
+function vPartStrengths() {
+  if (needResults()) return vResults();
+  const r = scoreAll(A, data), opts = shownOptions(r).filter(o => !o.quick);
+  const cards = provenStrengths(A).map((x, i) => {
+    const leads = opts.filter(o => o.c.strengthsUsed.some(p => p.id === x.id));
+    return `<button class="flip rise" style="--i:${i}" data-flip aria-pressed="false" aria-label="${esc(nameOf(x.id))}: odwróć kartę">
+      <span class="face front"><span class="star">${icon('star')}</span><b>${esc(nameOf(x.id))}</b><span class="small muted">dotknij, żeby odwrócić</span></span>
+      <span class="face back"><span class="small">„${esc(x.proof)}”</span>${leads.length ? `<span class="leads">${leads.map(o => `<span class="tno-b sm" style="background:${o.color}" title="${esc(o.c.card.name)}">${o.no}</span>`).join('')}<span class="small muted">prowadzi do ${leads.length === 1 ? 'opcji' : 'opcji'} ${leads.map(o => o.no).join(', ')}</span></span>` : ''}</span></button>`;
+  }).join('');
+  const dims = r.profile.top.map((d, i) => { const dim = data.dimensions.interests.find(x => x.id === d), v = Math.round(r.profile.score[d]);
+    return `<div class="bar${i < 2 ? ' main' : ''}"><span class="bl">${esc(dim.name)}</span><span class="bt"><i style="width:${v}%;--i:${i}"></i></span><span class="bd small muted">${esc(dim.desc)}</span></div>`; }).join('');
+  const vals = (A.values || []).map((v, i) => `<li><span class="vn">${i + 1}</span>${esc(data.dimensions.values.find(x => x.id === v).name)}</li>`).join('');
+  return `${partHead(PARTS[0], 'To nie są wyniki testu, tylko twoje własne przykłady. Dotknij karty, żeby zobaczyć dowód i dokąd prowadzi.')}
+    <div class="flips">${cards}</div>
+    <h2>Twój profil</h2><p class="small muted">Im dłuższy pasek, tym częściej wybierałeś takie czynności i sytuacje. Dwa pierwsze to twoje główne orientacje.</p>
+    <div class="card bars">${dims}</div>
+    <h2>Co jest dla ciebie ważne</h2><ol class="vals">${vals}</ol>
+    <h2>Mogę to zrobić, bo…</h2>
+    <label class="field" for="cando">Dokończ jednym zdaniem. Trafi na górę twojego pliku.</label>
+    <input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
+    ${nextPart('w-mocne')}`;
+}
+
+// ---- Kierunki: one option at a time as a vertical road, then its full card
+function vPartDirections() {
+  if (needResults()) return vResults();
+  const r = scoreAll(A, data), opts = shownOptions(r);
+  const sel = opts.find(o => o.key === kierSel) || opts[0];
+  const card = sel.quick ? `<div class="card opt"><span class="ctag">Szybki start</span><h3>${esc(sel.quick.offer.name)}</h3>
+      <p>${esc(sel.quick.offer.institution)}. ${sel.quick.offer.next ? esc(sel.quick.offer.next) + '.' : ''}</p>${offerHtml(sel.quick.offer, sel.quick.check)}</div>`
+    : cardHtml(sel.slot, sel.c, true, A.scenario);
+  return `${partHead(PARTS[1], 'Wybierz opcję. Czytaj z góry na dół: twoje mocne strony prowadzą do obszaru, obszar do studiów w Krakowie, a studia do przykładowych zawodów.')}
+    <div class="optpick" role="group" aria-label="Wybierz opcję">${opts.map(o => `<button class="optchip" data-kier="${esc(o.key)}" aria-pressed="${o === sel}" style="--c:${o.color}"><span class="tno-b sm" style="background:${o.color}">${o.no}</span><span>${esc(o.quick ? 'Szybki start' : o.c.card.name)}</span></button>`).join('')}</div>
+    ${confLine(r.profile.confidence)}
+    <div class="card vroad">${vRoadSvg(sel)}</div>
+    ${card}
+    ${r.slots.rest.length ? `<details class="card"><summary>Pozostałe obszary (${r.slots.rest.length})</summary>${r.slots.rest.map(c => cardHtml('Inna opcja', c, false, A.scenario)).join('')}</details>` : ''}
+    ${nextPart('w-kierunki')}`;
+}
+
+// Vertical road for one option: strengths (top) → option → Kraków studies → example jobs. Fits a phone.
+function vRoadSvg(o) {
+  const c = o.c, W = 360, col = o.color;
+  const roots = c.paths.filter(p => p.kind !== 'dimension').map(p => p.label.replace(/^język: /, 'język: '));
+  if (!roots.length || c.paths.some(p => p.kind === 'dimension')) roots.push('twoje zainteresowania');
+  const studies = o.quick ? [{ offer: o.quick.offer, check: o.quick.check }] : [...c.offers.filter(x => x.check.reachable), ...c.offers.filter(x => !x.check.reachable && !x.check.hidden)].slice(0, 3);
+  const jobs = (o.quick ? [o.quick.offer.next || o.quick.offer.name] : c.card.roles.split(',')).map(t => t.trim()).filter(Boolean).slice(0, 4);
+  // Lay pills out in centred rows.
+  const pw = t => Math.min(W - 24, 22 + t.length * 7.1);
+  const rows = (items, y0, gap = 8, rh = 40) => { const out = []; let row = [], w = 0;
+    for (const t of items) { const x = pw(t); if (row.length && w + x + gap > W - 16) { out.push(row); row = []; w = 0; } row.push({ t, w: x }); w += x + gap; }
+    if (row.length) out.push(row);
+    const placed = [];
+    out.forEach((rw, k) => { const tot = rw.reduce((a, b) => a + b.w, 0) + gap * (rw.length - 1); let x = (W - tot) / 2;
+      for (const p of rw) { placed.push({ ...p, x, y: y0 + k * rh }); x += p.w + gap; } });
+    return { placed, h: out.length * rh }; };
+  const top = rows(roots, 48);
+  const yS = 48 + top.h + 44, label = wrap(o.quick ? 'Szybki start' : c.card.name, 26);
+  const yStud0 = yS + 72 + label.length * 17;
+  const SH = 50, studY = studies.map((_, i) => yStud0 + i * (SH + 10));
+  const yJobs = yStud0 + studies.length * (SH + 10) + 44;
+  const jb = rows(jobs, yJobs + 22);
+  const H = yJobs + 22 + jb.h + 14;
+  const curve = (x1, y1, x2, y2) => { const m = (y1 + y2) / 2; return `M${x1.toFixed(1)},${y1} C${x1.toFixed(1)},${m} ${x2.toFixed(1)},${m} ${x2.toFixed(1)},${y2}`; };
+  let g = `<svg class="vdraw" viewBox="0 0 ${W} ${H}" role="img" aria-label="Droga: ${esc(roots.join(', '))} prowadzą do: ${esc(c.card.name)}; studia: ${esc(studies.map(x => x.offer.name).join(', '))}; zawody: ${esc(jobs.join(', '))}.">`;
+  g += `<text x="12" y="16" class="vcap">TWOJE MOCNE STRONY</text>`;
+  top.placed.forEach((p, k) => { g += `<path class="vl" style="--d:${(k * 0.08).toFixed(2)}s" pathLength="1" d="${curve(p.x + p.w / 2, p.y + 15, W / 2, yS - 18)}" stroke="${col}"/>`; });
+  top.placed.forEach(p => { g += `<g class="vpill"><rect x="${p.x}" y="${p.y - 15}" width="${p.w}" height="30" rx="15"/><text x="${p.x + p.w / 2}" y="${p.y + 5}" text-anchor="middle">${esc(p.t)}</text></g>`; });
+  g += `<g class="vstation" style="--d:.5s"><circle cx="${W / 2}" cy="${yS}" r="18" fill="${col}"/><text x="${W / 2}" y="${yS + 6}" text-anchor="middle" class="vno">${o.no}</text>
+    <text text-anchor="middle" class="vname" style="fill:${col}">${tspans(label, W / 2, yS + 36 + (label.length - 1) * 8.5, 17)}</text></g>`;
+  g += `<text x="12" y="${yStud0 - 16}" class="vcap">GDZIE SIĘ UCZYĆ W KRAKOWIE</text>`;
+  const trunkX = 30;
+  g += `<path class="vl" style="--d:.7s" pathLength="1" d="M${W / 2},${yS + 32 + label.length * 17} C${W / 2},${yStud0 - 20} ${trunkX},${yStud0 - 40} ${trunkX},${studY[0] || yStud0} L${trunkX},${yJobs - 10}" stroke="${col}"/>`;
+  studies.forEach((st, i) => { const y = studY[i], ok = st.check.reachable, warn = !ok || st.check.soft;
+    g += `<g class="vstudy" style="--d:${(0.9 + i * 0.15).toFixed(2)}s"><path d="M${trunkX},${y + SH / 2} H${trunkX + 20}" stroke="${col}" class="vtick"/><circle cx="${trunkX}" cy="${y + SH / 2}" r="6" fill="var(--card)" stroke="${col}" stroke-width="3"/>
+      <rect x="${trunkX + 20}" y="${y}" width="${W - trunkX - 32}" height="${SH}" rx="12" class="${warn ? 'warnbox' : ''}"/>
+      <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 34 ? st.offer.name.slice(0, 33) + '…' : st.offer.name)}</text>
+      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc(shortInst(st.offer.institution))} · ${String(st.offer.durationYears).replace('.', ',')} ${st.offer.durationYears < 5 ? 'lata' : 'lat'}${!ok ? ' · wymaga zmiany w maturze' : st.check.soft ? ' · warto dopisać rozszerzenie' : ''}</text></g>`; });
+  if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">brak danych w tej wersji</text>`;
+  g += `<path class="vl" style="--d:1.3s" pathLength="1" d="M${trunkX},${yJobs - 10} C${trunkX},${yJobs + 4} ${W / 2},${yJobs - 4} ${W / 2},${yJobs + 6}" stroke="${col}"/>`;
+  g += `<text x="12" y="${yJobs - 18}" class="vcap" text-anchor="start" dx="${trunkX + 10}">${o.quick ? 'PIERWSZA PRACA' : 'PRZYKŁADOWE ZAWODY'}</text>`;
+  jb.placed.forEach((p, k) => { g += `<g class="vjob" style="--d:${(1.5 + k * 0.1).toFixed(2)}s"><rect x="${p.x}" y="${p.y - 15}" width="${p.w}" height="30" rx="8" style="stroke:${col}"/><text x="${p.x + p.w / 2}" y="${p.y + 5}" text-anchor="middle">${esc(p.t)}</text></g>`; });
+  return g + '</svg>';
+}
+
+// ---- Droga przez studia: tram lines, next steps, places
+function vPartPath() {
+  if (needResults()) return vResults();
+  const r = scoreAll(A, data), s = r.slots, lines = tramLines(r);
+  const warn = lines.filter(l => !l.chk.reachable || l.chk.soft);
+  const insts = [...new Set(lines.map(l => shortInst(l.o.institution)))].join(', ');
+  const steps = [
+    ['dek', 'do 7 lutego 2027', warn.length ? `Sprawdź deklarację maturalną: ${warn.map(l => `${l.quick ? 'S' : lines.indexOf(l) + 1} (${l.chk.soft ? 'dopisz rozszerzenie: ' + l.chk.soft : l.chk.blocked[0] || 'zmiana w maturze'})`).join('; ')}.` : 'Sprawdź deklarację maturalną: twoje linie nie wymagają zmian.'],
+    ['dni', 'marzec–kwiecień', `Dni otwarte: ${insts}.`],
+    ['exp', 'w ciągu 30 dni', `Mini-eksperyment: ${s.best[0].card.experiment}`],
+    ['mat', 'maj 2027', 'Matura.'],
+    ['rek', 'czerwiec–lipiec', 'Rekrutacja na studia (rejestracja na stronach uczelni) albo zapisy do szkoły policealnej.']
+  ];
+  A.checks = A.checks || {};
+  const pins = [], seen = new Set();
+  for (const l of lines) { const cp = campus(l.o.campus); if (cp && !seen.has(cp.id)) { seen.add(cp.id); pins.push({ cp, l }); } }
+  return `${partHead(PARTS[2], 'Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Do jesieni 2027 wszystkie linie jadą razem, więc przesiadka jest normalna.')}
+    <div class="card trammap">${tramMapSvg(lines)}${tramLegend(lines)}</div>
+    <h2>Najbliższe kroki</h2><p class="small muted">Odhacz, co już zrobione. Zapisuje się tylko w tej karcie.</p>
+    <ul class="checks">${steps.map(([k, d, t]) => `<li><label><input type="checkbox" data-check="${k}" ${A.checks[k] ? 'checked' : ''}><span><b>${d}</b> ${esc(t)}</span></label></li>`).join('')}</ul>
+    <h2>Gdzie to jest</h2>
+    <div class="places2">${pins.map(({ cp, l }) => `<div class="place"><span class="tno-b sm" style="background:${l.color}">${l.quick ? 'S' : lines.indexOf(l) + 1}</span><div><b>${esc(cp.name)}</b><br>
+      <span class="small">${esc(cp.address)}</span><br><span class="small">${icon('tram', 'ico sm')} ${transit(cp)}</span><br><span class="small">${commute(cp)} · <a href="${routeUrl(cp)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></div></div>`).join('')}</div>
+    <p class="small muted">${data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : ''}</p>
+    <details class="card"><summary>Wszystkie miejsca w bazie (${data.campuses.length})</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b><br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul></details>
+    <div class="card"><h3>Niemcy i dalej</h3><p class="small">Polska matura daje bezpośredni wstęp na niemieckie uczelnie. Większość licencjatów jest po niemiecku (C1), wiele magisterskich po angielsku. Obywatele UE nie płacą czesnego na publicznych uczelniach w Bawarii, tylko opłatę semestralną. Jedna z dróg: licencjat w Krakowie, magisterka w Monachium.</p></div>
+    ${nextPart('w-droga')}`;
+}
+
+// ---- Przyszłość: the scenario pick, at the end. Shows only what matters in the chosen scenario.
+const NEED = { wysoka: 3, 'średnia': 2, niska: 1 };
+function vPartFuture() {
+  if (needResults()) return vResults();
+  const r = scoreAll(A, data), sc = data.scenarios.scenarios, my = sc.find(x => x.id === A.scenario);
+  const opts = shownOptions(r).filter(o => !o.quick);
+  let body = '<p class="lead center">Wybierz scenariusz, który wydaje ci się najbardziej prawdopodobny.</p>';
+  if (my) {
+    const forces = data.scenarios.forces.filter(f => my.emphasis.includes(f.id));
+    const ranked = [...opts].sort((a, b) => (NEED[b.c.card.robustness[my.id]] || 0) - (NEED[a.c.card.robustness[my.id]] || 0));
+    const shownIds = new Set(opts.map(o => o.c.card.id));
+    const extra = r.cards.filter(c => !shownIds.has(c.card.id) && c.card.robustness[my.id] === 'wysoka' && forces.some(f => f.id === c.card.force) && c.fit >= 55).slice(0, 3);
+    const meter = v => `<span class="meter m${NEED[v] || 0}" aria-label="potrzeba: ${esc(v)}"><i></i><i></i><i></i></span>`;
+    body = `<h2>Co w tym scenariuszu waży najwięcej</h2>
+      <div class="forces">${forces.map((f, i) => `<div class="force hot rise" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3><p class="small">${esc(f.text)}</p></div></div>`).join('')}</div>
+      <h2>Twoje opcje w scenariuszu „${esc(my.name)}”</h2><p class="small muted">Od najbardziej potrzebnych. Dopasowanie do ciebie się nie zmienia; to tylko inne światło.</p>
+      <div class="needlist">${ranked.map((o, i) => `<div class="needrow rise" style="--i:${i}"><span class="tno-b sm" style="background:${o.color}">${o.no}</span><span class="nn">${esc(o.c.card.name)}${o.c.card.robustnessNote ? `<span class="small muted">${esc(o.c.card.robustnessNote)}</span>` : ''}</span>${meter(o.c.card.robustness[my.id])}</div>`).join('')}</div>
+      ${extra.length ? `<h2>Bardzo potrzebne w tym scenariuszu i pasujące do ciebie</h2><div class="areas">${extra.map((c, i) => `<div class="area rise" style="--i:${i}"><span class="area-ico">${icon(c.card.cluster)}</span><div><h3>${esc(c.card.name)}</h3><p class="small">${esc(c.card.whoYouHelp)}</p><span class="small muted">${esc(c.band)}</span></div></div>`).join('')}</div>` : ''}`;
+  }
+  return `${partHead(PARTS[3], 'Na koniec zabawa w przyszłość. Wybierz scenariusz: zobaczysz tylko to, co w nim najważniejsze, i swoje opcje w tym świetle.')}
+    <div class="scen">${sc.map((x, i) => `<button class="scencard rise" style="--i:${i}" data-set="scenario" data-val="${x.id}" aria-pressed="${A.scenario === x.id}">
+      ${scenArt(x.id)}<b>${esc(x.name)}</b><span class="small">${esc(x.text)}</span>${A.scenario === x.id ? '<span class="badge">mój główny scenariusz</span>' : ''}</button>`).join('')}</div>
+    ${body}
+    ${nextPart('w-przyszlosc')}`;
+}
+
+// ---- Twój plik
+function vPartFile() {
+  if (needResults()) return vResults();
+  const r = scoreAll(A, data), doubt = data.questions.doubts.find(d => d.id === A.doubt);
+  return `${partHead(PARTS[4], 'Plik powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku wczytasz go i zobaczysz, co się zmieniło.')}
+    ${changesSince(r)}
+    <div class="actions"><button class="btn" data-export="download">Pobierz plik .md</button><button class="btn ghost" data-export="copy">Kopiuj do schowka</button>
+      <button class="btn ghost" data-export="print">Drukuj / PDF</button><button class="btn ghost" data-go="wyniki">Cały raport na jednej stronie</button></div>
+    <p id="msg" class="small muted" role="status"></p>
+    <div class="card loadcard"><h3>Masz starszy plik?</h3><label class="btn ghost filebtn">Wczytaj plik .md<input type="file" accept=".md,text/markdown,text/plain" data-load></label></div>
+    ${doubt ? `<div class="card"><h3>To, co cię niepokoi</h3><p>${doubt.card}</p>${A.doubtStrong ? '<p class="notice">Jeśli ten niepokój zostaje z tobą na dłużej, porozmawiaj z doradcą zawodowym w szkole albo w bezpłatnej poradni psychologiczno-pedagogicznej.</p>' : ''}</div>` : ''}
+    <details class="card"><summary>Dla rodzica</summary><ul>
+      <li>Pytaj, nie mów: „Co cię tu zaskoczyło?” działa lepiej niż „Widzisz, mówiłem”.</li>
+      <li>Reaguj na dowody, nie na opcję: dowody są jego, opcja może się zmienić.</li>
+      <li>Bez porównań między braćmi; każdy plik należy do właściciela.</li>
+      <li>Umówcie się na jeden mały krok w tym miesiącu, nie na ostateczny wybór.</li></ul></details>
+    <div class="actions"><button class="btn ghost" data-go="pewnosc">Zmień odpowiedzi</button></div>
+    ${nextPart('w-plik')}`;
+}
+
 function confLine(c) {
   return `<p class="conf small"><b>Pewność wyników: ${c.level}.</b> ${c.missing.length ? `Niższa, bo pominąłeś: ${c.missing.map(esc).join(', ')}. Możesz wrócić i uzupełnić.` : 'Odpowiedziałeś na wszystkie bloki.'}</p>`;
 }
@@ -647,7 +885,7 @@ function vResults() {
   const twin = [...s.best, s.most, s.surprise].filter(Boolean).map(c => `<li>${c.paths.length ? c.paths.map(p => esc(p.label)).join(' + ') : 'twoje zainteresowania'} → <b>${esc(c.card.name)}</b> → ${c.offers.filter(o => o.check.reachable).slice(0, 2).map(o => esc(o.offer.name + ', ' + o.offer.institution)).join('; ') || 'brak kierunku bez zmian w maturze'}</li>`).join('');
 
   return `
-    <h1>Twoje wyniki</h1>
+    <h1>Cały raport</h1><p class="small muted noprint">Wszystko na jednej stronie, gotowe do druku. <button class="linkbtn" data-go="kompas">Wróć do kompasu</button></p>
     ${changesSince(r)}
     <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
     <h2 id="r-mocne">Twoje mocne strony</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
@@ -747,7 +985,10 @@ document.addEventListener('click', e => {
   if (d.go) { location.hash = '#/' + d.go; return; }
   if (d.scroll) { document.getElementById(d.scroll)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); return; }
   if (d.area !== undefined) { areaFilter = d.area || null; render(); return; }
-  if (d.openopt) { pendingOpen = d.openopt; location.hash = '#/wyniki'; return; }
+  if (d.pick !== undefined) { pickDirection(d.pick, Number(t.dataset.ang)); return; }
+  if (d.goopt) { kierSel = d.goopt; location.hash = '#/w-kierunki'; return; }
+  if (d.kier) { kierSel = d.kier; render(); return; }
+  if (d.flip !== undefined) { t.setAttribute('aria-pressed', String(t.getAttribute('aria-pressed') !== 'true')); return; }
   if (d.set) { setA(d.set, A[d.set] === d.val && d.set !== 'certainty' && d.set !== 'studyLength' ? null : d.val); return; }
   if (d.toggle) { const arr = A[d.toggle]; const i = arr.indexOf(d.val); i >= 0 ? arr.splice(i, 1) : arr.push(d.val); save(); render(); return; }
   if (d.lang) { A.jezyki[d.lang] = d.val; save(); render(); return; }
@@ -763,6 +1004,23 @@ document.addEventListener('click', e => {
   if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length, sitPos: data.questions.situations.length }); save(); location.hash = '#/kompas'; render(); return; }
   if (d.export) doExport(d.export);
 });
+
+document.addEventListener('change', e => {
+  if (e.target.matches('[data-check]')) { A.checks = A.checks || {}; A.checks[e.target.dataset.check] = e.target.checked; }
+});
+
+// Compass: turn the needle to the picked direction and show a preview below; the compass itself stays.
+function pickDirection(key, ang) {
+  compassSel = key || null;
+  const needle = $app.querySelector('.needle-big'), prev = $app.querySelector('#cprev');
+  if (!needle || !prev) { render(); return; }
+  const r = scoreAll(A, data);
+  needle.classList.toggle('fixed', !!compassSel);
+  needle.style.transform = compassSel ? `rotate(${isNaN(ang) ? selAngle(r.slots) : ang}deg)` : '';
+  $app.querySelectorAll('.cdir').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.pick === compassSel)));
+  prev.innerHTML = compassSel ? previewHtml(r, compassSel) : '<p class="clead">Trzy dobre drogi, nie jedna. Dotknij kierunku, a kompas pokaże, dokąd prowadzi.</p>';
+  if (compassSel) setTimeout(() => prev.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' }), 60);
+}
 
 document.addEventListener('change', async e => {
   if (!e.target.matches('[data-load]')) return;
@@ -818,6 +1076,7 @@ async function doExport(kind) {
   } else if (kind === 'copy') {
     try { await navigator.clipboard.writeText(md); msg.textContent = 'Skopiowane.'; } catch { msg.textContent = 'Nie udało się skopiować. Użyj „Pobierz plik”.'; }
   } else {
+    if (current().id !== 'wyniki') { location.hash = '#/wyniki'; setTimeout(() => doExport('print'), 500); return; }
     const closed = [...document.querySelectorAll('details:not([open])')];
     closed.forEach(d => d.open = true);
     window.print();
