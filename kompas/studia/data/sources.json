@@ -145,5 +145,12 @@
   "title": "Statut Szkoły Policealnej nr 2, ZSE nr 1",
   "asOf": "2022-02",
   "status": "to-verify"
+ },
+ {
+  "id": "sapsp-rek",
+  "url": "https://www.gov.pl/web/sapsp-krakow/rekrutacja-szkola-policealna-technik-pozarnictwa",
+  "title": "SA PSP Kraków: rekrutacja, szkoła policealna technik pożarnictwa 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

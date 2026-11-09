@@ -150,7 +150,10 @@
  {
   "id": "sapsp",
   "name": "Szkoła Aspirantów PSP",
-  "address": "ul. Zamojskiego 25",
-  "status": "do sprawdzenia"
+  "address": "os. Zgody 18",
+  "geo": {
+   "lat": 50.0763,
+   "lon": 20.0367
+  }
  }
 ]

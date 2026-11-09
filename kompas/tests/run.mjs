@@ -37,6 +37,12 @@ for (const c of data.opportunities) {
   for (const r of c.related) if (!cardIds.has(r)) { console.log('bad related', c.id, r); bad++; }
 }
 
+// Transport: every campus an offer uses should have stops and a time from Kraków Główny (warning only).
+try {
+  const tr = j('../studia/data/db/pl/krakow/transport.json');
+  for (const id of new Set(data.offers.map(o => o.campus))) if (!tr.campuses[id]?.fromHub) console.log('warning: no transport data for campus', id);
+} catch { console.log('warning: transport.json missing'); }
+
 for (const p of j('../studia/data/personas.json')) {
   const r = scoreAll(p.answers, data);
   const s = r.slots;

@@ -1221,17 +1221,17 @@
   "name": "Technik pożarnictwa (Szkoła Aspirantów PSP)",
   "institution": "Szkoła Aspirantów Państwowej Straży Pożarnej",
   "kind": "policealna",
-  "level": "szkoła policealna (służba w PSP)",
+  "level": "szkoła policealna w służbie kandydackiej PSP",
   "durationYears": 2,
   "campus": "sapsp",
   "cards": [
    "sluzby"
   ],
   "requires": {
-   "note": "zwykle matura, sprawdzian sprawności i badania lekarskie (do sprawdzenia)"
+   "note": "matura (pisemna matematyka i język obcy), wiek do 25 lat, test sprawności i pływania, badania; zgłoszenia w 2026 r. do 31 maja, czyli wcześniej niż na studia; czas nauki do sprawdzenia"
   },
-  "status": "to-verify",
-  "sourceId": null,
+  "status": "sourced",
+  "sourceId": "sapsp-rek",
   "next": "strażak w PSP; dalej oficerska szkoła pożarnicza",
   "firstJob": true
  }

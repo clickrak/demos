@@ -573,7 +573,8 @@ function vResults() {
 
     <h2>Gdzie to jest</h2>
     <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${transit(p.c)} · ${commute(p.c)} · <a href="${routeUrl(p.c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul>
-      <p class="small muted">Czasy dojazdu w tej wersji są przykładowe. Mapa Krakowa pojawi się w wersji 1.0.</p></div>
+      <p class="small muted">${data.transport ? `Przystanki, linie i czasy policzone z oficjalnego rozkładu jazdy Krakowa (GTFS, rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Linie i objazdy się zmieniają, więc przed wyjazdem sprawdź trasę.` : 'Czasy dojazdu są jeszcze liczone.'} Mapa Krakowa pojawi się w wersji 1.0.</p></div>
+    <details class="card allplaces"><summary>Wszystkie miejsca w bazie (${data.campuses.length})</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b>${c.status === 'do sprawdzenia' ? ' <span class="badge warn">adres do sprawdzenia</span>' : ''}<br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul></details>
 
     <div class="card"><h3>Niemcy i dalej</h3>
       <p>Polska matura daje bezpośredni wstęp na niemieckie uczelnie. Większość studiów licencjackich jest po niemiecku (poziom C1), wiele magisterskich po angielsku. Obywatele UE nie płacą czesnego na uczelniach publicznych w Bawarii, tylko opłatę semestralną. Jedna z dróg: licencjat w Krakowie, magisterka w Monachium. Szczegóły pojawią się w kolejnej wersji.</p></div>
