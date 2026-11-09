@@ -295,7 +295,10 @@ export function storyInit(root, ctx) {
   const rev = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), { threshold: .15 });
   root.querySelectorAll('.band, .kmap').forEach(b => rev.observe(b));
   ios.push(rev);
-  return () => { ios.forEach(io => io.disconnect()); window.removeEventListener('scroll', onScroll); };
+  // Keyboard: Enter or Space on the SVG buttons (compass directions, studies, map pins).
+  const onKey = e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches?.('[data-study],[data-explore],[data-pin]')) { e.preventDefault(); storyClick(e.target, root, ctx); } };
+  root.addEventListener('keydown', onKey);
+  return () => { ios.forEach(io => io.disconnect()); window.removeEventListener('scroll', onScroll); root.removeEventListener('keydown', onKey); };
 }
 
 // Clicks inside the story that only change part of the page (no full re-render, so the scroll stays put).
@@ -308,6 +311,14 @@ export function storyClick(t, root, ctx) {
     root.querySelectorAll('.eitem').forEach(b => b.setAttribute('aria-selected', String(b.dataset.pickopt === key)));
     root.querySelector('#epanel').innerHTML = ctx.panelHtml(o);
     if (d.explore !== undefined) root.querySelector('#s-kierunki').scrollIntoView({ behavior: 'smooth' });
+    return true;
+  }
+  if (d.study) {
+    const panel = t.closest('.pgrid') || root, box = panel.querySelector('.studydetail'), was = box.dataset.open === d.study;
+    panel.querySelectorAll('.vstudy').forEach(g => { const on = !was && g.dataset.study === d.study; g.classList.toggle('sel', on); g.setAttribute('aria-expanded', String(on)); });
+    box.dataset.open = was ? '' : d.study;
+    box.innerHTML = was ? '' : ctx.studyHtml(d.study);
+    if (!was) box.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
     return true;
   }
   if (d.pin) { root.querySelectorAll('[data-pin]').forEach(p => p.classList.toggle('on', p.dataset.pin === d.pin)); return true; }

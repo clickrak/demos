@@ -221,3 +221,18 @@ body.story input[type=text] { font-size: 17px; padding: 14px 16px; border-radius
 }
 
 .proad.vroad { padding: 0; }
+
+/* studies in the road: details only on click */
+.vroad .vstudy { cursor: pointer; }
+.vroad .vstudy:hover rect, .vroad .vstudy:focus-visible rect { stroke: var(--ink); }
+.vroad .vstudy:focus-visible { outline: none; }
+.vroad .vstudy.sel rect { stroke: var(--accent); stroke-width: 2.5; fill: var(--accent-soft); }
+.vroad .vmore { fill: var(--muted); font: 600 22px var(--sans2); }
+.vroad .vstudy.sel .vmore { fill: var(--accent); }
+.studydetail:empty { display: none; }
+.sdet { position: relative; margin-top: 10px; }
+.sdet .offer { border: 1px solid var(--accent); border-radius: 14px; padding: 14px 40px 14px 16px; background: var(--card); margin: 0; font-size: .95rem; }
+.sdet-x { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) { .sdet { animation: kfadeup .35s ease-out; } }
+.vroad .vstudy:focus, .scene .opt:focus, .krk .kpin:focus { outline: none; }
+.vroad .vstudy:focus-visible rect { stroke: var(--ink); stroke-width: 3; }

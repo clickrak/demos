@@ -769,9 +769,10 @@ function vRoadSvg(o) {
   const trunkX = 30;
   g += `<path class="vl" style="--d:.7s" pathLength="1" d="M${W / 2},${yS + 32 + label.length * 17} C${W / 2},${yStud0 - 20} ${trunkX},${yStud0 - 40} ${trunkX},${studY[0] || yStud0} L${trunkX},${yJobs - 10}" stroke="${col}"/>`;
   studies.forEach((st, i) => { const y = studY[i], ok = st.check.reachable, warn = !ok || st.check.soft;
-    g += `<g class="vstudy" style="--d:${(0.9 + i * 0.15).toFixed(2)}s"><path d="M${trunkX},${y + SH / 2} H${trunkX + 20}" stroke="${col}" class="vtick"/><circle cx="${trunkX}" cy="${y + SH / 2}" r="6" fill="var(--card)" stroke="${col}" stroke-width="3"/>
+    g += `<g class="vstudy" style="--d:${(0.9 + i * 0.15).toFixed(2)}s" data-study="${esc(st.offer.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${esc(st.offer.name)}, ${esc(st.offer.institution)}: pokaż szczegóły"><path d="M${trunkX},${y + SH / 2} H${trunkX + 20}" stroke="${col}" class="vtick"/><circle cx="${trunkX}" cy="${y + SH / 2}" r="6" fill="var(--card)" stroke="${col}" stroke-width="3"/>
       <rect x="${trunkX + 20}" y="${y}" width="${W - trunkX - 32}" height="${SH}" rx="12" class="${warn ? 'warnbox' : ''}"/>
-      <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 34 ? st.offer.name.slice(0, 33) + '…' : st.offer.name)}</text>
+      <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 30 ? st.offer.name.slice(0, 29) + '…' : st.offer.name)}</text>
+      <text x="${W - 26}" y="${y + 30}" text-anchor="end" class="vmore">›</text>
       <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc(shortInst(st.offer.institution))} · ${String(st.offer.durationYears).replace('.', ',')} ${st.offer.durationYears < 5 ? 'lata' : 'lat'}${!ok ? ' · wymaga zmiany w maturze' : st.check.soft ? ' · warto dopisać rozszerzenie' : ''}</text></g>`; });
   if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">brak danych w tej wersji</text>`;
   g += `<path class="vl" style="--d:1.3s" pathLength="1" d="M${trunkX},${yJobs - 10} C${trunkX},${yJobs + 4} ${W / 2},${yJobs - 4} ${W / 2},${yJobs + 6}" stroke="${col}"/>`;
@@ -869,6 +870,7 @@ function makeStoryCtx() {
     tramLines: r => { const opts = shownOptions(r);
       return tramLines(r).map(l => { const o = opts.find(x => l.quick ? x.quick : (!x.quick && x.c === l.c)); return { ...l, no: o?.no || '?', color: o?.color || l.color }; }); },
     panelHtml: o => panelHtml(o),
+    studyHtml: id => studyHtml(id),
     transportNote: () => data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : '',
     changes: () => changesSince(ctx.r),
     doubtHtml: () => { const d = data.questions.doubts.find(x => x.id === A.doubt);
@@ -883,19 +885,27 @@ function vStory() {
   return storyHtml(storyCtx);
 }
 
+const STUDY_HINT = '<h4>W Krakowie</h4><p class="small muted">Kliknij uczelnię w części „Gdzie się uczyć w Krakowie”, a pod drogą pojawią się szczegóły: wymagania, dojazd i co możesz zrobić, jeśli czegoś brakuje.</p>';
+// Details of one study, shown under the road only after he clicks it.
+function studyHtml(id) {
+  const r = storyCtx.r, q = r.slots.quick;
+  const hit = q && q.o.offer.id === id ? q.o : r.cards.flatMap(c => c.offers).find(x => x.offer.id === id);
+  return hit ? `<div class="sdet"><button class="sdet-x" data-study="${esc(id)}" aria-label="Zamknij szczegóły">×</button>${offerHtml(hit.offer, hit.check)}</div>` : '';
+}
+
 // One option in the explorer: its vertical road on the left, what it means on the right.
 function panelHtml(o) {
   const c = o.c, k = c.card;
   if (o.quick) {
     const f = o.quick.offer;
-    return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}</div><div class="pinfo"><span class="kicker" style="color:${o.color}">Szybki start</span><h3>${esc(f.name)}</h3>
+    return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}<div class="studydetail" aria-live="polite"></div></div><div class="pinfo"><span class="kicker" style="color:${o.color}">Szybki start</span><h3>${esc(f.name)}</h3>
       <p>${esc(f.institution)}. Pierwsza praca po ${String(f.durationYears).replace('.', ',')} latach, a dalsze studia zostają otwarte.${f.next ? ' Potem: ' + esc(f.next) + '.' : ''}</p>
-      <p class="small muted">Łączy się z obszarem: ${esc(k.name)}.</p><h4>W Krakowie</h4>${offerHtml(f, o.quick.check)}</div></div>`;
+      <p class="small muted">Łączy się z obszarem: ${esc(k.name)}.</p>${STUDY_HINT}</div></div>`;
   }
   const reach = c.offers.filter(x => x.check.reachable), blocked = c.offers.filter(x => !x.check.reachable && !x.check.hidden);
   const src = k.demand && data.sources.find(x => x.id === k.demand.sourceId);
   const my = data.scenarios.scenarios.find(x => x.id === A.scenario);
-  return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}</div><div class="pinfo">
+  return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}<div class="studydetail" aria-live="polite"></div></div><div class="pinfo">
     <span class="kicker" style="color:${o.color}">${esc(o.slot)} · ${esc(c.band)}</span><h3>${esc(k.name)}</h3>
     <p>${esc(k.whoYouHelp)}</p><p class="small muted">${c.reasons.map(esc).join(' · ')}</p>
     <h4>Co to daje tobie</h4><p>${esc(k.whatYouGet)}</p>
@@ -903,7 +913,7 @@ function panelHtml(o) {
     <h4>Jak tu rośniesz</h4><ol>${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol>
     <h4>Dlaczego będzie potrzebne</h4><p>${esc(k.whyNeeded)}</p>${k.demand ? `<p class="small muted">Kraków 2026: ${esc(k.demand.text)}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</p>` : ''}
     <p class="small">Przyszła potrzeba${my ? ` w scenariuszu „${esc(my.name)}”: <b>${esc(k.robustness[my.id])}</b>` : `: ${data.scenarios.scenarios.map(x => `${esc(x.name)} ${esc(k.robustness[x.id])}`).join(' · ')}`}</p>
-    <h4>W Krakowie</h4>${reach.map(x => offerHtml(x.offer, x.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(x => offerHtml(x.offer, x.check)).join('')}` : ''}${!c.offers.length ? '<p class="muted">brak danych w tej wersji</p>' : ''}
+    ${c.offers.length ? STUDY_HINT : '<h4>W Krakowie</h4><p class="muted">brak danych w tej wersji</p>'}
     <h4>Mini-eksperyment na 30 dni</h4><p>${esc(k.experiment)}</p></div></div>`;
 }
 
@@ -1029,7 +1039,7 @@ document.addEventListener('click', e => {
   const g = e.target.closest('[data-maprow]');
   if (g) { selectRow(Number(g.dataset.maprow)); return; }
   if (current().id === 'kompas' && storyCtx) {
-    const st = e.target.closest('[data-jump],[data-explore],[data-pin],[data-pickopt],[data-scen]');
+    const st = e.target.closest('[data-jump],[data-explore],[data-pin],[data-pickopt],[data-scen],[data-study]');
     if (st && storyClick(st, $app, storyCtx)) { e.preventDefault(); return; }
   }
   const t = e.target.closest('button');
