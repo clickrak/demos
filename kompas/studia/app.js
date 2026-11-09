@@ -249,7 +249,7 @@ function vSectors() {
 function vCardsPreview() {
   return `<h1>Gdzie można się przydać</h1>
     <p>W tej wersji jest ${data.opportunities.length} obszarów. Za chwilę zobaczysz, które pasują do twoich mocnych stron.</p>
-    ${data.opportunities.map(c => `<div class="card"><h3>${esc(c.name)}</h3><p class="small">${esc(c.whoYouHelp)}</p></div>`).join('')}`;
+    <div class="card"><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></div>`;
 }
 
 function vReach() {

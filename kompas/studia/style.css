@@ -192,3 +192,7 @@ fieldset.langcard { margin: 12px 0; min-width: 0; }
   .trammap { break-inside: avoid; }
   a { color: inherit; }
 }
+
+.cardlist { list-style: none; padding: 0; margin: 0; }
+.cardlist li { display: flex; flex-direction: column; padding: 9px 0; border-top: 1px solid var(--line); }
+.cardlist li:first-child { border-top: 0; padding-top: 0; }
