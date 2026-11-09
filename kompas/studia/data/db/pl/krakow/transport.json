@@ -11,36 +11,47 @@
    "address": "ul. Gołębia 16",
    "lat": 50.06074,
    "lon": 19.93437,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
    "stops": [
     {
      "name": "Filharmonia",
      "m": 180,
-     "tram": [],
-     "bus": [
-      "605",
-      "669"
-     ]
+     "tram": [
+      "1",
+      "13",
+      "18",
+      "72",
+      "74",
+      "78"
+     ],
+     "bus": []
     },
     {
      "name": "UJ / AST",
      "m": 200,
-     "tram": [],
-     "bus": [
+     "tram": [
       "14",
       "75"
+     ],
+     "bus": [
+      "502"
      ]
     },
     {
      "name": "Teatr Bagatela",
      "m": 280,
-     "tram": [],
+     "tram": [
+      "14",
+      "18",
+      "72",
+      "74",
+      "75",
+      "78"
+     ],
      "bus": [
-      "502",
-      "601",
-      "605",
-      "669",
-      "902"
+      "502"
      ]
     }
    ],
@@ -49,7 +60,7 @@
     "median": 17,
     "via": [
      [
-      "bus",
+      "tram",
       "3"
      ]
     ]
@@ -59,7 +70,9 @@
    "address": "al. Mickiewicza 9A",
    "lat": 50.06273,
    "lon": 19.92394,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
    "stops": [
     {
      "name": "AGH / UR",
@@ -77,24 +90,27 @@
     {
      "name": "Muzeum Narodowe",
      "m": 340,
-     "tram": [],
+     "tram": [
+      "14",
+      "75"
+     ],
      "bus": [
       "124",
+      "134",
       "144",
       "164",
       "169",
-      "173",
-      "179"
+      "173"
      ]
     },
     {
      "name": "Oleandry",
      "m": 390,
-     "tram": [],
-     "bus": [
+     "tram": [
       "14",
       "75"
-     ]
+     ],
+     "bus": []
     }
    ],
    "fromHub": {
@@ -112,25 +128,27 @@
    "address": "ul. Ingardena 6",
    "lat": 50.06125,
    "lon": 19.91976,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
    "stops": [
     {
      "name": "Park Jordana",
      "m": 160,
-     "tram": [],
-     "bus": [
+     "tram": [
       "14",
       "75"
-     ]
+     ],
+     "bus": []
     },
     {
      "name": "Oleandry",
      "m": 160,
-     "tram": [],
-     "bus": [
+     "tram": [
       "14",
       "75"
-     ]
+     ],
+     "bus": []
     },
     {
      "name": "AGH / UR",
@@ -161,36 +179,48 @@
    "address": "ul. Jabłonowskich 5",
    "lat": 50.06129,
    "lon": 19.93114,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
    "stops": [
     {
      "name": "UJ / AST",
      "m": 110,
-     "tram": [],
-     "bus": [
+     "tram": [
       "14",
       "75"
+     ],
+     "bus": [
+      "502"
      ]
     },
     {
      "name": "Teatr Bagatela",
      "m": 210,
-     "tram": [],
+     "tram": [
+      "14",
+      "18",
+      "72",
+      "74",
+      "75",
+      "78"
+     ],
      "bus": [
-      "502",
-      "601",
-      "605",
-      "669",
-      "902"
+      "502"
      ]
     },
     {
      "name": "Filharmonia",
      "m": 260,
-     "tram": [],
-     "bus": [
-      "669"
-     ]
+     "tram": [
+      "1",
+      "13",
+      "18",
+      "72",
+      "74",
+      "78"
+     ],
+     "bus": []
     }
    ],
    "fromHub": {
@@ -198,7 +228,7 @@
     "median": 19,
     "via": [
      [
-      "bus",
+      "tram",
       "16"
      ],
      [
@@ -212,27 +242,36 @@
    "address": "ul. Gronostajowa 7",
    "lat": 50.02577,
    "lon": 19.90187,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0262,
+    "lon": 19.9039
+   },
    "stops": [
     {
      "name": "Kampus UJ",
      "m": 120,
-     "tram": [],
-     "bus": [
+     "tram": [
       "11",
       "12",
       "17",
       "18",
       "71"
-     ]
+     ],
+     "bus": []
     },
     {
      "name": "Ruczaj",
      "m": 250,
-     "tram": [],
-     "bus": [
-      "662"
-     ]
+     "tram": [
+      "11",
+      "12",
+      "17",
+      "18",
+      "71"
+     ],
+     "bus": []
     }
    ],
    "fromHub": {
@@ -240,11 +279,11 @@
     "median": 35,
     "via": [
      [
-      "bus",
+      "tram",
       "16"
      ],
      [
-      "bus",
+      "tram",
       "12"
      ]
     ]
@@ -254,36 +293,48 @@
    "address": "ul. św. Anny 12",
    "lat": 50.06208,
    "lon": 19.93333,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
    "stops": [
     {
      "name": "Teatr Bagatela",
      "m": 110,
-     "tram": [],
+     "tram": [
+      "14",
+      "18",
+      "72",
+      "74",
+      "75",
+      "78"
+     ],
      "bus": [
-      "502",
-      "601",
-      "605",
-      "669",
-      "902"
+      "502"
      ]
     },
     {
      "name": "UJ / AST",
      "m": 220,
-     "tram": [],
-     "bus": [
+     "tram": [
       "14",
       "75"
+     ],
+     "bus": [
+      "502"
      ]
     },
     {
      "name": "Filharmonia",
      "m": 310,
-     "tram": [],
-     "bus": [
-      "669"
-     ]
+     "tram": [
+      "1",
+      "13",
+      "18",
+      "72",
+      "74",
+      "78"
+     ],
+     "bus": []
     }
    ],
    "fromHub": {
@@ -291,7 +342,7 @@
     "median": 17,
     "via": [
      [
-      "bus",
+      "tram",
       "3"
      ],
      [
@@ -305,14 +356,15 @@
    "address": "ul. Michałowskiego 12",
    "lat": 50.06602,
    "lon": 19.92822,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
    "stops": [
     {
      "name": "Stefana Batorego",
      "m": 120,
      "tram": [],
      "bus": [
-      "664",
       "704",
       "714"
      ]
@@ -359,7 +411,12 @@
    "address": "ul. Medyczna 9",
    "lat": 50.01172,
    "lon": 19.99445,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0119,
+    "lon": 19.9939
+   },
    "stops": [
     {
      "name": "Collegium Medicum UJ",
@@ -380,14 +437,19 @@
     {
      "name": "Prokocim Szpitale Uniwersyteckie",
      "m": 370,
-     "tram": [],
+     "tram": [
+      "3",
+      "9",
+      "13",
+      "49"
+     ],
      "bus": [
       "144",
-      "204",
-      "224",
-      "301",
-      "304",
-      "503"
+      "153",
+      "163",
+      "173",
+      "195",
+      "204"
      ]
     }
    ],
@@ -396,7 +458,7 @@
     "median": 32,
     "via": [
      [
-      "bus",
+      "tram",
       "7"
      ],
      [
@@ -408,41 +470,62 @@
   },
   "agh": {
    "address": "al. Mickiewicza 30",
-   "lat": 50.04176,
-   "lon": 19.94589,
-   "geocoded": true,
+   "lat": 50.0657,
+   "lon": 19.9215,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0657,
+    "lon": 19.9187
+   },
    "stops": [
     {
-     "name": "Smolki",
-     "m": 190,
+     "name": "Czarnowiejska",
+     "m": 110,
      "tram": [],
      "bus": [
-      "17",
-      "70",
-      "76",
-      "78"
+      "139",
+      "144",
+      "164",
+      "173",
+      "194",
+      "199"
      ]
     },
     {
-     "name": "Korona",
-     "m": 200,
+     "name": "AGH / UR",
+     "m": 260,
      "tram": [],
      "bus": [
-      "904"
+      "124",
+      "144",
+      "164",
+      "169",
+      "173",
+      "179"
+     ]
+    },
+    {
+     "name": "Chopina",
+     "m": 370,
+     "tram": [],
+     "bus": [
+      "139",
+      "144",
+      "164",
+      "173",
+      "194",
+      "199"
      ]
     }
    ],
    "fromHub": {
-    "min": 19,
-    "median": 21,
+    "min": 14,
+    "median": 17,
     "via": [
      [
       "bus",
-      "3"
-     ],
-     [
-      "bus",
-      "13"
+      "179"
      ]
     ]
    }
@@ -451,28 +534,44 @@
    "address": "ul. Warszawska 24",
    "lat": 50.07155,
    "lon": 19.94393,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0713,
+    "lon": 19.9437
+   },
    "stops": [
     {
      "name": "Politechnika",
      "m": 30,
-     "tram": [],
+     "tram": [
+      "3",
+      "7",
+      "15",
+      "16",
+      "17"
+     ],
+     "bus": [
+      "105",
+      "124",
+      "130",
+      "132",
+      "179",
+      "192"
+     ]
+    },
+    {
+     "name": "Dworzec Główny Zachód",
+     "m": 340,
+     "tram": [
+      "3"
+     ],
      "bus": [
       "105",
       "130",
       "132",
       "179",
       "304",
-      "405"
-     ]
-    },
-    {
-     "name": "Dworzec Główny Zachód",
-     "m": 340,
-     "tram": [],
-     "bus": [
-      "105",
-      "132",
       "405"
      ]
     },
@@ -490,7 +589,7 @@
     "median": 3,
     "via": [
      [
-      "bus",
+      "tram",
       "7"
      ]
     ]
@@ -498,48 +597,57 @@
   },
   "pk-czyzyny": {
    "address": "al. Jana Pawła II 37",
-   "lat": 49.96854,
-   "lon": 19.8317,
-   "geocoded": true,
+   "lat": 50.0717,
+   "lon": 20.003,
+   "geo": "hand",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0717,
+    "lon": 20.003
+   },
    "stops": [
     {
-     "name": "Skawina",
-     "m": 140,
-     "tram": [],
+     "name": "Stella-Sawickiego",
+     "m": 210,
+     "tram": [
+      "5",
+      "15",
+      "70",
+      "74"
+     ],
      "bus": [
-      "203",
-      "223",
-      "243",
-      "245",
-      "283",
-      "293"
+      "183"
      ]
     },
     {
-     "name": "Skawina Ajka",
-     "m": 310,
+     "name": "AKF / PK",
+     "m": 390,
+     "tram": [
+      "5",
+      "15",
+      "70",
+      "74"
+     ],
+     "bus": [
+      "183"
+     ]
+    },
+    {
+     "name": "Rondo 308. Dywizjonu",
+     "m": 400,
      "tram": [],
      "bus": [
-      "203",
-      "223",
-      "243",
-      "253",
-      "283",
-      "293"
+      "183"
      ]
     }
    ],
    "fromHub": {
-    "min": 62,
-    "median": 72,
+    "min": 18,
+    "median": 20,
     "via": [
      [
-      "bus",
-      "17"
-     ],
-     [
-      "bus",
-      "283"
+      "tram",
+      "15"
      ]
     ]
    }
@@ -548,30 +656,53 @@
    "address": "ul. Rakowicka 27",
    "lat": 50.06855,
    "lon": 19.95548,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0687,
+    "lon": 19.9553
+   },
    "stops": [
     {
      "name": "Uniwersytet Ekonomiczny",
      "m": 190,
-     "tram": [],
+     "tram": [
+      "72"
+     ],
      "bus": [
-      "124"
+      "124",
+      "125"
      ]
     },
     {
      "name": "Muzeum Fotografii",
      "m": 230,
-     "tram": [],
-     "bus": [
+     "tram": [
       "72"
-     ]
+     ],
+     "bus": []
     },
     {
      "name": "Rondo Mogilskie",
      "m": 240,
-     "tram": [],
+     "tram": [
+      "5",
+      "7",
+      "9",
+      "12",
+      "14",
+      "15",
+      "16",
+      "17",
+      "49",
+      "70",
+      "74",
+      "78"
+     ],
      "bus": [
-      "124"
+      "124",
+      "125",
+      "502"
      ]
     }
    ],
@@ -585,14 +716,22 @@
    "address": "ul. Podchorążych 2",
    "lat": 50.07354,
    "lon": 19.9087,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0735,
+    "lon": 19.9089
+   },
    "stops": [
     {
      "name": "UKEN",
      "m": 100,
      "tram": [],
      "bus": [
-      "102"
+      "102",
+      "704",
+      "708",
+      "714"
      ]
     },
     {
@@ -601,7 +740,6 @@
      "tram": [],
      "bus": [
       "102",
-      "664",
       "704",
       "708",
       "714"
@@ -612,7 +750,12 @@
      "m": 440,
      "tram": [],
      "bus": [
-      "102"
+      "102",
+      "144",
+      "194",
+      "494",
+      "704",
+      "708"
      ]
     }
    ],
@@ -629,157 +772,62 @@
   },
   "awf": {
    "address": "al. Jana Pawła II 78",
-   "lat": 50.15952,
-   "lon": 19.79983,
-   "geocoded": true,
+   "lat": 50.0708,
+   "lon": 20.0135,
+   "geo": "hand",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0708,
+    "lon": 20.0135
+   },
    "stops": [
     {
-     "name": "Zelków Spławy",
-     "m": 180,
-     "tram": [],
-     "bus": [
-      "248"
-     ]
-    },
-    {
-     "name": "Zelków Staw",
-     "m": 270,
-     "tram": [],
-     "bus": [
-      "248"
-     ]
-    },
-    {
-     "name": "Zelków Kościuszki",
-     "m": 440,
-     "tram": [],
-     "bus": [
-      "248"
-     ]
-    }
-   ],
-   "fromHub": {
-    "min": 61,
-    "median": 91,
-    "via": [
-     [
-      "bus",
-      "714"
-     ],
-     [
-      "bus",
-      "248"
-     ]
-    ]
-   }
-  },
-  "ur": {
-   "address": "al. Mickiewicza 21",
-   "lat": 50.04214,
-   "lon": 19.94562,
-   "geocoded": true,
-   "stops": [
-    {
-     "name": "Korona",
-     "m": 160,
-     "tram": [],
-     "bus": [
-      "904"
-     ]
-    },
-    {
-     "name": "Smolki",
-     "m": 180,
-     "tram": [],
-     "bus": [
-      "17",
-      "70",
-      "76",
-      "78"
-     ]
-    }
-   ],
-   "fromHub": {
-    "min": 18,
-    "median": 20,
-    "via": [
-     [
-      "bus",
-      "3"
-     ],
-     [
-      "bus",
-      "13"
-     ]
-    ]
-   }
-  },
-  "uafm": {
-   "address": "ul. Herlinga-Grudzińskiego 1",
-   "lat": 50.05089,
-   "lon": 19.96425,
-   "geocoded": true,
-   "stops": [
-    {
-     "name": "Zabłocie",
-     "m": 100,
-     "tram": [],
-     "bus": [
-      "7",
-      "9",
-      "49",
-      "78"
-     ]
-    },
-    {
-     "name": "Most Kotlarski",
+     "name": "Gałczyńskiego",
      "m": 150,
-     "tram": [],
+     "tram": [
+      "1",
+      "14",
+      "22",
+      "71"
+     ],
      "bus": [
-      "605"
+      "113",
+      "148",
+      "174"
      ]
     },
     {
-     "name": "Klimeckiego",
-     "m": 310,
-     "tram": [],
-     "bus": [
-      "605"
-     ]
-    }
-   ],
-   "fromHub": {
-    "min": 10,
-    "median": 11,
-    "via": [
-     [
-      "bus",
-      "7"
-     ]
-    ]
-   }
-  },
-  "ksm": {
-   "address": "ul. Zamojskiego 58",
-   "lat": 50.0405,
-   "lon": 19.947,
-   "geocoded": false,
-   "stops": [
-    {
-     "name": "Smolki",
+     "name": "Rondo Czyżyńskie",
      "m": 290,
-     "tram": [],
+     "tram": [
+      "1",
+      "5",
+      "14",
+      "15",
+      "22",
+      "70",
+      "71",
+      "74"
+     ],
      "bus": [
-      "904"
+      "113",
+      "148",
+      "174",
+      "202",
+      "212",
+      "222"
      ]
     },
     {
-     "name": "Korona",
-     "m": 330,
-     "tram": [],
-     "bus": [
-      "904"
-     ]
+     "name": "Czyżyny",
+     "m": 340,
+     "tram": [
+      "5",
+      "15",
+      "70",
+      "74"
+     ],
+     "bus": []
     }
    ],
    "fromHub": {
@@ -787,12 +835,164 @@
     "median": 23,
     "via": [
      [
+      "tram",
+      "15"
+     ]
+    ]
+   }
+  },
+  "ur": {
+   "address": "al. Mickiewicza 21",
+   "lat": 50.0649,
+   "lon": 19.92483,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.0628,
+    "lon": 19.9232
+   },
+   "stops": [
+    {
+     "name": "AGH / UR",
+     "m": 80,
+     "tram": [],
+     "bus": [
+      "124",
+      "144",
+      "164",
+      "169",
+      "173",
+      "179"
+     ]
+    },
+    {
+     "name": "Czarnowiejska",
+     "m": 200,
+     "tram": [],
+     "bus": [
+      "139",
+      "144",
+      "164",
+      "173",
+      "194",
+      "199"
+     ]
+    },
+    {
+     "name": "Stefana Batorego",
+     "m": 370,
+     "tram": [],
+     "bus": [
+      "704",
+      "714"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 16,
+    "median": 16,
+    "via": [
+     [
       "bus",
+      "179"
+     ]
+    ]
+   }
+  },
+  "uafm": {
+   "address": "ul. Herlinga-Grudzińskiego 1",
+   "lat": 50.05018,
+   "lon": 19.96521,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Zabłocie",
+     "m": 50,
+     "tram": [
+      "7",
+      "9",
+      "49",
+      "78"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Klimeckiego",
+     "m": 210,
+     "tram": [
+      "7",
+      "9",
+      "49",
+      "78"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Most Kotlarski",
+     "m": 240,
+     "tram": [],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 8,
+    "median": 9,
+    "via": [
+     [
+      "tram",
+      "7"
+     ]
+    ]
+   }
+  },
+  "ksm": {
+   "address": "ul. Zamojskiego 58",
+   "lat": 50.04,
+   "lon": 19.9466,
+   "geo": "hand",
+   "geoVersion": 2,
+   "handGeo": {
+    "lat": 50.04,
+    "lon": 19.9466
+   },
+   "stops": [
+    {
+     "name": "Smolki",
+     "m": 300,
+     "tram": [
+      "17",
+      "70",
+      "76",
+      "78"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Korona",
+     "m": 390,
+     "tram": [
+      "13",
+      "17",
+      "70",
+      "76",
+      "78"
+     ],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 21,
+    "median": 23,
+    "via": [
+     [
+      "tram",
       "3"
      ],
      [
-      "bus",
-      "13"
+      "tram",
+      "78"
      ]
     ]
    }
@@ -801,36 +1001,48 @@
    "address": "ul. Kapucyńska 2",
    "lat": 50.06172,
    "lon": 19.93155,
-   "geocoded": true,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
    "stops": [
     {
      "name": "UJ / AST",
      "m": 150,
-     "tram": [],
-     "bus": [
+     "tram": [
       "14",
       "75"
+     ],
+     "bus": [
+      "502"
      ]
     },
     {
      "name": "Teatr Bagatela",
      "m": 160,
-     "tram": [],
+     "tram": [
+      "14",
+      "18",
+      "72",
+      "74",
+      "75",
+      "78"
+     ],
      "bus": [
-      "502",
-      "601",
-      "605",
-      "669",
-      "902"
+      "502"
      ]
     },
     {
      "name": "Filharmonia",
      "m": 290,
-     "tram": [],
-     "bus": [
-      "669"
-     ]
+     "tram": [
+      "1",
+      "13",
+      "18",
+      "72",
+      "74",
+      "78"
+     ],
+     "bus": []
     }
    ],
    "fromHub": {
@@ -838,7 +1050,7 @@
     "median": 19,
     "via": [
      [
-      "bus",
+      "tram",
       "3"
      ],
      [
