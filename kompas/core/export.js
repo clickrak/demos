@@ -34,7 +34,7 @@ export function buildMarkdown(answers, result, data, today) {
     L.push(`Co mi to daje: ${c.card.whatYouGet}`);
     if (c.strengthsUsed.length) L.push(`Moje mocne strony, które tu pracują: ${c.strengthsUsed.map(p => p.label).join(', ')}`);
     if (c.reasons.length) L.push(`Dlaczego: ${c.reasons.join('; ')}`);
-    L.push(`Odporność na scenariusze: ${c.card.robustness[answers.scenario || 'B']}`);
+    L.push(`Odporność na scenariusze: ${data.scenarios.scenarios.map(x => `${x.name}: ${c.card.robustness[x.id]}`).join(' · ')}`);
     const reach = c.offers.filter(o => o.check.reachable).map(o => `${o.offer.name} (${o.offer.institution})`);
     if (reach.length) L.push(`W Krakowie: ${reach.join('; ')}`);
     L.push('');
@@ -61,8 +61,7 @@ export function buildMarkdown(answers, result, data, today) {
     const a = (answers.reflection || {})[q.id];
     if (a) L.push(`**${q.text}** ${a}`);
   }
-  const sc = data.scenarios.scenarios.find(s => s.id === answers.scenario);
-  L.push(`Mój obraz przyszłości: ${sc ? sc.name : '-'} · U siebie czuję się: ${(answers.homePlaces || []).join(', ') || '-'} · Chcę być potrzebny: ${answers.neededWhere || '-'}`, '');
+  L.push(`U siebie czuję się: ${(answers.homePlaces || []).join(', ') || '-'} · Chcę być potrzebny: ${answers.neededWhere || '-'}`, '');
 
   L.push('## Pytania do rozmowy z rodzicami');
   L.push('- Która mocna strona cię zaskoczyła?', '- Która opcja daje ci najwięcej energii?', '- Jaki jest najmniejszy krok, który zrobisz w tym miesiącu?', '');

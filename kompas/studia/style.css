@@ -96,3 +96,4 @@ details > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 fieldset.langcard { margin: 12px 0; min-width: 0; }
+.places { padding-left: 1.1em; } .places li { margin: 8px 0; }

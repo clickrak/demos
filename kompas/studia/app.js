@@ -1,10 +1,8 @@
 // Kompas Studia v0.1: flow test. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
-import { makeStore } from '../core/store.js';
 
 const $app = document.getElementById('app');
-const store = makeStore('kompas-studia-v01');
 const TEST = new URLSearchParams(location.search).has('test');
 let data, A;
 
@@ -21,12 +19,12 @@ async function load() {
     'data/opportunities.json', 'data/db/pl/krakow/offers.json', 'data/db/pl/krakow/campuses.json', 'data/sources.json', 'data/personas.json'
   ].map(get));
   data = { dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas };
-  A = Object.assign(blank(), store.load() || {});
+  A = blank();
   window.addEventListener('hashchange', render);
   render();
 }
 
-const save = () => store.save(A);
+const save = () => {}; // v0.1 keeps answers in memory only; the .md export is the saved copy
 const setA = (k, v) => { A[k] = v; save(); render(); };
 
 // ---- screens ----------------------------------------------------------------
@@ -38,12 +36,13 @@ const screens = [
   { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length },
   { id: 'styl', ch: 'ja', view: vStyle },
   { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 3 },
-  { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length >= 3 },
+  { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5 },
   { id: 'odbicie', ch: 'ja', view: vReveal },
-  { id: 'scenariusze', ch: 'swiat', view: vScenarios },
   { id: 'sily', ch: 'swiat', view: vForces },
-  { id: 'zasieg', ch: 'swiat', view: vReach },
+  { id: 'sektory', ch: 'swiat', view: vSectors },
+  { id: 'karty', ch: 'swiat', view: vCardsPreview },
   { id: 'dlugosc', ch: 'droga', view: vLength, ok: () => A.studyLength },
+  { id: 'zasieg', ch: 'droga', view: vReach },
   { id: 'niepokoj', ch: 'droga', view: vDoubt },
   { id: 'refleksja', ch: 'droga', view: vReflection },
   { id: 'wyniki', ch: 'wyniki', view: vResults }
@@ -79,7 +78,7 @@ function vStart() {
     <h1>Co już umiesz i gdzie się przydasz</h1>
     <p class="lead">Za chwilę zadamy ci kilka pytań. Nie ma złych odpowiedzi — chodzi o to, co cię naprawdę interesuje.</p>
     <p>Trzy krótkie rozdziały: <b>Ja</b> (twoje mocne strony), <b>Świat</b> (gdzie będą potrzebne) i <b>Droga</b> (jak tam dojść). Na końcu dostajesz plik, który zostaje u ciebie.</p>
-    <p class="muted small">Jest wiele dobrych dróg, a wybór można korygować. To punkt wyjścia do rozmowy, nie test i nie wyrok. Twoje odpowiedzi zostają na tym urządzeniu.</p>
+    <p class="muted small">Jest wiele dobrych dróg, a wybór można korygować. To punkt wyjścia do rozmowy, nie test i nie wyrok. Odpowiedzi są tylko w tej karcie przeglądarki: po zamknięciu znikają, zostaje pobrany plik.</p>
     <label class="field" for="name">Imię (opcjonalnie, tylko do nazwy pliku)</label>
     <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off">
     <div class="actions">
@@ -89,7 +88,6 @@ function vStart() {
     <details class="card noprint"><summary>Tryb testowy</summary>
       <p class="small muted">Wczytaj gotowe odpowiedzi, żeby obejrzeć wyniki bez wypełniania.</p>
       <div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div>
-      <button class="btn ghost" data-reset>Wyczyść moje odpowiedzi</button>
     </details>`;
 }
 
@@ -158,7 +156,7 @@ function vStrengths() {
     return `<div class="strength"><label class="field" for="pr-${s.id}">${esc(st.name)}: kiedy to pokazałeś? Jedno zdanie wystarczy.</label>
       <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${esc(s.proof)}" placeholder="${esc(st.example)}"></div>`; }).join('');
   return `<h1>Twoje mocne strony</h1>
-    <p>Wybierz od 3 do 5 rzeczy, które ci wychodzą. Do każdej dopisz jeden przykład ze swojego życia: sport, szkoła, dom i rodzina, języki, pomoc innym.</p>
+    <p>Wybierz 5 rzeczy, które ci wychodzą. Do każdej dopisz jeden przykład ze swojego życia: sport, szkoła, dom i rodzina, języki, pomoc innym.</p>
     <div class="chips">${data.strengths.map(s => chip(`data-strength="${s.id}"`, s.name, picked.includes(s.id))).join('')}</div>
     ${list ? `<div class="card">${list}</div>` : ''}
     <p class="small muted">Mocna strona liczy się dopiero z przykładem. Przykład nie musi być wielki.</p>`;
@@ -181,22 +179,25 @@ function vReveal() {
     <p>Teraz zobaczmy, gdzie te mocne strony będą potrzebne.</p>`;
 }
 
-function vScenarios() {
-  return `<h1>Świat w 2036: trzy scenariusze</h1>
-    <p>Przyszłości nikt nie zna. To scenariusze, nie prognozy. Wszystkie trzy są tak samo możliwe.</p>
-    <div class="scen">${data.scenarios.scenarios.map(s => `<div class="card"><h3>${s.name}</h3><p>${s.text}</p></div>`).join('')}</div>
-    <p>Który wydaje ci się najbardziej prawdopodobny? <span class="muted small">(Trafi do twojego pliku, nie wpływa na wyniki.)</span></p>
-    <div class="chips">${data.scenarios.scenarios.map(s => chip(`data-set="scenario" data-val="${s.id}"`, s.name, A.scenario === s.id)).join('')}</div>`;
-}
-
 function vForces() {
   const src = id => data.sources.find(s => s.id === id);
-  return `<h1>Co działa we wszystkich scenariuszach</h1>
+  return `<h1>Co będzie prawdą w każdym scenariuszu</h1>
+    <p>Przyszłości nikt nie zna, ale te siły działają niezależnie od tego, co się wydarzy.</p>
     ${data.scenarios.forces.map(f => { const s = src(f.sourceId);
-      return `<div class="card"><h3>${f.name}</h3><p>${f.text}</p><p class="small muted">${s ? `Źródło: <a href="${s.url}" target="_blank" rel="noopener">${esc(s.title)}</a>, ` : ''}stan na ${f.asOf}</p></div>`; }).join('')}
-    <h2>Sektory z pracą na lata</h2><ul>${data.scenarios.sectors.map(s => `<li>${s}</li>`).join('')}</ul>
+      return `<div class="card"><h3>${f.name}</h3><p>${f.text}</p><p class="small muted">${s ? `Źródło: <a href="${s.url}" target="_blank" rel="noopener">${esc(s.title)}</a>, ` : ''}stan na ${f.asOf}</p></div>`; }).join('')}`;
+}
+
+function vSectors() {
+  return `<h1>Sektory z pracą na lata</h1>
+    <div class="card"><ul>${data.scenarios.sectors.map(s => `<li>${s}</li>`).join('')}</ul></div>
     <p class="muted small">${data.scenarios.shrinking}</p>
-    <p class="lead">Mniej ludzi do pracy oznacza, że każdy będzie bardziej potrzebny. Zobaczmy, gdzie twoje mocne strony zrobią najwięcej dobrego.</p>`;
+    <p class="lead">Mniej ludzi do pracy oznacza, że każdy będzie bardziej potrzebny.</p>`;
+}
+
+function vCardsPreview() {
+  return `<h1>Gdzie można się przydać</h1>
+    <p>W tej wersji jest ${data.opportunities.length} obszarów. Za chwilę zobaczysz, które pasują do twoich mocnych stron.</p>
+    ${data.opportunities.map(c => `<div class="card"><h3>${esc(c.name)}</h3><p class="small">${esc(c.whoYouHelp)}</p></div>`).join('')}`;
 }
 
 function vReach() {
@@ -268,7 +269,7 @@ function cardHtml(slot, c, open, scenario) {
       ${c.strengthsUsed.length ? `<dt>Twoje mocne strony, które tu pracują</dt><dd>${c.strengthsUsed.map(p => esc(p.label)).join(', ')}</dd>` : ''}
       <dt>Jak wygląda dzień pracy</dt><dd><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul></dd>
       <dt>Jak tu rośniesz</dt><dd>${k.growth.map(esc).join(' → ')}</dd>
-      <dt>Odporność na scenariusze</dt><dd>${esc(k.robustness[scenario] || k.robustness.B)}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(propozycja do sprawdzenia)</span></dd>
+      <dt>Odporność na scenariusze</dt><dd>${data.scenarios.scenarios.map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ')}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(propozycja do sprawdzenia)</span></dd>
       <dt>Przykładowe role</dt><dd>${esc(k.roles)}</dd>
       <dt>W Krakowie</dt><dd>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${!c.offers.length ? '<span class="muted">brak danych w tej wersji</span>' : ''}</dd>
       ${first ? `<dt>Twoja droga</dt><dd><ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul></dd>` : ''}
@@ -355,23 +356,6 @@ function pathMapSvg(r) {
   return svg + '</svg>';
 }
 
-// Schematic map: positions projected from latitude/longitude; Vistula drawn roughly.
-function mapSvg(pins) {
-  const W = 360, H = 260, box = { n: 50.085, s: 50.005, w: 19.88, e: 20.03 };
-  const xy = (lat, lon) => [((lon - box.w) / (box.e - box.w)) * W, ((box.n - lat) / (box.n - box.s)) * H];
-  const river = [[50.035, 19.88], [50.046, 19.905], [50.052, 19.925], [50.049, 19.94], [50.046, 19.955], [50.040, 19.968], [50.031, 19.985], [50.027, 20.005], [50.032, 20.03]];
-  const d = river.map((p, i) => (i ? 'L' : 'M') + xy(...p).map(v => v.toFixed(1)).join(',')).join(' ');
-  const hub = xy(50.0675, 19.945);
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Schematyczna mapa Krakowa z uczelniami"><rect width="${W}" height="${H}" rx="12" fill="var(--card)" stroke="var(--line)"/>`;
-  svg += `<path d="${d}" stroke="#7fb3d5" stroke-width="7" fill="none" stroke-linecap="round" opacity=".7"/><text x="12" y="${H - 12}" class="muted">Wisła</text>`;
-  svg += `<rect x="${hub[0] - 5}" y="${hub[1] - 5}" width="10" height="10" fill="var(--ink)"/><text x="${hub[0] + 8}" y="${hub[1] - 6}">Kraków Główny</text>`;
-  pins.forEach((p, i) => {
-    const [x, y] = xy(p.c.lat, p.c.lon);
-    svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="${p.color}" stroke="var(--card)" stroke-width="2"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" style="fill:var(--bg);font-weight:700">${i + 1}</text>`;
-  });
-  return svg + '</svg>';
-}
-
 function vResults() {
   if (provenStrengths(A).length < 1 || !A.values.length) {
     return `<h1>Jeszcze trochę</h1><p>Wyniki pojawią się, gdy przejdziesz przez rozdział Ja (mocne strony i wartości).</p><button class="btn" data-go="pewnosc">Wracam do pytań</button>`;
@@ -414,9 +398,8 @@ function vResults() {
     ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
 
     <h2>Gdzie to jest</h2>
-    <div class="card map">${mapSvg(pins)}
-      <ol class="small">${pins.map(p => `<li>${esc(p.c.name)}, ${esc(p.c.address)}: z domu ${commute(p.c)}</li>`).join('')}</ol>
-      <p class="small muted">Schemat, nie dokładna mapa. Czasy dojazdu w tej wersji są przykładowe.</p></div>
+    <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${esc(p.c.lines)} · z domu ${commute(p.c)} · <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.c.address + ', Kraków')}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul>
+      <p class="small muted">Czasy dojazdu w tej wersji są przykładowe. Mapa Krakowa pojawi się w wersji 1.0.</p></div>
 
     <div class="card"><h3>Niemcy i dalej</h3>
       <p>Polska matura daje bezpośredni wstęp na niemieckie uczelnie. Większość studiów licencjackich jest po niemiecku (poziom C1), wiele magisterskich po angielsku. Obywatele UE nie płacą czesnego na uczelniach publicznych w Bawarii, tylko opłatę semestralną. Jedna z dróg: licencjat w Krakowie, magisterka w Monachium. Szczegóły pojawią się w kolejnej wersji.</p></div>
@@ -462,7 +445,6 @@ document.addEventListener('click', e => {
   if (d.strength) { const i = A.strengths.findIndex(s => s.id === d.strength); if (i >= 0) A.strengths.splice(i, 1); else if (A.strengths.length < 5) A.strengths.push({ id: d.strength, proof: '' }); save(); render(); return; }
   if (d.strong !== undefined) { setA('doubtStrong', d.strong === '1'); return; }
   if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length }); save(); location.hash = '#/wyniki'; render(); return; }
-  if (d.reset !== undefined) { if (confirm('Usunąć odpowiedzi zapisane na tym urządzeniu?')) { store.clear(); A = blank(); render(); } return; }
   if (d.export) doExport(d.export);
 });
 
@@ -471,7 +453,7 @@ document.addEventListener('input', e => {
   if (d.field) { A[d.field] = d.field === 'startMin' ? Number(t.value) : t.value; save(); if (t.id === 'name' || t.id === 'cando' || t.id === 'sport' || t.id === 'start') return; }
   if (d.slider) { A.sliders[d.slider] = Number(t.value); save(); return; }
   if (d.proof) { const s = A.strengths.find(x => x.id === d.proof); s.proof = t.value; save();
-    const ok = provenStrengths(A).length >= 3; const next = $app.querySelector('.nav .btn:not(.ghost)'); if (next) next.disabled = !ok; return; }
+    const ok = provenStrengths(A).length === 5; const next = $app.querySelector('.nav .btn:not(.ghost)'); if (next) next.disabled = !ok; return; }
   if (d.refl) { A.reflection[d.refl] = t.value; save(); }
 });
 
