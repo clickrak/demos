@@ -3,152 +3,154 @@
   "id": "uj-centrum",
   "name": "UJ, Wydział Polonistyki",
   "address": "ul. Gołębia 16",
-  "lat": 50.0605,
-  "lon": 19.9335,
   "status": "przyklad"
  },
  {
   "id": "uj-filologie",
   "name": "UJ, Wydział Filologiczny",
   "address": "al. Mickiewicza 9A",
-  "lat": null,
-  "lon": null,
   "status": "przyklad"
  },
  {
   "id": "uj-psych",
   "name": "UJ, Instytut Psychologii",
   "address": "ul. Ingardena 6",
-  "lat": 50.0625,
-  "lon": 19.9205,
   "status": "przyklad"
  },
  {
   "id": "uj-wsmip",
   "name": "UJ, Wydział Studiów Międzynarodowych i Politycznych",
   "address": "ul. Jabłonowskich 5",
-  "lat": null,
-  "lon": null,
   "status": "przyklad"
  },
  {
   "id": "uj-kampus",
   "name": "UJ, Kampus 600-lecia",
   "address": "ul. Gronostajowa 7",
-  "lat": 50.027,
-  "lon": 19.904,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0262,
+   "lon": 19.9039
+  }
  },
  {
   "id": "ujcm-lekarski",
   "name": "UJ CM, Wydział Lekarski",
   "address": "ul. św. Anny 12",
-  "lat": null,
-  "lon": null,
   "status": "przyklad"
  },
  {
   "id": "ujcm-zdrowie",
   "name": "UJ CM, Wydział Nauk o Zdrowiu",
   "address": "ul. Michałowskiego 12",
-  "lat": 50.07,
-  "lon": 19.9365,
   "status": "przyklad"
  },
  {
   "id": "ujcm-farmacja",
   "name": "UJ CM, Wydział Farmaceutyczny",
   "address": "ul. Medyczna 9",
-  "lat": 50.0115,
-  "lon": 19.993,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0119,
+   "lon": 19.9939
+  }
  },
  {
   "id": "agh",
   "name": "AGH",
   "address": "al. Mickiewicza 30",
-  "lat": 50.0655,
-  "lon": 19.9195,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0657,
+   "lon": 19.9187
+  }
  },
  {
   "id": "pk",
   "name": "Politechnika Krakowska, kampus Warszawska",
   "address": "ul. Warszawska 24",
-  "lat": null,
-  "lon": null,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0713,
+   "lon": 19.9437
+  }
  },
  {
   "id": "pk-czyzyny",
   "name": "Politechnika Krakowska, kampus Czyżyny",
   "address": "al. Jana Pawła II 37",
-  "lat": null,
-  "lon": null,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0717,
+   "lon": 20.003
+  }
  },
  {
   "id": "uek",
   "name": "UEK",
   "address": "ul. Rakowicka 27",
-  "lat": 50.069,
-  "lon": 19.9555,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0687,
+   "lon": 19.9553
+  }
  },
  {
   "id": "uken",
   "name": "UKEN",
   "address": "ul. Podchorążych 2",
-  "lat": 50.078,
-  "lon": 19.915,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0735,
+   "lon": 19.9089
+  }
  },
  {
   "id": "awf",
   "name": "AWF Kraków",
   "address": "al. Jana Pawła II 78",
-  "lat": 50.071,
-  "lon": 20.013,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0708,
+   "lon": 20.0135
+  }
  },
  {
   "id": "ur",
   "name": "Uniwersytet Rolniczy",
   "address": "al. Mickiewicza 21",
-  "lat": 50.063,
-  "lon": 19.9235,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.0628,
+   "lon": 19.9232
+  }
  },
  {
   "id": "uafm",
   "name": "Uniwersytet Andrzeja Frycza Modrzewskiego",
   "address": "ul. Herlinga-Grudzińskiego 1",
-  "lat": 50.048,
-  "lon": 19.962,
   "status": "przyklad"
  },
  {
   "id": "ksm",
   "name": "Krakowska Medyczna Szkoła Policealna nr 1",
   "address": "ul. Zamojskiego 58",
-  "lat": 50.0405,
-  "lon": 19.947,
-  "status": "przyklad"
+  "status": "przyklad",
+  "geo": {
+   "lat": 50.04,
+   "lon": 19.9466
+  }
  },
  {
   "id": "zse1",
   "name": "Zespół Szkół Ekonomicznych nr 1",
   "address": "ul. Kapucyńska 2",
-  "lat": null,
-  "lon": null,
   "status": "przyklad"
  },
  {
   "id": "sapsp",
   "name": "Szkoła Aspirantów PSP",
   "address": "ul. Zamojskiego 25",
-  "lat": null,
-  "lon": null,
-  "status": "przyklad"
+  "status": "do sprawdzenia"
  }
 ]

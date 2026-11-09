@@ -42,21 +42,44 @@ def dist(a, b):
     return 6371000 * 2 * math.asin(math.sqrt(h))
 
 
-def geocode(addr, old):
-    street = re.sub(r'^(ul\.|al\.|os\.|pl\.)\s*', '', addr)
-    q = urllib.parse.urlencode({'street': street, 'city': 'Kraków', 'country': 'Polska', 'format': 'json', 'limit': 1})
+KRK = (49.96, 50.13, 19.79, 20.22)  # lat min/max, lon min/max
+GEO_VERSION = 2
+EXPAND = [(r'^al\. Mickiewicza', 'aleja Adama Mickiewicza'), (r'^al\. Jana Pawła II', 'aleja Jana Pawła II'),
+          (r'^al\.\s*', 'aleja '), (r'^ul\.\s*', ''), (r'^os\.\s*', 'osiedle '), (r'^pl\.\s*', 'plac ')]
+
+
+def geocode(addr):
+    street = addr
+    for pat, rep in EXPAND:
+        street, n = re.subn(pat, rep, street)
+        if n: break
+    q = urllib.parse.urlencode({'street': street, 'city': 'Kraków', 'country': 'Polska', 'format': 'json', 'limit': 1,
+                                'viewbox': f'{KRK[2]},{KRK[1]},{KRK[3]},{KRK[0]}', 'bounded': 1})
     time.sleep(1.1)  # Nominatim usage policy: at most one request per second
     res = json.loads(get('https://nominatim.openstreetmap.org/search?' + q))
     if res:
-        return float(res[0]['lat']), float(res[0]['lon']), True
-    return (old.get('lat'), old.get('lon'), False)
+        la, lo = float(res[0]['lat']), float(res[0]['lon'])
+        if KRK[0] <= la <= KRK[1] and KRK[2] <= lo <= KRK[3]: return la, lo
+    return None
+
+
+def locate(c):
+    """Geocoded position, checked against a hand-set one (c['geo']) when the record has it."""
+    g = geocode(c['address'])
+    hand = (c['geo']['lat'], c['geo']['lon']) if c.get('geo') else None
+    if g and hand and dist(g, hand) > 300:
+        print('  geocode differs from hand-set position by', round(dist(g, hand)), 'm; using hand-set', c['id'])
+        return hand[0], hand[1], 'hand'
+    if g: return g[0], g[1], 'osm'
+    if hand: return hand[0], hand[1], 'hand'
+    return None, None, None
 
 
 def secs(t):
     h, m, s = t.split(':'); return int(h) * 3600 + int(m) * 60 + int(s)
 
 
-def load_feed(name, prefix):
+def load_feed(name, prefix, mode):
     z = zipfile.ZipFile(io.BytesIO(get(GTFS_BASE + name)))
     rd = lambda f: csv.DictReader(io.TextIOWrapper(z.open(f), encoding='utf-8-sig'))
     files = set(z.namelist())
@@ -69,7 +92,7 @@ def load_feed(name, prefix):
     active = {c['service_id'] for c in cal if c['tuesday'] == '1' and c['start_date'] <= ds <= c['end_date']}
     for e in exc:
         if e['date'] == ds: (active.add if e['exception_type'] == '1' else active.discard)(e['service_id'])
-    routes = {r['route_id']: (r.get('route_short_name') or r['route_id'], r.get('route_type', '3')) for r in rd('routes.txt')}
+    routes = {r['route_id']: (r.get('route_short_name') or r['route_id'], mode) for r in rd('routes.txt')}
     trips = {t['trip_id']: routes[t['route_id']] for t in rd('trips.txt') if t['service_id'] in active}
     stops = {prefix + s['stop_id']: (s['stop_name'], float(s['stop_lat']), float(s['stop_lon'])) for s in rd('stops.txt')}
     seq = defaultdict(list)
@@ -88,19 +111,19 @@ def main():
     campuses = json.loads((DB / 'campuses.json').read_text())
     prev = json.loads(OUT.read_text()) if OUT.exists() else {'campuses': {}}
 
-    # 1. Coordinates: reuse earlier geocoding while the address is unchanged.
+    # 1. Coordinates: reuse earlier geocoding while the address and method are unchanged.
     for c in campuses:
         p = prev['campuses'].get(c['id'], {})
-        if p.get('address') == c['address'] and p.get('geocoded'):
-            c['lat'], c['lon'], c['geocoded'] = p['lat'], p['lon'], True
+        if p.get('address') == c['address'] and p.get('geoVersion') == GEO_VERSION and p.get('geo') and p.get('handGeo') == c.get('geo'):
+            c['lat'], c['lon'], c['how'] = p['lat'], p['lon'], p['geo']
         else:
-            c['lat'], c['lon'], c['geocoded'] = geocode(c['address'], c)
-        print('geo', c['id'], c['lat'], c['lon'], c['geocoded'])
+            c['lat'], c['lon'], c['how'] = locate(c)
+        print('geo', c['id'], c['lat'], c['lon'], c['how'])
 
     # 2. Timetables.
     stops, trips, infos = {}, {}, []
     for i, f in enumerate(FEEDS):
-        s, t, info = load_feed(f, f'{i}:')
+        s, t, info = load_feed(f, f'{i}:', 'tram' if f.endswith('_T.zip') else 'bus')
         stops.update(s); trips.update(t); infos.append(info)
     print(len(stops), 'stops', len(trips), 'trips')
 
@@ -144,7 +167,7 @@ def main():
                 board = None
                 for s, a, dp in rows:
                     if board is not None:
-                        cand = (a, board + (('tram' if rtype == '0' else 'bus', rname),))
+                        cand = (a, board + ((rtype, rname),))
                         if a < result.get(s, (1e18,))[0] and a < new.get(s, (1e18,))[0]: new[s] = cand
                     if board is None and s in best and best[s][0] + buf <= dp:
                         board = best[s][1]
@@ -167,17 +190,20 @@ def main():
             opts = [(res[s][0] + d / WALK - t0, res[s][1]) for d, s in dest if s in res]
             if opts:
                 m, via = min(opts); times.append(m / 60); vias[via] += 1
-        ns, seen = [], set()
+        # Nearest stops, one entry per stop name (tram and bus platforms often share a name).
+        byname = {}
         for d, s in near(*pos, NEAR_M):
-            n = stops[s][0]
-            if n in seen: continue
-            seen.add(n)
-            ls = sorted(lines_at[s], key=lambda x: (x[0] != '0', len(x[1]), x[1]))
-            ns.append({'name': n, 'm': round(d / 10) * 10, 'tram': [l for t, l in ls if t == '0'], 'bus': [l for t, l in ls if t != '0'][:6]})
-            if len(ns) == 3: break
+            e = byname.setdefault(stops[s][0], {'m': d, 'lines': set()})
+            e['lines'] |= lines_at[s]
+        day = lambda l: not re.fullmatch(r'[69]\d\d', l)  # leave out night and replacement lines
+        ns = []
+        for n, e in sorted(byname.items(), key=lambda x: x[1]['m'])[:3]:
+            ls = sorted(e['lines'], key=lambda x: (len(x[1]), x[1]))
+            ns.append({'name': n, 'm': round(e['m'] / 10) * 10, 'tram': [l for t, l in ls if t == 'tram' and day(l)],
+                       'bus': [l for t, l in ls if t == 'bus' and day(l)][:6]})
         via = max(vias, key=vias.get) if vias else ()
         out['campuses'][c['id']] = {
-            'address': c['address'], 'lat': round(c['lat'], 5), 'lon': round(c['lon'], 5), 'geocoded': c['geocoded'],
+            'address': c['address'], 'lat': round(c['lat'], 5), 'lon': round(c['lon'], 5), 'geo': c['how'], 'geoVersion': GEO_VERSION, 'handGeo': c.get('geo'),
             'stops': ns,
             'fromHub': {'min': round(min(times)), 'median': round(statistics.median(times)), 'via': [list(v) for v in via]} if times else None
         }
