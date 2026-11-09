@@ -1,0 +1,852 @@
+{
+ "asOf": "2026-11-10",
+ "source": "https://gtfs.ztp.krakow.pl/",
+ "feeds": [
+  "GTFS_KRK_T.zip",
+  "GTFS_KRK_A.zip"
+ ],
+ "method": "z przystanków Dworzec Główny, wtorek rano 7:30–8:30, najwyżej jedna przesiadka",
+ "campuses": {
+  "uj-centrum": {
+   "address": "ul. Gołębia 16",
+   "lat": 50.06074,
+   "lon": 19.93437,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Filharmonia",
+     "m": 180,
+     "tram": [],
+     "bus": [
+      "605",
+      "669"
+     ]
+    },
+    {
+     "name": "UJ / AST",
+     "m": 200,
+     "tram": [],
+     "bus": [
+      "14",
+      "75"
+     ]
+    },
+    {
+     "name": "Teatr Bagatela",
+     "m": 280,
+     "tram": [],
+     "bus": [
+      "502",
+      "601",
+      "605",
+      "669",
+      "902"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 14,
+    "median": 17,
+    "via": [
+     [
+      "bus",
+      "3"
+     ]
+    ]
+   }
+  },
+  "uj-filologie": {
+   "address": "al. Mickiewicza 9A",
+   "lat": 50.06273,
+   "lon": 19.92394,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "AGH / UR",
+     "m": 60,
+     "tram": [],
+     "bus": [
+      "124",
+      "144",
+      "164",
+      "169",
+      "173",
+      "179"
+     ]
+    },
+    {
+     "name": "Muzeum Narodowe",
+     "m": 340,
+     "tram": [],
+     "bus": [
+      "124",
+      "144",
+      "164",
+      "169",
+      "173",
+      "179"
+     ]
+    },
+    {
+     "name": "Oleandry",
+     "m": 390,
+     "tram": [],
+     "bus": [
+      "14",
+      "75"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 12,
+    "median": 13,
+    "via": [
+     [
+      "bus",
+      "179"
+     ]
+    ]
+   }
+  },
+  "uj-psych": {
+   "address": "ul. Ingardena 6",
+   "lat": 50.06125,
+   "lon": 19.91976,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Park Jordana",
+     "m": 160,
+     "tram": [],
+     "bus": [
+      "14",
+      "75"
+     ]
+    },
+    {
+     "name": "Oleandry",
+     "m": 160,
+     "tram": [],
+     "bus": [
+      "14",
+      "75"
+     ]
+    },
+    {
+     "name": "AGH / UR",
+     "m": 300,
+     "tram": [],
+     "bus": [
+      "124",
+      "144",
+      "164",
+      "169",
+      "173",
+      "179"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 16,
+    "median": 17,
+    "via": [
+     [
+      "bus",
+      "179"
+     ]
+    ]
+   }
+  },
+  "uj-wsmip": {
+   "address": "ul. Jabłonowskich 5",
+   "lat": 50.06129,
+   "lon": 19.93114,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "UJ / AST",
+     "m": 110,
+     "tram": [],
+     "bus": [
+      "14",
+      "75"
+     ]
+    },
+    {
+     "name": "Teatr Bagatela",
+     "m": 210,
+     "tram": [],
+     "bus": [
+      "502",
+      "601",
+      "605",
+      "669",
+      "902"
+     ]
+    },
+    {
+     "name": "Filharmonia",
+     "m": 260,
+     "tram": [],
+     "bus": [
+      "669"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 14,
+    "median": 19,
+    "via": [
+     [
+      "bus",
+      "16"
+     ],
+     [
+      "bus",
+      "502"
+     ]
+    ]
+   }
+  },
+  "uj-kampus": {
+   "address": "ul. Gronostajowa 7",
+   "lat": 50.02577,
+   "lon": 19.90187,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Kampus UJ",
+     "m": 120,
+     "tram": [],
+     "bus": [
+      "11",
+      "12",
+      "17",
+      "18",
+      "71"
+     ]
+    },
+    {
+     "name": "Ruczaj",
+     "m": 250,
+     "tram": [],
+     "bus": [
+      "662"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 32,
+    "median": 35,
+    "via": [
+     [
+      "bus",
+      "16"
+     ],
+     [
+      "bus",
+      "12"
+     ]
+    ]
+   }
+  },
+  "ujcm-lekarski": {
+   "address": "ul. św. Anny 12",
+   "lat": 50.06208,
+   "lon": 19.93333,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Teatr Bagatela",
+     "m": 110,
+     "tram": [],
+     "bus": [
+      "502",
+      "601",
+      "605",
+      "669",
+      "902"
+     ]
+    },
+    {
+     "name": "UJ / AST",
+     "m": 220,
+     "tram": [],
+     "bus": [
+      "14",
+      "75"
+     ]
+    },
+    {
+     "name": "Filharmonia",
+     "m": 310,
+     "tram": [],
+     "bus": [
+      "669"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 14,
+    "median": 17,
+    "via": [
+     [
+      "bus",
+      "3"
+     ],
+     [
+      "bus",
+      "502"
+     ]
+    ]
+   }
+  },
+  "ujcm-zdrowie": {
+   "address": "ul. Michałowskiego 12",
+   "lat": 50.06602,
+   "lon": 19.92822,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Stefana Batorego",
+     "m": 120,
+     "tram": [],
+     "bus": [
+      "664",
+      "704",
+      "714"
+     ]
+    },
+    {
+     "name": "AGH / UR",
+     "m": 340,
+     "tram": [],
+     "bus": [
+      "124",
+      "169",
+      "179",
+      "192",
+      "301",
+      "304"
+     ]
+    },
+    {
+     "name": "Plac Inwalidów",
+     "m": 350,
+     "tram": [],
+     "bus": [
+      "124",
+      "139",
+      "169",
+      "179",
+      "192",
+      "199"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 15,
+    "median": 16,
+    "via": [
+     [
+      "bus",
+      "179"
+     ]
+    ]
+   }
+  },
+  "ujcm-farmacja": {
+   "address": "ul. Medyczna 9",
+   "lat": 50.01172,
+   "lon": 19.99445,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Collegium Medicum UJ",
+     "m": 100,
+     "tram": [],
+     "bus": [
+      "153"
+     ]
+    },
+    {
+     "name": "Obronna",
+     "m": 210,
+     "tram": [],
+     "bus": [
+      "153"
+     ]
+    },
+    {
+     "name": "Prokocim Szpitale Uniwersyteckie",
+     "m": 370,
+     "tram": [],
+     "bus": [
+      "144",
+      "204",
+      "224",
+      "301",
+      "304",
+      "503"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 32,
+    "median": 32,
+    "via": [
+     [
+      "bus",
+      "7"
+     ],
+     [
+      "bus",
+      "304"
+     ]
+    ]
+   }
+  },
+  "agh": {
+   "address": "al. Mickiewicza 30",
+   "lat": 50.04176,
+   "lon": 19.94589,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Smolki",
+     "m": 190,
+     "tram": [],
+     "bus": [
+      "17",
+      "70",
+      "76",
+      "78"
+     ]
+    },
+    {
+     "name": "Korona",
+     "m": 200,
+     "tram": [],
+     "bus": [
+      "904"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 19,
+    "median": 21,
+    "via": [
+     [
+      "bus",
+      "3"
+     ],
+     [
+      "bus",
+      "13"
+     ]
+    ]
+   }
+  },
+  "pk": {
+   "address": "ul. Warszawska 24",
+   "lat": 50.07155,
+   "lon": 19.94393,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Politechnika",
+     "m": 30,
+     "tram": [],
+     "bus": [
+      "105",
+      "130",
+      "132",
+      "179",
+      "304",
+      "405"
+     ]
+    },
+    {
+     "name": "Dworzec Główny Zachód",
+     "m": 340,
+     "tram": [],
+     "bus": [
+      "105",
+      "132",
+      "405"
+     ]
+    },
+    {
+     "name": "Muzeum Armii Krajowej",
+     "m": 350,
+     "tram": [],
+     "bus": [
+      "317"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 3,
+    "median": 3,
+    "via": [
+     [
+      "bus",
+      "7"
+     ]
+    ]
+   }
+  },
+  "pk-czyzyny": {
+   "address": "al. Jana Pawła II 37",
+   "lat": 49.96854,
+   "lon": 19.8317,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Skawina",
+     "m": 140,
+     "tram": [],
+     "bus": [
+      "203",
+      "223",
+      "243",
+      "245",
+      "283",
+      "293"
+     ]
+    },
+    {
+     "name": "Skawina Ajka",
+     "m": 310,
+     "tram": [],
+     "bus": [
+      "203",
+      "223",
+      "243",
+      "253",
+      "283",
+      "293"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 62,
+    "median": 72,
+    "via": [
+     [
+      "bus",
+      "17"
+     ],
+     [
+      "bus",
+      "283"
+     ]
+    ]
+   }
+  },
+  "uek": {
+   "address": "ul. Rakowicka 27",
+   "lat": 50.06855,
+   "lon": 19.95548,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Uniwersytet Ekonomiczny",
+     "m": 190,
+     "tram": [],
+     "bus": [
+      "124"
+     ]
+    },
+    {
+     "name": "Muzeum Fotografii",
+     "m": 230,
+     "tram": [],
+     "bus": [
+      "72"
+     ]
+    },
+    {
+     "name": "Rondo Mogilskie",
+     "m": 240,
+     "tram": [],
+     "bus": [
+      "124"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 7,
+    "median": 7,
+    "via": []
+   }
+  },
+  "uken": {
+   "address": "ul. Podchorążych 2",
+   "lat": 50.07354,
+   "lon": 19.9087,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "UKEN",
+     "m": 100,
+     "tram": [],
+     "bus": [
+      "102"
+     ]
+    },
+    {
+     "name": "Głowackiego",
+     "m": 240,
+     "tram": [],
+     "bus": [
+      "102",
+      "664",
+      "704",
+      "708",
+      "714"
+     ]
+    },
+    {
+     "name": "Biprostal",
+     "m": 440,
+     "tram": [],
+     "bus": [
+      "102"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 16,
+    "median": 18,
+    "via": [
+     [
+      "bus",
+      "714"
+     ]
+    ]
+   }
+  },
+  "awf": {
+   "address": "al. Jana Pawła II 78",
+   "lat": 50.15952,
+   "lon": 19.79983,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Zelków Spławy",
+     "m": 180,
+     "tram": [],
+     "bus": [
+      "248"
+     ]
+    },
+    {
+     "name": "Zelków Staw",
+     "m": 270,
+     "tram": [],
+     "bus": [
+      "248"
+     ]
+    },
+    {
+     "name": "Zelków Kościuszki",
+     "m": 440,
+     "tram": [],
+     "bus": [
+      "248"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 61,
+    "median": 91,
+    "via": [
+     [
+      "bus",
+      "714"
+     ],
+     [
+      "bus",
+      "248"
+     ]
+    ]
+   }
+  },
+  "ur": {
+   "address": "al. Mickiewicza 21",
+   "lat": 50.04214,
+   "lon": 19.94562,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Korona",
+     "m": 160,
+     "tram": [],
+     "bus": [
+      "904"
+     ]
+    },
+    {
+     "name": "Smolki",
+     "m": 180,
+     "tram": [],
+     "bus": [
+      "17",
+      "70",
+      "76",
+      "78"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 18,
+    "median": 20,
+    "via": [
+     [
+      "bus",
+      "3"
+     ],
+     [
+      "bus",
+      "13"
+     ]
+    ]
+   }
+  },
+  "uafm": {
+   "address": "ul. Herlinga-Grudzińskiego 1",
+   "lat": 50.05089,
+   "lon": 19.96425,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "Zabłocie",
+     "m": 100,
+     "tram": [],
+     "bus": [
+      "7",
+      "9",
+      "49",
+      "78"
+     ]
+    },
+    {
+     "name": "Most Kotlarski",
+     "m": 150,
+     "tram": [],
+     "bus": [
+      "605"
+     ]
+    },
+    {
+     "name": "Klimeckiego",
+     "m": 310,
+     "tram": [],
+     "bus": [
+      "605"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 10,
+    "median": 11,
+    "via": [
+     [
+      "bus",
+      "7"
+     ]
+    ]
+   }
+  },
+  "ksm": {
+   "address": "ul. Zamojskiego 58",
+   "lat": 50.0405,
+   "lon": 19.947,
+   "geocoded": false,
+   "stops": [
+    {
+     "name": "Smolki",
+     "m": 290,
+     "tram": [],
+     "bus": [
+      "904"
+     ]
+    },
+    {
+     "name": "Korona",
+     "m": 330,
+     "tram": [],
+     "bus": [
+      "904"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 21,
+    "median": 23,
+    "via": [
+     [
+      "bus",
+      "3"
+     ],
+     [
+      "bus",
+      "13"
+     ]
+    ]
+   }
+  },
+  "zse1": {
+   "address": "ul. Kapucyńska 2",
+   "lat": 50.06172,
+   "lon": 19.93155,
+   "geocoded": true,
+   "stops": [
+    {
+     "name": "UJ / AST",
+     "m": 150,
+     "tram": [],
+     "bus": [
+      "14",
+      "75"
+     ]
+    },
+    {
+     "name": "Teatr Bagatela",
+     "m": 160,
+     "tram": [],
+     "bus": [
+      "502",
+      "601",
+      "605",
+      "669",
+      "902"
+     ]
+    },
+    {
+     "name": "Filharmonia",
+     "m": 290,
+     "tram": [],
+     "bus": [
+      "669"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 15,
+    "median": 19,
+    "via": [
+     [
+      "bus",
+      "3"
+     ],
+     [
+      "bus",
+      "502"
+     ]
+    ]
+   }
+  }
+ }
+}
