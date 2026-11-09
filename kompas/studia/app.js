@@ -2,6 +2,7 @@
 import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
+import { storyHtml, storyInit, storyClick } from './story.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
@@ -36,6 +37,7 @@ let drawOnce = true;    // the path map draws itself the first time the results 
 let notice = '';        // one-time message shown at the top of the next screen
 let prevFile = null;
 let pendingOpen = null;
+let storyCtx = null, storyCleanup = null;
 let compassSel = null;  // option picked on the compass (card id or 'quick'); the compass stays on screen
 let kierSel = null;     // option shown as a vertical road in "Twoje kierunki"
 const seenParts = new Set(); // option to open and scroll to when the results show (from the compass)    // { date, snapshot, missing } after loading an old file
@@ -44,8 +46,7 @@ function applyTheme() {
   const root = document.documentElement;
   if (theme) root.dataset.theme = theme; else delete root.dataset.theme;
   const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  const b = document.querySelector('[data-themetoggle]');
-  if (b) { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = dark ? ICON.sun : ICON.moon; }
+  document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = dark ? ICON.sun : ICON.moon; });
 }
 const ICON = {
   sun: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
@@ -71,12 +72,7 @@ const screens = [
   { id: 'zasieg', ch: 'droga', view: vReach },
   { id: 'niepokoj', ch: 'droga', view: vDoubt },
   { id: 'refleksja', ch: 'droga', view: vReflection },
-  { id: 'kompas', ch: 'wyniki', view: vCompass },
-  { id: 'w-mocne', ch: 'wyniki', view: vPartStrengths },
-  { id: 'w-kierunki', ch: 'wyniki', view: vPartDirections },
-  { id: 'w-droga', ch: 'wyniki', view: vPartPath },
-  { id: 'w-przyszlosc', ch: 'wyniki', view: vPartFuture },
-  { id: 'w-plik', ch: 'wyniki', view: vPartFile },
+  { id: 'kompas', ch: 'wyniki', view: vStory },
   { id: 'wyniki', ch: 'wyniki', view: vResults }
 ];
 
@@ -104,9 +100,12 @@ function render() {
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : '';
   notice = '';
   if (PARTS.some(p => p.id === s.id)) seenParts.add(s.id);
-  const tabs = s.ch === 'wyniki' && s.id !== 'wyniki' && provenStrengths(A).length && A.values.length ? tabBar(s.id) : '';
+  const tabs = '';
   document.body.classList.toggle('has-tabs', !!tabs);
+  document.body.classList.toggle('story', s.id === 'kompas' && !needResults());
+  if (storyCleanup) { storyCleanup(); storyCleanup = null; }
   $app.innerHTML = `<div class="${dir}">${prog}${note}${body}${nav}</div>${tabs}`;
+  if (s.id === 'kompas' && !needResults()) { applyTheme(); storyCleanup = storyInit($app, storyCtx); }
   if (s.id === 'wyniki' && pendingOpen) {
     const el = $app.querySelector(`[data-card="${pendingOpen}"]`); pendingOpen = null;
     if (el) { if (el.tagName === 'DETAILS') el.open = true; setTimeout(() => el.scrollIntoView({ block: 'start' }), 30); }
@@ -856,6 +855,58 @@ function vPartFile() {
     ${nextPart('w-plik')}`;
 }
 
+// ---- results story (story.js renders; app.js provides data and helpers)
+function makeStoryCtx() {
+  const ctx = {
+    data, A, esc, icon, scenArt, FORCE_ICON, wrap, tspans, shortInst, campus, transit, commute, routeUrl, confLine,
+    today: new Date().toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }),
+    rescore: () => scoreAll(A, data),
+    proven: () => provenStrengths(A),
+    options: r => shownOptions(r),
+    strengthName: id => nameOf(id),
+    dimName: d => data.dimensions.interests.find(x => x.id === d)?.name || d,
+    valueName: v => data.dimensions.values.find(x => x.id === v)?.name || v,
+    tramLines: r => { const opts = shownOptions(r);
+      return tramLines(r).map(l => { const o = opts.find(x => l.quick ? x.quick : (!x.quick && x.c === l.c)); return { ...l, no: o?.no || '?', color: o?.color || l.color }; }); },
+    panelHtml: o => panelHtml(o),
+    transportNote: () => data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : '',
+    changes: () => changesSince(ctx.r),
+    doubtHtml: () => { const d = data.questions.doubts.find(x => x.id === A.doubt);
+      return d ? `<div class="pcard"><h3>To, co cię niepokoi</h3><p>${d.card}</p>${A.doubtStrong ? '<p class="small">Jeśli ten niepokój zostaje z tobą na dłużej, porozmawiaj z doradcą zawodowym w szkole albo w bezpłatnej poradni psychologiczno-pedagogicznej.</p>' : ''}</div>` : ''; }
+  };
+  ctx.r = scoreAll(A, data);
+  return ctx;
+}
+function vStory() {
+  if (needResults()) return vResults();
+  storyCtx = makeStoryCtx();
+  return storyHtml(storyCtx);
+}
+
+// One option in the explorer: its vertical road on the left, what it means on the right.
+function panelHtml(o) {
+  const c = o.c, k = c.card;
+  if (o.quick) {
+    const f = o.quick.offer;
+    return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}</div><div class="pinfo"><span class="kicker" style="color:${o.color}">Szybki start</span><h3>${esc(f.name)}</h3>
+      <p>${esc(f.institution)}. Pierwsza praca po ${String(f.durationYears).replace('.', ',')} latach, a dalsze studia zostają otwarte.${f.next ? ' Potem: ' + esc(f.next) + '.' : ''}</p>
+      <p class="small muted">Łączy się z obszarem: ${esc(k.name)}.</p><h4>W Krakowie</h4>${offerHtml(f, o.quick.check)}</div></div>`;
+  }
+  const reach = c.offers.filter(x => x.check.reachable), blocked = c.offers.filter(x => !x.check.reachable && !x.check.hidden);
+  const src = k.demand && data.sources.find(x => x.id === k.demand.sourceId);
+  const my = data.scenarios.scenarios.find(x => x.id === A.scenario);
+  return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}</div><div class="pinfo">
+    <span class="kicker" style="color:${o.color}">${esc(o.slot)} · ${esc(c.band)}</span><h3>${esc(k.name)}</h3>
+    <p>${esc(k.whoYouHelp)}</p><p class="small muted">${c.reasons.map(esc).join(' · ')}</p>
+    <h4>Co to daje tobie</h4><p>${esc(k.whatYouGet)}</p>
+    <h4>Jak wygląda dzień pracy</h4><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
+    <h4>Jak tu rośniesz</h4><ol>${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol>
+    <h4>Dlaczego będzie potrzebne</h4><p>${esc(k.whyNeeded)}</p>${k.demand ? `<p class="small muted">Kraków 2026: ${esc(k.demand.text)}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</p>` : ''}
+    <p class="small">Przyszła potrzeba${my ? ` w scenariuszu „${esc(my.name)}”: <b>${esc(k.robustness[my.id])}</b>` : `: ${data.scenarios.scenarios.map(x => `${esc(x.name)} ${esc(k.robustness[x.id])}`).join(' · ')}`}</p>
+    <h4>W Krakowie</h4>${reach.map(x => offerHtml(x.offer, x.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(x => offerHtml(x.offer, x.check)).join('')}` : ''}${!c.offers.length ? '<p class="muted">brak danych w tej wersji</p>' : ''}
+    <h4>Mini-eksperyment na 30 dni</h4><p>${esc(k.experiment)}</p></div></div>`;
+}
+
 function confLine(c) {
   return `<p class="conf small"><b>Pewność wyników: ${c.level}.</b> ${c.missing.length ? `Niższa, bo pominąłeś: ${c.missing.map(esc).join(', ')}. Możesz wrócić i uzupełnić.` : 'Odpowiedziałeś na wszystkie bloki.'}</p>`;
 }
@@ -977,6 +1028,10 @@ document.addEventListener('keydown', e => {
 document.addEventListener('click', e => {
   const g = e.target.closest('[data-maprow]');
   if (g) { selectRow(Number(g.dataset.maprow)); return; }
+  if (current().id === 'kompas' && storyCtx) {
+    const st = e.target.closest('[data-jump],[data-explore],[data-pin],[data-pickopt],[data-scen]');
+    if (st && storyClick(st, $app, storyCtx)) { e.preventDefault(); return; }
+  }
   const t = e.target.closest('button');
   if (!t) return;
   const d = t.dataset;

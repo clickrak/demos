@@ -14,13 +14,13 @@ export function buildMarkdown(answers, result, data, today) {
   const st = id => data.strengths.find(s => s.id === id);
   const camp = id => data.campuses.find(c => c.id === id);
   L.push(`# Kompas – ${answers.name || 'ja'}, ${today}`);
-  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v0.6', '');
+  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v0.7', '');
 
   const complete = provenStrengths(answers).length > 0 && (answers.values || []).length > 0;
   if (!complete) {
     L.push('> Zapis postępu: wyniki pojawią się po rozdziale Ja. Wczytaj ten plik w Kompasie, żeby kontynuować.', '');
     L.push('<!-- dane do ponownego wczytania -->');
-    L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.6', dataVersion: data.config.dataVersion, date: today, snapshot: null, answers }, null, 1), '```');
+    L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.7', dataVersion: data.config.dataVersion, date: today, snapshot: null, answers }, null, 1), '```');
     return L.join('\n');
   }
   L.push('## Moje mocne strony');
@@ -81,7 +81,7 @@ export function buildMarkdown(answers, result, data, today) {
   const snapshot = complete ? { best: slots.best.map(c => c.card.id), most: slots.most?.card.id || null, surprise: slots.surprise?.card.id || null,
     quick: slots.quick?.o.offer.id || null, strengths: provenStrengths(answers).map(s => s.id) } : null;
   L.push('<!-- dane do ponownego wczytania -->');
-  L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.6', dataVersion: data.config.dataVersion, date: today, snapshot, answers }, null, 1), '```');
+  L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.7', dataVersion: data.config.dataVersion, date: today, snapshot, answers }, null, 1), '```');
   return L.join('\n');
 }
 
