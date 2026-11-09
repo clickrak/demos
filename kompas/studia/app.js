@@ -1,0 +1,458 @@
+// Kompas Studia v0.1: flow test. Screens, navigation, results, export.
+import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
+import { buildMarkdown, fileName } from '../core/export.js';
+import { makeStore } from '../core/store.js';
+
+const $app = document.getElementById('app');
+const store = makeStore('kompas-studia-v01');
+const TEST = new URLSearchParams(location.search).has('test');
+let data, A;
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const today = () => new Date().toISOString().slice(0, 10);
+const blank = () => ({ name: '', certainty: null, direction: null, rozszerzenia: [], jezyki: { pl: 'bardzo dobry' }, sport: '',
+  sort: {}, sortPos: 0, sliders: {}, values: [], strengths: [], scenario: null, neededWhere: null, homePlaces: [],
+  studyLength: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '' });
+
+async function load() {
+  const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
+  const [dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas] = await Promise.all([
+    '../core/dimensions.json', '../core/strengths.json', 'data/config.json', 'data/questions.json', 'data/scenarios.json',
+    'data/opportunities.json', 'data/db/pl/krakow/offers.json', 'data/db/pl/krakow/campuses.json', 'data/sources.json', 'data/personas.json'
+  ].map(get));
+  data = { dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas };
+  A = Object.assign(blank(), store.load() || {});
+  window.addEventListener('hashchange', render);
+  render();
+}
+
+const save = () => store.save(A);
+const setA = (k, v) => { A[k] = v; save(); render(); };
+
+// ---- screens ----------------------------------------------------------------
+const screens = [
+  { id: 'start', ch: null, view: vStart },
+  { id: 'pewnosc', ch: 'ja', view: vCertainty, ok: () => A.certainty },
+  { id: 'matura', ch: 'ja', view: vMatura },
+  { id: 'jezyki', ch: 'ja', view: vLanguages },
+  { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length },
+  { id: 'styl', ch: 'ja', view: vStyle },
+  { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 3 },
+  { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length >= 3 },
+  { id: 'odbicie', ch: 'ja', view: vReveal },
+  { id: 'scenariusze', ch: 'swiat', view: vScenarios },
+  { id: 'sily', ch: 'swiat', view: vForces },
+  { id: 'zasieg', ch: 'swiat', view: vReach },
+  { id: 'dlugosc', ch: 'droga', view: vLength, ok: () => A.studyLength },
+  { id: 'niepokoj', ch: 'droga', view: vDoubt },
+  { id: 'refleksja', ch: 'droga', view: vReflection },
+  { id: 'wyniki', ch: 'wyniki', view: vResults }
+];
+
+function current() {
+  const id = (location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start';
+  return screens.find(s => s.id === id) || screens[0];
+}
+
+function render() {
+  const s = current();
+  document.querySelectorAll('.chapters span').forEach(el => el.classList.toggle('on', el.dataset.ch === s.ch));
+  const i = screens.indexOf(s);
+  const body = s.view();
+  const nav = s.id === 'start' || s.id === 'wyniki' ? '' : `
+    <div class="nav">
+      <button class="btn ghost" data-go="${screens[i - 1].id}">Wstecz</button>
+      <button class="btn" data-go="${screens[i + 1].id}" ${s.ok && !s.ok() ? 'disabled' : ''}>${s.id === 'refleksja' ? 'Pokaż wyniki' : 'Dalej'}</button>
+    </div>`;
+  const keep = document.activeElement && document.activeElement.id;
+  const changed = $app.dataset.screen !== s.id;
+  $app.innerHTML = `<div class="${changed ? 'fade' : ''}">${body}${nav}</div>`;
+  $app.dataset.screen = s.id;
+  if (changed) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
+  else if (keep && document.getElementById(keep)) { const el = document.getElementById(keep); el.focus(); if (el.setSelectionRange && el.value) el.setSelectionRange(el.value.length, el.value.length); }
+}
+
+const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
+
+function vStart() {
+  return `
+    <h1>Co już umiesz i gdzie się przydasz</h1>
+    <p class="lead">Za chwilę zadamy ci kilka pytań. Nie ma złych odpowiedzi — chodzi o to, co cię naprawdę interesuje.</p>
+    <p>Trzy krótkie rozdziały: <b>Ja</b> (twoje mocne strony), <b>Świat</b> (gdzie będą potrzebne) i <b>Droga</b> (jak tam dojść). Na końcu dostajesz plik, który zostaje u ciebie.</p>
+    <p class="muted small">Jest wiele dobrych dróg, a wybór można korygować. To punkt wyjścia do rozmowy, nie test i nie wyrok. Twoje odpowiedzi zostają na tym urządzeniu.</p>
+    <label class="field" for="name">Imię (opcjonalnie, tylko do nazwy pliku)</label>
+    <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off">
+    <div class="actions">
+      <button class="btn" data-go="pewnosc">${A.certainty ? 'Wróć do pytań' : 'Zaczynamy'}</button>
+      ${A.certainty ? '<button class="btn ghost" data-go="wyniki">Moje wyniki</button>' : ''}
+    </div>
+    <details class="card noprint"><summary>Tryb testowy</summary>
+      <p class="small muted">Wczytaj gotowe odpowiedzi, żeby obejrzeć wyniki bez wypełniania.</p>
+      <div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div>
+      <button class="btn ghost" data-reset>Wyczyść moje odpowiedzi</button>
+    </details>`;
+}
+
+function vCertainty() {
+  const dir = A.certainty === 'pewny' ? `
+    <p>Który kierunek masz w głowie? Pokażemy go pierwszy, a obok dwa sąsiednie.</p>
+    <div class="chips">${data.opportunities.map(c => chip(`data-set="direction" data-val="${c.id}"`, esc(c.name), A.direction === c.id)).join('')}</div>` : '';
+  return `<h1>Jak pewny jesteś swojego kierunku?</h1>
+    <div class="chips stack">${data.questions.certainty.map(c => chip(`data-set="certainty" data-val="${c.id}"`, c.label, A.certainty === c.id)).join('')}</div>${dir}`;
+}
+
+function vMatura() {
+  return `<h1>Jakie przedmioty zdajesz na poziomie rozszerzonym?</h1>
+    <p class="explain">Rozszerzenie to przedmiot na maturze na wyższym poziomie. Od niego zależy, na które kierunki możesz się dostać.</p>
+    <div class="chips">${data.questions.subjects.map(s => chip(`data-toggle="rozszerzenia" data-val="${s}"`, s, A.rozszerzenia.includes(s))).join('')}</div>
+    <p class="small muted">Deklarację można zmienić do ${data.config.declarationDeadline}. Potem już nie.</p>`;
+}
+
+function vLanguages() {
+  const rows = data.questions.languages.map(l => `<div class="lang"><span>${l.name}</span><div class="chips">${
+    data.questions.languageLevels.map(v => chip(`data-lang="${l.id}" data-val="${v}"`, v, (A.jezyki[l.id] || 'brak') === v)).join('')}</div></div>`).join('');
+  return `<h1>Języki i sport</h1>
+    <p>Jak dogadujesz się w tych językach? Języki otwierają drzwi, nigdy ich nie zamykają.</p>${rows}
+    <label class="field" for="sport">Jaki sport uprawiasz albo uprawiałeś? Od kiedy, jak często?</label>
+    <input id="sport" type="text" data-field="sport" value="${esc(A.sport)}" placeholder="np. siłownia od roku, wcześniej wspinaczka">
+    <p class="small muted">Sport to dobre źródło dowodów na mocne strony, np. regularność albo wytrwałość.</p>`;
+}
+
+function vSort() {
+  const acts = data.questions.activities, n = acts.length, pos = Math.min(A.sortPos, n);
+  const dots = `<div class="dots" aria-hidden="true">${acts.map((_, i) => `<i class="${i < pos ? 'done' : ''}"></i>`).join('')}</div>`;
+  if (pos >= n) {
+    const liked = acts.filter(a => A.sort[a.id] === 1).map(a => `<li>${esc(a.text)}</li>`).join('');
+    return `<h1>Co lubisz robić</h1><div class="card"><p>Lubisz:</p><ul>${liked || '<li class="muted">nic nie zaznaczyłeś, to też jest odpowiedź</li>'}</ul>
+      <button class="btn ghost" data-sortreset>Przejdź jeszcze raz</button></div>${dots}`;
+  }
+  const a = acts[pos];
+  return `<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód.</p>
+    <div class="card sort"><div class="q">${esc(a.text)}</div>
+      <div class="row">
+        <button class="btn ghost" data-sortans="-1">nie lubię</button>
+        <button class="btn" data-sortans="1">lubię</button>
+      </div>
+      <button class="chip" data-sortans="0" style="margin-top:12px">obojętne, pomiń</button>
+      ${pos > 0 ? '<button class="chip" data-sortback style="margin-top:12px">cofnij</button>' : ''}
+    </div>${dots}`;
+}
+
+function vStyle() {
+  return `<h1>Jak lubisz pracować?</h1><p class="muted">Przesuń w stronę, która bardziej do ciebie pasuje. Środek też jest w porządku.</p>
+    ${data.dimensions.workStyle.map(w => `<div class="slider"><div class="ends"><span>${w.left}</span><span>${w.right}</span></div>
+      <input type="range" min="-3" max="3" step="1" id="sl-${w.id}" data-slider="${w.id}" value="${A.sliders[w.id] ?? 0}" aria-label="${w.left} albo ${w.right}"></div>`).join('')}`;
+}
+
+function vValues() {
+  return `<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz trzy, w kolejności: najpierw najważniejsze.</p>
+    <div class="chips">${data.dimensions.values.map(v => { const i = A.values.indexOf(v.id);
+      return chip(`data-value="${v.id}"`, `${i >= 0 ? `<span class="n">${i + 1}.</span> ` : ''}${v.name}`, i >= 0); }).join('')}</div>`;
+}
+
+function vStrengths() {
+  const picked = A.strengths.map(s => s.id);
+  const list = A.strengths.map(s => { const st = data.strengths.find(x => x.id === s.id);
+    return `<div class="strength"><label class="field" for="pr-${s.id}">${esc(st.name)}: kiedy to pokazałeś? Jedno zdanie wystarczy.</label>
+      <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${esc(s.proof)}" placeholder="${esc(st.example)}"></div>`; }).join('');
+  return `<h1>Twoje mocne strony</h1>
+    <p>Wybierz od 3 do 5 rzeczy, które ci wychodzą. Do każdej dopisz jeden przykład ze swojego życia: sport, szkoła, dom i rodzina, języki, pomoc innym.</p>
+    <div class="chips">${data.strengths.map(s => chip(`data-strength="${s.id}"`, s.name, picked.includes(s.id))).join('')}</div>
+    ${list ? `<div class="card">${list}</div>` : ''}
+    <p class="small muted">Mocna strona liczy się dopiero z przykładem. Przykład nie musi być wielki.</p>`;
+}
+
+function possibleStrengths(r) {
+  const picked = new Set(A.strengths.map(s => s.id));
+  const top = r.profile.top.slice(0, 2);
+  return data.strengths.filter(s => !picked.has(s.id) && s.dims.some(d => top.includes(d))).slice(0, 2);
+}
+
+function vReveal() {
+  const r = scoreAll(A, data);
+  const proven = provenStrengths(A).map(s => { const st = data.strengths.find(x => x.id === s.id);
+    return `<li><b>${esc(st.name)}</b><span class="proof">Widać to po tym, że: ${esc(s.proof)}</span></li>`; }).join('');
+  const maybe = possibleStrengths(r).map(s => `<li>${esc(s.name)} <span class="badge">możliwa mocna strona</span></li>`).join('');
+  return `<h1>To już widać</h1><p class="lead">Twoje mocne strony, twoimi słowami:</p>
+    <div class="card reveal"><ul>${proven}</ul></div>
+    ${maybe ? `<p>Twoje odpowiedzi podpowiadają jeszcze:</p><div class="card"><ul>${maybe}</ul><p class="small muted">Jeśli przypomnisz sobie przykład, wróć i dopisz.</p></div>` : ''}
+    <p>Teraz zobaczmy, gdzie te mocne strony będą potrzebne.</p>`;
+}
+
+function vScenarios() {
+  return `<h1>Świat w 2036: trzy scenariusze</h1>
+    <p>Przyszłości nikt nie zna. To scenariusze, nie prognozy. Wszystkie trzy są tak samo możliwe.</p>
+    <div class="scen">${data.scenarios.scenarios.map(s => `<div class="card"><h3>${s.name}</h3><p>${s.text}</p></div>`).join('')}</div>
+    <p>Który wydaje ci się najbardziej prawdopodobny? <span class="muted small">(Trafi do twojego pliku, nie wpływa na wyniki.)</span></p>
+    <div class="chips">${data.scenarios.scenarios.map(s => chip(`data-set="scenario" data-val="${s.id}"`, s.name, A.scenario === s.id)).join('')}</div>`;
+}
+
+function vForces() {
+  const src = id => data.sources.find(s => s.id === id);
+  return `<h1>Co działa we wszystkich scenariuszach</h1>
+    ${data.scenarios.forces.map(f => { const s = src(f.sourceId);
+      return `<div class="card"><h3>${f.name}</h3><p>${f.text}</p><p class="small muted">${s ? `Źródło: <a href="${s.url}" target="_blank" rel="noopener">${esc(s.title)}</a>, ` : ''}stan na ${f.asOf}</p></div>`; }).join('')}
+    <h2>Sektory z pracą na lata</h2><ul>${data.scenarios.sectors.map(s => `<li>${s}</li>`).join('')}</ul>
+    <p class="muted small">${data.scenarios.shrinking}</p>
+    <p class="lead">Mniej ludzi do pracy oznacza, że każdy będzie bardziej potrzebny. Zobaczmy, gdzie twoje mocne strony zrobią najwięcej dobrego.</p>`;
+}
+
+function vReach() {
+  return `<h1>Gdzie chcesz być potrzebny?</h1>
+    <p>Gdzie chciałbyś być potrzebny za 10 lat?</p>
+    <div class="chips">${data.questions.neededWhere.map(v => chip(`data-set="neededWhere" data-val="${v}"`, v, A.neededWhere === v)).join('')}</div>
+    <p>Gdzie czujesz się u siebie? <span class="muted small">(opcjonalnie, możesz wybrać kilka; nie wpływa na wyniki)</span></p>
+    <div class="chips">${data.questions.homePlaces.map(v => chip(`data-toggle="homePlaces" data-val="${v}"`, v, A.homePlaces.includes(v))).join('')}</div>
+    <p class="small muted">W tej wersji pokazujemy uczelnie w Krakowie. Inne miejsca pojawią się później.</p>`;
+}
+
+function vLength() {
+  return `<h1>Ile chcesz się uczyć?</h1>
+    <div class="chips stack">${data.questions.studyLength.map(o => chip(`data-set="studyLength" data-val="${o.id}"`, o.label, A.studyLength === o.id)).join('')}</div>
+    <p class="explain">Krótka droga, np. szkoła policealna (1–2,5 roku, bezpłatna, bez matury) albo 3-letni licencjat, to pełnoprawna opcja. Zostawia otwarte dalsze studia.</p>
+    <label class="field" for="start">Ile minut jedziesz z domu na Dworzec Główny?</label>
+    <input id="start" type="number" min="0" max="180" data-field="startMin" value="${esc(A.startMin)}" inputmode="numeric">
+    <p class="small muted">Liczymy z tego czas dojazdu na uczelnię. Zostaje na tym urządzeniu.</p>`;
+}
+
+function vDoubt() {
+  const d = data.questions.doubts.find(x => x.id === A.doubt);
+  return `<h1>Co cię najbardziej niepokoi w tym wyborze?</h1><p class="muted">Opcjonalnie. Możesz to pominąć.</p>
+    <div class="chips stack">${data.questions.doubts.map(x => chip(`data-set="doubt" data-val="${x.id}"`, x.label, A.doubt === x.id)).join('')}</div>
+    ${d ? `<div class="card fade"><p>${d.card}</p></div>
+      <p>Jak mocno to cię męczy?</p><div class="chips">${chip('data-strong="0"', 'trochę', !A.doubtStrong)}${chip('data-strong="1"', 'bardzo', A.doubtStrong)}</div>` : ''}`;
+}
+
+function vReflection() {
+  return `<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
+    ${data.questions.reflection.map(q => `<label class="field" for="rf-${q.id}">${q.text}</label>
+      <textarea id="rf-${q.id}" data-refl="${q.id}">${esc(A.reflection[q.id] || '')}</textarea>`).join('')}`;
+}
+
+// ---- results ----------------------------------------------------------------
+const campus = id => data.campuses.find(c => c.id === id);
+
+function commute(c) {
+  const base = Number(A.startMin) || 0;
+  const t = base + c.minFromHub;
+  return `ok. ${t}–${t + 10} min${c.status === 'przyklad' ? ' (przykład)' : ''}`;
+}
+
+function offerHtml(o, chk) {
+  const c = campus(o.campus);
+  const route = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address + ', Kraków')}`;
+  return `<div class="offer">
+    <b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
+    <span class="muted">${esc(o.level)} · ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'}</span><br>
+    ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
+    <div class="small">Wymagania: ${esc(o.requires.note || '-')}</div>
+    ${chk.fix ? `<div class="small fix">Co możesz zrobić: ${esc(chk.fix)}</div>` : ''}
+    <div class="small">${esc(c.name)}, ${esc(c.address)} · ${esc(c.lines)} · z domu ${commute(c)} · <a href="${route}" target="_blank" rel="noopener">Zaplanuj dojazd</a></div>
+  </div>`;
+}
+
+function cardHtml(slot, c, open, scenario) {
+  const k = c.card;
+  const force = data.scenarios.forces.find(f => f.id === k.force);
+  const conv = c.paths.length >= 2 ? `<p class="converge">Dotarłeś tu ${c.paths.length} drogami: ${c.paths.map(p => esc(p.label)).join(', ')}.</p>` : '';
+  const reach = c.offers.filter(o => o.check.reachable), blocked = c.offers.filter(o => !o.check.reachable);
+  const first = reach[0]?.offer;
+  const body = `
+    <p class="small muted">${c.reasons.map(esc).join(' · ')}</p>${conv}
+    <dl>
+      <dt>Komu pomagasz</dt><dd>${esc(k.whoYouHelp)}</dd>
+      <dt>Co to daje tobie</dt><dd>${esc(k.whatYouGet)}</dd>
+      <dt>Dlaczego będzie potrzebne</dt><dd>${esc(k.whyNeeded)}${force ? ` <span class="muted small">(${force.name.toLowerCase()})</span>` : ''}</dd>
+      ${c.strengthsUsed.length ? `<dt>Twoje mocne strony, które tu pracują</dt><dd>${c.strengthsUsed.map(p => esc(p.label)).join(', ')}</dd>` : ''}
+      <dt>Jak wygląda dzień pracy</dt><dd><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul></dd>
+      <dt>Jak tu rośniesz</dt><dd>${k.growth.map(esc).join(' → ')}</dd>
+      <dt>Odporność na scenariusze</dt><dd>${esc(k.robustness[scenario] || k.robustness.B)}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(propozycja do sprawdzenia)</span></dd>
+      <dt>Przykładowe role</dt><dd>${esc(k.roles)}</dd>
+      <dt>W Krakowie</dt><dd>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${!c.offers.length ? '<span class="muted">brak danych w tej wersji</span>' : ''}</dd>
+      ${first ? `<dt>Twoja droga</dt><dd><ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul></dd>` : ''}
+      <dt>Mini-eksperyment na 30 dni</dt><dd>${esc(k.experiment)}</dd>
+    </dl>
+    ${TEST ? `<p class="testv">fit ${c.fit.toFixed(1)} · int ${c.parts.interests.toFixed(2)} · styl ${c.parts.workStyle.toFixed(2)} · wart ${c.parts.values.toFixed(2)}</p>` : ''}`;
+  return `<details class="card opt" ${open ? 'open' : ''}>
+    <summary><span class="badge slot">${slot}</span> <span class="badge">${esc(c.band)}</span>${c.pinned ? ' <span class="badge slot">twój kierunek</span>' : ''}<h3>${esc(k.name)}</h3></summary>${body}</details>`;
+}
+
+function compassSvg(r) {
+  const S = 360, C = S / 2, dims = data.dimensions.interests;
+  const ang = i => (-90 + i * 60 + 30) * Math.PI / 180;
+  const pt = (a, rad) => [C + rad * Math.cos(a), C + rad * Math.sin(a)];
+  const arc = (i, rad, frac) => {
+    const a0 = (-90 + i * 60 + 3) * Math.PI / 180, a1 = a0 + (54 * frac) * Math.PI / 180;
+    const [x0, y0] = pt(a0, rad), [x1, y1] = pt(a1, rad);
+    return `M${x0.toFixed(1)},${y0.toFixed(1)} A${rad},${rad} 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)}`;
+  };
+  const strong = new Set(r.slots.best.map(c => c.card.id));
+  const di = Object.fromEntries(dims.map((d, i) => [d.id, i]));
+  // Each card sits in the sector of its top interest dimension, spread by its index.
+  const perSector = {};
+  const cards = r.cards.map(c => {
+    const top = Object.keys(c.card.interests).sort((a, b) => c.card.interests[b] - c.card.interests[a])[0];
+    const k = perSector[top] = (perSector[top] || 0) + 1;
+    const a = ang(di[top]) + (k - 1.5) * 0.28;
+    return { c, top, a, p: pt(a, 150) };
+  });
+  let svg = `<svg viewBox="0 0 ${S} ${S}" role="img" aria-label="Kompas: twoje mocne strony w środku, zainteresowania w pierwszym pierścieniu, opcje na zewnątrz">`;
+  svg += `<circle cx="${C}" cy="${C}" r="100" fill="none" stroke="var(--line)"/><circle cx="${C}" cy="${C}" r="150" fill="none" stroke="var(--line)" stroke-dasharray="2 4"/>`;
+  for (const k of cards) {
+    const dp = pt(ang(di[k.top]), 100), on = strong.has(k.c.card.id);
+    svg += `<path d="M${C},${C} L${dp[0].toFixed(1)},${dp[1].toFixed(1)} L${k.p[0].toFixed(1)},${k.p[1].toFixed(1)}" fill="none" stroke="${on ? 'var(--strong)' : 'var(--check)'}" stroke-width="${on ? 2.5 : 1}" opacity="${on ? 1 : .5}"/>`;
+  }
+  dims.forEach((d, i) => {
+    svg += `<path d="${arc(i, 100, 1)}" stroke="var(--line)" stroke-width="10" fill="none" stroke-linecap="round"/>`;
+    svg += `<path d="${arc(i, 100, r.profile.score[d.id] / 100)}" stroke="var(--good)" stroke-width="10" fill="none" stroke-linecap="round"/>`;
+    const [x, y] = pt(ang(i), 76);
+    svg += `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${d.name}</text>`;
+  });
+  for (const k of cards) {
+    const on = strong.has(k.c.card.id), [x, y] = k.p;
+    svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${on ? 7 : 4}" fill="${on ? 'var(--strong)' : 'var(--card)'}" stroke="var(--strong)"/>`;
+    if (on) {
+      const lx = x + (x > C ? 10 : -10);
+      svg += `<text x="${lx.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${x > C ? 'start' : 'end'}" style="font-weight:600">${esc(k.c.card.name.split(' ')[0])}</text>`;
+    }
+  }
+  svg += `<circle cx="${C}" cy="${C}" r="30" fill="var(--accent-soft)"/><text x="${C}" y="${C + 4}" text-anchor="middle" style="font-weight:600">Ty</text></svg>`;
+  return svg;
+}
+
+// Schematic map: positions projected from latitude/longitude; Vistula drawn roughly.
+function mapSvg(pins) {
+  const W = 360, H = 260, box = { n: 50.085, s: 50.005, w: 19.88, e: 20.03 };
+  const xy = (lat, lon) => [((lon - box.w) / (box.e - box.w)) * W, ((box.n - lat) / (box.n - box.s)) * H];
+  const river = [[50.035, 19.88], [50.046, 19.905], [50.052, 19.925], [50.049, 19.94], [50.046, 19.955], [50.040, 19.968], [50.031, 19.985], [50.027, 20.005], [50.032, 20.03]];
+  const d = river.map((p, i) => (i ? 'L' : 'M') + xy(...p).map(v => v.toFixed(1)).join(',')).join(' ');
+  const hub = xy(50.0675, 19.945);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Schematyczna mapa Krakowa z uczelniami"><rect width="${W}" height="${H}" rx="12" fill="var(--card)" stroke="var(--line)"/>`;
+  svg += `<path d="${d}" stroke="#7fb3d5" stroke-width="7" fill="none" stroke-linecap="round" opacity=".7"/><text x="12" y="${H - 12}" class="muted">Wisła</text>`;
+  svg += `<rect x="${hub[0] - 5}" y="${hub[1] - 5}" width="10" height="10" fill="var(--ink)"/><text x="${hub[0] + 8}" y="${hub[1] - 6}">Kraków Główny</text>`;
+  pins.forEach((p, i) => {
+    const [x, y] = xy(p.c.lat, p.c.lon);
+    svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="${p.color}" stroke="var(--card)" stroke-width="2"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" style="fill:var(--bg);font-weight:700">${i + 1}</text>`;
+  });
+  return svg + '</svg>';
+}
+
+function vResults() {
+  if (provenStrengths(A).length < 1 || !A.values.length) {
+    return `<h1>Jeszcze trochę</h1><p>Wyniki pojawią się, gdy przejdziesz przez rozdział Ja (mocne strony i wartości).</p><button class="btn" data-go="pewnosc">Wracam do pytań</button>`;
+  }
+  const r = scoreAll(A, data), s = r.slots, sc = A.scenario || 'B';
+  const proven = provenStrengths(A).map(x => `<li><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span class="proof">${esc(x.proof)}</span></li>`).join('');
+  const quick = s.quick ? (() => { const o = s.quick.o.offer;
+    return `<div class="card opt"><span class="badge slot">Szybki start</span><h3>${esc(o.name)}</h3>
+      <p>${esc(o.institution)}. Pierwsza praca po ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'latach' : 'latach'}, a dalsze studia zostają otwarte.${o.next ? ' ' + esc(o.next) + '.' : ''}</p>
+      ${offerHtml(o, s.quick.o.check)}<p class="small muted">Łączy się z kartą: ${esc(s.quick.c.card.name)}.</p></div>`; })() : '';
+
+  // Map pins: the campuses of reachable offers in the shown slots.
+  const shown = [...s.best, s.most, s.surprise].filter(Boolean);
+  const pins = [], seen = new Set();
+  for (const c of shown) for (const o of c.offers) {
+    const cp = campus(o.offer.campus);
+    if (seen.has(cp.id)) continue; seen.add(cp.id);
+    pins.push({ c: cp, color: s.best.includes(c) ? 'var(--strong)' : 'var(--good)', label: `${o.offer.institution}` });
+  }
+  if (s.quick && !seen.has(s.quick.o.offer.campus)) pins.push({ c: campus(s.quick.o.offer.campus), color: 'var(--good)' });
+
+  const doubt = data.questions.doubts.find(d => d.id === A.doubt);
+  const twin = s.best.map(c => `<li>${esc(c.card.name)}: ${c.paths.length ? c.paths.map(p => esc(p.label)).join(' → ') : 'z odpowiedzi o zainteresowaniach'}</li>`).join('');
+
+  return `
+    <h1>Twój kompas</h1>
+    <h2>Twoje mocne strony</h2><div class="card reveal"><ul>${proven}</ul></div>
+    <div class="card compass">${compassSvg(r)}
+      <details class="twin"><summary>Ten sam kompas jako tekst</summary>
+        <p>Twoje najmocniejsze zainteresowania: ${r.profile.top.slice(0, 3).map(d => data.dimensions.interests.find(x => x.id === d).name).join(', ')}.</p>
+        <p>Najmocniejsze ścieżki:</p><ul>${twin}</ul></details></div>
+
+    <h2>Gdzie się przydasz</h2>
+    <p class="muted small">Bez liczb: każda opcja pokazuje, dlaczego się pojawiła. Otwarte są najwyżej trzy karty naraz.</p>
+    ${s.best.map((c, i) => cardHtml('Najlepsze dopasowanie', c, i === 0, sc)).join('')}
+    ${s.most ? cardHtml('Most: łączy twoje dwa główne zainteresowania', s.most, false, sc) : ''}
+    ${quick}
+    ${s.surprise ? cardHtml('Niespodzianka: może cię zaskoczyć', s.surprise, false, sc) : ''}
+    ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
+
+    <h2>Gdzie to jest</h2>
+    <div class="card map">${mapSvg(pins)}
+      <ol class="small">${pins.map(p => `<li>${esc(p.c.name)}, ${esc(p.c.address)}: z domu ${commute(p.c)}</li>`).join('')}</ol>
+      <p class="small muted">Schemat, nie dokładna mapa. Czasy dojazdu w tej wersji są przykładowe.</p></div>
+
+    <div class="card"><h3>Niemcy i dalej</h3>
+      <p>Polska matura daje bezpośredni wstęp na niemieckie uczelnie. Większość studiów licencjackich jest po niemiecku (poziom C1), wiele magisterskich po angielsku. Obywatele UE nie płacą czesnego na uczelniach publicznych w Bawarii, tylko opłatę semestralną. Jedna z dróg: licencjat w Krakowie, magisterka w Monachium. Szczegóły pojawią się w kolejnej wersji.</p></div>
+
+    ${doubt ? `<div class="card"><h3>To, co cię niepokoi</h3><p>${doubt.card}</p>
+      ${A.doubtStrong ? '<p class="notice">Jeśli ten niepokój zostaje z tobą na dłużej, porozmawiaj z doradcą zawodowym w szkole albo w bezpłatnej poradni psychologiczno-pedagogicznej. To normalne, że przy takim wyborze pomaga człowiek, a nie aplikacja.</p>' : ''}</div>` : ''}
+
+    <h2>Mogę to zrobić, bo…</h2>
+    <label class="field" for="cando">Dokończ jednym zdaniem. Trafi na górę twojego pliku.</label>
+    <input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
+
+    <h2>Twój plik</h2>
+    <p>Plik powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku możesz do niego wrócić.</p>
+    <div class="actions">
+      <button class="btn" data-export="download">Pobierz plik .md</button>
+      <button class="btn ghost" data-export="copy">Kopiuj do schowka</button>
+      <button class="btn ghost" data-export="print">Drukuj / PDF</button>
+    </div>
+    <p id="msg" class="small muted" role="status"></p>
+
+    <details class="card"><summary>Dla rodzica</summary><ul>
+      <li>Pytaj, nie mów: „Co cię tu zaskoczyło?” działa lepiej niż „Widzisz, mówiłem”.</li>
+      <li>Reaguj na dowody, nie na opcję: dowody są jego, opcja może się zmienić.</li>
+      <li>Bez porównań między braćmi; każdy plik należy do właściciela.</li>
+      <li>Umówcie się na jeden mały krok w tym miesiącu, nie na ostateczny wybór.</li>
+      <li>Jeśli niepokój jest silny, doradca zawodowy w szkole albo bezpłatna poradnia psychologiczno-pedagogiczna.</li></ul></details>
+    <div class="actions noprint"><button class="btn ghost" data-go="pewnosc">Zmień odpowiedzi</button></div>`;
+}
+
+// ---- events -----------------------------------------------------------------
+document.addEventListener('click', e => {
+  const t = e.target.closest('button');
+  if (!t) return;
+  const d = t.dataset;
+  if (d.go) { location.hash = '#/' + d.go; return; }
+  if (d.set) { setA(d.set, A[d.set] === d.val && d.set !== 'certainty' && d.set !== 'studyLength' ? null : d.val); return; }
+  if (d.toggle) { const arr = A[d.toggle]; const i = arr.indexOf(d.val); i >= 0 ? arr.splice(i, 1) : arr.push(d.val); save(); render(); return; }
+  if (d.lang) { A.jezyki[d.lang] = d.val; save(); render(); return; }
+  if (d.sortans !== undefined) { const a = data.questions.activities[A.sortPos]; A.sort[a.id] = Number(d.sortans); A.sortPos++; save(); render(); return; }
+  if (d.sortback !== undefined) { A.sortPos = Math.max(0, A.sortPos - 1); save(); render(); return; }
+  if (d.sortreset !== undefined) { A.sortPos = 0; save(); render(); return; }
+  if (d.value) { const i = A.values.indexOf(d.value); if (i >= 0) A.values.splice(i, 1); else if (A.values.length < 3) A.values.push(d.value); save(); render(); return; }
+  if (d.strength) { const i = A.strengths.findIndex(s => s.id === d.strength); if (i >= 0) A.strengths.splice(i, 1); else if (A.strengths.length < 5) A.strengths.push({ id: d.strength, proof: '' }); save(); render(); return; }
+  if (d.strong !== undefined) { setA('doubtStrong', d.strong === '1'); return; }
+  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length }); save(); location.hash = '#/wyniki'; render(); return; }
+  if (d.reset !== undefined) { if (confirm('Usunąć odpowiedzi zapisane na tym urządzeniu?')) { store.clear(); A = blank(); render(); } return; }
+  if (d.export) doExport(d.export);
+});
+
+document.addEventListener('input', e => {
+  const t = e.target, d = t.dataset;
+  if (d.field) { A[d.field] = d.field === 'startMin' ? Number(t.value) : t.value; save(); if (t.id === 'name' || t.id === 'cando' || t.id === 'sport' || t.id === 'start') return; }
+  if (d.slider) { A.sliders[d.slider] = Number(t.value); save(); return; }
+  if (d.proof) { const s = A.strengths.find(x => x.id === d.proof); s.proof = t.value; save();
+    const ok = provenStrengths(A).length >= 3; const next = $app.querySelector('.nav .btn:not(.ghost)'); if (next) next.disabled = !ok; return; }
+  if (d.refl) { A.reflection[d.refl] = t.value; save(); }
+});
+
+async function doExport(kind) {
+  const r = scoreAll(A, data), md = buildMarkdown(A, r, data, today());
+  const msg = document.getElementById('msg');
+  if (kind === 'download') {
+    const url = URL.createObjectURL(new Blob([md], { type: 'text/markdown;charset=utf-8' }));
+    const a = Object.assign(document.createElement('a'), { href: url, download: fileName(A, today()) });
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    msg.textContent = 'Plik zapisany.';
+  } else if (kind === 'copy') {
+    try { await navigator.clipboard.writeText(md); msg.textContent = 'Skopiowane.'; } catch { msg.textContent = 'Nie udało się skopiować. Użyj „Pobierz plik”.'; }
+  } else {
+    document.querySelectorAll('details').forEach(d => d.open = true);
+    window.print();
+  }
+}
+
+load().catch(err => { $app.innerHTML = `<p>Nie udało się wczytać danych (${esc(err.message)}). Odśwież stronę.</p>`; });

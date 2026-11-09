@@ -1,0 +1,16 @@
+{
+  "scenarios": [
+    { "id": "A", "name": "Niezależna Europa", "text": "Pokój w Ukrainie, tania czysta energia, Polska jako centrum odbudowy Ukrainy." },
+    { "id": "B", "name": "Lawirowanie", "text": "Słaba, ale groźna Rosja, zmienne ceny energii, atom spóźniony o 2–4 lata." },
+    { "id": "C", "name": "Pod presją", "text": "USA wycofują się z Europy, wysokie wydatki na obronność, szybszy spadek liczby ludności." }
+  ],
+  "forces": [
+    { "id": "demografia", "name": "Demografia", "text": "W 2025 r. urodziło się ok. 238 tys. dzieci, zmarło ok. 406 tys. osób. Co roku jest mniej ludzi do pracy.", "sourceId": "notes-fertility", "asOf": "2026-05" },
+    { "id": "starzenie", "name": "Starzenie się", "text": "Mediana wieku przekroczy 50 lat do 2060 r. Więcej osób będzie potrzebować opieki i rehabilitacji.", "sourceId": "pr-2060", "asOf": "2026" },
+    { "id": "energia", "name": "Energia", "text": "Pierwszy blok jądrowy planowany na 2036 r.; sieci i OZE do budowy przez dekady.", "sourceId": "nucnet", "asOf": "2026-02" },
+    { "id": "bezpieczenstwo", "name": "Bezpieczeństwo", "text": "Polska zostaje krajem frontowym NATO.", "sourceId": null, "asOf": "2026" },
+    { "id": "automatyzacja", "name": "Automatyzacja i AI", "text": "Mniej rąk do pracy oznacza więcej maszyn i oprogramowania.", "sourceId": null, "asOf": "2026" }
+  ],
+  "sectors": ["ochrona zdrowia i opieka nad seniorami", "energetyka i sieci", "obronność i cyberbezpieczeństwo", "automatyzacja, robotyka, AI", "logistyka i infrastruktura", "woda i klimat"],
+  "shrinking": "Kurczyć się mogą: węgiel, rutynowa praca biurowa, nowe budownictwo poza dużymi miastami."
+}

@@ -1,0 +1,17 @@
+[
+  { "id": "wytrwalosc", "name": "wytrwałość", "dims": ["sys"], "example": "Wracałem do trudnej drogi wspinaczkowej, aż ją przeszedłem." },
+  { "id": "spokoj", "name": "spokój pod presją", "dims": ["spo"], "example": "Na sprawdzianie, gdy reszta panikowała, zrobiłem plan i poszedłem po kolei." },
+  { "id": "logika", "name": "logiczne myślenie", "dims": ["ana"], "example": "Znalazłem błąd w zadaniu, którego nie widział nikt w grupie." },
+  { "id": "tlumaczenie", "name": "tłumaczenie innym", "dims": ["spo", "twr"], "example": "Wytłumaczyłem koledze temat przed kartkówką i zdał." },
+  { "id": "empatia", "name": "empatia", "dims": ["spo"], "example": "Zauważyłem, że ktoś ma gorszy dzień, i zagadałem." },
+  { "id": "dokladnosc", "name": "dokładność", "dims": ["sys", "ana"], "example": "Sprawdzam tekst dwa razy, zanim go oddam." },
+  { "id": "ciekawosc", "name": "ciekawość świata", "dims": ["ana", "twr"], "example": "Czytam o czymś do nocy, bo chcę wiedzieć, jak to działa." },
+  { "id": "zespol", "name": "praca w zespole", "dims": ["spo", "prz"], "example": "W projekcie grupowym pilnowałem, żeby każdy miał swoje zadanie." },
+  { "id": "dyscyplina", "name": "dyscyplina i regularność", "dims": ["sys"], "example": "Chodzę na siłownię regularnie, nawet gdy mi się nie chce." },
+  { "id": "kondycja", "name": "kondycja", "dims": ["tec"], "example": "Trenuję kilka razy w tygodniu i widzę postępy." },
+  { "id": "jezyki", "name": "języki", "dims": ["twr", "spo"], "example": "Dogaduję się po angielsku bez stresu, po ukraińsku rozmawiam." },
+  { "id": "szybka_nauka", "name": "szybkie uczenie się", "dims": ["ana"], "example": "Nowy program ogarnąłem w jeden wieczór." },
+  { "id": "organizowanie", "name": "organizowanie", "dims": ["prz", "sys"], "example": "Zaplanowałem wyjazd ze znajomymi: bilety, nocleg, plan dnia." },
+  { "id": "pomyslowosc", "name": "pomysłowość", "dims": ["twr"], "example": "Wymyśliłem inny sposób na zadanie i zadziałał." },
+  { "id": "odpowiedzialnosc", "name": "odpowiedzialność za innych", "dims": ["spo", "prz"], "example": "Opiekowałem się młodszym bratem, gdy rodzice wyjeżdżali." }
+]

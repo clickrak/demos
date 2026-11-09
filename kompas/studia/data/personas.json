@@ -1,0 +1,47 @@
+[
+  {
+    "id": "A", "label": "Persona A: języki i ludzie, niepewny",
+    "expect": { "topClusters": ["ludzie", "jezyki"], "notTop": ["software"] },
+    "answers": {
+      "name": "Persona A", "certainty": "niepewny", "direction": null,
+      "rozszerzenia": ["biologia", "polski"],
+      "jezyki": { "pl": "bardzo dobry", "en": "bardzo dobry", "de": "podstawy", "uk": "komunikatywny", "fr": "brak" },
+      "sport": "Siłownia teraz, wcześniej wspinaczka.",
+      "sort": { "a1": -1, "a2": 1, "a3": 1, "a4": -1, "a5": 0, "a6": 1, "a7": 1, "a8": 0, "a9": 0, "a10": 1 },
+      "sliders": { "zespol": 1, "ludzie": -2, "ruch": -1, "konkret": -1 },
+      "values": ["pomaganie", "wplyw", "zagranica"],
+      "strengths": [
+        { "id": "jezyki", "proof": "Rozmawiam po angielsku bez stresu, po ukraińsku dogadam się z kolegą." },
+        { "id": "tlumaczenie", "proof": "Tłumaczę młodszym, gdy czegoś nie rozumieją." },
+        { "id": "wytrwalosc", "proof": "Na wspinaczce wracałem do trudnej drogi, aż ją przeszedłem." },
+        { "id": "dyscyplina", "proof": "Chodzę na siłownię regularnie od dłuższego czasu." }
+      ],
+      "scenario": "B", "neededWhere": "cała Polska", "homePlaces": ["Kraków"],
+      "studyLength": "srednio", "startMin": 30,
+      "doubt": "zle", "doubtStrong": false,
+      "reflection": { "f1": "Gdy czytałem po angielsku o czymś, co mnie wciągnęło.", "f2": "Siedzieć sam cały dzień przy tabelkach." }
+    }
+  },
+  {
+    "id": "B", "label": "Persona B: matematyka i fizyka, woli sam",
+    "expect": { "topClusters": ["analityka"] },
+    "answers": {
+      "name": "Persona B", "certainty": "troche", "direction": null,
+      "rozszerzenia": ["matematyka", "fizyka"],
+      "jezyki": { "pl": "bardzo dobry", "en": "komunikatywny", "de": "brak", "uk": "brak", "fr": "brak" },
+      "sport": "Rower.",
+      "sort": { "a1": 1, "a2": -1, "a3": -1, "a4": 1, "a5": 1, "a6": -1, "a7": 0, "a8": 0, "a9": 1, "a10": -1 },
+      "sliders": { "zespol": -3, "ludzie": 3, "ruch": 2, "konkret": 1 },
+      "values": ["trudne", "zarobki", "niezaleznosc"],
+      "strengths": [
+        { "id": "logika", "proof": "Rozwiązuję zadania z olimpiady matematycznej dla przyjemności." },
+        { "id": "szybka_nauka", "proof": "Nauczyłem się podstaw Pythona w tydzień." },
+        { "id": "dokladnosc", "proof": "W fizyce sprawdzam jednostki przy każdym kroku." }
+      ],
+      "scenario": "A", "neededWhere": "Europa i świat", "homePlaces": [],
+      "studyLength": "dlugo", "startMin": 20,
+      "doubt": null, "doubtStrong": false,
+      "reflection": { "f1": "Przy pisaniu małej gry.", "f2": "Pracy z tłumem klientów." }
+    }
+  }
+]

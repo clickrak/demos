@@ -1,0 +1,14 @@
+[
+  { "id": "uj-centrum", "name": "UJ, centrum (Wydział Polonistyki, filologie)", "address": "ul. Gołębia 16", "lat": 50.0605, "lon": 19.9335, "lines": "tramwaje do Filharmonii / Teatru Bagatela", "minFromHub": 15, "status": "przyklad" },
+  { "id": "uj-psych", "name": "UJ, Instytut Psychologii", "address": "ul. Ingardena 6", "lat": 50.0625, "lon": 19.9205, "lines": "tramwaje do Muzeum Narodowego", "minFromHub": 20, "status": "przyklad" },
+  { "id": "ujcm-zdrowie", "name": "UJ Collegium Medicum, Wydział Nauk o Zdrowiu", "address": "ul. Michałowskiego 12", "lat": 50.0700, "lon": 19.9365, "lines": "tramwaje do Batorego", "minFromHub": 10, "status": "przyklad" },
+  { "id": "ujcm-farmacja", "name": "UJ Collegium Medicum, Wydział Farmaceutyczny", "address": "ul. Medyczna 9", "lat": 50.0115, "lon": 19.9930, "lines": "tramwaje w stronę Prokocimia", "minFromHub": 30, "status": "przyklad" },
+  { "id": "uken", "name": "UKEN", "address": "ul. Podchorążych 2", "lat": 50.0780, "lon": 19.9150, "lines": "tramwaje do Bronowic", "minFromHub": 20, "status": "przyklad" },
+  { "id": "awf", "name": "AWF Kraków", "address": "al. Jana Pawła II 78", "lat": 50.0710, "lon": 20.0130, "lines": "tramwaje w stronę Nowej Huty", "minFromHub": 25, "status": "przyklad" },
+  { "id": "agh", "name": "AGH", "address": "al. Mickiewicza 30", "lat": 50.0655, "lon": 19.9195, "lines": "tramwaje do Czarnowiejskiej", "minFromHub": 15, "status": "przyklad" },
+  { "id": "uek", "name": "UEK", "address": "ul. Rakowicka 27", "lat": 50.0690, "lon": 19.9555, "lines": "tramwaje do Uniwersytetu Ekonomicznego", "minFromHub": 10, "status": "przyklad" },
+  { "id": "ksm", "name": "Krakowska Medyczna Szkoła Policealna nr 1", "address": "ul. Zamojskiego 58", "lat": 50.0405, "lon": 19.9470, "lines": "tramwaje w stronę Podgórza", "minFromHub": 20, "status": "przyklad" },
+  { "id": "ur", "name": "Uniwersytet Rolniczy", "address": "al. Mickiewicza 21", "lat": 50.0630, "lon": 19.9235, "lines": "tramwaje do Muzeum Narodowego", "minFromHub": 15, "status": "przyklad" },
+  { "id": "uafm", "name": "Uniwersytet Andrzeja Frycza Modrzewskiego", "address": "ul. Herlinga-Grudzińskiego 1", "lat": 50.0480, "lon": 19.9620, "lines": "tramwaje do Zabłocia", "minFromHub": 20, "status": "przyklad" },
+  { "id": "uj-kampus", "name": "UJ, Kampus 600-lecia", "address": "ul. Gronostajowa 7", "lat": 50.0270, "lon": 19.9040, "lines": "tramwaje 17, 18, 52 w stronę Czerwonych Maków P+R", "minFromHub": 40, "status": "sourced", "sourceId": "uj-kampus" }
+]

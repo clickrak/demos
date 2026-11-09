@@ -1,0 +1,13 @@
+{
+  "weights": { "interests": 0.5, "workStyle": 0.25, "values": 0.25 },
+  "strengthBoost": 10,
+  "strengthBoostCap": 20,
+  "bands": [
+    { "min": 70, "label": "mocne dopasowanie" },
+    { "min": 55, "label": "dobre dopasowanie" },
+    { "min": 0, "label": "warte sprawdzenia" }
+  ],
+  "surpriseMinFit": 60,
+  "quickStartMaxYears": 3,
+  "declarationDeadline": "7 lutego 2027"
+}

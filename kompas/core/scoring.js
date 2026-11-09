@@ -1,0 +1,217 @@
+// Kompas core: profile, fit, reasons, requirement checks and slots.
+// Pure functions, no DOM: used by the apps and by tests/run.mjs in Node.
+
+const ROBUST = { wysoka: 3, 'średnia': 2, niska: 1 };
+
+export function computeProfile(answers, data) {
+  const dims = data.dimensions.interests.map(d => d.id);
+  const raw = Object.fromEntries(dims.map(d => [d, 0]));
+  const max = Object.fromEntries(dims.map(d => [d, 0]));
+  for (const a of data.questions.activities) {
+    const v = (answers.sort || {})[a.id] || 0;
+    for (const [d, w] of Object.entries(a.w)) { raw[d] += v * w; max[d] += w; }
+  }
+  const score = {};
+  for (const d of dims) score[d] = max[d] ? ((raw[d] + max[d]) / (2 * max[d])) * 100 : 50;
+
+  // Strengths with a proof boost the dimensions they map to, capped per dimension.
+  const cfg = data.config;
+  const boost = Object.fromEntries(dims.map(d => [d, 0]));
+  for (const s of provenStrengths(answers)) {
+    const card = data.strengths.find(x => x.id === s.id);
+    for (const d of card ? card.dims : []) boost[d] = Math.min(cfg.strengthBoostCap, boost[d] + cfg.strengthBoost);
+  }
+  for (const d of dims) score[d] = Math.max(0, Math.min(100, score[d] + boost[d]));
+
+  const mean = dims.reduce((s, d) => s + score[d], 0) / dims.length;
+  const centred = Object.fromEntries(dims.map(d => [d, score[d] - mean]));
+  const top = [...dims].sort((a, b) => score[b] - score[a]);
+  const answered = Object.values(answers.sort || {}).filter(v => v !== 0).length;
+  return { dims, score, centred, top, mean, answered };
+}
+
+export function provenStrengths(answers) {
+  return (answers.strengths || []).filter(s => s.proof && s.proof.trim().length > 0);
+}
+
+function centre(vec, dims) {
+  const m = dims.reduce((s, d) => s + (vec[d] || 0), 0) / dims.length;
+  return Object.fromEntries(dims.map(d => [d, (vec[d] || 0) - m]));
+}
+
+function cosine(a, b, dims) {
+  let ab = 0, aa = 0, bb = 0;
+  for (const d of dims) { ab += a[d] * b[d]; aa += a[d] ** 2; bb += b[d] ** 2; }
+  return aa && bb ? ab / Math.sqrt(aa * bb) : 0;
+}
+
+export function fitCard(profile, card, answers, data) {
+  const dims = profile.dims;
+  const cc = centre(card.interests, dims);
+  const interests = (cosine(profile.centred, cc, dims) + 1) / 2;
+
+  const axes = Object.keys(card.workStyle || {});
+  const sl = answers.sliders || {};
+  const workStyle = axes.length
+    ? 1 - axes.reduce((s, ax) => s + Math.abs((sl[ax] || 0) - card.workStyle[ax]), 0) / axes.length / 6
+    : 0.5;
+
+  const vals = answers.values || [];
+  const wts = [3, 2, 1];
+  const matchedValues = vals.filter(v => card.values.includes(v));
+  const values = vals.reduce((s, v, i) => s + (card.values.includes(v) ? wts[i] || 0 : 0), 0) / 6;
+
+  const w = data.config.weights;
+  const fit = 100 * (w.interests * interests + w.workStyle * workStyle + w.values * values);
+  return { fit, parts: { interests, workStyle, values }, matchedValues };
+}
+
+export function band(fit, config) {
+  return config.bands.find(b => fit >= b.min).label;
+}
+
+// Routes into a card: his proven strengths it uses, and his top-2 interest dimensions
+// that are also among the card's top-2.
+export function pathsTo(card, profile, answers, data) {
+  const paths = [];
+  for (const s of provenStrengths(answers)) {
+    if (card.strengths.includes(s.id)) {
+      const st = data.strengths.find(x => x.id === s.id);
+      paths.push({ kind: 'strength', id: s.id, label: st ? st.name : s.id });
+    }
+  }
+  const cardTop = Object.keys(card.interests).sort((a, b) => card.interests[b] - card.interests[a]).slice(0, 2);
+  for (const d of profile.top.slice(0, 2)) {
+    if (cardTop.includes(d)) {
+      const dim = data.dimensions.interests.find(x => x.id === d);
+      paths.push({ kind: 'dimension', id: d, label: 'zainteresowanie: ' + dim.name.toLowerCase() });
+    }
+  }
+  return paths;
+}
+
+export function reasonsFor(card, profile, answers, data) {
+  const cc = centre(card.interests, profile.dims);
+  const liked = data.questions.activities
+    .filter(a => (answers.sort || {})[a.id] === 1)
+    .map(a => ({ a, s: Object.entries(a.w).reduce((t, [d, w]) => t + w * cc[d], 0) }))
+    .filter(x => x.s > 0)
+    .sort((x, y) => y.s - x.s)
+    .slice(0, 2)
+    .map(x => `bo zaznaczyłeś: „${x.a.text.replace(/\.$/, '')}”`);
+  const v = (answers.values || []).find(id => card.values.includes(id));
+  if (v) liked.push(`bo ważne jest dla ciebie: ${data.dimensions.values.find(x => x.id === v).name}`);
+  return liked.slice(0, 3);
+}
+
+// Requirement check of one offer against his extended subjects and preferred study length.
+export function checkOffer(offer, answers, config) {
+  const ext = answers.rozszerzenia || [];
+  const r = offer.requires || {};
+  const out = { ok: [], blocked: [], flags: [], fix: null };
+  if (r.noMatura) out.ok.push('matura niewymagana');
+  for (const s of r.extended || []) {
+    if (ext.includes(s)) out.ok.push(`masz rozszerzenie: ${s}`);
+    else out.blocked.push(`wymaga rozszerzonej: ${s}, której nie zdajesz`);
+  }
+  if (r.must) {
+    for (const s of r.must) if (ext.includes(s)) out.ok.push(`masz rozszerzenie: ${s}`);
+  }
+  if (r.countFrom) {
+    const hit = r.countFrom.filter(s => ext.includes(s));
+    if (hit.length) out.ok.push(`z listy masz rozszerzenie: ${hit.join(', ')}`);
+    else out.flags.push('żaden z twoich przedmiotów rozszerzonych nie jest na liście; sprawdź, jak uczelnia liczy poziom podstawowy');
+  }
+  if (out.blocked.length) {
+    out.fix = `Możesz dopisać rozszerzenie w deklaracji do ${config.declarationDeadline} albo zdać je jako absolwent w maju 2028 (matura dla absolwentów jest dostępna przez 5 lat).`;
+  }
+  const len = answers.studyLength;
+  if (len === 'krotko' && offer.durationYears > config.quickStartMaxYears) out.flags.push('dłuższa droga, niż chcesz teraz');
+  if (len === 'srednio' && offer.durationYears > 5) out.flags.push('trochę dłużej niż 5 lat');
+  if (offer.status !== 'sourced') out.flags.push('dane do sprawdzenia na stronie rekrutacji 2027');
+  out.reachable = out.blocked.length === 0;
+  return out;
+}
+
+export function scoreAll(answers, data) {
+  const profile = computeProfile(answers, data);
+  const cards = data.opportunities.map(card => {
+    const f = fitCard(profile, card, answers, data);
+    const offers = data.offers.filter(o => o.cards.includes(card.id)).map(o => ({ offer: o, check: checkOffer(o, answers, data.config) }));
+    const paths = pathsTo(card, profile, answers, data);
+    return {
+      card, ...f, band: band(f.fit, data.config), paths,
+      strengthsUsed: paths.filter(p => p.kind === 'strength'),
+      reasons: reasonsFor(card, profile, answers, data),
+      offers,
+      reachable: offers.length === 0 || offers.some(o => o.check.reachable),
+      robust: Object.values(card.robustness).reduce((s, v) => s + (ROBUST[v] || 0), 0)
+    };
+  });
+  cards.sort(compareCards);
+  return { profile, cards, slots: makeSlots(cards, profile, answers, data) };
+}
+
+function compareCards(a, b) {
+  if (a.reachable !== b.reachable) return a.reachable ? -1 : 1;
+  // Fits within 1 point count as a tie: more paths, more proven strengths, more future need.
+  if (Math.abs(a.fit - b.fit) >= 1) return b.fit - a.fit;
+  return (b.paths.length - a.paths.length) || (b.strengthsUsed.length - a.strengthsUsed.length) || (b.robust - a.robust) || (b.fit - a.fit);
+}
+
+export function makeSlots(cards, profile, answers, data) {
+  const byId = id => cards.find(c => c.card.id === id);
+  let best;
+  if (answers.certainty === 'pewny' && answers.direction && byId(answers.direction)) {
+    const pinned = byId(answers.direction);
+    const neighbours = pinned.card.related.map(byId).filter(Boolean);
+    best = [pinned, ...neighbours].slice(0, 3);
+    best.forEach((c, i) => { c.pinned = i === 0; });
+  } else {
+    best = cards.slice(0, 3);
+    if (answers.certainty !== 'pewny' && new Set(best.map(c => c.card.cluster)).size < 2) {
+      const other = cards.find(c => !best.includes(c) && c.card.cluster !== best[0].card.cluster);
+      if (other) best = [best[0], best[1], other];
+    }
+  }
+  const used = new Set(best.map(c => c.card.id));
+
+  const [d1, d2] = profile.top;
+  const most = cards
+    .filter(c => !used.has(c.card.id))
+    .map(c => ({ c, s: Math.min(c.card.interests[d1], c.card.interests[d2]) }))
+    .sort((x, y) => (y.s - x.s) || (y.c.fit - x.c.fit))[0]?.c || null;
+  if (most) used.add(most.card.id);
+
+  const quick = cards
+    .flatMap(c => c.offers.filter(o => o.offer.durationYears <= data.config.quickStartMaxYears && o.check.reachable).map(o => ({ c, o })))
+    .sort((x, y) => (y.c.fit - x.c.fit) || (x.o.offer.durationYears - y.o.offer.durationYears))[0] || null;
+
+  const bestClusters = new Set(best.map(c => c.card.cluster));
+  const surprise = cards.find(c => !used.has(c.card.id) && !bestClusters.has(c.card.cluster) && c.fit >= data.config.surpriseMinFit) || null;
+  if (surprise) used.add(surprise.card.id);
+
+  const rest = cards.filter(c => !used.has(c.card.id));
+  return { best, most, quick, surprise, rest, dims: [d1, d2] };
+}
+
+// "Twoja droga": 4–5 small dated steps from today to a first job.
+export function pathSteps(offer, campusName) {
+  const steps = [];
+  if (offer.kind === 'policealna') {
+    steps.push('maj 2027: matura (szkoła policealna jej nie wymaga, ale zostawia otwarte studia)');
+    steps.push('lipiec–sierpień 2027: zapis do szkoły policealnej');
+    steps.push('wrzesień 2027: start nauki' + (campusName ? `, ${campusName}` : ''));
+    const end = 2027 + Math.ceil(offer.durationYears);
+    steps.push(`ok. ${end}: dyplom technika i pierwsza praca`);
+    if (offer.next) steps.push(`potem: ${offer.next}`);
+  } else {
+    steps.push('do 7 lutego 2027: sprawdź deklarację maturalną pod ten kierunek');
+    steps.push('marzec–kwiecień 2027: dzień otwarty: ' + offer.institution);
+    steps.push('maj 2027: matura; lipiec 2027: rekrutacja');
+    steps.push('październik 2027: start studiów');
+    const end = 2027 + Math.ceil(offer.durationYears);
+    steps.push(`ok. ${end}: dyplom i pierwsza praca` + (offer.next ? ` (albo: ${offer.next})` : ''));
+  }
+  return steps.slice(0, 5);
+}

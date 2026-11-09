@@ -1,0 +1,28 @@
+{
+  "interests": [
+    { "id": "ana", "name": "Analityczny", "desc": "szukanie wzorów, rozumienie, jak coś działa" },
+    { "id": "tec", "name": "Techniczny", "desc": "praca rękami, urządzenia, ciało w ruchu" },
+    { "id": "spo", "name": "Społeczny", "desc": "opieka, pomoc, rozmowa z ludźmi" },
+    { "id": "twr", "name": "Twórczy", "desc": "słowa, pomysły, wyrażanie" },
+    { "id": "prz", "name": "Przedsiębiorczy", "desc": "organizowanie, przekonywanie, prowadzenie" },
+    { "id": "sys", "name": "Systemowy", "desc": "porządek, dokładność, procedury" }
+  ],
+  "workStyle": [
+    { "id": "zespol", "left": "sam", "right": "w zespole" },
+    { "id": "ludzie", "left": "z ludźmi", "right": "z danymi i rzeczami" },
+    { "id": "ruch", "left": "w ruchu", "right": "przy biurku" },
+    { "id": "konkret", "left": "konkret", "right": "teoria" }
+  ],
+  "values": [
+    { "id": "pomaganie", "name": "pomaganie ludziom" },
+    { "id": "zarobki", "name": "zarobki" },
+    { "id": "pewnosc", "name": "pewność zatrudnienia" },
+    { "id": "prestiz", "name": "prestiż" },
+    { "id": "kreatywnosc", "name": "kreatywność" },
+    { "id": "wplyw", "name": "wpływ na świat" },
+    { "id": "zagranica", "name": "praca za granicą" },
+    { "id": "czas", "name": "czas wolny" },
+    { "id": "niezaleznosc", "name": "niezależność" },
+    { "id": "trudne", "name": "rozwiązywanie trudnych problemów" }
+  ]
+}
