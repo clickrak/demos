@@ -35,17 +35,9 @@ function sceneSvg(ctx) {
   g += `<circle class="ring" cx="${C.x}" cy="${C.y}" r="${R}" pathLength="1"/><circle class="ring2" cx="${C.x}" cy="${C.y}" r="${R - 26}"/>`;
   for (let t = 0; t < 32; t++) { const a = rad(t * 11.25), L = t % 8 === 0 ? 16 : t % 4 === 0 ? 10 : 5;
     g += `<line class="tick${t % 8 === 0 ? ' long' : ''}" x1="${f1(C.x + (R - L) * Math.cos(a))}" y1="${f1(C.y + (R - L) * Math.sin(a))}" x2="${f1(C.x + (R - 1) * Math.cos(a))}" y2="${f1(C.y + (R - 1) * Math.sin(a))}"/>`; }
-  for (const [d, t] of [['n', 'N'], ['e', 'E'], ['s', 'S'], ['w', 'W']]) { const a = rad(ANG[d]); g += `<text class="card-pt" x="${f1(C.x + (R - 34) * Math.cos(a))}" y="${f1(C.y + (R - 34) * Math.sin(a) + 6)}" text-anchor="middle">${t}</text>`; }
-  // petals: his six orientations, top two in colour
-  const dims = r.profile.dims, top2 = r.profile.top.slice(0, 2);
-  dims.forEach((d, k) => { const a = k * 60 + 30, v = r.profile.score[d], len = 22 + v * 0.92, main = top2.includes(d);
-    const p = (ang, rr) => [C.x + rr * Math.cos(rad(ang)), C.y + rr * Math.sin(rad(ang))];
-    const [tx, ty] = p(a, len), [lx, ly] = p(a - 13, len * .55), [rx, ry] = p(a + 13, len * .55);
-    g += `<path class="petal${main ? ' main' : ''}" style="--k:${k}" d="M${C.x},${C.y} Q${f1(lx)},${f1(ly)} ${f1(tx)},${f1(ty)} Q${f1(rx)},${f1(ry)} ${C.x},${C.y}Z"/>`;
-    if (main) { const [nx, ny] = p(a, len + 14); g += `<text class="petal-l" x="${f1(nx)}" y="${f1(ny + 4)}" text-anchor="middle">${esc(ctx.dimName(d).toLowerCase())}</text>`; }
-  });
+  for (const [deg, t] of [[0, 'N'], [90, 'E'], [180, 'S'], [270, 'W']]) { const a = rad(deg); g += `<text class="card-pt" x="${f1(C.x + (R - 34) * Math.cos(a))}" y="${f1(C.y + (R - 34) * Math.sin(a) + 6)}" text-anchor="middle">${t}</text>`; }
   // needle
-  g += `<g class="needle" style="transform-origin:${C.x}px ${C.y}px"><polygon class="n-head" points="${C.x},${C.y - R + 30} ${C.x + 12},${C.y} ${C.x},${C.y + 9} ${C.x - 12},${C.y}"/><polygon class="n-tail" points="${C.x},${C.y + R - 40} ${C.x + 9},${C.y} ${C.x},${C.y - 6} ${C.x - 9},${C.y}"/></g><circle class="hub" cx="${C.x}" cy="${C.y}" r="7"/>`;
+  g += `<g class="needle" style="transform-origin:${C.x}px ${C.y}px"><polygon class="n-head" points="${C.x},${C.y - R + 30} ${C.x + 12},${C.y} ${C.x},${C.y + 9} ${C.x - 12},${C.y}"/><polygon class="n-tail" points="${C.x},${C.y + 46} ${C.x + 7},${C.y} ${C.x},${C.y - 6} ${C.x - 7},${C.y}"/></g><circle class="hub" cx="${C.x}" cy="${C.y}" r="7"/>`;
   // option labels
   for (const d of dirs) {
     const o = byDir[d]; if (!o) continue;
@@ -151,7 +143,7 @@ export function storyHtml(ctx) {
         <p class="small muted">Każda z dowodem z twojego życia. To one wchodzą do kompasu.</p>
         <ul class="proofs">${strengths.map(x => `<li><b>${esc(ctx.strengthName(x.id))}</b><span>„${esc(x.proof)}”</span></li>`).join('')}</ul>`)}
       ${step(2, `<span class="kicker">Skąd to wiemy · 2</span><h3>Twoje orientacje</h3>
-        <p>Płatki w środku kompasu to sześć rodzajów zajęć. Im dłuższy płatek, tym częściej wybierałeś takie czynności i sytuacje. Twoje dwa najmocniejsze: <b>${esc(dims[0].name.toLowerCase())}</b> i <b>${esc(dims[1].name.toLowerCase())}</b>.</p>
+        <p>Sześć rodzajów zajęć. Im dłuższy pasek, tym częściej wybierałeś takie czynności i sytuacje. Twoje dwa najmocniejsze: <b>${esc(dims[0].name.toLowerCase())}</b> i <b>${esc(dims[1].name.toLowerCase())}</b>. Razem z mocnymi stronami ustawiają igłę kompasu.</p>
         <div class="minibars">${dims.map((x, i) => `<div class="mb${i < 2 ? ' main' : ''}"><span>${esc(x.name)}</span><i><b style="width:${x.v}%"></b></i></div>`).join('')}</div>
         <p class="small muted">Ważne dla ciebie: ${(ctx.A.values || []).map(ctx.valueName).map(esc).join(', ')}.</p>`)}
       ${step(3, `<span class="kicker">Północ · najlepsze dopasowanie</span><h3>${badge(o1)} ${esc(o1.c.card.name)}</h3>

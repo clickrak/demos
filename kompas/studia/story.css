@@ -107,7 +107,7 @@ body.story .small { font-size: 14.5px; }
 .scene:is(.st5,.st6) :is(.out-e,.out-w,.out-s,.opt-e,.opt-w,.opt-s) { stroke-dashoffset: 0; opacity: 1; transform: none; }
 .scene.st5 :is(.opt-n,.opt-nne,.opt-nnw,.out-n,.out-nne,.out-nnw) { opacity: .35; }
 @media (prefers-reduced-motion: no-preference) {
-  .scene:is(.st0,.st1,.st2) .needle { animation: sw 9s ease-in-out infinite 1.4s; }
+  .scene.st0 .needle { animation: sw 9s ease-in-out infinite 1.4s; }
   .scene:is(.st4,.st6) .needle { animation: sw 7s ease-in-out infinite .6s; }
   .scene.st5 .needle { animation: sw5 10s ease-in-out infinite .6s; }
   @keyframes sw { 0%, 12% { transform: rotate(0); } 25%, 33% { transform: rotate(22.5deg); } 46%, 54% { transform: rotate(0); } 67%, 75% { transform: rotate(-22.5deg); } 88%, 100% { transform: rotate(0); } }
