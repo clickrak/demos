@@ -3,6 +3,7 @@ import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
+import { ILLUS } from './illus.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
@@ -31,7 +32,23 @@ async function load() {
   render();
 }
 
-const save = () => {}; // answers stay in memory only; the .md export is the saved copy (no browser storage)
+// Answers stay in memory only (no browser storage); the downloaded .md file is the saved copy.
+// The header shows a dot while there are answers not yet in a file, and leaving the page asks first.
+const answersKey = () => JSON.stringify({ ...A, lastScreen: undefined, sortPos: undefined, sitPos: undefined });
+let savedSnap = null;
+const hasAnswers = () => !!(A && (A.certainty || A.rozszerzenia.length || Object.keys(A.sort).length || A.strengths.length));
+const isDirty = () => hasAnswers() && answersKey() !== savedSnap;
+function updateSaveState() {
+  document.querySelectorAll('[data-export="download"].savebtn, .sbar [data-export="download"]').forEach(b => b.classList.toggle('dirty', isDirty()));
+}
+const save = () => updateSaveState();
+window.addEventListener('beforeunload', e => { if (isDirty()) { e.preventDefault(); e.returnValue = ''; } });
+function toast(html) {
+  const t = document.getElementById('toast'); if (!t) return;
+  t.innerHTML = html; t.classList.add('on');
+  clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 5200);
+}
+const stamp = () => { const d = new Date(); return `${today()}-${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; };
 let theme = null;       // null follows the system; kept in memory only
 let drawOnce = true;    // the path map draws itself the first time the results open
 let notice = '';        // one-time message shown at the top of the next screen
@@ -49,6 +66,7 @@ function applyTheme() {
   document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = dark ? ICON.sun : ICON.moon; });
 }
 const ICON = {
+  save: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg>',
   sun: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
   moon: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>'
 };
@@ -100,11 +118,13 @@ function render() {
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : '';
   notice = '';
   if (PARTS.some(p => p.id === s.id)) seenParts.add(s.id);
+  if (s.id !== 'start') A.lastScreen = s.id;
   const tabs = '';
   document.body.classList.toggle('has-tabs', !!tabs);
   document.body.classList.toggle('story', s.id === 'kompas' && !needResults());
   if (storyCleanup) { storyCleanup(); storyCleanup = null; }
   $app.innerHTML = `<div class="${dir}">${prog}${note}${body}${nav}</div>${tabs}`;
+  updateSaveState();
   if (s.id === 'kompas' && !needResults()) { applyTheme(); storyCleanup = storyInit($app, storyCtx); }
   if (s.id === 'wyniki' && pendingOpen) {
     const el = $app.querySelector(`[data-card="${pendingOpen}"]`); pendingOpen = null;
@@ -140,37 +160,40 @@ const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="
 
 function vStart() {
   return `
+    <div class="hero">${ILLUS.start}<div>
+    <span class="kicker2">Kompas Studia · wersja testowa</span>
     <h1>Co już umiesz i gdzie się przydasz</h1>
     <p class="lead">Za chwilę zadamy ci kilka pytań. Nie ma złych odpowiedzi — chodzi o to, co cię naprawdę interesuje.</p>
     <p>Trzy krótkie rozdziały: <b>Ja</b> (twoje mocne strony), <b>Świat</b> (gdzie będą potrzebne) i <b>Droga</b> (jak tam dojść). Na końcu dostajesz plik, który zostaje u ciebie.</p>
-    <p class="muted small">Jest wiele dobrych dróg, a wybór można korygować. To punkt wyjścia do rozmowy, nie test i nie wyrok. Odpowiedzi są tylko w tej karcie przeglądarki: po zamknięciu znikają, zostaje pobrany plik.</p>
+    <p class="muted small">Jest wiele dobrych dróg, a wybór można korygować. To punkt wyjścia do rozmowy, nie test i nie wyrok.</p>
+    <div class="savehelp">${ICON.save}<p><b>Możesz przerwać w każdej chwili.</b> Przycisk <b>Zapisz</b> u góry pobiera plik z twoimi odpowiedziami. Odpowiedzi są tylko w tej karcie przeglądarki, nigdzie nie są wysyłane. Żeby wrócić, wczytaj plik poniżej: zaczniesz tam, gdzie skończyłeś.</p></div>
     <label class="field" for="name">Imię (opcjonalnie, tylko do nazwy pliku)</label>
     <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off">
     <div class="actions">
       <button class="btn" data-go="pewnosc">${A.certainty ? 'Wróć do pytań' : 'Zaczynamy'}</button>
-      ${A.certainty ? '<button class="btn ghost" data-go="wyniki">Moje wyniki</button>' : ''}
+      ${A.certainty ? '<button class="btn ghost" data-go="kompas">Moje wyniki</button>' : ''}
     </div>
     <div class="card loadcard">
       <h3>Masz już plik z Kompasu?</h3>
       <p class="small muted">Wczytaj go, żeby wrócić do odpowiedzi albo zobaczyć, co się zmieniło. Plik otwiera się tylko na tym urządzeniu.</p>
       <label class="btn ghost filebtn">Wczytaj plik .md<input type="file" accept=".md,text/markdown,text/plain" data-load></label>
-    </div>
-    <details class="card noprint"><summary>Tryb testowy</summary>
+    </div></div></div>
+    ${TEST ? `<details class="card noprint"><summary>Tryb testowy</summary>
       <p class="small muted">Wczytaj gotowe odpowiedzi, żeby obejrzeć wyniki bez wypełniania.</p>
       <div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div>
-    </details>`;
+    </details>` : ''}`;
 }
 
 function vCertainty() {
   const dir = A.certainty === 'pewny' ? `
     <p>Który kierunek masz w głowie? Pokażemy go pierwszy, a obok dwa sąsiednie.</p>
     <div class="chips">${data.opportunities.map(c => chip(`data-set="direction" data-val="${c.id}"`, esc(c.name), A.direction === c.id)).join('')}</div>` : '';
-  return `<h1>Jak pewny jesteś swojego kierunku?</h1>
+  return `${ILLUS.pewnosc}<h1>Jak pewny jesteś swojego kierunku?</h1>
     <div class="chips stack">${data.questions.certainty.map(c => chip(`data-set="certainty" data-val="${c.id}"`, c.label, A.certainty === c.id)).join('')}</div>${dir}`;
 }
 
 function vMatura() {
-  return `<h1>Jakie przedmioty zdajesz na poziomie rozszerzonym?</h1>
+  return `${ILLUS.matura}<h1>Jakie przedmioty zdajesz na poziomie rozszerzonym?</h1>
     <p class="explain">Rozszerzenie to przedmiot na maturze zdawany na wyższym poziomie. Od niego zależy, na które kierunki możesz się dostać. Uczelnie liczą go zwykle mocniej, a UJ liczy tylko ten poziom.</p>
     <div class="chips">${data.questions.subjects.map(s => chip(`data-toggle="rozszerzenia" data-val="${s}"`, s, A.rozszerzenia.includes(s))).join('')}</div>
     <p class="small muted">Deklarację ${term('deklaracja', 'deklaracja maturalna')} można zmienić do ${data.config.declarationDeadline}. Potem już nie.</p>`;
@@ -181,7 +204,7 @@ function vLanguages() {
     return `<fieldset class="card langcard" style="border:1px solid var(--line)"><legend class="sr">${l.name}</legend>
       <h3>${i + 1}. ${l.name[0].toUpperCase() + l.name.slice(1)}</h3><p class="small muted">Twój poziom: <b>${lv}</b></p>
       <div class="chips" role="radiogroup" aria-label="Poziom: ${l.name}">${data.questions.languageLevels.map(v => chip(`data-lang="${l.id}" data-val="${v}"`, v, lv === v)).join('')}</div></fieldset>`; }).join('');
-  return `<h1>Języki i sport</h1>
+  return `${ILLUS.jezyki}<h1>Języki i sport</h1>
     <p>Jak dogadujesz się w każdym z tych języków? Wybierz poziom w każdym bloku. Języki otwierają drzwi, nigdy ich nie zamykają.</p>${rows}
     <label class="field" for="sport">Jaki sport uprawiasz albo uprawiałeś? Od kiedy, jak często?</label>
     <input id="sport" type="text" data-field="sport" value="${esc(A.sport)}" placeholder="np. siłownia od roku, wcześniej wspinaczka">
@@ -197,7 +220,7 @@ function vSort() {
       <button class="btn ghost" data-sortreset>Przejdź jeszcze raz</button></div>${dots}`;
   }
   const a = acts[pos];
-  return `<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
+  return `${A.sortPos === 0 ? ILLUS.zajecia : ''}<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
     <div class="card sort"><div class="q">${esc(a.text)}</div>
       <div class="row">
         <button class="btn ghost" data-sortans="-1">nie lubię</button>
@@ -217,7 +240,7 @@ function vSituations() {
       <button class="btn ghost" data-sitreset>Przejdź jeszcze raz</button></div>${dots}`;
   }
   const q = qs[pos];
-  return `<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
+  return `${A.sitPos === 0 ? ILLUS.sytuacje : ''}<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
     <div class="card"><p class="q-s">${esc(q.text)}</p>
       <div class="chips stack">${q.answers.map(a => chip(`data-sitans="${a.id}"`, esc(a.text), A.situations[q.id] === a.id)).join('')}</div>
       <div class="row-s"><button class="chip" data-sitans="">pomiń</button>${pos > 0 ? '<button class="chip" data-sitback>cofnij</button>' : ''}</div>
@@ -273,7 +296,8 @@ function growCompass(stage) {
   const arc = (k, on) => { const a0 = (-90 + k * 120 + 6) * Math.PI / 180, a1 = (-90 + (k + 1) * 120 - 6) * Math.PI / 180, r = 34;
     return `<path d="M${(40 + r * Math.cos(a0)).toFixed(1)},${(40 + r * Math.sin(a0)).toFixed(1)} A${r},${r} 0 0 1 ${(40 + r * Math.cos(a1)).toFixed(1)},${(40 + r * Math.sin(a1)).toFixed(1)}" class="garc${on ? ' on' : ''}${k === stage - 1 ? ' now' : ''}" pathLength="1"/>`; };
   return `<div class="grow"><svg viewBox="0 0 80 80" aria-hidden="true">${[0, 1, 2].map(k => arc(k, k < stage)).join('')}<polygon points="40,14 45,40 40,44 35,40" class="gneedle"/><circle cx="40" cy="40" r="3"/></svg>
-    <p><b>Kompas rośnie.</b> Rozdział ${names[stage - 1]} za tobą${stage < 3 ? `, przed tobą: ${names[stage]}` : ', teraz wyniki'}.</p></div>`;
+    <p><b>Kompas rośnie.</b> Rozdział ${names[stage - 1]} za tobą${stage < 3 ? `, przed tobą: ${names[stage]}` : ', teraz wyniki'}. Dobry moment, żeby zapisać postęp.</p>
+    <button class="btn ghost savebtn small-btn" data-export="download">${ICON.save} Zapisz</button></div>`;
 }
 
 function vReveal() {
@@ -1117,8 +1141,11 @@ function loadFile(text) {
   prevFile = { date: obj.date, snapshot: snap, missing };
   notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '');
   drawOnce = true;
+  savedSnap = answersKey();
   const done = provenStrengths(A).length && A.values.length;
-  if (location.hash === (done ? '#/kompas' : '#/pewnosc')) render(); else location.hash = done ? '#/kompas' : '#/pewnosc';
+  const target = '#/' + (screens.some(x => x.id === A.lastScreen) ? A.lastScreen : done ? 'kompas' : 'pewnosc');
+  notice += ` Wracasz tam, gdzie skończyłeś.`;
+  if (location.hash === target) render(); else location.hash = target;
 }
 
 document.addEventListener('input', e => {
@@ -1135,9 +1162,12 @@ async function doExport(kind) {
   const msg = document.getElementById('msg') || document.getElementById('fmsg');
   if (kind === 'download') {
     const url = URL.createObjectURL(new Blob([md], { type: 'text/markdown;charset=utf-8' }));
-    const a = Object.assign(document.createElement('a'), { href: url, download: fileName(A, today()) });
+    const name = fileName(A, stamp());
+    const a = Object.assign(document.createElement('a'), { href: url, download: name });
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-    msg.textContent = 'Plik zapisany.';
+    if (msg) msg.textContent = 'Plik zapisany.';
+    savedSnap = answersKey(); updateSaveState();
+    toast(`<b>Zapisano:</b> ${esc(name)}<br><span>Plik jest w folderze Pobrane. Żeby wrócić, wczytaj go na ekranie startowym.</span>`);
   } else if (kind === 'copy') {
     try { await navigator.clipboard.writeText(md); msg.textContent = 'Skopiowane.'; } catch { msg.textContent = 'Nie udało się skopiować. Użyj „Pobierz plik”.'; }
   } else {
