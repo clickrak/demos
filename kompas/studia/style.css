@@ -99,8 +99,20 @@ fieldset.langcard { margin: 12px 0; min-width: 0; }
 .places { padding-left: 1.1em; } .places li { margin: 8px 0; }
 .pathmap .seg { opacity: .85; transition: opacity .2s; }
 .pathmap .node, .pathmap .hint-line { transition: opacity .2s; }
-.pathmap svg.sel .seg:not(.on), .pathmap svg.sel .node:not(.on) { opacity: .12; }
-.pathmap svg.sel .seg.on { opacity: 1; }
 .pathmap .stop, .pathmap .compass-rose { cursor: pointer; }
-.pathmap .stop:focus-visible, .pathmap .compass-rose:focus-visible { outline: 3px solid var(--accent); }
 @media (prefers-reduced-motion: reduce) { .pathmap .seg, .pathmap .node { transition: none; } }
+/* Highlight by colour: the chosen road keeps its colour and thickens, the rest turns grey. */
+.pathmap .seg { transition: stroke .2s, stroke-width .2s, opacity .2s; }
+.pathmap svg.sel .seg:not(.on) { stroke: var(--check); opacity: .45; }
+.pathmap svg.sel .seg.on { opacity: 1; stroke-width: 6; }
+.pathmap svg.sel .node:not(.on) text, .pathmap svg.sel .node:not(.on) tspan { fill: var(--muted); }
+.pathmap svg.sel .stop:not(.on) rect:nth-of-type(2) { fill: var(--check); }
+.pathmap svg.sel .node:not(.on) circle { stroke: var(--check); }
+/* Focus on the studies of the chosen road. */
+.pathmap svg.sel .study.on circle { fill: var(--selc); stroke: var(--selc); r: 10; }
+.pathmap svg.sel .study.on text, .pathmap svg.sel .study.on tspan { font-weight: 700; fill: var(--ink); }
+.pathmap .studies { padding: 0 16px; }
+.pathmap .studies ul { margin: 4px 0 8px; padding-left: 1.2em; }
+/* No frame on tap; keyboard users get the station outlined instead. */
+.pathmap svg, .pathmap [data-maprow], .pathmap .scroll { outline: none; -webkit-tap-highlight-color: transparent; }
+.pathmap .stop:focus-visible rect:nth-of-type(2), .pathmap .compass-rose:focus-visible circle:first-child { stroke: var(--ink); stroke-width: 4; }

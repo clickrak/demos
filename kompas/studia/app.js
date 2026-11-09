@@ -351,7 +351,7 @@ function pathMapSvg(r) {
   });
   rows.forEach((row, i) => {
     const y = yC[i], label = row.slot === 'most' ? 'Most' : row.slot === 'niespodzianka' ? 'Niespodzianka' : row.c.band;
-    svg += `<g class="node stop r${i}" data-maprow="${i}" role="button" tabindex="0" aria-label="Podświetl drogi: ${esc(row.c.card.name)}">`;
+    svg += `<g class="node stop r${i}" data-maprow="${i}" data-color="${row.color}" role="button" tabindex="0" aria-label="Podświetl drogi: ${esc(row.c.card.name)}">`;
     svg += `<rect x="${X2 - 120}" y="${y - 58}" width="240" height="100" fill="transparent"/>`;
     svg += `<rect x="${X2 - 13}" y="${y - 13}" width="26" height="26" rx="13" fill="${row.color}" stroke="var(--card)" stroke-width="3"/>`;
     svg += `<text text-anchor="middle" class="stn" style="fill:${row.color}">${tspans(wrap(row.c.card.name, 26), X2, y - 32, 15)}</text>`;
@@ -359,7 +359,7 @@ function pathMapSvg(r) {
   });
   offers.forEach((o, k) => {
     const quick = s.quick && s.quick.o.offer.id === o.id;
-    svg += `<g class="node ${cls(offerRows[k])}"><circle cx="${X3}" cy="${yO[k]}" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
+    svg += `<g class="node study ${cls(offerRows[k])}"><circle cx="${X3}" cy="${yO[k]}" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
     svg += `<text class="lbl">${tspans([o.name, o.institution + (quick ? ' · szybki start' : '')].flatMap(t => wrap(t, 30)).slice(0, 3), X3 + 16, yO[k] + 4)}</text></g>`;
   });
 
@@ -411,6 +411,7 @@ function vResults() {
     <div class="chips maprows noprint">${[...s.best, s.most, s.surprise].filter(Boolean).map((c, i) => `<button class="chip" data-maprow="${i}" aria-pressed="false">${esc(c.card.name)}</button>`).join('')}</div>
     <div class="card pathmap"><div class="scroll" tabindex="0" aria-label="Mapa dróg, przewiń w bok">${pathMapSvg(r)}</div>
       <p class="small muted hint">Przesuń palcem w bok, żeby zobaczyć całą mapę.</p>
+      <div class="studies small" aria-live="polite"></div>
       <details class="twin"><summary>Ta sama mapa jako tekst</summary><ul>${twin}</ul></details></div>
 
     <h2>Gdzie się przydasz</h2>
@@ -461,8 +462,18 @@ function selectRow(i) {
   const svg = $app.querySelector('.pathmap svg');
   if (!svg) return;
   svg.classList.toggle('sel', mapSel !== null);
+  const stop = svg.querySelector(`.stop[data-maprow="${mapSel}"]`);
+  if (stop) svg.style.setProperty('--selc', stop.dataset.color);
   svg.querySelectorAll('.seg, .node').forEach(el => el.classList.toggle('on', mapSel !== null && el.classList.contains('r' + mapSel)));
   $app.querySelectorAll('.maprows .chip').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.maprow) === mapSel)));
+  // Bring the studies column into view (on a phone the map scrolls sideways).
+  const sc = $app.querySelector('.pathmap .scroll');
+  if (sc && mapSel !== null) sc.scrollTo({ left: sc.scrollWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  const list = $app.querySelector('.pathmap .studies');
+  if (list) {
+    const names = mapSel === null ? [] : [...svg.querySelectorAll('.study.on .lbl')].map(t => [...t.querySelectorAll('tspan')].map(x => x.textContent).join(', '));
+    list.innerHTML = names.length ? `<b>Studia na tej drodze:</b><ul>${names.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : '';
+  }
 }
 document.addEventListener('keydown', e => {
   const g = e.target.closest && e.target.closest('[data-maprow]');
