@@ -14,7 +14,7 @@ export function buildMarkdown(answers, result, data, today) {
   const st = id => data.strengths.find(s => s.id === id);
   const camp = id => data.campuses.find(c => c.id === id);
   L.push(`# Kompas – ${answers.name || 'ja'}, ${today}`);
-  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v0.9 (testowa)', '');
+  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v0.95 (testowa)', '');
 
   const complete = provenStrengths(answers).length > 0 && (answers.values || []).length > 0;
   if (!complete) {
