@@ -92,7 +92,7 @@
   "geo": {
    "lat": 50.05717,
    "lon": 19.93336,
-   "q": "I Liceum Ogólnokształcące im. Bartłomieja Nowodworskiego, Kraków"
+   "q": "I LO Nowodworskiego, Kraków"
   }
  },
  {
@@ -226,9 +226,9 @@
    }
   ],
   "geo": {
-   "lat": 50.0684,
-   "lon": 19.93178,
-   "q": "II Liceum Ogólnokształcące im. Króla Jana III Sobieskiego, Kraków"
+   "lat": 50.06852,
+   "lon": 19.93037,
+   "q": "II LO Sobieskiego, Kraków"
   }
  },
  {
@@ -461,7 +461,12 @@
     "sourceId": "otou-lo5",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.0622,
+   "lon": 19.9288,
+   "q": "V LO Witkowskiego, Kraków"
+  }
  },
  {
   "id": "lo7",
@@ -554,7 +559,7 @@
   "geo": {
    "lat": 50.0706,
    "lon": 19.90829,
-   "q": "VII Liceum Ogólnokształcące im. Zofii Nałkowskiej, Kraków"
+   "q": "VII LO Nałkowskiej, Kraków"
   }
  },
  {
@@ -1094,7 +1099,7 @@
   "geo": {
    "lat": 50.06279,
    "lon": 19.93004,
-   "q": "XLII Liceum Ogólnokształcące, Kraków"
+   "q": "XLII LO, Kraków"
   }
  },
  {
@@ -1152,7 +1157,7 @@
   "geo": {
    "lat": 50.08081,
    "lon": 20.03248,
-   "q": "os. Teatralne 33, 31-948 Kraków"
+   "q": "os. Teatralne 33, Kraków"
   }
  },
  {
@@ -1359,7 +1364,7 @@
   "geo": {
    "lat": 50.089,
    "lon": 20.01819,
-   "q": "os. Wysokie 6, 31-818 Kraków"
+   "q": "os. Wysokie 6, Kraków"
   }
  },
  {
@@ -1773,7 +1778,7 @@
   "geo": {
    "lat": 50.02232,
    "lon": 19.986,
-   "q": "al. Adolfa Dygasińskiego 15, 30-820 Kraków"
+   "q": "al. Adolfa Dygasińskiego 15, Kraków"
   }
  },
  {
