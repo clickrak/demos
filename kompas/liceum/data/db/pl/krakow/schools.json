@@ -324,9 +324,9 @@
    }
   ],
   "geo": {
-   "lat": 50.04099,
-   "lon": 19.94636,
-   "q": "IV Liceum Ogólnokształcące im. Tadeusza Kościuszki, Kraków"
+   "lat": 50.04113,
+   "lon": 19.94611,
+   "q": "Krzemionki 11, Kraków"
   }
  },
  {
@@ -674,9 +674,9 @@
    }
   ],
   "geo": {
-   "lat": 50.05897,
-   "lon": 19.95555,
-   "q": "VIII Liceum Ogólnokształcące im. Stanisława Wyspiańskiego, Kraków"
+   "lat": 50.05874,
+   "lon": 19.95538,
+   "q": "Grzegórzecka 24, Kraków"
   }
  },
  {
@@ -732,7 +732,7 @@
   "geo": {
    "lat": 50.06874,
    "lon": 19.91938,
-   "q": "IX Liceum Ogólnokształcące im. Zygmunta Wróblewskiego, Kraków"
+   "q": "Kazimierza Czapińskiego 5, Kraków"
   }
  },
  {
@@ -838,7 +838,12 @@
     "status": "sourced",
     "occupation": "technik teleinformatyk"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.04642,
+   "lon": 19.92223,
+   "q": "Monte Cassino 31, Kraków"
+  }
  },
  {
   "id": "tee7",
@@ -958,7 +963,12 @@
     "status": "check",
     "occupation": "technik OZE"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.02439,
+   "lon": 19.97723,
+   "q": "Henryka Kamieńskiego 49, Kraków"
+  }
  },
  {
   "id": "lo26",
@@ -1042,7 +1052,12 @@
     "sourceId": "wazna-lo26",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06219,
+   "lon": 19.92414,
+   "q": "Krupnicza 44, Kraków"
+  }
  },
  {
   "id": "lo42",
@@ -1192,7 +1207,12 @@
     "sourceId": "otou-lo28",
     "status": "sourced"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.04106,
+   "lon": 19.93689,
+   "q": "Tadeusza Czackiego 11, Kraków"
+  }
  },
  {
   "id": "tch3",
@@ -1252,7 +1272,12 @@
     "status": "check",
     "occupation": "technik technologii środków kosmetycznych"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06219,
+   "lon": 19.92414,
+   "q": "Krupnicza 44, Kraków"
+  }
  },
  {
   "id": "lo3",
@@ -1423,9 +1448,9 @@
    }
   ],
   "geo": {
-   "lat": 50.05048,
-   "lon": 19.94744,
-   "q": "VI Liceum Ogólnokształcące im. Adama Mickiewicza, Kraków"
+   "lat": 50.05043,
+   "lon": 19.94761,
+   "q": "Wąska 7, Kraków"
   }
  },
  {
@@ -1559,9 +1584,9 @@
    }
   ],
   "geo": {
-   "lat": 50.06927,
-   "lon": 19.94003,
-   "q": "X Liceum Ogólnokształcące im. Komisji Edukacji Narodowej, Kraków"
+   "lat": 50.0693,
+   "lon": 19.94064,
+   "q": "Zygmunta Wróblewskiego 8, Kraków"
   }
  },
  {
@@ -1701,7 +1726,7 @@
   "geo": {
    "lat": 50.06341,
    "lon": 19.96375,
-   "q": "XIII Liceum Ogólnokształcące im. Bohaterów Westerplatte, Kraków"
+   "q": "Sądowa 4, Kraków"
   }
  },
  {
@@ -1912,6 +1937,11 @@
     "status": "check",
     "occupation": "technik programista"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06162,
+   "lon": 19.93082,
+   "q": "Loretańska 16, Kraków"
+  }
  }
 ]
