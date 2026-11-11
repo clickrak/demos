@@ -1,0 +1,63 @@
+/* Kompas Liceum v1.2: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
+body.wide main { max-width: 1040px; }
+.kicker2 { display: inline-block; font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.hero2 { padding: 8px 0 4px; }
+.hero2 h1 { font-size: 2.1rem; max-width: 18ch; }
+.steps2 { list-style: none; padding: 0; margin: 18px 0; display: grid; gap: 10px; }
+.steps2 li { display: flex; gap: 12px; align-items: center; }
+.steps2 b { display: block; }
+.steps2 span.t { color: var(--muted); font-size: .9rem; }
+.startrow { display: flex; gap: 14px; align-items: end; flex-wrap: wrap; margin: 18px 0; }
+.startrow > div { flex: 1 1 220px; }
+.btn.big { padding: 14px 26px; font-size: 1.05rem; }
+.prog2 { height: 4px; border-radius: 4px; background: var(--line); margin: 6px 0 16px; overflow: hidden; }
+.prog2 i { display: block; height: 100%; background: var(--accent); transition: width .35s ease; }
+.crumb2 { color: var(--muted); font-size: .88rem; margin: 0; }
+.notice { background: var(--accent-soft); border-radius: 10px; padding: 10px 14px; }
+
+/* points form */
+.ptform { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .ptform { grid-template-columns: 1fr 1fr; } }
+.ptform .card { margin: 0; }
+.pgrid { display: grid; grid-template-columns: 1fr 96px; gap: 8px 12px; align-items: center; }
+.pgrid label { font-weight: 500; }
+.pgrid input, .pgrid select { width: 100%; font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); min-height: 44px; }
+.pgrid .sub { grid-column: 1 / -1; font-size: .82rem; color: var(--muted); margin: -4px 0 4px; }
+.check2 { display: flex; gap: 10px; align-items: center; margin: 8px 0; min-height: 44px; }
+.check2 input { width: 22px; height: 22px; accent-color: var(--accent); }
+.live { position: sticky; bottom: 0; background: var(--card); border: 1px solid var(--accent); border-radius: var(--radius); padding: 12px 16px; margin: 16px 0; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; box-shadow: 0 -8px 20px -18px var(--ink); }
+.live b { font: 700 1.6rem/1 var(--serif); }
+.live .parts { color: var(--muted); font-size: .9rem; }
+
+/* results */
+.areas { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .areas { grid-template-columns: repeat(3, 1fr); } }
+.area { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.area[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.area h3 { margin: 0; }
+.band2 { display: inline-block; font-size: .78rem; padding: 2px 10px; border-radius: 99px; background: var(--accent-soft); width: fit-content; }
+.area ul { margin: 4px 0; padding-left: 18px; font-size: .92rem; }
+.area .btn { margin-top: auto; }
+.extra { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; align-items: center; }
+.cls { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cls li { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 8px 14px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+@media (max-width: 700px) { .cls li { grid-template-columns: 1fr; } }
+.cls .sch { font-weight: 600; }
+.cls .sub { color: var(--muted); font-size: .86rem; }
+.badge { font-size: .72rem; border: 1px solid var(--line); border-radius: 99px; padding: 1px 8px; margin-left: 6px; color: var(--muted); white-space: nowrap; }
+.pill { font-size: .86rem; padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line); white-space: nowrap; text-align: center; }
+.pill.over { background: color-mix(in srgb, var(--good) 28%, var(--card)); border-color: var(--good); }
+.pill.near { background: var(--accent-soft); border-color: var(--accent); }
+.pill.close, .pill.range { background: var(--warn-soft); border-color: var(--warn); }
+.pill.under { background: var(--card); border-color: var(--check); color: var(--muted); }
+.pill.unknown { color: var(--muted); border-style: dashed; }
+.short { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .short { grid-template-columns: repeat(3, 1fr); } }
+.short .role { font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.plan { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.plan li { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.plan input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+.plan .when { font-size: .8rem; color: var(--accent); font-weight: 600; display: block; }
+.note2 { border-left: 3px solid var(--warn); background: var(--warn-soft); padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: .92rem; margin: 12px 0; }
+.sectionhead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.sectionhead h2 { margin-bottom: .2em; }

@@ -13,3 +13,4 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node kompas/tests/run.mjs
+      - run: node kompas/tests/liceum.mjs

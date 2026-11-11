@@ -1,0 +1,121 @@
+[
+ {
+  "id": "otou-progi-licea-2026",
+  "url": "https://www.otouczelnie.pl/progi-punktowe/licea/miasto/298/Krakow",
+  "title": "Progi punktowe liceów w Krakowie, rekrutacja 2026/27 (zakres dla szkoły)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-progi-technika-2025",
+  "url": "https://www.otouczelnie.pl/progi-punktowe/technika/miasto/298/Krakow/2025-2026",
+  "title": "Progi punktowe techników w Krakowie, 2025/26 (zakres dla szkoły)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo1",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/288/I-LO-im-Bartlomieja-Nowodworskiego/progi-punktowe",
+  "title": "I LO Nowodworskiego, progi 2026/27 po klasach",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo2",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/289/II-LO-im-Krola-Jana-III-Sobieskiego",
+  "title": "II LO Sobieskiego, klasy i adres",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo4",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/291/IV-LO-im-Tadeusza-Kosciuszki",
+  "title": "IV LO Kościuszki, klasy i adres",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo5",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/292/V-LO-im-Augusta-Witkowskiego",
+  "title": "V LO Witkowskiego, klasy i adres",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo7",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/294/VII-LO-im-Zofii-Nalkowskiej/progi-punktowe-2026-2027",
+  "title": "VII LO Nałkowskiej, progi 2026/27 po klasach",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "lo7-oddzialy",
+  "url": "https://vii-lo.krakow.pl/wp-content/uploads/2026/02/PLANOWANE-ODDZIALY-KLASY-PIERWSZEJ-W-ROKU-SZKOLNYM-2026-27.pdf",
+  "title": "VII LO, planowane oddziały 2026/27 i przedmioty punktowane",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo8",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/295/VIII-LO-im-Stanislawa-Wyspianskiego",
+  "title": "VIII LO Wyspiańskiego, klasy i adres",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo9",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/296/IX-LO-im-Zygmunta-Wroblewskiego",
+  "title": "IX LO Wróblewskiego, klasy i adres",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-tl14",
+  "url": "https://www.otouczelnie.pl/artykul/3007/Technika-w-Krakowie/1403/Technikum-Lacznosci-nr-14-w-ZS-Lacznosci/progi-punktowe-2026-2027",
+  "title": "Technikum Łączności nr 14, progi 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-tl14-klasy",
+  "url": "https://www.otouczelnie.pl/artykul/3007/Technika-w-Krakowie/1403/Technikum-Lacznosci-nr-14-w-ZS-Lacznosci/klasy",
+  "title": "Technikum Łączności nr 14, klasy i przedmioty rozszerzone",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-tee7",
+  "url": "https://www.otouczelnie.pl/artykul/3007/Technika-w-Krakowie/1419/Technikum-Elektryczno-Elektroniczne-nr-7",
+  "title": "Technikum Elektryczno-Elektroniczne nr 7, klasy i progi",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-punkty",
+  "url": "https://www.otouczelnie.pl/news/1333/Jak-sie-liczy-punkty-i-jak-zdobyc-dodatkowe-punkty-na-swiadectwie",
+  "title": "Jak się liczy punkty do liceum i technikum (zasady z 2023 r., 200 punktów)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "kurator-kryteria",
+  "url": "https://plikimpi.krakow.pl/zalacznik/587082",
+  "title": "Kryteria rekrutacji do szkół ponadpodstawowych w Małopolsce",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-harmonogram-2026",
+  "url": "https://www.otouczelnie.pl/news/2813/Harmonogram-rekrutacji-2026-licea-i-technika-w-Krakowie-i-wojewodztwie-malopolskim",
+  "title": "Harmonogram rekrutacji 2026 (Kraków, Małopolska)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "radio-2023",
+  "url": "https://www.radiokrakow.pl/aktualnosci/krakow/rekrutacja-do-krakowkich-liceow-najchetniej-wybierane-byly-klasy-z-rozszerzona-matematyka/",
+  "title": "Radio Kraków, rekrutacja 2023: kandydaci na jedno miejsce",
+  "asOf": "2026-11",
+  "status": "sourced"
+ }
+]

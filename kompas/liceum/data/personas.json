@@ -1,0 +1,303 @@
+[
+ {
+  "id": "P1",
+  "label": "Uczeń P1: programowanie i logika",
+  "expect": {
+   "topClusters": [
+    "it",
+    "math"
+   ],
+   "notTop": [
+    "biologia"
+   ],
+   "classContains": [
+    "mat-fiz-inf",
+    "technik programista",
+    "mat-inf-ang",
+    "matematyka komputerowa"
+   ]
+  },
+  "answers": {
+   "name": "P1",
+   "sort": {
+    "a1": 1,
+    "a2": 0,
+    "a3": 0,
+    "a4": 1,
+    "a5": 1,
+    "a6": -1,
+    "a7": -1,
+    "a8": 0,
+    "a9": 0,
+    "a10": 0,
+    "a11": 1,
+    "a12": 0,
+    "a13": 0,
+    "a14": 1,
+    "a15": 1,
+    "a16": -1,
+    "a17": 1,
+    "a18": 0,
+    "a19": -1,
+    "a20": 0,
+    "a21": 0,
+    "a22": 1
+   },
+   "situations": {
+    "e1": "a",
+    "e2": "b",
+    "e3": "a"
+   },
+   "sliders": {
+    "zespol": -1,
+    "ludzie": 3,
+    "ruch": 3,
+    "konkret": 0,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 2,
+    "wspolpraca": 0
+   },
+   "values": [
+    "trudne",
+    "zarobki",
+    "niezaleznosc"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "exam": {
+     "polski": 80,
+     "matematyka": 94,
+     "obcy": 96
+    },
+    "grades": {
+     "polski": 5,
+     "matematyka": 6,
+     "angielski": 6,
+     "fizyka": 5,
+     "informatyka": 6,
+     "biologia": 4,
+     "chemia": 4,
+     "geografia": 4,
+     "historia": 4
+    },
+    "stripe": true,
+    "achievements": 4,
+    "volunteering": false
+   }
+  }
+ },
+ {
+  "id": "P2",
+  "label": "Uczeń P2: zdrowie i biologia",
+  "expect": {
+   "topClusters": [
+    "bio"
+   ],
+   "notTop": [
+    "programowanie"
+   ],
+   "classContains": [
+    "biol-chem-mat",
+    "biol-chem",
+    "biol-chem-ang"
+   ]
+  },
+  "answers": {
+   "name": "P2",
+   "sort": {
+    "a1": -1,
+    "a2": 0,
+    "a3": 1,
+    "a4": 0,
+    "a5": 0,
+    "a6": 1,
+    "a7": 1,
+    "a8": -1,
+    "a9": 1,
+    "a10": 0,
+    "a11": 0,
+    "a12": 0,
+    "a13": 0,
+    "a14": 0,
+    "a15": 0,
+    "a16": 1,
+    "a17": -1,
+    "a18": 1,
+    "a19": 0,
+    "a20": -1,
+    "a21": 0,
+    "a22": 0
+   },
+   "situations": {
+    "e1": "d",
+    "e2": "a",
+    "e3": "c"
+   },
+   "sliders": {
+    "zespol": 2,
+    "ludzie": -2,
+    "ruch": -1,
+    "konkret": -1,
+    "decyzje": 0,
+    "zmiana": 1,
+    "projekty": 1,
+    "wspolpraca": 2
+   },
+   "values": [
+    "pomaganie",
+    "pewnosc",
+    "prestiz"
+   ],
+   "strengths": [
+    {
+     "id": "empatia",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "spokoj",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "exam": {
+     "polski": 85,
+     "matematyka": 72,
+     "obcy": 92
+    },
+    "grades": {
+     "polski": 5,
+     "matematyka": 4,
+     "angielski": 5,
+     "fizyka": 4,
+     "informatyka": 4,
+     "biologia": 6,
+     "chemia": 5,
+     "geografia": 4,
+     "historia": 5
+    },
+    "stripe": false,
+    "achievements": 2,
+    "volunteering": true
+   }
+  }
+ },
+ {
+  "id": "P3",
+  "label": "Uczeń P3: elektronika i majsterkowanie",
+  "expect": {
+   "topClusters": [
+    "tech"
+   ],
+   "notTop": [
+    "biologia"
+   ],
+   "classContains": [
+    "technik elektronik",
+    "technik automatyk",
+    "mat-fiz-inf",
+    "mat-fiz-ang",
+    "technik teleinformatyk"
+   ]
+  },
+  "answers": {
+   "name": "P3",
+   "sort": {
+    "a1": 0,
+    "a2": 1,
+    "a3": 1,
+    "a4": 0,
+    "a5": 0,
+    "a6": -1,
+    "a7": 0,
+    "a8": 1,
+    "a9": -1,
+    "a10": 0,
+    "a11": 0,
+    "a12": 0,
+    "a13": 1,
+    "a14": 0,
+    "a15": 0,
+    "a16": -1,
+    "a17": 0,
+    "a18": 0,
+    "a19": 1,
+    "a20": 1,
+    "a21": -1,
+    "a22": 0
+   },
+   "situations": {
+    "e1": "b",
+    "e2": "b",
+    "e3": "a"
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 3,
+    "ruch": -1,
+    "konkret": -2,
+    "decyzje": 0,
+    "zmiana": 1,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "trudne",
+    "pewnosc",
+    "kreatywnosc"
+   ],
+   "strengths": [
+    {
+     "id": "pomyslowosc",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "logika",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "exam": {
+     "polski": 60,
+     "matematyka": 78,
+     "obcy": 70
+    },
+    "grades": {
+     "polski": 4,
+     "matematyka": 5,
+     "angielski": 4,
+     "fizyka": 5,
+     "informatyka": 5,
+     "biologia": 4,
+     "chemia": 4,
+     "geografia": 4,
+     "historia": 4
+    },
+    "stripe": false,
+    "achievements": 0,
+    "volunteering": false
+   }
+  }
+ }
+]

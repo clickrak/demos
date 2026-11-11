@@ -1,0 +1,317 @@
+{
+ "activities": [
+  {
+   "id": "a1",
+   "text": "Napisać prosty program albo skrypt, który coś robi za ciebie.",
+   "w": {
+    "ana": 2,
+    "sys": 1,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a2",
+   "text": "Rozkręcić zepsute urządzenie, żeby zobaczyć, jak działa w środku.",
+   "w": {
+    "tec": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a3",
+   "text": "Robić doświadczenia z chemii albo fizyki i sprawdzać, co wyjdzie.",
+   "w": {
+    "ana": 2,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a4",
+   "text": "Rozwiązywać zadania z matematyki, w których trzeba wpaść na pomysł.",
+   "w": {
+    "ana": 2,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a5",
+   "text": "Wymyślić grę albo aplikację, nawet tylko na kartce.",
+   "w": {
+    "twr": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a6",
+   "text": "Zająć się kimś, kto źle się czuje, i pomóc mu.",
+   "w": {
+    "spo": 2
+   }
+  },
+  {
+   "id": "a7",
+   "text": "Oglądać pod mikroskopem komórki, rośliny albo kropelkę wody ze stawu.",
+   "w": {
+    "ana": 2,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a8",
+   "text": "Lutować, składać elektronikę albo programować Arduino.",
+   "w": {
+    "tec": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a9",
+   "text": "Wytłumaczyć koledze trudny temat tak, żeby zrozumiał.",
+   "w": {
+    "spo": 2,
+    "twr": 1
+   }
+  },
+  {
+   "id": "a10",
+   "text": "Zorganizować klasowy turniej albo wyjazd.",
+   "w": {
+    "prz": 2,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a11",
+   "text": "Znaleźć błąd w tabeli, w programie albo w czyichś obliczeniach.",
+   "w": {
+    "ana": 2,
+    "sys": 2
+   }
+  },
+  {
+   "id": "a12",
+   "text": "Rysować, projektować albo montować filmy.",
+   "w": {
+    "twr": 2
+   }
+  },
+  {
+   "id": "a13",
+   "text": "Czytać dla przyjemności o kosmosie, fizyce albo nowych technologiach.",
+   "w": {
+    "ana": 2,
+    "twr": 1
+   }
+  },
+  {
+   "id": "a14",
+   "text": "Układać łamigłówki z dokładnymi regułami, np. szachy albo logiczne zagadki.",
+   "w": {
+    "ana": 1,
+    "sys": 2
+   }
+  },
+  {
+   "id": "a15",
+   "text": "Zbierać dane z pomiarów i szukać w nich wzorów.",
+   "w": {
+    "ana": 2,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a16",
+   "text": "Uczyć się o ciele człowieka, zdrowiu i pierwszej pomocy.",
+   "w": {
+    "spo": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a17",
+   "text": "Pilnować bezpieczeństwa: hasła, kopie zapasowe, sprawdzanie, czy ktoś się nie włamał.",
+   "w": {
+    "sys": 2,
+    "ana": 1,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a18",
+   "text": "Prowadzić grupę w projekcie i rozdzielać zadania.",
+   "w": {
+    "prz": 2,
+    "spo": 1
+   }
+  },
+  {
+   "id": "a19",
+   "text": "Pracować w terenie: mierzyć, badać wodę, glebę albo pogodę.",
+   "w": {
+    "tec": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a20",
+   "text": "Budować coś z drewna, klocków albo z drukarki 3D.",
+   "w": {
+    "tec": 2,
+    "twr": 1
+   }
+  },
+  {
+   "id": "a21",
+   "text": "Sprzedawać albo przekonywać innych do swojego pomysłu.",
+   "w": {
+    "prz": 2,
+    "spo": 1
+   }
+  },
+  {
+   "id": "a22",
+   "text": "Siedzieć długo nad jednym trudnym problemem, aż się uda.",
+   "w": {
+    "ana": 1,
+    "sys": 2
+   }
+  }
+ ],
+ "situations": [
+  {
+   "id": "e1",
+   "text": "Jutro oddajecie projekt z fizyki, a urządzenie nie działa. Co robisz najpierw?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Sprawdzam układ krok po kroku i szukam błędu.",
+     "w": {
+      "ana": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Rozbieram wszystko i próbuję zbudować inaczej.",
+     "w": {
+      "tec": 2,
+      "twr": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Dzielę zadania w grupie i ustalam, kto co naprawia.",
+     "w": {
+      "prz": 2,
+      "spo": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Pytam nauczyciela o radę i dokładnie notuję, co mówi.",
+     "w": {
+      "sys": 2,
+      "spo": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "e2",
+   "text": "Kolega nie rozumie zadania z matematyki, a ty rozumiesz. Co robisz?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Tłumaczę krok po kroku, aż zrozumie.",
+     "w": {
+      "spo": 2,
+      "twr": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Pokazuję wzór i daję mu podobne zadania do samodzielnego rozwiązania.",
+     "w": {
+      "sys": 2,
+      "ana": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Wymyślam obrazowy przykład z życia.",
+     "w": {
+      "twr": 2,
+      "spo": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Proponuję, żebyśmy rozwiązali to razem na tablicy, a potem on spróbuje sam.",
+     "w": {
+      "prz": 1,
+      "spo": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "e3",
+   "text": "Masz wolny weekend tylko dla siebie. Na co masz największą ochotę?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Zbudować albo zaprogramować coś nowego.",
+     "w": {
+      "tec": 2,
+      "ana": 1,
+      "twr": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Rozwiązać trudne zadania albo zagadki.",
+     "w": {
+      "ana": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Spędzić czas z ludźmi i komuś pomóc.",
+     "w": {
+      "spo": 2
+     }
+    },
+    {
+     "id": "d",
+     "text": "Zorganizować coś z kolegami.",
+     "w": {
+      "prz": 2,
+      "spo": 1
+     }
+    }
+   ]
+  }
+ ],
+ "grades": [
+  "polski",
+  "matematyka",
+  "angielski",
+  "fizyka",
+  "informatyka",
+  "biologia",
+  "chemia",
+  "geografia",
+  "historia"
+ ],
+ "reflection": [
+  {
+   "id": "f1",
+   "text": "Kiedy ostatnio straciłeś poczucie czasu? Co wtedy robiłeś?"
+  },
+  {
+   "id": "f2",
+   "text": "Co chciałbyś umieć za rok, czego dziś nie umiesz?"
+  }
+ ]
+}

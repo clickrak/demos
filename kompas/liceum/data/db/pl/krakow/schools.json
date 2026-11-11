@@ -1,0 +1,928 @@
+[
+ {
+  "id": "lo1",
+  "name": "I Liceum Ogólnokształcące im. Bartłomieja Nowodworskiego",
+  "short": "I LO Nowodworskiego",
+  "type": "liceum",
+  "address": null,
+  "range": {
+   "min": 165.55,
+   "max": 177.45,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1AMK",
+    "label": "matematyka komputerowa",
+    "extended": [
+     "matematyka komputerowa"
+    ],
+    "cards": [
+     "dane-ai",
+     "programowanie"
+    ],
+    "threshold": 176.25,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo1",
+    "status": "sourced"
+   },
+   {
+    "code": "1B",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": 175.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo1",
+    "status": "sourced"
+   },
+   {
+    "code": "1C",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 175.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo1",
+    "status": "sourced"
+   },
+   {
+    "code": "1D",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 177.45,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo1",
+    "status": "sourced"
+   }
+  ]
+ },
+ {
+  "id": "lo2",
+  "name": "II Liceum Ogólnokształcące im. Króla Jana III Sobieskiego",
+  "short": "II LO Sobieskiego",
+  "type": "liceum",
+  "address": "ul. Jana Sobieskiego 9, 31-136 Kraków",
+  "range": {
+   "min": 164.8,
+   "max": 179.65,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1A",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1B",
+    "label": "mat-chem-fiz",
+    "extended": [
+     "matematyka",
+     "chemia",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "mat-geo-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1F",
+    "label": "mat-fiz-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1G",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo2",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo4",
+  "name": "IV Liceum Ogólnokształcące im. Tadeusza Kościuszki",
+  "short": "IV LO Kościuszki",
+  "type": "liceum",
+  "address": "ul. Krzemionki 11, 30-525 Kraków",
+  "range": {
+   "min": 162.6,
+   "max": 176.5,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1A",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1B",
+    "label": "mat-fiz-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "mat-geo-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo4",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo5",
+  "name": "V Liceum Ogólnokształcące im. Augusta Witkowskiego",
+  "short": "V LO Witkowskiego",
+  "type": "liceum",
+  "address": "ul. Studencka 12, 31-116 Kraków",
+  "range": {
+   "min": 167.6,
+   "max": 195.2,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1C",
+    "label": "mat-chem",
+    "extended": [
+     "matematyka",
+     "chemia"
+    ],
+    "cards": [
+     "chemia",
+     "fizyka"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo5",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo5",
+    "status": "check"
+   },
+   {
+    "code": "1E",
+    "label": "mat-inf-fiz",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo5",
+    "status": "check"
+   },
+   {
+    "code": "1G",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo5",
+    "status": "check"
+   },
+   {
+    "code": "1F",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo5",
+    "status": "check"
+   },
+   {
+    "code": "1H",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo5",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo7",
+  "name": "VII Liceum Ogólnokształcące im. Zofii Nałkowskiej",
+  "short": "VII LO Nałkowskiej",
+  "type": "liceum",
+  "address": null,
+  "range": {
+   "min": 164.55,
+   "max": 172.2,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1C",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": 171.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo7",
+    "status": "sourced"
+   },
+   {
+    "code": "1F",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 172.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo7",
+    "status": "sourced"
+   },
+   {
+    "code": "1G",
+    "label": "biol-chem-ang",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 170.95,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo7",
+    "status": "sourced"
+   }
+  ]
+ },
+ {
+  "id": "lo8",
+  "name": "VIII Liceum Ogólnokształcące im. Stanisława Wyspiańskiego",
+  "short": "VIII LO Wyspiańskiego",
+  "type": "liceum",
+  "address": "ul. Grzegórzecka 24, 31-531 Kraków",
+  "range": {
+   "min": 169.1,
+   "max": 180.65,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1A",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo8",
+    "status": "sourced"
+   },
+   {
+    "code": "1B",
+    "label": "biol-chem-mat",
+    "extended": [
+     "biologia",
+     "chemia",
+     "matematyka"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo8",
+    "status": "sourced"
+   },
+   {
+    "code": "1C",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo8",
+    "status": "sourced"
+   },
+   {
+    "code": "1D",
+    "label": "mat-inf-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo8",
+    "status": "sourced"
+   },
+   {
+    "code": "1E",
+    "label": "mat-geo-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo8",
+    "status": "sourced"
+   }
+  ]
+ },
+ {
+  "id": "lo9",
+  "name": "IX Liceum Ogólnokształcące im. Zygmunta Wróblewskiego",
+  "short": "IX LO Wróblewskiego",
+  "type": "liceum",
+  "address": "ul. Kazimierza Czapińskiego 5, 30-048 Kraków",
+  "range": {
+   "min": 160.55,
+   "max": 170.3,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1C",
+    "label": "biol-chem",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo9",
+    "status": "check"
+   },
+   {
+    "code": "1B",
+    "label": "biol-ang-pol",
+    "extended": [
+     "język polski",
+     "angielski",
+     "biologia"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo9",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "tl14",
+  "name": "Technikum Łączności nr 14 w Zespole Szkół Łączności",
+  "short": "Technikum Łączności nr 14",
+  "type": "technikum",
+  "address": "ul. Monte Cassino 31, 30-337 Kraków",
+  "range": {
+   "min": 146.95,
+   "max": 173.4,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "note": "W 2023 na klasę programisty przypadało 9,5 kandydata na miejsce, najwięcej w mieście.",
+  "classes": [
+   {
+    "code": "1P",
+    "label": "technik programista",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie"
+    ],
+    "threshold": 170.5,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tl14",
+    "status": "sourced",
+    "occupation": "technik programista"
+   },
+   {
+    "code": "1C",
+    "label": "technik cyberbezpieczeństwa",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "cyber"
+    ],
+    "threshold": 170.55,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tl14",
+    "status": "sourced",
+    "occupation": "technik cyberbezpieczeństwa"
+   },
+   {
+    "code": "1I",
+    "label": "technik informatyk",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": 161.5,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tl14",
+    "status": "sourced",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "1E",
+    "label": "technik elektronik",
+    "extended": [
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "elektronika"
+    ],
+    "threshold": 157.5,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tl14",
+    "status": "sourced",
+    "occupation": "technik elektronik"
+   },
+   {
+    "code": "1T",
+    "label": "technik teleinformatyk",
+    "extended": [
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "elektronika",
+     "cyber"
+    ],
+    "threshold": 155.85,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tl14",
+    "status": "sourced",
+    "occupation": "technik teleinformatyk"
+   }
+  ]
+ },
+ {
+  "id": "tee7",
+  "name": "Technikum Elektryczno-Elektroniczne nr 7",
+  "short": "Technikum Elektryczno-Elektroniczne nr 7",
+  "type": "technikum",
+  "address": "ul. Henryka Kamieńskiego 49, 30-644 Kraków",
+  "range": {
+   "min": 120.35,
+   "max": 149.35,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "1C",
+    "label": "technik programista",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie"
+    ],
+    "threshold": 126.0,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tee7",
+    "status": "check",
+    "occupation": "technik programista"
+   },
+   {
+    "code": "1D",
+    "label": "technik informatyk",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": 119.85,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tee7",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "1A",
+    "label": "technik automatyk",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika"
+    ],
+    "threshold": 141.7,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tee7",
+    "status": "check",
+    "occupation": "technik automatyk"
+   },
+   {
+    "code": "1B",
+    "label": "technik elektronik",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika"
+    ],
+    "threshold": 84.55,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tee7",
+    "status": "check",
+    "occupation": "technik elektronik"
+   },
+   {
+    "code": "1F",
+    "label": "technik elektryk",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "srodowisko"
+    ],
+    "threshold": 101.6,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tee7",
+    "status": "check",
+    "occupation": "technik elektryk"
+   },
+   {
+    "code": "1E",
+    "label": "technik urządzeń i systemów energetyki odnawialnej",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "elektronika"
+    ],
+    "threshold": 94.25,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tee7",
+    "status": "check",
+    "occupation": "technik OZE"
+   }
+  ]
+ }
+]

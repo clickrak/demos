@@ -1,0 +1,477 @@
+[
+ {
+  "id": "programowanie",
+  "name": "Programowanie i aplikacje",
+  "cluster": "it",
+  "interests": {
+   "ana": 85,
+   "tec": 50,
+   "spo": 15,
+   "twr": 60,
+   "prz": 30,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 3,
+   "ruch": 3,
+   "konkret": 0,
+   "decyzje": 1,
+   "zmiana": 2,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "zarobki",
+   "kreatywnosc",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "logika",
+   "pomyslowosc",
+   "szybka_nauka",
+   "wytrwalosc",
+   "ciekawosc"
+  ],
+  "roles": "programista, twórca aplikacji, projektant gier",
+  "whoYouHelp": "Użytkownicy aplikacji, firmy i zespoły, którym oszczędzasz godziny pracy.",
+  "whatYouGet": "Praca, w której od razu widać efekt. Dużo uczenia się przez całe życie.",
+  "dayInLife": [
+   "Poranek: czytasz zgłoszenie błędu i szukasz, skąd się wziął.",
+   "Południe: piszesz kawałek programu i testujesz go.",
+   "Po południu: krótka rozmowa z zespołem, kto robi co."
+  ],
+  "experiment": "Zrób w tym miesiącu mały program w Pythonie albo grę w Scratchu i pokaż go komuś. Zapisz, co było najtrudniejsze.",
+  "related": [
+   "dane-ai",
+   "cyber"
+  ],
+  "afterSchool": "Informatyka na AGH, UJ albo Politechnice Krakowskiej. Wymaga zwykle matury z matematyki, często z rozszerzeniem. Technik programista daje też zawód już po 4 latach.",
+  "studiaCards": [
+   "software"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ },
+ {
+  "id": "cyber",
+  "name": "Bezpieczeństwo sieci i danych",
+  "cluster": "it",
+  "interests": {
+   "ana": 80,
+   "tec": 55,
+   "spo": 20,
+   "twr": 20,
+   "prz": 20,
+   "sys": 75
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 3,
+   "ruch": 3,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 2,
+   "projekty": 0,
+   "wspolpraca": 0
+  },
+  "values": [
+   "trudne",
+   "wplyw",
+   "pewnosc",
+   "zarobki"
+  ],
+  "strengths": [
+   "logika",
+   "dokladnosc",
+   "spokoj",
+   "ciekawosc",
+   "szybka_nauka"
+  ],
+  "roles": "specjalista cyberbezpieczeństwa, administrator sieci",
+  "whoYouHelp": "Szpitale, banki i szkoły, które ktoś musi ochronić przed atakiem.",
+  "whatYouGet": "Praca z zagadkami i dużą odpowiedzialnością. Zawód, którego brakuje na rynku.",
+  "dayInLife": [
+   "Rano: sprawdzasz alerty i szukasz dziwnych połączeń.",
+   "Potem: łatasz błąd w zabezpieczeniach i dokumentujesz zmianę.",
+   "Pod koniec dnia: uczysz kolegów z biura, jak rozpoznać fałszywego maila."
+  ],
+  "experiment": "Zobacz darmowy kurs bezpieczeństwa w internecie i sprawdź, czy twoje hasła i konta są dobrze zabezpieczone. Zapisz trzy rzeczy, które poprawiłeś.",
+  "related": [
+   "programowanie",
+   "elektronika"
+  ],
+  "afterSchool": "Cyberbezpieczeństwo na AGH i UKEN, informatyka na UJ i Politechnice Krakowskiej. Technik cyberbezpieczeństwa to zawód już po technikum.",
+  "studiaCards": [
+   "cyber",
+   "software"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ },
+ {
+  "id": "dane-ai",
+  "name": "Dane, matematyka i sztuczna inteligencja",
+  "cluster": "math",
+  "interests": {
+   "ana": 95,
+   "tec": 20,
+   "spo": 15,
+   "twr": 30,
+   "prz": 25,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 3,
+   "ruch": 3,
+   "konkret": 1,
+   "decyzje": 3,
+   "zmiana": 1,
+   "projekty": 2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "prestiz",
+   "zarobki",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "logika",
+   "wytrwalosc",
+   "dokladnosc",
+   "ciekawosc",
+   "szybka_nauka"
+  ],
+  "roles": "analityk danych, matematyk, badacz sztucznej inteligencji",
+  "whoYouHelp": "Firmy i naukowcy, którzy chcą odpowiedzi z danych, a nie z przeczucia.",
+  "whatYouGet": "Dużo myślenia i mało rutyny. Matematyka jest tu narzędziem na co dzień.",
+  "dayInLife": [
+   "Rano: porządkujesz dane z badania.",
+   "Potem: budujesz model i sprawdzasz, czy naprawdę działa.",
+   "Po południu: tłumaczysz wynik komuś, kto nie zna matematyki."
+  ],
+  "experiment": "Weź tabelę z czymś, co cię interesuje (np. wyniki sportowe), policz średnie i narysuj wykres. Zapisz jeden wniosek, którego wcześniej nie znałeś.",
+  "related": [
+   "programowanie",
+   "fizyka"
+  ],
+  "afterSchool": "Matematyka, informatyka i analiza danych na UJ i AGH. Zwykle rozszerzona matematyka. Klasy z matematyką komputerową lub informatyką dobrze przygotowują.",
+  "studiaCards": [
+   "software",
+   "finanse"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ },
+ {
+  "id": "elektronika",
+  "name": "Elektronika, automatyka i roboty",
+  "cluster": "tech",
+  "interests": {
+   "ana": 65,
+   "tec": 90,
+   "spo": 10,
+   "twr": 35,
+   "prz": 20,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 3,
+   "ruch": -1,
+   "konkret": -2,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "pewnosc",
+   "kreatywnosc",
+   "zarobki"
+  ],
+  "strengths": [
+   "pomyslowosc",
+   "logika",
+   "dokladnosc",
+   "wytrwalosc",
+   "szybka_nauka"
+  ],
+  "roles": "elektronik, automatyk, konstruktor robotów",
+  "whoYouHelp": "Fabryki, szpitale i miasta, w których ktoś musi sprawić, że urządzenia działają.",
+  "whatYouGet": "Praca rękami i głową. Widać efekt, który działa albo nie działa.",
+  "dayInLife": [
+   "Rano: mierzysz sygnał w układzie i szukasz przyczyny usterki.",
+   "Potem: programujesz sterownik, żeby maszyna robiła to, co ma.",
+   "Po południu: testujesz prototyp z kolegą z zespołu."
+  ],
+  "experiment": "Złóż prosty układ z diodą na płytce stykowej albo z Arduino. Zrób zdjęcie i zapisz, co zadziałało od razu, a co nie.",
+  "related": [
+   "fizyka",
+   "programowanie"
+  ],
+  "afterSchool": "Automatyka, elektronika i energetyka na AGH i Politechnice Krakowskiej. Technikum elektroniczne daje zawód technika po 4 latach i zostawia otwartą maturę.",
+  "studiaCards": [
+   "automatyka",
+   "energetyka"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ },
+ {
+  "id": "fizyka",
+  "name": "Fizyka i nauki techniczne",
+  "cluster": "tech",
+  "interests": {
+   "ana": 92,
+   "tec": 60,
+   "spo": 10,
+   "twr": 35,
+   "prz": 15,
+   "sys": 45
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 2,
+   "ruch": -1,
+   "konkret": 2,
+   "decyzje": 2,
+   "zmiana": 1,
+   "projekty": 2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "prestiz",
+   "wplyw",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "logika",
+   "ciekawosc",
+   "wytrwalosc",
+   "pomyslowosc",
+   "dokladnosc"
+  ],
+  "roles": "inżynier, fizyk, badacz",
+  "whoYouHelp": "Wszyscy, którzy korzystają z energii, urządzeń i materiałów, które ktoś musiał wymyślić.",
+  "whatYouGet": "Zrozumienie, jak działa świat. Szeroka droga: od laboratorium po przemysł.",
+  "dayInLife": [
+   "Rano: planujesz pomiar i sprawdzasz, co może go zepsuć.",
+   "Potem: liczysz wynik i porównujesz z teorią.",
+   "Po południu: piszesz opis eksperymentu, żeby ktoś mógł go powtórzyć."
+  ],
+  "experiment": "Wymyśl jedno doświadczenie z fizyki, które zrobisz w domu. Przewidź wynik, zmierz go i sprawdź, czy miałeś rację.",
+  "related": [
+   "elektronika",
+   "dane-ai"
+  ],
+  "afterSchool": "Fizyka i fizyka techniczna na AGH i UJ, inżynieria na Politechnice Krakowskiej. Zwykle rozszerzona matematyka i fizyka.",
+  "studiaCards": [
+   "energetyka",
+   "atom",
+   "automatyka"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ },
+ {
+  "id": "biologia",
+  "name": "Biologia, zdrowie i medycyna",
+  "cluster": "bio",
+  "interests": {
+   "ana": 75,
+   "tec": 35,
+   "spo": 85,
+   "twr": 15,
+   "prz": 20,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": -1,
+   "ruch": -1,
+   "konkret": -1,
+   "decyzje": 0,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 2
+  },
+  "values": [
+   "pomaganie",
+   "prestiz",
+   "pewnosc",
+   "trudne"
+  ],
+  "strengths": [
+   "empatia",
+   "spokoj",
+   "odpowiedzialnosc",
+   "wytrwalosc",
+   "dokladnosc"
+  ],
+  "roles": "lekarz, ratownik, pielęgniarz, fizjoterapeuta, biolog",
+  "whoYouHelp": "Chorzy i ich rodziny. Czasem też ludzie, którym pomagasz dzięki badaniom.",
+  "whatYouGet": "Praca, która ma znaczenie od pierwszego dnia, i wiedza, która się nie starzeje.",
+  "dayInLife": [
+   "Rano: rozmowa z pacjentem i decyzja, co dalej.",
+   "Potem: sprawdzasz wyniki badań.",
+   "Po południu: krótkie omówienie przypadku z zespołem."
+  ],
+  "experiment": "Zrób kurs pierwszej pomocy i porozmawiaj 20 minut z lekarzem, ratownikiem albo pielęgniarką o ich zwykłym dyżurze.",
+  "related": [
+   "chemia",
+   "srodowisko"
+  ],
+  "afterSchool": "Medycyna, farmacja, pielęgniarstwo i fizjoterapia w Krakowie. Prawie wszystkie wymagają rozszerzonej biologii i chemii, więc klasa biol-chem to droga prosto tam.",
+  "studiaCards": [
+   "medycyna",
+   "farmacja",
+   "pielegniarstwo",
+   "rehabilitacja"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ },
+ {
+  "id": "chemia",
+  "name": "Chemia, laboratorium i biotechnologia",
+  "cluster": "bio",
+  "interests": {
+   "ana": 85,
+   "tec": 55,
+   "spo": 20,
+   "twr": 25,
+   "prz": 15,
+   "sys": 75
+  },
+  "workStyle": {
+   "zespol": -1,
+   "ludzie": 3,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": 3,
+   "zmiana": -1,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "trudne",
+   "niezaleznosc",
+   "wplyw"
+  ],
+  "strengths": [
+   "dokladnosc",
+   "logika",
+   "dyscyplina",
+   "ciekawosc",
+   "odpowiedzialnosc"
+  ],
+  "roles": "chemik, farmaceuta, technolog, biotechnolog",
+  "whoYouHelp": "Pacjenci, którzy dostają leki, i firmy, które potrzebują bezpiecznych materiałów.",
+  "whatYouGet": "Dokładna praca z konkretnym wynikiem. Dużo ścieżek: leki, żywność, materiały, środowisko.",
+  "dayInLife": [
+   "Rano: przygotowujesz próbki według procedury.",
+   "Potem: mierzysz i zapisujesz wynik.",
+   "Po południu: sprawdzasz, czy wynik jest powtarzalny, i piszesz raport."
+  ],
+  "experiment": "Zrób bezpieczne doświadczenie z chemii z kuchni (z dorosłym), zapisz dokładnie, co zmieniałeś i co się stało.",
+  "related": [
+   "biologia",
+   "srodowisko"
+  ],
+  "afterSchool": "Chemia, biotechnologia i farmacja na UJ, AGH i Politechnice Krakowskiej. Zwykle rozszerzona chemia, często też biologia lub matematyka.",
+  "studiaCards": [
+   "laboratorium",
+   "farmacja",
+   "inz-biomed"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ },
+ {
+  "id": "srodowisko",
+  "name": "Środowisko, Ziemia i energia odnawialna",
+  "cluster": "earth",
+  "interests": {
+   "ana": 70,
+   "tec": 55,
+   "spo": 35,
+   "twr": 30,
+   "prz": 30,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 1,
+   "ruch": -2,
+   "konkret": -1,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 2
+  },
+  "values": [
+   "wplyw",
+   "pewnosc",
+   "pomaganie",
+   "kreatywnosc"
+  ],
+  "strengths": [
+   "ciekawosc",
+   "odpowiedzialnosc",
+   "pomyslowosc",
+   "zespol",
+   "logika"
+  ],
+  "roles": "inżynier środowiska, specjalista od energii odnawialnej, geograf, hydrolog",
+  "whoYouHelp": "Miasta, rolnicy i rodziny, które chcą czystej wody, powietrza i taniej energii.",
+  "whatYouGet": "Praca w terenie i przy biurku. Tematy, które będą ważne przez dziesięciolecia.",
+  "dayInLife": [
+   "Rano: wyjazd w teren po pomiary.",
+   "Potem: obróbka danych w arkuszu albo programie.",
+   "Po południu: spotkanie z urzędem lub firmą, żeby wyjaśnić wyniki."
+  ],
+  "experiment": "Zmierz przez tydzień jeden wskaźnik w swojej okolicy (np. temperaturę w cieniu i na słońcu, jakość powietrza z publicznej stacji). Zrób wykres.",
+  "related": [
+   "fizyka",
+   "biologia"
+  ],
+  "afterSchool": "Energetyka i inżynieria środowiska na AGH i Politechnice Krakowskiej, geografia na UJ. Klasy z geografią lub technikum energetyki odnawialnej to dobry start.",
+  "studiaCards": [
+   "energetyka",
+   "woda"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  }
+ }
+]
