@@ -924,5 +924,289 @@
     "occupation": "technik OZE"
    }
   ]
+ },
+ {
+  "id": "lo26",
+  "name": "XXVI Liceum Ogólnokształcące w Zespole Szkół Chemicznych im. Marii Skłodowskiej-Curie",
+  "short": "XXVI LO (Zespół Szkół Chemicznych)",
+  "type": "liceum",
+  "address": "ul. Krupnicza 44, 31-123 Kraków",
+  "range": {
+   "min": 150.75,
+   "max": 156.55,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "note": "Źródła podają różne progi: zakres 150,75–156,55 (otouczelnie) i 158,6–164,9 po klasach (Wasza Edukacja). Sprawdź w szkole.",
+  "classes": [
+   {
+    "code": "1B",
+    "label": "biologiczno-chemiczna z elementami chemii medycznej",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 164.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "wazna-lo26",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "biologiczno-chemiczna z analizą medyczną i sądową",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 161.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "wazna-lo26",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "biologiczno-polonistyczna (z językiem migowym)",
+    "extended": [
+     "biologia",
+     "język polski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 158.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "wos",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "wazna-lo26",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo42",
+  "name": "XLII Liceum Ogólnokształcące",
+  "short": "XLII LO",
+  "type": "liceum",
+  "address": "ul. Studencka 13, 31-116 Kraków",
+  "range": {
+   "min": 167.0,
+   "max": 172.8,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1B",
+    "label": "biologiczno-chemiczna (biol-chem-mat)",
+    "extended": [
+     "matematyka",
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 172.8,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo42",
+    "status": "sourced"
+   },
+   {
+    "code": "1C",
+    "label": "matematyczno-fizyczna (mat-fiz-ang)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": 170.15,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo42",
+    "status": "sourced"
+   }
+  ]
+ },
+ {
+  "id": "lo11",
+  "name": "XI Liceum Ogólnokształcące im. Marii Dąbrowskiej",
+  "short": "XI LO Dąbrowskiej",
+  "type": "liceum",
+  "address": "os. Teatralne 33, 31-948 Kraków",
+  "range": {
+   "min": 157.4,
+   "max": 166.75,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1A",
+    "label": "matematyczna (mat-inf-ang)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo11",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "biologiczno-chemiczna (biol-chem-ang)",
+    "extended": [
+     "angielski",
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo11",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo28",
+  "name": "XXVIII Liceum Ogólnokształcące im. Wojciecha Bednarskiego",
+  "short": "XXVIII LO Bednarskiego",
+  "type": "liceum",
+  "address": "ul. Tadeusza Czackiego 11, 30-501 Kraków",
+  "range": {
+   "min": 110.15,
+   "max": 141.35,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1D",
+    "label": "technologiczna (mat-inf-ang)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 141.35,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo28",
+    "status": "sourced"
+   }
+  ]
+ },
+ {
+  "id": "tch3",
+  "name": "Technikum Chemiczne i Ochrony Środowiska nr 3 w Zespole Szkół Chemicznych",
+  "short": "Technikum Chemiczne nr 3 (ZSC)",
+  "type": "technikum",
+  "address": "ul. Krupnicza 44, 31-123 Kraków",
+  "range": {
+   "min": 131.9,
+   "max": 155.05,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "1A",
+    "label": "technik analityk",
+    "extended": [
+     "chemia"
+    ],
+    "cards": [
+     "chemia",
+     "biologia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "zschk-zasady",
+    "status": "check",
+    "occupation": "technik analityk"
+   },
+   {
+    "code": "1T",
+    "label": "technik technologii środków kosmetycznych",
+    "extended": [
+     "chemia"
+    ],
+    "cards": [
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "zschk-zasady",
+    "status": "check",
+    "occupation": "technik technologii środków kosmetycznych"
+   }
+  ]
  }
 ]

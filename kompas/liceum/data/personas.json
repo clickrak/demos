@@ -299,5 +299,102 @@
     "volunteering": false
    }
   }
+ },
+ {
+  "id": "P4",
+  "label": "Uczeń P4: programowanie, odpowiedzi „jak się czuję”",
+  "expect": {
+   "topClusters": [
+    "it",
+    "math"
+   ],
+   "notTop": [
+    "biologia"
+   ],
+   "classContains": [
+    "mat-fiz-inf",
+    "technik programista",
+    "mat-inf-ang",
+    "matematyka komputerowa"
+   ]
+  },
+  "answers": {
+   "name": "P4",
+   "sort": {
+    "a1": 1,
+    "a2": 0,
+    "a3": 0,
+    "a4": 1,
+    "a5": 1,
+    "a6": -1,
+    "a7": -1,
+    "a8": 0,
+    "a9": 0,
+    "a10": 0,
+    "a11": 1,
+    "a12": 0,
+    "a13": 0,
+    "a14": 1,
+    "a15": 1,
+    "a16": -1,
+    "a17": 1,
+    "a18": 0,
+    "a19": -1,
+    "a20": 0,
+    "a21": 0,
+    "a22": 1
+   },
+   "situations": {
+    "e1": "a",
+    "e2": "b",
+    "e3": "a"
+   },
+   "sliders": {
+    "zespol": -1,
+    "ludzie": 3,
+    "ruch": 3,
+    "konkret": 0,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 2,
+    "wspolpraca": 0
+   },
+   "values": [
+    "trudne",
+    "zarobki",
+    "niezaleznosc"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "mode": "soft",
+    "soft": {
+     "exam": {
+      "polski": "dobrze",
+      "matematyka": "swietnie",
+      "obcy": "swietnie"
+     },
+     "grades": {
+      "polski": "dobrze",
+      "matematyka": "swietnie",
+      "angielski": "swietnie",
+      "informatyka": "swietnie",
+      "fizyka": "dobrze"
+     }
+    }
+   }
+  }
  }
 ]

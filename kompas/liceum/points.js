@@ -6,9 +6,29 @@ import { computeProfile, fitCard, band, pathsTo, reasonsFor, makeSlots } from '.
 
 export const GRADE_PTS = { 6: 18, 5: 17, 4: 14, 3: 8, 2: 2 };
 export const SUBJECT_NAME = { polski: 'język polski', matematyka: 'matematyka', angielski: 'język angielski', fizyka: 'fizyka', informatyka: 'informatyka',
-  biologia: 'biologia', chemia: 'chemia', geografia: 'geografia', historia: 'historia' };
+  biologia: 'biologia', chemia: 'chemia', geografia: 'geografia', historia: 'historia', wos: 'wiedza o społeczeństwie' };
 
 const pct = v => Math.max(0, Math.min(100, Number(v) || 0));
+
+// What the kid told us, as numbers. Soft mode ("słabo / dobrze / świetnie") maps to a typical grade and exam percentage;
+// exact mode uses the marks he typed. Subjects he skipped in soft mode count as "dobrze" and are listed as assumed.
+export function effectivePoints(answers, config) {
+  const p = answers.points || {}, soft = p.soft || {};
+  const hasExact = Object.keys(p.exam || {}).length || Object.keys(p.grades || {}).length;
+  const useSoft = p.mode === 'soft' || (p.mode !== 'exact' && !hasExact && (soft.exam || soft.grades));
+  if (!useSoft) return { ...p, approx: false, assumed: [] };
+  const map = (config && config.soft) || { slabo: { grade: 3, exam: 45 }, dobrze: { grade: 4, exam: 70 }, swietnie: { grade: 5, exam: 90 } };
+  const exam = {}, grades = {}, assumed = [];
+  for (const k of ['polski', 'matematyka', 'obcy']) { const l = (soft.exam || {})[k]; if (l && map[l]) exam[k] = map[l].exam; }
+  const gs = soft.grades || {};
+  for (const s of Object.keys(SUBJECT_NAME)) {
+    const l = gs[s];
+    if (l && map[l]) grades[s] = map[l].grade; else { grades[s] = map.dobrze.grade; if (!['polski', 'matematyka', 'angielski'].includes(s)) assumed.push(s); }
+  }
+  return { exam, grades, stripe: !!p.stripe, volunteering: !!p.volunteering, achievements: p.achievements || 0, approx: true, assumed };
+}
+
+export const CHANCE_TXT = { realna: 'realna szansa', zawalczenia: 'do zawalczenia', ambitna: 'ambitna', unknown: 'wpisz, jak ci idzie' };
 
 export function examPoints(exam = {}) {
   const parts = { polski: 0.35 * pct(exam.polski), matematyka: 0.35 * pct(exam.matematyka), obcy: 0.3 * pct(exam.obcy) };
@@ -35,21 +55,24 @@ export function certificatePoints(p = {}, cls) {
 }
 
 // Points of the candidate in one class and how they sit against last year's threshold.
-export function checkClass(p, cls, school) {
+export function checkClass(p, cls, school, config) {
   const ex = examPoints(p && p.exam), ce = certificatePoints(p, cls);
   const complete = ex.entered && ce.missing.length === 0;
   const points = ex.total + ce.total;
-  let level = 'unknown', margin = null, basis = null;
+  const cm = (config && config.chanceMargin) || 8;
+  let level = 'unknown', margin = null, basis = null, chance = 'unknown';
   if (complete) {
     if (cls.threshold != null) {
       margin = points - cls.threshold; basis = 'class';
       level = margin >= 6 ? 'over' : margin >= 0 ? 'near' : margin >= -6 ? 'close' : 'under';
+      chance = margin >= cm ? 'realna' : margin >= -cm ? 'zawalczenia' : 'ambitna';
     } else if (school.range) {
       basis = 'school';
       level = points >= school.range.max ? 'over' : points >= school.range.min ? 'range' : 'under';
+      chance = points >= school.range.max ? 'realna' : points >= school.range.min ? 'zawalczenia' : 'ambitna';
     }
   }
-  return { points, exam: ex, cert: ce, complete, level, margin, basis, missing: ce.missing, entered: ex.entered };
+  return { points, exam: ex, cert: ce, complete, level, margin, basis, chance, missing: ce.missing, entered: ex.entered, approx: !!(p && p.approx) };
 }
 
 export const LEVEL_TXT = {
@@ -58,6 +81,7 @@ export const LEVEL_TXT = {
 };
 
 export function scoreLiceum(answers, data) {
+  const pts = effectivePoints(answers, data.config);
   const profile = computeProfile(answers, data);
   const cards = data.opportunities.map(card => {
     const f = fitCard(profile, card, answers, data);
@@ -66,13 +90,13 @@ export function scoreLiceum(answers, data) {
     for (const school of data.schools) for (const cls of school.classes) {
       const rank = cls.cards.indexOf(card.id);
       if (rank < 0) continue;
-      classes.push({ school, cls, rank, check: checkClass(answers.points, cls, school) });
+      classes.push({ school, cls, rank, check: checkClass(pts, cls, school, data.config) });
     }
     classes.sort((a, b) => (a.rank - b.rank) || ((a.cls.threshold == null) - (b.cls.threshold == null)) || ((b.cls.threshold ?? b.school.range.max) - (a.cls.threshold ?? a.school.range.max)));
     return { card, ...f, band: band(f.fit, data.config), paths, strengthsUsed: paths.filter(x => x.kind === 'strength'), reasons: reasonsFor(card, profile, answers, data), classes, offers: [], reachable: true, robust: 0 };
   });
   cards.sort((a, b) => (Math.abs(a.fit - b.fit) >= 1 ? b.fit - a.fit : (b.paths.length - a.paths.length) || (b.fit - a.fit)));
-  return { profile, cards, slots: makeSlots(cards, profile, answers, data) };
+  return { profile, cards, slots: makeSlots(cards, profile, answers, data), points: pts };
 }
 
 // A short list to apply with: the classes of his best area, from a stretch to a safe one.
@@ -90,7 +114,7 @@ export function shortlist(result) {
   for (const [role, c] of [['ambitna', stretch], ['realna', likely], ['bezpieczna', safe]]) if (c && !pick.some(x => x.c === c)) pick.push({ role, c });
   if (!pick.length) {
     const closest = [...withPts].sort((a, b) => b.check.margin - a.check.margin).slice(0, 3);
-    return closest.map(c => ({ role: 'do nadrobienia', c }));
+    return closest.map(c => ({ role: 'ambitna', c }));
   }
   return pick;
 }

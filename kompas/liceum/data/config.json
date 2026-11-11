@@ -25,10 +25,28 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "1.2.0",
+ "appVersion": "1.3.0",
  "dataVersion": "2026-11-11",
  "thresholdYear": "2026/27",
  "thresholdNote": "Próg to najniższy wynik, który dał miejsce w klasie w rekrutacji 2026. W 2027 będzie inny: zwykle o kilka punktów w górę lub w dół, w popularnych klasach więcej.",
  "examDates": "10–12 maja 2027",
- "recruitmentWindow": "w 2026 rekrutacja trwała od 18 maja do 28 lipca; terminy na 2027 ogłasza Małopolski Kurator Oświaty, zwykle w styczniu"
+ "recruitmentWindow": "w 2026 rekrutacja trwała od 18 maja do 28 lipca; terminy na 2027 ogłasza Małopolski Kurator Oświaty, zwykle w styczniu",
+ "soft": {
+  "slabo": {
+   "grade": 3,
+   "exam": 45,
+   "label": "słabo"
+  },
+  "dobrze": {
+   "grade": 4,
+   "exam": 70,
+   "label": "dobrze"
+  },
+  "swietnie": {
+   "grade": 5,
+   "exam": 90,
+   "label": "świetnie"
+  }
+ },
+ "chanceMargin": 8
 }

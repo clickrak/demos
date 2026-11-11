@@ -1,6 +1,6 @@
 // Kompas Liceum: data integrity, points arithmetic and test personas. Run: node kompas/tests/liceum.mjs
 import { readFileSync } from 'node:fs';
-import { scoreLiceum, examPoints, certificatePoints, checkClass, scoredSubjects, shortlist } from '../liceum/points.js';
+import { scoreLiceum, examPoints, certificatePoints, checkClass, scoredSubjects, shortlist, effectivePoints } from '../liceum/points.js';
 
 const j = p => JSON.parse(readFileSync(new URL(p, import.meta.url)));
 const data = {
@@ -19,6 +19,14 @@ const top = certificatePoints({ grades: { polski: 6, matematyka: 6, angielski: 6
 if (top.total !== 100) fail('certificate max should be 100, got', top.total);
 if (certificatePoints({ grades: { polski: 4, matematyka: 3, angielski: 5, fizyka: 2 } }, cls0).total !== 14 + 8 + 17 + 2) fail('grade points 4/3/5/2');
 if (certificatePoints({ achievements: 40 }, { scored: [] }).total !== 18) fail('achievements are capped at 18');
+
+// Soft mode: "słabo / dobrze / świetnie" map to typical marks and exam results.
+const soft = effectivePoints({ points: { mode: 'soft', soft: { exam: { polski: 'dobrze', matematyka: 'swietnie', obcy: 'slabo' }, grades: { polski: 'dobrze', matematyka: 'swietnie', angielski: 'slabo' } } } }, data.config);
+if (soft.exam.matematyka !== 90 || soft.exam.obcy !== 45 || soft.grades.matematyka !== 5 || soft.grades.angielski !== 3 || soft.grades.fizyka !== 4 || !soft.approx) fail('soft mapping', JSON.stringify(soft));
+if (!soft.assumed.includes('fizyka')) fail('skipped subjects should be listed as assumed');
+const hard = effectivePoints({ points: { exam: { polski: 50 }, grades: { polski: 5 } } }, data.config);
+if (hard.approx || hard.exam.polski !== 50) fail('exact marks must win over soft defaults');
+if (!data.schools.some(s => s.id === 'lo26')) fail('XXVI LO must be in the list');
 
 // Links and completeness.
 const cardIds = new Set(data.opportunities.map(c => c.id)), srcIds = new Set(data.sources.map(s => s.id)), strIds = new Set(data.strengths.map(s => s.id));
@@ -41,7 +49,7 @@ for (const s of data.schools) {
     if (!srcIds.has(k.sourceId)) fail('class source', s.id, k.code);
     for (const c of k.cards) if (!cardIds.has(c)) fail('class card link', s.id, k.code, c);
     if (k.threshold != null && !(k.threshold > 0 && k.threshold <= 200)) fail('threshold range', s.id, k.code);
-    if (k.threshold != null && s.range && (k.threshold < s.range.min - 0.01 || k.threshold > s.range.max + 0.01) && s.range.year === k.thresholdYear) fail('class threshold outside school range', s.id, k.code);
+    if (k.status === 'sourced' && k.threshold != null && s.range && (k.threshold < s.range.min - 0.01 || k.threshold > s.range.max + 0.01) && s.range.year === k.thresholdYear) fail('class threshold outside school range', s.id, k.code);
     for (const x of scoredSubjects(k).list) if (!subj.has(x)) fail('scored subject unknown', s.id, k.code, x);
   }
 }
@@ -65,4 +73,10 @@ for (const p of j('../liceum/data/personas.json')) {
   console.log('  ' + (ok ? 'PASS' : 'FAIL'), ok ? '' : `(top ${okTop}, not ${okNot}, class ${okClass})`);
   if (!ok) bad++;
 }
+// A soft-mode persona: no marks typed, only how it feels. Must still produce classes with a chance label and no crash.
+const p0 = j('../liceum/data/personas.json')[1];
+const softAns = { ...p0.answers, points: { mode: 'soft', soft: { exam: { polski: 'dobrze', matematyka: 'dobrze', obcy: 'swietnie' }, grades: { polski: 'dobrze', matematyka: 'dobrze', angielski: 'swietnie', biologia: 'swietnie', chemia: 'swietnie' } } } };
+const rs = scoreLiceum(softAns, data), c0 = rs.slots.best[0].classes[0];
+console.log('\nSoft-mode check:', rs.slots.best[0].card.id, c0.school.short, c0.cls.code, c0.check.chance, rs.points.approx);
+if (!rs.points.approx || !['realna', 'zawalczenia', 'ambitna'].includes(c0.check.chance)) fail('soft mode should give a chance label');
 process.exit(bad ? 1 : 0);

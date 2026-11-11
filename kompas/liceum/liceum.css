@@ -1,4 +1,4 @@
-/* Kompas Liceum v1.2: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
+/* Kompas Liceum v1.3: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
 body.wide main { max-width: 1040px; }
 .kicker2 { display: inline-block; font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
 .hero2 { padding: 8px 0 4px; }
@@ -61,3 +61,30 @@ body.wide main { max-width: 1040px; }
 .note2 { border-left: 3px solid var(--warn); background: var(--warn-soft); padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: .92rem; margin: 12px 0; }
 .sectionhead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .sectionhead h2 { margin-bottom: .2em; }
+
+/* v1.3: soft self-assessment, chance pills, parent notes, motion */
+.pill.realna { background: color-mix(in srgb, var(--good) 28%, var(--card)); border-color: var(--good); }
+.pill.zawalczenia { background: var(--accent-soft); border-color: var(--accent); }
+.pill.ambitna { background: var(--warn-soft); border-color: var(--warn); }
+.softrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 8px 0; border-top: 1px solid var(--line); }
+.softrow:first-of-type { border-top: 0; }
+.softrow .sl { flex: 1 1 150px; font-weight: 600; }
+.softrow .chips { flex: 0 1 auto; margin: 0; }
+.exactask { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.parent { margin-top: 18px; border: 1px dashed var(--line); border-radius: var(--radius); padding: 10px 14px; background: var(--card); }
+.parent summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+.parent .parentin { margin-top: 8px; }
+.tablewrap { overflow-x: auto; margin: 8px 0; }
+.ptable { border-collapse: collapse; width: 100%; font-size: .9rem; }
+.ptable th, .ptable td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.area h3 .ico { margin-right: 8px; vertical-align: -5px; }
+.hero svg.illus, .hero .illus { max-width: 100%; }
+.prog2 i { transition: width .45s ease-out; }
+@media (prefers-reduced-motion: no-preference) {
+  .area { animation: rise .45s ease-out both; animation-delay: calc(var(--i, 0) * 70ms); }
+  .cls li { animation: rise .35s ease-out both; }
+  .cls li:nth-child(2) { animation-delay: 40ms; } .cls li:nth-child(3) { animation-delay: 80ms; } .cls li:nth-child(4) { animation-delay: 120ms; }
+  .cls li:nth-child(n+5) { animation-delay: 160ms; }
+}
+@media (prefers-reduced-motion: reduce) { .prog2 i { transition: none; } }
+@media print { .parent { border: 0; } .parent > summary { display: none; } }

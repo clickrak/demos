@@ -1,6 +1,8 @@
-// Kompas Liceum v1.2.0. Screens, points form, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v1.3.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
 import { provenStrengths } from '../core/scoring.js';
-import { scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, LEVEL_TXT, SUBJECT_NAME } from './points.js';
+import { scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME } from './points.js';
+import { icon } from '../studia/icons.js';
+import { ILLUS } from '../studia/illus.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
@@ -11,7 +13,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 const f1 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const f2 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [],
-  points: { exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0, skipped: false }, area: null, checks: {}, reflection: {} });
+  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {} });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -52,7 +54,7 @@ function applyTheme() {
   const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
   document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = dark ? ICON.sun : ICON.moon; });
 }
-function applySkin() {
+function applySkin(animate) {
   const root = document.documentElement;
   if (skin) root.dataset.skin = skin; else delete root.dataset.skin;
   const next = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length];
@@ -61,6 +63,10 @@ function applySkin() {
   const u = new URL(location.href);
   if (skin) u.searchParams.set('skin', skin); else u.searchParams.delete('skin');
   history.replaceState(null, '', u);
+  if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    root.classList.remove('skin-in'); void root.offsetWidth; root.classList.add('skin-in');
+    clearTimeout(applySkin.h); applySkin.h = setTimeout(() => root.classList.remove('skin-in'), 700);
+  }
 }
 
 // ---- screens ------------------------------------------------------------------------------------------------------
@@ -74,33 +80,41 @@ const screens = [
   { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 3, hint: () => `Wybierz jeszcze ${3 - A.values.length}` },
   { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 3,
     hint: () => A.strengths.length < 3 ? `Wybierz jeszcze ${3 - A.strengths.length}` : `Dopisz przykład: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
-  { id: 'punkty', ch: 'punkty', view: vPoints },
+  { id: 'szkola', ch: 'szkola', view: vSchool },
   { id: 'wyniki', ch: 'wyniki', view: vResults }
 ];
-const STEP_TITLE = { zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', punkty: 'Twoje punkty' };
+const STEP_TITLE = { zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
 const current = () => screens.find(s => s.id === ((location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start')) || screens[0];
 const needResults = () => !(A.sortPos >= data.questions.activities.length && A.values.length === 3 && provenStrengths(A).length === 3);
 
+let lastProg = { ch: null, w: 0 };
 function render() {
   const s = current(), i = screens.indexOf(s);
   document.querySelectorAll('.chapters [data-ch]').forEach(el => { el.classList.toggle('on', el.dataset.ch === s.ch); el.setAttribute('aria-current', el.dataset.ch === s.ch ? 'step' : 'false'); });
-  const inQ = s.ch === 'ja' || s.ch === 'punkty';
-  const list = screens.filter(x => x.ch === 'ja' || x.ch === 'punkty');
+  const inQ = s.ch === 'ja' || s.ch === 'szkola';
+  const list = screens.filter(x => x.ch === 'ja' || x.ch === 'szkola');
   const idx = list.indexOf(s);
   const blocked = !!(s.ok && !s.ok());
   const nav = !inQ ? '' : `<div class="nav"><button class="btn ghost" data-go="${screens[i - 1].id}">Wstecz</button>
-    <p class="navhint" id="navhint" role="status">${blocked && s.hint ? esc(s.hint()) : ''}</p>
-    <button class="btn" data-go="${screens[i + 1].id}" ${blocked ? 'disabled' : ''} aria-describedby="navhint">${s.id === 'punkty' ? 'Pokaż wyniki' : 'Dalej'}</button></div>`;
-  const crumb = inQ ? `<p class="crumb2"><b>${STEP_TITLE[s.id]}</b> · krok ${idx + 1} z ${list.length}</p><div class="prog2" aria-hidden="true"><i style="width:${Math.round(100 * (idx + 1) / list.length)}%"></i></div>` : '';
+    <p class="navhint" id="navhint" role="status">${blocked && s.hint ? esc(s.hint()) : s.id === 'szkola' ? 'Ten krok możesz pominąć' : ''}</p>
+    <button class="btn" data-go="${screens[i + 1].id}" ${blocked ? 'disabled' : ''} aria-describedby="navhint">${s.id === 'szkola' ? 'Pokaż wyniki' : 'Dalej'}</button></div>`;
+  const progW = Math.round(100 * (idx + 1) / list.length), progFrom = inQ && lastProg.ch === 'q' ? lastProg.w : 0;
+  lastProg = inQ ? { ch: 'q', w: progW } : { ch: null, w: 0 };
+  const crumb = inQ ? `<p class="crumb2"><b>${STEP_TITLE[s.id]}</b> · krok ${idx + 1} z ${list.length}</p><div class="prog2" aria-hidden="true"><i style="width:${progFrom}%" data-to="${progW}"></i></div>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : ''; notice = '';
   if (s.id === 'wyniki' && needResults()) { $app.innerHTML = vGate(); document.body.classList.remove('wide'); $app.dataset.screen = 'gate'; applySkin(); return; }
   const keep = document.activeElement && document.activeElement.id, changed = $app.dataset.screen !== s.id;
+  const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
+  const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
   document.body.classList.toggle('wide', s.id === 'wyniki');
-  $app.innerHTML = `${crumb}${note}${s.view()}${nav}`;
+  $app.innerHTML = `<div class="qmain ${dir}">${crumb}${note}${s.view()}${nav}</div>`;
   $app.dataset.screen = s.id; save(); applySkin();
+  const pi = $app.querySelector('.prog2 i[data-to]');
+  if (pi) requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.width = pi.dataset.to + '%'; }));
+  if (changed) { const b = document.querySelector('.brand'); if (b) { b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); } }
   if (changed) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
   else if (keep && document.getElementById(keep)) { const el = document.getElementById(keep); el.focus(); if (el.setSelectionRange && el.value && el.type === 'text') el.setSelectionRange(el.value.length, el.value.length); }
-  if (s.id === 'punkty') liveUpdate();
+  if (s.id === 'szkola') liveUpdate();
 }
 
 function vGate() {
@@ -114,22 +128,24 @@ function vGate() {
 
 function vStart() {
   const started = hasAnswers();
-  const steps = [['Ja', 'co lubisz, jak pracujesz, w czym jesteś dobry', 'ok. 8 min'], ['Punkty', 'twoje oceny i wynik egzaminu, żeby porównać je z progami', 'ok. 3 min'], ['Wyniki', 'kierunki, klasy w Krakowie z progami i plan do maja 2027', '']];
-  return `<div class="hero2"><span class="kicker2">Kompas Liceum · Kraków 2027 · matematyka, informatyka, przyroda</span>
+  const nCls = data.schools.reduce((t, x) => t + x.classes.length, 0);
+  const steps = [['Ja', 'co lubisz, jak pracujesz, w czym jesteś dobry', 'ok. 8 min'], ['Szkoła', 'jak ci idzie w szkole, bez liczenia punktów', 'ok. 2 min'], ['Wyniki', 'kierunki, klasy w Krakowie i plan do maja 2027', '']];
+  return `<div class="hero">${ILLUS.start}<div>
+    <span class="kicker2">Kompas Liceum · Kraków 2027 · matematyka, informatyka, przyroda</span>
     <h1>Jaka klasa pasuje do tego, co lubisz?</h1>
-    <p class="lead">Kilka pytań o to, co lubisz robić, i twoje punkty z egzaminu ósmoklasisty. Na końcu zobaczysz kierunki, klasy w krakowskich liceach i technikach oraz to, ile punktów brakuje albo zostaje ci zapasu.</p>
+    <p class="lead">Kilka pytań o to, co lubisz robić, i krótko o tym, jak ci idzie w szkole. Na końcu zobaczysz kierunki oraz klasy w krakowskich liceach i technikach, które są realne, a które ambitne.</p>
     <ol class="steps2">${steps.map((x, k) => `<li><span class="rno">${k + 1}</span><div><b>${x[0]}</b><span class="t">${x[1]}${x[2] ? ' · ' + x[2] : ''}</span></div></li>`).join('')}</ol>
     ${started ? '<p><b>Masz już odpowiedzi.</b> Możesz wrócić do pytań albo od razu do wyników.</p>' : ''}
     <div class="startrow"><div><label class="field" for="name">Imię <span class="muted">(opcjonalnie, tylko do nazwy pliku)</span></label>
       <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off"></div>
       <button class="btn big" data-go="zajecia">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button></div>
     ${started && !needResults() ? '<div class="actions"><button class="btn ghost" data-go="wyniki">Moje wyniki</button></div>' : ''}
-    <p class="muted small">Nie ma złych odpowiedzi. To punkt wyjścia do rozmowy z rodzicami i nauczycielami, nie test i nie wyrok.</p>
-    <div class="note2"><b>Co jest w bazie.</b> Siedem liceów i dwa technika w Krakowie z klasami z matematyką, fizyką, informatyką, biologią, chemią i geografią. Progi punktowe są z rekrutacji 2026, a w 2027 będą trochę inne. Resztę szkół dodamy w kolejnych wersjach.</div>
+    <p class="muted small">Nie ma złych odpowiedzi. To punkt wyjścia do rozmowy z rodzicami i nauczycielami: nie test i nie wyrok.</p>
+    <div class="note2"><b>Co jest w bazie.</b> ${data.schools.length} szkół i ${nCls} klas w Krakowie z matematyką, fizyką, informatyką, biologią, chemią i geografią. Progi są z rekrutacji 2026, więc to orientacja, nie obietnica.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
     ${TEST ? `<details class="card"><summary>Tryb testowy</summary><div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div></details>` : ''}
-  </div>`;
+  </div></div>`;
 }
 
 function vSort() {
@@ -140,7 +156,7 @@ function vSort() {
     return `<h1>Co lubisz robić</h1><div class="card"><p>Lubisz:</p><ul>${liked || '<li class="muted">nic nie zaznaczyłeś, to też jest odpowiedź</li>'}</ul><button class="btn ghost" data-sortreset>Przejdź jeszcze raz</button></div>${dots}`;
   }
   const a = acts[pos];
-  return `<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
+  return `${A.sortPos === 0 ? ILLUS.zajecia : ''}<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
     <div class="card sort"><p class="sortcount">${pos + 1} z ${n}</p><div class="q">${esc(a.text)}</div>
       <div class="row"><button class="btn ghost" data-sortans="-1">nie lubię</button><button class="btn" data-sortans="1">lubię</button></div>
       <button class="chip" data-sortans="0" style="margin-top:12px">obojętne, pomiń</button>${pos > 0 ? '<button class="chip" data-sortback style="margin-top:12px">cofnij</button>' : ''}
@@ -165,7 +181,7 @@ function vSituations() {
     return `<h1>Co robisz, gdy…</h1><div class="card"><p>Twoje wybory:</p><ul>${picked || '<li class="muted">wszystko pominięte, to też jest odpowiedź</li>'}</ul><button class="btn ghost" data-sitreset>Przejdź jeszcze raz</button></div>${dots}`;
   }
   const q = qs[pos];
-  return `<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
+  return `${A.sitPos === 0 ? ILLUS.sytuacje : ''}<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
     <div class="card"><p class="sortcount">${pos + 1} z ${n}</p><p class="q-s">${esc(q.text)}</p>
       <div class="chips stack">${q.answers.map(a => chip(`data-sitans="${a.id}"`, esc(a.text), A.situations[q.id] === a.id)).join('')}</div>
       <div class="row-s"><button class="chip" data-sitans="">pomiń</button>${pos > 0 ? '<button class="chip" data-sitback>cofnij</button>' : ''}</div></div>${dots}`;
@@ -192,63 +208,97 @@ function vStrengths() {
     ${list ? `<div class="card">${list}</div>` : ''}<p class="small muted">Mocna strona liczy się dopiero z przykładem. Przykład nie musi być wielki.</p>`;
 }
 
-// ---- points -------------------------------------------------------------------------------------------------------
-function vPoints() {
-  const p = A.points, ex = p.exam, g = p.grades;
-  const exRow = (k, label, w) => `<label for="ex-${k}">${label} <span class="muted small">(waga ${w})</span></label>
-    <input id="ex-${k}" type="number" inputmode="numeric" min="0" max="100" step="1" data-exam="${k}" value="${ex[k] ?? ''}" placeholder="%">`;
-  const grades = data.questions.grades.map(s => `<label for="gr-${s}">${esc(SUBJECT_NAME[s])}</label>
-    <select id="gr-${s}" data-grade="${s}"><option value="">–</option>${[6, 5, 4, 3, 2].map(n => `<option value="${n}" ${g[s] === n ? 'selected' : ''}>${n}</option>`).join('')}</select>`).join('');
-  return `<h1>Twoje punkty</h1>
-    <p>Do liceum i technikum liczy się do 200 punktów: 100 z egzaminu ósmoklasisty i 100 ze świadectwa. Wpisz wynik, który masz albo którego się spodziewasz. W listopadzie to tylko szacunek, ale pokaże, gdzie jesteś względem progów. Zmienisz go w każdej chwili.</p>
-    <div class="ptform">
-      <div class="card"><h3>Egzamin ósmoklasisty</h3><p class="small muted">Spodziewany wynik w procentach. Próbny egzamin też się nadaje.</p>
+// ---- school self-assessment (soft by default, exact marks optional) -----------------------------------------------
+const SOFT = [['slabo', 'słabo'], ['dobrze', 'dobrze'], ['swietnie', 'świetnie']];
+const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
+const hasExactData = () => Object.keys(A.points.exam || {}).length > 0 || Object.keys(A.points.grades || {}).length > 0;
+const pMode = () => A.points.mode || (hasExactData() ? 'exact' : 'soft');
+const eff = () => effectivePoints(A, data.config);
+const hasInput = () => { const e = eff(); return Object.keys(e.exam || {}).length > 0 || Object.keys(e.grades || {}).length > 0; };
+const softRow = (kind, key, label) => {
+  const cur = ((A.points.soft || {})[kind] || {})[key];
+  return `<div class="softrow"><span class="sl" id="sr-${kind}-${key}">${esc(label)}</span><div class="chips" role="group" aria-labelledby="sr-${kind}-${key}">${SOFT.map(([v, t]) => chip(`data-soft="${kind}:${key}:${v}"`, t, cur === v)).join('')}</div></div>`;
+};
+function parentNote() {
+  const c = data.config, so = c.soft;
+  return `<details class="parent"><summary>Dla rodziców: jak to liczymy</summary>
+    <p class="small">Odpowiedzi „słabo / dobrze / świetnie” zamieniamy na typowe wartości: <b>słabo</b> to ocena ${so.slabo.grade} i ok. ${so.slabo.exam}% na egzaminie, <b>dobrze</b> to ${so.dobrze.grade} i ok. ${so.dobrze.exam}%, <b>świetnie</b> to ${so.swietnie.grade} i ok. ${so.swietnie.exam}%. Przedmiot bez odpowiedzi liczymy jak „dobrze”.</p>
+    <p class="small">Z tego powstaje szacunek punktów rekrutacyjnych (maksymalnie 200): egzamin ósmoklasisty daje do 100 pkt (polski 0,35, matematyka 0,35, język obcy 0,30 × wynik w procentach), świadectwo do 100 pkt (polski, matematyka i dwa przedmioty zależne od klasy: ocena 6 = 18, 5 = 17, 4 = 14, 3 = 8, 2 = 2 pkt) oraz dodatki za pasek, wolontariat i osiągnięcia.</p>
+    <p class="small">Szacunek porównujemy z progami z rekrutacji ${esc(c.thresholdYear)}. Zapas co najmniej ${c.chanceMargin} pkt to <b>realna szansa</b>, od −${c.chanceMargin} do +${c.chanceMargin} pkt to <b>do zawalczenia</b>, niżej to <b>ambitna</b>. To orientacja do rozmowy, nie prognoza: progi zmieniają się co roku, a przed egzaminem nikt nie zna swojego wyniku. Dokładne punkty warto policzyć w drugim semestrze albo w oficjalnym kalkulatorze rekrutacji.</p></details>`;
+}
+function vSchool() {
+  const p = A.points, ex = p.exam, g = p.grades, mode = pMode();
+  const subj = data.questions.grades;
+  const main = subj.filter(s => !['historia', 'wos'].includes(s)), rest = subj.filter(s => ['historia', 'wos'].includes(s));
+  let body;
+  if (mode === 'soft') {
+    body = `<div class="card"><h3>Egzamin ósmoklasisty</h3><p class="small muted">Jak myślisz, jak ci pójdzie? Strzał wystarczy, nic tu nie jest wiążące.</p>
+        ${softRow('exam', 'polski', 'Język polski')}${softRow('exam', 'matematyka', 'Matematyka')}${softRow('exam', 'obcy', 'Język obcy (angielski)')}</div>
+      <div class="card"><h3>Przedmioty w szkole</h3><p class="small muted">Jak ci idzie teraz? Zaznacz te, które znasz, resztę pomiń.</p>
+        ${main.map(s => softRow('grades', s, cap(SUBJECT_NAME[s]))).join('')}
+        ${rest.length ? `<details><summary class="small">Pozostałe przedmioty</summary>${rest.map(s => softRow('grades', s, cap(SUBJECT_NAME[s]))).join('')}</details>` : ''}</div>
+      <div class="card exactask"><h3>Masz już oceny z I semestru?</h3><p class="small">Jeśli tak, możesz wpisać dokładne oceny i wyniki. Nie musisz: do pierwszego przeglądu opcji wystarczy „słabo, dobrze, świetnie”.</p>
+        <button class="btn ghost" data-mode="exact">Wpiszę dokładne oceny</button></div>`;
+  } else {
+    const exRow = (k, label, w) => `<label for="ex-${k}">${label} <span class="muted small">(waga ${w})</span></label>
+      <input id="ex-${k}" type="number" inputmode="numeric" min="0" max="100" step="1" data-exam="${k}" value="${ex[k] ?? ''}" placeholder="%">`;
+    const grades = subj.map(s => `<label for="gr-${s}">${esc(SUBJECT_NAME[s])}</label>
+      <select id="gr-${s}" data-grade="${s}"><option value="">–</option>${[6, 5, 4, 3, 2].map(n => `<option value="${n}" ${g[s] === n ? 'selected' : ''}>${n}</option>`).join('')}</select>`).join('');
+    body = `<div class="card"><h3>Egzamin ósmoklasisty</h3><p class="small muted">Wynik w procentach: z próbnego egzaminu albo spodziewany.</p>
         <div class="pgrid">${exRow('polski', 'Język polski', '0,35')}${exRow('matematyka', 'Matematyka', '0,35')}${exRow('obcy', 'Język obcy (angielski)', '0,30')}</div></div>
-      <div class="card"><h3>Oceny na świadectwie</h3><p class="small muted">Aktualne albo spodziewane oceny. Każda klasa liczy polski, matematykę i dwa inne przedmioty.</p>
-        <div class="pgrid">${grades}</div></div>
+      <div class="card"><h3>Oceny z I semestru</h3><p class="small muted">Przedmiotów, których nie wpiszesz, nie liczymy.</p><div class="pgrid">${grades}</div></div>
       <div class="card"><h3>Dodatkowe punkty</h3>
-        <label class="check2"><input type="checkbox" data-pt="stripe" ${p.stripe ? 'checked' : ''}> Świadectwo z wyróżnieniem (czerwony pasek): 7 pkt</label>
-        <label class="check2"><input type="checkbox" data-pt="volunteering" ${p.volunteering ? 'checked' : ''}> Wolontariat wpisany na świadectwie: 3 pkt</label>
+        <label class="check2"><input type="checkbox" data-pt="stripe" ${p.stripe ? 'checked' : ''}> Świadectwo z wyróżnieniem (czerwony pasek)</label>
+        <label class="check2"><input type="checkbox" data-pt="volunteering" ${p.volunteering ? 'checked' : ''}> Wolontariat wpisany na świadectwie</label>
         <div class="pgrid"><label for="ach">Osiągnięcia (konkursy, olimpiady, sport), do 18 pkt</label>
-          <input id="ach" type="number" inputmode="numeric" min="0" max="18" step="1" data-pt="achievements" value="${p.achievements || 0}"></div>
-        <p class="small muted">Osiągnięcia liczą się tylko, jeśli są wpisane na świadectwie.</p></div>
-      <div class="card"><h3>Jak to czytać</h3><p class="small">Próg to najniższy wynik, który w zeszłym roku dał miejsce w klasie. Prawdziwy próg w 2027 będzie inny, często o kilka punktów. Dlatego Kompas pokazuje, czy jesteś nad progiem, blisko niego czy pod nim, a nie „dostaniesz się” albo „nie dostaniesz się”.</p>
-        <p class="small muted">Nie masz jeszcze ocen? Pomiń ten krok: zobaczysz klasy bez porównania z progami.</p></div>
-    </div>
-    <div class="live" id="live" role="status" aria-live="polite"></div>`;
+          <input id="ach" type="number" inputmode="numeric" min="0" max="18" step="1" data-pt="achievements" value="${p.achievements || 0}"></div></div>
+      <div class="card exactask"><p class="small">Wolisz prościej? Wróć do odpowiedzi „słabo, dobrze, świetnie”.</p><button class="btn ghost" data-mode="soft">Wróć do prostej wersji</button></div>`;
+  }
+  return `<h1>Jak ci idzie w szkole?</h1>
+    <p>Nie liczymy tu dokładnych punktów, bo wyniki jeszcze nie są znane. Zaznacz, jak się czujesz z danym przedmiotem. Na tej podstawie pokażemy, które klasy są dla ciebie <b>realne</b>, a które <b>ambitne</b>. Cel to pomysły i opcje, nie przewidywanie wyniku.</p>
+    <div class="ptform">${body}</div>
+    <div class="live" id="live" role="status" aria-live="polite"></div>
+    ${parentNote()}`;
 }
 function liveUpdate() {
   const el = document.getElementById('live'); if (!el) return;
-  const ex = examPoints(A.points.exam), ce = certificatePoints(A.points, { scored: [] });
-  el.innerHTML = ex.entered
-    ? `<div><span class="muted small">Egzamin</span><br><b>${f1(ex.total)}</b> <span class="muted small">z 100</span></div>
-       <div><span class="muted small">Dodatkowe punkty</span><br><b>${ce.extras}</b> <span class="muted small">z 28</span></div>
-       <div class="parts">Punkty ze świadectwa zależą od klasy, więc kompas policzy je osobno dla każdej.</div>`
-    : '<span class="muted">Wpisz trzy wyniki z egzaminu, a tu zobaczysz sumę. Możesz też przejść dalej bez punktów.</span>';
+  if (pMode() === 'soft') {
+    const s = A.points.soft || {}, n = Object.keys(s.exam || {}).length + Object.keys(s.grades || {}).length;
+    el.innerHTML = n ? `<span>Zaznaczone odpowiedzi: <b>${n}</b>. Resztę możesz zostawić.</span>` : '<span class="muted">Możesz też przejść dalej bez zaznaczania: zobaczysz wtedy klasy bez oceny szans.</span>';
+  } else {
+    const ex = examPoints(A.points.exam), ce = certificatePoints(A.points, { scored: [] });
+    el.innerHTML = ex.entered ? `<span>Egzamin: <b>${f1(ex.total)}</b> z 100 pkt · dodatki: <b>${ce.extras}</b> pkt. Punkty ze świadectwa liczymy osobno dla każdej klasy.</span>` : '<span class="muted">Wpisz wyniki z egzaminu, a tu zobaczysz sumę. Możesz też przejść dalej.</span>';
+  }
 }
-const pointsEntered = () => examPoints(A.points.exam).entered;
 
 // ---- results ------------------------------------------------------------------------------------------------------
-const pill = ch => {
-  const t = ch.level === 'unknown' ? (pointsEntered() ? `wpisz ocenę: ${ch.missing.map(s => SUBJECT_NAME[s]).join(', ')}` : 'wpisz punkty') : LEVEL_TXT[ch.level];
-  const m = ch.margin != null ? ` (${ch.margin >= 0 ? '+' : '−'}${f1(Math.abs(ch.margin))} pkt)` : '';
-  return `<span class="pill ${ch.level}">${esc(t)}${m}</span>`;
-};
+const pill = ch => `<span class="pill ${ch.chance || 'unknown'}">${esc(ch.chance && ch.chance !== 'unknown' ? CHANCE_TXT[ch.chance] : (hasInput() ? 'za mało danych o przedmiotach' : 'zaznacz, jak ci idzie'))}</span>`;
 
 function classRow(x) {
   const { school, cls, check } = x;
-  const th = cls.threshold != null ? `próg ${cls.thresholdYear}: <b>${f2(cls.threshold)}</b>` : `próg klasy do sprawdzenia · zakres szkoły ${f2(school.range.min)}–${f2(school.range.max)} (${school.range.year})`;
-  const scored = scoredSubjects(cls);
-  const mine = check.complete ? `Twoje punkty w tej klasie: <b>${f1(check.points)}</b>` : `Twoje punkty: ${pointsEntered() ? 'brakuje ocen' : 'jeszcze nie wpisane'}`;
   return `<li><div><span class="sch">${esc(school.short)}</span><span class="badge">${school.type === 'liceum' ? 'liceum' : 'technikum'}</span>
       <div class="sub">klasa ${esc(cls.code)} · ${esc(cls.label)}${cls.occupation ? ' (zawód + matura)' : ''}</div>
-      ${school.address ? `<div class="sub">${esc(school.address)}</div>` : ''}</div>
-    <div class="sub">${th}<br>${mine}${check.complete && !scored.sourced ? ' <span title="Szkoła podaje, które oceny liczy. Tu to przybliżenie.">(przybliżenie)</span>' : ''}${cls.status !== 'sourced' ? '<br><span class="muted">dane do sprawdzenia w rekrutacji 2027</span>' : ''}</div>
+      ${school.address ? `<div class="sub">${esc(school.address)}</div>` : ''}
+      ${cls.status !== 'sourced' ? '<div class="sub muted">dane do sprawdzenia w rekrutacji 2027</div>' : ''}</div>
     ${pill(check)}</li>`;
 }
 
-function areaCard(slotName, c, selected) {
-  return `<article class="area" ${selected ? 'aria-current="true"' : ''}><span class="kicker2">${slotName}</span><h3>${esc(c.card.name)}</h3><span class="band2">${c.band}</span>
+function parentTable(rows) {
+  const e = eff(), th = x => x.cls.threshold != null ? f2(x.cls.threshold) : `zakres ${f2(x.school.range.min)}–${f2(x.school.range.max)}`;
+  const pts = x => x.check.complete ? f1(x.check.points) : '–';
+  const mg = x => x.check.margin != null ? `${x.check.margin >= 0 ? '+' : '−'}${f1(Math.abs(x.check.margin))}` : '–';
+  return `<details class="parent"><summary>Dla rodziców: progi i szacunek punktów</summary>
+    <p class="small">${hasInput() ? (e.approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie”.' : 'Policzone z dokładnych ocen i wyników.') : 'Nie ma jeszcze odpowiedzi o szkole, więc nie ma szacunku.'}
+      ${e.assumed && e.assumed.length ? ` Przedmioty bez odpowiedzi liczone jak „dobrze”: ${e.assumed.map(s => esc(SUBJECT_NAME[s])).join(', ')}.` : ''}
+      Progi z rekrutacji ${esc(data.config.thresholdYear)}; w 2027 mogą być inne.</p>
+    <div class="tablewrap"><table class="ptable"><thead><tr><th>Szkoła i klasa</th><th>Próg</th><th>Szacunek</th><th>Różnica</th></tr></thead>
+      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)} · ${esc(x.cls.code)}</td><td>${th(x)}</td><td>${pts(x)}</td><td>${mg(x)}</td></tr>`).join('')}</tbody></table></div>
+    ${parentNote().replace('<details class="parent"><summary>Dla rodziców: jak to liczymy</summary>', '<div class="parentin">').replace(/<\/details>$/, '</div>')}</details>`;
+}
+
+function areaCard(slotName, c, selected, i) {
+  return `<article class="area" style="--i:${i}" ${selected ? 'aria-current="true"' : ''}><span class="kicker2">${slotName}</span>
+    <h3>${c.card.icon ? icon(c.card.icon, 'ico') : ''}${esc(c.card.name)}</h3><span class="band2">${c.band}</span>
     ${c.reasons.length ? `<ul>${c.reasons.map(r => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
     <p class="small">${esc(c.card.whoYouHelp)}</p>
     <details><summary class="small">Dzień z tej pracy</summary><ul class="small">${c.card.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul></details>
@@ -264,51 +314,50 @@ function studiaFor(card) {
   return out.slice(0, 5);
 }
 
-function planItems(sel, r) {
-  const top = sel.classes.find(c => c.check.complete && c.cls.threshold != null) || sel.classes[0];
+function planItems(sel) {
+  const top = sel.classes.find(c => c.check.chance && c.check.chance !== 'unknown') || sel.classes[0];
   const out = [{ id: 'exp', when: 'w ciągu 30 dni', text: sel.card.experiment }];
   if (top) {
     out.push({ id: 'dni', when: 'grudzień 2026 – kwiecień 2027', text: `Idź na dzień otwarty albo wejdź na stronę: ${top.school.short}. Zapytaj, które oceny ze świadectwa liczy klasa ${top.cls.code} (${top.cls.label}) i jak wygląda zwykły tydzień nauki.` });
-    if (top.check.complete && top.check.margin != null && top.check.margin < 0) {
-      const lv = levers(A.points, top.cls).map(l => l.text);
-      out.push({ id: 'pkt', when: 'do końca roku szkolnego', warn: true, text: `Brakuje około ${f1(-top.check.margin)} pkt do zeszłorocznego progu klasy ${top.cls.code}. Co daje punkty: ${lv.join('; ')}.` });
-    } else if (top.check.complete) {
-      out.push({ id: 'pkt', when: 'do końca roku szkolnego', text: `Trzymaj poziom: masz ${f1(top.check.points)} pkt, zeszłoroczny próg klasy ${top.cls.code} to ${f2(top.cls.threshold)}. Zapas może zniknąć, jeśli próg wzrośnie.` });
-    } else {
-      out.push({ id: 'pkt', when: 'w styczniu', text: 'Wpisz w Kompasie oceny i wynik próbnego egzaminu, żeby zobaczyć, gdzie jesteś względem progów.' });
-    }
+    const subs = scoredSubjects(top.cls).list.filter(s => !['polski', 'matematyka'].includes(s)).map(s => SUBJECT_NAME[s]);
+    const subTxt = subs.length ? ` oraz z przedmiotów tej klasy (${subs.join(', ')})` : '';
+    if (top.check.chance === 'ambitna') out.push({ id: 'pkt', when: 'do końca roku szkolnego', warn: true, text: `Klasa ${top.cls.code} jest na razie ambitna. Najwięcej pomoże matematyka i polski${subTxt}. W drugim semestrze wróć do Kompasu z dokładnymi ocenami.` });
+    else if (top.check.chance) out.push({ id: 'pkt', when: 'do końca roku szkolnego', text: `Trzymaj poziom z matematyki i polskiego${subTxt}. W drugim semestrze sprawdź dokładniej, gdzie jesteś.` });
+    else out.push({ id: 'pkt', when: 'w styczniu', text: 'Zaznacz w Kompasie, jak ci idzie w szkole, żeby zobaczyć, które klasy są realne, a które ambitne.' });
   }
   out.push({ id: 'zasady', when: 'styczeń 2027', text: `Sprawdź terminy rekrutacji 2027 na stronie Małopolskiego Kuratora Oświaty (${data.config.recruitmentWindow}) i regulamin każdej szkoły z twojej listy.` });
-  out.push({ id: 'lista', when: 'przed złożeniem wniosku', text: 'Ułóż listę klas od wymarzonej do bezpiecznej: jedna ambitna, jedna realna, jedna z zapasem punktów.' });
+  out.push({ id: 'lista', when: 'przed złożeniem wniosku', text: 'Ułóż listę klas od wymarzonej do bezpiecznej: jedna ambitna, jedna realna, jedna z zapasem.' });
   out.push({ id: 'egz', when: data.config.examDates, text: 'Egzamin ósmoklasisty (polski, matematyka, język obcy).' });
   out.push({ id: 'talk', when: 'kiedy chcesz', text: 'Pokaż ten plan komuś, komu ufasz, i zapytaj, co o nim myśli.' });
   return out;
 }
 
+const ROLE_TXT = { ambitna: 'ambitna', realna: 'realna', bezpieczna: 'z zapasem' };
 function vResults() {
   const r = scoreLiceum(A, data), s = r.slots;
   const shown = [...s.best, s.most, s.surprise].filter(Boolean);
   const selId = (A.area && r.cards.some(c => c.card.id === A.area)) ? A.area : s.best[0].card.id;
   const sel = r.cards.find(c => c.card.id === selId);
-  const items = planItems(sel, r), sl = shortlist(r);
+  const items = planItems(sel), sl = shortlist(r);
   const rows = sel.classes, more = rows.slice(8);
   const tag = c => c === s.most ? 'Most' : c === s.surprise ? 'Niespodzianka' : `Opcja ${s.best.indexOf(c) + 1}`;
   const stud = studiaFor(sel.card);
-  const noPts = !pointsEntered();
-  return `<div class="sectionhead"><h1>${esc(A.name ? A.name + ', oto' : 'Oto')} twoje kierunki</h1><button class="btn ghost" data-go="punkty">Zmień punkty</button></div>
+  const names = data.schools.map(x => x.short).join(', ');
+  return `<div class="sectionhead"><h1>${esc(A.name ? A.name + ', oto' : 'Oto')} twoje kierunki</h1><button class="btn ghost" data-go="szkola">Zmień, jak ci idzie</button></div>
     <p class="lead">Kierunek to rodzaj pracy, który do ciebie pasuje. Z niego wynika klasa i szkoła. Zacznij od kierunku, nie od progu.</p>
-    <div class="areas">${shown.map(c => areaCard(tag(c), c, c.card.id === selId)).join('')}</div>
+    <div class="areas">${shown.map((c, i) => areaCard(tag(c), c, c.card.id === selId, i)).join('')}</div>
     <div class="extra"><label class="small" for="allareas">Inny kierunek:</label>
       <select id="allareas" data-areasel>${r.cards.map(c => `<option value="${c.card.id}" ${c.card.id === selId ? 'selected' : ''}>${esc(c.card.name)}</option>`).join('')}</select></div>
 
     <h2>Klasy w Krakowie: ${esc(sel.card.name.toLowerCase())}</h2>
-    ${noPts ? '<p class="note2">Nie wpisałeś jeszcze punktów, więc widzisz klasy i zeszłoroczne progi bez porównania. <button class="linkbtn" data-go="punkty">Wpisz punkty</button></p>' : ''}
-    <p class="small muted">${esc(data.config.thresholdNote)} Klasy z kierunkiem na pierwszym miejscu są u góry.</p>
+    ${!hasInput() ? '<p class="note2">Nie zaznaczyłeś jeszcze, jak ci idzie w szkole, więc widzisz klasy bez oceny szans. <button class="linkbtn" data-go="szkola">Zaznacz, jak ci idzie</button></p>' : ''}
+    <p class="small muted">Etykieta „realna”, „do zawalczenia” albo „ambitna” to orientacja na podstawie zeszłorocznych progów. Klasy z kierunkiem na pierwszym miejscu są u góry.</p>
     <ul class="cls">${rows.slice(0, 8).map(classRow).join('')}</ul>
     ${more.length ? `<details><summary>Jeszcze ${more.length} klas</summary><ul class="cls" style="margin-top:8px">${more.map(classRow).join('')}</ul></details>` : ''}
+    ${parentTable(rows)}
 
     ${sl.length ? `<h2>Propozycja listy do wniosku</h2><p class="small muted">Z kierunku „${esc(s.best[0].card.name)}”. W rekrutacji wybierasz kilka klas i układasz je od najbardziej wymarzonej.</p>
-      <div class="short">${sl.map(x => `<div class="card"><span class="role">${x.role}</span><h3>${esc(x.c.school.short)}</h3><p class="small">klasa ${esc(x.c.cls.code)} · ${esc(x.c.cls.label)}</p>${pill(x.c.check)}</div>`).join('')}</div>` : ''}
+      <div class="short">${sl.map(x => `<div class="card"><span class="role">${ROLE_TXT[x.role] || x.role}</span><h3>${esc(x.c.school.short)}</h3><p class="small">klasa ${esc(x.c.cls.code)} · ${esc(x.c.cls.label)}</p>${pill(x.c.check)}</div>`).join('')}</div>` : ''}
 
     <h2>Co potem</h2>
     <div class="card"><p>${esc(sel.card.afterSchool)}</p>
@@ -320,7 +369,7 @@ function vResults() {
       <label for="pl-${it.id}"><span class="when">${esc(it.when)}</span>${esc(it.text)}</label></li>`).join('')}</ul>
 
     <h2>Czego jeszcze nie ma w bazie</h2>
-    <p class="note2">Są: I, II, IV, V, VII, VIII i IX LO oraz Technikum Łączności nr 14 i Technikum Elektryczno-Elektroniczne nr 7. Brakuje jeszcze m.in. III, VI, X, XIII i XLII LO oraz Technikum Energetyczno-Elektronicznego nr 9 i Technikum Chemicznego nr 3 w ZSC. Progi klas oznaczone „do sprawdzenia” pochodzą z serwisu, który nie podaje roku. Przed decyzją sprawdź je na stronie szkoły i w ogłoszeniu kuratora.</p>
+    <p class="note2">Są: ${esc(names)}. Brakuje jeszcze m.in. III, VI, X, XIII i XV LO oraz Technikum Energetyczno-Elektronicznego nr 9. Progi klas oznaczone „do sprawdzenia” pochodzą z serwisów, które nie zawsze podają rok. Przed decyzją sprawdź je na stronie szkoły i w ogłoszeniu kuratora.</p>
     <div class="actions noprint"><button class="btn" data-export="download">Zapisz plik z wynikami</button><button class="btn ghost" data-export="print">Drukuj</button></div>
     <details class="card"><summary>Źródła</summary><ul class="small">${data.sources.map(x => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> · stan ${esc(x.asOf)}</li>`).join('')}</ul></details>`;
 }
@@ -339,14 +388,16 @@ function buildMarkdown() {
     const sel = r.cards.find(c => c.card.id === (A.area || s.best[0].card.id));
     L.push('', `## Klasy w Krakowie: ${sel.card.name}`);
     L.push(`Progi z rekrutacji ${data.config.thresholdYear}. ${data.config.thresholdNote}`);
+    for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`);
+    L.push('', '## Dla rodziców: progi i szacunek', hasInput() ? (eff().approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie” (słabo = 3 i ok. 45%, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Policzone z dokładnych ocen i wyników.') : 'Brak odpowiedzi o szkole, więc bez szacunku.', '');
     for (const x of sel.classes.slice(0, 12)) {
       const th = x.cls.threshold != null ? `próg ${f2(x.cls.threshold)}` : `zakres szkoły ${f2(x.school.range.min)}–${f2(x.school.range.max)}`;
-      L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${th}${x.check.complete ? `, moje punkty ${f1(x.check.points)} – ${LEVEL_TXT[x.check.level]}` : ''}`);
+      L.push(`- ${x.school.short}, klasa ${x.cls.code}: ${th}${x.check.complete ? `, szacunek ${f1(x.check.points)}` : ''}`);
     }
     L.push('', '## Mój plan');
     const checks = A.checks || {};
-    for (const it of planItems(sel, r)) L.push(`- [${checks[`${sel.card.id}:${it.id}`] ? 'x' : ' '}] ${it.when}: ${it.text}`);
-    L.push('', '## Pytania do rozmowy z rodzicami', '- Która klasa daje ci najwięcej energii, a która tylko dobrze brzmi?', '- Co zrobisz w tym miesiącu, żeby zbliżyć się do progu?', '- Jaką klasę wpiszesz jako bezpieczną i czy chcesz w niej się uczyć?', '');
+    for (const it of planItems(sel)) L.push(`- [${checks[`${sel.card.id}:${it.id}`] ? 'x' : ' '}] ${it.when}: ${it.text}`);
+    L.push('', '## Pytania do rozmowy z rodzicami', '- Która klasa daje ci najwięcej energii, a która tylko dobrze brzmi?', '- Co zrobisz w tym miesiącu, żeby przybliżyć się do wybranej klasy?', '- Jaką klasę wpiszesz jako bezpieczną i czy chcesz w niej się uczyć?', '');
   }
   L.push('<!-- dane do ponownego wczytania -->', '```json', JSON.stringify({ app: 'kompas-liceum', version: data.config.appVersion, dataVersion: data.config.dataVersion, date: today(), answers: A }, null, 1), '```');
   return L.join('\n');
@@ -360,7 +411,9 @@ function loadFile(text) {
   if (!obj || !obj.answers || obj.app !== 'kompas-liceum') { notice = 'To nie wygląda na plik z Kompasu Liceum. Wybierz plik pobrany z tej aplikacji.'; render(); return; }
   const a = Object.assign(blank(), obj.answers), missing = [];
   const has = (list, id) => list.some(x => x.id === id);
+  const hadMode = (a.points || {}).mode;
   a.points = Object.assign(blank().points, a.points);
+  if (!hadMode && (Object.keys(a.points.exam || {}).length || Object.keys(a.points.grades || {}).length)) a.points.mode = 'exact';
   a.strengths = (a.strengths || []).filter(x => has(data.strengths, x.id) || (missing.push('mocna strona: ' + x.id), false));
   a.values = (a.values || []).filter(v => has(data.dimensions.values, v) || (missing.push('wartość: ' + v), false));
   for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
@@ -402,11 +455,13 @@ document.addEventListener('click', e => {
   if (d.value) { const i = A.values.indexOf(d.value); if (i >= 0) A.values.splice(i, 1); else if (A.values.length < 3) A.values.push(d.value); save(); render(); return; }
   if (d.strength) { const i = A.strengths.findIndex(s => s.id === d.strength); if (i >= 0) A.strengths.splice(i, 1); else if (A.strengths.length < 3) A.strengths.push({ id: d.strength, proof: '' }); save(); render(); return; }
   if (d.area) { A.area = d.area; save(); render(); setTimeout(() => document.querySelector('.cls')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 30); return; }
+  if (d.soft) { const [kind, key, val] = d.soft.split(':'), tgt = (A.points.soft[kind === 'exam' ? 'exam' : 'grades'] ||= {}); if (tgt[key] === val) delete tgt[key]; else tgt[key] = val; A.points.mode = 'soft'; save(); render(); return; }
+  if (d.mode) { A.points.mode = d.mode; save(); render(); return; }
   if (d.export) { doExport(d.export); return; }
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
-  if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(); return; }
-  if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(); return; }
-  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); A.sortPos = data.questions.activities.length; A.sitPos = data.questions.situations.length; location.hash = '#/wyniki'; render(); }
+  if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
+  if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
+  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); A.points = Object.assign(blank().points, A.points); if (!A.points.mode && Object.keys(A.points.exam || {}).length) A.points.mode = 'exact'; A.sortPos = data.questions.activities.length; A.sitPos = data.questions.situations.length; if (location.hash === '#/wyniki') render(); else location.hash = '#/wyniki'; }
 });
 document.addEventListener('change', e => {
   const t = e.target, d = t.dataset;

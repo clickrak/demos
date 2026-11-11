@@ -117,5 +117,47 @@
   "title": "Radio Kraków, rekrutacja 2023: kandydaci na jedno miejsce",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "zschk-klasy",
+  "url": "https://zschkrakow.pl/planowane-klasy/",
+  "title": "XXVI LO i Technikum Chemiczne nr 3 (ZSC), planowane klasy 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "zschk-zasady",
+  "url": "https://zschkrakow.pl/zasady-rekrutacji/",
+  "title": "ZSC, zasady rekrutacji: przedmioty punktowane, adres",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "wazna-lo26",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xxvi-liceum-krakow-429/profile",
+  "title": "XXVI LO, profile i progi 2026/27 (serwis Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo42",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/3034/XLII-LO",
+  "title": "XLII LO, klasy i progi",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo11",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/298/XI-LO-im-Marii-Dabrowskiej",
+  "title": "XI LO Dąbrowskiej, klasy i adres",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo28",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/305/XXVIII-LO-im-Wojciecha-Bednarskiego",
+  "title": "XXVIII LO Bednarskiego, klasy i progi",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

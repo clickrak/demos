@@ -55,7 +55,8 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "analityka"
  },
  {
   "id": "cyber",
@@ -114,7 +115,8 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "bezpieczenstwo"
  },
  {
   "id": "dane-ai",
@@ -173,7 +175,8 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "future"
  },
  {
   "id": "elektronika",
@@ -232,7 +235,8 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "automatyzacja"
  },
  {
   "id": "fizyka",
@@ -292,7 +296,8 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "energia"
  },
  {
   "id": "biologia",
@@ -353,7 +358,8 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "zdrowie"
  },
  {
   "id": "chemia",
@@ -413,7 +419,8 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "technika"
  },
  {
   "id": "srodowisko",
@@ -472,6 +479,7 @@
    "A": "wysoka",
    "B": "wysoka",
    "C": "średnia"
-  }
+  },
+  "icon": "woda"
  }
 ]
