@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-10",
+ "asOf": "2026-11-17",
  "source": "https://gtfs.ztp.krakow.pl/",
  "feeds": [
   "GTFS_KRK_T.zip",
@@ -1041,6 +1041,262 @@
       "5"
      ]
     ]
+   }
+  },
+  "asp-waw": {
+   "address": "ul. Syrokomli 21",
+   "lat": 50.05712,
+   "lon": 19.92525,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Jubilat",
+     "m": 150,
+     "tram": [
+      "1",
+      "13"
+     ],
+     "bus": [
+      "124",
+      "144",
+      "164",
+      "169",
+      "173",
+      "179"
+     ]
+    },
+    {
+     "name": "Muzeum Narodowe",
+     "m": 170,
+     "tram": [
+      "14"
+     ],
+     "bus": [
+      "124",
+      "134",
+      "144",
+      "164",
+      "169",
+      "173"
+     ]
+    },
+    {
+     "name": "Cracovia Stadion",
+     "m": 240,
+     "tram": [],
+     "bus": [
+      "134",
+      "307",
+      "502"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 16,
+    "median": 17,
+    "via": [
+     [
+      "bus",
+      "179"
+     ]
+    ]
+   }
+  },
+  "asp-wfp": {
+   "address": "ul. Smoleńsk 9",
+   "lat": 50.05937,
+   "lon": 19.93142,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "UJ / AST",
+     "m": 110,
+     "tram": [
+      "14"
+     ],
+     "bus": [
+      "502"
+     ]
+    },
+    {
+     "name": "Filharmonia",
+     "m": 110,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Muzeum Narodowe",
+     "m": 400,
+     "tram": [
+      "14"
+     ],
+     "bus": [
+      "124",
+      "134",
+      "144",
+      "164",
+      "169",
+      "173"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 14,
+    "median": 18,
+    "via": [
+     [
+      "tram",
+      "3"
+     ],
+     [
+      "bus",
+      "502"
+     ]
+    ]
+   }
+  },
+  "pk-wa": {
+   "address": "ul. Podchorążych 1",
+   "lat": 50.07567,
+   "lon": 19.90876,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Głowackiego",
+     "m": 140,
+     "tram": [],
+     "bus": [
+      "102"
+     ]
+    },
+    {
+     "name": "UKEN",
+     "m": 140,
+     "tram": [],
+     "bus": [
+      "102"
+     ]
+    },
+    {
+     "name": "Bronowice",
+     "m": 460,
+     "tram": [],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 16,
+    "median": 18,
+    "via": [
+     [
+      "bus",
+      "714"
+     ]
+    ]
+   }
+  },
+  "uken-isd": {
+   "address": "ul. Mazowiecka 43",
+   "lat": 50.07552,
+   "lon": 19.92565,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Wrocławska",
+     "m": 200,
+     "tram": [],
+     "bus": [
+      "130"
+     ]
+    },
+    {
+     "name": "Friedleina",
+     "m": 420,
+     "tram": [],
+     "bus": [
+      "130"
+     ]
+    },
+    {
+     "name": "Urząd Marszałkowski",
+     "m": 430,
+     "tram": [],
+     "bus": [
+      "130"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 11,
+    "median": 11,
+    "via": [
+     [
+      "bus",
+      "130"
+     ]
+    ]
+   }
+  },
+  "ignatianum": {
+   "address": "ul. Kopernika 26",
+   "lat": 50.06254,
+   "lon": 19.94854,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Teatr Słowackiego",
+     "m": 300,
+     "tram": [
+      "3",
+      "5",
+      "12",
+      "14"
+     ],
+     "bus": [
+      "502"
+     ]
+    },
+    {
+     "name": "Lubicz",
+     "m": 320,
+     "tram": [
+      "5",
+      "12",
+      "14"
+     ],
+     "bus": [
+      "125"
+     ]
+    },
+    {
+     "name": "Hala Targowa",
+     "m": 430,
+     "tram": [
+      "1",
+      "17",
+      "22"
+     ],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 8,
+    "median": 10,
+    "via": []
    }
   }
  }
