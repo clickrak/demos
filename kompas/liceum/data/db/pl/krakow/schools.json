@@ -2005,7 +2005,12 @@
     "sourceId": "w-lo31",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.08754,
+   "lon": 19.97044,
+   "q": "Kazimierza Odnowiciela 2, Kraków, Kraków"
+  }
  },
  {
   "id": "lo12",
@@ -2111,7 +2116,12 @@
     "sourceId": "w-lo12",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.07652,
+   "lon": 20.02379,
+   "q": "os. Kolorowe 29a, Kraków, Kraków"
+  }
  },
  {
   "id": "lo14",
@@ -2216,7 +2226,12 @@
     "sourceId": "w-lo14",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.08729,
+   "lon": 19.91365,
+   "q": "XIV Liceum Ogólnokształcące im. Mikołaja Kopernika, Kraków"
+  }
  },
  {
   "id": "lo16",
@@ -2269,7 +2284,12 @@
     "sourceId": "otou-lo16",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.07236,
+   "lon": 20.04696,
+   "q": "os. Willowe 1, Kraków"
+  }
  },
  {
   "id": "lo18",
@@ -2355,7 +2375,12 @@
     "sourceId": "w-lo18",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.0773,
+   "lon": 19.88302,
+   "q": "Na Błonie 15b, Kraków, Kraków"
+  }
  },
  {
   "id": "lo20",
@@ -2443,7 +2468,12 @@
     "status": "check"
    }
   ],
-  "note": "Progi klas z waszaedukacja są wyższe niż zakres szkoły w otouczelnie. Sprawdź w szkole."
+  "note": "Progi klas z waszaedukacja są wyższe niż zakres szkoły w otouczelnie. Sprawdź w szkole.",
+  "geo": {
+   "lat": 50.07022,
+   "lon": 19.93347,
+   "q": "Szlak 5, Kraków"
+  }
  },
  {
   "id": "lo23",
@@ -2506,7 +2536,12 @@
     "sourceId": "w-lo23",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.07965,
+   "lon": 19.98539,
+   "q": "Seniorów Lotnictwa 5, Kraków, Kraków"
+  }
  },
  {
   "id": "lo24",
@@ -2615,7 +2650,12 @@
     "sourceId": "w-lo24",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.07205,
+   "lon": 19.96535,
+   "q": "Wilka Wyrwińskiego 1, Kraków, Kraków"
+  }
  },
  {
   "id": "lo27",
@@ -2772,7 +2812,12 @@
     "sourceId": "w-lo27",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05403,
+   "lon": 19.91677,
+   "q": "Senatorska 35, Kraków, Kraków"
+  }
  },
  {
   "id": "lo30",
@@ -2859,7 +2904,12 @@
     "sourceId": "w-lo30",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.08334,
+   "lon": 20.00706,
+   "q": "os. Dywizjonu 303 66, Kraków, Kraków"
+  }
  },
  {
   "id": "lo41",
@@ -2945,7 +2995,12 @@
     "sourceId": "w-lo41",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.0673,
+   "lon": 19.94162,
+   "q": "Rynek Kleparski 18, Kraków, Kraków"
+  }
  },
  {
   "id": "lo43",
@@ -2997,7 +3052,12 @@
     "sourceId": "w-lo43",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.04315,
+   "lon": 19.96009,
+   "q": "Bolesława Limanowskiego 60-62, Kraków"
+  }
  },
  {
   "id": "lo44",
@@ -3085,7 +3145,12 @@
     "sourceId": "w-lo44",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05261,
+   "lon": 19.93646,
+   "q": "XLIV Liceum Ogólnokształcące im. Stanisława Konarskiego, Kraków"
+  }
  },
  {
   "id": "lo45",
@@ -3147,7 +3212,12 @@
     "sourceId": "w-lo45",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05537,
+   "lon": 19.95098,
+   "q": "ks. Franciszka Blachnickiego 1, Kraków, Kraków"
+  }
  },
  {
   "id": "lo46",
@@ -3187,7 +3257,12 @@
     "status": "check"
    }
   ],
-  "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole."
+  "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole.",
+  "geo": {
+   "lat": 50.0558,
+   "lon": 19.9442,
+   "q": "Józefa Dietla 70, Kraków, Kraków"
+  }
  },
  {
   "id": "tk25",
@@ -3316,7 +3391,12 @@
     "status": "check",
     "occupation": "technik mechatronik"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.02292,
+   "lon": 19.91732,
+   "q": "ul. Ułanów 3, Kraków, Kraków"
+  }
  },
  {
   "id": "tm17",
@@ -3442,7 +3522,12 @@
     "occupation": "technik awionik"
    }
   ],
-  "note": "Progi są niskie, bo szkoła ma dużo miejsc. To bezpieczna opcja, ale sprawdź atmosferę i poziom na dniu otwartym."
+  "note": "Progi są niskie, bo szkoła ma dużo miejsc. To bezpieczna opcja, ale sprawdź atmosferę i poziom na dniu otwartym.",
+  "geo": {
+   "lat": 50.07668,
+   "lon": 20.05088,
+   "q": "os. Szkolne 37, Kraków, Kraków"
+  }
  },
  {
   "id": "tks24",
@@ -3576,6 +3661,11 @@
     "status": "check",
     "occupation": "technik geolog"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05383,
+   "lon": 19.94462,
+   "q": "Brzozowa 5, Kraków, Kraków"
+  }
  }
 ]
