@@ -24,7 +24,9 @@ REDO = '--redo' in sys.argv
 for s in schools:
     if s.get('geo') and not (REDO or s['geo'].get('q', '') == f"{s['name']}, Kraków" and s.get('address')): continue
     street = re.sub(r',?\s*\d\d-\d{3}\s*Kraków', '', s.get('address') or '').strip(', ')
-    queries = ([f'{street}, Kraków'] if street else []) + [f"{s['short']}, Kraków", f"{s['name']}, Kraków"]
+    plain = re.sub(r'^(ul\.|al\.|os\.|pl\.)\s*', '', street)
+    bare = re.sub(r'\s+\d+\w*$', '', plain)   # street without the house number (street centre, less exact)
+    queries = ([f'{street}, Kraków', f'{plain}, Kraków', f'{bare}, Kraków'] if street else []) + [f"{s['short']}, Kraków", f"{s['name']}, Kraków"]
     for q in queries:
         try: hit = ask(q)
         except Exception as e: print('error', s['id'], e, file=sys.stderr); hit = None
