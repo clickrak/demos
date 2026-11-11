@@ -5713,7 +5713,7 @@
   "name": "Technikum Ekonomiczno-Hotelarskie nr 4",
   "short": "Technikum Ekonomiczno-Hotelarskie nr 4",
   "type": "technikum",
-  "address": null,
+  "address": "ul. Kapucyńska 2, 31-113 Kraków",
   "range": {
    "min": 108.5,
    "max": 143.85,
@@ -5799,7 +5799,7 @@
   "name": "Technikum Budowlane nr 1 (ZS Architektoniczno-Budowlanych nr 1)",
   "short": "Technikum Budowlane nr 1",
   "type": "technikum",
-  "address": null,
+  "address": "ul. Szablowskiego 1, 30-127 Kraków",
   "range": {
    "min": 52.55,
    "max": 88.7,
