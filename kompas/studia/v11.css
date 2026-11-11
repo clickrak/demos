@@ -1,0 +1,158 @@
+/* Kompas Studia v1.1: question shell (side rail, time left, sticky navigation), start screen,
+   results gate, plan section, Kraków schematic, phone navigation of the results story.
+   Loaded after style.css and story.css, before the skins, so skins can still restyle everything. */
+
+/* ---- shared small parts --------------------------------------------------- */
+.rno { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--card);
+  font: 600 13px/1 'Inter', system-ui, sans-serif; color: var(--muted); flex: none; }
+.pickn { display: inline-block; font: 500 12px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .06em; color: var(--muted); border: 1px solid var(--line);
+  border-radius: 99px; padding: 4px 9px; margin-left: 4px; white-space: nowrap; vertical-align: 1px; }
+kbd { font: 500 12px/1 'JetBrains Mono', ui-monospace, monospace; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 2px 6px; background: var(--card); }
+
+/* ---- question shell ------------------------------------------------------- */
+.rail { display: none; }
+.crumb { font: 500 11.5px/1.4 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin: -8px 0 14px; }
+.crumb b { color: var(--l1); font-weight: 500; }
+.qmain { min-width: 0; }
+.qmain > .prog { margin-top: 0; }
+.nav { align-items: center; }
+.navhint { flex: 1; min-width: 0; margin: 0; text-align: right; font-size: .86rem; line-height: 1.3; color: var(--muted); }
+.nav .btn { flex: none; }
+body.in-q .foot p:not(.ver):not(#fmsg) { display: none; }
+body.in-q .foot { padding-top: 8px; }
+
+/* Phones and tablets: Wstecz / Dalej stay within reach at the bottom of the screen. */
+@media (max-width: 979px) {
+  .qmain .nav { position: sticky; bottom: 0; z-index: 4; margin: 28px -16px 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line); }
+  .qmain .nav .btn { min-height: 46px; padding: 10px 16px; }
+  body.in-q main { padding-bottom: 0; }
+}
+
+/* Desktop: a rail with the chapters and steps on the left, the question in a wider column on the right. */
+@media (min-width: 980px) {
+  main:has(.qshell) { max-width: 1120px; padding-top: 40px; }
+  .qshell { display: grid; grid-template-columns: 260px minmax(0, 640px); gap: 72px; align-items: start; justify-content: center; }
+  .rail { display: block; position: sticky; top: 92px; }
+  .crumb, .qmain > .prog { display: none; }
+  .qmain h1 { font-size: 2.25rem; letter-spacing: -.01em; margin-top: 0; }
+  .qmain > p, .qmain > .explain { font-size: 1.04rem; }
+  .qmain .illus svg { margin: 0; max-width: 340px; }
+  .qmain .illus { margin-bottom: 14px; }
+  .qmain .nav { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .qmain .sort { padding: 40px 32px; }
+  .qmain .sort .q { font-size: 1.6rem; }
+  .qmain .sort .row .btn { min-width: 150px; }
+}
+.rchs { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.rch > button, .rch-h { display: flex; gap: 12px; align-items: center; width: 100%; padding: 8px 10px; border: 0; border-radius: 12px; background: none; font: inherit; color: var(--muted); text-align: left; }
+.rch > button { cursor: pointer; transition: background-color .2s; }
+.rch > button:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.rch > button:focus-visible, .rsteps button:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.rch-t { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.rch-t b { font-family: 'Fraunces', var(--serif); font-weight: 600; font-size: 1.08rem; color: var(--ink); }
+.rch-t span { font-size: .8rem; }
+.rch.on .rno { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.rch.done .rno, .chsteps .done .rno, .gatelist .ok .rno { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+.rch.res .rno { color: var(--l1); }
+.rsteps { list-style: none; margin: 2px 0 10px 23.5px; padding: 2px 0 2px 20px; border-left: 1.5px solid var(--line); display: grid; gap: 1px; }
+.rsteps button { position: relative; display: block; width: 100%; text-align: left; font: inherit; font-size: .9rem; line-height: 1.3; padding: 6px 9px; border: 0; background: none; border-radius: 8px; color: var(--muted); cursor: pointer; }
+.rsteps button::before { content: ''; position: absolute; left: -25.5px; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--check); box-sizing: border-box; }
+.rsteps button:hover { color: var(--ink); }
+.rsteps .done { color: var(--ink); }
+.rsteps .done::before { background: var(--accent); border-color: var(--accent); }
+.rsteps .now { color: var(--ink); font-weight: 600; background: var(--accent-soft); }
+.rsteps .now::before { border-color: var(--accent); border-width: 2.5px; width: 11px; height: 11px; left: -26.5px; margin-top: -5.5px; }
+.rsteps .gap::before { border-color: var(--warn); background: var(--warn-soft); }
+.rail-t { font: 500 11.5px/1.4 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin: 14px 0 0 10px; }
+
+/* ---- end of chapter: "Kompas rośnie" sits under the content --------------- */
+.grow { margin: 28px 0 0; padding: 14px 16px; flex-wrap: wrap; }
+.grow svg { width: auto; height: auto; }
+.grow > svg { width: 56px; height: 56px; }
+.grow p { flex: 1; min-width: 180px; }
+.grow .savebtn svg { width: 18px; height: 18px; }
+
+/* ---- sort and situation cards --------------------------------------------- */
+.sortcount { font: 500 12px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .08em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+.keys { display: none; }
+@media (hover: hover) and (pointer: fine) { .keys { display: block; margin: 18px 0 0; font-size: .82rem; color: var(--muted); } }
+.dots { flex-wrap: wrap; }
+
+/* ---- start screen --------------------------------------------------------- */
+.chsteps { list-style: none; padding: 0; margin: 20px 0; display: grid; gap: 8px; }
+.chsteps li { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+.chsteps li > div { display: flex; flex-direction: column; flex: 1; min-width: 0; line-height: 1.3; }
+.chsteps li > div b { font-family: 'Fraunces', var(--serif); font-weight: 600; font-size: 1.05rem; }
+.chsteps li > div span { font-size: .86rem; color: var(--muted); }
+.chsteps .cmin { font: 500 12px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+.chsteps li.res { background: transparent; border-style: dashed; }
+.chsteps li.res .rno { color: var(--l1); }
+.startrow { display: flex; gap: 12px; align-items: flex-end; margin: 20px 0 10px; }
+.startrow > div { flex: 1; min-width: 0; }
+.startrow label.field { margin-top: 0; font-weight: 600; }
+.startrow label.field .muted { font-weight: 400; font-size: .86rem; }
+.startrow input { min-height: 48px; }
+.btn.big { min-height: 48px; padding: 12px 26px; white-space: nowrap; }
+.resume-l { margin: 0 0 -6px; }
+.savehelp > div { flex: 1; min-width: 0; }
+.savehelp .filebtn { margin-top: 10px; min-height: 40px; padding: 8px 14px; background: var(--card); }
+@media (max-width: 520px) { .startrow { flex-direction: column; align-items: stretch; } }
+@media (min-width: 900px) { .hero .lead { font-size: 1.15rem; } }
+
+/* ---- results gate --------------------------------------------------------- */
+main:has(.gate) { max-width: 720px; }
+.gatelist { list-style: none; padding: 0; margin: 20px 0; display: grid; gap: 8px; }
+.gatelist li { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+.gatelist li > span:nth-child(2) { flex: 1; min-width: 0; }
+.gatelist li.must { border-color: var(--l1); }
+.gatelist .btn.small-btn { min-height: 40px; padding: 8px 14px; }
+
+/* ---- results story: plan --------------------------------------------------- */
+.plan { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr); gap: 40px; margin-top: 30px; align-items: start; }
+.plan-opts { display: grid; gap: 8px; margin: 14px 0; }
+.eitem[aria-checked="true"] { border-color: var(--c); box-shadow: inset 4px 0 0 var(--c), 0 8px 24px color-mix(in srgb, var(--ink) 8%, transparent); }
+.plan-list { background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--c); border-radius: 18px; padding: 24px 26px 18px; }
+.plan-list .kicker { margin-bottom: 4px; }
+.plan-items { list-style: none; padding: 0; margin: 14px -10px 10px; display: grid; gap: 2px; }
+.plan-items label { display: flex; gap: 14px; align-items: flex-start; padding: 12px 10px; border-radius: 12px; cursor: pointer; transition: background-color .2s; }
+.plan-items label:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.plan-items input { width: 22px; height: 22px; margin: 2px 0 0; flex: none; accent-color: var(--accent); cursor: pointer; }
+.plan-items .when { display: block; font: 500 11.5px/1.3 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.plan-items li.warn .when { color: var(--warn); }
+.plan-items li.warn label { background: var(--warn-soft); }
+.plan-items input:checked + span { color: var(--muted); }
+.plan-items input:checked + span .when::after { content: ' · zrobione'; color: var(--accent); }
+.plan-n { margin: 0; }
+
+/* ---- results story: Kraków schematic --------------------------------------- */
+#s-krakow .two { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px; }
+.krk { overflow: visible; }
+.krk .kframe { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+.krk .kriver { fill: none; stroke: color-mix(in srgb, var(--l2) 26%, var(--card)); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+.krk .kriverl { font: italic 500 13px 'Fraunces', Georgia, serif !important; fill: color-mix(in srgb, var(--l2) 70%, var(--muted)) !important; }
+.krk .krynek { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.krk .krynekl { font-size: 11.5px; fill: var(--muted) !important; }
+.krk .khub text { font-weight: 600; font-size: 13.5px; }
+.krk .kline { stroke-width: 2; opacity: .55; }
+.krk .klabel { opacity: 0; }
+.krk .kname { font: 600 13.5px 'Inter', system-ui, sans-serif !important; }
+.krk .kmin { opacity: 1 !important; font: 500 11.5px 'JetBrains Mono', ui-monospace, monospace !important; }
+.krk .klead { stroke-width: 1.2; fill: none; opacity: .7; }
+.kmap.in .klabel { opacity: 1; transition: opacity .5s calc(.8s + var(--i) * .15s); }
+@media (prefers-reduced-motion: reduce) { .krk .klabel, .krk .kpin { opacity: 1; } .krk .kline { stroke-dashoffset: 0; } }
+
+/* ---- results story on a phone: the section menu stays, as a second row ----- */
+@media (max-width: 900px) {
+  .sbar { flex-wrap: wrap; row-gap: 8px; padding: 10px 12px; }
+  .sbar-r { margin-left: auto; }
+  .snav { display: flex; order: 3; width: 100%; margin: 0; overflow-x: auto; scrollbar-width: none; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
+  .snav::-webkit-scrollbar { display: none; }
+  .snav a { white-space: nowrap; padding: 9px 13px; }
+  .scrolly .sticky { padding-top: 108px; }
+  .band { scroll-margin-top: 60px; }
+  .plan, #s-krakow .two { grid-template-columns: 1fr; gap: 28px; }
+  .plan-list { padding: 20px 18px 14px; }
+  .krk .klabel { display: none; }
+}
+@media print { .rail, .crumb, .navhint { display: none !important; } }

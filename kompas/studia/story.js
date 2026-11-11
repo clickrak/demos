@@ -84,25 +84,59 @@ function tramSvg(ctx, lines) {
 }
 
 // ---------------------------------------------------------------- Kraków schematic
+// To scale, without streets: the Vistula and the Main Square give the orientation, rings mark 2, 4 and 6 km
+// from Kraków Główny. Each campus has its name and morning travel time written next to its pin.
+const WISLA = [[19.870, 50.042], [19.895, 50.048], [19.913, 50.0535], [19.928, 50.053], [19.9335, 50.0505], [19.9345, 50.047], [19.940, 50.044], [19.9455, 50.044],
+  [19.953, 50.0462], [19.962, 50.0515], [19.975, 50.056], [19.990, 50.0565], [20.010, 50.053], [20.035, 50.049], [20.070, 50.052]];
+const RYNEK = { lat: 50.0617, lon: 19.9373 };
 function krakowSvg(ctx, pins) {
-  const { esc } = ctx, HUB = { lat: 50.0677, lon: 19.9476 };
+  const { esc, wrap } = ctx, HUB = { lat: 50.0677, lon: 19.9476 };
   const pts = pins.filter(p => p.cp.tr?.lat);
-  const all = [...pts.map(p => ({ lat: p.cp.tr.lat, lon: p.cp.tr.lon })), HUB];
+  const all = [...pts.map(p => ({ lat: p.cp.tr.lat, lon: p.cp.tr.lon })), HUB, RYNEK];
   const k = Math.cos(50.06 * Math.PI / 180);
-  const minX = Math.min(...all.map(a => a.lon * k)), maxX = Math.max(...all.map(a => a.lon * k));
-  const minY = Math.min(...all.map(a => -a.lat)), maxY = Math.max(...all.map(a => -a.lat));
-  const W = 640, H = 520, pad = 70, s = Math.min((W - 2 * pad) / Math.max(1e-4, maxX - minX), (H - 2 * pad) / Math.max(1e-4, maxY - minY));
-  const P = a => [pad + (a.lon * k - minX) * s + ((W - 2 * pad) - (maxX - minX) * s) / 2, pad + (-a.lat - minY) * s + ((H - 2 * pad) - (maxY - minY) * s) / 2];
-  const km = s * (1 / 111.32); // pixels per km (latitude degree ≈ 111 km)
-  const [hx, hy] = P(HUB);
-  let g = `<svg id="krk" class="krk" viewBox="0 0 ${W} ${H}" role="img" aria-label="Schemat Krakowa: uczelnie twoich opcji i czas dojazdu z Dworca Głównego.">`;
-  for (const m of [2, 4, 6]) g += `<circle class="kring" cx="${f1(hx)}" cy="${f1(hy)}" r="${f1(m * km)}"/><text class="kringl" x="${f1(hx + m * km * .707 + 4)}" y="${f1(hy - m * km * .707 - 4)}">${m} km</text>`;
-  pts.forEach((p, i) => { const [x, y] = P(p.cp.tr); const t = p.cp.tr.fromHub;
-    g += `<path class="kline" pathLength="1" style="stroke:${p.color};--i:${i}" d="M${f1(hx)},${f1(hy)} L${f1(x)},${f1(y)}"/>`;
-    if (t && Math.hypot(x - hx, y - hy) > 90) g += `<text class="kmin" style="--i:${i}" x="${f1((hx + x) / 2)}" y="${f1((hy + y) / 2 - 6)}" text-anchor="middle">${t.median} min</text>`; });
-  g += `<g class="khub"><circle cx="${f1(hx)}" cy="${f1(hy)}" r="10"/><text x="${f1(hx)}" y="${f1(hy + 28)}" text-anchor="middle">Dworzec Główny</text></g>`;
+  let minX = Math.min(...all.map(a => a.lon * k)), maxX = Math.max(...all.map(a => a.lon * k));
+  let minY = Math.min(...all.map(a => -a.lat)), maxY = Math.max(...all.map(a => -a.lat));
+  // Never zoom in closer than about 3 km across, so two nearby campuses do not fill the whole frame.
+  const grow = (lo, hi, min) => { const d = Math.max(0, min - (hi - lo)) / 2; return [lo - d, hi + d]; };
+  [minX, maxX] = grow(minX, maxX, .028); [minY, maxY] = grow(minY, maxY, .028);
+  const W = 760, H = 600, padX = 200, padY = 64, s = Math.min((W - 2 * padX) / (maxX - minX), (H - 2 * padY) / (maxY - minY));
+  const P = a => [padX + (a.lon * k - minX) * s + ((W - 2 * padX) - (maxX - minX) * s) / 2, padY + (-a.lat - minY) * s + ((H - 2 * padY) - (maxY - minY) * s) / 2];
+  const km = s / 111.32; // pixels per km (one degree of latitude is about 111 km)
+  const [hx, hy] = P(HUB), [rx, ry] = P(RYNEK);
+  let g = `<svg id="krk" class="krk" viewBox="0 0 ${W} ${H}" role="img" aria-label="Schemat Krakowa: uczelnie twoich kierunków, Wisła, Rynek i czas dojazdu z Dworca Głównego.">
+    <defs><clipPath id="krkclip"><rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="22"/></clipPath></defs>
+    <rect class="kframe" x="1" y="1" width="${W - 2}" height="${H - 2}" rx="22"/><g clip-path="url(#krkclip)">`;
+  const wp = WISLA.map(([lon, lat]) => P({ lat, lon }));
+  let d = `M${f1(wp[0][0])},${f1(wp[0][1])}`;
+  for (let i = 1; i < wp.length - 1; i++) { const mx = (wp[i][0] + wp[i + 1][0]) / 2, my = (wp[i][1] + wp[i + 1][1]) / 2; d += ` Q${f1(wp[i][0])},${f1(wp[i][1])} ${f1(mx)},${f1(my)}`; }
+  d += ` L${f1(wp[wp.length - 1][0])},${f1(wp[wp.length - 1][1])}`;
+  g += `<path class="kriver" d="${d}"/>`;
+  const wl = wp.filter(([x, y]) => x > 60 && x < W - 90 && y > 30 && y < H - 20).pop();
+  if (wl) g += `<text class="kriverl" x="${f1(wl[0] + 8)}" y="${f1(wl[1] + 26)}">Wisła</text>`;
+  for (const m of [2, 4, 6]) g += `<circle class="kring" cx="${f1(hx)}" cy="${f1(hy)}" r="${f1(m * km)}"/><text class="kringl" x="${f1(hx + m * km * .707 + 5)}" y="${f1(hy + m * km * .707 + 12)}">${m} km</text>`;
+  const rynekFree = pts.every(p => { const [x, y] = P(p.cp.tr); return Math.hypot(x - rx, y - ry) > 34; });
+  g += `<rect class="krynek" x="${f1(rx - 6)}" y="${f1(ry - 6)}" width="12" height="12" rx="2"/>${rynekFree ? `<text class="krynekl" x="${f1(rx)}" y="${f1(ry + 22)}" text-anchor="middle">Rynek</text>` : ''}`;
   pts.forEach((p, i) => { const [x, y] = P(p.cp.tr);
-    g += `<g class="kpin" data-pin="${esc(p.cp.id)}" style="--i:${i}" tabindex="0" role="button" aria-label="${esc(p.cp.name)}"><circle class="kpulse" cx="${f1(x)}" cy="${f1(y)}" r="13" style="fill:${p.color}"/><circle cx="${f1(x)}" cy="${f1(y)}" r="13" style="fill:${p.color}"/>
+    g += `<path class="kline" pathLength="1" style="stroke:${p.color};--i:${i}" d="M${f1(hx)},${f1(hy)} L${f1(x)},${f1(y)}"/>`; });
+  g += '</g>';
+  g += `<g class="khub"><circle cx="${f1(hx)}" cy="${f1(hy)}" r="9"/><text x="${f1(hx + 14)}" y="${f1(hy - 10)}">Dworzec Główny</text></g>`;
+  // Labels stand in a column beside the cloud of pins (left of it, or right of it for campuses east of the station),
+  // each joined to its pin by a thin leader, so names never cover pins or each other.
+  const lab = pts.map((p, i) => { const [x, y] = P(p.cp.tr); return { p, i, x, y, left: x < hx, lines: wrap(p.cp.name, 22).slice(0, 2) }; });
+  for (const side of [true, false]) {
+    const col = lab.filter(l => l.left === side).sort((a, b) => a.y - b.y);
+    if (!col.length) continue;
+    const edge = side ? Math.min(...col.map(l => l.x)) - 34 : Math.max(...col.map(l => l.x), hx + 120) + 34;
+    const hs = col.map(l => 24 + l.lines.length * 16), total = hs.reduce((a, b) => a + b, 0);
+    let y0 = Math.max(20, Math.min(H - 12 - total, col.reduce((t, l) => t + l.y, 0) / col.length - total / 2));
+    col.forEach((l, j) => { l.tx = edge; l.ly = y0 + 16; y0 += hs[j]; });
+  }
+  lab.forEach(l => { const t = l.p.cp.tr.fromHub, anchor = l.left ? 'end' : 'start', n = l.lines.length, my = l.ly + (n - 1) * 8 + 2;
+    g += `<g class="klabel" style="--i:${l.i}"><path class="klead" style="stroke:${l.p.color}" d="M${f1(l.x)},${f1(l.y)} L${f1(l.tx + (l.left ? 8 : -8))},${f1(my)}"/>
+      <text class="kname" text-anchor="${anchor}">${l.lines.map((ln, j) => `<tspan x="${f1(l.tx)}" y="${f1(l.ly + j * 16)}">${esc(ln)}</tspan>`).join('')}</text>
+      ${t ? `<text class="kmin" text-anchor="${anchor}" x="${f1(l.tx)}" y="${f1(l.ly + n * 16)}">${t.median} min z Dworca</text>` : ''}</g>`; });
+  pts.forEach((p, i) => { const [x, y] = P(p.cp.tr);
+    g += `<g class="kpin" data-pin="${esc(p.cp.id)}" style="--i:${i}" tabindex="0" role="button" aria-label="${esc(p.cp.name)}"><circle class="kpulse" cx="${f1(x)}" cy="${f1(y)}" r="14" style="fill:${p.color}"/><circle cx="${f1(x)}" cy="${f1(y)}" r="14" style="fill:${p.color}"/>
       <text x="${f1(x)}" y="${f1(y + 4.5)}" text-anchor="middle" class="kno">${esc(p.no)}</text></g>`; });
   return g + '</svg>';
 }
@@ -129,7 +163,7 @@ export function storyHtml(ctx) {
   <div class="sprog" id="sprog"></div>
   <header class="sbar">
     <button class="pill" data-go="refleksja">← Pytania</button>
-    <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-droga', 'Droga'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
+    <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-droga', 'Droga'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plan', 'Plan'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
     <span class="sbar-r"><button class="pill icon" data-skintoggle aria-label="Zmień wygląd"></button><button class="pill icon" data-themetoggle aria-label="Zmień motyw"></button><button class="pill strong" data-export="download">Zapisz plik</button></span>
   </header>
 
@@ -160,7 +194,8 @@ export function storyHtml(ctx) {
         ${quick ? `<div class="mini">${badge(quick)}<div><b>Szybki start: ${esc(quick.quick.offer.name)}</b><span class="small">Pierwsza praca w ${String(quick.quick.offer.durationYears).replace('.', ',')} roku, dalsze studia zostają otwarte.</span></div></div>` : ''}`)}
       ${step(6, `<span class="kicker">Dalej</span><h3>Zobacz każdy kierunek z bliska</h3>
         <p>Dotknij nazwy na kompasie albo przewiń dalej: dla każdego kierunku pokażemy, którędy prowadzi droga, od twoich mocnych stron do studiów i zawodów.</p>
-        <button class="sbtn" data-jump="s-kierunki">Kierunki z bliska ↓</button>`)}
+        <button class="sbtn" data-jump="s-kierunki">Kierunki z bliska ↓</button>
+        <p class="small muted">Mało czasu? <a href="#/kompas" data-jump="s-plan">Przejdź od razu do planu</a>.</p>`)}
     </div>
   </section>
 
@@ -201,16 +236,18 @@ export function storyHtml(ctx) {
         <div class="klist">${pins.map(p => `<div class="kitem" data-pinrow="${esc(p.cp.id)}">${badge(p)}<div><b>${esc(p.cp.name)}</b><span class="small">${esc(p.cp.address)}</span>
           <span class="small">${icon('tram', 'ico sm')} ${ctx.transit(p.cp)}</span><span class="small">${ctx.commute(p.cp)} · <a href="${ctx.routeUrl(p.cp)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></div></div>`).join('')}</div>
         <p class="small muted">${ctx.transportNote()}</p></div>
-      <div class="kmap">${krakowSvg(ctx, pins)}<p class="small muted center">Schemat, nie mapa: odległości w skali, bez ulic. Pełna mapa w wersji 1.0.</p></div>
+      <div class="kmap">${krakowSvg(ctx, pins)}<p class="small muted center">Schemat w skali: Wisła i Rynek dla orientacji, bez ulic. Okręgi co 2 km od Dworca Głównego.</p></div>
     </div>
   </section>
 
   <section class="band" id="s-przyszlosc"><div class="wrap" id="futurewrap">${futureHtml(ctx)}</div></section>
 
-  <section class="band alt" id="s-plik">
+  <section class="band alt" id="s-plan"><div class="wrap" id="planwrap">${ctx.planHtml()}</div></section>
+
+  <section class="band" id="s-plik">
     <div class="wrap two">
       <div><span class="kicker">Twój plik</span><h2>Zabierz to ze sobą</h2>
-        <p class="lead">Plik powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku wczytasz go i zobaczysz, co się zmieniło.</p>
+        <p class="lead">W pliku są twoje odpowiedzi, kierunki i plan. Powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku wczytasz go i zobaczysz, co się zmieniło.</p>
         <label class="field" for="cando"><b>Mogę to zrobić, bo…</b> Dokończ jednym zdaniem; trafi na górę pliku.</label>
         <input id="cando" type="text" data-field="canDo" value="${esc(ctx.A.canDo)}">
         <div class="sactions"><button class="sbtn" data-export="download">Pobierz plik .md</button><button class="sbtn ghost" data-export="print">Drukuj / PDF</button><button class="sbtn ghost" data-export="copy">Kopiuj</button>
@@ -314,6 +351,8 @@ export function storyClick(t, root, ctx) {
     return true;
   }
   if (d.pin) { root.querySelectorAll('[data-pin]').forEach(p => p.classList.toggle('on', p.dataset.pin === d.pin)); return true; }
-  if (d.scen) { ctx.A.scenario = ctx.A.scenario === d.scen ? null : d.scen; ctx.r = ctx.rescore(); root.querySelector('#futurewrap').innerHTML = futureHtml(ctx); return true; }
+  if (d.scen) { ctx.A.scenario = ctx.A.scenario === d.scen ? null : d.scen; ctx.r = ctx.rescore(); ctx.touch(); root.querySelector('#futurewrap').innerHTML = futureHtml(ctx); return true; }
+  if (d.planfocus !== undefined) { ctx.A.plan = { focus: d.planfocus }; ctx.touch(); root.querySelector('#planwrap').innerHTML = ctx.planHtml();
+    root.querySelector(`[data-planfocus="${CSS.escape(d.planfocus)}"]`)?.focus({ preventScroll: true }); return true; }
   return false;
 }

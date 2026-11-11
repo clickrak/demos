@@ -215,5 +215,33 @@
   "title": "GUS: przeciętne wynagrodzenia według zawodów, październik 2020 (zestawienie Bankier.pl)",
   "asOf": "2020-10",
   "status": "sourced"
+ },
+ {
+  "id": "otou-urk-igw",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2310/Inzynieria-i-gospodarka-wodna-Uniwersytet-Rolniczy-im-Hugona-Kollataja-w-Krakowie",
+  "title": "Uniwersytet Rolniczy: Inżynieria i gospodarka wodna, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uken-cyber",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/10761/Cyberbezpieczenstwo-Uniwersytet-Komisji-Edukacji-Narodowej-w-Krakowie",
+  "title": "UKEN: Cyberbezpieczeństwo, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-pk-air",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/905/Automatyka-i-robotyka",
+  "title": "Politechnika Krakowska, Wydział Mechaniczny: Automatyka i robotyka, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "ksm-wniosek",
+  "url": "https://ksm.krakow.pl/rekrutacja/wniosek2425.pdf",
+  "title": "Krakowska Medyczna Szkoła Policealna nr 1: wniosek o przyjęcie (lista kierunków, dokumenty)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

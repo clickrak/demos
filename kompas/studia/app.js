@@ -1,5 +1,5 @@
-// Kompas Studia v1.0. Screens, navigation, results, export.
-import { scoreAll, provenStrengths, pathSteps } from '../core/scoring.js';
+// Kompas Studia v1.1. Screens, navigation, results, export.
+import { scoreAll, provenStrengths, pathSteps, planFocus, planItems } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
@@ -13,7 +13,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const today = () => new Date().toISOString().slice(0, 10);
 const blank = () => ({ name: '', certainty: null, direction: null, rozszerzenia: [], jezyki: { pl: 'bardzo dobry' }, sport: '',
   sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [], scenario: null, neededWhere: null, homePlaces: [],
-  studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '' });
+  studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '', plan: null, checks: {} });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -97,24 +97,57 @@ const setA = (k, v) => { A[k] = v; save(); render(); };
 // ---- screens ----------------------------------------------------------------
 const screens = [
   { id: 'start', ch: null, view: vStart },
-  { id: 'pewnosc', ch: 'ja', view: vCertainty, ok: () => A.certainty },
+  { id: 'pewnosc', ch: 'ja', view: vCertainty, ok: () => A.certainty, hint: () => 'Wybierz jedną odpowiedź' },
   { id: 'matura', ch: 'ja', view: vMatura },
   { id: 'jezyki', ch: 'ja', view: vLanguages },
-  { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length },
+  { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length, hint: () => `Zostało kart: ${data.questions.activities.length - A.sortPos}` },
   { id: 'sytuacje', ch: 'ja', view: vSituations },
   { id: 'styl', ch: 'ja', view: vStyle },
-  { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 5 },
-  { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5 },
+  { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 5, hint: () => `Wybierz jeszcze ${5 - A.values.length}` },
+  { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5, hint: () => A.strengths.length < 5 ? `Wybierz jeszcze ${5 - A.strengths.length}`
+    : `Dopisz przykład: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
   { id: 'odbicie', ch: 'ja', view: vReveal },
   { id: 'sily', ch: 'swiat', view: vForces },
   { id: 'karty', ch: 'swiat', view: vCardsPreview },
-  { id: 'dlugosc', ch: 'droga', view: vLength, ok: () => A.studyLength },
+  { id: 'dlugosc', ch: 'droga', view: vLength, ok: () => A.studyLength, hint: () => 'Wybierz, ile chcesz się uczyć' },
   { id: 'zasieg', ch: 'droga', view: vReach },
   { id: 'niepokoj', ch: 'droga', view: vDoubt },
   { id: 'refleksja', ch: 'droga', view: vReflection },
   { id: 'kompas', ch: 'wyniki', view: vStory },
   { id: 'wyniki', ch: 'wyniki', view: vResults }
 ];
+// Short name and rough minutes per question screen: the side rail and the "time left" line use them.
+const META = {
+  pewnosc: ['Pewność', .5], matura: ['Matura', .5], jezyki: ['Języki i sport', 1], zajecia: ['Co lubisz robić', 3], sytuacje: ['Co robisz, gdy…', 1.5],
+  styl: ['Styl pracy', 1.5], wartosci: ['Co jest ważne', 1], mocne: ['Mocne strony', 4], odbicie: ['To już widać', .5],
+  sily: ['Świat za 10 lat', 2], karty: ['Gdzie możesz się przydać', 1.5],
+  dlugosc: ['Ile nauki', 1], zasieg: ['Gdzie', .5], niepokoj: ['Co cię niepokoi', 1], refleksja: ['Chwila dla siebie', 2]
+};
+const CHAPTERS = [
+  { id: 'ja', name: 'Ja', sub: 'co lubisz i co ci wychodzi' },
+  { id: 'swiat', name: 'Świat', sub: 'gdzie to będzie potrzebne' },
+  { id: 'droga', name: 'Droga', sub: 'ile nauki i co cię niepokoi' }
+];
+const TICK = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+let furthest = 0;       // the furthest screen he has reached; earlier screens count as visited
+const stepDone = x => screens.indexOf(x) < furthest && (!x.ok || !!x.ok());
+const minsLeft = i => Math.max(1, Math.round(screens.slice(i).reduce((t, x) => t + (META[x.id]?.[1] || 0), 0)));
+
+// Side rail (desktop): the three chapters, the steps of the current one, and the time left.
+function railHtml(s) {
+  const i = screens.indexOf(s);
+  const head = (c, k, all) => `<span class="rno">${all ? TICK : k + 1}</span><span class="rch-t"><b>${c.name}</b><span>${c.sub}</span></span>`;
+  const chs = CHAPTERS.map((c, k) => {
+    const list = screens.filter(x => x.ch === c.id), all = list.every(stepDone);
+    if (c.id !== s.ch) return `<li class="rch${all ? ' done' : ''}"><button data-go="${list[0].id}">${head(c, k, all)}</button></li>`;
+    return `<li class="rch on"><div class="rch-h">${head(c, k, false)}</div>
+      <ol class="rsteps">${list.map(x => { const gap = x !== s && screens.indexOf(x) < furthest && x.ok && !x.ok();
+        return `<li><button data-go="${x.id}" class="${x === s ? 'now' : stepDone(x) ? 'done' : gap ? 'gap' : 'todo'}" ${x === s ? 'aria-current="step"' : ''}>${META[x.id][0]}${gap ? '<span class="sr"> (do uzupełnienia)</span>' : ''}</button></li>`; }).join('')}</ol></li>`;
+  }).join('');
+  return `<aside class="rail noprint" aria-label="Gdzie jesteś"><ol class="rchs">${chs}
+    <li class="rch res"><button data-go="kompas"><span class="rno">${icon('compass', 'ico sm')}</span><span class="rch-t"><b>Wyniki</b><span>twój kompas i plan</span></span></button></li></ol>
+    <p class="rail-t">Do wyników ok. ${minsLeft(i)} min</p></aside>`;
+}
 
 function current() {
   const id = (location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start';
@@ -125,11 +158,15 @@ function render() {
   const s = current();
   document.querySelectorAll('.chapters [data-ch]').forEach(el => { el.classList.toggle('on', el.dataset.ch === s.ch); el.setAttribute('aria-current', el.dataset.ch === s.ch ? 'step' : 'false'); });
   const i = screens.indexOf(s);
+  furthest = Math.max(furthest, i);
+  const inQ = !!s.ch && s.ch !== 'wyniki';
   const body = s.view();
-  const nav = s.ch === 'wyniki' || s.id === 'start' ? '' : `
+  const blocked = !!(s.ok && !s.ok());
+  const nav = !inQ ? '' : `
     <div class="nav">
       <button class="btn ghost" data-go="${screens[i - 1].id}">Wstecz</button>
-      <button class="btn" data-go="${screens[i + 1].id}" ${s.ok && !s.ok() ? 'disabled' : ''}>${s.id === 'refleksja' ? 'Pokaż wyniki' : 'Dalej'}</button>
+      <p class="navhint" id="navhint" role="status">${blocked && s.hint ? esc(s.hint()) : ''}</p>
+      <button class="btn" data-go="${screens[i + 1].id}" ${blocked ? 'disabled' : ''} aria-describedby="navhint">${s.id === 'refleksja' ? 'Pokaż wyniki' : 'Dalej'}</button>
     </div>`;
   const keep = document.activeElement && document.activeElement.id;
   const changed = $app.dataset.screen !== s.id;
@@ -140,15 +177,15 @@ function render() {
   const progFrom = lastProg.ch === s.ch ? lastProg.w : 0;
   lastProg = { ch: s.ch, w: progW };
   const prog = inCh.length ? `<div class="prog" aria-hidden="true"><i style="width:${progFrom}%" data-to="${progW}"></i></div>` : '';
+  const crumb = inQ ? `<p class="crumb"><b>${CHAPTERS.find(c => c.id === s.ch).name}</b> · krok ${inCh.indexOf(s) + 1} z ${inCh.length} · do wyników ok. ${minsLeft(i)} min</p>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : '';
   notice = '';
-  if (PARTS.some(p => p.id === s.id)) seenParts.add(s.id);
   if (s.id !== 'start') A.lastScreen = s.id;
-  const tabs = '';
-  document.body.classList.toggle('has-tabs', !!tabs);
+  document.body.classList.remove('has-tabs');
+  document.body.classList.toggle('in-q', inQ);
   document.body.classList.toggle('story', s.id === 'kompas' && !needResults());
   if (storyCleanup) { storyCleanup(); storyCleanup = null; }
-  $app.innerHTML = `<div class="${dir}">${prog}${note}${body}${nav}</div>${tabs}`;
+  $app.innerHTML = inQ ? `<div class="qshell">${railHtml(s)}<div class="qmain ${dir}">${crumb}${prog}${note}${body}${nav}</div></div>` : `<div class="${dir}">${note}${body}</div>`;
   updateSaveState();
   const pi = $app.querySelector('.prog i[data-to]');
   if (pi) requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.width = pi.dataset.to + '%'; }));
@@ -189,25 +226,28 @@ const levelTerm = lvl => /policealna/.test(lvl) ? term('policealna', 'szkoła po
 const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
 
 function vStart() {
+  const started = hasAnswers();
+  const resume = screens.some(x => x.id === A.lastScreen) ? A.lastScreen : 'pewnosc';
+  const cur = screens.find(x => x.id === resume);
+  const mins = id => Math.round(screens.filter(x => x.ch === id).reduce((t, x) => t + META[x.id][1], 0));
+  const done = id => started && screens.filter(x => x.ch === id).every(stepDone);
+  const steps = CHAPTERS.map((c, k) => `<li class="${done(c.id) ? 'done' : ''}"><span class="rno">${done(c.id) ? TICK : k + 1}</span><div><b>${c.name}</b><span>${c.sub}</span></div><span class="cmin">ok. ${mins(c.id)} min</span></li>`).join('')
+    + `<li class="res"><span class="rno">${icon('compass', 'ico sm')}</span><div><b>Wyniki</b><span>kompas z kierunkami w Krakowie i plan pierwszych kroków</span></div></li>`;
+  const where = cur?.ch && cur.ch !== 'wyniki' ? `${CHAPTERS.find(c => c.id === cur.ch).name} · ${META[cur.id][0]}` : 'wyniki';
   return `
     <div class="hero">${ILLUS.start}<div>
     <span class="kicker2">Kompas Studia · Kraków 2027</span>
     <h1>Co już umiesz i gdzie się przydasz</h1>
-    <p class="lead">Za chwilę zadamy ci kilka pytań. Nie ma złych odpowiedzi — chodzi o to, co cię naprawdę interesuje.</p>
-    <p>Trzy krótkie rozdziały: <b>Ja</b> (twoje mocne strony), <b>Świat</b> (gdzie będą potrzebne) i <b>Droga</b> (jak tam dojść). Na końcu dostajesz plik, który zostaje u ciebie.</p>
-    <p class="muted small">Jest wiele dobrych dróg, a wybór można korygować. To punkt wyjścia do rozmowy, nie test i nie wyrok.</p>
-    <div class="savehelp">${ICON.save}<p><b>Możesz przerwać w każdej chwili.</b> Przycisk <b>Zapisz</b> u góry pobiera plik z twoimi odpowiedziami. Odpowiedzi są tylko w tej karcie przeglądarki, nigdzie nie są wysyłane. Żeby wrócić, wczytaj plik poniżej: zaczniesz tam, gdzie skończyłeś.</p></div>
-    <label class="field" for="name">Imię (opcjonalnie, tylko do nazwy pliku)</label>
-    <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off">
-    <div class="actions">
-      <button class="btn" data-go="pewnosc">${A.certainty ? 'Wróć do pytań' : 'Zaczynamy'}</button>
-      ${A.certainty ? '<button class="btn ghost" data-go="kompas">Moje wyniki</button>' : ''}
-    </div>
-    <div class="card loadcard">
-      <h3>Masz już plik z Kompasu?</h3>
-      <p class="small muted">Wczytaj go, żeby wrócić do odpowiedzi albo zobaczyć, co się zmieniło. Plik otwiera się tylko na tym urządzeniu.</p>
-      <label class="btn ghost filebtn">Wczytaj plik .md<input type="file" accept=".md,text/markdown,text/plain" data-load></label>
-    </div>
+    <p class="lead">Około 20 minut pytań o to, co lubisz i co ci wychodzi. Na końcu zobaczysz kilka kierunków w Krakowie, które do ciebie pasują, i plan pierwszych małych kroków.</p>
+    <ol class="chsteps">${steps}</ol>
+    ${started ? `<p class="resume-l"><b>Masz już odpowiedzi.</b> Skończyłeś na: ${esc(where)}.</p>` : ''}
+    <div class="startrow"><div><label class="field" for="name">Imię <span class="muted">(opcjonalnie, tylko do nazwy pliku)</span></label>
+      <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off"></div>
+      <button class="btn big" data-go="${started ? resume : 'pewnosc'}">${started ? 'Wróć tam, gdzie skończyłem' : 'Zaczynamy'}</button></div>
+    ${started && !needResults() && resume !== 'kompas' ? '<div class="actions"><button class="btn ghost" data-go="kompas">Moje wyniki</button></div>' : ''}
+    <p class="muted small">Nie ma złych odpowiedzi. Jest wiele dobrych dróg, a wybór można korygować: to punkt wyjścia do rozmowy, nie test i nie wyrok.</p>
+    <div class="savehelp">${ICON.save}<div><p><b>Możesz przerwać w każdej chwili.</b> Przycisk <b>Zapisz</b> u góry pobiera plik z odpowiedziami. Nic nie jest nigdzie wysyłane. Żeby wrócić, wczytaj ten plik: zaczniesz tam, gdzie skończyłeś.</p>
+      <label class="btn ghost filebtn small-btn">Wczytaj plik .md<input type="file" accept=".md,text/markdown,text/plain" data-load></label></div></div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji">
       <span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button>
@@ -257,13 +297,14 @@ function vSort() {
   }
   const a = acts[pos];
   return `${A.sortPos === 0 ? ILLUS.zajecia : ''}<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
-    <div class="card sort"><div class="q">${esc(a.text)}</div>
+    <div class="card sort"><p class="sortcount">${pos + 1} z ${n}</p><div class="q">${esc(a.text)}</div>
       <div class="row">
         <button class="btn ghost" data-sortans="-1">nie lubię</button>
         <button class="btn" data-sortans="1">lubię</button>
       </div>
       <button class="chip" data-sortans="0" style="margin-top:12px">obojętne, pomiń</button>
       ${pos > 0 ? '<button class="chip" data-sortback style="margin-top:12px">cofnij</button>' : ''}
+      <p class="keys" aria-hidden="true"><kbd>←</kbd> nie lubię · <kbd>→</kbd> lubię · <kbd>↓</kbd> pomiń</p>
     </div>${dots}`;
 }
 
@@ -277,7 +318,7 @@ function vSituations() {
   }
   const q = qs[pos];
   return `${A.sitPos === 0 ? ILLUS.sytuacje : ''}<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
-    <div class="card"><p class="q-s">${esc(q.text)}</p>
+    <div class="card"><p class="sortcount">${pos + 1} z ${n}</p><p class="q-s">${esc(q.text)}</p>
       <div class="chips stack">${q.answers.map(a => chip(`data-sitans="${a.id}"`, esc(a.text), A.situations[q.id] === a.id)).join('')}</div>
       <div class="row-s"><button class="chip" data-sitans="">pomiń</button>${pos > 0 ? '<button class="chip" data-sitback>cofnij</button>' : ''}</div>
     </div>${dots}`;
@@ -303,7 +344,7 @@ function vStyle() {
 }
 
 function vValues() {
-  return `<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz pięć, w kolejności: najpierw najważniejsze.</p>
+  return `<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz pięć, w kolejności: najpierw najważniejsze. <span class="pickn">${A.values.length} z 5</span></p>
     <div class="chips">${data.dimensions.values.map(v => { const i = A.values.indexOf(v.id);
       return chip(`data-value="${v.id}"`, `${i >= 0 ? `<span class="n">${i + 1}.</span> ` : ''}${v.name}`, i >= 0); }).join('')}</div>`;
 }
@@ -314,7 +355,7 @@ function vStrengths() {
     return `<div class="strength"><label class="field" for="pr-${s.id}">${esc(st.name)}: kiedy to pokazałeś? Jedno zdanie wystarczy.</label>
       <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${esc(s.proof)}" placeholder="${esc(st.example)}"></div>`; }).join('');
   return `<h1>Twoje mocne strony</h1>
-    <p>Wybierz 5 rzeczy, które ci wychodzą. Do każdej dopisz jeden przykład ze swojego życia: sport, szkoła, dom i rodzina, języki, pomoc innym.</p>
+    <p>Wybierz 5 rzeczy, które ci wychodzą. Do każdej dopisz jeden przykład ze swojego życia: sport, szkoła, dom i rodzina, języki, pomoc innym. <span class="pickn">${A.strengths.length} z 5</span></p>
     <div class="chips">${data.strengths.map(s => chip(`data-strength="${s.id}"`, s.name, picked.includes(s.id))).join('')}</div>
     ${list ? `<div class="card">${list}</div>` : ''}
     <p class="small muted">Mocna strona liczy się dopiero z przykładem. Przykład nie musi być wielki.</p>`;
@@ -332,7 +373,7 @@ function growCompass(stage) {
   const arc = (k, on) => { const a0 = (-90 + k * 120 + 6) * Math.PI / 180, a1 = (-90 + (k + 1) * 120 - 6) * Math.PI / 180, r = 34;
     return `<path d="M${(40 + r * Math.cos(a0)).toFixed(1)},${(40 + r * Math.sin(a0)).toFixed(1)} A${r},${r} 0 0 1 ${(40 + r * Math.cos(a1)).toFixed(1)},${(40 + r * Math.sin(a1)).toFixed(1)}" class="garc${on ? ' on' : ''}${k === stage - 1 ? ' now' : ''}" pathLength="1"/>`; };
   return `<div class="grow"><svg viewBox="0 0 80 80" aria-hidden="true">${[0, 1, 2].map(k => arc(k, k < stage)).join('')}<polygon points="40,14 45,40 40,44 35,40" class="gneedle"/><circle cx="40" cy="40" r="3"/></svg>
-    <p><b>Kompas rośnie.</b> Rozdział ${names[stage - 1]} za tobą${stage < 3 ? `, przed tobą: ${names[stage]}` : ', teraz wyniki'}. Dobry moment, żeby zapisać postęp.</p>
+    <p><b>Kompas rośnie.</b> ${stage < 3 ? `Rozdział ${names[stage - 1]} za tobą, przed tobą: ${names[stage]}` : 'To ostatnie pytania, potem wyniki'}. Dobry moment, żeby zapisać postęp.</p>
     <button class="btn ghost savebtn small-btn" data-export="download">${ICON.save} Zapisz</button></div>`;
 }
 
@@ -341,10 +382,10 @@ function vReveal() {
   const proven = provenStrengths(A).map(s => { const st = data.strengths.find(x => x.id === s.id);
     return `<li><b>${esc(st.name)}</b><span class="proof">Widać to po tym, że: ${esc(s.proof)}</span></li>`; }).join('');
   const maybe = possibleStrengths(r).map(s => `<li>${esc(s.name)} <span class="badge">możliwa mocna strona</span></li>`).join('');
-  return `${growCompass(1)}<h1>To już widać</h1><p class="lead">Twoje mocne strony, twoimi słowami:</p>
+  return `<span class="kicker2">Koniec rozdziału Ja</span><h1>To już widać</h1><p class="lead">Twoje mocne strony, twoimi słowami:</p>
     <div class="card reveal"><ul>${proven}</ul></div>
     ${maybe ? `<p>Twoje odpowiedzi podpowiadają jeszcze:</p><div class="card"><ul>${maybe}</ul><p class="small muted">Jeśli przypomnisz sobie przykład, wróć i dopisz.</p></div>` : ''}
-    <p>Teraz zobaczmy, gdzie te mocne strony będą potrzebne.</p>`;
+    <p>Teraz zobaczmy, gdzie te mocne strony będą potrzebne.</p>${growCompass(1)}`;
 }
 
 function vScenarios() {
@@ -366,7 +407,7 @@ function vForces() {
     <p class="lead">Uczysz się teraz, żeby być gotowym na świat, który za 10 lat będzie wyglądał tak. Na to się przygotowujesz:</p>
     <div class="forces">${data.scenarios.forces.map((f, i) => { const s = src(f.sourceId), hot = sectorSel && f.sectors.includes(sectorSel);
       return `<div class="force rise${hot ? ' hot' : ''}${sectorSel && !hot ? ' dim' : ''}" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3><p class="small">${esc(f.text)}</p>
-        ${f.line ? `<p class="small fline">${esc(f.line)}</p>` : ''}
+        ${f.line && f.line !== f.text ? `<p class="small fline">${esc(f.line)}</p>` : ''}
         <div class="tags" aria-label="Gdzie rośnie praca">${f.sectors.map(id => { const x = sec(id); return `<button class="tag-s sbtn-s${sectorSel === id ? ' on' : ''}" data-sector="${id}" aria-pressed="${sectorSel === id}">→ ${esc(x.name)}</button>`; }).join('')}</div>
         <p class="small muted">${s ? `<a href="${s.url}" target="_blank" rel="noopener">źródło</a>, ` : ''}stan na ${esc(f.asOf)}</p></div></div>`; }).join('')}</div>
     <h2>Gdzie rośnie praca</h2>
@@ -392,14 +433,14 @@ function vCardsPreview() {
   const shown = list.slice(0, 6);
   const fchip = (key, text) => chip(`data-area="${key}"`, text, areaFilter === key);
   const answered = proven.length || Object.keys(A.sort).length;
-  return `${growCompass(2)}<h1>Gdzie możesz się przydać</h1>
+  return `<h1>Gdzie możesz się przydać</h1>
     <p>${answered ? 'Z 23 obszarów pokazujemy sześć, które najlepiej pasują do tego, co już o sobie powiedziałeś. Dotknij orientacji albo mocnej strony, żeby zobaczyć inne.' : 'Odpowiedz najpierw na pytania z rozdziału Ja, a pokażemy obszary dopasowane do ciebie.'}</p>
     <div class="chips filt" role="group" aria-label="Filtruj obszary">${fchip('', 'najlepiej pasujące')}${dims.map(d => fchip('d:' + d.id, d.name.toLowerCase())).join('')}${proven.map(p => fchip('s:' + p.id, data.strengths.find(x => x.id === p.id).name)).join('')}</div>
     <p class="small muted" aria-live="polite">${esc(label)}</p>
     <div class="areas">${shown.map((c, i) => { const used = proven.filter(p => c.card.strengths.includes(p.id)).map(p => data.strengths.find(x => x.id === p.id).name);
       return `<div class="area rise" style="--i:${i}"><span class="area-ico">${icon(c.card.cluster)}</span><div><h3>${esc(c.card.name)}</h3><p class="small">${esc(c.card.whoYouHelp)}</p>
         ${used.length ? `<div class="tags">${used.map(u => `<span class="tag-s on">${esc(u)}</span>`).join('')}</div>` : ''}</div></div>`; }).join('')}</div>
-    <details class="card"><summary>Pokaż wszystkie 23 obszary</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>`;
+    <details class="card"><summary>Pokaż wszystkie 23 obszary</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>${growCompass(2)}`;
 }
 
 const shortInst = n => n.replace(/^Uniwersytet Jagielloński.*$/, 'UJ').replace(/^UJ Collegium Medicum$/, 'UJ CM').replace(/^Krakowska Medyczna Szkoła Policealna nr 1$/, 'Medyczna Szkoła Policealna nr 1')
@@ -473,9 +514,9 @@ function vDoubt() {
 }
 
 function vReflection() {
-  return `${growCompass(3)}<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
+  return `<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
     ${data.questions.reflection.map(q => `<label class="field" for="rf-${q.id}">${q.text}</label>
-      <textarea id="rf-${q.id}" data-refl="${q.id}">${esc(A.reflection[q.id] || '')}</textarea>`).join('')}`;
+      <textarea id="rf-${q.id}" data-refl="${q.id}">${esc(A.reflection[q.id] || '')}</textarea>`).join('')}${growCompass(3)}`;
 }
 
 // ---- results ----------------------------------------------------------------
@@ -950,6 +991,8 @@ function makeStoryCtx() {
     tramLines: r => { const opts = shownOptions(r);
       return tramLines(r).map(l => { const o = opts.find(x => l.quick ? x.quick : (!x.quick && x.c === l.c)); return { ...l, no: o?.no || '?', color: o?.color || l.color }; }); },
     panelHtml: o => panelHtml(o),
+    planHtml: () => planHtml(ctx.r),
+    touch: () => save(),
     studyHtml: id => studyHtml(id),
     transportNote: () => data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : '',
     changes: () => changesSince(ctx.r),
@@ -959,10 +1002,43 @@ function makeStoryCtx() {
   ctx.r = scoreAll(A, data);
   return ctx;
 }
+// Shown instead of the results while the two things the compass needs are still missing.
+function vGate() {
+  const rows = [
+    ['mocne', 'Mocne strony: co najmniej jedna z przykładem', provenStrengths(A).length >= 1, true],
+    ['wartosci', 'Co jest dla ciebie ważne w pracy', A.values.length > 0, true],
+    ['zajecia', 'Co lubisz robić', Object.keys(A.sort).length >= 12, false],
+    ['sytuacje', 'Co robisz, gdy…', Object.keys(A.situations).length >= 3, false],
+    ['matura', 'Przedmioty rozszerzone', A.rozszerzenia.length > 0, false]];
+  return `<div class="gate"><span class="kicker2">Wyniki</span><h1>Jeszcze dwie rzeczy</h1>
+    <p class="lead">Kompas potrzebuje twoich mocnych stron i tego, co jest dla ciebie ważne. Reszta go wyostrza, ale nie jest konieczna.</p>
+    <ul class="gatelist">${rows.map(([go, t, ok, must]) => `<li class="${ok ? 'ok' : must ? 'must' : ''}"><span class="rno">${ok ? TICK : ''}</span><span>${t}${must ? '' : ' <span class="muted small">(opcjonalnie)</span>'}</span>${ok ? '' : `<button class="btn ${must ? '' : 'ghost'} small-btn" data-go="${go}">${must ? 'Uzupełnij' : 'Dodaj'}</button>`}</li>`).join('')}</ul>
+    <div class="actions"><button class="btn ghost" data-go="${A.certainty ? 'mocne' : 'pewnosc'}">Wracam do pytań</button></div></div>`;
+}
 function vStory() {
-  if (needResults()) return vResults();
+  if (needResults()) return vGate();
   storyCtx = makeStoryCtx();
   return storyHtml(storyCtx);
+}
+
+// "Twój plan": he picks the option to check first and ticks off small dated steps; both go into his file.
+function planHtml(r) {
+  const opts = shownOptions(r), focus = planFocus(r.slots, A);
+  if (!focus) return '';
+  const cur = opts.find(o => o.key === focus.key) || opts[0], f = focus.o?.offer;
+  const items = planItems(focus, data), key = it => `plan:${focus.key}:${it.id}`;
+  const done = items.filter(it => A.checks?.[key(it)]).length;
+  return `<span class="kicker">Twój plan</span><h2>Nie wybór. Kilka małych kroków.</h2>
+    <p class="lead">Nie musisz dziś decydować. Wybierz jeden kierunek, który sprawdzisz najpierw, i zrób kilka małych rzeczy. Potem wróć i zobacz, co się zmieniło.</p>
+    <div class="plan">
+      <div class="plan-pick"><h3>Który kierunek sprawdzasz najpierw?</h3>
+        <div class="plan-opts" role="radiogroup" aria-label="Kierunek do sprawdzenia">${opts.map(o => `<button role="radio" class="eitem" data-planfocus="${esc(o.key)}" aria-checked="${o.key === focus.key}" style="--c:${o.color}"><span class="nb" style="background:${o.color}">${o.no}</span><span><b>${esc(o.quick ? 'Szybki start' : o.c.card.name)}</b><span class="small muted">${esc(o.quick ? o.quick.offer.name : o.slot)}</span></span></button>`).join('')}</div>
+        <p class="small muted">To nie jest decyzja. Za miesiąc możesz sprawdzić następny.</p></div>
+      <div class="plan-list" style="--c:${cur.color}"><span class="kicker" style="color:${cur.color}">Sprawdzam najpierw</span><h3>${esc(focus.quick ? f.name : focus.c.card.name)}</h3>
+        ${f ? `<p class="small muted">${icon('school', 'ico sm')} ${esc(f.name)}, ${esc(shortInst(f.institution))} · ${String(f.durationYears).replace('.', ',')} ${f.durationYears < 5 ? 'lata' : 'lat'}</p>` : ''}
+        <ul class="plan-items">${items.map(it => `<li class="${it.warn ? 'warn' : ''}"><label><input type="checkbox" data-check="${esc(key(it))}" ${A.checks?.[key(it)] ? 'checked' : ''}><span><span class="when">${esc(it.when)}</span>${esc(it.text)}${it.url ? ` <a href="${esc(it.url)}" target="_blank" rel="noopener">Otwórz stronę</a>` : ''}</span></label></li>`).join('')}</ul>
+        <p class="small muted plan-n" aria-live="polite">Zrobione: ${done} z ${items.length}. Plan zapisuje się w twoim pliku.</p></div>
+    </div>`;
 }
 
 const STUDY_HINT = '<h4>W Krakowie</h4><p class="small muted">Kliknij uczelnię w części „Gdzie się uczyć w Krakowie”, a pod drogą pojawią się szczegóły: wymagania, dojazd i co możesz zrobić, jeśli czegoś brakuje.</p>';
@@ -1003,9 +1079,7 @@ function confLine(c) {
 }
 
 function vResults() {
-  if (provenStrengths(A).length < 1 || !A.values.length) {
-    return `<h1>Jeszcze trochę</h1><p>Wyniki pojawią się, gdy przejdziesz przez rozdział Ja (mocne strony i wartości).</p><button class="btn" data-go="pewnosc">Wracam do pytań</button>`;
-  }
+  if (needResults()) return vGate();
   const r = scoreAll(A, data), s = r.slots, sc = A.scenario || 'B';
   const proven = provenStrengths(A).map(x => `<li><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span class="proof">${esc(x.proof)}</span></li>`).join('');
   const quick = s.quick ? (() => { const o = s.quick.o.offer;
@@ -1056,7 +1130,7 @@ function vResults() {
 
     <h2 id="r-miejsca">Gdzie to jest</h2>
     <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${transit(p.c)} · ${commute(p.c)} · <a href="${routeUrl(p.c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul>
-      <p class="small muted">${data.transport ? `Przystanki, linie i czasy policzone z oficjalnego rozkładu jazdy Krakowa (GTFS, rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Linie i objazdy się zmieniają, więc przed wyjazdem sprawdź trasę.` : 'Czasy dojazdu są jeszcze liczone.'} Mapa Krakowa pojawi się w wersji 1.0.</p></div>
+      <p class="small muted">${data.transport ? `Przystanki, linie i czasy policzone z oficjalnego rozkładu jazdy Krakowa (GTFS, rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Linie i objazdy się zmieniają, więc przed wyjazdem sprawdź trasę.` : 'Czasy dojazdu są jeszcze liczone.'}</p></div>
     <details class="card allplaces"><summary>Wszystkie miejsca w bazie (${data.campuses.length})</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b>${c.status === 'do sprawdzenia' ? ' <span class="badge warn">adres do sprawdzenia</span>' : ''}<br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul></details>
 
     <div class="card"><h3>Niemcy i dalej</h3>
@@ -1114,13 +1188,18 @@ document.addEventListener('keydown', e => {
     if (v !== undefined) { e.preventDefault(); sortAnswer(v); return; }
   }
   const g = e.target.closest && e.target.closest('[data-maprow]');
-  if (g && g.tagName !== 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectRow(Number(g.dataset.maprow)); }
+  if (g && g.tagName !== 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectRow(Number(g.dataset.maprow)); return; }
+  // Enter moves on when nothing else has the focus (the page itself, not a field or a button).
+  if (e.key === 'Enter' && document.body.classList.contains('in-q') && !e.target.closest('input, textarea, button, a, summary, select, [role="button"]')) {
+    const next = $app.querySelector('.nav .btn:not(.ghost):not(:disabled)');
+    if (next) { e.preventDefault(); next.click(); }
+  }
 });
 document.addEventListener('click', e => {
   const g = e.target.closest('[data-maprow]');
   if (g) { selectRow(Number(g.dataset.maprow)); return; }
   if (current().id === 'kompas' && storyCtx) {
-    const st = e.target.closest('[data-jump],[data-explore],[data-pin],[data-pickopt],[data-scen],[data-study]');
+    const st = e.target.closest('[data-jump],[data-explore],[data-pin],[data-pickopt],[data-scen],[data-study],[data-planfocus]');
     if (st && storyClick(st, $app, storyCtx)) { e.preventDefault(); return; }
   }
   const t = e.target.closest('button');
@@ -1152,12 +1231,15 @@ document.addEventListener('click', e => {
   if (d.value) { const i = A.values.indexOf(d.value); if (i >= 0) A.values.splice(i, 1); else if (A.values.length < 5) A.values.push(d.value); save(); render(); return; }
   if (d.strength) { const i = A.strengths.findIndex(s => s.id === d.strength); if (i >= 0) A.strengths.splice(i, 1); else if (A.strengths.length < 5) A.strengths.push({ id: d.strength, proof: '' }); save(); render(); return; }
   if (d.strong !== undefined) { setA('doubtStrong', d.strong === '1'); return; }
-  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length, sitPos: data.questions.situations.length }); save(); location.hash = '#/kompas'; render(); return; }
+  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length, sitPos: data.questions.situations.length }); furthest = screens.length; save(); location.hash = '#/kompas'; render(); return; }
   if (d.export) doExport(d.export);
 });
 
 document.addEventListener('change', e => {
-  if (e.target.matches('[data-check]')) { A.checks = A.checks || {}; A.checks[e.target.dataset.check] = e.target.checked; }
+  if (!e.target.matches('[data-check]')) return;
+  A.checks = A.checks || {}; A.checks[e.target.dataset.check] = e.target.checked; save();
+  const list = e.target.closest('.plan-list'), n = list?.querySelector('.plan-n');
+  if (n) n.textContent = `Zrobione: ${list.querySelectorAll('input:checked').length} z ${list.querySelectorAll('input[data-check]').length}. Plan zapisuje się w twoim pliku.`;
 });
 
 // Compass: turn the needle to the picked direction and show a preview below; the compass itself stays.
@@ -1206,6 +1288,7 @@ function loadFile(text) {
   savedSnap = answersKey();
   const done = provenStrengths(A).length && A.values.length;
   const target = '#/' + (screens.some(x => x.id === A.lastScreen) ? A.lastScreen : done ? 'kompas' : 'pewnosc');
+  furthest = done ? screens.length : screens.findIndex(x => '#/' + x.id === target);
   notice += ` Wracasz tam, gdzie skończyłeś.`;
   if (location.hash === target) render(); else location.hash = target;
 }
@@ -1215,7 +1298,8 @@ document.addEventListener('input', e => {
   if (d.field) { A[d.field] = d.field === 'startMin' ? Number(t.value) : t.value; save(); if (t.id === 'name' || t.id === 'cando' || t.id === 'sport' || t.id === 'start') return; }
   if (d.slider) { A.sliders[d.slider] = Number(t.value); save(); return; }
   if (d.proof) { const s = A.strengths.find(x => x.id === d.proof); s.proof = t.value; save();
-    const ok = provenStrengths(A).length === 5; const next = $app.querySelector('.nav .btn:not(.ghost)'); if (next) next.disabled = !ok; return; }
+    const ok = provenStrengths(A).length === 5; const next = $app.querySelector('.nav .btn:not(.ghost)'); if (next) next.disabled = !ok;
+    const h = document.getElementById('navhint'); if (h) h.textContent = ok ? '' : current().hint(); return; }
   if (d.refl) { A.reflection[d.refl] = t.value; save(); }
 });
 

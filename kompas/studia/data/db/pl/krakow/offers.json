@@ -22,7 +22,8 @@
    "note": "dwa przedmioty z listy, która obejmuje polski, angielski i biologię; UJ liczy tylko wyniki z poziomu rozszerzonego"
   },
   "status": "sourced",
-  "sourceId": "otou-psych"
+  "sourceId": "otou-psych",
+  "next": "praca psychologa od razu po dyplomie; psychoterapia wymaga potem kilkuletniego szkolenia"
  },
  {
   "id": "uj-logopedia",
@@ -48,7 +49,8 @@
    "note": "polski plus jeden przedmiot z listy, która obejmuje biologię"
   },
   "status": "sourced",
-  "sourceId": "otou-logo-uj"
+  "sourceId": "otou-logo-uj",
+  "next": "logopeda w szkole, poradni albo szpitalu"
  },
  {
   "id": "uj-filologia-angielska",
@@ -178,7 +180,8 @@
    "note": "informatyka lub matematyka; UJ liczy tylko poziom rozszerzony"
   },
   "status": "sourced",
-  "sourceId": "otou-uj-2026"
+  "sourceId": "otou-uj-2026",
+  "next": "praca programisty albo 2-letnie magisterskie"
  },
  {
   "id": "ujcm-lekarski",
@@ -204,7 +207,8 @@
    "note": "biologia i chemia oraz fizyka lub matematyka, na poziomie rozszerzonym; 252 bezpłatne miejsca w 2026/27"
   },
   "status": "sourced",
-  "sourceId": "otou-lekarski"
+  "sourceId": "otou-lekarski",
+  "next": "po dyplomie staż i egzamin państwowy, potem kilka lat specjalizacji"
  },
  {
   "id": "ujcm-pielegniarstwo",
@@ -339,7 +343,8 @@
    "note": "jeden z: chemia, biologia, angielski, matematyka; 100 miejsc w 2026/27"
   },
   "status": "sourced",
-  "sourceId": "otou-fizjo-pub"
+  "sourceId": "otou-fizjo-pub",
+  "next": "po dyplomie egzamin państwowy i praca fizjoterapeuty w szpitalu, przychodni albo klubie"
  },
  {
   "id": "ujcm-farmacja",
@@ -366,7 +371,8 @@
    "note": "chemia oraz biologia, fizyka albo matematyka"
   },
   "status": "sourced",
-  "sourceId": "otou-uj-2026"
+  "sourceId": "otou-uj-2026",
+  "next": "praca farmaceuty w aptece, szpitalu albo przemyśle"
  },
  {
   "id": "ujcm-analityka",
@@ -419,7 +425,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca programisty albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-cyber",
@@ -443,7 +450,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka albo fizyka"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca w zespole bezpieczeństwa IT albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-automatyka",
@@ -468,7 +476,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca przy automatyzacji produkcji i robotach albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-energetyka",
@@ -493,7 +502,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka, chemia albo informatyka"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca w elektrowniach, sieciach i OZE albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-elektrotechnika",
@@ -516,7 +526,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą (lista do sprawdzenia w tabeli)"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca przy sieciach i urządzeniach elektrycznych albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-inz-biomed",
@@ -542,7 +553,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia może być przedmiotem z największą wagą"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca przy sprzęcie medycznym i w firmach medycznych albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-fizyka-medyczna",
@@ -568,7 +580,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia jest na liście"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca przy aparaturze w szpitalach, np. w radioterapii, albo magisterskie"
  },
  {
   "id": "agh-fizyka-techniczna",
@@ -592,7 +605,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca w laboratoriach i przemyśle albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-iiad",
@@ -620,7 +634,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy (biologia jest na liście) i drugi z listy z językiem obcym"
   },
   "status": "sourced",
-  "sourceId": "otou-agh-iiad"
+  "sourceId": "otou-agh-iiad",
+  "next": "praca analityka danych albo 1,5-roczne magisterskie"
  },
  {
   "id": "agh-iios",
@@ -646,7 +661,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia i geografia są na liście"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca przy wodzie, powietrzu i odpadach w firmach i urzędach albo magisterskie"
  },
  {
   "id": "agh-ekonometria",
@@ -670,7 +686,8 @@
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą"
   },
   "status": "sourced",
-  "sourceId": "agh-2027"
+  "sourceId": "agh-2027",
+  "next": "praca analityka w banku albo firmie, albo 2-letnie magisterskie"
  },
  {
   "id": "pk-informatyka",
@@ -693,7 +710,8 @@
    "note": "matematyka oraz fizyka, informatyka albo matematyka"
   },
   "status": "sourced",
-  "sourceId": "otou-pk-2026"
+  "sourceId": "otou-pk-2026",
+  "next": "praca programisty albo 1,5-roczne magisterskie"
  },
  {
   "id": "pk-inz-srodowiska",
@@ -719,7 +737,8 @@
    "note": "matematyka oraz jeden z listy, która obejmuje biologię i chemię"
   },
   "status": "sourced",
-  "sourceId": "otou-pk-2026"
+  "sourceId": "otou-pk-2026",
+  "next": "praca przy wodzie, powietrzu i odpadach w firmach i urzędach albo magisterskie"
  },
  {
   "id": "pk-energetyka",
@@ -744,7 +763,8 @@
    "note": "matematyka oraz jeden z: chemia, fizyka, geografia, informatyka, matematyka"
   },
   "status": "sourced",
-  "sourceId": "otou-pk-2026"
+  "sourceId": "otou-pk-2026",
+  "next": "praca w elektrowniach, sieciach i OZE albo 1,5-roczne magisterskie"
  },
  {
   "id": "pk-transport",
@@ -768,7 +788,8 @@
    "note": "kierunek „transport i logistyka”: matematyka oraz fizyka, geografia, informatyka albo matematyka"
   },
   "status": "sourced",
-  "sourceId": "otou-pk-2026"
+  "sourceId": "otou-pk-2026",
+  "next": "praca w firmach transportowych i logistycznych albo 1,5-roczne magisterskie"
  },
  {
   "id": "uek-informatyka-stosowana",
@@ -792,7 +813,8 @@
    "note": "matematyka oraz fizyka, informatyka albo angielski"
   },
   "status": "sourced",
-  "sourceId": "otou-uek-2026"
+  "sourceId": "otou-uek-2026",
+  "next": "praca programisty lub analityka systemów albo magisterskie"
  },
  {
   "id": "uek-finanse",
@@ -873,7 +895,8 @@
    "note": "liczy się polski"
   },
   "status": "sourced",
-  "sourceId": "otou-logo-uken"
+  "sourceId": "otou-logo-uken",
+  "next": "logopeda w szkole, poradni albo szpitalu"
  },
  {
   "id": "uken-psychologia",
@@ -900,7 +923,8 @@
    "note": "polski, język obcy i jeden z: biologia, historia, matematyka, informatyka; poziom podstawowy albo rozszerzony"
   },
   "status": "sourced",
-  "sourceId": "uken-inf-2026"
+  "sourceId": "uken-inf-2026",
+  "next": "praca psychologa od razu po dyplomie; psychoterapia wymaga potem kilkuletniego szkolenia"
  },
  {
   "id": "uken-pedagogika",
@@ -993,7 +1017,8 @@
    "note": "jeden z: biologia, fizyka, chemia, matematyka"
   },
   "status": "sourced",
-  "sourceId": "otou-fizjo-pub"
+  "sourceId": "otou-fizjo-pub",
+  "next": "po dyplomie egzamin państwowy i praca fizjoterapeuty w szpitalu, przychodni albo klubie"
  },
  {
   "id": "awf-wf",
@@ -1080,7 +1105,8 @@
    "note": "biologia oraz chemia albo matematyka"
   },
   "status": "sourced",
-  "sourceId": "otou-biotech-krk"
+  "sourceId": "otou-biotech-krk",
+  "next": "praca w laboratorium lub firmie biotechnologicznej albo magisterskie"
  },
  {
   "id": "ur-woda",
@@ -1095,17 +1121,18 @@
   ],
   "requires": {
    "countFrom": [
-    "matematyka",
     "biologia",
-    "geografia",
+    "chemia",
     "fizyka",
-    "chemia"
+    "geografia",
+    "matematyka"
    ],
    "count": 1,
-   "note": "nazwa i przedmioty do sprawdzenia"
+   "note": "język obcy oraz jeden z: biologia, chemia, fizyka, geografia, matematyka"
   },
-  "status": "to-verify",
-  "sourceId": null
+  "status": "sourced",
+  "sourceId": "otou-urk-igw",
+  "next": "praca przy gospodarce wodnej i ochronie przed powodzią albo magisterskie"
  },
  {
   "id": "uafm-fizjoterapia",
@@ -1124,7 +1151,8 @@
   "status": "sourced",
   "sourceId": "otou-fizjo-priv",
   "private": true,
-  "cost": "płatne"
+  "cost": "płatne",
+  "next": "po dyplomie egzamin państwowy i praca fizjoterapeuty w szpitalu, przychodni albo klubie"
  },
  {
   "id": "uafm-lekarski",
@@ -1143,7 +1171,8 @@
   "status": "sourced",
   "sourceId": "otou-lekarski",
   "private": true,
-  "cost": "od ok. 60 tys. zł za rok"
+  "cost": "od ok. 60 tys. zł za rok",
+  "next": "po dyplomie staż i egzamin państwowy, potem kilka lat specjalizacji"
  },
  {
   "id": "uafm-pielegniarstwo",
@@ -1163,7 +1192,8 @@
   "sourceId": "otou-pielegniarstwo",
   "private": true,
   "cost": "płatne",
-  "firstJob": true
+  "firstJob": true,
+  "next": "praca od razu po licencjacie; dyplom uznawany w całej UE"
  },
  {
   "id": "uafm-ratownictwo",
@@ -1183,7 +1213,8 @@
   "sourceId": "otou-ratownictwo",
   "private": true,
   "cost": "płatne",
-  "firstJob": true
+  "firstJob": true,
+  "next": "praca w zespole ratownictwa albo na SOR"
  },
  {
   "id": "ksm-technik-farmaceutyczny",
@@ -1303,6 +1334,261 @@
   "status": "sourced",
   "sourceId": "sapsp-rek",
   "next": "strażak w PSP; dalej oficerska szkoła pożarnicza",
+  "firstJob": true
+ },
+ {
+  "id": "pk-automatyka",
+  "name": "Automatyka i robotyka",
+  "institution": "Politechnika Krakowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "pk-czyzyny",
+  "cards": [
+   "automatyka"
+  ],
+  "requires": {
+   "countFrom": [
+    "matematyka",
+    "fizyka",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "matematyka oraz fizyka albo informatyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-pk-air",
+  "next": "praca przy automatyzacji produkcji i robotach albo 1,5-roczne magisterskie"
+ },
+ {
+  "id": "uken-cyber",
+  "name": "Cyberbezpieczeństwo",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "studia I stopnia",
+  "durationYears": 3.5,
+  "campus": "uken",
+  "cards": [
+   "cyber"
+  ],
+  "requires": {
+   "countFrom": [
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "informatyka albo matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uken-cyber",
+  "next": "praca w zespole bezpieczeństwa IT albo magisterskie"
+ },
+ {
+  "id": "uj-bezpieczenstwo",
+  "name": "Bezpieczeństwo narodowe",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wsmip",
+  "cards": [
+   "obronnosc",
+   "sluzby"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, polski, matematyka, WOS; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
+  "next": "służby, administracja i zarządzanie kryzysowe albo magisterskie"
+ },
+ {
+  "id": "uj-jpks",
+  "name": "Język polski w komunikacji społecznej",
+  "institution": "Uniwersytet Jagielloński, Wydział Polonistyki",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-centrum",
+  "cards": [
+   "jezyki"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "countFrom": [
+    "historia",
+    "angielski",
+    "niemiecki",
+    "WOS"
+   ],
+   "count": 1,
+   "note": "polski oraz jeden z: historia, język obcy, WOS; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
+  "next": "redakcja, komunikacja w firmach i instytucjach albo magisterskie"
+ },
+ {
+  "id": "uj-polonistyka-nauczycielska",
+  "name": "Filologia polska nauczycielska",
+  "institution": "Uniwersytet Jagielloński, Wydział Polonistyki",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-centrum",
+  "cards": [
+   "mowa"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "countFrom": [
+    "historia",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 1,
+   "note": "polski oraz historia albo język obcy; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
+  "next": "nauczyciel polskiego po 2-letnich magisterskich"
+ },
+ {
+  "id": "uj-dziennikarstwo",
+  "name": "Dziennikarstwo i komunikacja społeczna",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-kampus",
+  "cards": [
+   "jezyki"
+  ],
+  "requires": {
+   "countFrom": [
+    "polski",
+    "angielski",
+    "niemiecki",
+    "historia",
+    "WOS",
+    "geografia",
+    "biologia",
+    "chemia",
+    "fizyka",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 2,
+   "note": "dwa przedmioty z szerokiej listy, m.in. polski, język obcy, historia, WOS, biologia; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
+  "next": "media, komunikacja i promocja albo magisterskie"
+ },
+ {
+  "id": "uj-informatyka",
+  "name": "Informatyka",
+  "institution": "Uniwersytet Jagielloński",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-kampus",
+  "cards": [
+   "software"
+  ],
+  "requires": {
+   "countFrom": [
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "informatyka lub matematyka; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
+  "next": "praca programisty albo 2-letnie magisterskie"
+ },
+ {
+  "id": "ujcm-elektroradiologia",
+  "name": "Elektroradiologia",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "ujcm-zdrowie",
+  "cards": [
+   "laboratorium",
+   "medycyna"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "angielski",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: biologia, chemia, angielski, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
+  "next": "badania RTG, tomografia i rezonans w szpitalach albo magisterskie",
+  "firstJob": true
+ },
+ {
+  "id": "ujcm-lekarsko-dentystyczny",
+  "name": "Kierunek lekarsko-dentystyczny",
+  "institution": "UJ Collegium Medicum",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "ujcm-lekarski",
+  "cards": [
+   "medycyna"
+  ],
+  "requires": {
+   "extended": [
+    "biologia",
+    "chemia"
+   ],
+   "note": "biologia i chemia, na poziomie rozszerzonym"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-2026",
+  "next": "po dyplomie staż i egzamin państwowy, potem praca dentysty"
+ },
+ {
+  "id": "ksm-asystentka",
+  "name": "Asystentka stomatologiczna",
+  "institution": "Krakowska Medyczna Szkoła Policealna nr 1",
+  "kind": "policealna",
+  "level": "szkoła policealna (publiczna, bezpłatna)",
+  "durationYears": 1,
+  "campus": "ksm",
+  "cards": [
+   "pielegniarstwo"
+  ],
+  "requires": {
+   "noMatura": true,
+   "note": "świadectwo szkoły średniej i zaświadczenie od lekarza medycyny pracy"
+  },
+  "status": "sourced",
+  "sourceId": "ksm-wniosek",
+  "next": "praca przy fotelu u boku dentysty; potem np. higienistka stomatologiczna",
   "firstJob": true
  }
 ]

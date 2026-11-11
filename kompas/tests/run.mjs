@@ -29,7 +29,14 @@ for (const o of data.offers) {
   if (seen.has(o.id)) { console.log('duplicate offer id', o.id); bad++; } seen.add(o.id);
   if (o.sourceId && !sourceIds.has(o.sourceId)) { console.log('unknown source', o.id, o.sourceId); bad++; }
   if (o.status === 'sourced' && !o.sourceId) { console.log('sourced without source', o.id); bad++; }
+  // Complete records: every offer names what it needs, how long it takes and what comes after it.
+  for (const k of ['name', 'institution', 'kind', 'level', 'durationYears', 'requires', 'next']) if (o[k] === undefined || o[k] === '') { console.log('offer field missing', o.id, k); bad++; }
+  if (!o.requires?.note) { console.log('offer without requirement note', o.id); bad++; }
+  if (o.private && !o.cost) { console.log('private offer without cost note', o.id); bad++; }
 }
+const open = data.offers.filter(o => o.status !== 'sourced');
+console.log(`offers: ${data.offers.length}, sourced: ${data.offers.length - open.length}` + (open.length ? `, to verify: ${open.map(o => o.id).join(', ')}` : ''));
+for (const c of data.campuses) if (!data.offers.some(o => o.campus === c.id)) console.log('warning: campus without offers', c.id);
 for (const c of data.opportunities) {
   if (!data.offers.some(o => o.cards.includes(c.id))) { console.log('card without Kraków offer', c.id); bad++; }
   if (c.demand && !sourceIds.has(c.demand.sourceId)) { console.log('unknown demand source', c.id); bad++; }

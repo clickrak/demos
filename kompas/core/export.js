@@ -1,5 +1,5 @@
 // Builds the markdown export. Everything happens in the browser; nothing is uploaded.
-import { provenStrengths, pathSteps } from './scoring.js';
+import { provenStrengths, pathSteps, planFocus, planItems } from './scoring.js';
 
 const bar = v => '█'.repeat(Math.round(v / 10)) + '░'.repeat(10 - Math.round(v / 10));
 
@@ -14,13 +14,13 @@ export function buildMarkdown(answers, result, data, today) {
   const st = id => data.strengths.find(s => s.id === id);
   const camp = id => data.campuses.find(c => c.id === id);
   L.push(`# Kompas – ${answers.name || 'ja'}, ${today}`);
-  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v1.0', '');
+  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v1.1', '');
 
   const complete = provenStrengths(answers).length > 0 && (answers.values || []).length > 0;
   if (!complete) {
     L.push('> Zapis postępu: wyniki pojawią się po rozdziale Ja. Wczytaj ten plik w Kompasie, żeby kontynuować.', '');
     L.push('<!-- dane do ponownego wczytania -->');
-    L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.9', dataVersion: data.config.dataVersion, date: today, snapshot: null, answers }, null, 1), '```');
+    L.push('```json', JSON.stringify({ app: 'kompas-studia', version: data.config.appVersion, dataVersion: data.config.dataVersion, date: today, snapshot: null, answers }, null, 1), '```');
     return L.join('\n');
   }
   L.push('## Moje mocne strony');
@@ -55,14 +55,16 @@ export function buildMarkdown(answers, result, data, today) {
   }
   card('Niespodzianka', slots.surprise);
 
-  L.push('## Moja droga');
-  const first = slots.best[0]?.offers.find(o => o.check.reachable)?.offer;
-  if (first) pathSteps(first, camp(first.campus)?.name).forEach(s => L.push(`- [ ] ${s}`));
-  L.push('');
-
-  L.push('## Mój mini-eksperyment');
-  if (slots.best[0]) L.push(`- [ ] W ciągu 30 dni: ${slots.best[0].card.experiment}`);
-  L.push('');
+  // The plan: the option he checks first, with small dated steps; ticks come from the app.
+  const focus = planFocus(slots, answers), checks = answers.checks || {};
+  if (focus) {
+    const fo = focus.o && focus.o.offer;
+    L.push('## Mój plan');
+    L.push(`Najpierw sprawdzam: ${focus.quick ? `Szybki start – ${fo.name}` : focus.c.card.name}${fo && !focus.quick ? ` (${fo.name}, ${fo.institution})` : ''}`);
+    for (const it of planItems(focus, data)) L.push(`- [${checks[`plan:${focus.key}:${it.id}`] ? 'x' : ' '}] ${it.when}: ${it.text}`);
+    L.push('');
+    if (fo) { L.push('## Moja droga w czasie'); pathSteps(fo, camp(fo.campus)?.name).forEach(s => L.push(`- ${s}`)); L.push(''); }
+  }
 
   L.push('## Moje refleksje');
   for (const q of data.questions.reflection) {
@@ -82,7 +84,7 @@ export function buildMarkdown(answers, result, data, today) {
   const snapshot = complete ? { best: slots.best.map(c => c.card.id), most: slots.most?.card.id || null, surprise: slots.surprise?.card.id || null,
     quick: slots.quick?.o.offer.id || null, strengths: provenStrengths(answers).map(s => s.id) } : null;
   L.push('<!-- dane do ponownego wczytania -->');
-  L.push('```json', JSON.stringify({ app: 'kompas-studia', version: '0.9', dataVersion: data.config.dataVersion, date: today, snapshot, answers }, null, 1), '```');
+  L.push('```json', JSON.stringify({ app: 'kompas-studia', version: data.config.appVersion, dataVersion: data.config.dataVersion, date: today, snapshot, answers }, null, 1), '```');
   return L.join('\n');
 }
 

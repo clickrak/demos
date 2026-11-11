@@ -280,3 +280,35 @@ export function pathSteps(offer, campusName) {
   }
   return steps.slice(0, 5);
 }
+
+// The option he wants to check first: card id of a shown slot, or 'quick'. Falls back to the best fit.
+export function planFocus(slots, answers) {
+  const key = answers.plan && answers.plan.focus;
+  if (key === 'quick' && slots.quick) return { key, c: slots.quick.c, o: slots.quick.o, quick: true };
+  const c = [...slots.best, slots.most, slots.surprise].filter(Boolean).find(x => x.card.id === key) || slots.best[0];
+  if (!c) return null;
+  const o = c.offers.find(x => x.check.reachable) || c.offers.find(x => !x.check.hidden) || null;
+  return { key: c.card.id, c, o, quick: false };
+}
+
+// "Mój plan": a few small, dated steps for the option he checks first. Not a choice, an experiment.
+// Each item has a stable id, so ticks survive in the saved file.
+export function planItems(focus, data) {
+  if (!focus) return [];
+  const { c, o } = focus, f = o && o.offer, chk = o && o.check, cfg = data.config, out = [];
+  out.push({ id: 'exp', when: 'w ciągu 30 dni', text: c.card.experiment });
+  if (f && f.kind !== 'policealna') {
+    const fix = chk && (chk.blocked.length || chk.soft) ? chk.fix : null;
+    out.push({ id: 'dek', when: `do ${cfg.declarationDeadline}`, warn: !!fix,
+      text: fix || `Sprawdź, czy twoja deklaracja maturalna pasuje do kierunku ${f.name} (${f.institution}). Liczy się: ${f.requires.note || 'sprawdź na stronie rekrutacji'}.` });
+  }
+  if (f) {
+    const src = data.sources.find(s => s.id === f.sourceId);
+    out.push({ id: 'www', when: 'w tym tygodniu', text: `Otwórz zasady rekrutacji: ${f.name}, ${f.institution}. Zapisz jedno pytanie, na które nie znalazłeś odpowiedzi.`, url: src ? src.url : null });
+    out.push(f.kind === 'policealna'
+      ? { id: 'dni', when: 'wiosna 2027', text: `Zadzwoń albo zajrzyj do szkoły: ${f.institution}. Zapytaj, jak wygląda tydzień nauki i praktyki.` }
+      : { id: 'dni', when: 'marzec–kwiecień 2027', text: `Idź na dzień otwarty: ${f.institution}. Porozmawiaj z jednym studentem tego kierunku.` });
+  }
+  out.push({ id: 'talk', when: 'kiedy chcesz', text: 'Pokaż ten plan komuś, komu ufasz, i zapytaj, co o nim myśli.' });
+  return out;
+}
