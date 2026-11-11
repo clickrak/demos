@@ -88,7 +88,12 @@
     "sourceId": "otou-lo1",
     "status": "sourced"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05717,
+   "lon": 19.93336,
+   "q": "I Liceum Ogólnokształcące im. Bartłomieja Nowodworskiego, Kraków"
+  }
  },
  {
   "id": "lo2",
@@ -219,7 +224,12 @@
     "sourceId": "otou-lo2",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.0684,
+   "lon": 19.93178,
+   "q": "II Liceum Ogólnokształcące im. Króla Jana III Sobieskiego, Kraków"
+  }
  },
  {
   "id": "lo4",
@@ -312,7 +322,12 @@
     "sourceId": "otou-lo4",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.04099,
+   "lon": 19.94636,
+   "q": "IV Liceum Ogólnokształcące im. Tadeusza Kościuszki, Kraków"
+  }
  },
  {
   "id": "lo5",
@@ -535,7 +550,12 @@
     "sourceId": "otou-lo7",
     "status": "sourced"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.0706,
+   "lon": 19.90829,
+   "q": "VII Liceum Ogólnokształcące im. Zofii Nałkowskiej, Kraków"
+  }
  },
  {
   "id": "lo8",
@@ -647,7 +667,12 @@
     "sourceId": "otou-lo8",
     "status": "sourced"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05897,
+   "lon": 19.95555,
+   "q": "VIII Liceum Ogólnokształcące im. Stanisława Wyspiańskiego, Kraków"
+  }
  },
  {
   "id": "lo9",
@@ -698,7 +723,12 @@
     "sourceId": "otou-lo9",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06874,
+   "lon": 19.91938,
+   "q": "IX Liceum Ogólnokształcące im. Zygmunta Wróblewskiego, Kraków"
+  }
  },
  {
   "id": "tl14",
@@ -1060,7 +1090,12 @@
     "sourceId": "otou-lo42",
     "status": "sourced"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06279,
+   "lon": 19.93004,
+   "q": "XLII Liceum Ogólnokształcące, Kraków"
+  }
  },
  {
   "id": "lo11",
@@ -1113,7 +1148,12 @@
     "sourceId": "otou-lo11",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.08081,
+   "lon": 20.03248,
+   "q": "os. Teatralne 33, 31-948 Kraków"
+  }
  },
  {
   "id": "lo28",
@@ -1315,7 +1355,12 @@
     "sourceId": "otou-lo3",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.089,
+   "lon": 20.01819,
+   "q": "os. Wysokie 6, 31-818 Kraków"
+  }
  },
  {
   "id": "lo6",
@@ -1371,7 +1416,12 @@
     "sourceId": "otou-lo6",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05048,
+   "lon": 19.94744,
+   "q": "VI Liceum Ogólnokształcące im. Adama Mickiewicza, Kraków"
+  }
  },
  {
   "id": "lo10",
@@ -1502,7 +1552,12 @@
     "sourceId": "otou-lo10-plan",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06927,
+   "lon": 19.94003,
+   "q": "X Liceum Ogólnokształcące im. Komisji Edukacji Narodowej, Kraków"
+  }
  },
  {
   "id": "lo13",
@@ -1637,7 +1692,12 @@
     "sourceId": "wazna-lo13",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06341,
+   "lon": 19.96375,
+   "q": "XIII Liceum Ogólnokształcące im. Bohaterów Westerplatte, Kraków"
+  }
  },
  {
   "id": "lo15",
@@ -1709,7 +1769,12 @@
     "sourceId": "otou-lo15",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.02232,
+   "lon": 19.986,
+   "q": "al. Adolfa Dygasińskiego 15, 30-820 Kraków"
+  }
  },
  {
   "id": "tee9",
