@@ -3667,5 +3667,472 @@
    "lon": 19.94462,
    "q": "Brzozowa 5, Kraków, Kraków"
   }
+ },
+ {
+  "id": "lo21",
+  "name": "XXI Liceum Ogólnokształcące im. St. I. Witkiewicza-Witkacego",
+  "short": "XXI LO Witkacego",
+  "type": "liceum",
+  "address": "os. Tysiąclecia 15, Kraków",
+  "range": {
+   "min": 131.1,
+   "max": 131.1,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1 ALFA",
+    "label": "pol-biol-filozofia-ang",
+    "extended": [
+     "język polski",
+     "biologia",
+     "filozofia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 131.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "wos"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo21",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo22",
+  "name": "XXII Liceum Ogólnokształcące im. gen. Bronisława Ducha",
+  "short": "XXII LO Ducha",
+  "type": "liceum",
+  "address": "os. Szkolne 26, Kraków",
+  "range": {
+   "min": 56.25,
+   "max": 56.25,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1",
+    "label": "mat-biznes-ang",
+    "extended": [
+     "matematyka",
+     "biznes i zarządzanie",
+     "angielski"
+    ],
+    "cards": [
+     "dane-ai"
+    ],
+    "threshold": 53.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo22",
+    "status": "check"
+   }
+  ],
+  "note": "Jedna klasa licealna w zespole szkół. Niski próg oznacza dużo wolnych miejsc."
+ },
+ {
+  "id": "lo29",
+  "name": "XXIX Liceum Ogólnokształcące im. Krzysztofa Kieślowskiego",
+  "short": "XXIX LO Kieślowskiego",
+  "type": "liceum",
+  "address": "ul. Cechowa 57, Kraków",
+  "range": {
+   "min": 84.35,
+   "max": 84.35,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1",
+    "label": "integracyjna pol-biol-ang",
+    "extended": [
+     "język polski",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 134.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo29",
+    "status": "check"
+   }
+  ],
+  "note": "Klasa integracyjna (uczą się razem uczniowie z orzeczeniami i bez). Próg z waszaedukacja jest wyższy niż w otouczelnie."
+ },
+ {
+  "id": "lo47",
+  "name": "XLVII Liceum Ogólnokształcące",
+  "short": "XLVII LO",
+  "type": "liceum",
+  "address": "os. Szkolne 18, Kraków",
+  "range": {
+   "min": 60.35,
+   "max": 70.0,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "A",
+    "label": "mat-inf-ang",
+    "extended": [
+     "informatyka",
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 70,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo47",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "pol-inf-ang",
+    "extended": [
+     "informatyka",
+     "angielski",
+     "język polski"
+    ],
+    "cards": [
+     "programowanie"
+    ],
+    "threshold": 95.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo47",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "tm15",
+  "name": "Technikum Mechaniczne nr 15 im. Szczepana Humberta (ZSM nr 1)",
+  "short": "Technikum Mechaniczne nr 15",
+  "type": "technikum",
+  "address": "al. Mickiewicza 5, Kraków",
+  "range": {
+   "min": 60.7,
+   "max": 129.75,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "1Tma",
+    "label": "technik mechatronik",
+    "extended": [
+     "fizyka",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": 134.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm15",
+    "status": "check",
+    "occupation": "technik mechatronik"
+   },
+   {
+    "code": "1Tau",
+    "label": "technik automatyk",
+    "extended": [
+     "fizyka",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": 119.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm15",
+    "status": "check",
+    "occupation": "technik automatyk"
+   },
+   {
+    "code": "1Tro",
+    "label": "technik robotyk",
+    "extended": [
+     "fizyka",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": 100.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm15",
+    "status": "check",
+    "occupation": "technik robotyk"
+   },
+   {
+    "code": "1Tem",
+    "label": "technik elektromobilności",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "srodowisko"
+    ],
+    "threshold": 107.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm15",
+    "status": "check",
+    "occupation": "technik elektromobilności"
+   }
+  ]
+ },
+ {
+  "id": "tm30",
+  "name": "Technikum Mechaniczne nr 30 (ZSM nr 4)",
+  "short": "Technikum Mechaniczne nr 30",
+  "type": "technikum",
+  "address": "ul. Podbrzezie 10, Kraków",
+  "range": {
+   "min": 25.7,
+   "max": 124.0,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "Taw",
+    "label": "technik awionik",
+    "extended": [
+     "fizyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": 120.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm30",
+    "status": "check",
+    "occupation": "technik awionik"
+   }
+  ]
+ },
+ {
+  "id": "te8",
+  "name": "Technikum Elektryczne nr 8 (ZS Elektrycznych nr 2)",
+  "short": "Technikum Elektryczne nr 8",
+  "type": "technikum",
+  "address": null,
+  "range": {
+   "min": 33.5,
+   "max": 73.0,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "C",
+    "label": "technik informatyk",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": 73.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-te8",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "A",
+    "label": "technik elektronik",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika"
+    ],
+    "threshold": 49.3,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-te8",
+    "status": "check",
+    "occupation": "technik elektronik"
+   },
+   {
+    "code": "M",
+    "label": "technik mechatronik",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": 53,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-te8",
+    "status": "check",
+    "occupation": "technik mechatronik"
+   }
+  ],
+  "note": "Szkoła punktuje też ocenę z techniki, której Kompas nie pyta. Szansę liczymy orientacyjnie z zakresu progów."
+ },
+ {
+  "id": "tg12",
+  "name": "Technikum Geodezji i Kształtowania Środowiska nr 12",
+  "short": "Technikum Geodezji i Kształtowania Środowiska nr 12",
+  "type": "technikum",
+  "address": "ul. Lea 235, Kraków",
+  "range": {
+   "min": 35.75,
+   "max": 107.9,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "G",
+    "label": "technik geodeta",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": 101,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tg12",
+    "status": "check",
+    "occupation": "technik geodeta"
+   },
+   {
+    "code": "O",
+    "label": "technik ochrony środowiska",
+    "extended": [
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko"
+    ],
+    "threshold": 49.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tg12",
+    "status": "check",
+    "occupation": "technik ochrony środowiska"
+   }
+  ]
  }
 ]

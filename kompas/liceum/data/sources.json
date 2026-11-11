@@ -327,5 +327,61 @@
   "title": "XVI LO Baczyńskiego, klasy (progi klas niedostępne)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "w-lo21",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xxi-liceum-im-st-i-witkiewicza-witkacego-krakow-423/profile",
+  "title": "XXI LO Witkacego, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-lo22",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xxii-liceum-krakow-444/profile",
+  "title": "XXII LO Ducha, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-lo29",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xxix-liceum-im-krzysztofa-kieslowskiego-krakow-478/profile",
+  "title": "XXIX LO Kieślowskiego, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-lo47",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xlvii-liceum-krakow-nowa-huta-68656/profile",
+  "title": "XLVII LO, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-tm15",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-mechaniczne-nr-15-krakow-463/profile",
+  "title": "Technikum Mechaniczne nr 15, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-tm30",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-mechaniczne-nr-30-krakow-471/profile",
+  "title": "Technikum Mechaniczne nr 30, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-te8",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-elektryczne-nr-8-krakow-445/profile",
+  "title": "Technikum Elektryczne nr 8, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-tg12",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-geodezji-i-ksztaltowania-srodowiska-nr-12-krakow-456/profile",
+  "title": "Technikum Geodezji i Kształtowania Środowiska nr 12, profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]
