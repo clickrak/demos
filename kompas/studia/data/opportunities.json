@@ -1568,5 +1568,213 @@
    "group": "Diagności laboratoryjni",
    "sourceId": "gus-2020"
   }
+ },
+ {
+  "id": "media",
+  "name": "Media i komunikacja",
+  "cluster": "media",
+  "interests": {
+   "ana": 40,
+   "tec": 30,
+   "spo": 55,
+   "twr": 90,
+   "prz": 60,
+   "sys": 30
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": -1,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": -1,
+   "zmiana": 2,
+   "projekty": -1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "kreatywnosc",
+   "wplyw",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "pomyslowosc",
+   "ciekawosc",
+   "tlumaczenie",
+   "przekonywanie",
+   "jezyki"
+  ],
+  "roles": "dziennikarz, redaktor, specjalista PR, twórca materiałów wideo",
+  "whoYouHelp": "Ludzie, którzy chcą wiedzieć, co się dzieje, i instytucje, które muszą coś jasno powiedzieć.",
+  "whatYouGet": "Szybkie tempo, nowe tematy co tydzień i praca, którą ludzie naprawdę czytają albo oglądają. Pewność zatrudnienia jest mniejsza niż w wielu zawodach.",
+  "force": "automatyzacja",
+  "whyNeeded": "AI zalewa sieć tekstami i obrazami. Rośnie potrzeba ludzi, którzy sprawdzają fakty i mówią jasno.",
+  "dayInLife": [
+   "Rano spotkanie redakcji: które tematy robimy dziś.",
+   "W południe rozmowa z rozmówcą i sprawdzenie, czy liczby się zgadzają.",
+   "Po południu montaż krótkiego filmu i tekst na stronę."
+  ],
+  "growth": [
+   "stażysta w redakcji albo w dziale komunikacji",
+   "reporter, redaktor albo specjalista PR",
+   "wydawca, szef działu albo własny kanał lub agencja"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "AI pisze proste teksty; zostają reportaż, sprawdzanie faktów, wideo i specjalizacja.",
+  "experiment": "Przez miesiąc zrób co tydzień jedną krótką rzecz: tekst, podcast albo film o czymś ze szkoły lub okolicy. Pokaż komuś i zapytaj, co zrozumiał.",
+  "related": [
+   "jezyki",
+   "handel",
+   "projektowanie"
+  ],
+  "languages": [
+   "en"
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Literaci, dziennikarze i filolodzy",
+   "sourceId": "gus-2020"
+  }
+ },
+ {
+  "id": "handel",
+  "name": "Handel, marketing i e-commerce",
+  "cluster": "biznes",
+  "interests": {
+   "ana": 50,
+   "tec": 15,
+   "spo": 55,
+   "twr": 50,
+   "prz": 90,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": -1,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": -1,
+   "zmiana": 1,
+   "projekty": -1,
+   "wspolpraca": -1
+  },
+  "values": [
+   "zarobki",
+   "niezaleznosc",
+   "kreatywnosc"
+  ],
+  "strengths": [
+   "przekonywanie",
+   "organizowanie",
+   "jezyki",
+   "zespol",
+   "szybka_nauka"
+  ],
+  "roles": "specjalista e-commerce, marketingowiec, opiekun klienta w firmie, kupiec",
+  "whoYouHelp": "Klienci, którzy szukają dobrej rzeczy w dobrej cenie, i małe firmy, które chcą dotrzeć do ludzi.",
+  "whatYouGet": "Szybko widać efekty: sprzedaż, liczby, zadowolonych klientów. Dużo kontaktu z ludźmi i jasna droga awansu, czasem presja wyników.",
+  "force": "automatyzacja",
+  "whyNeeded": "Coraz więcej zakupów odbywa się w sieci, także między krajami. Firmy szukają ludzi, którzy łączą liczby, języki i kontakt z klientem.",
+  "dayInLife": [
+   "Rano sprawdzenie, co sprzedało się wczoraj w sklepie internetowym.",
+   "W południe rozmowa z dostawcą o cenie i terminie.",
+   "Po południu plan kampanii dla nowego produktu."
+  ],
+  "growth": [
+   "asystent w dziale sprzedaży albo marketingu",
+   "specjalista albo opiekun ważnych klientów",
+   "kierownik sprzedaży albo własna firma"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Prostą obsługę przejmą automaty; zostają relacja z klientem, analiza i handel z zagranicą.",
+  "experiment": "Sprzedaj w sieci kilka rzeczy, których już nie używasz. Zapisz, co zadziałało: zdjęcie, opis, cena, rozmowa z kupującym.",
+  "related": [
+   "logistyka",
+   "finanse",
+   "media"
+  ],
+  "languages": [
+   "en",
+   "de",
+   "uk"
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Specjaliści do spraw sprzedaży, marketingu i public relations",
+   "sourceId": "gus-2020"
+  }
+ },
+ {
+  "id": "projektowanie",
+  "name": "Projektowanie wnętrz i przestrzeni",
+  "cluster": "sztuka",
+  "interests": {
+   "ana": 45,
+   "tec": 60,
+   "spo": 40,
+   "twr": 90,
+   "prz": 40,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 0,
+   "ruch": 0,
+   "konkret": -2,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "kreatywnosc",
+   "niezaleznosc",
+   "wplyw"
+  ],
+  "strengths": [
+   "rysunek",
+   "pomyslowosc",
+   "dokladnosc",
+   "wytrwalosc",
+   "empatia"
+  ],
+  "roles": "architekt wnętrz, architekt, projektant produktu, grafik",
+  "whoYouHelp": "Ludzie, którzy chcą dobrze mieszkać i pracować: rodziny, seniorzy, szkoły, firmy.",
+  "whatYouGet": "Twój pomysł staje się prawdziwym miejscem albo przedmiotem. Dużo rysowania, ale też liczenia, przepisów i rozmów z klientem.",
+  "force": "starzenie",
+  "whyNeeded": "Starzejące się społeczeństwo potrzebuje mieszkań i miejsc bez barier, a stare budynki trzeba przebudować tak, żeby zużywały mniej energii.",
+  "dayInLife": [
+   "Rano pomiar mieszkania i rozmowa z rodziną o tym, czego potrzebuje.",
+   "W południe szkic i model 3D w programie.",
+   "Po południu dobór materiałów i rozmowa z wykonawcą o budżecie."
+  ],
+  "growth": [
+   "asystent w pracowni projektowej",
+   "samodzielny projektant",
+   "własna pracownia albo uprawnienia architekta"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Gdy nowych budów jest mniej, zostają remonty i przebudowy. AI pomaga w wizualizacjach, ale nie zastępuje rozmowy z klientem.",
+  "experiment": "Narysuj plan swojego pokoju w skali i zaprojektuj go na nowo w trzech wersjach. Zapytaj kogoś, w której chciałby mieszkać i dlaczego. To pierwsze prace do teczki na egzamin.",
+  "related": [
+   "media",
+   "handel"
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Architekci, geodeci i projektanci",
+   "sourceId": "gus-2020"
+  }
  }
 ]

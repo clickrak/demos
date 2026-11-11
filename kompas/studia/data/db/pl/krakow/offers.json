@@ -1476,6 +1476,7 @@
   "durationYears": 3,
   "campus": "uj-kampus",
   "cards": [
+   "media",
    "jezyki"
   ],
   "requires": {
@@ -1590,5 +1591,277 @@
   "sourceId": "ksm-wniosek",
   "next": "praca przy fotelu u boku dentysty; potem np. higienistka stomatologiczna",
   "firstJob": true
+ },
+ {
+  "id": "uken-pr",
+  "name": "Public relations i kultury cyfrowe",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken",
+  "cards": [
+   "media"
+  ],
+  "requires": {
+   "countFrom": [
+    "polski",
+    "historia",
+    "matematyka",
+    "WOS",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 1,
+   "note": "jeden z: polski, historia, matematyka, WOS, język obcy"
+  },
+  "status": "sourced",
+  "sourceId": "uken-inf-2026",
+  "next": "dział komunikacji w firmie, urzędzie albo agencja PR; albo magisterskie"
+ },
+ {
+  "id": "ignatianum-dziennikarstwo",
+  "name": "Dziennikarstwo i komunikacja społeczna",
+  "institution": "Uniwersytet Ignatianum",
+  "kind": "programme",
+  "level": "licencjat (uczelnia niepubliczna, studia stacjonarne bezpłatne)",
+  "durationYears": 3,
+  "campus": "ignatianum",
+  "cards": [
+   "media"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "historia",
+    "matematyka",
+    "informatyka",
+    "WOS",
+    "fizyka",
+    "geografia"
+   ],
+   "count": 1,
+   "note": "polski, język obcy oraz jeden z: biologia, chemia, historia, matematyka, informatyka, WOS i innych"
+  },
+  "status": "sourced",
+  "sourceId": "otou-ignatianum-dz",
+  "next": "redakcja, dziennikarstwo audiowizualne, komunikacja; albo magisterskie"
+ },
+ {
+  "id": "uek-marketing",
+  "name": "Marketing i komunikacja rynkowa",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "handel",
+   "media"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "informatyka",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-2026",
+  "next": "marketing, sprzedaż, e-commerce w firmie albo agencji; albo magisterskie"
+ },
+ {
+  "id": "uek-zarzadzanie",
+  "name": "Zarządzanie",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "handel"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "informatyka",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-2026",
+  "next": "sprzedaż, zakupy, praca z klientem i zespołem; albo magisterskie"
+ },
+ {
+  "id": "uek-msg",
+  "name": "Międzynarodowe stosunki gospodarcze",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "handel",
+   "ue"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "fizyka",
+    "geografia",
+    "historia",
+    "informatyka",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: fizyka, geografia, historia, informatyka, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-2026",
+  "next": "handel zagraniczny, eksport i import w firmach; albo magisterskie"
+ },
+ {
+  "id": "uken-ekonomia",
+  "name": "Ekonomia (specjalność: gospodarka cyfrowa i e-biznes)",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken",
+  "cards": [
+   "handel"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "countFrom": [
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 2,
+   "note": "polski i język obcy; uczelnia podaje też dodatkowe kryteria"
+  },
+  "status": "sourced",
+  "sourceId": "uken-inf-2026",
+  "next": "sklepy internetowe, sprzedaż i analiza w firmach; albo magisterskie"
+ },
+ {
+  "id": "asp-architektura-wnetrz",
+  "name": "Architektura wnętrz",
+  "institution": "Akademia Sztuk Pięknych w Krakowie",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "asp-waw",
+  "cards": [
+   "projektowanie"
+  ],
+  "requires": {
+   "exam": true,
+   "note": "decyduje egzamin wstępny: teczka prac (online), zadanie praktyczne (rysunek, malarstwo albo konstrukcja) i rozmowa"
+  },
+  "status": "sourced",
+  "sourceId": "asp-inf-2026",
+  "next": "architekt wnętrz w pracowni albo własna pracownia"
+ },
+ {
+  "id": "asp-wzornictwo",
+  "name": "Wzornictwo",
+  "institution": "Akademia Sztuk Pięknych w Krakowie",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "asp-wfp",
+  "cards": [
+   "projektowanie"
+  ],
+  "requires": {
+   "exam": true,
+   "note": "egzamin wstępny: rysunek martwej natury, konstrukcja z papieru bez kleju, teczka do 20 dużych prac i rozmowa"
+  },
+  "status": "sourced",
+  "sourceId": "asp-inf-2026",
+  "next": "projektant mebli, sprzętu i przedmiotów w firmie albo studiu"
+ },
+ {
+  "id": "uken-design",
+  "name": "Design",
+  "institution": "UKEN, Instytut Sztuki i Designu",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken-isd",
+  "cards": [
+   "projektowanie"
+  ],
+  "requires": {
+   "exam": true,
+   "note": "egzamin: teczka prac i rozmowa, potem zadanie projektowe"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uken-isd",
+  "next": "projektant w studiu albo firmie; albo magisterskie"
+ },
+ {
+  "id": "uken-komunikacja-wizualna",
+  "name": "Komunikacja wizualna",
+  "institution": "UKEN, Instytut Sztuki i Designu",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken-isd",
+  "cards": [
+   "projektowanie",
+   "media"
+  ],
+  "requires": {
+   "exam": true,
+   "note": "egzamin zdalny: zadanie rysunkowo-projektowe, potem rozmowa i ocena teczki"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uken-isd",
+  "next": "grafik, projektant identyfikacji i stron, praca w agencji; albo magisterskie"
+ },
+ {
+  "id": "pk-architektura",
+  "name": "Architektura",
+  "institution": "Politechnika Krakowska, Wydział Architektury",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 4,
+  "campus": "pk-wa",
+  "cards": [
+   "projektowanie"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "historia",
+    "polski"
+   ],
+   "count": 1,
+   "note": "matematyka oraz historia, historia sztuki albo polski; sprawdź na stronie PK, czy w 2027 jest też sprawdzian z rysunku"
+  },
+  "status": "sourced",
+  "sourceId": "otou-pk-arch",
+  "next": "magisterskie, potem praktyka i egzamin na uprawnienia architekta"
  }
 ]

@@ -243,5 +243,47 @@
   "title": "Krakowska Medyczna Szkoła Policealna nr 1: wniosek o przyjęcie (lista kierunków, dokumenty)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "asp-inf-2026",
+  "url": "https://www.asp.krakow.pl/wp-content/uploads/2026/03/informator_2026-2027.pdf",
+  "title": "ASP Kraków: informator dla kandydatów 2026/2027 (egzaminy, limity, adresy wydziałów)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-asp-aw",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1230/Architektura-wnetrz-Krakow/Uczelnie-publiczne",
+  "title": "Architektura wnętrz w Krakowie, uczelnie publiczne, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-pk-arch",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/1193/Architektura-Politechnika-Krakowska",
+  "title": "Politechnika Krakowska, Wydział Architektury: Architektura, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uken-isd",
+  "url": "https://www.otouczelnie.pl/wydzial/2407/instytut-sztuki-i-designu",
+  "title": "UKEN, Instytut Sztuki i Designu: kierunki i egzaminy, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ignatianum-dz",
+  "url": "https://www.otouczelnie.pl/wydzial/1060/DZIENNIKARSTWO-I-KOMUNIKACJA-SPOLECZNA",
+  "title": "Uniwersytet Ignatianum: Dziennikarstwo i komunikacja społeczna, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-dziennikarstwo-krk",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1898/Dziennikarstwo-i-komunikacja-spoleczna-Krakow/Uczelnie-publiczne",
+  "title": "Dziennikarstwo i komunikacja społeczna w Krakowie, rekrutacja 2026/2027",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

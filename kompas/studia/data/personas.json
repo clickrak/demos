@@ -327,5 +327,226 @@
    "doubtStrong": false,
    "reflection": {}
   }
+ },
+ {
+  "id": "D",
+  "label": "Persona D: rysuje i urządza wnętrza",
+  "expect": {
+   "topClusters": [
+    "sztuka",
+    "media"
+   ],
+   "notTop": [
+    "software",
+    "finanse"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona D",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "angielski"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": 0,
+    "a3": -1,
+    "a4": 1,
+    "a5": -1,
+    "a6": 0,
+    "a7": -1,
+    "a8": 1,
+    "a9": -1,
+    "a10": 1,
+    "a11": -1,
+    "a12": -1,
+    "a13": 0,
+    "a14": 0,
+    "a15": 1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": -1,
+    "a20": 0,
+    "a21": 1,
+    "a22": -1,
+    "a23": 1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -3,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 3,
+    "wspolpraca": 1
+   },
+   "values": [
+    "kreatywnosc",
+    "niezaleznosc",
+    "wplyw",
+    "czas",
+    "zarobki"
+   ],
+   "strengths": [
+    {
+     "id": "rysunek",
+     "proof": "Rysuję plany i wnętrza do szkicownika."
+    },
+    {
+     "id": "pomyslowosc",
+     "proof": "Przerobiłem stary regał na biurko."
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "Mierzę pokój dwa razy, zanim coś kupię."
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "Rysuję codziennie od dwóch lat."
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "Oglądam filmy o architekturze."
+    }
+   ],
+   "situations": {
+    "e1": "c",
+    "e2": "b",
+    "e3": "a",
+    "e4": "c"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "E",
+  "label": "Persona E: sprzedaje i organizuje",
+  "expect": {
+   "topClusters": [
+    "biznes",
+    "organizacja",
+    "media"
+   ],
+   "notTop": [
+    "laboratorium",
+    "atom"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona E",
+   "certainty": "niepewny",
+   "rozszerzenia": [
+    "angielski",
+    "WOS"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": 0,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": 0,
+    "a7": 0,
+    "a8": 1,
+    "a9": -1,
+    "a10": 1,
+    "a11": 0,
+    "a12": 0,
+    "a13": -1,
+    "a14": 1,
+    "a15": 0,
+    "a16": -1,
+    "a17": 1,
+    "a18": -1,
+    "a19": -1,
+    "a20": 1,
+    "a21": -1,
+    "a22": 1,
+    "a23": 0
+   },
+   "sliders": {
+    "zespol": 2,
+    "ludzie": -3,
+    "ruch": -1,
+    "konkret": -2,
+    "decyzje": -3,
+    "zmiana": 2,
+    "projekty": -2,
+    "wspolpraca": -1
+   },
+   "values": [
+    "zarobki",
+    "niezaleznosc",
+    "prestiz",
+    "kreatywnosc",
+    "zagranica"
+   ],
+   "strengths": [
+    {
+     "id": "przekonywanie",
+     "proof": "Sprzedaję używane ciuchy w sieci."
+    },
+    {
+     "id": "organizowanie",
+     "proof": "Zorganizowałem klasowy wyjazd."
+    },
+    {
+     "id": "jezyki",
+     "proof": "Rozmawiam po angielsku z kupującymi z innych krajów."
+    },
+    {
+     "id": "zespol",
+     "proof": "Prowadzę grupę w projekcie szkolnym."
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "Nauczyłem się robić reklamy w tydzień."
+    }
+   ],
+   "situations": {
+    "e1": "d",
+    "e2": "c",
+    "e3": "c",
+    "e4": "d"
+   },
+   "studyLength": "krotko"
+  }
  }
 ]

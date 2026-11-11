@@ -1,4 +1,4 @@
-// Kompas Studia v1.1. Screens, navigation, results, export.
+// Kompas Studia v1.1.1. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems } from '../core/scoring.js';
 import { buildMarkdown, fileName } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';

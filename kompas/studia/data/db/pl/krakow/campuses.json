@@ -156,5 +156,35 @@
    "lon": 20.0367
   },
   "status": "gtfs"
+ },
+ {
+  "id": "asp-waw",
+  "name": "ASP, Wydział Architektury Wnętrz",
+  "address": "ul. Syrokomli 21",
+  "status": "gtfs"
+ },
+ {
+  "id": "asp-wfp",
+  "name": "ASP, Wydział Form Przemysłowych",
+  "address": "ul. Smoleńsk 9",
+  "status": "gtfs"
+ },
+ {
+  "id": "pk-wa",
+  "name": "Politechnika Krakowska, Wydział Architektury",
+  "address": "ul. Podchorążych 1",
+  "status": "gtfs"
+ },
+ {
+  "id": "uken-isd",
+  "name": "UKEN, Instytut Sztuki i Designu",
+  "address": "ul. Mazowiecka 43",
+  "status": "gtfs"
+ },
+ {
+  "id": "ignatianum",
+  "name": "Uniwersytet Ignatianum",
+  "address": "ul. Kopernika 26",
+  "status": "gtfs"
  }
 ]

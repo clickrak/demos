@@ -163,6 +163,8 @@ export function checkOffer(offer, answers, config) {
   const r = offer.requires || {};
   const out = { ok: [], blocked: [], flags: [], fix: null };
   if (r.noMatura) out.ok.push('matura niewymagana');
+  // Art and design schools: an entrance exam with drawing and a portfolio decides; subjects count little or not at all.
+  if (r.exam) out.flags.push('egzamin wstępny z rysunku i teczka prac: przygotowanie zajmuje kilka miesięcy');
   for (const s of r.extended || []) {
     if (ext.includes(s)) out.ok.push(`masz rozszerzenie: ${s}`);
     else out.blocked.push(`wymaga rozszerzonej: ${s}, której nie zdajesz`);
@@ -297,7 +299,9 @@ export function planItems(focus, data) {
   if (!focus) return [];
   const { c, o } = focus, f = o && o.offer, chk = o && o.check, cfg = data.config, out = [];
   out.push({ id: 'exp', when: 'w ciągu 30 dni', text: c.card.experiment });
-  if (f && f.kind !== 'policealna') {
+  if (f && f.requires.exam) {
+    out.push({ id: 'teczka', when: 'od teraz do maja 2027', text: `Zacznij teczkę prac na egzamin: ${f.requires.note}. Zapisy są zwykle w maju, egzaminy w czerwcu.` });
+  } else if (f && f.kind !== 'policealna') {
     const fix = chk && (chk.blocked.length || chk.soft) ? chk.fix : null;
     out.push({ id: 'dek', when: `do ${cfg.declarationDeadline}`, warn: !!fix,
       text: fix || `Sprawdź, czy twoja deklaracja maturalna pasuje do kierunku ${f.name} (${f.institution}). Liczy się: ${f.requires.note || 'sprawdź na stronie rekrutacji'}.` });

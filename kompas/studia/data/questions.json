@@ -212,6 +212,29 @@
     "ana": 1,
     "prz": 1
    }
+  },
+  {
+   "id": "a21",
+   "text": "Narysować, jak coś mogłoby wyglądać: pokój, plakat albo przedmiot.",
+   "w": {
+    "twr": 2,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a22",
+   "text": "Sprzedać coś albo wynegocjować dobrą cenę.",
+   "w": {
+    "prz": 2
+   }
+  },
+  {
+   "id": "a23",
+   "text": "Nagrać i zmontować krótki film albo zrobić zdjęcia, które coś opowiadają.",
+   "w": {
+    "twr": 2,
+    "tec": 1
+   }
   }
  ],
  "neededWhere": [
