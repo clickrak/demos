@@ -155,3 +155,27 @@ export function levers(p = {}, cls) {
   if (!p.volunteering) out.push({ text: 'wolontariat wpisany na świadectwie to 3 pkt', pts: 3 });
   return out.slice(0, 4);
 }
+
+// ---- the compass (v1.8) -------------------------------------------------------------------------------------------
+// Eight high-level profiles group the 14 directions. The best profile points North, the next two are the close
+// alternatives (NNE, NNW), and the least fitting one sits in the South. Only the order matters, not exact numbers.
+export const COMPASS = [
+  { pos: 'N', deg: 0, label: 'północ: najlepiej pasuje' }, { pos: 'NNE', deg: 22.5, label: 'bliska alternatywa' }, { pos: 'NNW', deg: -22.5, label: 'bliska alternatywa' },
+  { pos: 'NE', deg: 50, label: 'też warto zajrzeć' }, { pos: 'NW', deg: -50, label: 'też warto zajrzeć' }, { pos: 'E', deg: 95, label: 'dalej od ciebie' },
+  { pos: 'W', deg: -95, label: 'dalej od ciebie' }, { pos: 'S', deg: 180, label: 'najmniej pasuje teraz' }
+];
+export function profilesFor(result, data) {
+  const byId = Object.fromEntries(result.cards.map(c => [c.card.id, c]));
+  const list = data.profiles.map(p => {
+    const areas = p.areas.map(id => byId[id]).filter(Boolean).sort((a, b) => b.fit - a.fit);
+    const fit = areas.length ? 0.8 * areas[0].fit + 0.2 * areas.reduce((s, a) => s + a.fit, 0) / areas.length : 0;
+    const seen = new Map();
+    for (const a of areas) for (const x of a.classes) {
+      const k = x.school.id + '|' + x.cls.code, prev = seen.get(k);
+      if (!prev || x.rank < prev.rank) seen.set(k, { ...x, area: a.card.id });
+    }
+    return { profile: p, fit, areas, classes: [...seen.values()] };
+  }).sort((a, b) => b.fit - a.fit);
+  list.forEach((x, i) => { x.compass = COMPASS[Math.min(i, COMPASS.length - 1)]; });
+  return list;
+}

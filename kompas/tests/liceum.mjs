@@ -1,13 +1,15 @@
 // Kompas Liceum: data integrity, points arithmetic and test personas. Run: node kompas/tests/liceum.mjs
 import { readFileSync } from 'node:fs';
-import { scoreLiceum, examPoints, certificatePoints, checkClass, scoredSubjects, shortlist, effectivePoints } from '../liceum/points.js';
+import { scoreLiceum, examPoints, certificatePoints, checkClass, scoredSubjects, shortlist, effectivePoints, profilesFor } from '../liceum/points.js';
 
 const j = p => JSON.parse(readFileSync(new URL(p, import.meta.url)));
 const data = {
   dimensions: j('../core/dimensions.json'), strengths: j('../core/strengths.json'), config: j('../liceum/data/config.json'),
   questions: j('../liceum/data/questions.json'), opportunities: j('../liceum/data/opportunities.json'),
-  schools: j('../liceum/data/db/pl/krakow/schools.json'), sources: j('../liceum/data/sources.json')
+  schools: j('../liceum/data/db/pl/krakow/schools.json'), sources: j('../liceum/data/sources.json'), profiles: j('../liceum/data/profiles.json')
 };
+// Every direction belongs to exactly one compass profile.
+for (const o of data.opportunities) { const n = data.profiles.filter(p => p.areas.includes(o.id)).length; if (n !== 1) fail('direction in', n, 'profiles:', o.id); }
 let bad = 0;
 const fail = (...m) => { console.log('FAIL', ...m); bad++; };
 
@@ -83,4 +85,12 @@ const softAns = { ...p0.answers, points: { mode: 'soft', soft: { exam: { polski:
 const rs = scoreLiceum(softAns, data), c0 = rs.slots.best[0].classes[0];
 console.log('\nSoft-mode check:', rs.slots.best[0].card.id, c0.school.short, c0.cls.code, c0.check.chance, rs.points.approx);
 if (!rs.points.approx || !['realna', 'zawalczenia', 'ambitna'].includes(c0.check.chance)) fail('soft mode should give a chance label');
+// Compass: the expected North for each test kid.
+const NORTH = { P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'] };
+for (const p of j('../liceum/data/personas.json')) {
+  const P = profilesFor(scoreLiceum(p.answers, data), data);
+  console.log(`Kompas ${p.id}:`, P.map(x => `${x.compass.pos} ${x.profile.id} ${Math.round(x.fit)}`).join(' · '));
+  if (NORTH[p.id] && !NORTH[p.id].includes(P[0].profile.id)) fail('compass north for', p.id, 'is', P[0].profile.id);
+  if (!P[0].classes.length) fail('north profile without classes for', p.id);
+}
 process.exit(bad ? 1 : 0);

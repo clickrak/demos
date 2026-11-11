@@ -1,0 +1,10 @@
+[
+ {"id": "scisly", "short": "Ścisły", "name": "Ścisły i technologiczny", "icon": "automatyzacja", "areas": ["programowanie", "cyber", "dane-ai", "elektronika", "fizyka"], "desc": "Programy, dane, elektronika i fizyka. Klasy mat-inf i mat-fiz, technika informatyczne i elektroniczne."},
+ {"id": "przyrodniczy", "short": "Przyroda", "name": "Przyrodniczy i medyczny", "icon": "zdrowie", "areas": ["biologia", "chemia", "srodowisko"], "desc": "Biologia, chemia, laboratorium i środowisko. Klasy biol-chem i biol-geo, technika chemiczne i środowiskowe."},
+ {"id": "spoleczny", "short": "Ludzie", "name": "Ludzie i pomaganie", "icon": "ludzie", "areas": ["ludzie"], "desc": "Psychologia, edukacja i opieka. Klasy z polskim i biologią, często psychologiczno-pedagogiczne."},
+ {"id": "jezykowy", "short": "Języki", "name": "Językowy i międzynarodowy", "icon": "jezyki", "areas": ["jezyki"], "desc": "Języki, kultury i podróże. Klasy z dwoma językami obcymi albo turystyczne."},
+ {"id": "ekonomiczny", "short": "Biznes", "name": "Ekonomiczny i biznesowy", "icon": "biznes", "areas": ["biznes"], "desc": "Firma, pieniądze i handel. Klasy mat-geo albo z biznesem i zarządzaniem, technika ekonomiczne."},
+ {"id": "inzynierski", "short": "Budowanie", "name": "Inżynierski i budowlany", "icon": "technika", "areas": ["budowa"], "desc": "Domy, wnętrza, mosty i mapy. Klasy z matematyką i fizyką albo geografią, technika budowlane i geodezyjne."},
+ {"id": "sportowy", "short": "Sport", "name": "Sport i zdrowie", "icon": "ruch", "areas": ["sport"], "desc": "Ruch, trening i ciało. Na razie klasy z biologią; klasy sportowe dojdą w kolejnej wersji."},
+ {"id": "humanistyczny", "short": "Humanista", "name": "Humanistyczny i prawniczy", "icon": "media", "areas": ["spoleczenstwo"], "desc": "Historia, prawo, media i dyskusje. Klasy z polskim, historią i WOS."}
+]

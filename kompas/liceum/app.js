@@ -1,6 +1,6 @@
-// Kompas Liceum v1.7.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v1.8.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
 import { provenStrengths } from '../core/scoring.js';
-import { visibleActivities, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
+import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
 import { icon } from '../studia/icons.js';
 import { LILLUS } from './illus.js';
 import { ILLUS } from '../studia/illus.js';
@@ -14,14 +14,14 @@ const today = () => new Date().toISOString().slice(0, 10);
 const f1 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const f2 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [],
-  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [] });
+  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], profile: null, likes: { profiles: [], schools: [], classes: [] } });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
-  const [dimensions, strengths, config, questions, opportunities, schools, sources, personas] = await Promise.all([
+  const [dimensions, strengths, config, questions, opportunities, schools, sources, personas, profiles] = await Promise.all([
     '../core/dimensions.json', '../core/strengths.json', 'data/config.json', 'data/questions.json', 'data/opportunities.json',
-    'data/db/pl/krakow/schools.json', 'data/sources.json', 'data/personas.json'].map(get));
-  data = { dimensions, strengths, config, questions, opportunities, schools, sources, personas };
+    'data/db/pl/krakow/schools.json', 'data/sources.json', 'data/personas.json', 'data/profiles.json'].map(get));
+  data = { dimensions, strengths, config, questions, opportunities, schools, sources, personas, profiles };
   // Studia programmes, to show what each area leads to after liceum (optional).
   studiaOffers = await fetch('../studia/data/db/pl/krakow/offers.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
   A = blank();
@@ -86,7 +86,9 @@ const screens = [
   { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 3,
     hint: () => A.strengths.length < 3 ? `Wybierz jeszcze ${3 - A.strengths.length}` : `Zaznacz, gdzie to widać: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
   { id: 'szkola', ch: 'szkola', view: vSchool },
-  { id: 'wyniki', ch: 'wyniki', view: vResults },
+  { id: 'wyniki', ch: 'wyniki', view: vKompas },
+  { id: 'profil', ch: 'wyniki', view: vProfile },
+  { id: 'lista', ch: 'lista', view: vList },
   { id: 'szkoly', ch: 'szkoly', view: vSchools }
 ];
 const STEP_TITLE = { swiaty: 'Twoje światy', zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
@@ -109,15 +111,15 @@ function render() {
   lastProg = inQ ? { ch: 'q', w: progW } : { ch: null, w: 0 };
   const crumb = inQ ? `<p class="crumb2"><b>${STEP_TITLE[s.id]}</b> · krok ${idx + 1} z ${list.length}</p><div class="prog2" aria-hidden="true"><i style="width:${progFrom}%" data-to="${progW}"></i></div>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : ''; notice = '';
-  if (s.id === 'wyniki' && needResults()) { $app.innerHTML = vGate(); document.body.classList.remove('wide'); $app.dataset.screen = 'gate'; applySkin(); return; }
+  if ((s.id === 'wyniki' || s.id === 'profil') && needResults()) { $app.innerHTML = vGate(); document.body.classList.remove('wide'); $app.dataset.screen = 'gate'; applySkin(); return; }
   const keep = document.activeElement && document.activeElement.id, changed = $app.dataset.screen !== s.id;
   const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
   const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
-  document.body.classList.toggle('wide', s.id === 'wyniki' || s.id === 'szkoly');
+  document.body.classList.toggle('wide', ['wyniki', 'profil', 'szkoly', 'lista'].includes(s.id));
   if (mapObj) { mapObj.remove(); mapObj = null; }
   mapEntries = null;
   $app.innerHTML = `<div class="qmain ${dir}">${crumb}${note}${s.view()}${nav}</div>`;
-  $app.dataset.screen = s.id; $app.classList.toggle('still', !changed); save(); applySkin();
+  $app.dataset.screen = s.id; $app.classList.toggle('still', !changed); save(); applySkin(); likeCount();
   const pi = $app.querySelector('.prog2 i[data-to]');
   if (pi) requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.width = pi.dataset.to + '%'; }));
   if (changed) { const b = document.querySelector('.brand'); if (b) { b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); } }
@@ -188,6 +190,7 @@ document.addEventListener('pointermove', e => { if (swipe) { const dx = e.client
 document.addEventListener('pointerup', e => { if (!swipe) return; const dx = e.clientX - swipe.x, c = swipe.c; swipe = null; c.style.transform = ''; if (Math.abs(dx) > 70) sortAnswer(dx > 0 ? 1 : -1); else c.dataset.lean = ''; });
 document.addEventListener('pointercancel', () => { if (swipe) { swipe.c.style.transform = ''; swipe = null; } });
 document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.closest && e.target.closest('g[data-prof]')) { e.preventDefault(); e.target.closest('g[data-prof]').dispatchEvent(new MouseEvent('click', { bubbles: true })); return; }
   if (current().id !== 'zajecia' || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName) || A.sortPos >= acts().length) return;
   const m = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 0 }[e.key]; if (m !== undefined) { e.preventDefault(); sortAnswer(m); }
 });
@@ -353,56 +356,140 @@ function planItems(sel) {
 }
 
 const ROLE_TXT = { ambitna: 'ambitna', realna: 'realna', bezpieczna: 'z zapasem' };
-function vResults() {
-  const r = scoreLiceum(A, data), s = r.slots;
-  const shown = [...s.best, s.most, s.surprise].filter(Boolean);
-  const selId = (A.area && r.cards.some(c => c.card.id === A.area)) ? A.area : s.best[0].card.id;
-  const sel = r.cards.find(c => c.card.id === selId);
-  const items = planItems(sel), sl = shortlist(r);
-  const allRows = sel.classes, rows = allRows.filter(rowPass), more = rows.slice(8);
-  const nReal = allRows.filter(x => x.check.chance === 'realna').length;
-  const tag = c => c === s.most ? 'Most' : c === s.surprise ? 'Niespodzianka' : `Opcja ${s.best.indexOf(c) + 1}`;
-  const stud = studiaFor(sel.card);
-  const names = data.schools.map(x => x.short).join(', ');
-  return `<div class="rhead"><div><h1>${esc(A.name ? A.name + ', oto' : 'Oto')} twoje kierunki</h1><p class="lead">Kierunek to rodzaj pracy, który do ciebie pasuje. Z niego wynika klasa i szkoła. Zacznij od kierunku, nie od progu.</p>
-      <div class="actions"><button class="btn ghost" data-go="szkola">Zmień, jak ci idzie</button><button class="btn ghost" data-go="szkoly">Wszystkie szkoły</button></div></div>${LILLUS.wyniki}</div>
-    <div class="summary"><div><span class="kicker2">Najlepiej pasuje</span><b>${esc(s.best[0].card.name)}</b></div>
-      <div><span class="kicker2">Klasy w Krakowie</span><b>${allRows.length}</b> w ${new Set(allRows.map(x => x.school.id)).size} szkołach</div>
-      <div><span class="kicker2">Realne</span><b>${hasInput() ? nReal : '–'}</b>${hasInput() ? '' : ' <button class="linkbtn" data-go="szkola">zaznacz oceny</button>'}</div></div>
-    <div class="areas">${shown.map((c, i) => areaCard(tag(c), c, c.card.id === selId, i)).join('')}</div>
-    <div class="extra"><label class="small" for="allareas">Inny kierunek:</label>
-      <select id="allareas" data-areasel>${r.cards.map(c => `<option value="${c.card.id}" ${c.card.id === selId ? 'selected' : ''}>${esc(c.card.name)}</option>`).join('')}</select></div>
 
-    <h2>Klasy w Krakowie: ${esc(sel.card.name.toLowerCase())}</h2>
-    ${!hasInput() ? '<p class="note2">Nie zaznaczyłeś jeszcze, jak ci idzie w szkole, więc widzisz klasy bez oceny szans. <button class="linkbtn" data-go="szkola">Zaznacz, jak ci idzie</button></p>' : ''}
-    <p class="small muted">Etykieta „realna”, „do zawalczenia” albo „ambitna” to orientacja na podstawie zeszłorocznych progów. Klasy z kierunkiem na pierwszym miejscu są u góry.</p>
-    ${filterBar(false)}
-    ${rows.length ? `<ul class="cls">${rows.slice(0, 8).map(classRow).join('')}</ul>` : `<div class="empty">${LILLUS.pusto}<p>Żadna klasa nie pasuje do filtrów. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
-    ${more.length ? `<details><summary>Jeszcze ${more.length} klas</summary><ul class="cls" style="margin-top:8px">${more.map(classRow).join('')}</ul></details>` : ''}
-    ${parentTable(rows)}
-    ${(() => { const l = mapSchools(rows); return mapBlock(l, `Szkoły z klasami z kierunku „${esc(sel.card.name.toLowerCase())}”.`) + mapList(l); })()}
-    <p class="actions"><button class="btn ghost" data-go="szkoly">Zobacz wszystkie szkoły (${data.schools.length})</button></p>
+// ---- likes ("Moja lista"): profiles, schools and classes the kid wants to keep -----------------------------------
+const L0 = () => (A.likes ||= { profiles: [], schools: [], classes: [] });
+const KIND = { p: 'profiles', s: 'schools', c: 'classes' };
+const liked = (k, id) => L0()[KIND[k]].includes(id);
+const nLikes = () => { const l = L0(); return l.profiles.length + l.schools.length + l.classes.length; };
+function likeCount() { document.querySelectorAll('[data-likecount]').forEach(el => { const n = nLikes(); el.textContent = n ? String(n) : ''; el.hidden = !n; }); }
+const HEART = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.3 3 4.8 6.4 4.5c2-.2 3.6 1 4.6 2.5 1-1.5 2.6-2.7 4.6-2.5 3.4.3 5.2 3.8 3.6 6.9C19 15.6 12 20 12 20z"/></svg>';
+const heart = (k, id, what) => `<button class="heart" data-like="${k}:${esc(id)}" aria-pressed="${liked(k, id)}" aria-label="${liked(k, id) ? 'Usuń z mojej listy' : 'Dodaj do mojej listy'}: ${esc(what)}" title="Moja lista">${HEART}</button>`;
+const clsKey = x => `${x.school.id}|${x.cls.code}`;
 
-    ${sl.length ? `<h2>Propozycja listy do wniosku</h2><p class="small muted">Z kierunku „${esc(s.best[0].card.name)}”. W rekrutacji wybierasz kilka klas i układasz je od najbardziej wymarzonej.</p>
-      <div class="short">${sl.map(x => `<div class="card"><span class="role">${ROLE_TXT[x.role] || x.role}</span><h3>${esc(x.c.school.short)}</h3><p class="small">klasa ${esc(x.c.cls.code)} · ${esc(x.c.cls.label)}</p>${pill(x.c.check)}</div>`).join('')}</div>` : ''}
-
-    <h2>Co potem</h2>
-    <div class="card"><p>${esc(sel.card.afterSchool)}</p>
-      ${stud.length ? `<p class="small muted">Przykłady z Kompasu Studia:</p><ul class="small">${stud.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
-      <p class="small muted">Za trzy lata sprawdzisz to dokładniej w <a href="../studia/">Kompasie Studia</a>.</p></div>
-
-    <h2>Plan do maja 2027</h2>
-    <ul class="plan">${items.map(it => `<li><input type="checkbox" id="pl-${it.id}" data-check="${sel.card.id}:${it.id}" ${A.checks[`${sel.card.id}:${it.id}`] ? 'checked' : ''}>
+// ---- the compass ---------------------------------------------------------------------------------------------------
+function compassData() { const r = scoreLiceum(A, data); return { r, P: profilesFor(r, data) }; }
+function compassSvg(P, selId) {
+  const cx = 270, cy = 230, R0 = 150, rad = d => (d - 90) * Math.PI / 180;
+  const ticks = Array.from({ length: 16 }, (_, i) => { const d = i * 22.5, l = i % 4 === 0 ? 14 : i % 2 === 0 ? 9 : 5;
+    return `<line x1="${cx + (R0 - l) * Math.cos(rad(d))}" y1="${cy + (R0 - l) * Math.sin(rad(d))}" x2="${cx + R0 * Math.cos(rad(d))}" y2="${cy + R0 * Math.sin(rad(d))}"/>`; }).join('');
+  const pts = P.map((x, i) => {
+    const d = x.compass.deg, r1 = R0, r2 = R0 + 30, px = cx + r1 * Math.cos(rad(d)), py = cy + r1 * Math.sin(rad(d));
+    const lx = cx + r2 * Math.cos(rad(d)), ly = cy + r2 * Math.sin(rad(d)) + 4;
+    const anchor = Math.abs(d) < 10 || Math.abs(d) > 170 ? 'middle' : d > 0 ? 'start' : 'end';
+    const size = 7 + Math.max(0, x.fit - 30) / 9;
+    return `<g class="cpt ${i === 0 ? 'north' : i < 3 ? 'alt' : ''} ${x.profile.id === selId ? 'sel' : ''}" data-prof="${x.profile.id}" role="button" tabindex="0" aria-label="${x.compass.pos}: ${esc(x.profile.name)}">
+      <line class="ray" x1="${cx}" y1="${cy}" x2="${px}" y2="${py}"/><circle cx="${px}" cy="${py}" r="${size}"/>
+      <text x="${lx}" y="${ly}" text-anchor="${anchor}"><tspan class="cpos">${x.compass.pos}</tspan> ${esc(x.profile.short)}</text></g>`;
+  }).join('');
+  return `<div class="compass" aria-hidden="false"><svg viewBox="0 0 540 460" role="group" aria-label="Kompas: profile od najlepiej do najmniej pasujących">
+    <circle class="ring" cx="${cx}" cy="${cy}" r="${R0}"/><circle class="ring2" cx="${cx}" cy="${cy}" r="${R0 * 0.55}"/><g class="ticks">${ticks}</g>
+    ${pts}
+    <g class="needle" style="transform-origin:${cx}px ${cy}px"><path d="M${cx} ${cy - R0 * 0.8} L${cx + 13} ${cy} L${cx} ${cy + 10} L${cx - 13} ${cy} Z" class="nN"/><path d="M${cx} ${cy + R0 * 0.55} L${cx + 9} ${cy} L${cx - 9} ${cy} Z" class="nS"/><circle cx="${cx}" cy="${cy}" r="6" class="hub"/></g>
+  </svg></div>`;
+}
+const fitWord = f => f >= 80 ? 'bardzo pasuje' : f >= 65 ? 'pasuje' : f >= 50 ? 'może pasować' : 'mniej pasuje';
+function profileCard(x, big) {
+  const reasons = (x.areas[0] || {}).reasons || [], nCls = x.classes.length, nSch = new Set(x.classes.map(c => c.school.id)).size;
+  const nReal = x.classes.filter(c => c.check.chance === 'realna').length;
+  return `<article class="pcard ${big ? 'big' : ''} ${x.compass.pos === 'N' ? 'north' : ''}" style="--i:${['N', 'NNE', 'NNW'].indexOf(x.compass.pos) + 1}">
+    <header><span class="kicker2">${x.compass.pos} · ${x.compass.label}</span>${heart('p', x.profile.id, x.profile.name)}</header>
+    <h3>${icon(x.profile.icon, 'ico')}${esc(x.profile.name)}</h3>
+    <div class="fitbar" aria-label="${fitWord(x.fit)}"><i style="width:${Math.round(x.fit)}%"></i></div><span class="small muted">${fitWord(x.fit)}</span>
+    ${big ? `<p class="small">${esc(x.profile.desc)}</p>${reasons.length ? `<ul class="small">${reasons.slice(0, 3).map(r => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
+      <div class="dirs">${x.areas.map(a => `<span class="dchip">${esc(a.card.name)}</span>`).join('')}</div>` : ''}
+    <p class="small"><b>${nCls}</b> klas w <b>${nSch}</b> szkołach${hasInput() ? ` · realne: <b>${nReal}</b>` : ''}</p>
+    <button class="btn ${big ? '' : 'ghost'}" data-prof="${x.profile.id}">Zobacz szkoły</button></article>`;
+}
+function vKompas() {
+  const { r, P } = compassData(), top = P[0], selId = A.profile || top.profile.id;
+  const sel = (P.find(x => x.profile.id === selId) || top), area = sel.areas[0];
+  const items = planItems(area);
+  return `<div class="rhead"><div><h1>${esc(A.name ? A.name + ', twój' : 'Twój')} kompas</h1>
+      <p class="lead">Na <b>północy</b> jest profil, który teraz najbardziej do ciebie pasuje. Tuż obok (NNE i NNW) masz dobre alternatywy. Im dalej od północy, tym mniej pasuje, ale nic nie jest zamknięte. Kliknij profil, żeby zobaczyć szkoły i klasy.</p>
+      <div class="actions"><button class="btn ghost" data-go="swiaty">Zmień odpowiedzi</button><button class="btn ghost" data-go="szkola">Zmień, jak ci idzie</button></div></div>
+      ${compassSvg(P, selId)}</div>
+    <div class="pcards">${P.slice(0, 3).map(x => profileCard(x, true)).join('')}</div>
+    <h2>Pozostałe kierunki na kompasie</h2>
+    <div class="pcards small">${P.slice(3).map(x => profileCard(x, false)).join('')}</div>
+    ${nLikes() ? `<p class="note2">Na twojej liście: <b>${nLikes()}</b>. <button class="linkbtn" data-go="lista">Zobacz moją listę</button></p>` : '<p class="small muted">Serduszkiem dodajesz profil, szkołę albo klasę do swojej listy. Lista trafia do pliku z wynikami.</p>'}
+    <h2>Plan do maja 2027</h2><p class="small muted">Dla profilu: ${esc(sel.profile.name)}.</p>
+    <ul class="plan">${items.map(it => `<li><input type="checkbox" id="pl-${it.id}" data-check="${area.card.id}:${it.id}" ${A.checks[`${area.card.id}:${it.id}`] ? 'checked' : ''}>
       <label for="pl-${it.id}"><span class="when">${esc(it.when)}</span>${esc(it.text)}</label></li>`).join('')}</ul>
-
-    <h2>Czego jeszcze nie ma w bazie</h2>
-    <p class="note2">Są: ${esc(names)}. Brakuje jeszcze m.in. XLI LO, XVI LO i kilku innych techników z informatyką (np. Technikum Komunikacyjnego nr 25). Progi klas oznaczone „do sprawdzenia” pochodzą z serwisów, które nie zawsze podają rok. Przed decyzją sprawdź je na stronie szkoły i w ogłoszeniu kuratora.</p>
+    ${parentNote()}
     <div class="actions noprint"><button class="btn" data-export="download">Zapisz plik z wynikami</button><button class="btn ghost" data-export="print">Drukuj</button></div>
     <details class="card"><summary>Źródła</summary><ul class="small">${data.sources.map(x => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> · stan ${esc(x.asOf)}</li>`).join('')}</ul></details>`;
 }
 
+// ---- one profile: its directions, then schools and classes ---------------------------------------------------------
+function schoolGroups(rows) {
+  const by = new Map();
+  for (const x of rows) { const g = by.get(x.school.id) || { school: x.school, rows: [] }; g.rows.push(x); by.set(x.school.id, g); }
+  const score = g => Math.max(...g.rows.map(x => (CHANCE_RANK[x.check.chance] || 0) - x.rank * 10)); // best-matching direction first, then the chance
+  return [...by.values()].map(g => ({ ...g, best: bestOf(g.rows) })).sort((a, b) => score(b) - score(a) || a.school.short.localeCompare(b.school.short, 'pl', { numeric: true }));
+}
+function schoolCard(g, i) {
+  return `<article class="scard ${liked('s', g.school.id) ? 'liked' : ''}" style="--i:${Math.min(i, 8)}">
+    <header><h3>${esc(g.school.short)}</h3><span class="badge">${g.school.type}</span>${heart('s', g.school.id, g.school.short)}</header>
+    ${g.school.address ? `<p class="sub">${esc(g.school.address)}</p>` : ''}
+    <ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : ''}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>
+    ${g.school.note ? `<p class="small muted">${esc(g.school.note)}</p>` : ''}
+    <div class="scta"><button class="btn ghost small" data-pin="${g.school.id}">Na mapie</button><a class="btn ghost small" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd</a></div></article>`;
+}
+function vProfile() {
+  const { P } = compassData(), x = P.find(p => p.profile.id === A.profile) || P[0];
+  const areaSel = x.areas.find(a => a.card.id === ui.parea) || null, focus = areaSel || x.areas[0];
+  const rows = x.classes.filter(c => (!areaSel || c.cls.cards.includes(areaSel.card.id)) && rowPass(c));
+  const groups = schoolGroups(rows), first = groups.slice(0, 12), rest = groups.slice(12);
+  const stud = studiaFor(focus.card);
+  const others = P.filter(p => p !== x).slice(0, 4);
+  return `<p class="actions"><button class="btn ghost small" data-go="wyniki">← Wróć do kompasu</button></p>
+    <div class="phead"><div><span class="kicker2">${x.compass.pos} · ${x.compass.label}</span>
+      <h1>${icon(x.profile.icon, 'ico')}${esc(x.profile.name)} ${heart('p', x.profile.id, x.profile.name)}</h1>
+      <p class="lead">${esc(x.profile.desc)}</p></div></div>
+    ${x.areas.length > 1 ? `<div class="frow dirsel" role="group" aria-label="Kierunki w tym profilu"><span class="small muted">Kierunek:</span>
+      <button class="chip" data-parea="" aria-pressed="${!areaSel}">wszystkie</button>${x.areas.map(a => `<button class="chip" data-parea="${a.card.id}" aria-pressed="${areaSel === a}">${esc(a.card.name)}</button>`).join('')}</div>` : ''}
+    <details class="card focus"><summary><b>${esc(focus.card.name)}</b>: jak wygląda ta praca i co dalej</summary>
+      <p class="small"><b>Przykładowe zawody:</b> ${esc(focus.card.roles)}</p><p class="small">${esc(focus.card.whoYouHelp)}</p>
+      <ul class="small">${focus.card.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
+      <p class="small"><b>Spróbuj w 30 dni:</b> ${esc(focus.card.experiment)}</p><p class="small"><b>Po szkole:</b> ${esc(focus.card.afterSchool)}</p>
+      ${stud.length ? `<p class="small muted">Studia w Krakowie (z Kompasu Studia): ${stud.map(esc).join('; ')}</p>` : ''}</details>
+    <h2>Szkoły i klasy</h2>
+    ${!hasInput() ? '<p class="note2">Zaznacz, jak ci idzie w szkole, a przy klasach pojawią się szanse. <button class="linkbtn" data-go="szkola">Zaznacz</button></p>' : ''}
+    ${filterBar(false)}
+    <p class="count small" role="status">${groups.length} szkół · ${rows.length} klas${ui.type || ui.chance || ui.parea ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
+    ${groups.length ? `<div class="scards">${first.map(schoolCard).join('')}</div>${rest.length ? `<details class="more"><summary>Pokaż jeszcze ${rest.length} szkół</summary><div class="scards">${rest.map(schoolCard).join('')}</div></details>` : ''}`
+      : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje do filtrów. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
+    ${groups.length ? mapBlock(groups.map(g => ({ school: g.school, classes: g.rows, best: g.best })), 'Szkoły z tego profilu.') : ''}
+    ${parentTable(rows)}
+    <h2>Inne kierunki na kompasie</h2>
+    <div class="actions">${others.map(p => `<button class="btn ghost" data-prof="${p.profile.id}">${p.compass.pos} · ${esc(p.profile.short)}</button>`).join('')}<button class="btn ghost" data-go="wyniki">Cały kompas</button></div>`;
+}
+
+// ---- Moja lista ----------------------------------------------------------------------------------------------------
+function likedRows() {
+  const p = eff(), l = L0(), out = [];
+  for (const key of l.classes) { const [sid, code] = key.split('|'), school = data.schools.find(s => s.id === sid), cls = school && school.classes.find(c => c.code === code);
+    if (cls) out.push({ school, cls, rank: 0, check: checkClass(p, cls, school, data.config) }); }
+  return out;
+}
+function vList() {
+  const { P } = compassData(), l = L0(), rows = likedRows();
+  const profs = P.filter(x => l.profiles.includes(x.profile.id));
+  const schoolsOnly = l.schools.filter(id => !rows.some(r => r.school.id === id)).map(id => data.schools.find(s => s.id === id)).filter(Boolean);
+  const groups = schoolGroups(rows);
+  const empty = !profs.length && !rows.length && !schoolsOnly.length;
+  return `<div class="rhead"><div><h1>Moja lista</h1><p class="lead">To, co ci się spodobało: profile, szkoły i klasy. Lista jest w pliku z wynikami, więc możesz ją pokazać rodzicom albo wrócić do niej później.</p></div>${LILLUS.szkoly}</div>
+    ${empty ? `<div class="empty">${LILLUS.pusto}<p>Lista jest pusta. Na kompasie i przy szkołach kliknij serduszko, żeby coś tu dodać.</p><p><button class="btn" data-go="wyniki">Przejdź do kompasu</button></p></div>` : ''}
+    ${profs.length ? `<h2>Profile</h2><div class="pcards small">${profs.map(x => profileCard(x, false)).join('')}</div>` : ''}
+    ${groups.length ? `<h2>Klasy</h2><div class="scards">${groups.map(schoolCard).join('')}</div>` : ''}
+    ${schoolsOnly.length ? `<h2>Szkoły</h2><div class="scards">${schoolsOnly.map((s, i) => schoolCard({ school: s, rows: [], best: 'unknown' }, i)).join('')}</div>` : ''}
+    ${groups.length ? mapBlock(groups.map(g => ({ school: g.school, classes: g.rows, best: g.best })), 'Szkoły z twojej listy.') : ''}
+    ${empty ? '' : '<div class="actions noprint"><button class="btn" data-export="download">Zapisz plik z listą</button><button class="btn ghost" data-export="print">Drukuj</button></div>'}`;
+}
+
 // ---- filters and the school catalogue ------------------------------------------------------------------------------
-const ui = { q: '', type: '', subj: '', chance: '' };
+const ui = { q: '', type: '', subj: '', chance: '', parea: '' };
 const ROMAN = [[40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
 const romanNo = s => { if (s.type !== 'liceum') return 0; const r = s.short.split(' ')[0]; for (let n = 1; n < 60; n++) if (toRoman(n) === r) return n; return 99; };
 const toRoman = n => { let o = ''; for (const [v, r] of ROMAN) while (n >= v) { o += r; n -= v; } return o; };
@@ -435,10 +522,10 @@ function vSchools() {
   const nCls = shown.reduce((t, x) => t + x.rows.length, 0);
   const entries = shown.map(x => ({ school: x.school, classes: x.rows, best: bestOf(x.rows) }));
   const card = (x, i) => `<article class="scard" style="--i:${Math.min(i, 8)}">
-      <header><h3>${esc(x.school.short)}</h3><span class="badge">${x.school.type}</span></header>
+      <header><h3>${esc(x.school.short)}</h3><span class="badge">${x.school.type}</span>${heart('s', x.school.id, x.school.short)}</header>
       ${x.school.address ? `<p class="sub">${esc(x.school.address)}</p>` : ''}
       ${x.school.note ? `<p class="small muted">${esc(x.school.note)}</p>` : ''}
-      <ul class="srows">${x.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : ''}</li>`).join('')}</ul>
+      <ul class="srows">${x.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : ''}${heart('c', clsKey(r), `${x.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>
       ${x.rows.some(r => r.cls.status !== 'sourced') ? '<p class="small muted">Progi i przedmioty do sprawdzenia w rekrutacji 2027.</p>' : ''}
       <div class="scta"><button class="btn ghost small" data-pin="${x.school.id}">Na mapie</button><a class="btn ghost small" href="${esc(dirUrl(x.school))}" target="_blank" rel="noopener">Dojazd</a></div></article>`;
   return `<div class="rhead"><div><h1>Szkoły w Krakowie</h1>
@@ -487,7 +574,7 @@ function initMap(list) {
   loadLeaflet().then(L => {
     if (!document.getElementById('map') || document.getElementById('map') !== box) return;
     if (mapObj) { mapObj.remove(); mapObj = null; }
-    mapObj = L.map(box, { scrollWheelZoom: false }).setView([50.0647, 19.945], 12);
+    mapObj = L.map(box, { scrollWheelZoom: false, zoomAnimation: false, fadeAnimation: false, markerZoomAnimation: false }).setView([50.0647, 19.945], 12);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(mapObj);
     box.querySelector('.mapfail')?.remove();
     const pts = [], pins = {};
@@ -498,7 +585,7 @@ function initMap(list) {
         .bindPopup(`<b>${esc(e.school.short)}</b><br>${e.classes.slice(0, 6).map(x => `${esc(x.cls.code)}: ${esc(x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans')}`).join('<br>')}`);
       pins[e.school.id] = m; pts.push([g.lat, g.lon]);
     });
-    if (pts.length > 1) mapObj.fitBounds(pts, { padding: [30, 30], maxZoom: 14 }); else if (pts.length) mapObj.setView(pts[0], 14);
+    if (pts.length > 1) mapObj.fitBounds(pts, { padding: [30, 30], maxZoom: 14, animate: false }); else if (pts.length) mapObj.setView(pts[0], 14);
     mapObj._pins = pins;
     const miss = list.filter(e => !e.school.geo).map(e => e.school.short);
     if (!pts.length) mapObj.setView([50.0647, 19.945], 12);
@@ -515,10 +602,18 @@ function buildMarkdown() {
   } else {
     L.push('## Moje mocne strony');
     provenStrengths(A).forEach((x, i) => L.push(`${i + 1}. ${nameOf(x.id)} – dowód: „${x.proof.trim()}”`));
-    L.push('', '## Kierunki');
-    [...s.best, s.most, s.surprise].filter(Boolean).forEach(c => L.push(`- ${c.card.name} – ${c.band}${c.reasons.length ? ` (${c.reasons.join('; ')})` : ''}`));
-    const sel = r.cards.find(c => c.card.id === (A.area || s.best[0].card.id));
-    L.push('', `## Klasy w Krakowie: ${sel.card.name}`);
+    const P = profilesFor(r, data);
+    L.push('', '## Mój kompas');
+    P.forEach(x => L.push(`- ${x.compass.pos}: ${x.profile.name} – ${fitWord(x.fit)}${x.compass.pos === 'N' && x.areas[0].reasons.length ? ` (${x.areas[0].reasons.join('; ')})` : ''}`));
+    const lk = L0(), lr = likedRows();
+    if (nLikes()) {
+      L.push('', '## Moja lista');
+      lk.profiles.forEach(id => { const p = data.profiles.find(x => x.id === id); if (p) L.push(`- profil: ${p.name}`); });
+      lk.schools.forEach(id => { const sc = data.schools.find(x => x.id === id); if (sc) L.push(`- szkoła: ${sc.short}${sc.address ? ', ' + sc.address : ''}`); });
+      lr.forEach(x => L.push(`- klasa: ${x.school.short}, ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`));
+    }
+    const selP = P.find(x => x.profile.id === A.profile) || P[0], sel = { card: selP.areas[0].card, classes: selP.classes };
+    L.push('', `## Klasy w Krakowie: ${selP.profile.name}`);
     L.push(`Progi z rekrutacji ${data.config.thresholdYear}. ${data.config.thresholdNote}`);
     for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`);
     L.push('', '## Dla rodziców: progi i szacunek', hasInput() ? (eff().approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie” (słabo = 3 i ok. 45%, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Policzone z dokładnych ocen i wyników.') : 'Brak odpowiedzi o szkole, więc bez szacunku.', '');
@@ -576,7 +671,7 @@ async function doExport(kind) {
 
 // ---- events -------------------------------------------------------------------------------------------------------
 document.addEventListener('click', e => {
-  const t = e.target.closest('button, a'); if (!t || !data) return;
+  const t = e.target.closest('button, a, [data-prof]'); if (!t || !data) return;
   const d = t.dataset;
   if (d.go) { e.preventDefault(); if (location.hash === '#/' + d.go) render(); else location.hash = '#/' + d.go; return; }
   if (d.world) { let w = A.worlds || []; if (d.world === 'all') w = w.includes('all') ? [] : ['all']; else { w = w.filter(x => x !== 'all'); w = w.includes(d.world) ? w.filter(x => x !== d.world) : [...w, d.world]; } A.worlds = w; syncSort(); save(); render(); return; }
@@ -592,14 +687,24 @@ document.addEventListener('click', e => {
   if (d.area) { A.area = d.area; save(); render(); setTimeout(() => document.querySelector('.cls')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 30); return; }
   if (d.soft) { const [kind, key, val] = d.soft.split(':'), tgt = (A.points.soft[kind === 'exam' ? 'exam' : 'grades'] ||= {}); if (tgt[key] === val) delete tgt[key]; else tgt[key] = val; A.points.mode = 'soft'; save(); render(); return; }
   if (d.mode) { A.points.mode = d.mode; save(); render(); return; }
+  if (d.prof) { A.profile = d.prof; ui.parea = ''; save(); if (location.hash === '#/profil') render(); else location.hash = '#/profil'; return; }
+  if (d.parea !== undefined) { ui.parea = d.parea; render(); return; }
+  if (d.like) {
+    const k = d.like[0], id = d.like.slice(2), arr = L0()[KIND[k]], i = arr.indexOf(id); if (i >= 0) arr.splice(i, 1); else arr.push(id); save();
+    if (current().id === 'lista') { render(); return; }
+    const on = i < 0;   // update hearts in place, so the page and the map do not jump
+    document.querySelectorAll('[data-like]').forEach(b => { if (b.dataset.like === d.like) { b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', (on ? 'Usuń z mojej listy' : 'Dodaj do mojej listy') + b.getAttribute('aria-label').replace(/^[^:]*/, '')); } });
+    if (k === 's') document.querySelectorAll('.scard').forEach(c => { if (c.querySelector(`[data-like="s:${CSS.escape(id)}"]`)) c.classList.toggle('liked', on); });
+    likeCount(); return;
+  }
   if (d.f) { const [k, v] = d.f.split(':'); ui[k] = ui[k] === v ? '' : v; render(); return; }
-  if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '' }); render(); return; }
+  if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '' }); render(); return; }
   if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
-  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); if (!Array.isArray(p.answers.worlds)) delete A.worlds; A.points = Object.assign(blank().points, A.points); if (!A.points.mode && Object.keys(A.points.exam || {}).length) A.points.mode = 'exact'; A.sortPos = acts().length; A.sitPos = data.questions.situations.length; if (location.hash === '#/wyniki') render(); else location.hash = '#/wyniki'; }
+  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); if (!Array.isArray(p.answers.worlds)) delete A.worlds; A.points = Object.assign(blank().points, A.points); if (!(p.answers.points || {}).mode && Object.keys(A.points.exam || {}).length) A.points.mode = 'exact'; A.sortPos = acts().length; A.sitPos = data.questions.situations.length; if (location.hash === '#/wyniki') render(); else location.hash = '#/wyniki'; }
 });
 document.addEventListener('change', e => {
   const t = e.target, d = t.dataset;
