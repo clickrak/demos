@@ -53,6 +53,10 @@ for (const s of data.schools) {
     for (const x of scoredSubjects(k).list) if (!subj.has(x)) fail('scored subject unknown', s.id, k.code, x);
   }
 }
+for (const s of data.schools) {
+  if (!s.geo) fail('school without map position', s.id);
+  else if (!(s.geo.lat > 49.95 && s.geo.lat < 50.14 && s.geo.lon > 19.75 && s.geo.lon < 20.15)) fail('school position outside Kraków', s.id);
+}
 console.log(`schools: ${data.schools.length}, classes: ${classes}, to verify in 2027: ${check}, areas: ${data.opportunities.length}`);
 
 for (const p of j('../liceum/data/personas.json')) {

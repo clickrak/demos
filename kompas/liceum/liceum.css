@@ -88,3 +88,18 @@ body.wide main { max-width: 1040px; }
 }
 @media (prefers-reduced-motion: reduce) { .prog2 i { transition: none; } }
 @media print { .parent { border: 0; } .parent > summary { display: none; } }
+
+/* v1.4: map */
+.mapbox { height: 380px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--card); display: grid; place-items: center; }
+.mapbox .leaflet-container, .mapbox.leaflet-container { font: inherit; }
+.pin, .mapnum { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; color: #fff; font-weight: 700; font-size: .85rem; background: var(--muted); box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+.pin.realna, .mapnum.realna { background: #2f7d4f; }
+.pin.zawalczenia, .mapnum.zawalczenia { background: #2a6f8f; }
+.pin.ambitna, .mapnum.ambitna { background: #b36a1f; }
+.mapnum { cursor: pointer; font-family: inherit; }
+.maplist { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+.maplist li { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 12px; }
+.maplist li > div { flex: 1; min-width: 0; }
+.maplist .btn.small { padding: 6px 12px; font-size: .85rem; }
+@media (max-width: 600px) { .mapbox { height: 300px; } }
+@media print { .mapbox { display: none; } }

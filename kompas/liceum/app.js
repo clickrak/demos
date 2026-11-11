@@ -1,4 +1,4 @@
-// Kompas Liceum v1.3.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v1.4.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
 import { provenStrengths } from '../core/scoring.js';
 import { scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME } from './points.js';
 import { icon } from '../studia/icons.js';
@@ -107,6 +107,7 @@ function render() {
   const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
   const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
   document.body.classList.toggle('wide', s.id === 'wyniki');
+  if (mapObj) { mapObj.remove(); mapObj = null; }
   $app.innerHTML = `<div class="qmain ${dir}">${crumb}${note}${s.view()}${nav}</div>`;
   $app.dataset.screen = s.id; save(); applySkin();
   const pi = $app.querySelector('.prog2 i[data-to]');
@@ -115,6 +116,7 @@ function render() {
   if (changed) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
   else if (keep && document.getElementById(keep)) { const el = document.getElementById(keep); el.focus(); if (el.setSelectionRange && el.value && el.type === 'text') el.setSelectionRange(el.value.length, el.value.length); }
   if (s.id === 'szkola') liveUpdate();
+  if (s.id === 'wyniki') { const r0 = scoreLiceum(A, data), id = (A.area && r0.cards.some(c => c.card.id === A.area)) ? A.area : r0.slots.best[0].card.id; initMap(r0.cards.find(c => c.card.id === id)); }
 }
 
 function vGate() {
@@ -355,6 +357,7 @@ function vResults() {
     <ul class="cls">${rows.slice(0, 8).map(classRow).join('')}</ul>
     ${more.length ? `<details><summary>Jeszcze ${more.length} klas</summary><ul class="cls" style="margin-top:8px">${more.map(classRow).join('')}</ul></details>` : ''}
     ${parentTable(rows)}
+    ${mapBlock(sel)}
 
     ${sl.length ? `<h2>Propozycja listy do wniosku</h2><p class="small muted">Z kierunku „${esc(s.best[0].card.name)}”. W rekrutacji wybierasz kilka klas i układasz je od najbardziej wymarzonej.</p>
       <div class="short">${sl.map(x => `<div class="card"><span class="role">${ROLE_TXT[x.role] || x.role}</span><h3>${esc(x.c.school.short)}</h3><p class="small">klasa ${esc(x.c.cls.code)} · ${esc(x.c.cls.label)}</p>${pill(x.c.check)}</div>`).join('')}</div>` : ''}
@@ -369,9 +372,62 @@ function vResults() {
       <label for="pl-${it.id}"><span class="when">${esc(it.when)}</span>${esc(it.text)}</label></li>`).join('')}</ul>
 
     <h2>Czego jeszcze nie ma w bazie</h2>
-    <p class="note2">Są: ${esc(names)}. Brakuje jeszcze m.in. III, VI, X, XIII i XV LO oraz Technikum Energetyczno-Elektronicznego nr 9. Progi klas oznaczone „do sprawdzenia” pochodzą z serwisów, które nie zawsze podają rok. Przed decyzją sprawdź je na stronie szkoły i w ogłoszeniu kuratora.</p>
+    <p class="note2">Są: ${esc(names)}. Brakuje jeszcze m.in. XLI LO, XVI LO i kilku innych techników z informatyką (np. Technikum Komunikacyjnego nr 25). Progi klas oznaczone „do sprawdzenia” pochodzą z serwisów, które nie zawsze podają rok. Przed decyzją sprawdź je na stronie szkoły i w ogłoszeniu kuratora.</p>
     <div class="actions noprint"><button class="btn" data-export="download">Zapisz plik z wynikami</button><button class="btn ghost" data-export="print">Drukuj</button></div>
     <details class="card"><summary>Źródła</summary><ul class="small">${data.sources.map(x => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> · stan ${esc(x.asOf)}</li>`).join('')}</ul></details>`;
+}
+
+// ---- map (Leaflet + OpenStreetMap tiles, loaded only when results open) ------------------------------------------------
+let mapObj = null, leafletP = null;
+function loadLeaflet() {
+  if (window.L) return Promise.resolve(window.L);
+  return leafletP ||= new Promise((res, rej) => {
+    const css = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css' });
+    const js = Object.assign(document.createElement('script'), { src: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js', onload: () => res(window.L), onerror: () => { leafletP = null; rej(new Error('leaflet')); } });
+    document.head.append(css, js);
+  });
+}
+const CHANCE_RANK = { realna: 3, zawalczenia: 2, ambitna: 1 };
+function mapSchools(sel) {
+  const by = new Map();
+  for (const x of sel.classes) {
+    const e = by.get(x.school.id) || { school: x.school, best: x.check.chance || 'unknown', classes: [] };
+    if ((CHANCE_RANK[x.check.chance] || 0) > (CHANCE_RANK[e.best] || 0)) e.best = x.check.chance;
+    e.classes.push(x); by.set(x.school.id, e);
+  }
+  return [...by.values()];
+}
+const dirUrl = s => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address || (s.name + ', Kraków'))}&travelmode=transit`;
+function mapBlock(sel) {
+  const list = mapSchools(sel);
+  return `<h2>Mapa szkół</h2><p class="small muted">Szkoły z klasami z kierunku „${esc(sel.card.name.toLowerCase())}”. Kolor pinezki pokazuje najlepszą szansę w tej szkole. Położenie pochodzi z OpenStreetMap; dokładny dojazd sprawdź przyciskiem „Dojazd”.</p>
+    <div class="mapbox" id="map" role="region" aria-label="Mapa szkół w Krakowie"><p class="mapfail muted small">Ładuję mapę…</p></div>
+    <ol class="maplist">${list.map((e, i) => `<li><button class="mapnum ${e.best}" data-pin="${e.school.id}" aria-label="Pokaż na mapie: ${esc(e.school.short)}">${i + 1}</button>
+      <div><b>${esc(e.school.short)}</b><div class="sub">${e.classes.map(x => esc(x.cls.code)).join(', ')}${e.school.address ? ' · ' + esc(e.school.address) : ''}</div></div>
+      <a class="btn ghost small" href="${esc(dirUrl(e.school))}" target="_blank" rel="noopener">Dojazd</a></li>`).join('')}</ol>`;
+}
+function initMap(sel) {
+  const box = document.getElementById('map'); if (!box) return;
+  const list = mapSchools(sel);
+  loadLeaflet().then(L => {
+    if (!document.getElementById('map') || document.getElementById('map') !== box) return;
+    if (mapObj) { mapObj.remove(); mapObj = null; }
+    mapObj = L.map(box, { scrollWheelZoom: false }).setView([50.0647, 19.945], 12);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(mapObj);
+    box.querySelector('.mapfail')?.remove();
+    const pts = [], pins = {};
+    list.forEach((e, i) => {
+      const g = e.school.geo; if (!g) return;
+      const icon = L.divIcon({ className: '', html: `<span class="pin ${e.best}">${i + 1}</span>`, iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -14] });
+      const m = L.marker([g.lat, g.lon], { icon, title: e.school.short }).addTo(mapObj)
+        .bindPopup(`<b>${esc(e.school.short)}</b><br>${e.classes.slice(0, 6).map(x => `${esc(x.cls.code)}: ${esc(x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans')}`).join('<br>')}`);
+      pins[e.school.id] = m; pts.push([g.lat, g.lon]);
+    });
+    if (pts.length > 1) mapObj.fitBounds(pts, { padding: [30, 30], maxZoom: 14 }); else if (pts.length) mapObj.setView(pts[0], 14);
+    mapObj._pins = pins;
+    const miss = list.filter(e => !e.school.geo).map(e => e.school.short);
+    if (miss.length) box.insertAdjacentHTML('afterend', `<p class="small muted">Bez pinezki (brak położenia): ${miss.map(esc).join(', ')}.</p>`);
+  }).catch(() => { const f = box.querySelector('.mapfail'); if (f) f.textContent = 'Nie udało się wczytać mapy. Lista poniżej ma przyciski „Dojazd”.'; });
 }
 
 // ---- export / load ------------------------------------------------------------------------------------------------
@@ -457,6 +513,7 @@ document.addEventListener('click', e => {
   if (d.area) { A.area = d.area; save(); render(); setTimeout(() => document.querySelector('.cls')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 30); return; }
   if (d.soft) { const [kind, key, val] = d.soft.split(':'), tgt = (A.points.soft[kind === 'exam' ? 'exam' : 'grades'] ||= {}); if (tgt[key] === val) delete tgt[key]; else tgt[key] = val; A.points.mode = 'soft'; save(); render(); return; }
   if (d.mode) { A.points.mode = d.mode; save(); render(); return; }
+  if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
