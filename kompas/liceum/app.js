@@ -1,6 +1,6 @@
-// Kompas Liceum v1.4.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v1.5.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
 import { provenStrengths } from '../core/scoring.js';
-import { scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME } from './points.js';
+import { scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
 import { icon } from '../studia/icons.js';
 import { ILLUS } from '../studia/illus.js';
 
@@ -81,7 +81,8 @@ const screens = [
   { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 3,
     hint: () => A.strengths.length < 3 ? `Wybierz jeszcze ${3 - A.strengths.length}` : `Dopisz przykład: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
   { id: 'szkola', ch: 'szkola', view: vSchool },
-  { id: 'wyniki', ch: 'wyniki', view: vResults }
+  { id: 'wyniki', ch: 'wyniki', view: vResults },
+  { id: 'szkoly', ch: 'szkoly', view: vSchools }
 ];
 const STEP_TITLE = { zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
 const current = () => screens.find(s => s.id === ((location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start')) || screens[0];
@@ -106,8 +107,9 @@ function render() {
   const keep = document.activeElement && document.activeElement.id, changed = $app.dataset.screen !== s.id;
   const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
   const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
-  document.body.classList.toggle('wide', s.id === 'wyniki');
+  document.body.classList.toggle('wide', s.id === 'wyniki' || s.id === 'szkoly');
   if (mapObj) { mapObj.remove(); mapObj = null; }
+  mapEntries = null;
   $app.innerHTML = `<div class="qmain ${dir}">${crumb}${note}${s.view()}${nav}</div>`;
   $app.dataset.screen = s.id; save(); applySkin();
   const pi = $app.querySelector('.prog2 i[data-to]');
@@ -116,7 +118,7 @@ function render() {
   if (changed) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
   else if (keep && document.getElementById(keep)) { const el = document.getElementById(keep); el.focus(); if (el.setSelectionRange && el.value && el.type === 'text') el.setSelectionRange(el.value.length, el.value.length); }
   if (s.id === 'szkola') liveUpdate();
-  if (s.id === 'wyniki') { const r0 = scoreLiceum(A, data), id = (A.area && r0.cards.some(c => c.card.id === A.area)) ? A.area : r0.slots.best[0].card.id; initMap(r0.cards.find(c => c.card.id === id)); }
+  if (mapEntries) { const m = mapEntries; mapEntries = null; initMap(m); }
 }
 
 function vGate() {
@@ -141,7 +143,7 @@ function vStart() {
     <div class="startrow"><div><label class="field" for="name">Imię <span class="muted">(opcjonalnie, tylko do nazwy pliku)</span></label>
       <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off"></div>
       <button class="btn big" data-go="zajecia">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button></div>
-    ${started && !needResults() ? '<div class="actions"><button class="btn ghost" data-go="wyniki">Moje wyniki</button></div>' : ''}
+    <div class="actions">${started && !needResults() ? '<button class="btn ghost" data-go="wyniki">Moje wyniki</button>' : ''}<button class="btn ghost" data-go="szkoly">Przeglądaj szkoły</button></div>
     <p class="muted small">Nie ma złych odpowiedzi. To punkt wyjścia do rozmowy z rodzicami i nauczycielami: nie test i nie wyrok.</p>
     <div class="note2"><b>Co jest w bazie.</b> ${data.schools.length} szkół i ${nCls} klas w Krakowie z matematyką, fizyką, informatyką, biologią, chemią i geografią. Progi są z rekrutacji 2026, więc to orientacja, nie obietnica.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
@@ -216,7 +218,7 @@ const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
 const hasExactData = () => Object.keys(A.points.exam || {}).length > 0 || Object.keys(A.points.grades || {}).length > 0;
 const pMode = () => A.points.mode || (hasExactData() ? 'exact' : 'soft');
 const eff = () => effectivePoints(A, data.config);
-const hasInput = () => { const e = eff(); return Object.keys(e.exam || {}).length > 0 || Object.keys(e.grades || {}).length > 0; };
+const hasInput = () => { if (pMode() === 'exact') return hasExactData(); const s = A.points.soft || {}; return Object.keys(s.exam || {}).length + Object.keys(s.grades || {}).length > 0; };
 const softRow = (kind, key, label) => {
   const cur = ((A.points.soft || {})[kind] || {})[key];
   return `<div class="softrow"><span class="sl" id="sr-${kind}-${key}">${esc(label)}</span><div class="chips" role="group" aria-labelledby="sr-${kind}-${key}">${SOFT.map(([v, t]) => chip(`data-soft="${kind}:${key}:${v}"`, t, cur === v)).join('')}</div></div>`;
@@ -341,11 +343,15 @@ function vResults() {
   const selId = (A.area && r.cards.some(c => c.card.id === A.area)) ? A.area : s.best[0].card.id;
   const sel = r.cards.find(c => c.card.id === selId);
   const items = planItems(sel), sl = shortlist(r);
-  const rows = sel.classes, more = rows.slice(8);
+  const allRows = sel.classes, rows = allRows.filter(rowPass), more = rows.slice(8);
+  const nReal = allRows.filter(x => x.check.chance === 'realna').length;
   const tag = c => c === s.most ? 'Most' : c === s.surprise ? 'Niespodzianka' : `Opcja ${s.best.indexOf(c) + 1}`;
   const stud = studiaFor(sel.card);
   const names = data.schools.map(x => x.short).join(', ');
   return `<div class="sectionhead"><h1>${esc(A.name ? A.name + ', oto' : 'Oto')} twoje kierunki</h1><button class="btn ghost" data-go="szkola">Zmień, jak ci idzie</button></div>
+    <div class="summary"><div><span class="kicker2">Najlepiej pasuje</span><b>${esc(s.best[0].card.name)}</b></div>
+      <div><span class="kicker2">Klasy w Krakowie</span><b>${allRows.length}</b> w ${new Set(allRows.map(x => x.school.id)).size} szkołach</div>
+      <div><span class="kicker2">Realne</span><b>${hasInput() ? nReal : '–'}</b>${hasInput() ? '' : ' <button class="linkbtn" data-go="szkola">zaznacz oceny</button>'}</div></div>
     <p class="lead">Kierunek to rodzaj pracy, który do ciebie pasuje. Z niego wynika klasa i szkoła. Zacznij od kierunku, nie od progu.</p>
     <div class="areas">${shown.map((c, i) => areaCard(tag(c), c, c.card.id === selId, i)).join('')}</div>
     <div class="extra"><label class="small" for="allareas">Inny kierunek:</label>
@@ -354,10 +360,12 @@ function vResults() {
     <h2>Klasy w Krakowie: ${esc(sel.card.name.toLowerCase())}</h2>
     ${!hasInput() ? '<p class="note2">Nie zaznaczyłeś jeszcze, jak ci idzie w szkole, więc widzisz klasy bez oceny szans. <button class="linkbtn" data-go="szkola">Zaznacz, jak ci idzie</button></p>' : ''}
     <p class="small muted">Etykieta „realna”, „do zawalczenia” albo „ambitna” to orientacja na podstawie zeszłorocznych progów. Klasy z kierunkiem na pierwszym miejscu są u góry.</p>
-    <ul class="cls">${rows.slice(0, 8).map(classRow).join('')}</ul>
+    ${filterBar(false)}
+    ${rows.length ? `<ul class="cls">${rows.slice(0, 8).map(classRow).join('')}</ul>` : '<p class="note2">Żadna klasa nie pasuje do filtrów. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p>'}
     ${more.length ? `<details><summary>Jeszcze ${more.length} klas</summary><ul class="cls" style="margin-top:8px">${more.map(classRow).join('')}</ul></details>` : ''}
     ${parentTable(rows)}
-    ${mapBlock(sel)}
+    ${(() => { const l = mapSchools(rows); return mapBlock(l, `Szkoły z klasami z kierunku „${esc(sel.card.name.toLowerCase())}”.`) + mapList(l); })()}
+    <p class="actions"><button class="btn ghost" data-go="szkoly">Zobacz wszystkie szkoły (${data.schools.length})</button></p>
 
     ${sl.length ? `<h2>Propozycja listy do wniosku</h2><p class="small muted">Z kierunku „${esc(s.best[0].card.name)}”. W rekrutacji wybierasz kilka klas i układasz je od najbardziej wymarzonej.</p>
       <div class="short">${sl.map(x => `<div class="card"><span class="role">${ROLE_TXT[x.role] || x.role}</span><h3>${esc(x.c.school.short)}</h3><p class="small">klasa ${esc(x.c.cls.code)} · ${esc(x.c.cls.label)}</p>${pill(x.c.check)}</div>`).join('')}</div>` : ''}
@@ -377,6 +385,55 @@ function vResults() {
     <details class="card"><summary>Źródła</summary><ul class="small">${data.sources.map(x => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> · stan ${esc(x.asOf)}</li>`).join('')}</ul></details>`;
 }
 
+// ---- filters and the school catalogue ------------------------------------------------------------------------------
+const ui = { q: '', type: '', subj: '', chance: '' };
+const ROMAN = [[40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
+const romanNo = s => { if (s.type !== 'liceum') return 0; const r = s.short.split(' ')[0]; for (let n = 1; n < 60; n++) if (toRoman(n) === r) return n; return 99; };
+const toRoman = n => { let o = ''; for (const [v, r] of ROMAN) while (n >= v) { o += r; n -= v; } return o; };
+const fold = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L').toLowerCase();
+function schoolMatch(school, q) {
+  q = q.trim(); if (!q) return true;
+  const num = q.match(/^(\d{1,2})(\s*lo)?$/i);
+  if (num) return school.type === 'liceum' && school.short.split(' ')[0] === toRoman(Number(num[1]));
+  const hay = fold([school.name, school.short, school.address, ...school.classes.map(c => c.label + ' ' + (c.occupation || ''))].join(' '));
+  return fold(q).split(/\s+/).every(w => hay.includes(w));
+}
+const rowPass = x => (!ui.type || x.school.type === ui.type) && (!ui.chance || x.check.chance === ui.chance)
+  && (!ui.subj || (x.cls.extended || []).includes(ui.subj) || (x.cls.scored || []).includes(ui.subj));
+const SHORT_CH = { realna: 'realna', zawalczenia: 'do zawalczenia', ambitna: 'ambitna' };
+const SUBJ_F = ['matematyka', 'informatyka', 'fizyka', 'biologia', 'chemia', 'geografia'];
+function filterBar(full) {
+  const c = (k, v, t) => `<button class="chip" data-f="${k}:${v}" aria-pressed="${ui[k] === v}">${t}</button>`;
+  return `<div class="filters" role="group" aria-label="Filtry">
+    ${full ? `<label class="srch"><span class="visually-hidden">Szukaj szkoły</span><input id="fq" type="search" data-filter="q" value="${esc(ui.q)}" placeholder="Szukaj: np. 31, Ingardena, programista" autocomplete="off"></label>` : ''}
+    <div class="frow"><span class="small muted">Szkoła:</span>${c('type', '', 'wszystkie')}${c('type', 'liceum', 'liceum')}${c('type', 'technikum', 'technikum')}</div>
+    ${full ? `<div class="frow"><span class="small muted">Przedmiot:</span>${c('subj', '', 'każdy')}${SUBJ_F.map(s => c('subj', s, s)).join('')}</div>` : ''}
+    ${hasInput() ? `<div class="frow"><span class="small muted">Szansa:</span>${c('chance', '', 'każda')}${c('chance', 'realna', 'realna')}${c('chance', 'zawalczenia', 'do zawalczenia')}${c('chance', 'ambitna', 'ambitna')}</div>` : ''}
+  </div>`;
+}
+function vSchools() {
+  const p = eff();
+  const all = data.schools.map(school => ({ school, rows: school.classes.map(cls => ({ school, cls, check: checkClass(p, cls, school, data.config) })) }));
+  const shown = all.filter(x => schoolMatch(x.school, ui.q)).map(x => ({ ...x, rows: x.rows.filter(rowPass) })).filter(x => x.rows.length)
+    .sort((a, b) => a.school.type.localeCompare(b.school.type) || romanNo(a.school) - romanNo(b.school) || a.school.short.localeCompare(b.school.short, 'pl', { numeric: true }));
+  const nCls = shown.reduce((t, x) => t + x.rows.length, 0);
+  const entries = shown.map(x => ({ school: x.school, classes: x.rows, best: bestOf(x.rows) }));
+  const card = (x, i) => `<article class="scard" style="--i:${Math.min(i, 8)}">
+      <header><h3>${esc(x.school.short)}</h3><span class="badge">${x.school.type}</span></header>
+      ${x.school.address ? `<p class="sub">${esc(x.school.address)}</p>` : ''}
+      ${x.school.note ? `<p class="small muted">${esc(x.school.note)}</p>` : ''}
+      <ul class="srows">${x.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : ''}</li>`).join('')}</ul>
+      ${x.rows.some(r => r.cls.status !== 'sourced') ? '<p class="small muted">Progi i przedmioty do sprawdzenia w rekrutacji 2027.</p>' : ''}
+      <div class="scta"><button class="btn ghost small" data-pin="${x.school.id}">Na mapie</button><a class="btn ghost small" href="${esc(dirUrl(x.school))}" target="_blank" rel="noopener">Dojazd</a></div></article>`;
+  return `<div class="sectionhead"><h1>Szkoły w Krakowie</h1>${needResults() ? '' : '<button class="btn ghost" data-go="wyniki">Moje wyniki</button>'}</div>
+    <p class="lead">Wszystkie licea i technika w Kompasie, tylko klasy z matematyką, informatyką, fizyką, biologią, chemią lub geografią. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
+    ${filterBar(true)}
+    <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
+    ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<p class="note2">Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas ma tylko szkoły z klasami ścisłymi i przyrodniczymi. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p>`}
+    ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
+    <p class="note2">Nie ma tu klas humanistycznych, językowych, sportowych i dwujęzycznych z inną skalą punktów (np. XVII LO). Szkoły prywatne też pomijamy.</p>`;
+}
+
 // ---- map (Leaflet + OpenStreetMap tiles, loaded only when results open) ------------------------------------------------
 let mapObj = null, leafletP = null;
 function loadLeaflet() {
@@ -388,27 +445,28 @@ function loadLeaflet() {
   });
 }
 const CHANCE_RANK = { realna: 3, zawalczenia: 2, ambitna: 1 };
-function mapSchools(sel) {
+function bestOf(classes) { let b = 'unknown'; for (const x of classes) if ((CHANCE_RANK[x.check.chance] || 0) > (CHANCE_RANK[b] || 0)) b = x.check.chance; return b; }
+function mapSchools(rows) {
   const by = new Map();
-  for (const x of sel.classes) {
-    const e = by.get(x.school.id) || { school: x.school, best: x.check.chance || 'unknown', classes: [] };
-    if ((CHANCE_RANK[x.check.chance] || 0) > (CHANCE_RANK[e.best] || 0)) e.best = x.check.chance;
-    e.classes.push(x); by.set(x.school.id, e);
-  }
-  return [...by.values()];
+  for (const x of rows) { const e = by.get(x.school.id) || { school: x.school, classes: [] }; e.classes.push(x); by.set(x.school.id, e); }
+  return [...by.values()].map(e => ({ ...e, best: bestOf(e.classes) }));
 }
+let mapEntries = null;
 const dirUrl = s => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address || (s.name + ', Kraków'))}&travelmode=transit`;
-function mapBlock(sel) {
-  const list = mapSchools(sel);
-  return `<h2>Mapa szkół</h2><p class="small muted">Szkoły z klasami z kierunku „${esc(sel.card.name.toLowerCase())}”. Kolor pinezki pokazuje najlepszą szansę w tej szkole. Położenie pochodzi z OpenStreetMap; dokładny dojazd sprawdź przyciskiem „Dojazd”.</p>
-    <div class="mapbox" id="map" role="region" aria-label="Mapa szkół w Krakowie"><p class="mapfail muted small">Ładuję mapę…</p></div>
-    <ol class="maplist">${list.map((e, i) => `<li><button class="mapnum ${e.best}" data-pin="${e.school.id}" aria-label="Pokaż na mapie: ${esc(e.school.short)}">${i + 1}</button>
+function mapBlock(list, intro) {
+  mapEntries = list;
+  return `<h2>Mapa szkół</h2><p class="small muted">${intro} Kolor pinezki pokazuje najlepszą szansę w tej szkole. Położenie pochodzi z OpenStreetMap; dokładny dojazd sprawdź przyciskiem „Dojazd”.</p>
+    ${legend()}
+    <div class="mapbox" id="map" role="region" aria-label="Mapa szkół w Krakowie"><p class="mapfail muted small">Ładuję mapę…</p></div>`;
+}
+const legend = () => `<p class="legend small"><span class="mapnum realna" aria-hidden="true"></span> realna <span class="mapnum zawalczenia" aria-hidden="true"></span> do zawalczenia <span class="mapnum ambitna" aria-hidden="true"></span> ambitna <span class="mapnum unknown" aria-hidden="true"></span> bez oceny</p>`;
+function mapList(list) {
+  return `<ol class="maplist">${list.map((e, i) => `<li><button class="mapnum ${e.best}" data-pin="${e.school.id}" aria-label="Pokaż na mapie: ${esc(e.school.short)}">${i + 1}</button>
       <div><b>${esc(e.school.short)}</b><div class="sub">${e.classes.map(x => esc(x.cls.code)).join(', ')}${e.school.address ? ' · ' + esc(e.school.address) : ''}</div></div>
       <a class="btn ghost small" href="${esc(dirUrl(e.school))}" target="_blank" rel="noopener">Dojazd</a></li>`).join('')}</ol>`;
 }
-function initMap(sel) {
+function initMap(list) {
   const box = document.getElementById('map'); if (!box) return;
-  const list = mapSchools(sel);
   loadLeaflet().then(L => {
     if (!document.getElementById('map') || document.getElementById('map') !== box) return;
     if (mapObj) { mapObj.remove(); mapObj = null; }
@@ -426,6 +484,7 @@ function initMap(sel) {
     if (pts.length > 1) mapObj.fitBounds(pts, { padding: [30, 30], maxZoom: 14 }); else if (pts.length) mapObj.setView(pts[0], 14);
     mapObj._pins = pins;
     const miss = list.filter(e => !e.school.geo).map(e => e.school.short);
+    if (!pts.length) mapObj.setView([50.0647, 19.945], 12);
     if (miss.length) box.insertAdjacentHTML('afterend', `<p class="small muted">Bez pinezki (brak położenia): ${miss.map(esc).join(', ')}.</p>`);
   }).catch(() => { const f = box.querySelector('.mapfail'); if (f) f.textContent = 'Nie udało się wczytać mapy. Lista poniżej ma przyciski „Dojazd”.'; });
 }
@@ -513,6 +572,8 @@ document.addEventListener('click', e => {
   if (d.area) { A.area = d.area; save(); render(); setTimeout(() => document.querySelector('.cls')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 30); return; }
   if (d.soft) { const [kind, key, val] = d.soft.split(':'), tgt = (A.points.soft[kind === 'exam' ? 'exam' : 'grades'] ||= {}); if (tgt[key] === val) delete tgt[key]; else tgt[key] = val; A.points.mode = 'soft'; save(); render(); return; }
   if (d.mode) { A.points.mode = d.mode; save(); render(); return; }
+  if (d.f) { const [k, v] = d.f.split(':'); ui[k] = ui[k] === v ? '' : v; render(); return; }
+  if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '' }); render(); return; }
   if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
@@ -530,6 +591,7 @@ document.addEventListener('change', e => {
 });
 document.addEventListener('input', e => {
   const t = e.target, d = t.dataset;
+  if (d.filter) { ui[d.filter] = t.value; clearTimeout(window._fq); window._fq = setTimeout(render, 180); return; }
   if (d.field) { A[d.field] = t.value; save(); return; }
   if (d.slider) { A.sliders[d.slider] = Number(t.value); save(); return; }
   if (d.exam) { if (t.value === '') delete A.points.exam[d.exam]; else A.points.exam[d.exam] = Math.max(0, Math.min(100, Number(t.value))); save(); liveUpdate(); return; }

@@ -1,4 +1,4 @@
-/* Kompas Liceum v1.3: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
+/* Kompas Liceum v1.5: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
 body.wide main { max-width: 1040px; }
 .kicker2 { display: inline-block; font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
 .hero2 { padding: 8px 0 4px; }
@@ -103,3 +103,36 @@ body.wide main { max-width: 1040px; }
 .maplist .btn.small { padding: 6px 12px; font-size: .85rem; }
 @media (max-width: 600px) { .mapbox { height: 300px; } }
 @media print { .mapbox { display: none; } }
+
+/* v1.5: catalogue, filters, summary */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 6px 0 14px; }
+.summary > div { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.summary b { font-size: 1.25rem; }
+.filters { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 12px; }
+.frow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.frow > .small { min-width: 70px; }
+.frow .chip { padding: 5px 12px; font-size: .88rem; }
+.srch input { width: 100%; max-width: 460px; font: inherit; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: inherit; }
+.srch input:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.count { margin: 4px 0 10px; }
+.scards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.scard { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.scard header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.scard h3 { margin: 0; font-size: 1.05rem; }
+.srows { list-style: none; margin: 4px 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.srows li { display: flex; align-items: center; gap: 8px; font-size: .92rem; }
+.srows .pill { margin-left: auto; flex: none; font-size: .78rem; padding: 2px 8px; white-space: nowrap; }
+.srows .code { font-weight: 700; min-width: 2.4em; }
+.srows .lbl { flex: 1; min-width: 140px; }
+.scta { display: flex; gap: 8px; margin-top: auto; padding-top: 6px; }
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 4px 0 8px; }
+.legend .mapnum { width: 14px; height: 14px; border-width: 1px; box-shadow: none; }
+.pin.unknown, .mapnum.unknown { background: #7a7f87; }
+@media (prefers-reduced-motion: no-preference) { .scard { animation: rise .4s ease-out both; animation-delay: calc(var(--i, 0) * 40ms); } }
+@media (max-width: 600px) {
+  .frow { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .frow::-webkit-scrollbar { display: none; }
+  .frow .chip { flex: none; }
+  .srows li { flex-wrap: wrap; }
+}
