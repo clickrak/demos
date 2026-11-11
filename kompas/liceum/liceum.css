@@ -1,4 +1,4 @@
-/* Kompas Liceum v1.5: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
+/* Kompas Liceum v1.6: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
 body.wide main { max-width: 1040px; }
 .kicker2 { display: inline-block; font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
 .hero2 { padding: 8px 0 4px; }
@@ -136,3 +136,31 @@ body.wide main { max-width: 1040px; }
   .frow .chip { flex: none; }
   .srows li { flex-wrap: wrap; }
 }
+
+/* v1.6: illustrations, smoother updates, neon details */
+.rhead { display: grid; grid-template-columns: 1fr; gap: 6px 28px; align-items: center; margin-bottom: 8px; }
+.rhead h1 { margin-bottom: 6px; }
+.rhead .illus svg { max-width: 300px; }
+@media (min-width: 860px) { .rhead { grid-template-columns: 1.4fr 1fr; } .rhead .illus svg { max-width: 380px; margin: 0 0 0 auto; } }
+@media (max-width: 600px) { .rhead .illus svg { max-width: 220px; } }
+.empty { display: grid; justify-items: center; text-align: center; gap: 4px; padding: 18px; border: 1px dashed var(--line); border-radius: var(--radius); }
+.empty .illus svg { max-width: 200px; }
+.still :is(.scard, .area, .cls li, .illus .dl, .illus .dt) { animation: none !important; stroke-dashoffset: 0; opacity: 1; }
+.still .qmain { animation: none !important; }
+:is(.scard, .area, .summary > div, .maplist li) { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+@media (hover: hover) { :is(.scard, .maplist li):hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.12); } }
+.chip { transition: background-color .18s ease, color .18s ease, border-color .18s ease, transform .12s ease; }
+.chip:active { transform: scale(.96); }
+.mapbox .leaflet-pane, .mapbox .leaflet-control-container { animation: ifade .5s ease-out both; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (prefers-reduced-motion: reduce) { :is(.scard, .area, .chip) { transition: none; } }
+html[data-skin="neon"] .scard, html[data-skin="neon"] .summary > div, html[data-skin="neon"] .maplist li { border-color: color-mix(in srgb, var(--l0) 22%, var(--line)); }
+html[data-skin="neon"] .scard:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--l0) 45%, transparent), 0 8px 26px color-mix(in srgb, var(--l1) 22%, transparent); }
+html[data-skin="neon"] .summary b { color: var(--l0); }
+html[data-skin="neon"] .pin, html[data-skin="neon"] .mapnum { border-color: #0b0d18; }
+html[data-skin="neon"] .pin.realna, html[data-skin="neon"] .mapnum.realna { background: #1fcf7a; box-shadow: 0 0 10px #3dff9a88; }
+html[data-skin="neon"] .pin.zawalczenia, html[data-skin="neon"] .mapnum.zawalczenia { background: #00b8d4; box-shadow: 0 0 10px #00e5ff88; }
+html[data-skin="neon"] .pin.ambitna, html[data-skin="neon"] .mapnum.ambitna { background: #d12bb0; box-shadow: 0 0 10px #ff2bd688; }
+html[data-skin="neon"] .mapbox { border-color: color-mix(in srgb, var(--l0) 35%, var(--line)); }
+html[data-skin="neon"] .mapbox .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.85) contrast(.9) saturate(.6); }
+html[data-skin="neon"] .srch input { border-color: color-mix(in srgb, var(--l0) 35%, var(--line)); }

@@ -1,7 +1,8 @@
-// Kompas Liceum v1.5.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v1.6.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
 import { provenStrengths } from '../core/scoring.js';
 import { scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
 import { icon } from '../studia/icons.js';
+import { LILLUS } from './illus.js';
 import { ILLUS } from '../studia/illus.js';
 
 const $app = document.getElementById('app');
@@ -33,8 +34,9 @@ async function load() {
 // ---- state, theme, skin -------------------------------------------------------------------------------------------
 const answersKey = () => JSON.stringify({ ...A, sortPos: undefined, sitPos: undefined });
 let savedSnap = null, notice = '', theme = null;
-const SKINS = [null, 'neon', 'pop'], SKIN_NAME = { null: 'Spokojny', neon: 'Neon', pop: 'Pop art' };
-let skin = SKINS.includes(new URLSearchParams(location.search).get('skin')) ? new URLSearchParams(location.search).get('skin') : null;
+const SKINS = ['neon', 'pop', null], SKIN_NAME = { null: 'Spokojny', neon: 'Neon', pop: 'Pop art' };
+const skinQ = new URLSearchParams(location.search).get('skin');
+let skin = skinQ === 'calm' ? null : skinQ && SKINS.includes(skinQ) ? skinQ : 'neon'; // neon is the default look
 const hasAnswers = () => !!(A && (Object.keys(A.sort).length || A.values.length || A.strengths.length));
 const isDirty = () => hasAnswers() && answersKey() !== savedSnap;
 const save = () => document.querySelectorAll('.savebtn').forEach(b => b.classList.toggle('dirty', isDirty()));
@@ -61,7 +63,7 @@ function applySkin(animate) {
   document.querySelectorAll('[data-skintoggle]').forEach(b => { b.setAttribute('aria-pressed', String(!!skin)); b.setAttribute('aria-label', `Wygląd: ${SKIN_NAME[skin]}. Zmień na: ${SKIN_NAME[next]}`); b.innerHTML = ICON.palette; });
   document.querySelectorAll('[data-skinpick]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.skinpick || null) === skin)));
   const u = new URL(location.href);
-  if (skin) u.searchParams.set('skin', skin); else u.searchParams.delete('skin');
+  if (skin === 'neon') u.searchParams.delete('skin'); else u.searchParams.set('skin', skin || 'calm');
   history.replaceState(null, '', u);
   if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     root.classList.remove('skin-in'); void root.offsetWidth; root.classList.add('skin-in');
@@ -111,7 +113,7 @@ function render() {
   if (mapObj) { mapObj.remove(); mapObj = null; }
   mapEntries = null;
   $app.innerHTML = `<div class="qmain ${dir}">${crumb}${note}${s.view()}${nav}</div>`;
-  $app.dataset.screen = s.id; save(); applySkin();
+  $app.dataset.screen = s.id; $app.classList.toggle('still', !changed); save(); applySkin();
   const pi = $app.querySelector('.prog2 i[data-to]');
   if (pi) requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.width = pi.dataset.to + '%'; }));
   if (changed) { const b = document.querySelector('.brand'); if (b) { b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); } }
@@ -147,7 +149,7 @@ function vStart() {
     <p class="muted small">Nie ma złych odpowiedzi. To punkt wyjścia do rozmowy z rodzicami i nauczycielami: nie test i nie wyrok.</p>
     <div class="note2"><b>Co jest w bazie.</b> ${data.schools.length} szkół i ${nCls} klas w Krakowie z matematyką, fizyką, informatyką, biologią, chemią i geografią. Progi są z rekrutacji 2026, więc to orientacja, nie obietnica.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
-      <button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
+      <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
     ${TEST ? `<details class="card"><summary>Tryb testowy</summary><div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div></details>` : ''}
   </div></div>`;
 }
@@ -258,7 +260,7 @@ function vSchool() {
           <input id="ach" type="number" inputmode="numeric" min="0" max="18" step="1" data-pt="achievements" value="${p.achievements || 0}"></div></div>
       <div class="card exactask"><p class="small">Wolisz prościej? Wróć do odpowiedzi „słabo, dobrze, świetnie”.</p><button class="btn ghost" data-mode="soft">Wróć do prostej wersji</button></div>`;
   }
-  return `<h1>Jak ci idzie w szkole?</h1>
+  return `${LILLUS.szkola}<h1>Jak ci idzie w szkole?</h1>
     <p>Nie liczymy tu dokładnych punktów, bo wyniki jeszcze nie są znane. Zaznacz, jak się czujesz z danym przedmiotem. Na tej podstawie pokażemy, które klasy są dla ciebie <b>realne</b>, a które <b>ambitne</b>. Cel to pomysły i opcje, nie przewidywanie wyniku.</p>
     <div class="ptform">${body}</div>
     <div class="live" id="live" role="status" aria-live="polite"></div>
@@ -348,11 +350,11 @@ function vResults() {
   const tag = c => c === s.most ? 'Most' : c === s.surprise ? 'Niespodzianka' : `Opcja ${s.best.indexOf(c) + 1}`;
   const stud = studiaFor(sel.card);
   const names = data.schools.map(x => x.short).join(', ');
-  return `<div class="sectionhead"><h1>${esc(A.name ? A.name + ', oto' : 'Oto')} twoje kierunki</h1><button class="btn ghost" data-go="szkola">Zmień, jak ci idzie</button></div>
+  return `<div class="rhead"><div><h1>${esc(A.name ? A.name + ', oto' : 'Oto')} twoje kierunki</h1><p class="lead">Kierunek to rodzaj pracy, który do ciebie pasuje. Z niego wynika klasa i szkoła. Zacznij od kierunku, nie od progu.</p>
+      <div class="actions"><button class="btn ghost" data-go="szkola">Zmień, jak ci idzie</button><button class="btn ghost" data-go="szkoly">Wszystkie szkoły</button></div></div>${LILLUS.wyniki}</div>
     <div class="summary"><div><span class="kicker2">Najlepiej pasuje</span><b>${esc(s.best[0].card.name)}</b></div>
       <div><span class="kicker2">Klasy w Krakowie</span><b>${allRows.length}</b> w ${new Set(allRows.map(x => x.school.id)).size} szkołach</div>
       <div><span class="kicker2">Realne</span><b>${hasInput() ? nReal : '–'}</b>${hasInput() ? '' : ' <button class="linkbtn" data-go="szkola">zaznacz oceny</button>'}</div></div>
-    <p class="lead">Kierunek to rodzaj pracy, który do ciebie pasuje. Z niego wynika klasa i szkoła. Zacznij od kierunku, nie od progu.</p>
     <div class="areas">${shown.map((c, i) => areaCard(tag(c), c, c.card.id === selId, i)).join('')}</div>
     <div class="extra"><label class="small" for="allareas">Inny kierunek:</label>
       <select id="allareas" data-areasel>${r.cards.map(c => `<option value="${c.card.id}" ${c.card.id === selId ? 'selected' : ''}>${esc(c.card.name)}</option>`).join('')}</select></div>
@@ -361,7 +363,7 @@ function vResults() {
     ${!hasInput() ? '<p class="note2">Nie zaznaczyłeś jeszcze, jak ci idzie w szkole, więc widzisz klasy bez oceny szans. <button class="linkbtn" data-go="szkola">Zaznacz, jak ci idzie</button></p>' : ''}
     <p class="small muted">Etykieta „realna”, „do zawalczenia” albo „ambitna” to orientacja na podstawie zeszłorocznych progów. Klasy z kierunkiem na pierwszym miejscu są u góry.</p>
     ${filterBar(false)}
-    ${rows.length ? `<ul class="cls">${rows.slice(0, 8).map(classRow).join('')}</ul>` : '<p class="note2">Żadna klasa nie pasuje do filtrów. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p>'}
+    ${rows.length ? `<ul class="cls">${rows.slice(0, 8).map(classRow).join('')}</ul>` : `<div class="empty">${LILLUS.pusto}<p>Żadna klasa nie pasuje do filtrów. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${more.length ? `<details><summary>Jeszcze ${more.length} klas</summary><ul class="cls" style="margin-top:8px">${more.map(classRow).join('')}</ul></details>` : ''}
     ${parentTable(rows)}
     ${(() => { const l = mapSchools(rows); return mapBlock(l, `Szkoły z klasami z kierunku „${esc(sel.card.name.toLowerCase())}”.`) + mapList(l); })()}
@@ -425,13 +427,14 @@ function vSchools() {
       <ul class="srows">${x.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : ''}</li>`).join('')}</ul>
       ${x.rows.some(r => r.cls.status !== 'sourced') ? '<p class="small muted">Progi i przedmioty do sprawdzenia w rekrutacji 2027.</p>' : ''}
       <div class="scta"><button class="btn ghost small" data-pin="${x.school.id}">Na mapie</button><a class="btn ghost small" href="${esc(dirUrl(x.school))}" target="_blank" rel="noopener">Dojazd</a></div></article>`;
-  return `<div class="sectionhead"><h1>Szkoły w Krakowie</h1>${needResults() ? '' : '<button class="btn ghost" data-go="wyniki">Moje wyniki</button>'}</div>
-    <p class="lead">Wszystkie licea i technika w Kompasie, tylko klasy z matematyką, informatyką, fizyką, biologią, chemią lub geografią. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
+  return `<div class="rhead"><div><h1>Szkoły w Krakowie</h1>
+    <p class="lead">${data.schools.length} liceów i techników, tylko klasy z matematyką, informatyką, fizyką, biologią, chemią lub geografią. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
+    ${needResults() ? '' : '<div class="actions"><button class="btn ghost" data-go="wyniki">Moje wyniki</button></div>'}</div>${LILLUS.szkoly}</div>
     ${filterBar(true)}
     <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
-    ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<p class="note2">Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas ma tylko szkoły z klasami ścisłymi i przyrodniczymi. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p>`}
+    ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas ma tylko klasy ścisłe i przyrodnicze. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
-    <p class="note2">Nie ma tu klas humanistycznych, językowych, sportowych i dwujęzycznych z inną skalą punktów (np. XVII LO). Szkoły prywatne też pomijamy.</p>`;
+    <p class="note2">Nie ma tu klas humanistycznych, językowych, mundurowych i sportowych. Pomijamy też XVII LO (klasy dwujęzyczne z inną skalą punktów), XXV LO (bez klas ścisłych), szkoły sportowe i prywatne.</p>`;
 }
 
 // ---- map (Leaflet + OpenStreetMap tiles, loaded only when results open) ------------------------------------------------

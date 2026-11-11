@@ -4031,7 +4031,7 @@
   "name": "Technikum Elektryczne nr 8 (ZS Elektrycznych nr 2)",
   "short": "Technikum Elektryczne nr 8",
   "type": "technikum",
-  "address": null,
+  "address": "os. Szkolne 26, 31-977 Kraków",
   "range": {
    "min": 33.5,
    "max": 73.0,
@@ -4101,7 +4101,12 @@
     "occupation": "technik mechatronik"
    }
   ],
-  "note": "Szkoła punktuje też ocenę z techniki, której Kompas nie pyta. Szansę liczymy orientacyjnie z zakresu progów."
+  "note": "Szkoła punktuje też ocenę z techniki, której Kompas nie pyta. Szansę liczymy orientacyjnie z zakresu progów.",
+  "geo": {
+   "lat": 50.07776,
+   "lon": 20.04864,
+   "q": "same address as XXII LO"
+  }
  },
  {
   "id": "tg12",
