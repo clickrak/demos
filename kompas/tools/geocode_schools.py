@@ -2,7 +2,7 @@
 """Fill `geo` (lat, lon) for Kraków schools from OpenStreetMap Nominatim. Run from the repo root.
 Only schools without `geo` are queried (about 1 request per second, as the usage policy asks).
 Tries the street address first, then the school name. Results outside Kraków are ignored."""
-import json, time, urllib.parse, urllib.request, sys
+import json, re, time, urllib.parse, urllib.request, sys
 P = 'kompas/liceum/data/db/pl/krakow/schools.json'
 BOX = (49.95, 50.14, 19.75, 20.15)  # lat min, lat max, lon min, lon max
 UA = 'kompas-liceum-geocoder/1.0 (https://github.com/clickrak/demos)'
@@ -20,9 +20,11 @@ def ask(q):
 
 schools = json.load(open(P))
 changed = 0
+REDO = '--redo' in sys.argv
 for s in schools:
-    if s.get('geo'): continue
-    queries = ([s['address']] if s.get('address') else []) + [f"{s['name']}, Kraków"]
+    if s.get('geo') and not (REDO or s['geo'].get('q', '') == f"{s['name']}, Kraków" and s.get('address')): continue
+    street = re.sub(r',?\s*\d\d-\d{3}\s*Kraków', '', s.get('address') or '').strip(', ')
+    queries = ([f'{street}, Kraków'] if street else []) + [f"{s['short']}, Kraków", f"{s['name']}, Kraków"]
     for q in queries:
         try: hit = ask(q)
         except Exception as e: print('error', s['id'], e, file=sys.stderr); hit = None

@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 kompas/tools/geocode_schools.py
+      - run: python3 kompas/tools/geocode_schools.py --redo
       - name: Commit coordinates
         run: |
           git config user.name "github-actions"
