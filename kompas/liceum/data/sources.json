@@ -383,5 +383,103 @@
   "title": "Technikum Geodezji i Kształtowania Środowiska nr 12, profile klas i progi 2026/27 (waszaedukacja)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "w2-lo1",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/i-liceum-im-bartlomieja-nowodworskiego-krakow-413/profile",
+  "title": "I LO Nowodworskiego, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo2",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/ii-liceum-im-krola-jana-iii-sobieskiego-krakow-79285/profile",
+  "title": "II LO Sobieskiego, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo4",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/iv-liceum-im-tadeusza-kosciuszki-krakow-396/profile",
+  "title": "IV LO Kościuszki, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo5",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/v-liceum-im-augusta-witkowskiego-krakow-415/profile",
+  "title": "V LO Witkowskiego, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo6",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/vi-liceum-im-adama-mickiewicza-krakow-416/profile",
+  "title": "VI LO Mickiewicza, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo7",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/vii-liceum-im-zofii-nalkowskiej-krakow-417/profile",
+  "title": "VII LO Nałkowskiej, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo8",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/viii-liceum-im-stanislawa-wyspianskiego-krakow-418/profile",
+  "title": "VIII LO Wyspiańskiego, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo9",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/ix-liceum-im-zygmunta-wroblewskiego-krakow-419/profile",
+  "title": "IX LO Wróblewskiego, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo11",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xi-liceum-im-marii-dabrowskiej-krakow-391/profile",
+  "title": "XI LO Dąbrowskiej, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo15",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xv-liceum-im-marii-sklodowskiej-curie-krakow-405/profile",
+  "title": "XV LO Skłodowskiej-Curie, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w2-lo28",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xxviii-liceum-im-wojciecha-bednarskiego-krakow-424/profile",
+  "title": "XXVIII LO Bednarskiego, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-lo42",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xlii-liceum-krakow-18801/profile",
+  "title": "XLII LO, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-teh4",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-ekonomiczno-hotelarskie-nr-4-krakow-432/profile",
+  "title": "Technikum Ekonomiczno-Hotelarskie nr 4, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "w-tb1",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-budowlane-nr-1-krakow-427/profile",
+  "title": "Technikum Budowlane nr 1, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

@@ -105,7 +105,8 @@
   "label": "Uczeń P2: zdrowie i biologia",
   "expect": {
    "topClusters": [
-    "bio"
+    "bio",
+    "ludzie"
    ],
    "notTop": [
     "programowanie"
@@ -113,7 +114,10 @@
    "classContains": [
     "biol-chem-mat",
     "biol-chem",
-    "biol-chem-ang"
+    "biol-chem-ang",
+    "biol-pol-ang",
+    "biol-ang-pol",
+    "pol-biol-ang"
    ]
   },
   "answers": {
@@ -395,6 +399,196 @@
      }
     }
    }
+  }
+ },
+ {
+  "id": "P5",
+  "label": "Uczeń P5: języki i ludzie",
+  "expect": {
+   "topClusters": [
+    "jezyki",
+    "ludzie"
+   ],
+   "notTop": [
+    "programowanie",
+    "elektronika"
+   ]
+  },
+  "answers": {
+   "name": "P5",
+   "sort": {
+    "a1": -1,
+    "a2": 0,
+    "a3": 0,
+    "a4": 0,
+    "a5": 0,
+    "a6": 0,
+    "a7": 0,
+    "a8": -1,
+    "a9": 1,
+    "a10": 0,
+    "a11": 0,
+    "a12": 0,
+    "a13": 0,
+    "a14": -1,
+    "a15": 0,
+    "a16": 0,
+    "a17": 0,
+    "a18": 0,
+    "a19": 0,
+    "a20": -1,
+    "a21": 0,
+    "a22": 0,
+    "b1": 1,
+    "b2": 1,
+    "b3": 1,
+    "b15": 1,
+    "b16": 1
+   },
+   "situations": {
+    "e1": "d",
+    "e2": "a",
+    "e3": "c"
+   },
+   "sliders": {
+    "zespol": 2,
+    "ludzie": -2,
+    "ruch": 0,
+    "konkret": 0,
+    "decyzje": 0,
+    "zmiana": 2,
+    "projekty": 0,
+    "wspolpraca": 2
+   },
+   "values": [
+    "zagranica",
+    "kreatywnosc",
+    "pomaganie"
+   ],
+   "strengths": [
+    {
+     "id": "jezyki",
+     "proof": "w szkole"
+    },
+    {
+     "id": "empatia",
+     "proof": "w szkole"
+    },
+    {
+     "id": "tlumaczenie",
+     "proof": "w szkole"
+    }
+   ],
+   "points": {
+    "mode": "soft",
+    "soft": {
+     "exam": {
+      "polski": "dobrze",
+      "matematyka": "dobrze",
+      "obcy": "swietnie"
+     },
+     "grades": {}
+    }
+   },
+   "worlds": [
+    "jezyki",
+    "ludzie"
+   ]
+  }
+ },
+ {
+  "id": "P6",
+  "label": "Uczeń P6: biznes i budowanie",
+  "expect": {
+   "topClusters": [
+    "biznes",
+    "budowa"
+   ],
+   "notTop": [
+    "biologia"
+   ]
+  },
+  "answers": {
+   "name": "P6",
+   "sort": {
+    "a1": 0,
+    "a2": 0,
+    "a3": 0,
+    "a4": 0,
+    "a5": 0,
+    "a6": -1,
+    "a7": 0,
+    "a8": 0,
+    "a9": 0,
+    "a10": 1,
+    "a11": 0,
+    "a12": 0,
+    "a13": 0,
+    "a14": 0,
+    "a15": 0,
+    "a16": -1,
+    "a17": 0,
+    "a18": 0,
+    "a19": 0,
+    "a20": 1,
+    "a21": 1,
+    "a22": 0,
+    "b4": 1,
+    "b5": 1,
+    "b6": 1,
+    "b7": 1,
+    "b8": 1,
+    "b2": -1
+   },
+   "situations": {
+    "e1": "d",
+    "e2": "a",
+    "e3": "c"
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": 0,
+    "ruch": 0,
+    "konkret": -2,
+    "decyzje": -1,
+    "zmiana": 1,
+    "projekty": 1,
+    "wspolpraca": 0
+   },
+   "values": [
+    "zarobki",
+    "niezaleznosc",
+    "wplyw"
+   ],
+   "strengths": [
+    {
+     "id": "organizowanie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "przekonywanie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    }
+   ],
+   "points": {
+    "mode": "soft",
+    "soft": {
+     "exam": {
+      "polski": "dobrze",
+      "matematyka": "dobrze",
+      "obcy": "swietnie"
+     },
+     "grades": {}
+    }
+   },
+   "worlds": [
+    "biznes",
+    "budowa"
+   ]
   }
  }
 ]

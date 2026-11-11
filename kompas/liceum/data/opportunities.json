@@ -56,7 +56,10 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "analityka"
+  "icon": "analityka",
+  "worlds": [
+   "tech"
+  ]
  },
  {
   "id": "cyber",
@@ -116,7 +119,10 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "bezpieczenstwo"
+  "icon": "bezpieczenstwo",
+  "worlds": [
+   "tech"
+  ]
  },
  {
   "id": "dane-ai",
@@ -176,7 +182,11 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "future"
+  "icon": "future",
+  "worlds": [
+   "tech",
+   "biznes"
+  ]
  },
  {
   "id": "elektronika",
@@ -236,7 +246,11 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "automatyzacja"
+  "icon": "automatyzacja",
+  "worlds": [
+   "tech",
+   "budowa"
+  ]
  },
  {
   "id": "fizyka",
@@ -297,7 +311,11 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "energia"
+  "icon": "energia",
+  "worlds": [
+   "tech",
+   "natura"
+  ]
  },
  {
   "id": "biologia",
@@ -359,7 +377,11 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "zdrowie"
+  "icon": "zdrowie",
+  "worlds": [
+   "natura",
+   "ludzie"
+  ]
  },
  {
   "id": "chemia",
@@ -420,7 +442,10 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "technika"
+  "icon": "technika",
+  "worlds": [
+   "natura"
+  ]
  },
  {
   "id": "srodowisko",
@@ -480,6 +505,392 @@
    "B": "wysoka",
    "C": "średnia"
   },
-  "icon": "woda"
+  "icon": "woda",
+  "worlds": [
+   "natura"
+  ]
+ },
+ {
+  "id": "jezyki",
+  "name": "Języki i kultury",
+  "cluster": "jezyki",
+  "interests": {
+   "ana": 40,
+   "tec": 10,
+   "spo": 75,
+   "twr": 70,
+   "prz": 45,
+   "sys": 40
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": -2,
+   "ruch": 0,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 2,
+   "projekty": 0,
+   "wspolpraca": 2
+  },
+  "values": [
+   "zagranica",
+   "kreatywnosc",
+   "pomaganie",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "jezyki",
+   "tlumaczenie",
+   "empatia",
+   "ciekawosc",
+   "szybka_nauka"
+  ],
+  "roles": "tłumacz, specjalista w firmie międzynarodowej, przewodnik, nauczyciel języka",
+  "whoYouHelp": "Ludzie, którzy bez ciebie by się nie dogadali: firmy, turyści, urzędy.",
+  "whatYouGet": "Praca z ludźmi z całego świata, często wyjazdy i praca zdalna.",
+  "dayInLife": [
+   "Poranek: tłumaczysz maila dla klienta z Niemiec.",
+   "Południe: rozmowa wideo z zespołem w trzech krajach.",
+   "Po południu: przygotowujesz prezentację po angielsku."
+  ],
+  "experiment": "Przez miesiąc oglądaj jeden serial bez polskich napisów i zapisuj 5 nowych słów tygodniowo.",
+  "related": [
+   "ludzie",
+   "spoleczenstwo",
+   "biznes"
+  ],
+  "afterSchool": "Filologie i lingwistyka na UJ, stosunki międzynarodowe, a także każda praca w firmie międzynarodowej. W liceum: klasy z rozszerzonym angielskim i drugim językiem, także dwujęzyczne.",
+  "studiaCards": [
+   "jezyki",
+   "ue"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "icon": "jezyki",
+  "worlds": [
+   "jezyki"
+  ]
+ },
+ {
+  "id": "biznes",
+  "name": "Biznes, ekonomia i pieniądze",
+  "cluster": "biznes",
+  "interests": {
+   "ana": 60,
+   "tec": 15,
+   "spo": 45,
+   "twr": 40,
+   "prz": 90,
+   "sys": 65
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 0,
+   "ruch": 1,
+   "konkret": -1,
+   "decyzje": -1,
+   "zmiana": 1,
+   "projekty": 0,
+   "wspolpraca": 0
+  },
+  "values": [
+   "zarobki",
+   "wplyw",
+   "niezaleznosc",
+   "prestiz"
+  ],
+  "strengths": [
+   "organizowanie",
+   "przekonywanie",
+   "logika",
+   "odpowiedzialnosc",
+   "dokladnosc"
+  ],
+  "roles": "ekonomista, księgowy, specjalista w banku, przedsiębiorca, logistyk",
+  "whoYouHelp": "Firmy, które dzięki tobie dobrze liczą pieniądze i rosną.",
+  "whatYouGet": "Dużo możliwości pracy w Krakowie, dobre zarobki z doświadczeniem.",
+  "dayInLife": [
+   "Poranek: sprawdzasz, ile firma sprzedała w zeszłym tygodniu.",
+   "Południe: spotkanie z klientem i negocjacje ceny.",
+   "Po południu: plan budżetu na kolejny miesiąc."
+  ],
+  "experiment": "Zaplanuj budżet na wycieczkę klasową albo prezent dla kogoś: zrób listę, ceny i wybierz najlepszą opcję.",
+  "related": [
+   "dane-ai",
+   "spoleczenstwo",
+   "jezyki"
+  ],
+  "afterSchool": "Ekonomia, finanse i zarządzanie na Uniwersytecie Ekonomicznym, AGH albo UJ. W liceum: klasy z matematyką i biznesem albo geografią. Technikum ekonomiczne daje zawód już po 4 latach.",
+  "studiaCards": [
+   "finanse",
+   "handel",
+   "logistyka"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "wysoka"
+  },
+  "icon": "biznes",
+  "worlds": [
+   "biznes"
+  ]
+ },
+ {
+  "id": "budowa",
+  "name": "Budownictwo i architektura",
+  "cluster": "budowa",
+  "interests": {
+   "ana": 60,
+   "tec": 80,
+   "spo": 25,
+   "twr": 65,
+   "prz": 35,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 2,
+   "ruch": -1,
+   "konkret": -2,
+   "decyzje": 1,
+   "zmiana": 0,
+   "projekty": 2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "kreatywnosc",
+   "pewnosc",
+   "zarobki",
+   "trudne"
+  ],
+  "strengths": [
+   "rysunek",
+   "dokladnosc",
+   "pomyslowosc",
+   "logika",
+   "odpowiedzialnosc"
+  ],
+  "roles": "architekt, inżynier budownictwa, technik budownictwa, projektant wnętrz, geodeta",
+  "whoYouHelp": "Rodziny, które zamieszkają w domu, który zaprojektowałeś, i miasto, które jest wygodniejsze.",
+  "whatYouGet": "Widzisz efekt swojej pracy w realnym świecie. Pewna branża.",
+  "dayInLife": [
+   "Poranek: poprawiasz projekt w programie komputerowym.",
+   "Południe: jedziesz na budowę sprawdzić, czy wszystko idzie zgodnie z planem.",
+   "Po południu: liczysz, ile materiału potrzeba."
+  ],
+  "experiment": "Narysuj plan swojego pokoju w skali (np. 1 kratka = 10 cm) i zaprojektuj go od nowa.",
+  "related": [
+   "elektronika",
+   "fizyka",
+   "srodowisko"
+  ],
+  "afterSchool": "Architektura i budownictwo na Politechnice Krakowskiej i AGH. W liceum: matematyka z fizyką albo geografią. Technikum budowlane albo geodezyjne daje zawód po 4 latach.",
+  "studiaCards": [
+   "projektowanie"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "icon": "technika",
+  "worlds": [
+   "budowa"
+  ]
+ },
+ {
+  "id": "sport",
+  "name": "Sport, ruch i trening",
+  "cluster": "sport",
+  "interests": {
+   "ana": 25,
+   "tec": 75,
+   "spo": 70,
+   "twr": 30,
+   "prz": 55,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -1,
+   "ruch": -3,
+   "konkret": -2,
+   "decyzje": -2,
+   "zmiana": 1,
+   "projekty": 0,
+   "wspolpraca": 0
+  },
+  "values": [
+   "pomaganie",
+   "wplyw",
+   "niezaleznosc",
+   "czas"
+  ],
+  "strengths": [
+   "kondycja",
+   "dyscyplina",
+   "wytrwalosc",
+   "zespol",
+   "organizowanie"
+  ],
+  "roles": "trener, fizjoterapeuta, nauczyciel WF, instruktor, dietetyk sportowy",
+  "whoYouHelp": "Ludzie, którzy dzięki tobie są zdrowsi, sprawniejsi albo wygrywają zawody.",
+  "whatYouGet": "Praca w ruchu i z ludźmi. Dużo zależy od twojej pasji i dyplomów trenerskich.",
+  "dayInLife": [
+   "Poranek: trening z grupą młodzieży.",
+   "Południe: planujesz ćwiczenia dla zawodnika po kontuzji.",
+   "Po południu: zajęcia na siłowni albo basenie."
+  ],
+  "experiment": "Przez 4 tygodnie zapisuj swoje treningi (czas, dystans, samopoczucie) i zobacz, jak się zmieniasz.",
+  "related": [
+   "ludzie",
+   "biologia"
+  ],
+  "afterSchool": "AWF Kraków (wychowanie fizyczne, fizjoterapia, turystyka), a też fizjoterapia na uczelniach medycznych. W liceum: klasy z biologią; klasy sportowe mają osobne zasady i test sprawności (dojdą w kolejnej wersji).",
+  "studiaCards": [
+   "sport",
+   "rehabilitacja"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "icon": "ruch",
+  "worlds": [
+   "sport"
+  ]
+ },
+ {
+  "id": "ludzie",
+  "name": "Ludzie, psychologia i edukacja",
+  "cluster": "ludzie",
+  "interests": {
+   "ana": 45,
+   "tec": 10,
+   "spo": 95,
+   "twr": 55,
+   "prz": 40,
+   "sys": 35
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": -3,
+   "ruch": 0,
+   "konkret": 0,
+   "decyzje": 1,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 3
+  },
+  "values": [
+   "pomaganie",
+   "wplyw",
+   "kreatywnosc",
+   "pewnosc"
+  ],
+  "strengths": [
+   "empatia",
+   "tlumaczenie",
+   "spokoj",
+   "odpowiedzialnosc",
+   "zespol"
+  ],
+  "roles": "psycholog, pedagog, nauczyciel, terapeuta, pracownik socjalny",
+  "whoYouHelp": "Dzieci, młodzież i dorośli, którzy potrzebują wsparcia albo dobrego nauczyciela.",
+  "whatYouGet": "Praca, która ma sens dla innych. Dużo rozmów, mało nudy.",
+  "dayInLife": [
+   "Poranek: zajęcia z grupą uczniów.",
+   "Południe: rozmowa z uczniem, któremu jest trudno.",
+   "Po południu: spotkanie z rodzicami i plan pomocy."
+  ],
+  "experiment": "Zostań przez miesiąc korepetytorem albo pomóż młodszemu dziecku w lekcjach raz w tygodniu. Zobacz, czy ci się to podoba.",
+  "related": [
+   "sport",
+   "jezyki",
+   "biologia"
+  ],
+  "afterSchool": "Psychologia i pedagogika na UJ i UKEN (dawniej Uniwersytet Pedagogiczny). W liceum: klasy z biologią i polskim, często nazywane psychologiczno-pedagogicznymi.",
+  "studiaCards": [
+   "psychologia"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "icon": "ludzie",
+  "worlds": [
+   "ludzie"
+  ]
+ },
+ {
+  "id": "spoleczenstwo",
+  "name": "Historia, prawo i media",
+  "cluster": "spoleczenstwo",
+  "interests": {
+   "ana": 65,
+   "tec": 10,
+   "spo": 55,
+   "twr": 75,
+   "prz": 65,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": -1,
+   "ruch": 1,
+   "konkret": 1,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "wplyw",
+   "prestiz",
+   "kreatywnosc",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "przekonywanie",
+   "ciekawosc",
+   "tlumaczenie",
+   "dokladnosc",
+   "logika"
+  ],
+  "roles": "prawnik, dziennikarz, historyk, specjalista od komunikacji, urzędnik, dyplomata",
+  "whoYouHelp": "Ludzie, którzy potrzebują rzetelnej informacji albo obrony swoich praw.",
+  "whatYouGet": "Praca ze słowem i argumentami. Wpływ na to, co ludzie wiedzą i myślą.",
+  "dayInLife": [
+   "Poranek: czytasz dokumenty i szukasz ważnych faktów.",
+   "Południe: rozmowa z klientem albo nagranie materiału.",
+   "Po południu: piszesz tekst albo opinię."
+  ],
+  "experiment": "Wybierz jeden temat z wiadomości i sprawdź go w trzech różnych źródłach. Co się zgadza, a co nie?",
+  "related": [
+   "jezyki",
+   "biznes",
+   "ludzie"
+  ],
+  "afterSchool": "Prawo, historia, dziennikarstwo i politologia na UJ. W liceum: klasy z polskim, historią i WOS.",
+  "studiaCards": [
+   "media",
+   "mowa",
+   "sluzby"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "icon": "media",
+  "worlds": [
+   "spoleczenstwo"
+  ]
  }
 ]

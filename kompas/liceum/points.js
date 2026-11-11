@@ -80,12 +80,34 @@ export const LEVEL_TXT = {
   range: 'w zakresie szkoły, próg klasy do sprawdzenia', unknown: 'wpisz punkty, żeby zobaczyć'
 };
 
+// Worlds (v1.7): the kid first picks the worlds that attract him. Only those question cards are shown, plus a common
+// core. No pick (or "show me a bit of everything") shows the core and two cards from each world. Old answer files
+// without the field see every card, as before.
+export function visibleActivities(answers, data) {
+  const all = data.questions.activities, w = answers.worlds;
+  if (!Array.isArray(w)) return all;
+  const core = all.filter(a => !a.worlds);
+  if (!w.length || w.includes('all')) {
+    const seen = {};
+    return all.filter(a => !a.worlds || a.worlds.some(x => (seen[x] = (seen[x] || 0) + 1) <= 2));
+  }
+  return all.filter(a => !a.worlds || a.worlds.some(x => w.includes(x)));
+}
+export function worldBonus(card, answers, config) {
+  const w = answers.worlds;
+  if (!Array.isArray(w) || !w.length || w.includes('all')) return 0;
+  return (card.worlds || []).some(x => w.includes(x)) ? (config.worldBoost ?? 8) : 0;
+}
+
 export function scoreLiceum(answers, data) {
   const pts = effectivePoints(answers, data.config);
-  const profile = computeProfile(answers, data);
+  const dataV = { ...data, questions: { ...data.questions, activities: visibleActivities(answers, data) } };
+  const profile = computeProfile(answers, dataV);
   const cards = data.opportunities.map(card => {
-    const f = fitCard(profile, card, answers, data);
-    const paths = pathsTo(card, profile, answers, data);
+    const f = fitCard(profile, card, answers, dataV);
+    const wb = worldBonus(card, answers, data.config);
+    if (wb) { f.fit = Math.min(100, f.fit + wb); f.parts = { ...f.parts, world: wb }; }
+    const paths = pathsTo(card, profile, answers, dataV);
     const classes = [];
     for (const school of data.schools) for (const cls of school.classes) {
       const rank = cls.cards.indexOf(card.id);
@@ -93,10 +115,10 @@ export function scoreLiceum(answers, data) {
       classes.push({ school, cls, rank, check: checkClass(pts, cls, school, data.config) });
     }
     classes.sort((a, b) => (a.rank - b.rank) || ((a.cls.threshold == null) - (b.cls.threshold == null)) || ((b.cls.threshold ?? b.school.range.max) - (a.cls.threshold ?? a.school.range.max)));
-    return { card, ...f, band: band(f.fit, data.config), paths, strengthsUsed: paths.filter(x => x.kind === 'strength'), reasons: reasonsFor(card, profile, answers, data), classes, offers: [], reachable: true, robust: 0 };
+    return { card, ...f, band: band(f.fit, data.config), paths, strengthsUsed: paths.filter(x => x.kind === 'strength'), reasons: reasonsFor(card, profile, answers, dataV), classes, offers: [], reachable: true, robust: 0 };
   });
   cards.sort((a, b) => (Math.abs(a.fit - b.fit) >= 1 ? b.fit - a.fit : (b.paths.length - a.paths.length) || (b.fit - a.fit)));
-  return { profile, cards, slots: makeSlots(cards, profile, answers, data), points: pts };
+  return { profile, cards, slots: makeSlots(cards, profile, answers, dataV), points: pts };
 }
 
 // A short list to apply with: the classes of his best area, from a stretch to a safe one.

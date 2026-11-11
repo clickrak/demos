@@ -87,6 +87,78 @@
     "scoredSourced": false,
     "sourceId": "otou-lo1",
     "status": "sourced"
+   },
+   {
+    "code": "E",
+    "label": "hist-ang-WOS",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 168.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo1",
+    "status": "check"
+   },
+   {
+    "code": "G",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "j. angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 171.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo1",
+    "status": "check"
+   },
+   {
+    "code": "K",
+    "label": "pol-hist-łac",
+    "extended": [
+     "j. polski",
+     "historia",
+     "j. łaciński"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 165.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo1",
+    "status": "check"
    }
   ],
   "geo": {
@@ -177,7 +249,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -222,6 +295,54 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1E",
+    "label": "hist. sztuki-ang-mat",
+    "extended": [
+     "historia sztuki",
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "budowa",
+     "jezyki"
+    ],
+    "threshold": 169.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1H",
+    "label": "hist-pol-WOS",
+    "extended": [
+     "historia",
+     "j. polski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 164.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo2",
     "status": "check"
    }
   ],
@@ -294,7 +415,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -320,6 +442,126 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "geo-ang-mat",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 172,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo4",
+    "status": "check"
+   },
+   {
+    "code": "E",
+    "label": "hist-pol-WOS",
+    "extended": [
+     "historia",
+     "j. polski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 166.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo4",
+    "status": "check"
+   },
+   {
+    "code": "F",
+    "label": "geo-hist-WOS",
+    "extended": [
+     "geografia",
+     "historia",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "srodowisko"
+    ],
+    "threshold": 163.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo4",
+    "status": "check"
+   },
+   {
+    "code": "GH",
+    "label": "geo-ang-hiszp",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "j. hiszpański"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 170,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo4",
+    "status": "check"
+   },
+   {
+    "code": "GN",
+    "label": "geo-ang-niem",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "j. niemiecki"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 164.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo4",
     "status": "check"
    }
   ],
@@ -460,6 +702,43 @@
     "scoredSourced": false,
     "sourceId": "otou-lo5",
     "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "hist-pol-WOS",
+    "extended": [
+     "historia",
+     "j. polski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 170.2,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w2-lo5",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "geo-hist-WOS",
+    "extended": [
+     "geografia",
+     "historia",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "srodowisko"
+    ],
+    "threshold": 167.6,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w2-lo5",
+    "status": "check"
    }
   ],
   "geo": {
@@ -554,6 +833,105 @@
     "scoredSourced": true,
     "sourceId": "otou-lo7",
     "status": "sourced"
+   },
+   {
+    "code": "A",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 166.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo7",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "geo-hist-mat",
+    "extended": [
+     "geografia",
+     "historia",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 166.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo7",
+    "status": "check"
+   },
+   {
+    "code": "DA",
+    "label": "geo-ang-mat",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 171.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo7",
+    "status": "check"
+   },
+   {
+    "code": "DN",
+    "label": "geo-niem-mat",
+    "extended": [
+     "geografia",
+     "j. niemiecki",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 164.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo7",
+    "status": "check"
    }
   ],
   "geo": {
@@ -663,7 +1041,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -671,6 +1050,54 @@
     "scoredSourced": false,
     "sourceId": "otou-lo8",
     "status": "sourced"
+   },
+   {
+    "code": "1EF",
+    "label": "ang-mat-geo",
+    "extended": [
+     "j. angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 174.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo8",
+    "status": "check"
+   },
+   {
+    "code": "1G",
+    "label": "WOS-pol-hist",
+    "extended": [
+     "wos",
+     "j. polski",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 169.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "wos"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo8",
+    "status": "check"
    }
   ],
   "geo": {
@@ -719,6 +1146,7 @@
      "biologia"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": null,
@@ -726,6 +1154,78 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo9",
+    "status": "check"
+   },
+   {
+    "code": "1a",
+    "label": "geo-ang-mat",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 169.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo9",
+    "status": "check"
+   },
+   {
+    "code": "1b",
+    "label": "biol-ang-pol",
+    "extended": [
+     "biologia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "ludzie",
+     "biologia"
+    ],
+    "threshold": 165.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo9",
+    "status": "check"
+   },
+   {
+    "code": "1d",
+    "label": "hist-pol-WOS",
+    "extended": [
+     "historia",
+     "j. polski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 162,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "wos"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo9",
     "status": "check"
    }
   ],
@@ -1038,6 +1538,7 @@
      "język polski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 158.6,
@@ -1109,6 +1610,54 @@
     "scoredSourced": false,
     "sourceId": "otou-lo42",
     "status": "sourced"
+   },
+   {
+    "code": "1A",
+    "label": "ang-mat-geo",
+    "extended": [
+     "j. angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 170.65,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo42",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "hist-pol-mat",
+    "extended": [
+     "historia",
+     "j. polski",
+     "matematyka"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 167,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo42",
+    "status": "check"
    }
   ],
   "geo": {
@@ -1167,6 +1716,85 @@
     "scoredSourced": false,
     "sourceId": "otou-lo11",
     "status": "check"
+   },
+   {
+    "code": "1b",
+    "label": "biol-geo-ang",
+    "extended": [
+     "biologia",
+     "geografia",
+     "j. angielski"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko",
+     "sport"
+    ],
+    "threshold": 162.4,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w2-lo11",
+    "status": "check"
+   },
+   {
+    "code": "1d",
+    "label": "ang-hiszp-pol-wł",
+    "extended": [
+     "j. angielski",
+     "j. hiszpański",
+     "j. polski",
+     "j. włoski"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 161,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w2-lo11",
+    "status": "check"
+   },
+   {
+    "code": "1e",
+    "label": "geo-ang-mat",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 166.8,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w2-lo11",
+    "status": "check"
+   },
+   {
+    "code": "1f",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 159.2,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w2-lo11",
+    "status": "check"
    }
   ],
   "geo": {
@@ -1206,6 +1834,78 @@
     "scoredSourced": false,
     "sourceId": "otou-lo28",
     "status": "sourced"
+   },
+   {
+    "code": "A",
+    "label": "biol-ang-pol",
+    "extended": [
+     "biologia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "ludzie",
+     "biologia"
+    ],
+    "threshold": 156.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo28",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "biznes-geo-ang",
+    "extended": [
+     "biznes i zarządzanie",
+     "geografia",
+     "j. angielski"
+    ],
+    "cards": [
+     "biznes",
+     "jezyki"
+    ],
+    "threshold": 156.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo28",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "hist-ang-WOS",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 146.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo28",
+    "status": "check"
    }
   ],
   "geo": {
@@ -1301,6 +2001,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 166.7,
@@ -1357,7 +2058,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 171.1,
     "thresholdYear": "2026/27",
@@ -1445,6 +2147,76 @@
     "scoredSourced": false,
     "sourceId": "otou-lo6",
     "status": "check"
+   },
+   {
+    "code": "E",
+    "label": "WOS-pol-hist",
+    "extended": [
+     "wos",
+     "j. polski",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 165.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo6",
+    "status": "check"
+   },
+   {
+    "code": "H1",
+    "label": "geo-hist",
+    "extended": [
+     "geografia",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "srodowisko"
+    ],
+    "threshold": 166.45,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo6",
+    "status": "check"
+   },
+   {
+    "code": "H2",
+    "label": "mat-geo",
+    "extended": [
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 168.7,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo6",
+    "status": "check"
    }
   ],
   "geo": {
@@ -1475,6 +2247,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": null,
@@ -1532,7 +2305,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -1685,7 +2459,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 169.8,
     "thresholdYear": "2026/27",
@@ -1708,6 +2483,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 168.9,
@@ -1771,7 +2547,8 @@
     ],
     "cards": [
      "biologia",
-     "srodowisko"
+     "srodowisko",
+     "sport"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -1797,6 +2574,105 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo15",
+    "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 150.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo15",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "geo-ang-mat",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 157,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo15",
+    "status": "check"
+   },
+   {
+    "code": "F",
+    "label": "geo-ang-hiszp-wł",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "j. hiszpański",
+     "j. włoski"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 152,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo15",
+    "status": "check"
+   },
+   {
+    "code": "G",
+    "label": "geo-ang-WOS",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki",
+     "biznes"
+    ],
+    "threshold": 149,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w2-lo15",
     "status": "check"
    }
   ],
@@ -2057,7 +2933,8 @@
     ],
     "cards": [
      "biologia",
-     "srodowisko"
+     "srodowisko",
+     "sport"
     ],
     "threshold": 153.6,
     "thresholdYear": "2026/27",
@@ -2102,6 +2979,7 @@
      "biologia"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 158.4,
@@ -2110,6 +2988,52 @@
      "polski",
      "matematyka",
      "biologia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo12",
+    "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "pol-hist",
+    "extended": [
+     "j. polski",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 151.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo12",
+    "status": "check"
+   },
+   {
+    "code": "E",
+    "label": "geo-ang",
+    "extended": [
+     "geografia",
+     "j. angielski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki",
+     "biznes"
+    ],
+    "threshold": 159.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
      "angielski"
     ],
     "scoredSourced": true,
@@ -2170,7 +3094,8 @@
     ],
     "cards": [
      "biologia",
-     "srodowisko"
+     "srodowisko",
+     "sport"
     ],
     "threshold": 142.85,
     "thresholdYear": "2026/27",
@@ -2193,6 +3118,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 144.7,
@@ -2223,6 +3149,30 @@
     "thresholdYear": null,
     "scored": null,
     "scoredSourced": false,
+    "sourceId": "w-lo14",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "ang-pol-hist",
+    "extended": [
+     "j. angielski",
+     "j. polski",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 139.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
     "sourceId": "w-lo14",
     "status": "check"
    }
@@ -2256,7 +3206,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -2276,6 +3227,82 @@
     "cards": [
      "biologia",
      "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo16",
+    "status": "check"
+   },
+   {
+    "code": "1A",
+    "label": "psychologiczno-pedagogiczna (pol-ang-biol)",
+    "extended": [
+     "j. polski",
+     "j. angielski",
+     "biologia"
+    ],
+    "cards": [
+     "ludzie",
+     "biologia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo16",
+    "status": "check"
+   },
+   {
+    "code": "1E",
+    "label": "turystyczna (ang-geo-hist)",
+    "extended": [
+     "j. angielski",
+     "geografia",
+     "historia"
+    ],
+    "cards": [
+     "jezyki",
+     "biznes"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo16",
+    "status": "check"
+   },
+   {
+    "code": "1F",
+    "label": "mundurowa (ang-geo-WOS)",
+    "extended": [
+     "j. angielski",
+     "geografia",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo16",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "przygotowania wojskowego (ang-hist-WOS)",
+    "extended": [
+     "j. angielski",
+     "historia",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -2314,7 +3341,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 158.4,
     "thresholdYear": "2026/27",
@@ -2361,6 +3389,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 152.2,
@@ -2370,6 +3399,54 @@
      "matematyka",
      "biologia",
      "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo18",
+    "status": "check"
+   },
+   {
+    "code": "c",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 136.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo18",
+    "status": "check"
+   },
+   {
+    "code": "e",
+    "label": "biznes-geo-WOS",
+    "extended": [
+     "biznes i zarządzanie",
+     "geografia",
+     "wos"
+    ],
+    "cards": [
+     "biznes",
+     "spoleczenstwo"
+    ],
+    "threshold": 146.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "wos"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo18",
@@ -2405,7 +3482,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 167.1,
     "thresholdYear": "2026/27",
@@ -2466,6 +3544,77 @@
     "scoredSourced": true,
     "sourceId": "w-lo20",
     "status": "check"
+   },
+   {
+    "code": "1A",
+    "label": "hist-pol-WOS",
+    "extended": [
+     "historia",
+     "j. polski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 159.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo20",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "geo-ang-niem",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "j. niemiecki"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 155.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo20",
+    "status": "check"
+   },
+   {
+    "code": "1F",
+    "label": "ang-fr-WOS",
+    "extended": [
+     "j. angielski",
+     "j. francuski",
+     "wos"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 157.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "wos"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo20",
+    "status": "check"
    }
   ],
   "note": "Progi klas z waszaedukacja są wyższe niż zakres szkoły w otouczelnie. Sprawdź w szkole.",
@@ -2498,7 +3647,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 157.2,
     "thresholdYear": "2026/27",
@@ -2522,7 +3672,8 @@
     ],
     "cards": [
      "biologia",
-     "srodowisko"
+     "srodowisko",
+     "sport"
     ],
     "threshold": 149.6,
     "thresholdYear": "2026/27",
@@ -2531,6 +3682,30 @@
      "matematyka",
      "biologia",
      "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo23",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 137,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo23",
@@ -2590,7 +3765,8 @@
     ],
     "cards": [
      "biologia",
-     "srodowisko"
+     "srodowisko",
+     "sport"
     ],
     "threshold": 152.8,
     "thresholdYear": "2026/27",
@@ -2636,6 +3812,7 @@
      "angielski"
     ],
     "cards": [
+     "biznes",
      "dane-ai"
     ],
     "threshold": 153,
@@ -2645,6 +3822,52 @@
      "matematyka",
      "geografia",
      "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo24",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "hist-pol",
+    "extended": [
+     "historia",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 142.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo24",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "hist-ang-WOS",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 141.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "historia",
+     "wos"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo24",
@@ -2751,7 +3974,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 166.6,
     "thresholdYear": "2026/27",
@@ -2775,7 +3999,8 @@
     ],
     "cards": [
      "biologia",
-     "srodowisko"
+     "srodowisko",
+     "sport"
     ],
     "threshold": 164.1,
     "thresholdYear": "2026/27",
@@ -2798,6 +4023,7 @@
      "angielski"
     ],
     "cards": [
+     "biznes",
      "dane-ai"
     ],
     "threshold": 165.4,
@@ -2807,6 +4033,30 @@
      "matematyka",
      "angielski",
      "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo27",
+    "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 161.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
@@ -2890,6 +4140,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 140.9,
@@ -2899,6 +4150,54 @@
      "matematyka",
      "angielski",
      "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo30",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "humanistyczna (pol-hist-ang)",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 130.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo30",
+    "status": "check"
+   },
+   {
+    "code": "1G",
+    "label": "turystyczno-językowa (geo-ang-pol)",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "jezyki",
+     "biznes"
+    ],
+    "threshold": 128.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo30",
@@ -2958,7 +4257,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 163.3,
     "thresholdYear": "2026/27",
@@ -2981,6 +4281,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 162.6,
@@ -2992,6 +4293,52 @@
      "biologia"
     ],
     "scoredSourced": true,
+    "sourceId": "w-lo41",
+    "status": "check"
+   },
+   {
+    "code": "D",
+    "label": "pol-ang-hiszp",
+    "extended": [
+     "j. polski",
+     "j. angielski",
+     "j. hiszpański"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 161,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski"
+    ],
+    "scoredSourced": false,
+    "sourceId": "w-lo41",
+    "status": "check"
+   },
+   {
+    "code": "W",
+    "label": "pol-ang-wł",
+    "extended": [
+     "j. polski",
+     "j. angielski",
+     "j. włoski"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 158.7,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski"
+    ],
+    "scoredSourced": false,
     "sourceId": "w-lo41",
     "status": "check"
    }
@@ -3043,9 +4390,49 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 157.2,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-lo43",
+    "status": "check"
+   },
+   {
+    "code": "c",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 144.3,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-lo43",
+    "status": "check"
+   },
+   {
+    "code": "d",
+    "label": "geo-ang-WOS",
+    "extended": [
+     "geografia",
+     "j. angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki",
+     "biznes"
+    ],
+    "threshold": 147.2,
     "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
@@ -3131,7 +4518,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "biznes"
     ],
     "threshold": 162.45,
     "thresholdYear": "2026/27",
@@ -3140,6 +4528,30 @@
      "matematyka",
      "angielski",
      "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo44",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "ang-niem-WOS",
+    "extended": [
+     "j. angielski",
+     "j. niemiecki",
+     "wos"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 150.55,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "wos"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo44",
@@ -3198,6 +4610,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 146.5,
@@ -3207,6 +4620,30 @@
      "matematyka",
      "angielski",
      "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo45",
+    "status": "check"
+   },
+   {
+    "code": "1B",
+    "label": "hist-ang-pol",
+    "extended": [
+     "historia",
+     "j. angielski",
+     "j. polski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 133.7,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo45",
@@ -3251,6 +4688,53 @@
      "matematyka",
      "angielski",
      "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo46",
+    "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "geo-hist-ang",
+    "extended": [
+     "geografia",
+     "historia",
+     "j. angielski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "srodowisko"
+    ],
+    "threshold": 146.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo46",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "hist-pol-WOS",
+    "extended": [
+     "historia",
+     "j. polski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 145,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
     ],
     "scoredSourced": true,
     "sourceId": "w-lo46",
@@ -3390,6 +4874,28 @@
     "sourceId": "w-tk25",
     "status": "check",
     "occupation": "technik mechatronik"
+   },
+   {
+    "code": "LA",
+    "label": "technik logistyk",
+    "extended": [
+     "j. angielski"
+    ],
+    "cards": [
+     "biznes"
+    ],
+    "threshold": 120.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tk25",
+    "status": "check",
+    "occupation": "technik logistyk"
    }
   ],
   "geo": {
@@ -3691,6 +5197,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 131.1,
@@ -3734,6 +5241,7 @@
      "angielski"
     ],
     "cards": [
+     "biznes",
      "dane-ai"
     ],
     "threshold": 53.5,
@@ -3778,6 +5286,7 @@
      "angielski"
     ],
     "cards": [
+     "ludzie",
      "biologia"
     ],
     "threshold": 134.9,
@@ -4130,7 +5639,8 @@
     ],
     "cards": [
      "srodowisko",
-     "dane-ai"
+     "dane-ai",
+     "budowa"
     ],
     "threshold": 101,
     "thresholdYear": "2026/27",
@@ -4167,6 +5677,29 @@
     "sourceId": "w-tg12",
     "status": "check",
     "occupation": "technik ochrony środowiska"
+   },
+   {
+    "code": "L",
+    "label": "technik logistyk",
+    "extended": [
+     "geografia",
+     "j. angielski"
+    ],
+    "cards": [
+     "biznes"
+    ],
+    "threshold": 64.7,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tg12",
+    "status": "check",
+    "occupation": "technik logistyk"
    }
   ],
   "geo": {
@@ -4174,5 +5707,242 @@
    "lon": 19.89054,
    "q": "Lea 235, Kraków, Kraków"
   }
+ },
+ {
+  "id": "teh4",
+  "name": "Technikum Ekonomiczno-Hotelarskie nr 4",
+  "short": "Technikum Ekonomiczno-Hotelarskie nr 4",
+  "type": "technikum",
+  "address": null,
+  "range": {
+   "min": 108.5,
+   "max": 143.85,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "1a",
+    "label": "technik ekonomista",
+    "extended": [
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 145.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-teh4",
+    "status": "check",
+    "occupation": "technik ekonomista"
+   },
+   {
+    "code": "1b",
+    "label": "technik rachunkowości",
+    "extended": [
+     "j. angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "biznes"
+    ],
+    "threshold": 130.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-teh4",
+    "status": "check",
+    "occupation": "technik rachunkowości"
+   },
+   {
+    "code": "1c",
+    "label": "technik hotelarstwa",
+    "extended": [
+     "geografia",
+     "j. angielski"
+    ],
+    "cards": [
+     "biznes",
+     "jezyki"
+    ],
+    "threshold": 126.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-teh4",
+    "status": "check",
+    "occupation": "technik hotelarstwa"
+   }
+  ]
+ },
+ {
+  "id": "tb1",
+  "name": "Technikum Budowlane nr 1 (ZS Architektoniczno-Budowlanych nr 1)",
+  "short": "Technikum Budowlane nr 1",
+  "type": "technikum",
+  "address": null,
+  "range": {
+   "min": 52.55,
+   "max": 88.7,
+   "year": "2025/26",
+   "sourceId": "otou-progi-technika-2025"
+  },
+  "classes": [
+   {
+    "code": "B",
+    "label": "technik budownictwa",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "budowa"
+    ],
+    "threshold": 132.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tb1",
+    "status": "check",
+    "occupation": "technik budownictwa"
+   },
+   {
+    "code": "A",
+    "label": "technik aranżacji wnętrz",
+    "extended": [
+     "j. angielski"
+    ],
+    "cards": [
+     "budowa"
+    ],
+    "threshold": 126.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tb1",
+    "status": "check",
+    "occupation": "technik aranżacji wnętrz"
+   },
+   {
+    "code": "O",
+    "label": "technik urządzeń i systemów energetyki odnawialnej",
+    "extended": [
+     "geografia"
+    ],
+    "cards": [
+     "budowa",
+     "srodowisko",
+     "elektronika"
+    ],
+    "threshold": 119.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tb1",
+    "status": "check",
+    "occupation": "technik urządzeń i systemów energetyki odnawialnej"
+   },
+   {
+    "code": "R",
+    "label": "technik renowacji elementów architektury",
+    "extended": [
+     "j. angielski"
+    ],
+    "cards": [
+     "budowa",
+     "spoleczenstwo"
+    ],
+    "threshold": 107.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tb1",
+    "status": "check",
+    "occupation": "technik renowacji elementów architektury"
+   },
+   {
+    "code": "N",
+    "label": "technik gospodarki nieruchomościami",
+    "extended": [
+     "j. angielski"
+    ],
+    "cards": [
+     "biznes",
+     "budowa"
+    ],
+    "threshold": 108.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tb1",
+    "status": "check",
+    "occupation": "technik gospodarki nieruchomościami"
+   },
+   {
+    "code": "D",
+    "label": "technik technologii drewna",
+    "extended": [
+     "geografia"
+    ],
+    "cards": [
+     "budowa"
+    ],
+    "threshold": 115.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tb1",
+    "status": "check",
+    "occupation": "technik technologii drewna"
+   }
+  ]
  }
 ]

@@ -1,4 +1,4 @@
-/* Kompas Liceum v1.6: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
+/* Kompas Liceum v1.7: points form, class list, margin pills, area cards. Builds on ../studia/style.css and its skins. */
 body.wide main { max-width: 1040px; }
 .kicker2 { display: inline-block; font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
 .hero2 { padding: 8px 0 4px; }
@@ -164,3 +164,19 @@ html[data-skin="neon"] .pin.ambitna, html[data-skin="neon"] .mapnum.ambitna { ba
 html[data-skin="neon"] .mapbox { border-color: color-mix(in srgb, var(--l0) 35%, var(--line)); }
 html[data-skin="neon"] .mapbox .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.85) contrast(.9) saturate(.6); }
 html[data-skin="neon"] .srch input { border-color: color-mix(in srgb, var(--l0) 35%, var(--line)); }
+
+/* v1.7: worlds, compass note, tap-only strengths */
+.compassnote { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 8px; margin: 8px 0 12px; }
+html[data-skin="neon"] .compassnote { border-left-color: var(--l1); background: color-mix(in srgb, var(--l1) 10%, transparent); }
+.wgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 12px 0; }
+.wtile { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; font: inherit; color: inherit; cursor: pointer;
+  background: var(--card); border: 2px solid var(--line); border-radius: var(--radius); padding: 14px; transition: transform .15s ease, border-color .15s ease, background-color .15s ease; }
+.wtile .ico { width: 28px; height: 28px; }
+.wtile span { font-size: .85rem; color: var(--muted); }
+.wtile[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.wtile:active { transform: scale(.97); }
+.wtile:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+html[data-skin="neon"] .wtile[aria-pressed="true"] { border-color: var(--l1); background: color-mix(in srgb, var(--l1) 14%, transparent); box-shadow: 0 0 14px color-mix(in srgb, var(--l1) 35%, transparent); }
+.strength + .strength { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+.strength .field { margin: 0 0 6px; font-weight: 600; }
+@media (max-width: 600px) { .wgrid { grid-template-columns: 1fr 1fr; } .wtile { padding: 10px; } .wtile span { display: none; } }

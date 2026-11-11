@@ -1,6 +1,6 @@
-// Kompas Liceum v1.6.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v1.7.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
 import { provenStrengths } from '../core/scoring.js';
-import { scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
+import { visibleActivities, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
 import { icon } from '../studia/icons.js';
 import { LILLUS } from './illus.js';
 import { ILLUS } from '../studia/illus.js';
@@ -14,7 +14,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 const f1 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const f2 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [],
-  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {} });
+  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [] });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -72,23 +72,27 @@ function applySkin(animate) {
 }
 
 // ---- screens ------------------------------------------------------------------------------------------------------
+const acts = () => visibleActivities(A, data);
+const syncSort = () => { const v = acts(), i = v.findIndex(x => !(x.id in A.sort)); A.sortPos = i < 0 ? v.length : i; };
 const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
 const nameOf = id => (data.strengths.find(s => s.id === id) || {}).name || id;
 const screens = [
   { id: 'start', ch: null, view: vStart },
-  { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length, hint: () => `Zostało kart: ${data.questions.activities.length - A.sortPos}` },
+  { id: 'swiaty', ch: 'ja', view: vWorlds, ok: () => (A.worlds || []).length > 0, hint: () => 'Wybierz co najmniej jeden świat albo „wszystko po trochu”' },
+  { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= acts().length, hint: () => `Zostało kart: ${acts().length - A.sortPos}` },
   { id: 'sytuacje', ch: 'ja', view: vSituations },
   { id: 'styl', ch: 'ja', view: vStyle },
   { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 3, hint: () => `Wybierz jeszcze ${3 - A.values.length}` },
   { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 3,
-    hint: () => A.strengths.length < 3 ? `Wybierz jeszcze ${3 - A.strengths.length}` : `Dopisz przykład: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
+    hint: () => A.strengths.length < 3 ? `Wybierz jeszcze ${3 - A.strengths.length}` : `Zaznacz, gdzie to widać: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
   { id: 'szkola', ch: 'szkola', view: vSchool },
   { id: 'wyniki', ch: 'wyniki', view: vResults },
   { id: 'szkoly', ch: 'szkoly', view: vSchools }
 ];
-const STEP_TITLE = { zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
+const STEP_TITLE = { swiaty: 'Twoje światy', zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
 const current = () => screens.find(s => s.id === ((location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start')) || screens[0];
-const needResults = () => !(A.sortPos >= data.questions.activities.length && A.values.length === 3 && provenStrengths(A).length === 3);
+const hasWorlds = () => !Array.isArray(A.worlds) || A.worlds.length > 0;
+const needResults = () => !(hasWorlds() && A.sortPos >= acts().length && A.values.length === 3 && provenStrengths(A).length === 3);
 
 let lastProg = { ch: null, w: 0 };
 function render() {
@@ -125,37 +129,46 @@ function render() {
 
 function vGate() {
   const miss = [];
-  if (A.sortPos < data.questions.activities.length) miss.push('karty „Co lubisz robić”');
+  if (!hasWorlds()) miss.push('wybór światów');
+  if (A.sortPos < acts().length) miss.push('karty „Co lubisz robić”');
   if (A.values.length < 3) miss.push('trzy rzeczy, które są dla ciebie ważne');
-  if (provenStrengths(A).length < 3) miss.push('trzy mocne strony z przykładem');
+  if (provenStrengths(A).length < 3) miss.push('trzy mocne strony');
   return `<h1>Najpierw kilka pytań</h1><p>Żeby pokazać klasy, które do ciebie pasują, brakuje jeszcze: ${miss.map(esc).join(', ')}.</p>
-    <div class="actions"><button class="btn" data-go="zajecia">Wróć do pytań</button></div>`;
+    <div class="actions"><button class="btn" data-go="${(A.worlds || []).length ? 'zajecia' : 'swiaty'}">Wróć do pytań</button></div>`;
 }
 
 function vStart() {
   const started = hasAnswers();
   const nCls = data.schools.reduce((t, x) => t + x.classes.length, 0);
-  const steps = [['Ja', 'co lubisz, jak pracujesz, w czym jesteś dobry', 'ok. 8 min'], ['Szkoła', 'jak ci idzie w szkole, bez liczenia punktów', 'ok. 2 min'], ['Wyniki', 'kierunki, klasy w Krakowie i plan do maja 2027', '']];
+  const steps = [['Ja', 'światy, które cię ciekawią, i co lubisz robić: same kliknięcia', 'ok. 8 min'], ['Szkoła', 'jak ci idzie: słabo, dobrze, świetnie', 'ok. 1 min'], ['Wyniki', 'kierunki, klasy w Krakowie i pomysły na najbliższe miesiące', '']];
   return `<div class="hero">${ILLUS.start}<div>
-    <span class="kicker2">Kompas Liceum · Kraków 2027 · matematyka, informatyka, przyroda</span>
+    <span class="kicker2">Kompas Liceum · Kraków 2027</span>
     <h1>Jaka klasa pasuje do tego, co lubisz?</h1>
-    <p class="lead">Kilka pytań o to, co lubisz robić, i krótko o tym, jak ci idzie w szkole. Na końcu zobaczysz kierunki oraz klasy w krakowskich liceach i technikach, które są realne, a które ambitne.</p>
+    <div class="compassnote"><b>To nie test i nie ocena.</b> To kompas: pokazuje kierunki, które warto odkryć, i klasy w Krakowie, które do nich prowadzą. Nie ma złych odpowiedzi, a punkty i szanse są tylko orientacyjne.</div>
+    <p class="lead">Klikasz, przesuwasz i wybierasz. Nic nie musisz pisać. Na końcu zobaczysz kierunki oraz licea i technika, które są realne, a które ambitne.</p>
     <ol class="steps2">${steps.map((x, k) => `<li><span class="rno">${k + 1}</span><div><b>${x[0]}</b><span class="t">${x[1]}${x[2] ? ' · ' + x[2] : ''}</span></div></li>`).join('')}</ol>
     ${started ? '<p><b>Masz już odpowiedzi.</b> Możesz wrócić do pytań albo od razu do wyników.</p>' : ''}
     <div class="startrow"><div><label class="field" for="name">Imię <span class="muted">(opcjonalnie, tylko do nazwy pliku)</span></label>
       <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off"></div>
-      <button class="btn big" data-go="zajecia">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button></div>
+      <button class="btn big" data-go="${started && (A.worlds || []).length ? 'zajecia' : 'swiaty'}">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button></div>
     <div class="actions">${started && !needResults() ? '<button class="btn ghost" data-go="wyniki">Moje wyniki</button>' : ''}<button class="btn ghost" data-go="szkoly">Przeglądaj szkoły</button></div>
-    <p class="muted small">Nie ma złych odpowiedzi. To punkt wyjścia do rozmowy z rodzicami i nauczycielami: nie test i nie wyrok.</p>
-    <div class="note2"><b>Co jest w bazie.</b> ${data.schools.length} szkół i ${nCls} klas w Krakowie z matematyką, fizyką, informatyką, biologią, chemią i geografią. Progi są z rekrutacji 2026, więc to orientacja, nie obietnica.</div>
+    <div class="note2"><b>Co jest w bazie.</b> ${data.schools.length} szkół i ${nCls} klas w Krakowie: ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i sportowe dojdą w kolejnej wersji. Progi są z rekrutacji 2026, więc to orientacja, nie obietnica.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
     ${TEST ? `<details class="card"><summary>Tryb testowy</summary><div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div></details>` : ''}
   </div></div>`;
 }
 
+function vWorlds() {
+  const w = A.worlds || [], all = w.includes('all');
+  const tile = x => `<button class="wtile" data-world="${x.id}" aria-pressed="${!all && w.includes(x.id)}">${icon(x.icon, 'ico')}<b>${esc(x.name)}</b><span>${esc(x.hint)}</span></button>`;
+  return `${ILLUS.zajecia}<h1>Co cię ciekawi?</h1><p class="muted">Wybierz światy, które cię przyciągają. Możesz kilka. Pokażemy ci pytania głównie z tych światów, a resztę po trochu.</p>
+    <div class="wgrid">${data.questions.worlds.map(tile).join('')}</div>
+    <div class="row-s"><button class="chip" data-world="all" aria-pressed="${all}">Nie wiem, pokaż wszystko po trochu</button></div>`;
+}
+
 function vSort() {
-  const acts = data.questions.activities, n = acts.length, pos = Math.min(A.sortPos, n);
+  const acts = visibleActivities(A, data), n = acts.length, pos = Math.min(A.sortPos, n);
   const dots = `<div class="dots" aria-hidden="true">${acts.map((_, i) => `<i class="${i < pos ? 'done' : ''}"></i>`).join('')}</div>`;
   if (pos >= n) {
     const liked = acts.filter(a => A.sort[a.id] === 1).map(a => `<li>${esc(a.text)}</li>`).join('');
@@ -168,14 +181,14 @@ function vSort() {
       <button class="chip" data-sortans="0" style="margin-top:12px">obojętne, pomiń</button>${pos > 0 ? '<button class="chip" data-sortback style="margin-top:12px">cofnij</button>' : ''}
       <p class="keys" aria-hidden="true"><kbd>←</kbd> nie lubię · <kbd>→</kbd> lubię · <kbd>↓</kbd> pomiń</p></div>${dots}`;
 }
-function sortAnswer(v) { const a = data.questions.activities[A.sortPos]; if (!a) return; A.sort[a.id] = v; A.sortPos++; render(); }
+function sortAnswer(v) { const a = acts()[A.sortPos]; if (!a) return; A.sort[a.id] = v; A.sortPos++; render(); }
 let swipe = null;
 document.addEventListener('pointerdown', e => { const c = e.target.closest('.card.sort'); if (c && !e.target.closest('button')) swipe = { x: e.clientX, c }; });
 document.addEventListener('pointermove', e => { if (swipe) { const dx = e.clientX - swipe.x; swipe.c.style.transform = `translateX(${dx}px) rotate(${dx / 40}deg)`; swipe.c.dataset.lean = dx > 30 ? 'r' : dx < -30 ? 'l' : ''; } });
 document.addEventListener('pointerup', e => { if (!swipe) return; const dx = e.clientX - swipe.x, c = swipe.c; swipe = null; c.style.transform = ''; if (Math.abs(dx) > 70) sortAnswer(dx > 0 ? 1 : -1); else c.dataset.lean = ''; });
 document.addEventListener('pointercancel', () => { if (swipe) { swipe.c.style.transform = ''; swipe = null; } });
 document.addEventListener('keydown', e => {
-  if (current().id !== 'zajecia' || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName) || A.sortPos >= data.questions.activities.length) return;
+  if (current().id !== 'zajecia' || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName) || A.sortPos >= acts().length) return;
   const m = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 0 }[e.key]; if (m !== undefined) { e.preventDefault(); sortAnswer(m); }
 });
 
@@ -204,14 +217,15 @@ function vValues() {
     <div class="chips">${data.dimensions.values.map(v => { const i = A.values.indexOf(v.id); return chip(`data-value="${v.id}"`, `${i >= 0 ? `<span class="n">${i + 1}.</span> ` : ''}${v.name}`, i >= 0); }).join('')}</div>`;
 }
 
+const WHERE = ['w szkole', 'w sporcie', 'w domu', 'w hobby', 'z przyjaciółmi', 'w grach i internecie'];
 function vStrengths() {
   const picked = A.strengths.map(s => s.id);
   const list = A.strengths.map(s => { const st = data.strengths.find(x => x.id === s.id);
-    return `<div class="strength"><label class="field" for="pr-${s.id}">${esc(st.name)}: kiedy to pokazałeś? Jedno zdanie wystarczy.</label>
-      <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${esc(s.proof)}" placeholder="${esc(st.example)}"></div>`; }).join('');
-  return `<h1>Twoje mocne strony</h1><p>Wybierz trzy rzeczy, które ci wychodzą. Do każdej dopisz jeden przykład z życia: szkoła, sport, dom, hobby. <span class="pickn">${A.strengths.length} z 3</span></p>
+    return `<div class="strength"><p class="field">${esc(st.name)}: gdzie to widać?</p>
+      <div class="chips">${WHERE.map(w => chip(`data-where="${s.id}|${w}"`, w, s.proof === w)).join('')}</div></div>`; }).join('');
+  return `<h1>Twoje mocne strony</h1><p>Wybierz trzy rzeczy, które ci wychodzą, i kliknij, gdzie to widać. <span class="pickn">${A.strengths.length} z 3</span></p>
     <div class="chips">${data.strengths.map(s => chip(`data-strength="${s.id}"`, s.name, picked.includes(s.id))).join('')}</div>
-    ${list ? `<div class="card">${list}</div>` : ''}<p class="small muted">Mocna strona liczy się dopiero z przykładem. Przykład nie musi być wielki.</p>`;
+    ${list ? `<div class="card">${list}</div>` : ''}`;
 }
 
 // ---- school self-assessment (soft by default, exact marks optional) -----------------------------------------------
@@ -401,7 +415,7 @@ function schoolMatch(school, q) {
   return fold(q).split(/\s+/).every(w => hay.includes(w));
 }
 const rowPass = x => (!ui.type || x.school.type === ui.type) && (!ui.chance || x.check.chance === ui.chance)
-  && (!ui.subj || (x.cls.extended || []).includes(ui.subj) || (x.cls.scored || []).includes(ui.subj));
+  && (!ui.subj || x.cls.cards.some(id => ((data.opportunities.find(o => o.id === id) || {}).worlds || []).includes(ui.subj)));
 const SHORT_CH = { realna: 'realna', zawalczenia: 'do zawalczenia', ambitna: 'ambitna' };
 const SUBJ_F = ['matematyka', 'informatyka', 'fizyka', 'biologia', 'chemia', 'geografia'];
 function filterBar(full) {
@@ -409,7 +423,7 @@ function filterBar(full) {
   return `<div class="filters" role="group" aria-label="Filtry">
     ${full ? `<label class="srch"><span class="visually-hidden">Szukaj szkoły</span><input id="fq" type="search" data-filter="q" value="${esc(ui.q)}" placeholder="Szukaj: np. 31, Ingardena, programista" autocomplete="off"></label>` : ''}
     <div class="frow"><span class="small muted">Szkoła:</span>${c('type', '', 'wszystkie')}${c('type', 'liceum', 'liceum')}${c('type', 'technikum', 'technikum')}</div>
-    ${full ? `<div class="frow"><span class="small muted">Przedmiot:</span>${c('subj', '', 'każdy')}${SUBJ_F.map(s => c('subj', s, s)).join('')}</div>` : ''}
+    ${full ? `<div class="frow"><span class="small muted">Świat:</span>${c('subj', '', 'każdy')}${data.questions.worlds.map(w => c('subj', w.id, esc(w.name))).join('')}</div>` : ''}
     ${hasInput() ? `<div class="frow"><span class="small muted">Szansa:</span>${c('chance', '', 'każda')}${c('chance', 'realna', 'realna')}${c('chance', 'zawalczenia', 'do zawalczenia')}${c('chance', 'ambitna', 'ambitna')}</div>` : ''}
   </div>`;
 }
@@ -428,13 +442,13 @@ function vSchools() {
       ${x.rows.some(r => r.cls.status !== 'sourced') ? '<p class="small muted">Progi i przedmioty do sprawdzenia w rekrutacji 2027.</p>' : ''}
       <div class="scta"><button class="btn ghost small" data-pin="${x.school.id}">Na mapie</button><a class="btn ghost small" href="${esc(dirUrl(x.school))}" target="_blank" rel="noopener">Dojazd</a></div></article>`;
   return `<div class="rhead"><div><h1>Szkoły w Krakowie</h1>
-    <p class="lead">${data.schools.length} liceów i techników, tylko klasy z matematyką, informatyką, fizyką, biologią, chemią lub geografią. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
+    <p class="lead">${data.schools.length} liceów i techników w Krakowie, wszystkie klasy oprócz dwujęzycznych i sportowych. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
     ${needResults() ? '' : '<div class="actions"><button class="btn ghost" data-go="wyniki">Moje wyniki</button></div>'}</div>${LILLUS.szkoly}</div>
     ${filterBar(true)}
     <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
-    ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas ma tylko klasy ścisłe i przyrodnicze. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
+    ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas dwujęzycznych, sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
-    <p class="note2">Nie ma tu klas humanistycznych, językowych, mundurowych i sportowych. Pomijamy też XVII LO (klasy dwujęzyczne z inną skalą punktów), XXV LO (bez klas ścisłych), szkoły sportowe i prywatne.</p>`;
+    <p class="note2">Nie ma jeszcze klas dwujęzycznych i sportowych (mają osobny test językowy albo sprawności, dojdą w kolejnej wersji). Pomijamy też XVII i XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).</p>`;
 }
 
 // ---- map (Leaflet + OpenStreetMap tiles, loaded only when results open) ------------------------------------------------
@@ -534,14 +548,15 @@ function loadFile(text) {
   if (!hadMode && (Object.keys(a.points.exam || {}).length || Object.keys(a.points.grades || {}).length)) a.points.mode = 'exact';
   a.strengths = (a.strengths || []).filter(x => has(data.strengths, x.id) || (missing.push('mocna strona: ' + x.id), false));
   a.values = (a.values || []).filter(v => has(data.dimensions.values, v) || (missing.push('wartość: ' + v), false));
+  if (!Array.isArray(obj.answers.worlds)) a.worlds = ['all']; // files from before v1.7
   for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
   for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push('sytuacja: ' + k); }
   if (a.area && !has(data.opportunities, a.area)) { missing.push('kierunek: ' + a.area); a.area = null; }
-  a.sortPos = Math.min(Object.keys(a.sort).length, data.questions.activities.length);
+  { const v = visibleActivities(a, data), i = v.findIndex(x => !(x.id in a.sort)); a.sortPos = i < 0 ? v.length : i; }
   a.sitPos = Object.keys(a.situations).length;
   A = a; savedSnap = answersKey();
   notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '');
-  const target = needResults() ? '#/zajecia' : '#/wyniki';
+  const target = needResults() ? '#/swiaty' : '#/wyniki';
   if (location.hash === target) render(); else location.hash = target;
 }
 
@@ -564,8 +579,10 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button, a'); if (!t || !data) return;
   const d = t.dataset;
   if (d.go) { e.preventDefault(); if (location.hash === '#/' + d.go) render(); else location.hash = '#/' + d.go; return; }
+  if (d.world) { let w = A.worlds || []; if (d.world === 'all') w = w.includes('all') ? [] : ['all']; else { w = w.filter(x => x !== 'all'); w = w.includes(d.world) ? w.filter(x => x !== d.world) : [...w, d.world]; } A.worlds = w; syncSort(); save(); render(); return; }
+  if (d.where) { const [id, w] = d.where.split('|'), s = A.strengths.find(x => x.id === id); if (s) s.proof = s.proof === w ? '' : w; save(); render(); return; }
   if (d.sortans !== undefined) { sortAnswer(Number(d.sortans)); return; }
-  if ('sortback' in d) { A.sortPos = Math.max(0, A.sortPos - 1); delete A.sort[data.questions.activities[A.sortPos].id]; render(); return; }
+  if ('sortback' in d) { A.sortPos = Math.max(0, A.sortPos - 1); delete A.sort[acts()[A.sortPos].id]; render(); return; }
   if ('sortreset' in d) { A.sortPos = 0; render(); return; }
   if (d.sitans !== undefined) { const q = data.questions.situations[A.sitPos]; if (d.sitans) A.situations[q.id] = d.sitans; else delete A.situations[q.id]; A.sitPos++; render(); return; }
   if ('sitback' in d) { A.sitPos = Math.max(0, A.sitPos - 1); render(); return; }
@@ -582,7 +599,7 @@ document.addEventListener('click', e => {
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
-  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); A.points = Object.assign(blank().points, A.points); if (!A.points.mode && Object.keys(A.points.exam || {}).length) A.points.mode = 'exact'; A.sortPos = data.questions.activities.length; A.sitPos = data.questions.situations.length; if (location.hash === '#/wyniki') render(); else location.hash = '#/wyniki'; }
+  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); if (!Array.isArray(p.answers.worlds)) delete A.worlds; A.points = Object.assign(blank().points, A.points); if (!A.points.mode && Object.keys(A.points.exam || {}).length) A.points.mode = 'exact'; A.sortPos = acts().length; A.sitPos = data.questions.situations.length; if (location.hash === '#/wyniki') render(); else location.hash = '#/wyniki'; }
 });
 document.addEventListener('change', e => {
   const t = e.target, d = t.dataset;

@@ -7,7 +7,10 @@
     "ana": 2,
     "sys": 1,
     "tec": 1
-   }
+   },
+   "worlds": [
+    "tech"
+   ]
   },
   {
    "id": "a2",
@@ -15,7 +18,10 @@
    "w": {
     "tec": 2,
     "ana": 1
-   }
+   },
+   "worlds": [
+    "tech"
+   ]
   },
   {
    "id": "a3",
@@ -23,7 +29,10 @@
    "w": {
     "ana": 2,
     "tec": 1
-   }
+   },
+   "worlds": [
+    "natura"
+   ]
   },
   {
    "id": "a4",
@@ -39,7 +48,10 @@
    "w": {
     "twr": 2,
     "ana": 1
-   }
+   },
+   "worlds": [
+    "tech"
+   ]
   },
   {
    "id": "a6",
@@ -54,7 +66,10 @@
    "w": {
     "ana": 2,
     "sys": 1
-   }
+   },
+   "worlds": [
+    "natura"
+   ]
   },
   {
    "id": "a8",
@@ -62,7 +77,10 @@
    "w": {
     "tec": 2,
     "ana": 1
-   }
+   },
+   "worlds": [
+    "tech"
+   ]
   },
   {
    "id": "a9",
@@ -86,7 +104,10 @@
    "w": {
     "ana": 2,
     "sys": 2
-   }
+   },
+   "worlds": [
+    "tech"
+   ]
   },
   {
    "id": "a12",
@@ -101,7 +122,10 @@
    "w": {
     "ana": 2,
     "twr": 1
-   }
+   },
+   "worlds": [
+    "natura"
+   ]
   },
   {
    "id": "a14",
@@ -117,7 +141,10 @@
    "w": {
     "ana": 2,
     "sys": 1
-   }
+   },
+   "worlds": [
+    "tech"
+   ]
   },
   {
    "id": "a16",
@@ -125,7 +152,10 @@
    "w": {
     "spo": 2,
     "ana": 1
-   }
+   },
+   "worlds": [
+    "natura"
+   ]
   },
   {
    "id": "a17",
@@ -134,7 +164,10 @@
     "sys": 2,
     "ana": 1,
     "tec": 1
-   }
+   },
+   "worlds": [
+    "tech"
+   ]
   },
   {
    "id": "a18",
@@ -150,7 +183,10 @@
    "w": {
     "tec": 2,
     "ana": 1
-   }
+   },
+   "worlds": [
+    "natura"
+   ]
   },
   {
    "id": "a20",
@@ -175,6 +211,208 @@
     "ana": 1,
     "sys": 2
    }
+  },
+  {
+   "id": "b1",
+   "text": "Rozmawiać z kimś z innego kraju w jego języku.",
+   "w": {
+    "spo": 2,
+    "twr": 1
+   },
+   "worlds": [
+    "jezyki"
+   ]
+  },
+  {
+   "id": "b2",
+   "text": "Oglądać seriale albo grać w gry po angielsku bez napisów.",
+   "w": {
+    "twr": 1,
+    "ana": 1
+   },
+   "worlds": [
+    "jezyki"
+   ]
+  },
+  {
+   "id": "b3",
+   "text": "Przetłumaczyć tekst piosenki tak, żeby dobrze brzmiał po polsku.",
+   "w": {
+    "twr": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "jezyki"
+   ]
+  },
+  {
+   "id": "b4",
+   "text": "Zaplanować, na co wydać kieszonkowe i ile odłożyć.",
+   "w": {
+    "sys": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "biznes"
+   ]
+  },
+  {
+   "id": "b5",
+   "text": "Wymyślić mały biznes i policzyć, czy się opłaci.",
+   "w": {
+    "prz": 2,
+    "ana": 1
+   },
+   "worlds": [
+    "biznes"
+   ]
+  },
+  {
+   "id": "b6",
+   "text": "Śledzić ceny, kursy walut albo akcje.",
+   "w": {
+    "ana": 1,
+    "sys": 1,
+    "prz": 1
+   },
+   "worlds": [
+    "biznes"
+   ]
+  },
+  {
+   "id": "b7",
+   "text": "Narysować plan pokoju albo domu i przestawiać w nim meble.",
+   "w": {
+    "twr": 1,
+    "tec": 1,
+    "sys": 1
+   },
+   "worlds": [
+    "budowa"
+   ]
+  },
+  {
+   "id": "b8",
+   "text": "Patrzeć na budowę i rozumieć, jak powstaje budynek albo most.",
+   "w": {
+    "tec": 2,
+    "ana": 1
+   },
+   "worlds": [
+    "budowa"
+   ]
+  },
+  {
+   "id": "b9",
+   "text": "Robić remont z rodzicami: mierzyć, wiercić, malować.",
+   "w": {
+    "tec": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "budowa"
+   ]
+  },
+  {
+   "id": "b10",
+   "text": "Trenować regularnie, nawet gdy się nie chce.",
+   "w": {
+    "tec": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "sport"
+   ]
+  },
+  {
+   "id": "b11",
+   "text": "Prowadzić rozgrzewkę albo uczyć młodszych ćwiczeń.",
+   "w": {
+    "spo": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "sport"
+   ]
+  },
+  {
+   "id": "b12",
+   "text": "Sprawdzać swoje wyniki: czas, tętno, kroki, postępy.",
+   "w": {
+    "ana": 1,
+    "sys": 1,
+    "tec": 1
+   },
+   "worlds": [
+    "sport"
+   ]
+  },
+  {
+   "id": "b13",
+   "text": "Wysłuchać przyjaciela z problemem i pomóc mu go poukładać.",
+   "w": {
+    "spo": 2
+   },
+   "worlds": [
+    "ludzie"
+   ]
+  },
+  {
+   "id": "b14",
+   "text": "Opiekować się młodszymi dziećmi i wymyślać im zabawy.",
+   "w": {
+    "spo": 2,
+    "twr": 1
+   },
+   "worlds": [
+    "ludzie"
+   ]
+  },
+  {
+   "id": "b15",
+   "text": "Zastanawiać się, dlaczego ludzie zachowują się tak, a nie inaczej.",
+   "w": {
+    "ana": 1,
+    "spo": 1
+   },
+   "worlds": [
+    "ludzie"
+   ]
+  },
+  {
+   "id": "b16",
+   "text": "Dyskutować o tym, co dzieje się w Polsce i na świecie.",
+   "w": {
+    "prz": 1,
+    "spo": 1,
+    "twr": 1
+   },
+   "worlds": [
+    "spoleczenstwo"
+   ]
+  },
+  {
+   "id": "b17",
+   "text": "Nagrywać podcast, filmik albo robić szkolną gazetkę.",
+   "w": {
+    "twr": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "spoleczenstwo"
+   ]
+  },
+  {
+   "id": "b18",
+   "text": "Sprawdzać, jak było naprawdę: w historii, w źródłach, w faktach.",
+   "w": {
+    "ana": 1,
+    "sys": 1,
+    "twr": 1
+   },
+   "worlds": [
+    "spoleczenstwo"
+   ]
   }
  ],
  "situations": [
@@ -313,6 +551,56 @@
   {
    "id": "f2",
    "text": "Co chciałbyś umieć za rok, czego dziś nie umiesz?"
+  }
+ ],
+ "worlds": [
+  {
+   "id": "tech",
+   "name": "Komputery i technika",
+   "hint": "programy, elektronika, roboty",
+   "icon": "automatyzacja"
+  },
+  {
+   "id": "natura",
+   "name": "Przyroda i laboratorium",
+   "hint": "biologia, chemia, kosmos, środowisko",
+   "icon": "zdrowie"
+  },
+  {
+   "id": "ludzie",
+   "name": "Ludzie i pomaganie",
+   "hint": "psychologia, opieka, uczenie innych",
+   "icon": "ludzie"
+  },
+  {
+   "id": "jezyki",
+   "name": "Języki i świat",
+   "hint": "rozmowy, podróże, tłumaczenie",
+   "icon": "jezyki"
+  },
+  {
+   "id": "biznes",
+   "name": "Biznes i pieniądze",
+   "hint": "firma, handel, ekonomia",
+   "icon": "biznes"
+  },
+  {
+   "id": "budowa",
+   "name": "Budowanie i projektowanie",
+   "hint": "domy, mosty, wnętrza",
+   "icon": "technika"
+  },
+  {
+   "id": "sport",
+   "name": "Sport i ruch",
+   "hint": "trening, zdrowie, zawody",
+   "icon": "ruch"
+  },
+  {
+   "id": "spoleczenstwo",
+   "name": "Historia, prawo i media",
+   "hint": "dyskusje, źródła, dziennikarstwo",
+   "icon": "media"
   }
  ]
 }
