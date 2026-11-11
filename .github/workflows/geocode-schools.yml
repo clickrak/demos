@@ -1,0 +1,16 @@
+name: Geocode schools
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  geocode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 kompas/tools/geocode_schools.py
+      - name: Commit coordinates
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add kompas/liceum/data/db/pl/krakow/schools.json
+          git diff --cached --quiet || (git commit -m "Kompas Liceum: school coordinates from OpenStreetMap" && git push)

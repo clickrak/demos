@@ -159,5 +159,47 @@
   "title": "XXVIII LO Bednarskiego, klasy i progi",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "otou-lo3",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/290/III-LO-im-Jana-Kochanowskiego/progi-punktowe-2026-2027",
+  "title": "III LO Kochanowskiego, progi klas 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo6",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/293/VI-LO-im-Adama-Mickiewicza",
+  "title": "VI LO Mickiewicza, klasy i progi",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo10-plan",
+  "url": "https://x-lokrakow.edupage.org/a/planowane-oddzialy-klasy-pierwszej-w-roku-szkolnym-20262027",
+  "title": "X LO KEN, planowane oddziały 2026/27 (progi klas niedostępne)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "wazna-lo13",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xiii-liceum-im-bohaterow-westerplatte-krakow-421/profile",
+  "title": "XIII LO Westerplatte, profile, przedmioty punktowane i progi 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo15",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/301/XV-LO-im-Marii-Sklodowskiej-Curie",
+  "title": "XV LO Skłodowskiej-Curie, klasy (progi klas niedostępne)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "wazna-tee9",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-energetyczno-elektroniczne-nr-9-im-tadeusza-kosciuszki-krakow-447/profile",
+  "title": "Technikum Energetyczno-Elektroniczne nr 9, profile i progi 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]
