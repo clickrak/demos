@@ -1943,5 +1943,1639 @@
    "lon": 19.93082,
    "q": "Loretańska 16, Kraków"
   }
+ },
+ {
+  "id": "lo31",
+  "name": "XXXI Liceum Ogólnokształcące im. Romana Ingardena",
+  "short": "XXXI LO Ingardena",
+  "type": "liceum",
+  "address": "ul. Kazimierza Odnowiciela 2, Kraków",
+  "range": {
+   "min": 157.95,
+   "max": 159.0,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1AL",
+    "label": "programowanie (mat-inf-ang)",
+    "extended": [
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 159,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo31",
+    "status": "check"
+   },
+   {
+    "code": "1BL",
+    "label": "game dev (mat-inf-ang)",
+    "extended": [
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 158,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo31",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo12",
+  "name": "XII Liceum Ogólnokształcące im. Cypriana Kamila Norwida",
+  "short": "XII LO Norwida",
+  "type": "liceum",
+  "address": "os. Kolorowe 29a, Kraków",
+  "range": {
+   "min": 151.55,
+   "max": 164.25,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "C",
+    "label": "biol-chem",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 163,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo12",
+    "status": "check"
+   },
+   {
+    "code": "D",
+    "label": "biol-geo",
+    "extended": [
+     "biologia",
+     "geografia"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko"
+    ],
+    "threshold": 153.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo12",
+    "status": "check"
+   },
+   {
+    "code": "F",
+    "label": "mat-chem",
+    "extended": [
+     "matematyka",
+     "chemia"
+    ],
+    "cards": [
+     "chemia",
+     "biologia"
+    ],
+    "threshold": 152.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "chemia",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo12",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "pol-biol",
+    "extended": [
+     "język polski",
+     "biologia"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 158.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo12",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo14",
+  "name": "XIV Liceum Ogólnokształcące im. Mikołaja Kopernika",
+  "short": "XIV LO Kopernika",
+  "type": "liceum",
+  "address": null,
+  "range": {
+   "min": 139.5,
+   "max": 155.35,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "A",
+    "label": "biol-chem-ang",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 155.35,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo14",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "biol-geo-ang",
+    "extended": [
+     "biologia",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko"
+    ],
+    "threshold": 142.85,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo14",
+    "status": "check"
+   },
+   {
+    "code": "D",
+    "label": "pol-biol-ang",
+    "extended": [
+     "język polski",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 144.7,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo14",
+    "status": "check"
+   },
+   {
+    "code": "E",
+    "label": "mat-inf-ang",
+    "extended": [
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-lo14",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo16",
+  "name": "XVI Liceum Ogólnokształcące im. Krzysztofa Kamila Baczyńskiego",
+  "short": "XVI LO Baczyńskiego",
+  "type": "liceum",
+  "address": "os. Willowe 1, 31-901 Kraków",
+  "range": {
+   "min": 56.95,
+   "max": 138.0,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1B",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo16",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "biol-chem-ang",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo16",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo18",
+  "name": "XVIII Liceum Ogólnokształcące im. św. Jana Kantego",
+  "short": "XVIII LO Kantego",
+  "type": "liceum",
+  "address": "ul. Na Błonie 15b, Kraków",
+  "range": {
+   "min": 137.35,
+   "max": 158.15,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "a",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": 158.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo18",
+    "status": "check"
+   },
+   {
+    "code": "b",
+    "label": "mat-inf-ang",
+    "extended": [
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 146.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo18",
+    "status": "check"
+   },
+   {
+    "code": "d",
+    "label": "pol-biol-ang",
+    "extended": [
+     "język polski",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 152.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo18",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo20",
+  "name": "XX Liceum Ogólnokształcące im. Leopolda Staffa",
+  "short": "XX LO Staffa",
+  "type": "liceum",
+  "address": "ul. Szlak 5, 31-161 Kraków",
+  "range": {
+   "min": 155.8,
+   "max": 163.45,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1B",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": 167.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo20",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "programowanie"
+    ],
+    "threshold": 165.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo20",
+    "status": "check"
+   },
+   {
+    "code": "1E",
+    "label": "biol-chem",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 167.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo20",
+    "status": "check"
+   }
+  ],
+  "note": "Progi klas z waszaedukacja są wyższe niż zakres szkoły w otouczelnie. Sprawdź w szkole."
+ },
+ {
+  "id": "lo23",
+  "name": "XXIII Liceum Ogólnokształcące im. płk. pil. Stanisława Skarżyńskiego",
+  "short": "XXIII LO Skarżyńskiego",
+  "type": "liceum",
+  "address": "ul. Seniorów Lotnictwa 5, Kraków",
+  "range": {
+   "min": 127.85,
+   "max": 154.95,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "A",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": 157.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo23",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "biol-geo-ang",
+    "extended": [
+     "biologia",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko"
+    ],
+    "threshold": 149.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo23",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo24",
+  "name": "XXIV Liceum Ogólnokształcące im. św. Jana Pawła II",
+  "short": "XXIV LO Jana Pawła II",
+  "type": "liceum",
+  "address": "ul. Wilka Wyrwińskiego 1, Kraków",
+  "range": {
+   "min": 128.8,
+   "max": 154.35,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "D",
+    "label": "biol-chem-ang",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 158.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo24",
+    "status": "check"
+   },
+   {
+    "code": "E",
+    "label": "biol-geo-ang",
+    "extended": [
+     "biologia",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko"
+    ],
+    "threshold": 152.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo24",
+    "status": "check"
+   },
+   {
+    "code": "F",
+    "label": "mat-ang (punktowana informatyka)",
+    "extended": [
+     "matematyka",
+     "angielski"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 151.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo24",
+    "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "mat-biznes-ang",
+    "extended": [
+     "matematyka",
+     "biznes i zarządzanie",
+     "angielski"
+    ],
+    "cards": [
+     "dane-ai"
+    ],
+    "threshold": 153,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo24",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo27",
+  "name": "XXVII Liceum Ogólnokształcące im. dr. Henryka Jordana",
+  "short": "XXVII LO Jordana",
+  "type": "liceum",
+  "address": "ul. Senatorska 35, Kraków",
+  "range": {
+   "min": 161.25,
+   "max": 166.55,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "G",
+    "label": "mat-biol-chem",
+    "extended": [
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 166.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo27",
+    "status": "check"
+   },
+   {
+    "code": "D",
+    "label": "biol-chem-ang",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 166.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo27",
+    "status": "check"
+   },
+   {
+    "code": "E",
+    "label": "mat-biol-ang",
+    "extended": [
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 166,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo27",
+    "status": "check"
+   },
+   {
+    "code": "F",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": 166.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo27",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "biol-geo-ang",
+    "extended": [
+     "biologia",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko"
+    ],
+    "threshold": 164.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo27",
+    "status": "check"
+   },
+   {
+    "code": "C",
+    "label": "mat-biznes-ang",
+    "extended": [
+     "matematyka",
+     "biznes i zarządzanie",
+     "angielski"
+    ],
+    "cards": [
+     "dane-ai"
+    ],
+    "threshold": 165.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo27",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo30",
+  "name": "XXX Liceum Ogólnokształcące im. św. Brata Alberta",
+  "short": "XXX LO Brata Alberta",
+  "type": "liceum",
+  "address": "os. Dywizjonu 303 66, Kraków",
+  "range": {
+   "min": 58.0,
+   "max": 140.85,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1AI",
+    "label": "inżynierska ze sztuczną inteligencją (mat-fiz-ang)",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "angielski"
+    ],
+    "cards": [
+     "dane-ai",
+     "programowanie",
+     "fizyka"
+    ],
+    "threshold": 103.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo30",
+    "status": "check"
+   },
+   {
+    "code": "1M",
+    "label": "medyczna (biol-chem-ang)",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 137.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "chemia",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo30",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "promocja zdrowia (pol-biol-ang)",
+    "extended": [
+     "język polski",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 140.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo30",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo41",
+  "name": "XLI Liceum Ogólnokształcące im. Jana Twardowskiego",
+  "short": "XLI LO Twardowskiego",
+  "type": "liceum",
+  "address": "Rynek Kleparski 18, Kraków",
+  "range": {
+   "min": 154.9,
+   "max": 160.6,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "C",
+    "label": "biol-chem-ang",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 164.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo41",
+    "status": "check"
+   },
+   {
+    "code": "B",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": 163.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo41",
+    "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "pol-biol-ang",
+    "extended": [
+     "język polski",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 162.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo41",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo43",
+  "name": "XLIII Liceum Ogólnokształcące im. Zofii Chrzanowskiej",
+  "short": "XLIII LO Chrzanowskiej",
+  "type": "liceum",
+  "address": "ul. Bolesława Limanowskiego 60-62, 30-534 Kraków",
+  "range": {
+   "min": 141.75,
+   "max": 152.55,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "a",
+    "label": "mat-inf-ang",
+    "extended": [
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 153.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-lo43",
+    "status": "check"
+   },
+   {
+    "code": "b",
+    "label": "pol-biol-ang",
+    "extended": [
+     "język polski",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 157.2,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-lo43",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo44",
+  "name": "XLIV Liceum Ogólnokształcące im. Stanisława Konarskiego",
+  "short": "XLIV LO Konarskiego",
+  "type": "liceum",
+  "address": null,
+  "range": {
+   "min": 150.55,
+   "max": 163.65,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "B",
+    "label": "mat-biol-chem",
+    "extended": [
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 165.3,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo44",
+    "status": "check"
+   },
+   {
+    "code": "A",
+    "label": "mat-fiz-ang",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "angielski"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "programowanie"
+    ],
+    "threshold": 163.65,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "fizyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo44",
+    "status": "check"
+   },
+   {
+    "code": "D",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": 162.45,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo44",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo45",
+  "name": "XLV Liceum Ogólnokształcące",
+  "short": "XLV LO",
+  "type": "liceum",
+  "address": "ul. ks. Franciszka Blachnickiego 1, Kraków",
+  "range": {
+   "min": 131.35,
+   "max": 149.6,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "1A",
+    "label": "mat-biol-chem",
+    "extended": [
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 149.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo45",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "pol-biol-ang",
+    "extended": [
+     "język polski",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": 146.5,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo45",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "lo46",
+  "name": "XLVI Liceum Ogólnokształcące",
+  "short": "XLVI LO",
+  "type": "liceum",
+  "address": "ul. Józefa Dietla 70, Kraków",
+  "range": {
+   "min": 102.0,
+   "max": 128.75,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "C",
+    "label": "mat-biol-chem",
+    "extended": [
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 160.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-lo46",
+    "status": "check"
+   }
+  ],
+  "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole."
+ },
+ {
+  "id": "tk25",
+  "name": "Technikum Komunikacyjne nr 25",
+  "short": "Technikum Komunikacyjne nr 25",
+  "type": "technikum",
+  "address": "ul. Ułanów 3, Kraków",
+  "range": {
+   "min": 65.0,
+   "max": 150.9,
+   "year": "2026/27",
+   "sourceId": "w-tk25"
+  },
+  "classes": [
+   {
+    "code": "PA",
+    "label": "technik programista",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 121.7,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tk25",
+    "status": "check",
+    "occupation": "technik programista"
+   },
+   {
+    "code": "CB",
+    "label": "technik cyberbezpieczeństwa",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "cyber",
+     "programowanie"
+    ],
+    "threshold": 129.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tk25",
+    "status": "check",
+    "occupation": "technik cyberbezpieczeństwa"
+   },
+   {
+    "code": "IA",
+    "label": "technik informatyk",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": 122.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tk25",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "EL",
+    "label": "technik elektronik",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika"
+    ],
+    "threshold": 115.4,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tk25",
+    "status": "check",
+    "occupation": "technik elektronik"
+   },
+   {
+    "code": "ME",
+    "label": "technik mechatronik",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": 150.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tk25",
+    "status": "check",
+    "occupation": "technik mechatronik"
+   }
+  ]
+ },
+ {
+  "id": "tm17",
+  "name": "Technikum Mechaniczne nr 17",
+  "short": "Technikum Mechaniczne nr 17",
+  "type": "technikum",
+  "address": "os. Szkolne 37, Kraków",
+  "range": {
+   "min": 55.6,
+   "max": 70.7,
+   "year": "2026/27",
+   "sourceId": "w-tm17"
+  },
+  "classes": [
+   {
+    "code": "1Tp",
+    "label": "technik programista",
+    "extended": [
+     "informatyka",
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 63.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm17",
+    "status": "check",
+    "occupation": "technik programista"
+   },
+   {
+    "code": "1Tc",
+    "label": "technik informatyk",
+    "extended": [
+     "informatyka",
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": 70.7,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm17",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "1Ta",
+    "label": "technik mechatronik",
+    "extended": [
+     "fizyka",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": 62.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "informatyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tm17",
+    "status": "check",
+    "occupation": "technik mechatronik"
+   },
+   {
+    "code": "1Tr",
+    "label": "technik robotyk",
+    "extended": [
+     "fizyka",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-tm17",
+    "status": "check",
+    "occupation": "technik robotyk"
+   },
+   {
+    "code": "1Tl",
+    "label": "technik awionik",
+    "extended": [
+     "fizyka",
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "w-tm17",
+    "status": "check",
+    "occupation": "technik awionik"
+   }
+  ],
+  "note": "Progi są niskie, bo szkoła ma dużo miejsc. To bezpieczna opcja, ale sprawdź atmosferę i poziom na dniu otwartym."
+ },
+ {
+  "id": "tks24",
+  "name": "Technikum Kształtowania Środowiska nr 24",
+  "short": "Technikum Kształtowania Środowiska nr 24",
+  "type": "technikum",
+  "address": "ul. Brzozowa 5, Kraków",
+  "range": {
+   "min": 48.8,
+   "max": 128.2,
+   "year": "2026/27",
+   "sourceId": "w-tks24"
+  },
+  "classes": [
+   {
+    "code": "Ip",
+    "label": "technik programista",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 127.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tks24",
+    "status": "check",
+    "occupation": "technik programista"
+   },
+   {
+    "code": "Ic",
+    "label": "technik cyberbezpieczeństwa",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "cyber",
+     "programowanie"
+    ],
+    "threshold": 128.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tks24",
+    "status": "check",
+    "occupation": "technik cyberbezpieczeństwa"
+   },
+   {
+    "code": "Ii",
+    "label": "technik informatyk",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": 105.1,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tks24",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "Io",
+    "label": "technik ochrony środowiska",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko"
+    ],
+    "threshold": 71.6,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tks24",
+    "status": "check",
+    "occupation": "technik ochrony środowiska"
+   },
+   {
+    "code": "Ig",
+    "label": "technik geolog",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "srodowisko",
+     "chemia"
+    ],
+    "threshold": 76.9,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "w-tks24",
+    "status": "check",
+    "occupation": "technik geolog"
+   }
+  ]
  }
 ]
