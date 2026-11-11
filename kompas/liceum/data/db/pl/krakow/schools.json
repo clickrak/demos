@@ -3705,7 +3705,12 @@
     "sourceId": "w-lo21",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.09121,
+   "lon": 20.00206,
+   "q": "os. Tysiąclecia 15, Kraków, Kraków"
+  }
  },
  {
   "id": "lo22",
@@ -3744,7 +3749,12 @@
     "status": "check"
    }
   ],
-  "note": "Jedna klasa licealna w zespole szkół. Niski próg oznacza dużo wolnych miejsc."
+  "note": "Jedna klasa licealna w zespole szkół. Niski próg oznacza dużo wolnych miejsc.",
+  "geo": {
+   "lat": 50.07776,
+   "lon": 20.04864,
+   "q": "os. Szkolne 26, Kraków, Kraków"
+  }
  },
  {
   "id": "lo29",
@@ -3783,7 +3793,12 @@
     "status": "check"
    }
   ],
-  "note": "Klasa integracyjna (uczą się razem uczniowie z orzeczeniami i bez). Próg z waszaedukacja jest wyższy niż w otouczelnie."
+  "note": "Klasa integracyjna (uczą się razem uczniowie z orzeczeniami i bez). Próg z waszaedukacja jest wyższy niż w otouczelnie.",
+  "geo": {
+   "lat": 50.00585,
+   "lon": 19.96567,
+   "q": "Cechowa 57, Kraków, Kraków"
+  }
  },
  {
   "id": "lo47",
@@ -3845,7 +3860,12 @@
     "sourceId": "w-lo47",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.08014,
+   "lon": 20.04761,
+   "q": "os. Szkolne 18, Kraków, Kraków"
+  }
  },
  {
   "id": "tm15",
@@ -3956,7 +3976,12 @@
     "status": "check",
     "occupation": "technik elektromobilności"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.0615,
+   "lon": 19.92465,
+   "q": "al. Mickiewicza 5, Kraków, Kraków"
+  }
  },
  {
   "id": "tm30",
@@ -3994,7 +4019,12 @@
     "status": "check",
     "occupation": "technik awionik"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.05365,
+   "lon": 19.94474,
+   "q": "Podbrzezie 10, Kraków, Kraków"
+  }
  },
  {
   "id": "te8",
@@ -4133,6 +4163,11 @@
     "status": "check",
     "occupation": "technik ochrony środowiska"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.07369,
+   "lon": 19.89054,
+   "q": "Lea 235, Kraków, Kraków"
+  }
  }
 ]
