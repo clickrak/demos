@@ -5792,7 +5792,12 @@
     "status": "check",
     "occupation": "technik hotelarstwa"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.06172,
+   "lon": 19.93155,
+   "q": "Kapucyńska 2, Kraków"
+  }
  },
  {
   "id": "tb1",
@@ -5943,6 +5948,11 @@
     "status": "check",
     "occupation": "technik technologii drewna"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.0757,
+   "lon": 19.89343,
+   "q": "Szablowskiego 1, Kraków"
+  }
  }
 ]
