@@ -418,11 +418,11 @@
  "situations": [
   {
    "id": "e1",
-   "text": "Jutro oddajecie projekt z fizyki, a urządzenie nie działa. Co robisz najpierw?",
+   "text": "Jutro oddajecie projekt grupowy, a jeszcze nie działa tak, jak miał. Co robisz najpierw?",
    "answers": [
     {
      "id": "a",
-     "text": "Sprawdzam układ krok po kroku i szukam błędu.",
+     "text": "Sprawdzam krok po kroku, gdzie jest błąd.",
      "w": {
       "ana": 2,
       "sys": 1
@@ -430,7 +430,7 @@
     },
     {
      "id": "b",
-     "text": "Rozbieram wszystko i próbuję zbudować inaczej.",
+     "text": "Zaczynam od nowa i robię to po swojemu.",
      "w": {
       "tec": 2,
       "twr": 1
@@ -438,7 +438,7 @@
     },
     {
      "id": "c",
-     "text": "Dzielę zadania w grupie i ustalam, kto co naprawia.",
+     "text": "Dzielę zadania w grupie i ustalam, kto co poprawia.",
      "w": {
       "prz": 2,
       "spo": 1
@@ -446,7 +446,7 @@
     },
     {
      "id": "d",
-     "text": "Pytam nauczyciela o radę i dokładnie notuję, co mówi.",
+     "text": "Pytam nauczyciela o radę i notuję, co mówi.",
      "w": {
       "sys": 2,
       "spo": 1
@@ -456,7 +456,7 @@
   },
   {
    "id": "e2",
-   "text": "Kolega nie rozumie zadania z matematyki, a ty rozumiesz. Co robisz?",
+   "text": "Kolega nie rozumie zadania, a ty rozumiesz. Co robisz?",
    "answers": [
     {
      "id": "a",
@@ -498,7 +498,7 @@
    "answers": [
     {
      "id": "a",
-     "text": "Zbudować albo zaprogramować coś nowego.",
+     "text": "Zbudować, naprawić albo zaprogramować coś nowego.",
      "w": {
       "tec": 2,
       "ana": 1,
@@ -507,7 +507,7 @@
     },
     {
      "id": "b",
-     "text": "Rozwiązać trudne zadania albo zagadki.",
+     "text": "Rozgryźć coś trudnego: zagadkę, grę albo temat, który mnie ciekawi.",
      "w": {
       "ana": 2,
       "sys": 1
@@ -522,7 +522,7 @@
     },
     {
      "id": "d",
-     "text": "Zorganizować coś z kolegami.",
+     "text": "Zorganizować coś z kolegami: wyjście, mecz albo wyjazd.",
      "w": {
       "prz": 2,
       "spo": 1

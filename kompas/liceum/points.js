@@ -19,8 +19,9 @@ export function effectivePoints(answers, config) {
   if (!useSoft) return { ...p, approx: false, assumed: [] };
   const map = (config && config.soft) || { slabo: { grade: 3, exam: 45 }, dobrze: { grade: 4, exam: 70 }, swietnie: { grade: 5, exam: 90 } };
   const exam = {}, grades = {}, assumed = [];
-  for (const k of ['polski', 'matematyka', 'obcy']) { const l = (soft.exam || {})[k]; if (l && map[l]) exam[k] = map[l].exam; }
-  const gs = soft.grades || {};
+  const gs = soft.grades || {}, twin = { polski: 'polski', matematyka: 'matematyka', obcy: 'angielski' };
+  // The exam guess defaults to how the same subject goes at school (v1.8.1 asks about subjects only).
+  for (const k of ['polski', 'matematyka', 'obcy']) { const l = (soft.exam || {})[k] || gs[twin[k]]; if (l && map[l]) exam[k] = map[l].exam; }
   for (const s of Object.keys(SUBJECT_NAME)) {
     const l = gs[s];
     if (l && map[l]) grades[s] = map[l].grade; else { grades[s] = map.dobrze.grade; if (!['polski', 'matematyka', 'angielski'].includes(s)) assumed.push(s); }
