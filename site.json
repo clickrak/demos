@@ -6,6 +6,7 @@
   "repo": "https://github.com/clickrak/demos",
   "goatcounter": "clickrak",
   "demos": [
+    "kompas-liceum",
     "zelkow",
     "ion-trap",
     "rhythm-cartography",

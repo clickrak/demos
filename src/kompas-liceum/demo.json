@@ -1,0 +1,11 @@
+{
+  "page": "kompas/liceum",
+  "title": "Kompas Liceum",
+  "ogTitle": "Kompas Liceum · jakie liceum w Krakowie?",
+  "description": "A guide for Kraków 8th graders and their parents: from what the kid likes and is good at, to profiles, classes and high schools in Kraków. Polish.",
+  "ogDescription": "Do przejścia razem z dzieckiem: od tego, co lubi i umie, do profili, klas i szkół w Krakowie. Pomaga zacząć rozmowę, nie podejmuje decyzji.",
+  "cardText": "For 8th graders choosing a high school in Kraków, to go through together with a parent. Taps and sliders instead of typing lead to profiles on a compass, then to matching classes and schools on a map. It starts a conversation rather than making the decision, and nothing about the kid leaves the browser. Polish.",
+  "tags": ["Education", "Kraków", "Map", "PL"],
+  "imageAlt": "Kompas Liceum: a compass pointing from interests to high schools in Kraków",
+  "locale": "pl_PL"
+}

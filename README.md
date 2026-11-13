@@ -4,6 +4,7 @@ Small interactive web demos. Each folder is one demo, served as a plain static p
 
 | Demo | Folder |
 |---|---|
+| Kompas Liceum: choosing a high school in Kraków, to go through with a parent (PL) | [`kompas/liceum/`](kompas/liceum/) |
 | Odkryj Zelków: an isometric adventure map for kids around Zelków on the Kraków Jura (PL) | [`zelkow/`](zelkow/) |
 | How to Catch an Atom: an interactive explainer of an ion-trap quantum computer (PL / EN) | [`ion-trap/`](ion-trap/) |
 | Rhythm Cartography: 50 years of electronic music, mapped and playable | [`rhythm-cartography/`](rhythm-cartography/) |
@@ -41,6 +42,8 @@ tools/                    build helpers (not needed for hosting)
 Hosting needs no build step: serve the repo root as it is (GitHub Pages, Cloudflare Pages with no build command, or any static host). React 18 is loaded from cdn.jsdelivr.net; everything else is inside each page.
 
 ## Change or add a demo
+
+A page that is edited in its own folder (like `kompas/liceum/`) can be listed too: give it a `src/<name>/demo.json` with `"page": "kompas/liceum"` and put `<!-- site-head --><!-- /site-head -->` in its `<head>`. The build only refreshes the link-preview and counter tags between those markers and shows the page on the home page; the preview image is `<page>/preview.png`.
 
 A plain HTML page works too: put it in `src/<name>/app.html` with a `<!-- site-head -->` line in its `<head>`, and set `"static": "app.html"` in `demo.json`. The build adds the link-preview tags there and copies the page to `<name>/index.html`.
 

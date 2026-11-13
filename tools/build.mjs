@@ -121,8 +121,37 @@ ${svgIcon(cfg.faviconSvg)}${previewTags({
   console.log(`Built ${demo}/index.html (static, ${(html.length / 1024).toFixed(1)} KB)  ${url}`);
 }
 
+// A page that lives and is edited in its own folder (e.g. "page": "kompas/liceum").
+// The build only refreshes the tags between <!-- site-head --> and
+// <!-- /site-head --> in <page>/index.html, so it can be rebuilt any number of times.
+function buildInPlace(demo, cfg) {
+  const dir = cfg.page.replace(/^\/+|\/+$/g, "");
+  const url = `${BASE}/${dir}/`;
+  const file = path.join(ROOT, dir, "index.html");
+  const src = fs.readFileSync(file, "utf8");
+  const re = /<!-- site-head -->[\s\S]*?<!-- \/site-head -->/;
+  if (!re.test(src)) throw new Error(`${demo}: ${dir}/index.html has no <!-- site-head --><!-- /site-head --> markers`);
+  const head = `<!-- site-head -->
+<link rel="canonical" href="${esc(url)}">
+${svgIcon(cfg.faviconSvg)}${previewTags({
+    title: cfg.ogTitle || cfg.title,
+    description: cfg.ogDescription || cfg.description,
+    url,
+    image: `${url}preview.png`,
+    imageAlt: cfg.imageAlt,
+    locale: cfg.locale,
+  })}
+${counterTag}<!-- /site-head -->`;
+  const html = src.replace(re, () => head);
+  if (html !== src) fs.writeFileSync(file, html);
+  console.log(`Updated ${dir}/index.html (in place)  ${url}`);
+}
+
+const demoHref = (demo, cfg) => (cfg.page ? cfg.page.replace(/^\/+|\/+$/g, "") : demo);
+
 async function buildDemo(demo) {
   const { srcDir, cfg } = readDemo(demo);
+  if (cfg.page) return buildInPlace(demo, cfg);
   if (cfg.static) return buildStatic(demo, srcDir, cfg);
   const entryFile = path.join(srcDir, cfg.entry || "app.jsx");
 
@@ -242,9 +271,10 @@ function buildHome() {
     .map((d) => readDemo(d))
     .map(({ demo, cfg }) => {
       const tags = (cfg.tags || []).map((t) => `<li>${esc(t)}</li>`).join("");
+      const href = demoHref(demo, cfg);
       return `
-      <a class="item" href="${esc(demo)}/">
-        <img src="${esc(demo)}/preview.png" width="1200" height="627" alt="" loading="lazy">
+      <a class="item" href="${esc(href)}/">
+        <img src="${esc(href)}/preview.png" width="1200" height="627" alt="" loading="lazy">
         <div class="body">
           <h2>${esc(cfg.title)}</h2>
           <p>${esc(cfg.cardText || cfg.description)}</p>
