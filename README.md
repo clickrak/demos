@@ -5,6 +5,7 @@ Small interactive web demos. Each folder is one demo, served as a plain static p
 | Demo | Folder |
 |---|---|
 | Kompas Liceum: choosing a high school in Kraków, to go through with a parent (PL) | [`kompas/liceum/`](kompas/liceum/) |
+| Kompas Studia: choosing what to study in Kraków (PL) | [`kompas/studia/`](kompas/studia/) |
 | Odkryj Zelków: an isometric adventure map for kids around Zelków on the Kraków Jura (PL) | [`zelkow/`](zelkow/) |
 | How to Catch an Atom: an interactive explainer of an ion-trap quantum computer (PL / EN) | [`ion-trap/`](ion-trap/) |
 | Rhythm Cartography: 50 years of electronic music, mapped and playable | [`rhythm-cartography/`](rhythm-cartography/) |
