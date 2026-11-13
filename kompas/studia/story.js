@@ -174,8 +174,8 @@ export function storyHtml(ctx) {
         <p class="lead">Na podstawie tego, co o sobie powiedziałeś, kompas wskazuje kilka dobrych kierunków. Nie jedną odpowiedź i nie wyrok: mapę, z którą możesz pójść dalej.</p>
         <span class="cue">Przewijaj powoli ↓</span>`, true)}
       ${step(1, `<span class="kicker">Skąd to wiemy · 1</span><h3>Pięć twoich mocnych stron</h3>
-        <p class="small muted">Każda z dowodem z twojego życia. To one wchodzą do kompasu.</p>
-        <ul class="proofs">${strengths.map(x => `<li><b>${esc(ctx.strengthName(x.id))}</b><span>„${esc(x.proof)}”</span></li>`).join('')}</ul>`)}
+        <p class="small muted">Przy każdej widać, skąd ją znasz. To one wchodzą do kompasu.</p>
+        <ul class="proofs">${strengths.map(x => `<li><b>${esc(ctx.strengthName(x.id))}</b><span>${esc(ctx.proofText(x.proof))}</span></li>`).join('')}</ul>`)}
       ${step(2, `<span class="kicker">Skąd to wiemy · 2</span><h3>Twoje orientacje</h3>
         <p>Sześć rodzajów zajęć. Im dłuższy pasek, tym częściej wybierałeś takie czynności i sytuacje. Twoje dwa najmocniejsze: <b>${esc(dims[0].name.toLowerCase())}</b> i <b>${esc(dims[1].name.toLowerCase())}</b>. Razem z mocnymi stronami ustawiają igłę kompasu.</p>
         <div class="minibars">${dims.map((x, i) => `<div class="mb${i < 2 ? ' main' : ''}"><span>${esc(x.name)}</span><i><b style="width:${x.v}%"></b></i></div>`).join('')}</div>

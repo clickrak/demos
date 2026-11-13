@@ -205,7 +205,9 @@ body.story input[type=text] { font-size: 17px; padding: 14px 16px; border-radius
   .scard, .scard.wide { max-width: 100%; }
   .band { padding: 70px 0; }
   .two, .explore, .pgrid, .fgrid { grid-template-columns: 1fr; gap: 28px; }
-  .elist { position: static; grid-template-columns: 1fr 1fr; }
+  .elist { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eitem { min-width: 0; padding: 10px 8px; gap: 7px; } .eitem > :first-child { flex: none; }
+  .eitem > span:last-child { min-width: 0; overflow-wrap: break-word; hyphens: auto; } .eitem b { font-size: .86rem; line-height: 1.2; } .eitem .small { font-size: .78rem; }
   .kmap { position: static; }
   .scen3 { grid-template-columns: 1fr; }
   .fneed { grid-template-columns: 30px 1fr 80px; } .fneed > .small:last-child { display: none; }

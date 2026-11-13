@@ -70,6 +70,13 @@ export function workingLanguages(card, answers) {
   return (card.languages || []).filter(l => (LEVEL[(answers.jezyki || {})[l]] || 0) >= 2);
 }
 
+// Where a strength shows. Tapped instead of typed (kids do not want to write); a typed sentence is still welcome.
+export const WHERE = ['w szkole', 'w sporcie', 'w domu i rodzinie', 'w językach', 'w pomaganiu innym', 'w hobby'];
+const TAPPED = new Set([...WHERE, 'w domu', 'z przyjaciółmi', 'w grach i internecie']); // plus the Liceum list
+export const isWhere = p => TAPPED.has(String(p || '').trim());
+// How a proof reads in a sentence: "widać to w sporcie" for a tapped place, the quoted sentence for a typed one.
+export const proofText = p => (isWhere(p) ? `widać to ${String(p).trim()}` : `„${String(p || '').trim()}”`);
+
 export function provenStrengths(answers) {
   return (answers.strengths || []).filter(s => s.proof && s.proof.trim().length > 0);
 }

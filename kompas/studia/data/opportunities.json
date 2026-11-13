@@ -1257,7 +1257,7 @@
   "roles": "hydrolog, inżynier środowiska",
   "whoYouHelp": "Gminy i rolnicy w czasie suszy i powodzi, mieszkańcy, którzy chcą czystej wody.",
   "whatYouGet": "Praca w terenie i przy danych, z wpływem na miejsce, w którym żyjesz.",
-  "force": null,
+  "force": "energia",
   "whyNeeded": "Susze i powodzie zdarzają się częściej, a gminy muszą się do nich przygotować.",
   "dayInLife": [
    "Pomiary w rzece albo w oczyszczalni.",

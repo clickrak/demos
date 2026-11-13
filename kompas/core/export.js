@@ -1,5 +1,5 @@
 // Builds the markdown export. Everything happens in the browser; nothing is uploaded.
-import { provenStrengths, pathSteps, planFocus, planItems } from './scoring.js';
+import { provenStrengths, proofText, pathSteps, planFocus, planItems } from './scoring.js';
 
 const bar = v => '█'.repeat(Math.round(v / 10)) + '░'.repeat(10 - Math.round(v / 10));
 
@@ -14,7 +14,7 @@ export function buildMarkdown(answers, result, data, today) {
   const st = id => data.strengths.find(s => s.id === id);
   const camp = id => data.campuses.find(c => c.id === id);
   L.push(`# Kompas – ${answers.name || 'ja'}, ${today}`);
-  L.push('Ścieżka: wybór studiów · Język: PL · Wersja: v1.1.1', '');
+  L.push(`Ścieżka: wybór studiów · Język: PL · Wersja: v${data.config.appVersion}`, '');
 
   const complete = provenStrengths(answers).length > 0 && (answers.values || []).length > 0;
   if (!complete) {
@@ -24,7 +24,7 @@ export function buildMarkdown(answers, result, data, today) {
     return L.join('\n');
   }
   L.push('## Moje mocne strony');
-  provenStrengths(answers).forEach((s, i) => L.push(`${i + 1}. ${cap(st(s.id).name)} – dowód: „${s.proof.trim()}”`));
+  provenStrengths(answers).forEach((s, i) => L.push(`${i + 1}. ${cap(st(s.id).name)} – ${proofText(s.proof)}`));
   L.push('', '## Mogę to zrobić, bo…', answers.canDo ? answers.canDo : '[dopisz jedno zdanie]', '');
 
   L.push('## Mój profil');
@@ -89,3 +89,16 @@ export function buildMarkdown(answers, result, data, today) {
 }
 
 function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+// Reads the answers back from an exported file. Looks only at the part after the reload marker and takes
+// everything from the first "{" to the last "}", so stray backticks inside a typed answer cannot break it.
+export function parseSaved(text) {
+  const mark = '<!-- dane do ponownego wczytania -->';
+  for (const at of [text.lastIndexOf(mark), text.lastIndexOf('```json')]) {
+    if (at < 0) continue;
+    const tail = text.slice(at), a = tail.indexOf('{'), b = tail.lastIndexOf('}');
+    if (a < 0 || b <= a) continue;
+    try { return JSON.parse(tail.slice(a, b + 1)); } catch { /* try the next anchor */ }
+  }
+  return null;
+}

@@ -1,5 +1,6 @@
-// Kompas Liceum v1.8.1. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v1.8.2. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
 import { provenStrengths } from '../core/scoring.js';
+import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
 import { icon } from '../studia/icons.js';
 import { LILLUS } from './illus.js';
@@ -54,7 +55,7 @@ function applyTheme() {
   const root = document.documentElement;
   if (theme) root.dataset.theme = theme; else delete root.dataset.theme;
   const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = dark ? ICON.sun : ICON.moon; });
+  document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = b.classList.contains('linkbtn') ? (dark ? 'Jasny motyw' : 'Ciemny motyw') : dark ? ICON.sun : ICON.moon; });
 }
 function applySkin(animate) {
   const root = document.documentElement;
@@ -547,13 +548,13 @@ function vSchools() {
     <p class="note2">Nie ma jeszcze klas dwujęzycznych i sportowych (mają osobny test językowy albo sprawności, dojdą w kolejnej wersji). Pomijamy też XVII i XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).</p>`;
 }
 
-// ---- map (Leaflet + OpenStreetMap tiles, loaded only when results open) ------------------------------------------------
+// ---- map (Leaflet from vendor/, OpenStreetMap tiles; loaded only when a map is on screen) ------------------------------------------------
 let mapObj = null, leafletP = null;
 function loadLeaflet() {
   if (window.L) return Promise.resolve(window.L);
   return leafletP ||= new Promise((res, rej) => {
-    const css = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css' });
-    const js = Object.assign(document.createElement('script'), { src: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js', onload: () => res(window.L), onerror: () => { leafletP = null; rej(new Error('leaflet')); } });
+    const css = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'vendor/leaflet/leaflet.css' });
+    const js = Object.assign(document.createElement('script'), { src: 'vendor/leaflet/leaflet.js', onload: () => res(window.L), onerror: () => { leafletP = null; rej(new Error('leaflet')); } });
     document.head.append(css, js);
   });
 }
@@ -641,9 +642,7 @@ function buildMarkdown() {
 function fileName() { const n = (A.name || 'ja').trim().toLowerCase().replace(/[^a-z0-9ąćęłńóśźż]+/gi, '-') || 'ja'; return `kompas-liceum-${n}-${today()}.md`; }
 
 function loadFile(text) {
-  const m = text.match(/```json\s*([\s\S]*?)```/g);
-  let obj = null;
-  try { obj = m && JSON.parse(m[m.length - 1].replace(/^```json\s*/, '').replace(/```$/, '')); } catch { obj = null; }
+  const obj = parseSaved(text);
   if (!obj || !obj.answers || obj.app !== 'kompas-liceum') { notice = 'To nie wygląda na plik z Kompasu Liceum. Wybierz plik pobrany z tej aplikacji.'; render(); return; }
   const a = Object.assign(blank(), obj.answers), missing = [];
   const has = (list, id) => list.some(x => x.id === id);
@@ -660,7 +659,9 @@ function loadFile(text) {
   a.sitPos = Object.keys(a.situations).length;
   A = a; savedSnap = answersKey();
   notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '');
-  const target = needResults() ? '#/swiaty' : '#/wyniki';
+  const open = screens.find(s => s.ok && !s.ok()); // first step that still needs an answer
+  const target = '#/' + (open ? open.id : 'wyniki');
+  notice += open ? ' Wracasz do pierwszego kroku, który czeka na odpowiedź.' : '';
   if (location.hash === target) render(); else location.hash = target;
 }
 

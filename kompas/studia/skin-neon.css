@@ -161,6 +161,7 @@ html[data-skin="neon"] .notice { border: 1px solid color-mix(in srgb, var(--warn
   html[data-skin="neon"] .chapters button { letter-spacing: .02em; font-size: .72rem; padding: 6px 6px; }
 }
 @media (max-width: 400px) {
-  html[data-skin="neon"] .chapters button { font-size: .66rem; padding: 6px 4px; letter-spacing: 0; }
+  html[data-skin="neon"] .chapters button { font-size: .7rem; padding: 6px 4px; letter-spacing: 0; }
 }
+@media (max-width: 340px) { html[data-skin="neon"] .chapters button { font-size: .66rem; padding: 6px 3px; } }
 @media (max-width: 560px) { html[data-skin="neon"] .brand { font-size: 0; } }

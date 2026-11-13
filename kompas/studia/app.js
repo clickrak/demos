@@ -1,6 +1,6 @@
-// Kompas Studia v1.1.1. Screens, navigation, results, export.
-import { scoreAll, provenStrengths, pathSteps, planFocus, planItems } from '../core/scoring.js';
-import { buildMarkdown, fileName } from '../core/export.js';
+// Kompas Studia v1.1.2. Screens, navigation, results, export.
+import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText } from '../core/scoring.js';
+import { buildMarkdown, fileName, parseSaved } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
 import { ILLUS } from './illus.js';
@@ -69,7 +69,7 @@ function applyTheme() {
   const root = document.documentElement;
   if (theme) root.dataset.theme = theme; else delete root.dataset.theme;
   const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = dark ? ICON.sun : ICON.moon; });
+  document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = b.classList.contains('linkbtn') ? (dark ? 'Jasny motyw' : 'Ciemny motyw') : dark ? ICON.sun : ICON.moon; });
 }
 function applySkin(animate) {
   const root = document.documentElement;
@@ -105,7 +105,7 @@ const screens = [
   { id: 'styl', ch: 'ja', view: vStyle },
   { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 5, hint: () => `Wybierz jeszcze ${5 - A.values.length}` },
   { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5, hint: () => A.strengths.length < 5 ? `Wybierz jeszcze ${5 - A.strengths.length}`
-    : `Dopisz przykład: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
+    : `Zaznacz, gdzie to widać: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
   { id: 'odbicie', ch: 'ja', view: vReveal },
   { id: 'sily', ch: 'swiat', view: vForces },
   { id: 'karty', ch: 'swiat', view: vCardsPreview },
@@ -352,13 +352,16 @@ function vValues() {
 function vStrengths() {
   const picked = A.strengths.map(s => s.id);
   const list = A.strengths.map(s => { const st = data.strengths.find(x => x.id === s.id);
-    return `<div class="strength"><label class="field" for="pr-${s.id}">${esc(st.name)}: kiedy to pokazałeś? Jedno zdanie wystarczy.</label>
-      <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${esc(s.proof)}" placeholder="${esc(st.example)}"></div>`; }).join('');
+    const own = !!s.proof.trim() && !isWhere(s.proof);
+    return `<div class="strength"><p class="field" id="pl-${s.id}">${esc(st.name.charAt(0).toUpperCase() + st.name.slice(1))}: gdzie to widać?</p>
+      <div class="chips" role="group" aria-labelledby="pl-${s.id}">${WHERE.map(w => chip(`data-where="${s.id}|${w}"`, w, s.proof === w)).join('')}</div>
+      <details class="ownproof"${own ? ' open' : ''}><summary>albo opisz to jednym zdaniem</summary>
+        <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${own ? esc(s.proof) : ''}" placeholder="${esc(st.example)}" aria-label="${esc(st.name)}: własny przykład, jedno zdanie"></details></div>`; }).join('');
   return `<h1>Twoje mocne strony</h1>
-    <p>Wybierz 5 rzeczy, które ci wychodzą. Do każdej dopisz jeden przykład ze swojego życia: sport, szkoła, dom i rodzina, języki, pomoc innym. <span class="pickn">${A.strengths.length} z 5</span></p>
+    <p>Wybierz 5 rzeczy, które ci wychodzą, i dotknij, gdzie to widać. Nie musisz nic pisać. <span class="pickn">${A.strengths.length} z 5</span></p>
     <div class="chips">${data.strengths.map(s => chip(`data-strength="${s.id}"`, s.name, picked.includes(s.id))).join('')}</div>
     ${list ? `<div class="card">${list}</div>` : ''}
-    <p class="small muted">Mocna strona liczy się dopiero z przykładem. Przykład nie musi być wielki.</p>`;
+    <p class="small muted">Mocna strona liczy się, kiedy wiesz, gdzie ją widać. To nie musi być nic wielkiego.</p>`;
 }
 
 function possibleStrengths(r) {
@@ -380,11 +383,11 @@ function growCompass(stage) {
 function vReveal() {
   const r = scoreAll(A, data);
   const proven = provenStrengths(A).map(s => { const st = data.strengths.find(x => x.id === s.id);
-    return `<li><b>${esc(st.name)}</b><span class="proof">Widać to po tym, że: ${esc(s.proof)}</span></li>`; }).join('');
+    return `<li><b>${esc(st.name)}</b><span class="proof">${isWhere(s.proof) ? 'Widać to ' + esc(s.proof.trim()) : 'Widać to po tym, że: ' + esc(s.proof)}</span></li>`; }).join('');
   const maybe = possibleStrengths(r).map(s => `<li>${esc(s.name)} <span class="badge">możliwa mocna strona</span></li>`).join('');
-  return `<span class="kicker2">Koniec rozdziału Ja</span><h1>To już widać</h1><p class="lead">Twoje mocne strony, twoimi słowami:</p>
+  return `<span class="kicker2">Koniec rozdziału Ja</span><h1>To już widać</h1><p class="lead">Twoje mocne strony i to, gdzie je widać:</p>
     <div class="card reveal"><ul>${proven}</ul></div>
-    ${maybe ? `<p>Twoje odpowiedzi podpowiadają jeszcze:</p><div class="card"><ul>${maybe}</ul><p class="small muted">Jeśli przypomnisz sobie przykład, wróć i dopisz.</p></div>` : ''}
+    ${maybe ? `<p>Twoje odpowiedzi podpowiadają jeszcze:</p><div class="card"><ul>${maybe}</ul><p class="small muted">Jeśli widzisz je u siebie, wróć i zamień jedną z kart.</p></div>` : ''}
     <p>Teraz zobaczmy, gdzie te mocne strony będą potrzebne.</p>${growCompass(1)}`;
 }
 
@@ -417,6 +420,8 @@ function vForces() {
       return `<button class="sector rise${sectorSel === x.id ? ' on' : ''}${sectorSel && sectorSel !== x.id ? ' dim' : ''}" style="--i:${i}" data-sector="${x.id}" aria-pressed="${sectorSel === x.id}">
         <b>${esc(x.name)}</b><span class="small">Dlaczego rośnie: ${why.map(f => esc(f.name.toLowerCase())).join(', ')}</span>
         <span class="small muted">Na przykład: ${cards.slice(0, 4).map(c => esc(c.name)).join(', ')}</span></button>`; }).join('')}</div>
+    ${(() => { const inSector = new Set(data.scenarios.sectors.flatMap(x => x.cards)), rest = data.opportunities.filter(c => !inSector.has(c.id));
+      return rest.length ? `<p class="small">Nie wszystko mieści się w sześciu sektorach. Te obszary też rosną dzięki tym samym siłom, tylko w wielu branżach naraz: ${rest.map(c => `<b>${esc(c.name)}</b>`).join(' · ')}.</p>` : ''; })()}
     <p class="small muted">${esc(data.scenarios.shrinking)}</p>
     <p class="lead">Mniej ludzi do pracy oznacza, że każdy będzie bardziej potrzebny. Zobaczmy, gdzie przydadzą się twoje mocne strony.</p>`;
 }
@@ -434,13 +439,13 @@ function vCardsPreview() {
   const fchip = (key, text) => chip(`data-area="${key}"`, text, areaFilter === key);
   const answered = proven.length || Object.keys(A.sort).length;
   return `<h1>Gdzie możesz się przydać</h1>
-    <p>${answered ? 'Z 23 obszarów pokazujemy sześć, które najlepiej pasują do tego, co już o sobie powiedziałeś. Dotknij orientacji albo mocnej strony, żeby zobaczyć inne.' : 'Odpowiedz najpierw na pytania z rozdziału Ja, a pokażemy obszary dopasowane do ciebie.'}</p>
+    <p>${answered ? `Z ${data.opportunities.length} obszarów pokazujemy sześć, które najlepiej pasują do tego, co już o sobie powiedziałeś. Dotknij orientacji albo mocnej strony, żeby zobaczyć inne.` : 'Odpowiedz najpierw na pytania z rozdziału Ja, a pokażemy obszary dopasowane do ciebie.'}</p>
     <div class="chips filt" role="group" aria-label="Filtruj obszary">${fchip('', 'najlepiej pasujące')}${dims.map(d => fchip('d:' + d.id, d.name.toLowerCase())).join('')}${proven.map(p => fchip('s:' + p.id, data.strengths.find(x => x.id === p.id).name)).join('')}</div>
     <p class="small muted" aria-live="polite">${esc(label)}</p>
     <div class="areas">${shown.map((c, i) => { const used = proven.filter(p => c.card.strengths.includes(p.id)).map(p => data.strengths.find(x => x.id === p.id).name);
       return `<div class="area rise" style="--i:${i}"><span class="area-ico">${icon(c.card.cluster)}</span><div><h3>${esc(c.card.name)}</h3><p class="small">${esc(c.card.whoYouHelp)}</p>
         ${used.length ? `<div class="tags">${used.map(u => `<span class="tag-s on">${esc(u)}</span>`).join('')}</div>` : ''}</div></div>`; }).join('')}</div>
-    <details class="card"><summary>Pokaż wszystkie 23 obszary</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>${growCompass(2)}`;
+    <details class="card"><summary>Pokaż wszystkie obszary (${data.opportunities.length})</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>${growCompass(2)}`;
 }
 
 const shortInst = n => n.replace(/^Uniwersytet Jagielloński.*$/, 'UJ').replace(/^UJ Collegium Medicum$/, 'UJ CM').replace(/^Krakowska Medyczna Szkoła Policealna nr 1$/, 'Medyczna Szkoła Policealna nr 1')
@@ -823,7 +828,7 @@ function vPartStrengths() {
     const leads = opts.filter(o => o.c.strengthsUsed.some(p => p.id === x.id));
     return `<button class="flip rise" style="--i:${i}" data-flip aria-pressed="false" aria-label="${esc(nameOf(x.id))}: odwróć kartę">
       <span class="face front"><span class="star">${icon('star')}</span><b>${esc(nameOf(x.id))}</b><span class="small muted">dotknij, żeby odwrócić</span></span>
-      <span class="face back"><span class="small">„${esc(x.proof)}”</span>${leads.length ? `<span class="leads">${leads.map(o => `<span class="tno-b sm" style="background:${o.color}" title="${esc(o.c.card.name)}">${o.no}</span>`).join('')}<span class="small muted">prowadzi do ${leads.length === 1 ? 'opcji' : 'opcji'} ${leads.map(o => o.no).join(', ')}</span></span>` : ''}</span></button>`;
+      <span class="face back"><span class="small">${esc(proofText(x.proof))}</span>${leads.length ? `<span class="leads">${leads.map(o => `<span class="tno-b sm" style="background:${o.color}" title="${esc(o.c.card.name)}">${o.no}</span>`).join('')}<span class="small muted">prowadzi do ${leads.length === 1 ? 'opcji' : 'opcji'} ${leads.map(o => o.no).join(', ')}</span></span>` : ''}</span></button>`;
   }).join('');
   const dims = r.profile.top.map((d, i) => { const dim = data.dimensions.interests.find(x => x.id === d), v = Math.round(r.profile.score[d]);
     return `<div class="bar${i < 2 ? ' main' : ''}"><span class="bl">${esc(dim.name)}</span><span class="bt"><i style="width:${v}%;--i:${i}"></i></span><span class="bd small muted">${esc(dim.desc)}</span></div>`; }).join('');
@@ -985,7 +990,7 @@ function makeStoryCtx() {
     rescore: () => scoreAll(A, data),
     proven: () => provenStrengths(A),
     options: r => shownOptions(r),
-    strengthName: id => nameOf(id),
+    strengthName: id => nameOf(id), proofText,
     dimName: d => data.dimensions.interests.find(x => x.id === d)?.name || d,
     valueName: v => data.dimensions.values.find(x => x.id === v)?.name || v,
     tramLines: r => { const opts = shownOptions(r);
@@ -1081,7 +1086,7 @@ function confLine(c) {
 function vResults() {
   if (needResults()) return vGate();
   const r = scoreAll(A, data), s = r.slots, sc = A.scenario || 'B';
-  const proven = provenStrengths(A).map(x => `<li><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span class="proof">${esc(x.proof)}</span></li>`).join('');
+  const proven = provenStrengths(A).map(x => `<li><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span class="proof">${esc(proofText(x.proof))}</span></li>`).join('');
   const quick = s.quick ? (() => { const o = s.quick.o.offer;
     return `<div class="card opt" data-card="quick"><span class="badge slot">Szybki start</span><h3>${esc(o.name)}</h3>
       <p>${esc(o.institution)}. Pierwsza praca po ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'latach' : 'latach'}, a dalsze studia zostają otwarte.${o.next ? ' ' + esc(o.next) + '.' : ''}</p>
@@ -1105,7 +1110,7 @@ function vResults() {
     ${changesSince(r)}
     <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
     <h2 id="r-mocne">Twoje mocne strony</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
-    <section class="print-only cutouts"><p class="small">Wytnij karty i połóż je na stole podczas rozmowy.</p><div class="cut">${provenStrengths(A).map(x => `<div class="cutcard"><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span>${esc(x.proof)}</span></div>`).join('')}</div></section>
+    <section class="print-only cutouts"><p class="small">Wytnij karty i połóż je na stole podczas rozmowy.</p><div class="cut">${provenStrengths(A).map(x => `<div class="cutcard"><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span>${esc(proofText(x.proof))}</span></div>`).join('')}</div></section>
     <h2 id="r-drogi">Twoje drogi</h2>
     <p class="muted small">Od lewej: twoje mocne strony, w środku opcje, po prawej konkretne studia. Każda opcja to osobna linia. Grubsza linia to najlepsze dopasowanie, przerywana to droga przez twoje zainteresowania.</p>
     <p class="small noprint">Wybierz, gdzie się przydasz, żeby podświetlić drogi:</p>
@@ -1229,6 +1234,7 @@ document.addEventListener('click', e => {
   if (d.sortback !== undefined) { A.sortPos = Math.max(0, A.sortPos - 1); save(); render(); return; }
   if (d.sortreset !== undefined) { A.sortPos = 0; save(); render(); return; }
   if (d.value) { const i = A.values.indexOf(d.value); if (i >= 0) A.values.splice(i, 1); else if (A.values.length < 5) A.values.push(d.value); save(); render(); return; }
+  if (d.where) { const [id, w] = d.where.split('|'), s = A.strengths.find(x => x.id === id); if (s) s.proof = s.proof === w ? '' : w; save(); render(); return; }
   if (d.strength) { const i = A.strengths.findIndex(s => s.id === d.strength); if (i >= 0) A.strengths.splice(i, 1); else if (A.strengths.length < 5) A.strengths.push({ id: d.strength, proof: '' }); save(); render(); return; }
   if (d.strong !== undefined) { setA('doubtStrong', d.strong === '1'); return; }
   if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), structuredClone(p.answers), { sortPos: data.questions.activities.length, sitPos: data.questions.situations.length }); furthest = screens.length; save(); location.hash = '#/kompas'; render(); return; }
@@ -1264,9 +1270,7 @@ document.addEventListener('change', async e => {
 
 // "Wczytaj poprzedni wynik": restore answers from the JSON block at the end of an exported file.
 function loadFile(text) {
-  const m = text.match(/```json\s*([\s\S]*?)```/g);
-  let obj = null;
-  try { obj = m && JSON.parse(m[m.length - 1].replace(/^```json\s*/, '').replace(/```$/, '')); } catch { obj = null; }
+  const obj = parseSaved(text);
   if (!obj || !obj.answers || !String(obj.app || '').startsWith('kompas-studia')) {
     notice = 'To nie wygląda na plik z Kompasu Studia. Wybierz plik pobrany z tej aplikacji.'; render(); return;
   }
@@ -1298,6 +1302,7 @@ document.addEventListener('input', e => {
   if (d.field) { A[d.field] = d.field === 'startMin' ? Number(t.value) : t.value; save(); if (t.id === 'name' || t.id === 'cando' || t.id === 'sport' || t.id === 'start') return; }
   if (d.slider) { A.sliders[d.slider] = Number(t.value); save(); return; }
   if (d.proof) { const s = A.strengths.find(x => x.id === d.proof); s.proof = t.value; save();
+    t.closest('.strength')?.querySelectorAll('[data-where]').forEach(b => b.setAttribute('aria-pressed', 'false'));
     const ok = provenStrengths(A).length === 5; const next = $app.querySelector('.nav .btn:not(.ghost)'); if (next) next.disabled = !ok;
     const h = document.getElementById('navhint'); if (h) h.textContent = ok ? '' : current().hint(); return; }
   if (d.refl) { A.reflection[d.refl] = t.value; save(); }

@@ -1,4 +1,50 @@
 <!doctype html>
-<html lang="pl"><head><meta charset="utf-8"><meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0; url=studia/"><title>Kompas</title></head>
-<body><p><a href="studia/">Kompas Studia</a></p></body></html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Kompas</title>
+  <meta name="description" content="Kompas Liceum i Kompas Studia: od tego, co lubisz i umiesz, do konkretnych szkół i kierunków w Krakowie.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%231f6f6b%22/%3E%3C/svg%3E">
+  <style>
+    @font-face { font-family: 'Fraunces'; font-weight: 400 700; font-display: swap; src: url(studia/fonts/fraunces-latin-ext-wght-normal.woff2) format('woff2'); unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB; }
+    @font-face { font-family: 'Fraunces'; font-weight: 400 700; font-display: swap; src: url(studia/fonts/fraunces-latin-wght-normal.woff2) format('woff2'); }
+    :root { --bg: #f6f3ee; --card: #fffdf9; --ink: #1f2a2e; --muted: #5d6a6e; --line: #e2ddd3; --a: #1f6f6b; --b: #b5562c; color-scheme: light dark; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #151b1d; --card: #1d2528; --ink: #e8ece9; --muted: #9aa8a6; --line: #2e393c; --a: #6cc2b9; --b: #e38a62; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--bg); color: var(--ink); font: 1rem/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif; padding: 24px 16px; }
+    main { width: 100%; max-width: 760px; }
+    h1 { font: 600 clamp(2.2rem, 7vw, 3.4rem)/1.05 'Fraunces', Georgia, serif; margin: 14px 0 8px; letter-spacing: -.01em; }
+    p { margin: 0; color: var(--muted); max-width: 46ch; }
+    .comp { width: 56px; height: 56px; }
+    .comp circle { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+    .comp .n { fill: var(--a); } .comp .s { fill: var(--b); opacity: .55; }
+    .comp g { transform-origin: 12px 12px; }
+    @media (prefers-reduced-motion: no-preference) { .comp g { animation: settle 1.6s cubic-bezier(.3, 1.6, .5, 1) both; } }
+    @keyframes settle { from { transform: rotate(-140deg); } to { transform: rotate(18deg); } }
+    .pick { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+    a.way { display: flex; flex-direction: column; gap: 6px; padding: 22px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--c); color: inherit; text-decoration: none; min-height: 190px; transition: transform .18s ease, box-shadow .18s ease; }
+    a.way:hover { transform: translateY(-3px); box-shadow: 0 14px 34px color-mix(in srgb, var(--ink) 12%, transparent); }
+    a.way:focus-visible { outline: 3px solid var(--c); outline-offset: 3px; }
+    a.way .when { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--c); font-weight: 700; }
+    a.way b { font: 600 1.55rem/1.15 'Fraunces', Georgia, serif; }
+    a.way span.d { color: var(--muted); font-size: .95rem; }
+    a.way .go { margin-top: auto; font-weight: 600; color: var(--c); }
+    .foot { margin-top: 26px; font-size: .85rem; }
+    @media (max-width: 600px) { .pick { grid-template-columns: 1fr; } a.way { min-height: 0; } }
+  </style>
+</head>
+<body>
+  <main>
+    <svg class="comp" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><g><path class="n" d="M12 3.5 14.8 12H9.2Z"/><path class="s" d="M12 20.5 9.2 12h5.6Z"/></g></svg>
+    <h1>Kompas</h1>
+    <p>Od tego, co lubisz i co ci wychodzi, do konkretnych szkół i kierunków w Krakowie. Bez ocen i bez testów. Wybierz swoją drogę:</p>
+    <div class="pick">
+      <a class="way" href="liceum/" style="--c: var(--b)"><span class="when">Kończę 8 klasę</span><b>Kompas Liceum</b><span class="d">Liceum albo technikum: profile, szkoły i klasy, które do ciebie pasują.</span><span class="go">Zaczynam →</span></a>
+      <a class="way" href="studia/" style="--c: var(--a)"><span class="when">Zdaję maturę</span><b>Kompas Studia</b><span class="d">Studia i krótsze ścieżki: gdzie przydadzą się twoje mocne strony.</span><span class="go">Zaczynam →</span></a>
+    </div>
+    <p class="foot">Bez konta i bez śledzenia. Odpowiedzi zostają u ciebie.</p>
+  </main>
+</body>
+</html>

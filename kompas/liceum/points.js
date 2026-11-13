@@ -40,7 +40,7 @@ export function examPoints(exam = {}) {
 // Subjects a class counts on the certificate. Sourced when the school publishes them; otherwise an approximation, flagged.
 export function scoredSubjects(cls) {
   if (cls.scored) return { list: cls.scored, sourced: true };
-  const ext = (cls.extended || []).map(e => ({ 'język polski': 'polski', 'matematyka komputerowa': 'matematyka' }[e] || e));
+  const ext = (cls.extended || []).map(e => ({ 'język polski': 'polski', 'j. polski': 'polski', 'j. angielski': 'angielski', 'matematyka komputerowa': 'matematyka' }[e] || e));
   const extra = ext.filter(e => SUBJECT_NAME[e] && e !== 'matematyka' && e !== 'polski');
   const base = ['polski', 'matematyka'];
   const fill = cls.occupation ? ['angielski', 'informatyka'] : ['angielski'];
