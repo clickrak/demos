@@ -59,6 +59,25 @@ Decisions taken in v0.1: PPE early payout shown as “not possible (transfer onl
 
 **N4. New tab “Źródła” (sources to check).** List of official sources behind every number: what it backs, link, date last checked, status (✅ checked / ⚠️ to verify). Kept in one file (`sources.js`) so it is easy to update every year (limits change each November). Items marked ⚠️ also show a small warning next to the number in the app.
 
+**N5. Guide for beginners (“Przewodnik”).** Default view for the Młody persona (N1), also reachable from a “Zacznij tutaj” button. One simple question per screen, answers by clicking a choice (with “inna kwota” for typing), progress dots, back button. Every question has a “Co to znaczy?” link that opens a 2–3 sentence explanation in plain words.
+
+| Step | Question | Choices | “Co to znaczy?” explains |
+|---|---|---|---|
+| 1 | Ile zarabiasz brutto miesięcznie? | 5 000 / 7 500 / 10 000 / 15 000 zł / inna | brutto vs netto; why it matters (PPK, IKZE refund) |
+| 2 | Ile możesz odłożyć co miesiąc? | 200 / 500 / 1 000 / 2 000 zł / inna | tip: start with ~10% of net pay; small amounts grow a lot over time |
+| 3 | Czy masz już oszczędności? | nie / 5 000 / 20 000 / 50 000 zł / inna | keep an emergency fund (3–6 months of costs) outside investments |
+| 4 | Ile masz lat? | 25 / 30 / 35 / 40 / 45 / inna (retirement fixed at 65, editable later) | why time matters more than amount (compound interest) |
+| 5 | Jak spokojnie chcesz spać? | Spokojnie / Pośrodku / Odważnie | risk: ups and downs; maps to mix: more EDO / mixed / mostly ETF |
+| 6 | Czy jesteś w PPK? | tak / nie / nie wiem (→ assume yes) | what PPK is; employer + state money |
+
+Result screen (one card, big numbers):
+- “W wieku 65 lat możesz mieć ok. **X zł**” (net after tax) and “to ok. **Y zł** w dzisiejszych pieniądzach”.
+- “To ok. **Z zł miesięcznie** przez 20 lat emerytury” (simple split of the real value, no interest; refined later by N2).
+- Suggested plan in 3 lines, from the auto-split (e.g. “1. Zostań w PPK. 2. IKZE do 1 000 zł/mies. – odzyskasz 12% w PIT. 3. Reszta: IKE.”).
+- Range with the 3 market presets: “w gorszym scenariuszu A zł, w lepszym B zł”.
+- Buttons: “Zobacz szczegóły” (opens the full app with these inputs filled in), “Zapisz .md” (N3), “Zacznij od nowa”.
+- Rules: plain Polish, no jargon without explanation, numbers rounded to thousands, disclaimer visible on the result screen.
+
 Seed list for N4 (to check against official pages):
 | Figure | Official source |
 |---|---|
@@ -75,6 +94,7 @@ Seed list for N4 (to check against official pages):
 - [ ] **N2 Withdrawal tab** (strategies, account order, tax per account, “money lasts until age X”).
 - [ ] **N3 Markdown save/load** (summary + state in front matter, round-trip test).
 - [ ] **N4 Sources tab** (`sources.js`, status per figure, ⚠️ markers in the UI).
+- [ ] **N5 Beginner guide** (6 click questions with “Co to znaczy?”, result card with approx. capital at 65, monthly income, simple plan, range, link to full app).
 - [ ] **OKI:** confirm whether foreign UCITS ETFs count for the 100 000 zł exemption (now a config flag, default yes); tax on average value, not end-of-year value.
 - [ ] **EDO:** roll over every 10 years with Belka at each maturity; early redemption fee (3 zł per 100 zł bond, max the interest).
 - [ ] **IKZE:** refund arrives the next year (May), not at year end; early payout at PIT scale instead of flat 12%.
