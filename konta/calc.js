@@ -170,7 +170,7 @@
       earlyPenalty += loss + belka(gain);
     }
     row('ppe', p.ppe.v, 0, endAge < T.ppeFreeAge && p.ppe.v > 0 ? { locked: true } : {});
-    if (per.ppe.locked) notes.push('PPE: przed 60 r.ż. nie można wypłacić (tylko transfer) – wartość pokazana bez podatku.');
+    if (per.ppe.locked) notes.push('PPE: przed 60. rokiem życia nie można wypłacić (tylko transfer) – wartość pokazana bez podatku.');
 
     const gross = ALL.reduce((s, x) => s + per[x].gross, 0);
     const tax = ALL.reduce((s, x) => s + per[x].tax, 0);

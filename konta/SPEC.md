@@ -193,20 +193,21 @@ Keep the calculation tests green in every release. Each release = bump the versi
 | Release | Name | Content | Status |
 |---|---|---|---|
 | v0.2 | Struktura | U0 page structure (views Plan, Produkty, Założenia; result card; result bar; tips; auto-split amounts) + all P1 fixes (U6, U7, U8, U10, U11, U13, U16, U18, U26) + U9 charts, U19 | ✅ 16.11.2026 |
-| v0.3 | Start | N5 guide, N1 personas (Start view) + P2 fixes U12, U14, U15, U17, U20, U21 | ⏳ |
+| v0.3 | Start | N5 guide, N1 personas (Start view) + P2 fixes U12, U14, U15, U17, U20, U21. Until v0.4: Senior opens Plan, the guide has no “Zapisz .md” | ✅ 16.11.2026 |
 | v0.4 | Wypłata | N2 withdrawal view, N3 Markdown save/load, N4 sources + U22–U24 (keyboard, screen reader, contrast) | ⏳ |
 | v0.5 | Dokładność | U25 + calculation details (OKI, EDO, IKZE, PIT 32%, PPK, asset choice, risk view, monthly steps, couple mode, CI) | ⏳ |
 
 - [x] **U0 Page structure** (5 views with addresses, tabs / bottom bar, result card, sticky result bar, tips, auto-split amounts).
 - [x] **UX P1 fixes:** U1–U4 (done by U0), U6 tables as cards on phone, U7 touch targets, U8 text sizes, U10 sliders, U11 validation, U13 payout age + warning, U16 no “best” between different risks, U18 chart = table, U26 rename F9.
-- [ ] **UX P2 fixes:** U5, U9 charts, U12 number format, U14 empty state, U15 split “Twoje wpłaty”, U17 glossary, U19, U20 undo, U21 clean address + shared-link banner, U22–U24 keyboard, screen reader, contrast.
+- [x] **UX P2 fixes, part 1 (v0.2–v0.3):** U5, U9 charts, U12 number format, U14 empty state, U15 split “Twoje wpłaty”, U17 glossary, U19, U20 undo, U21 clean address + shared-link banner.
+- [ ] **UX P2 fixes, part 2 (v0.4):** U22–U24 keyboard, screen reader, contrast (skip link, focus after reorder, captions and `scope` are already in; still open: full contrast pass, Lighthouse ≥ 95).
 - [ ] **UX P3:** U25 reduced motion, print style, dark mode.
-- [ ] **UX acceptance:** the 10 checks in “Acceptance — UX” pass at 390×844 and 1280×800.
-- [ ] **N1 Personas** (Start view, 3 profiles, defaults with payout age, opening view, persona chip).
+- [ ] **UX acceptance:** checks 1–8 and 10 pass in v0.3 (automated, Chrome, 390×844 and 1280×800); check 9 (Lighthouse) is still to run.
+- [x] **N1 Personas** (Start view, 3 profiles, defaults with payout age, opening view, persona chip). Open: Senior → Wypłata when N2 exists.
 - [ ] **N2 Withdrawal view** (strategies, account order, tax per account, “money lasts until age X”).
 - [ ] **N3 Markdown save/load** (summary + state in front matter, round-trip test).
 - [ ] **N4 Sources list** (`sources.js`, status per figure, ⚠️ markers in the UI).
-- [ ] **N5 Beginner guide** (6 click questions with “Co to znaczy?”, result card with approx. capital at 65, monthly income, simple plan, range, link to full app).
+- [x] **N5 Beginner guide** (6 click questions with “Co to znaczy?”, result card with approx. capital at 65, monthly income, simple plan, range, link to full app).
 - [ ] **OKI:** confirm whether foreign UCITS ETFs count for the 100 000 zł exemption (now a config flag, default yes); tax on average value, not end-of-year value.
 - [ ] **EDO:** roll over every 10 years with Belka at each maturity; early redemption fee (3 zł per 100 zł bond, max the interest).
 - [ ] **IKZE:** refund arrives the next year (May), not at year end; early payout at PIT scale instead of flat 12%.

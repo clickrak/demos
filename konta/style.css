@@ -45,11 +45,11 @@ main { padding-top: 18px; }
 .settings { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 .field label { display: block; font-size: .875rem; color: var(--muted); margin-bottom: 2px; }
 .field .pair { display: flex; gap: 8px; align-items: center; }
-.field input[type=number] { width: 100%; max-width: 180px; }
+.field input[type=text] { width: 100%; max-width: 180px; }
 .field input[type=range] { display: block; width: 100%; min-width: 160px; margin: 6px 0 0; accent-color: var(--accent); }
 .field .err { color: var(--bad); font-size: .875rem; margin: 4px 0 0; }
 input[aria-invalid=true] { border-color: var(--bad); outline: 1px solid var(--bad); }
-input[type=number], input[type=text], select { padding: 6px 8px; border: 1px solid var(--edge); border-radius: 6px; font: inherit; font-size: 16px; background: #fff; color: var(--ink); min-height: 36px; }
+input[type=text], select { padding: 6px 8px; border: 1px solid var(--edge); border-radius: 6px; font: inherit; font-size: 16px; background: #fff; color: var(--ink); min-height: 36px; }
 .row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 12px; }
 .switches { margin-top: 14px; display: grid; gap: 2px; }
 .check { display: flex; gap: 10px; align-items: center; cursor: pointer; min-height: 36px; }
@@ -67,7 +67,7 @@ button.active, button.primary { background: var(--accent); color: #fff; border-c
 .result .big { margin: 0; font-size: clamp(2rem, 7vw, 2.9rem); font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; }
 .result .big span { font-size: 1rem; font-weight: 400; color: var(--muted); }
 .pick { display: flex; gap: 8px; align-items: center; margin: 8px 0; flex-wrap: wrap; }
-.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 10px 0; }
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 10px 0; }
 .trio div { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
 .trio dt { font-size: .875rem; color: var(--muted); }
 .trio dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -103,13 +103,37 @@ footer { padding: 10px 16px 40px; }
 footer a, .muted a { color: var(--accent); }
 [hidden] { display: none !important; }
 
+/* v0.3: start, guide, glossary, toast, shared banner */
+.chip { display: inline-block; margin-top: 6px; color: #fff; font-size: .875rem; border: 1px solid rgba(255,255,255,.7); border-radius: 14px; padding: 2px 10px; text-decoration: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 8px 16px; border: 1px solid var(--edge); border-radius: 6px; text-decoration: none; color: var(--ink); background: #fff; }
+.btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+.hero h2 { font-size: 1.5rem; } .hero p { max-width: 60ch; }
+h2.sub { font-size: 1.05rem; margin: 22px 0 10px; }
+.personas { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 10px; }
+.persona { text-align: left; padding: 14px 16px; border-radius: var(--radius); display: block; width: 100%; background: #fff; }
+.persona b { font-size: 1.1rem; } .persona small { display: block; color: var(--muted); font-size: .875rem; margin: 2px 0 6px; }
+.persona span { display: block; } .persona em { display: block; margin-top: 8px; font-style: normal; color: var(--accent); font-weight: 600; }
+.persona[aria-pressed=true] { border: 2px solid var(--accent); background: var(--accent-soft); }
+.guide { max-width: 640px; margin-left: auto; margin-right: auto; }
+.guide h2 { font-size: 1.4rem; margin: 4px 0 14px; }
+.choices { display: grid; gap: 10px; }
+.choice { min-height: 56px; text-align: left; font-size: 1.05rem; padding: 10px 16px; }
+.choice small { display: block; color: var(--muted); font-size: .875rem; }
+.choice.active { background: var(--accent-soft); border: 2px solid var(--accent); color: var(--ink); }
+.guide .planlist { padding-left: 22px; } .guide .planlist li { margin: 6px 0; }
+.gl { border-bottom: 2px dotted var(--accent); cursor: help; }
+.glpop { position: absolute; z-index: 40; max-width: min(320px, calc(100vw - 24px)); background: #1d2433; color: #fff; padding: 10px 12px; border-radius: 8px; font-size: .9375rem; box-shadow: 0 6px 20px rgba(16,24,40,.25); }
+.glpop b { display: block; margin-bottom: 2px; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 20px; z-index: 45; background: #1d2433; color: #fff; padding: 8px 10px 8px 16px; border-radius: 8px; display: flex; gap: 12px; align-items: center; max-width: calc(100vw - 24px); }
+.shared { background: var(--warn-soft); border: 1px solid #e8b06a; border-radius: var(--radius); padding: 10px 14px; margin-top: 14px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+
 @media (max-width: 900px) {
   .plan { grid-template-columns: minmax(0, 1fr); grid-template-areas: "dane" "res" "adj"; }
 }
 
 /* Phone and touch: bigger targets, bottom navigation, tables as cards */
 @media (max-width: 700px), (pointer: coarse) {
-  button, select, input[type=number], input[type=text], .check, summary { min-height: 44px; }
+  button, .btn, select, input[type=text], .check, summary { min-height: 44px; }
   .order button, .slot { min-width: 44px; }
   input[type=range] { height: 44px; margin: 0 !important; }
   .check input { width: 26px; height: 26px; }
@@ -123,12 +147,13 @@ footer a, .muted a { color: var(--accent); }
   .tabs .wrap { padding: 0; gap: 0; }
   .tabs a { flex: 1; flex-direction: column; justify-content: center; gap: 2px; padding: 0; font-size: .875rem; border-bottom: 0; border-top: 3px solid transparent; }
   .tabs a[aria-current="page"] { border-top-color: #fff; }
+  .toast { bottom: calc(var(--nav-h) + 70px); }
   .bar { top: auto; bottom: var(--nav-h); border-bottom: 0; border-top: 1px solid var(--line); box-shadow: 0 -2px 8px rgba(16,24,40,.1); }
   .trio { grid-template-columns: 1fr; gap: 6px; }
   .trio div { display: flex; justify-content: space-between; gap: 10px; }
   .chartbox { height: 300px; }
   .seg span { width: 100%; }
-  .field input[type=number] { max-width: none; }
+  .field input[type=text] { max-width: none; }
 
   table.cards thead { position: absolute; left: -9999px; }
   table.cards, table.cards tbody { display: block; width: 100%; }

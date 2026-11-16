@@ -1,4 +1,4 @@
-# Konta Inwestycyjne v0.2
+# Konta Inwestycyjne v0.3
 
 Simple calculator comparing IKE, IKZE, OKI, PPK, PPE, EDO bonds and ETF World / EM (XTB) for a Polish employee. Static site, no build step.
 

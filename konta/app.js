@@ -12,6 +12,9 @@
   const nf = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0, useGrouping: 'always' });
   const num = x => nf.format(Math.round(x)).replace(/ /g, ' ');
   const zl = x => num(x) + ' zł';
+  // Numbers in fields: shown as "20 000" / "12 039,6"; spaces and comma accepted when typing.
+  const fmt = v => Number(v).toLocaleString('pl-PL', { maximumFractionDigits: 4, useGrouping: 'always' }).replace(/\u00a0/g, ' ');
+  const parseNum = s => { const t = String(s).replace(/[\s\u00a0]/g, '').replace(',', '.'); return /^-?(\d+\.?\d*|\.\d+)$/.test(t) ? parseFloat(t) : NaN; };
   const pct = (x, d = 1) => (x * 100).toLocaleString('pl-PL', { maximumFractionDigits: d }) + '%';
   const vname = k => C.VEHICLES[k].name;
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -24,7 +27,8 @@
     return {
       inp: clone(C.DEFAULT_INPUT), cfg: clone(C.DEFAULT_CONFIG), scenarios: clone(C.DEFAULT_SCENARIOS),
       order: clone(C.DEFAULT_ORDER), realTerms: false, preset: 'base', earlyN: 10, editSlot: 'A', yearScen: 'auto',
-      mainScen: 'auto', showAll: false,
+      mainScen: 'auto', showAll: false, persona: '', touched: false,
+      guide: { step: 0, ans: { salary: -1, monthly: -1, capital: -1, age: -1, risk: '', ppk: '' } },
     };
   }
   function merge(base, over) {
@@ -42,14 +46,8 @@
   const decode = t => JSON.parse(decodeURIComponent(escape(atob(t))));
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
-  function load() {
-    let saved = null;
-    try {
-      const q = new URLSearchParams(location.search).get('s');
-      if (q) saved = decode(q);
-      else saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
-    } catch (e) { saved = null; }
-    // v0.1 stored "years of saving"; v0.2 stores the payout age.
+  function normalize(saved) {
+    // v0.1 stored "years of saving"; v0.2+ stores the payout age.
     if (saved && saved.inp && typeof saved.inp.horizon === 'number' && typeof saved.inp.payoutAge !== 'number') {
       saved.inp.payoutAge = (Number(saved.inp.age) || C.DEFAULT_INPUT.age) + saved.inp.horizon;
     }
@@ -60,12 +58,40 @@
     s.inp.salary = clamp(s.inp.salary, 4000, LIM.salary); s.inp.age = clamp(s.inp.age, 18, 75);
     s.inp.payoutAge = clamp(s.inp.payoutAge, s.inp.age + 1, 90);
     if (!['auto', 'A', 'B', 'C'].includes(s.mainScen)) s.mainScen = 'auto';
+    if (!C.PERSONAS[s.persona]) s.persona = '';
     return s;
   }
-  function save() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) { /* storage may be blocked */ }
-    try { history.replaceState(null, '', '?s=' + encodeURIComponent(encode(S)) + location.hash); } catch (e) { /* ignore */ }
+  const readOwn = () => { try { return JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (e) { return null; } };
+  const cleanUrl = () => { try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) { /* ignore */ } };
+  // A link (?s=) shows a shared plan. It never overwrites the user's own saved plan without asking (U21).
+  let shared = false, firstVisit = false;
+  function load() {
+    const own = readOwn();
+    let link = null;
+    try { const q = new URLSearchParams(location.search).get('s'); if (q) link = decode(q); } catch (e) { link = null; }
+    firstVisit = !own && !link;
+    const sOwn = normalize(own);
+    if (!link) return sOwn;
+    const sLink = normalize(link);
+    if (own && JSON.stringify(sLink) === JSON.stringify(sOwn)) { cleanUrl(); return sOwn; } // old self-written link
+    shared = true;
+    return sLink;
   }
+  function save() {
+    if (shared) return;
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) { /* storage may be blocked */ }
+  }
+  // Only values that differ from the defaults go into a shared link.
+  const isObj = x => x && typeof x === 'object' && !Array.isArray(x);
+  function diff(x, d) {
+    const out = {};
+    Object.keys(x).forEach(k => {
+      if (JSON.stringify(x[k]) === JSON.stringify(d[k])) return;
+      out[k] = isObj(x[k]) && isObj(d[k]) ? diff(x[k], d[k]) : x[k];
+    });
+    return out;
+  }
+  const shareUrl = () => location.origin + location.pathname + '?s=' + encodeURIComponent(encode(diff(S, defaults()))) + '#plan';
 
   const LIM = { capital: 5000000, monthly: 20000, salary: 50000 };
   let S = load();
@@ -86,15 +112,15 @@
     const lim = () => ({ min: typeof opts.min === 'function' ? opts.min() : opts.min, max: typeof opts.max === 'function' ? opts.max() : opts.max });
     const l = lim(), v0 = get();
     wrap.innerHTML = `<label for="${id}">${esc(label)}</label><div class="pair">` +
-      `<input type="number" id="${id}" inputmode="decimal" min="${l.min}" max="${l.max}" step="${opts.step}" value="${v0}" aria-describedby="${id}e">` +
+      `<input type="text" id="${id}" inputmode="decimal" autocomplete="off" value="${fmt(v0)}" aria-describedby="${id}e">` +
       (opts.unit ? `<span class="muted">${opts.unit}</span>` : '') + '</div>' +
       (opts.range === false ? '' : `<input type="range" min="${l.min}" max="${opts.sliderMax || l.max}" step="${opts.step}" value="${v0}" aria-label="${esc(label)} – suwak">`) +
       `<p class="err" id="${id}e" hidden></p>`;
-    const numEl = wrap.querySelector('input[type=number]'), rng = wrap.querySelector('input[type=range]'), err = wrap.querySelector('.err');
+    const numEl = wrap.querySelector('input[type=text]'), rng = wrap.querySelector('input[type=range]'), err = wrap.querySelector('.err');
     const clear = () => { numEl.removeAttribute('aria-invalid'); err.hidden = true; };
-    const show = v => { numEl.value = v; if (rng) rng.value = v; clear(); };
+    const show = v => { numEl.value = fmt(v); if (rng) rng.value = v; clear(); };
     numEl.addEventListener('input', () => {
-      const v = parseFloat(numEl.value), { min, max } = lim();
+      const v = parseNum(numEl.value), { min, max } = lim();
       if (isNaN(v) || v < min || v > max) {
         numEl.setAttribute('aria-invalid', 'true');
         err.textContent = `Wpisz wartość od ${num(min)} do ${num(max)}${opts.unit ? ' ' + opts.unit : ''}.`;
@@ -105,15 +131,15 @@
     });
     numEl.addEventListener('blur', () => {
       const { min, max } = lim();
-      let v = parseFloat(numEl.value);
+      let v = parseNum(numEl.value);
       if (isNaN(v)) v = get();
       v = clamp(v, min, max);
       const changed = v !== get();
       show(v); if (changed) onChange(v);
     });
-    if (rng) rng.addEventListener('input', () => { const v = parseFloat(rng.value); numEl.value = v; clear(); onChange(v); });
+    if (rng) rng.addEventListener('input', () => { const v = parseFloat(rng.value); numEl.value = fmt(v); clear(); onChange(v); });
     wrap.setValue = show;
-    wrap.syncLimits = () => { const { min, max } = lim(); numEl.min = min; numEl.max = max; if (rng) rng.min = min; };
+    wrap.syncLimits = () => { if (rng) rng.min = lim().min; };
     return wrap;
   }
   function table(el, head, rows, opts = {}) {
@@ -128,15 +154,15 @@
   const signed = x => `<span class="${x >= 0 ? 'pos' : 'neg'}">${x >= 0 ? '+' : '−'}${zl(Math.abs(x))}</span>`;
 
   // ---------- Views (hash routing) ----------
-  const VIEWS = ['plan', 'produkty', 'zalozenia'];
+  const VIEWS = ['start', 'przewodnik', 'plan', 'produkty', 'zalozenia'];
   const ALIAS = { dane: 'plan', wynik: 'plan', dostosuj: 'plan', auto: 'plan', scenariusze: 'plan', wyniki: 'plan',
     porownanie: 'produkty', osobno: 'produkty', wczesniej: 'produkty', wyplata: 'produkty' };
   function route() {
-    const h = location.hash.slice(1) || 'plan';
+    const h = location.hash.slice(1) || (firstVisit ? 'start' : 'plan');
     view = VIEWS.includes(h) ? h : (ALIAS[h] || 'plan');
     document.querySelectorAll('.view').forEach(v => { v.hidden = v.dataset.view !== view; });
     document.querySelectorAll('[data-tab]').forEach(a => {
-      if (a.dataset.tab === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+      if (a.dataset.tab === (view === 'przewodnik' ? 'start' : view)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
     const target = ALIAS[h] ? $(h === 'wyplata' ? 'wczesniej' : h) : null;
     if (target) {
@@ -145,6 +171,7 @@
       if (h === 'wynik') target.focus({ preventScroll: true });
     } else window.scrollTo(0, 0);
     if (view === 'plan') { if (chart) chart.resize(); if (barChart) barChart.resize(); }
+    if (view === 'przewodnik') renderGuide();
     updateBar();
   }
 
@@ -152,7 +179,7 @@
   function renderInputs() {
     const box = $('inputs'); box.innerHTML = '';
     const add = (k, label, o, after) => {
-      fields[k] = field(label, () => S.inp[k], o, v => { S.inp[k] = v; if (after) after(v); update(); });
+      fields[k] = field(label, () => S.inp[k], o, v => { S.inp[k] = v; S.touched = true; if (after) after(v); update(); });
       box.appendChild(fields[k]);
     };
     add('capital', 'Kapitał na start', { min: 0, max: LIM.capital, sliderMax: 500000, step: 1000, unit: 'zł' });
@@ -179,9 +206,11 @@
   const withPreset = key => { const c = clone(S.cfg); Object.assign(c.returns, C.PRESETS[key], { edoYear1: c.returns.edoYear1, edoMargin: c.returns.edoMargin }); delete c.returns.label; return c; };
   function applyPreset(key) {
     const p = C.PRESETS[key];
+    const snap = S.preset === 'custom' ? clone(S) : null;
     ['etfWorld', 'etfEm', 'ppk', 'ppe', 'inflation'].forEach(k => { S.cfg.returns[k] = p[k]; });
     S.preset = key;
     renderSettings(); update();
+    if (snap) toast('Zmieniono Twoje własne stopy zwrotu.', snap);
   }
 
   // ---------- Scenarios ----------
@@ -210,7 +239,9 @@
     const r = scen[S.mainScen].res, f = realF(years()), T = S.cfg.tax;
     const when = `W wieku ${r.endAge} lat` + (S.realTerms ? ' (w dzisiejszych złotówkach)' : '');
     $('resultBody').innerHTML = `<p class="eyebrow">${when}</p><p class="big">${zl(r.net * f)} <span>na rękę</span></p>`;
-    let more = `<dl class="trio"><div><dt>Wpłacasz</dt><dd>${zl(r.ownPaid)}</dd></div>` +
+    const pocket = S.inp.capital + 12 * S.inp.monthly * years();
+    let more = `<dl class="trio"><div><dt>Z Twojej kieszeni</dt><dd>${zl(pocket)}</dd></div>` +
+      (r.ownPaid - pocket > 1 ? `<div><dt>Z pensji (PPK)</dt><dd>${zl(r.ownPaid - pocket)}</dd></div>` : '') +
       `<div><dt>Od pracodawcy i państwa</dt><dd>${zl(employerMoney())}</dd></div>` +
       `<div><dt>Zysk vs zwykłe konto ETF</dt><dd>${signed(r.vsBaseline * f)}</dd></div></dl>`;
     if (isEmpty()) more += '<div class="warn" role="note">Wpisz kapitał na start lub wpłatę miesięczną. Teraz wynik pokazuje tylko pieniądze z pensji (PPK, PPE).</div>';
@@ -300,6 +331,10 @@
   }
 
   // ---------- Summary and yearly table ----------
+  function ownCell(own) {
+    const pocket = S.inp.capital + 12 * S.inp.monthly * years();
+    return own - pocket > 1 ? `<span>${zl(pocket)}<br><span class="muted">+ z pensji ${zl(own - pocket)}</span></span>` : zl(own);
+  }
   function renderSummary(scen) {
     const f = realF(years()), keys = Object.keys(scen);
     const nets = keys.map(k => scen[k].res.net).sort((a, b) => b - a);
@@ -309,16 +344,16 @@
       return { cls: k === best ? 'best' : '', cells: [
         `<span class="tag" style="background:${COLORS[k]};color:#fff">${k === 'auto' ? 'Auto' : k}</span> ${esc(scen[k].label.replace(/^[ABC]: /, ''))}` +
           (k === best ? ' <span class="tag win">✓ najwięcej na rękę</span>' : ''),
-        zl(r.ownPaid), zl(r.taxTotal * f), `<b>${zl(r.net * f)}</b>`,
+        ownCell(r.ownPaid), zl(r.taxTotal * f), `<b>${zl(r.net * f)}</b>`,
         `<span>${signed(r.vsBaseline * f)}<br><span class="muted">(${r.vsBaselinePct >= 0 ? '+' : ''}${pct(r.vsBaselinePct)})</span></span>`] };
     });
     const b = scen.auto.res;
-    rows.push({ cells: ['<span class="muted">Dla porównania: wszystko na zwykłym koncie ETF World</span>', zl(b.ownPaid), '', zl(b.baseline * f), ''] });
+    rows.push({ cells: ['<span class="muted">Dla porównania: wszystko na zwykłym koncie ETF World</span>', ownCell(b.ownPaid), '', zl(b.baseline * f), ''] });
     table($('summaryTable'), ['Scenariusz', 'Twoje wpłaty', 'Podatki', 'Na rękę' + (S.realTerms ? ' (dziś)' : ''), 'Zysk vs zwykłe konto'],
       rows, { num: [1, 2, 3, 4], key: 3, caption: 'Wynik każdego scenariusza po podatkach' });
     const notes = new Set();
     keys.forEach(k => scen[k].res.notes.forEach(n => notes.add(n)));
-    if (S.inp.ppkOn || S.inp.ppeOn) notes.add('„Twoje wpłaty” obejmują też Twoją składkę PPK i podatek od składek pracodawcy.');
+    if (S.inp.ppkOn || S.inp.ppeOn) notes.add('„Z pensji” to Twoja składka PPK i podatek od składek pracodawcy.');
     $('notes').innerHTML = [...notes].map(n => `<p>${esc(n)}</p>`).join('');
   }
 
@@ -452,6 +487,151 @@
     });
   }
 
+  // ---------- Toast with undo (U20) ----------
+  let toastTimer = null, toastSnap = null;
+  function toast(msg, snap) {
+    toastSnap = snap; $('toastText').textContent = msg; $('toast').hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('toast').hidden = true; toastSnap = null; }, 8000);
+  }
+  $('toastUndo').addEventListener('click', () => {
+    if (toastSnap) { S = toastSnap; toastSnap = null; renderAll(); save(); }
+    $('toast').hidden = true;
+  });
+
+  // ---------- Shared-link banner (U21) ----------
+  function renderShared() { $('sharedBanner').hidden = !shared; }
+  $('sharedKeep').addEventListener('click', () => { shared = false; cleanUrl(); save(); renderShared(); });
+  $('sharedBack').addEventListener('click', () => { shared = false; cleanUrl(); S = normalize(readOwn()); renderAll(); save(); renderShared(); });
+
+  // ---------- Start: personas (N1) ----------
+  function renderStart() {
+    $('personas').innerHTML = Object.keys(C.PERSONAS).map(k => { const p = C.PERSONAS[k]; return `<button class="persona" data-persona="${k}" aria-pressed="${S.persona === k}">` +
+      `<b>${p.name}</b><small>${p.range}</small><span>${p.desc}</span>` +
+      `<span class="muted">Przykład: ${num(p.inp.age)} lat, ${zl(p.inp.capital)} na start, ${zl(p.inp.monthly)} miesięcznie</span><em>${p.cta} →</em></button>`; }).join('');
+    const chip = $('personaChip');
+    chip.hidden = !S.persona;
+    if (S.persona) chip.textContent = `Profil: ${C.PERSONAS[S.persona].name} · zmień`;
+  }
+  $('personas').addEventListener('click', e => {
+    const b = e.target.closest('[data-persona]'); if (!b) return;
+    const k = b.dataset.persona, p = C.PERSONAS[k];
+    if (S.touched && !window.confirm('Zastąpić Twoje dane przykładowymi?')) return;
+    Object.assign(S.inp, p.inp); S.persona = k; S.touched = false;
+    if (p.open === 'przewodnik') S.guide = defaults().guide;
+    renderAll(); save();
+    if (p.open === 'dostosuj') $('dostosuj').open = true;
+    location.hash = p.open === 'przewodnik' ? '#przewodnik' : '#plan';
+  });
+
+  // ---------- Guide for beginners (N5) ----------
+  const round1000 = x => zl(Math.round(x / 1000) * 1000);
+  function applyGuide() {
+    const a = S.guide.ans;
+    S.inp.salary = a.salary; S.inp.monthly = a.monthly; S.inp.capital = a.capital; S.inp.age = a.age;
+    S.inp.payoutAge = Math.max(65, a.age + 1);
+    S.inp.ppkOn = a.ppk !== 'no';
+    const split = {}; C.FREE_VEHICLES.forEach(k => { split[k] = C.RISK_MIX[a.risk][k] || 0; });
+    S.scenarios.A = { name: 'Mój plan', split };
+    S.mainScen = 'A'; S.editSlot = 'A'; S.touched = true;
+    renderAll(); save();
+  }
+  function renderGuide() {
+    const g = S.guide, n = C.GUIDE.length, box = $('guide');
+    if (g.step >= n) { renderGuideResult(); return; }
+    const st = C.GUIDE[g.step], cur = g.ans[st.key];
+    const opts = st.options ? st.options.map(o => ({ v: o[0], l: o[1], s: o[2] }))
+      : st.choices.map(c => ({ v: c, l: (st.labels && st.labels[c]) || `${num(c)} ${st.unit}` }));
+    const custom = st.choices && cur >= 0 && !st.choices.includes(cur);
+    box.innerHTML = `<p class="muted">Pytanie ${g.step + 1} / ${n}</p><h2 id="guideQ" tabindex="-1">${st.q}</h2><div class="choices">` +
+      opts.map(o => `<button class="choice${cur === o.v ? ' active' : ''}" data-v="${o.v}">${o.l}${o.s ? `<small>${o.s}</small>` : ''}</button>`).join('') +
+      (st.choices ? `<button class="choice${custom ? ' active' : ''}" data-other>${st.other || 'Inna kwota'}${custom ? `<small>teraz: ${num(cur)} ${st.unit}</small>` : ''}</button>` : '') + '</div>' +
+      (st.choices ? `<form id="guideOther" hidden><label for="guideNum">Wpisz (${st.unit}):</label><div class="row"><input id="guideNum" type="text" inputmode="decimal" autocomplete="off" aria-describedby="guideErr"><button class="primary">Dalej</button></div><p class="err" id="guideErr" hidden></p></form>` : '') +
+      `<details><summary>Co to znaczy?</summary><p>${st.help}</p></details>` +
+      `<div class="row">${g.step > 0 ? '<button data-back>← Wstecz</button>' : ''}</div>`;
+  }
+  function guideAnswer(v) {
+    const g = S.guide; g.ans[C.GUIDE[g.step].key] = v; g.step++;
+    if (g.step >= C.GUIDE.length) applyGuide(); else save();
+    renderGuide(); const h = $('guideQ'); if (h) h.focus();
+  }
+  function renderGuideResult() {
+    const H = years(), inp = calcInp(), split = S.scenarios.A.split;
+    const run = cfg => K.runScenario(cfg, inp, K.splitAllocator(split));
+    const r = run(S.cfg), real = r.net * K.realFactor(S.cfg, H);
+    const lo = run(withPreset('pessimistic')).net, hi = run(withPreset('optimistic')).net;
+    const sum = C.FREE_VEHICLES.reduce((s, k) => s + split[k], 0) || 1, m = S.inp.monthly, L = S.cfg.limits;
+    const part = k => m * split[k] / sum;
+    const ikze = Math.min(part('ikze'), L.ikze / 12), ike = Math.min(part('ike'), L.ike / 12), edo = part('edo');
+    const rest = m - ikze - ike - edo;
+    const lines = [S.inp.ppkOn ? 'Zostań w PPK – pracodawca i państwo dokładają do Twoich wpłat.' : 'Rozważ powrót do PPK – pracodawca i państwo dokładają do Twoich wpłat.'];
+    if (ikze > 0.5) lines.push(`IKZE: ok. ${zl(ikze)} miesięcznie – odzyskasz ok. ${zl(ikze * 12 * S.cfg.tax.pit)} rocznie w PIT.`);
+    const l3 = [];
+    if (ike > 0.5) l3.push(`IKE: ok. ${zl(ike)} miesięcznie`);
+    if (edo > 0.5) l3.push(`obligacje EDO: ok. ${zl(edo)} miesięcznie`);
+    if (rest > 0.5) l3.push(`reszta (${zl(rest)}) na zwykłe konto z ETF`);
+    if (l3.length) lines.push(l3.join(', ').replace(/^o/, 'O') + '.');
+    if (m === 0 && S.inp.capital > 0) lines.push('Kapitał na start dzielimy tak samo: najpierw IKZE i IKE do rocznych limitów.');
+    $('guide').innerHTML = `<p class="muted">Twój wynik</p><h2 id="guideQ" tabindex="-1">W wieku ${r.endAge} lat możesz mieć ok. <span class="pos">${round1000(r.net)}</span></h2>` +
+      `<p>To ok. <b>${round1000(real)}</b> w dzisiejszych pieniądzach, czyli ok. <b>${zl(Math.round(real / 240 / 100) * 100)} miesięcznie</b> przez 20 lat emerytury.</p>` +
+      `<h3>Prosty plan</h3><ol class="planlist">${lines.map(x => `<li>${x}</li>`).join('')}</ol>` +
+      `<p>Rynek bywa różny: w gorszym scenariuszu ok. <b>${round1000(Math.min(lo, hi))}</b>, w lepszym ok. <b>${round1000(Math.max(lo, hi))}</b>.</p>` +
+      '<div class="row"><a class="btn primary" href="#plan">Zobacz szczegóły</a><button data-restart>Zacznij od nowa</button></div>' +
+      '<p class="muted">Kwoty po podatkach, zaokrąglone do tysięcy. To uproszczony szacunek, nie porada inwestycyjna.</p>';
+  }
+  $('guide').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const st = C.GUIDE[S.guide.step];
+    if (b.dataset.v !== undefined) guideAnswer(st.choices ? +b.dataset.v : b.dataset.v);
+    else if (b.dataset.other !== undefined) { $('guideOther').hidden = false; $('guideNum').focus(); }
+    else if (b.dataset.back !== undefined) { S.guide.step--; save(); renderGuide(); $('guideQ').focus(); }
+    else if (b.dataset.restart !== undefined) { S.guide = defaults().guide; save(); renderGuide(); $('guideQ').focus(); }
+  });
+  $('guide').addEventListener('submit', e => {
+    e.preventDefault();
+    const st = C.GUIDE[S.guide.step], v = parseNum($('guideNum').value), err = $('guideErr');
+    if (isNaN(v) || v < st.min || v > st.max) {
+      $('guideNum').setAttribute('aria-invalid', 'true');
+      err.textContent = `Wpisz wartość od ${num(st.min)} do ${num(st.max)} ${st.unit}.`; err.hidden = false; return;
+    }
+    guideAnswer(v);
+  });
+
+  // ---------- Glossary (U17): dotted words open a short note ----------
+  const GL = C.GLOSSARY.map(g => Object.assign({ rx: new RegExp('(^|[^\\p{L}])(' + g.re + ')(?![\\p{L}])', 'u') }, g));
+  function glossify(root) {
+    if (!root) return;
+    GL.forEach((g, gi) => {
+      const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
+      while ((n = w.nextNode())) {
+        if (n.parentElement.closest('.gl, button, a, select, label, summary, caption, .sr')) continue;
+        const m = g.rx.exec(n.nodeValue); if (!m) continue;
+        const mid = n.splitText(m.index + m[1].length); mid.splitText(m[2].length);
+        const s = document.createElement('span');
+        s.className = 'gl'; s.tabIndex = 0; s.setAttribute('role', 'button'); s.setAttribute('aria-expanded', 'false'); s.dataset.gl = gi;
+        mid.parentNode.replaceChild(s, mid); s.appendChild(mid);
+        break; // one mark per word per block is enough
+      }
+    });
+  }
+  let glOpen = null;
+  function closeGl() { if (glOpen) glOpen.setAttribute('aria-expanded', 'false'); glOpen = null; $('glPop').hidden = true; }
+  function openGl(el) {
+    if (glOpen === el) { closeGl(); return; }
+    closeGl();
+    const g = GL[+el.dataset.gl], pop = $('glPop');
+    pop.innerHTML = `<b>${esc(g.t)}</b>${esc(g.d)}`; pop.hidden = false;
+    const r = el.getBoundingClientRect();
+    pop.style.top = (r.bottom + window.scrollY + 6) + 'px';
+    pop.style.left = Math.max(12, Math.min(r.left + window.scrollX, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 12)) + 'px';
+    el.setAttribute('aria-expanded', 'true'); glOpen = el;
+  }
+  document.addEventListener('click', e => { const el = e.target.closest('.gl'); if (el) openGl(el); else closeGl(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeGl();
+    else if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('gl')) { e.preventDefault(); openGl(e.target); }
+  });
+  const glossTables = () => ['compareTable', 'singleTable', 'earlyTable', 'summaryTable', 'notes', 'resultMore'].forEach(id => glossify($(id)));
+
   // ---------- Render all ----------
   function renderResults() {
     const scen = computeScenarios();
@@ -459,13 +639,14 @@
     renderScenSelects(scen); renderPresets(); renderResult(scen); renderTips(scen);
     renderBars(scen); renderChart(scen); renderSummary(scen); renderYearTable(scen);
     renderOrder(scen); renderSplitSum(); renderCompare(); renderSingle(); renderEarly();
+    closeGl(); glossTables();
   }
   let pending = null;
   function update() {
     if (pending) cancelAnimationFrame(pending);
     pending = requestAnimationFrame(() => { pending = null; renderResults(); save(); });
   }
-  function renderAll() { renderInputs(); renderEditor(); renderSettings(); renderResults(); }
+  function renderAll() { renderInputs(); renderEditor(); renderSettings(); renderResults(); renderStart(); renderShared(); }
 
   // ---------- Events ----------
   $('ppkOn').addEventListener('change', e => { S.inp.ppkOn = e.target.checked; update(); });
@@ -511,15 +692,16 @@
   $('csvBtn').addEventListener('click', downloadCsv);
   $('earlyN').addEventListener('input', e => { S.earlyN = +e.target.value; update(); });
   $('resetBtn').addEventListener('click', () => {
+    const snap = clone(S);
     S = defaults();
-    try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }
     renderAll(); save();
+    toast('Przywrócono ustawienia domyślne.', snap);
   });
   $('shareBtn').addEventListener('click', () => {
-    save();
+    const url = shareUrl();
     const done = () => { $('shareInfo').textContent = 'Link skopiowany.'; };
-    if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, () => { $('shareInfo').textContent = location.href; });
-    else $('shareInfo').textContent = location.href;
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => { $('shareInfo').textContent = url; });
+    else $('shareInfo').textContent = url;
   });
   window.addEventListener('hashchange', route);
   if ('IntersectionObserver' in window) {
@@ -527,6 +709,8 @@
   }
 
   renderAll();
+  document.querySelectorAll('main p.muted, footer p').forEach(p => { if (!p.id) glossify(p); });
+  save(); // after the first visit the app opens on Plan
   route();
 
   // Offline support (works on https, e.g. github.io)

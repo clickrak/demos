@@ -35,19 +35,44 @@
   <header class="top">
     <div class="wrap">
       <a class="back" href="../">← Demos</a>
-      <h1>Konta Inwestycyjne <small>v0.2</small></h1>
+      <h1>Konta Inwestycyjne <small>v0.3</small></h1>
+      <a id="personaChip" class="chip" href="#start" hidden></a>
       <p class="lead">IKE, IKZE, OKI, PPK czy ETF? Wpisz swoje kwoty i zobacz, ile zostanie po podatkach.</p>
     </div>
   </header>
   <nav class="tabs" aria-label="Główne widoki"><div class="wrap">
-    <a href="#plan" data-tab="plan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7"/></svg><span>Plan</span></a><a href="#produkty" data-tab="produkty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Produkty</span></a><a href="#zalozenia" data-tab="zalozenia"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg><span>Założenia</span></a>
+    <a href="#start" data-tab="start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Start</span></a><a href="#plan" data-tab="plan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7"/></svg><span>Plan</span></a><a href="#produkty" data-tab="produkty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Produkty</span></a><a href="#zalozenia" data-tab="zalozenia"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg><span>Założenia</span></a>
   </div></nav>
   <div class="bar" id="bar" hidden><div class="wrap">
     <span id="barText"></span>
     <select id="barScen" class="scenSel" aria-label="Scenariusz"></select>
   </div></div>
 
+  <div class="wrap"><div class="shared" id="sharedBanner" hidden>
+    <span>Oglądasz udostępniony plan. Twoje własne dane nie zostały zmienione.</span>
+    <span><button class="primary" id="sharedKeep">Zapisz jako mój</button> <button id="sharedBack">Wróć do mojego</button></span>
+  </div></div>
+  <div class="toast" id="toast" role="status" hidden><span id="toastText"></span><button id="toastUndo">Cofnij</button></div>
+  <div class="glpop" id="glPop" role="tooltip" hidden></div>
+
   <main class="wrap">
+    <!-- ===== START (N1) ===== -->
+    <div class="view" data-view="start" hidden>
+      <section class="card hero">
+        <h2>Ile możesz mieć na emeryturze?</h2>
+        <p>Porównaj IKE, IKZE, OKI, PPK, obligacje i ETF-y. Zobacz, ile zostanie Ci na rękę po podatkach. Bez logowania, dane zostają w Twojej przeglądarce.</p>
+        <div class="row"><a class="btn primary" href="#przewodnik">Zacznij tutaj – 6 prostych pytań</a> <a class="btn" href="#plan">Od razu do kalkulatora</a></div>
+      </section>
+      <h2 class="sub">Albo wybierz profil podobny do Ciebie</h2>
+      <div class="personas" id="personas"></div>
+      <p class="muted">Profil ustawia przykładowe kwoty. Wszystko możesz potem zmienić.</p>
+    </div>
+
+    <!-- ===== PRZEWODNIK (N5) ===== -->
+    <div class="view" data-view="przewodnik" hidden>
+      <section class="card guide" id="guide"></section>
+    </div>
+
     <!-- ===== PLAN ===== -->
     <div class="view plan" data-view="plan">
       <section id="dane" class="card a-dane">
@@ -144,7 +169,7 @@
     <div class="view" data-view="zalozenia" hidden>
       <section class="card">
         <h2>Założenia</h2>
-        <p class="muted">Wszystkie liczby możesz zmienić. Ustawienia zapisują się w przeglądarce i w linku.</p>
+        <p class="muted">Wszystkie liczby możesz zmienić. Ustawienia zapisują się w Twojej przeglądarce. Link do nich skopiujesz przyciskiem poniżej.</p>
         <div class="grid settings" id="settings"></div>
         <div class="row">
           <button id="resetBtn">Przywróć domyślne</button>

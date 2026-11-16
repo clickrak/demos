@@ -35,19 +35,19 @@
 
   const VEHICLES = {
     ikze: { name: 'IKZE', limit: 'limits.ikze', benefit: 'Wpłatę odliczasz od dochodu – co roku wraca 12% wpłaty (PIT).',
-            exit: '10% od całej kwoty po 65 r.ż.', lock: '65 lat', risk: 'wysokie*',
+            exit: '10% od całej kwoty po 65. roku życia', lock: '65 lat', risk: 'wysokie*',
             desc: 'Konto emerytalne z ulgą w PIT już dziś. Podatek płacisz na końcu (10%).' },
     ike:  { name: 'IKE', limit: 'limits.ike', benefit: 'Brak podatku od zysku.',
-            exit: '0% po 60 r.ż. (wcześniej 19% od zysku)', lock: '60 lat', risk: 'wysokie*',
+            exit: '0% po 60. roku życia (wcześniej 19% od zysku)', lock: '60 lat', risk: 'wysokie*',
             desc: 'Konto emerytalne bez podatku Belki, jeśli wypłacisz po 60. roku życia.' },
     oki:  { name: 'OKI', limit: null, benefit: 'Brak podatku Belki; do 100 000 zł bez żadnego podatku.',
             exit: 'brak (podatek płacony co roku: 0,85% od nadwyżki ponad 100 000 zł)', lock: 'brak', risk: 'wysokie*',
             desc: 'Nowe konto od 2027. Pieniądze dostępne w każdej chwili.' },
     ppk:  { name: 'PPK', limit: null, benefit: 'Pracodawca dopłaca 1,5%, państwo 250 zł + 240 zł/rok.',
-            exit: '0% po 60 r.ż.', lock: '60 lat', risk: 'średnie',
+            exit: '0% po 60. roku życia', lock: '60 lat', risk: 'średnie',
             desc: 'Program w pracy: 2% pensji od Ciebie, reszta od pracodawcy i państwa.' },
     ppe:  { name: 'PPE', limit: null, benefit: 'Składkę płaci pracodawca (tu 3,5% pensji).',
-            exit: '0% po 60 r.ż.', lock: '60 lat (wcześniej tylko transfer)', risk: 'średnie',
+            exit: '0% po 60. roku życia', lock: '60 lat (wcześniej tylko transfer)', risk: 'średnie',
             desc: 'Program emerytalny pracodawcy – tylko jeśli firma go oferuje.' },
     edo:  { name: 'Obligacje EDO', limit: null, benefit: 'Ochrona przed inflacją: inflacja + 2%.',
             exit: '19% od odsetek', lock: '10 lat (wcześniej z opłatą)', risk: 'niskie',
@@ -68,7 +68,44 @@
 
   const DEFAULT_ORDER = ['ikze', 'ike', 'oki', 'etfWorld'];
 
-  const api = { DEFAULT_CONFIG, DEFAULT_INPUT, PRESETS, FREE_VEHICLES, VEHICLES, DEFAULT_SCENARIOS, DEFAULT_ORDER };
+
+  // v0.3 – personas (N1), guide (N5), glossary (U17)
+  const PERSONAS = {
+    mlody:  { name: 'Młody', range: '20–35 lat', desc: 'Pierwsza praca, mały kapitał. Chcę zobaczyć, ile da regularne odkładanie.',
+              inp: { age: 28, capital: 5000, monthly: 500, payoutAge: 65 }, open: 'przewodnik', cta: 'Zacznij od 6 prostych pytań' },
+    sredni: { name: 'Średni', range: '35–55 lat', desc: 'Stałe dochody i trochę oszczędności. Chcę wykorzystać limity i ulgi podatkowe.',
+              inp: { age: 45, capital: 50000, monthly: 1500, payoutAge: 65 }, open: 'dostosuj', cta: 'Przejdź do planu i podziału' },
+    senior: { name: 'Senior', range: '55+ lat', desc: 'Blisko emerytury. Chcę zaplanować ostatnie lata oszczędzania.',
+              inp: { age: 60, capital: 300000, monthly: 0, payoutAge: 65 }, open: 'plan', cta: 'Przejdź do planu' },
+  };
+  const GUIDE = [
+    { key: 'salary', q: 'Ile zarabiasz brutto miesięcznie?', choices: [5000, 7500, 10000, 15000], unit: 'zł', min: 4000, max: 50000,
+      help: 'Brutto to pensja przed odjęciem podatku i składek – ta kwota jest w umowie. Na konto dostajesz mniej (netto). Od pensji brutto liczymy wpłaty do PPK i zwrot podatku z IKZE.' },
+    { key: 'monthly', q: 'Ile możesz odłożyć co miesiąc?', choices: [200, 500, 1000, 2000], unit: 'zł', min: 0, max: 20000,
+      help: 'Dobry początek to około 10% pensji na rękę. Nawet mała kwota, wpłacana co miesiąc przez wiele lat, rośnie do dużej sumy.' },
+    { key: 'capital', q: 'Czy masz już oszczędności na inwestycje?', choices: [0, 5000, 20000, 50000], labels: { 0: 'Nie' }, unit: 'zł', min: 0, max: 5000000,
+      help: 'Najpierw odłóż poduszkę bezpieczeństwa: pieniądze na 3–6 miesięcy życia, trzymane poza inwestycjami. Tutaj wpisz tylko to, co możesz zainwestować na długo.' },
+    { key: 'age', q: 'Ile masz lat?', choices: [25, 30, 35, 40, 45], unit: 'lat', min: 18, max: 75, other: 'Inny wiek',
+      help: 'Czas jest ważniejszy niż kwota. Zyski dopisują się co roku do kapitału i same zaczynają zarabiać – to procent składany. Zakładamy wypłatę w wieku 65 lat (zmienisz to później).' },
+    { key: 'risk', q: 'Jak spokojnie chcesz spać?', options: [['calm', 'Spokojnie', 'mniej wahań, niższy możliwy zysk'], ['mid', 'Pośrodku', 'trochę wahań'], ['bold', 'Odważnie', 'duże wahania, wyższy możliwy zysk']],
+      help: 'Akcje (fundusze ETF) w długim czasie zwykle zarabiają więcej, ale ich wartość potrafi spaść nawet o kilkadziesiąt procent. Obligacje skarbowe rosną wolniej, ale spokojnie.' },
+    { key: 'ppk', q: 'Czy jesteś w PPK?', options: [['yes', 'Tak'], ['no', 'Nie'], ['unknown', 'Nie wiem', 'przyjmiemy, że tak']],
+      help: 'PPK to program oszczędzania w pracy. Ty wpłacasz 2% pensji, pracodawca dokłada 1,5%, a państwo 240 zł rocznie. Jeśli nie składałeś rezygnacji, najpewniej jesteś zapisany.' },
+  ];
+  // Risk answer -> split of the free money (rest of the vehicles = 0)
+  const RISK_MIX = { calm: { ikze: 20, ike: 20, edo: 60 }, mid: { ikze: 30, ike: 40, edo: 30 }, bold: { ikze: 40, ike: 60, edo: 0 } };
+  const GLOSSARY = [
+    { re: 'Belki|Belka', t: 'Podatek Belki', d: '19% podatku od zysku z inwestycji, np. ze sprzedaży ETF-u albo od odsetek. Płacisz go tylko od zysku, nie od wpłat.' },
+    { re: 'PIT', t: 'PIT', d: 'Podatek dochodowy od pensji. Tutaj zakładamy pierwszy próg: 12%.' },
+    { re: 'TER', t: 'TER', d: 'Roczny koszt funduszu ETF, pobierany automatycznie z jego wartości. 0,2% to 2 zł rocznie od każdego 1 000 zł.' },
+    { re: 'brutto', t: 'Brutto', d: 'Kwota przed odjęciem podatków i składek. Netto („na rękę”) to kwota po ich odjęciu.' },
+    { re: 'ETF-y|ETF', t: 'ETF', d: 'Fundusz, który kupuje naraz setki lub tysiące spółek z giełdy. ETF World to akcje z całego świata.' },
+    { re: '„opakowania”', t: 'Opakowanie podatkowe', d: 'IKE, IKZE i OKI to konta z ulgą podatkową, a nie inwestycje. W środku kupujesz np. ETF albo obligacje.' },
+    { re: 'inflacj[aiąęe]', t: 'Inflacja', d: 'Wzrost cen. Przy inflacji 3% za 100 zł kupisz za rok tyle, co dziś za 97 zł.' },
+    { re: 'rynków wschodzących', t: 'Rynki wschodzące (EM)', d: 'Kraje rozwijające się, np. Chiny, Indie, Brazylia. Większy możliwy zysk i większe wahania.' },
+  ];
+
+  const api = { DEFAULT_CONFIG, DEFAULT_INPUT, PRESETS, FREE_VEHICLES, VEHICLES, DEFAULT_SCENARIOS, DEFAULT_ORDER, PERSONAS, GUIDE, RISK_MIX, GLOSSARY };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.KI_CONFIG = api;
 })(this);
