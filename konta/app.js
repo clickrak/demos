@@ -59,6 +59,7 @@
     s.inp.capital = clamp(s.inp.capital, 0, LIM.capital); s.inp.monthly = clamp(s.inp.monthly, 0, LIM.monthly);
     Object.keys(s.inp.held).forEach(k => { s.inp.held[k] = clamp(s.inp.held[k], 0, LIM.capital); });
     s.inp.heldGain = clamp(s.inp.heldGain, 0, 100);
+    const ht = Object.values(s.inp.held).reduce((t, x) => t + x, 0); if (ht > s.inp.capital) s.inp.capital = Math.min(LIM.capital, ht);
     s.inp.salary = clamp(s.inp.salary, 4000, LIM.salary); s.inp.age = clamp(s.inp.age, 18, 75);
     s.inp.payoutAge = clamp(s.inp.payoutAge, s.inp.age + 1, 90);
     if (!['auto', 'A', 'B', 'C'].includes(s.mainScen)) s.mainScen = 'auto';
@@ -111,7 +112,7 @@
 
   // Input for calc.js: years of saving come from the payout age.
   const years = () => Math.max(1, S.inp.payoutAge - S.inp.age);
-  const calcInp = () => Object.assign({}, S.inp, { horizon: years() });
+  const calcInp = () => Object.assign({}, S.inp, { horizon: years(), capital: cashCap() }); // capital = cash part only
   const realF = y => (S.realTerms ? K.realFactor(S.cfg, y) : 1);
 
   // ---------- Field with validation (number + optional slider) ----------
@@ -195,7 +196,8 @@
       fields[k] = field(label, () => S.inp[k], o, v => { S.inp[k] = v; S.touched = true; if (after) after(v); update(); });
       box.appendChild(fields[k]);
     };
-    add('capital', 'Kapitał na start', { min: 0, max: LIM.capital, sliderMax: 500000, step: 1000, unit: 'zł', hint: 'Jednorazowo, w 1. roku.' });
+    add('capital', 'Kapitał na start', { min: () => heldTotal(), max: LIM.capital, sliderMax: 500000, step: 1000, unit: 'zł', hint: 'Wszystkie oszczędności na inwestycje: te już na kontach i gotówka.' });
+    const hb = document.createElement('div'); hb.id = 'heldBox'; hb.className = 'held'; box.appendChild(hb);
     add('monthly', 'Odkładasz miesięcznie', { min: 0, max: LIM.monthly, sliderMax: 10000, step: 100, unit: 'zł', hint: 'Twoje pieniądze, poza PPK.' });
     add('age', 'Twój wiek', { min: 18, max: 75, step: 1, unit: 'lat' }, v => {
       if (S.inp.payoutAge <= v) { S.inp.payoutAge = v + 1; fields.payoutAge.setValue(v + 1); }
@@ -203,24 +205,58 @@
     });
     add('payoutAge', 'Wypłata w wieku', { min: () => S.inp.age + 1, max: 90, step: 1, unit: 'lat', hint: 'Bez podatku: IKE od 60 lat; IKZE z podatkiem 10% od 65 lat.' });
     add('salary', 'Pensja brutto (miesięcznie)', { min: 4000, max: LIM.salary, sliderMax: 40000, step: 100, unit: 'zł', hint: 'Od niej liczymy PPK i zwrot podatku z IKZE.' });
-    renderHeld();
+    heldOpen = null; renderHeld();
     $('ppkOn').checked = S.inp.ppkOn; $('ppeOn').checked = S.inp.ppeOn; $('realTerms').checked = S.realTerms; $('showAll').checked = S.showAll;
   }
 
-  // ---------- Current savings per account (advanced) ----------
-  const HELD_KEYS = ['ikze', 'ike', 'oki', 'edo', 'etfWorld', 'etfEm', 'ppk', 'ppe'];
+  // ---------- Where the starting capital is today (tick an account, then type the amount) ----------
+  const HELD_KEYS = ['ppk', 'ike', 'ikze', 'oki', 'etfWorld', 'etfEm', 'edo', 'ppe'];
+  const HELD_SHORT = { ppk: 'PPK', ike: 'IKE', ikze: 'IKZE', oki: 'OKI', etfWorld: 'ETF World', etfEm: 'ETF EM', edo: 'Obligacje EDO', ppe: 'PPE' };
   const heldTotal = () => HELD_KEYS.reduce((s, k) => s + (Number(S.inp.held[k]) || 0), 0);
-  function renderHeld() {
-    const box = $('heldEditor'); box.innerHTML = '';
-    HELD_KEYS.forEach(k => box.appendChild(field(vname(k), () => S.inp.held[k] || 0,
-      { min: 0, max: LIM.capital, step: 1000, unit: 'zł', range: false }, v => { S.inp.held[k] = v; S.touched = true; update(); })));
-    box.appendChild(field('Ile z tego to zysk', () => S.inp.heldGain, { min: 0, max: 100, step: 5, unit: '%', range: false,
-      hint: 'Reszta to wpłaty. Od zysku liczymy 19% podatku Belki (poza IKE/IKZE po 60/65 latach).' }, v => { S.inp.heldGain = v; S.touched = true; update(); }));
+  const cashCap = () => Math.max(0, S.inp.capital - heldTotal());
+  let heldOpen = null; // accounts ticked in the UI (an account can be ticked with 0 zł while typing)
+  const resetHeld = () => { HELD_KEYS.forEach(k => { S.inp.held[k] = 0; }); heldOpen = new Set(); };
+  function renderHeld(focusKey) {
+    if (!heldOpen) heldOpen = new Set(HELD_KEYS.filter(k => S.inp.held[k] > 0));
+    const hb = $('heldBox');
+    hb.innerHTML = '<p class="heldq">Gdzie są dziś te pieniądze?</p>' +
+      '<p class="hint">Zaznacz konta, na których już coś masz. Resztę traktujemy jako gotówkę – podzielimy ją według planu.</p>' +
+      '<div class="chips" role="group" aria-label="Konta, na których masz już pieniądze">' +
+      HELD_KEYS.map(k => `<button type="button" class="acc" data-held="${k}" aria-pressed="${heldOpen.has(k)}">${HELD_SHORT[k]}</button>`).join('') +
+      '</div><div class="grid heldf" id="heldEditor"></div><p class="heldsum" id="heldSum" aria-live="polite"></p>';
+    const ed = $('heldEditor');
+    HELD_KEYS.filter(k => heldOpen.has(k)).forEach(k => {
+      const f = field(`Na ${HELD_SHORT[k]}`, () => S.inp.held[k] || 0, { min: 0, max: LIM.capital, step: 1000, unit: 'zł', range: false }, v => setHeld(k, v));
+      f.dataset.key = k; ed.appendChild(f);
+    });
+    if (heldOpen.size) {
+      const g = field('Ile z tego to zysk', () => S.inp.heldGain, { min: 0, max: 100, step: 5, unit: '%', range: false,
+        hint: 'Reszta to Twoje wpłaty. Od zysku liczymy 19% podatku przy wypłacie (bez podatku: IKE po 60, PPK i PPE po 60).' }, v => { S.inp.heldGain = v; S.touched = true; update(); });
+      g.classList.add('adv', 'wide'); ed.appendChild(g);
+    }
+    hb.querySelectorAll('[data-held]').forEach(b => b.addEventListener('click', () => toggleHeld(b.dataset.held)));
     renderHeldSum();
+    if (focusKey) { const i = ed.querySelector(`[data-key="${focusKey}"] input`); if (i) { i.focus(); i.select(); } }
+  }
+  function toggleHeld(k) {
+    if (heldOpen.has(k)) { heldOpen.delete(k); S.inp.held[k] = 0; renderHeld(); }
+    else { heldOpen.add(k); S.inp.held[k] = cashCap(); renderHeld(k); } // start with the cash that is left
+    const b = document.querySelector(`[data-held="${k}"]`); if (b && !heldOpen.has(k)) b.focus();
+    S.touched = true; update();
+  }
+  function setHeld(k, v) {
+    S.inp.held[k] = v; S.touched = true;
+    if (heldTotal() > S.inp.capital) { S.inp.capital = heldTotal(); fields.capital.setValue(S.inp.capital); } // capital = at least the accounts
+    update();
   }
   function renderHeldSum() {
-    const t = heldTotal();
-    $('heldSum').textContent = t > 0 ? `Razem już zgromadzone: ${zl(t)}. Te pieniądze zostają na swoich kontach i rosną – nie liczą się do rocznych limitów IKE/IKZE.` : '';
+    const hb = $('heldBox'); if (!hb) return;
+    hb.hidden = S.inp.capital <= 0 && heldTotal() <= 0;
+    if (fields.capital) fields.capital.syncLimits();
+    const t = heldTotal(), cash = cashCap();
+    $('heldSum').innerHTML = !t ? `Cała kwota (${zl(S.inp.capital)}) to gotówka do zainwestowania.`
+      : `Na kontach: <b>${zl(t)}</b> – zostają tam i rosną, nie zużywają rocznych limitów. ` +
+        (cash > 0 ? `Gotówka do zainwestowania: <b>${zl(cash)}</b>.` : 'Nowej gotówki: 0 zł.');
   }
 
   // ---------- Market presets ----------
@@ -274,7 +310,6 @@
     const pocket = S.inp.capital + 12 * S.inp.monthly * years();
     let more = `<dl class="trio"><div><dt>Z Twojej kieszeni</dt><dd>${zl(pocket)}</dd></div>` +
       (r.ownPaid - pocket > 1 ? `<div><dt>Z pensji (PPK)</dt><dd>${zl(r.ownPaid - pocket)}</dd></div>` : '') +
-      (heldTotal() > 0 ? `<div><dt>Już zgromadzone</dt><dd>${zl(heldTotal())}</dd></div>` : '') +
       `<div><dt>Od pracodawcy i państwa</dt><dd>${zl(employerMoney())}</dd></div>` +
       `<div><dt>Zysk vs zwykłe konto ETF</dt><dd>${signed(r.vsBaseline * f)}</dd></div></dl>`;
     if (isEmpty()) more += '<div class="warn" role="note">Wpisz kapitał na start lub wpłatę miesięczną. Teraz wynik pokazuje tylko pieniądze z pensji (PPK, PPE).</div>';
@@ -356,17 +391,19 @@
     if (fromSal.length) groups.push({ name: 'Z pensji, dodatkowo', note: '– nie z kwoty, którą odkładasz', items: fromSal });
     const total = [].concat(...groups.map(g => g.items)).reduce((s, x) => s + x[1], 0);
     let html = groups.length ? flowBlock(`Co miesiąc razem: ${zl(total)}`, groups) : '<p>Brak wpłat miesięcznych.</p>';
-    const held = HELD_KEYS.filter(v => (S.inp.held[v] || 0) > 0).map(v => [vname(v), S.inp.held[v], VCOL[v] || VCOL.etfWorld]);
-    if (held.length) html += flowBlock(`Już zgromadzone: ${zl(heldTotal())} (zostaje na swoich kontach)`, [{ items: held }]);
     if (S.inp.capital > 0) {
-      const cap = C.FREE_VEHICLES.filter(v => sp.capital[v] > 0.5).map(v => [vname(v), sp.capital[v], VCOL[v]]);
-      html += flowBlock(`Kapitał na start: ${zl(S.inp.capital)} (jednorazowo)`, [{ items: cap }]);
+      const held = HELD_KEYS.filter(v => (S.inp.held[v] || 0) > 0).map(v => [vname(v), S.inp.held[v], VCOL[v] || VCOL.ppkOwn]);
+      const cash = C.FREE_VEHICLES.filter(v => sp.capital[v] > 0.5).map(v => [vname(v), sp.capital[v], VCOL[v]]);
+      const g = held.length
+        ? [{ name: 'Już na kontach', note: '– zostaje i rośnie', items: held }].concat(cash.length ? [{ name: 'Gotówka – podział według planu', items: cash }] : [])
+        : [{ items: cash }];
+      html += flowBlock(`Kapitał na start: ${zl(S.inp.capital)}`, g);
     }
     const notes = [];
     ['ikze', 'ike'].forEach(v => { if (sp.yearly[v] + sp.capital[v] >= L[v] - 1) notes.push(`${vname(v)}: roczny limit ${zl(L[v])} (ok. ${zl(L[v] / 12)} miesięcznie) jest wykorzystany – reszta idzie dalej.`); });
     const ikze = sp.yearly.ikze + sp.capital.ikze;
     if (ikze > 0.5) notes.push(`Zwrot PIT z IKZE: ok. ${zl(c.tax.pit * ikze)} rocznie (doliczamy go na zwykłe konto ETF).`);
-    if (k === 'auto' && sp.capital.ike + sp.capital.ikze > 0.5 && S.inp.monthly > 0) notes.push('Kapitał na start najpierw wypełnia wolny limit IKZE i IKE w 1. roku.');
+    if (k === 'auto' && sp.capital.ike + sp.capital.ikze > 0.5 && S.inp.monthly > 0) notes.push('Gotówka z kapitału najpierw wypełnia wolny limit IKZE i IKE w 1. roku.');
     $('flow').innerHTML = html + notes.map(n => `<p class="hint">${n}</p>`).join('');
   }
 
@@ -506,7 +543,7 @@
       (sc.capSplit ? ' ' : ' Kapitał na start dzielimy tak samo (w 1. roku limity też obowiązują). ') + warn.join(' ');
     if (sc.capSplit) {
       const cs = C.FREE_VEHICLES.reduce((s, k) => s + (Number(sc.capSplit[k]) || 0), 0);
-      $('capSum').textContent = (cs === 100 ? 'Suma: 100%.' : `Suma: ${cs}% – przeliczamy proporcjonalnie do 100%.`) + ' Limity IKE i IKZE w 1. roku obejmują wpłaty i kapitał razem; nadwyżka trafia do ETF World.';
+      $('capSum').textContent = (cs === 100 ? 'Suma: 100%.' : `Suma: ${cs}% – przeliczamy proporcjonalnie do 100%.`) + ' Dotyczy gotówki z kapitału (pieniądze już na kontach zostają na miejscu). Limity IKE i IKZE w 1. roku obejmują wpłaty i kapitał razem; nadwyżka trafia do ETF World.';
     }
   }
 
@@ -766,7 +803,7 @@
     const b = e.target.closest('[data-persona]'); if (!b) return;
     const k = b.dataset.persona, p = C.PERSONAS[k];
     if (S.touched && !window.confirm('Zastąpić Twoje dane przykładowymi?')) return;
-    Object.assign(S.inp, p.inp); S.persona = k; S.touched = false; S.mode = p.mode;
+    Object.assign(S.inp, p.inp); resetHeld(); S.persona = k; S.touched = false; S.mode = p.mode;
     if (p.mode === 'simple') S.mainScen = 'auto';
     if (p.open === 'przewodnik') S.guide = defaults().guide;
     renderAll(); save();
@@ -783,6 +820,7 @@
   function applyGuide() {
     const a = S.guide.ans;
     S.inp.salary = a.salary; S.inp.monthly = a.monthly; S.inp.capital = a.capital; S.inp.age = a.age;
+    if (heldTotal() > a.capital) resetHeld();
     S.inp.payoutAge = Math.max(65, a.age + 1);
     S.inp.ppkOn = a.ppk !== 'no';
     S.style = C.STYLES[a.risk] ? a.risk : 'mid';

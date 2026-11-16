@@ -197,3 +197,16 @@ body.simple .adv { display: none !important; }
   .tabs, .bar, .skip, .back, button { display: none !important; }
   .card { break-inside: avoid; }
 }
+
+/* Where the starting capital is today */
+.held { margin: -4px 0 2px; padding: 12px 14px; background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; }
+.held .heldq { margin: 0 0 2px; font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 2px; }
+.acc { border-radius: 999px; color: var(--ink); border: 1px solid var(--edge); font-size: 1rem; padding: 6px 14px; background: #fff; }
+.acc[aria-pressed=true] { background: var(--accent); color: #fff; border-color: var(--accent); }
+.acc[aria-pressed=true]::before { content: "✓ "; }
+.heldf { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin-top: 10px; }
+.heldf .field input[type=text] { max-width: none; }
+.heldf .wide { grid-column: 1 / -1; }
+.heldsum { margin: 10px 0 0; font-size: .875rem; }
+.heldf:empty { display: none; }

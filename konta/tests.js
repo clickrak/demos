@@ -155,6 +155,11 @@
     const r = K.simulate(cfg, Object.assign({}, base, { held: { ike: 50000, etfWorld: 10000 }, heldGain: 20 }), K.singleAllocator('etfWorld'));
     eq(r.end.ike.v, 50000 * 1.068, 'ike grows', 1); eq(r.end.ike.b, 40000, 'ike base = 80% of held');
     eq(r.end.etf.b, 8000, 'etf base'); eq(r.held0.v, 60000, 'held total');
+    eq(r.ownPaid, 60000, 'held counts as own money');
+    const rows = K.compareSingle(cfg, Object.assign({}, base, { capital: 0, held: { ike: 50000 } }), 1);
+    eq(rows.find(x => x.key === 'ike').own, 50000, 'each-alone treats held as new cash');
+    const rows0 = K.compareSingle(cfg, Object.assign({}, base, { capital: 0 }), 1);
+    eq(rows.find(x => x.key === 'ppk').own, rows0.find(x => x.key === 'ppk').own, 'PPK row gets no held money');
     const none = K.simulate(cfg, base, K.singleAllocator('etfWorld'));
     eq(none.end.ike.v, 0, 'no held by default');
   });

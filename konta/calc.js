@@ -125,8 +125,8 @@
     const gEm = r.etfEm - cfg.ter;
     const years = [];
     const ownByYear = [];
-    let ownPaid = 0, okiTax = 0, ikzeRefundTotal = 0;
     const held0 = seedHeld(p, inp); // savings already sitting in the accounts (outside the yearly limits)
+    let ownPaid = held0.v, okiTax = 0, ikzeRefundTotal = 0; // held savings count as own money
 
     for (let y = 1; y <= H; y++) {
       const free = (y === 1 ? inp.capital : 0) + 12 * inp.monthly;
@@ -318,7 +318,9 @@
   // F3 / F9: each vehicle alone. Free vehicles get capital + monthly (over-limit part -> ETF World).
   // PPK / PPE are salary based, shown separately with no free money.
   function compareSingle(cfg, inp, horizon) {
-    const base = Object.assign({}, inp, { horizon });
+    // Same money for every product: held savings are treated as new cash here.
+    const heldSum = Object.values(inp.held || {}).reduce((t, x) => t + Math.max(0, Number(x) || 0), 0);
+    const base = Object.assign({}, inp, { horizon, capital: (inp.capital || 0) + heldSum, held: null });
     const rows = [];
     FREE.forEach(k => {
       const r = simulate(cfg, Object.assign({}, base, { ppkOn: false, ppeOn: false }), singleAllocator(k));

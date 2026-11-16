@@ -240,9 +240,11 @@ Keep the calculation tests green in every release. Each release = bump the versi
 ## Out of scope
 Self-employment limits (IKZE 18 059,40 zł), currency risk, fees other than TER, inheritance, real broker data.
 
-### v0.5.1 – Obecne oszczędności na kontach ✅ (feedback: "initial capital needs a custom split, I want to input my current savings")
-- Two different things, now clearly separated: **Kapitał na start** = new money still to be invested (goes through the yearly IKE/IKZE limits, split by style or by scenario `capSplit`); **Mam już oszczędności na kontach** (advanced only, `inp.held`) = zł already sitting on each account today (IKZE, IKE, OKI, EDO, ETF World, ETF EM, PPK, PPE).
-- Held savings stay on their account, do not use the yearly limits, grow with the account's return, and have their own cost basis: `inp.heldGain` = % that is profit (default 20%) for the 19% tax.
-- Shown in "Gdzie trafiają pieniądze" as its own block and in the result trio; the baseline (plain ETF account) also starts with the same held money, so the comparison stays fair; the Wypłata tab picks the balances up automatically.
-- Known simplification: held PPK is treated as the employee part (no split employer/state).
-- Test added (22/22).
+### v0.5.1–v0.5.2 – Gdzie jest kapitał na start ✅ (feedback: "I want to input my current savings… if there is an initial capital, show at once where it is; check and then fill, to not clutter the UI")
+- **One input, two parts.** “Kapitał na start” = all money for investing today. Right under it (shown as soon as capital > 0, in both Prosty and Zaawansowany) a box “Gdzie są dziś te pieniądze?” with account buttons: PPK, IKE, IKZE, OKI, ETF World, ETF EM, Obligacje EDO, PPE. Tick a button → an amount field appears, prefilled with the cash still not assigned, focus moves to it. Untick → amount back to 0.
+- **The rest is cash** (`capital − Σ held`): it goes through the yearly IKE/IKZE limits and is split by the investing style or by the scenario `capSplit`. Live line: “Na kontach: X zł – zostają tam i rosną, nie zużywają rocznych limitów. Gotówka do zainwestowania: Y zł.”
+- If the accounts add up to more than the capital, the capital is raised to the sum; the capital field cannot go below the sum.
+- State: `inp.held { account: zł }`, `inp.heldGain` (% profit, default 20%, field shown in Zaawansowany only). `calcInp()` passes `capital = cash part`; `simulate` seeds the held balances (outside limits, own cost basis) and counts them in `ownPaid`; the baseline ETF account starts with the same money; `compareSingle` (Produkty) treats held money as new cash so every product gets the same amount.
+- “Gdzie trafiają pieniądze”: block “Kapitał na start” with two groups, “Już na kontach” and “Gotówka – podział według planu”. The Wypłata tab picks the balances up automatically. Persona choice resets the accounts; the guide resets them only if its savings answer is smaller than the sum.
+- Known simplification: held PPK is treated as the employee part (no employer/state split for early payout).
+- Design review (phone 390 px, desktop 1280 px): box reads as part of the capital field (tinted panel, left accent line); account buttons are 44 px pills with ✓ when ticked; nothing extra is shown until an account is ticked. Fixed a class clash (`.chip` was already the white header chip → buttons renamed `.acc`). Tests 22/22; `held.py` browser check added.
