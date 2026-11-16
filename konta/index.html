@@ -35,7 +35,7 @@
   <header class="top">
     <div class="wrap">
       <a class="back" href="../">← Demos</a>
-      <h1>Konta Inwestycyjne <small>v0.5.2</small></h1>
+      <h1>Konta Inwestycyjne <small>v0.5.3</small></h1>
       <a id="personaChip" class="chip" href="#start" hidden></a>
       <p class="lead">IKE, IKZE, OKI, PPK czy ETF? Wpisz swoje kwoty i zobacz, ile zostanie po podatkach.</p>
     </div>
@@ -91,7 +91,7 @@
 
         <h3>Jak inwestować</h3>
         <div class="seg" id="styleSeg" role="group" aria-label="Jak inwestować">
-          <button data-style="calm">Spokojnie</button><button data-style="mid">Pośrodku</button><button data-style="bold">Odważnie</button>
+          <button data-style="calm">Spokojnie</button><button data-style="mid">Pośrodku</button><button data-style="bold">Odważnie</button><button data-style="mine" id="styleMine" hidden>Mój podział</button>
         </div>
         <p class="hint" id="styleInfo"></p>
 
@@ -158,6 +158,7 @@
         <h4>Wpłaty miesięczne</h4>
         <div class="grid split" id="splitEditor"></div>
         <p class="muted" id="splitSum"></p>
+        <button type="button" id="copyMine">Wstaw mój obecny podział</button>
         <label class="check"><input type="checkbox" id="capOwn"> Kapitał na start dziel inaczej</label>
         <div id="capBox" hidden>
           <h4>Kapitał na start</h4>

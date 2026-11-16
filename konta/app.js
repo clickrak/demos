@@ -4,8 +4,8 @@
   const C = window.KI_CONFIG, K = window.KI_CALC;
   const STORE_KEY = 'ki-state-v1';
   const SLOTS = ['A', 'B', 'C'];
-  const COLORS = { auto: '#0f6e56', A: '#2563eb', B: '#b45309', C: '#9333ea', own: '#667085', base: '#667085' };
-  const DASH = { auto: [], A: [8, 4], B: [2, 3], C: [10, 3, 2, 3] };
+  const COLORS = { auto: '#0f6e56', mine: '#0e7490', A: '#2563eb', B: '#b45309', C: '#9333ea', own: '#667085', base: '#667085' };
+  const DASH = { auto: [], mine: [6, 2, 1, 2], A: [8, 4], B: [2, 3], C: [10, 3, 2, 3] };
 
   const $ = id => document.getElementById(id);
   const clone = o => JSON.parse(JSON.stringify(o));
@@ -62,11 +62,11 @@
     const ht = Object.values(s.inp.held).reduce((t, x) => t + x, 0); if (ht > s.inp.capital) s.inp.capital = Math.min(LIM.capital, ht);
     s.inp.salary = clamp(s.inp.salary, 4000, LIM.salary); s.inp.age = clamp(s.inp.age, 18, 75);
     s.inp.payoutAge = clamp(s.inp.payoutAge, s.inp.age + 1, 90);
-    if (!['auto', 'A', 'B', 'C'].includes(s.mainScen)) s.mainScen = 'auto';
+    if (!['auto', 'mine', 'A', 'B', 'C'].includes(s.mainScen)) s.mainScen = 'auto';
     if (!C.PERSONAS[s.persona]) s.persona = '';
     if (!['simple', 'advanced'].includes(s.mode)) s.mode = 'simple';
     if (!C.STYLES[s.style]) s.style = 'bold';
-    if (s.mode === 'simple') s.mainScen = 'auto';
+    if (s.mode === 'simple' && s.mainScen !== 'mine') s.mainScen = 'auto';
     if (!['plan', 'own'].includes(s.wd.source)) s.wd.source = 'plan';
     if (!C.WD_STRATEGIES[s.wd.strategy]) s.wd.strategy = 'fixed';
     s.wd.order = s.wd.order.filter(k => C.WD_ORDER.includes(k)).concat(C.WD_ORDER.filter(k => !s.wd.order.includes(k)));
@@ -196,7 +196,7 @@
       fields[k] = field(label, () => S.inp[k], o, v => { S.inp[k] = v; S.touched = true; if (after) after(v); update(); });
       box.appendChild(fields[k]);
     };
-    add('capital', 'Kapitał na start', { min: () => heldTotal(), max: LIM.capital, sliderMax: 500000, step: 1000, unit: 'zł', hint: 'Wszystkie oszczędności na inwestycje: te już na kontach i gotówka.' });
+    add('capital', 'Kapitał na start', { min: 0, max: LIM.capital, step: 1000, unit: 'zł', range: false, hint: 'Wszystkie oszczędności na inwestycje: te już na kontach i gotówka.' });
     const hb = document.createElement('div'); hb.id = 'heldBox'; hb.className = 'held'; box.appendChild(hb);
     add('monthly', 'Odkładasz miesięcznie', { min: 0, max: LIM.monthly, sliderMax: 10000, step: 100, unit: 'zł', hint: 'Twoje pieniądze, poza PPK.' });
     add('age', 'Twój wiek', { min: 18, max: 75, step: 1, unit: 'lat' }, v => {
@@ -216,47 +216,74 @@
   const cashCap = () => Math.max(0, S.inp.capital - heldTotal());
   let heldOpen = null; // accounts ticked in the UI (an account can be ticked with 0 zł while typing)
   const resetHeld = () => { HELD_KEYS.forEach(k => { S.inp.held[k] = 0; }); heldOpen = new Set(); };
+  // "User split plan": today's split between the accounts that can take new money (PPK/PPE only grow from salary).
+  function mineSplit() {
+    const t = C.FREE_VEHICLES.reduce((x, k) => x + (Number(S.inp.held[k]) || 0), 0);
+    if (t <= 0) return null;
+    const m = {}; C.FREE_VEHICLES.forEach(k => { m[k] = Math.round(1000 * (Number(S.inp.held[k]) || 0) / t) / 10; });
+    return m;
+  }
+  const mineText = () => { const m = mineSplit(); return m ? C.FREE_VEHICLES.filter(k => m[k] > 0).map(k => `${HELD_SHORT[k]} ${num(Math.round(m[k]))}%`).join(' · ') : ''; };
   function renderHeld(focusKey) {
     if (!heldOpen) heldOpen = new Set(HELD_KEYS.filter(k => S.inp.held[k] > 0));
     const hb = $('heldBox');
     hb.innerHTML = '<p class="heldq">Gdzie są dziś te pieniądze?</p>' +
-      '<p class="hint">Zaznacz konta, na których już coś masz. Resztę traktujemy jako gotówkę – podzielimy ją według planu.</p>' +
+      '<p class="hint">Zaznacz konta, na których już coś masz, i wpisz kwoty – policzymy sumę i Twój obecny podział.</p>' +
       '<div class="chips" role="group" aria-label="Konta, na których masz już pieniądze">' +
       HELD_KEYS.map(k => `<button type="button" class="acc" data-held="${k}" aria-pressed="${heldOpen.has(k)}">${HELD_SHORT[k]}</button>`).join('') +
-      '</div><div class="grid heldf" id="heldEditor"></div><p class="heldsum" id="heldSum" aria-live="polite"></p>';
+      '</div><div class="grid heldf" id="heldEditor"></div><div id="heldSum" class="heldsum" aria-live="polite"></div>';
     const ed = $('heldEditor');
-    HELD_KEYS.filter(k => heldOpen.has(k)).forEach(k => {
-      const f = field(`Na ${HELD_SHORT[k]}`, () => S.inp.held[k] || 0, { min: 0, max: LIM.capital, step: 1000, unit: 'zł', range: false }, v => setHeld(k, v));
-      f.dataset.key = k; ed.appendChild(f);
-    });
+    const addF = (key, label, get, set) => {
+      const f = field(label, get, { min: 0, max: LIM.capital, step: 1000, unit: 'zł', range: false }, set);
+      f.dataset.key = key; f.querySelector('label').insertAdjacentHTML('beforeend', ' <span class="share"></span>'); ed.appendChild(f);
+    };
+    HELD_KEYS.filter(k => heldOpen.has(k)).forEach(k => addF(k, HELD_SHORT[k], () => S.inp.held[k] || 0, v => setHeld(k, v)));
     if (heldOpen.size) {
+      addF('cash', 'Gotówka do zainwestowania', () => cashCap(), v => { S.inp.capital = heldTotal() + v; S.touched = true; update(); });
       const g = field('Ile z tego to zysk', () => S.inp.heldGain, { min: 0, max: 100, step: 5, unit: '%', range: false,
-        hint: 'Reszta to Twoje wpłaty. Od zysku liczymy 19% podatku przy wypłacie (bez podatku: IKE po 60, PPK i PPE po 60).' }, v => { S.inp.heldGain = v; S.touched = true; update(); });
+        hint: 'Dotyczy pieniędzy na kontach. Reszta to Twoje wpłaty. Od zysku liczymy 19% podatku przy wypłacie (bez podatku: IKE, PPK i PPE po 60).' }, v => { S.inp.heldGain = v; S.touched = true; update(); });
       g.classList.add('adv', 'wide'); ed.appendChild(g);
     }
     hb.querySelectorAll('[data-held]').forEach(b => b.addEventListener('click', () => toggleHeld(b.dataset.held)));
     renderHeldSum();
     if (focusKey) { const i = ed.querySelector(`[data-key="${focusKey}"] input`); if (i) { i.focus(); i.select(); } }
   }
+  // Tick: the cash not yet assigned moves to the account (total stays). Untick: the amount goes back to cash.
   function toggleHeld(k) {
-    if (heldOpen.has(k)) { heldOpen.delete(k); S.inp.held[k] = 0; renderHeld(); }
-    else { heldOpen.add(k); S.inp.held[k] = cashCap(); renderHeld(k); } // start with the cash that is left
+    if (heldOpen.has(k)) { heldOpen.delete(k); S.inp.held[k] = 0; if (!heldOpen.size && S.mainScen === 'mine') S.mainScen = 'auto'; renderHeld(); }
+    else { heldOpen.add(k); S.inp.held[k] = cashCap(); renderHeld(k); }
     const b = document.querySelector(`[data-held="${k}"]`); if (b && !heldOpen.has(k)) b.focus();
     S.touched = true; update();
   }
+  // Typing an account amount changes the total; the cash part stays as it was.
   function setHeld(k, v) {
-    S.inp.held[k] = v; S.touched = true;
-    if (heldTotal() > S.inp.capital) { S.inp.capital = heldTotal(); fields.capital.setValue(S.inp.capital); } // capital = at least the accounts
+    const cash = cashCap();
+    S.inp.held[k] = v; S.inp.capital = Math.min(LIM.capital, heldTotal() + cash); S.touched = true;
     update();
   }
   function renderHeldSum() {
     const hb = $('heldBox'); if (!hb) return;
-    hb.hidden = S.inp.capital <= 0 && heldTotal() <= 0;
-    if (fields.capital) fields.capital.syncLimits();
-    const t = heldTotal(), cash = cashCap();
-    $('heldSum').innerHTML = !t ? `Cała kwota (${zl(S.inp.capital)}) to gotówka do zainwestowania.`
-      : `Na kontach: <b>${zl(t)}</b> – zostają tam i rosną, nie zużywają rocznych limitów. ` +
-        (cash > 0 ? `Gotówka do zainwestowania: <b>${zl(cash)}</b>.` : 'Nowej gotówki: 0 zł.');
+    const t = heldTotal(), cash = cashCap(), on = !!(heldOpen && heldOpen.size), cap = S.inp.capital;
+    hb.hidden = cap <= 0 && !on;
+    const cf = fields.capital; if (cf) {
+      const i = cf.querySelector('input[type=text]'); i.readOnly = on; cf.classList.toggle('computed', on);
+      cf.querySelector('label').textContent = on ? 'Kapitał na start – suma' : 'Kapitał na start';
+      if (on && document.activeElement !== i) cf.setValue(cap);
+      const h = cf.querySelector('.hint'); if (h) h.textContent = on ? 'Liczymy z kwot poniżej (konta + gotówka).' : 'Wszystkie oszczędności na inwestycje: te już na kontach i gotówka.';
+    }
+    hb.querySelectorAll('#heldEditor [data-key]').forEach(f => {
+      const k = f.dataset.key, v = k === 'cash' ? cash : (S.inp.held[k] || 0);
+      f.querySelector('.share').textContent = cap > 0 ? `· ${num(Math.round(100 * v / cap))}%` : '';
+      if (k === 'cash' && document.activeElement !== f.querySelector('input')) f.setValue(cash);
+    });
+    const sum = $('heldSum');
+    if (!on) { sum.innerHTML = `Cała kwota (${zl(cap)}) to gotówka do zainwestowania.`; return; }
+    const m = mineSplit(), act = S.mainScen === 'mine';
+    sum.innerHTML = `<p>Razem: <b>${zl(cap)}</b> = na kontach ${zl(t)} + gotówka ${zl(cash)}. Pieniądze na kontach zostają tam i rosną.</p>` +
+      (m ? `<p>Twój obecny podział: <b>${mineText()}</b>${S.inp.held.ppk + S.inp.held.ppe > 0 ? ' <span class="muted">(bez PPK/PPE – te rosną tylko z pensji)</span>' : ''}.</p>` +
+        (act ? '<p class="on">✓ Dalej odkładasz w tych proporcjach (plan „Mój podział”).</p>'
+          : '<button type="button" class="primary" id="useMine">Odkładaj dalej w tych proporcjach</button>') : '');
+    const u = $('useMine'); if (u) u.addEventListener('click', () => { S.mainScen = 'mine'; S.touched = true; update(); });
   }
 
   // ---------- Market presets ----------
@@ -281,10 +308,12 @@
 
   // ---------- Scenarios ----------
   const allocFor = k => (k === 'auto' ? K.mixAllocator(C.STYLES[S.style].edo / 100, S.order)
+    : k === 'mine' ? K.splitAllocator(mineSplit(), null)
     : K.splitAllocator(S.scenarios[k].split, S.scenarios[k].capSplit));
   function computeScenarios() {
     const inp = calcInp();
     const out = { auto: { label: 'Auto-podział', res: K.runScenario(S.cfg, inp, allocFor('auto')) } };
+    if (mineSplit()) out.mine = { label: 'Mój podział (jak teraz)', res: K.runScenario(S.cfg, inp, allocFor('mine')) };
     SLOTS.forEach(s => { out[s] = { label: `${s}: ${S.scenarios[s].name}`, res: K.runScenario(S.cfg, inp, allocFor(s)) }; });
     return out;
   }
@@ -363,8 +392,12 @@
       : 'Tylko jeśli Twoja firma ma pracowniczy program emerytalny.';
   }
   function renderStyle() {
-    document.querySelectorAll('[data-style]').forEach(b => { b.classList.toggle('active', b.dataset.style === S.style); b.setAttribute('aria-pressed', b.dataset.style === S.style); });
-    $('styleInfo').textContent = C.STYLES[S.style].desc + (S.mode === 'advanced' ? ' Dotyczy Auto-podziału.' : '');
+    const cur = S.mainScen === 'mine' ? 'mine' : S.style;
+    $('styleMine').hidden = !mineSplit(); $('copyMine').disabled = !mineSplit();
+    document.querySelectorAll('[data-style]').forEach(b => { b.classList.toggle('active', b.dataset.style === cur); b.setAttribute('aria-pressed', b.dataset.style === cur); });
+    $('styleInfo').textContent = cur === 'mine'
+      ? `Wpłaty i gotówka w tych samych proporcjach co dziś: ${mineText()}. Część ponad limit IKE/IKZE trafia na zwykłe konto ETF.`
+      : C.STYLES[S.style].desc + (S.mode === 'advanced' ? ' Dotyczy Auto-podziału.' : '');
   }
 
   // ---------- Where the money goes (U28) ----------
@@ -924,7 +957,9 @@
   // ---------- Render all ----------
   function renderResults() {
     renderMode(); renderSalaryInfo(); renderStyle();
-    const scen = computeScenarios();
+    let scen = computeScenarios();
+    if (!scen[S.mainScen]) S.mainScen = 'auto';
+    if (!scen[S.yearScen]) S.yearScen = 'auto';
     lastScen = scen;
     renderScenSelects(scen); renderPresets(); renderResult(scen); renderTips(scen);
     renderFlow(scen); renderBars(scen); renderChart(scen); renderWd(scen); renderSummary(scen); renderYearTable(scen);
@@ -943,9 +978,19 @@
   $('ppeOn').addEventListener('change', e => { S.inp.ppeOn = e.target.checked; update(); });
   $('realTerms').addEventListener('change', e => { S.realTerms = e.target.checked; update(); });
   document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
-    S.mode = b.dataset.mode; if (S.mode === 'simple') S.mainScen = 'auto'; update();
+    S.mode = b.dataset.mode; if (S.mode === 'simple' && S.mainScen !== 'mine') S.mainScen = 'auto'; update();
   }));
-  document.querySelectorAll('[data-style]').forEach(b => b.addEventListener('click', () => { S.style = b.dataset.style; S.touched = true; update(); }));
+  document.querySelectorAll('[data-style]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.style === 'mine') S.mainScen = 'mine';
+    else { S.style = b.dataset.style; if (S.mainScen === 'mine') S.mainScen = 'auto'; }
+    S.touched = true; update();
+  }));
+  $('copyMine').addEventListener('click', () => {
+    const m = mineSplit(); if (!m) return;
+    const snap = clone(S), sc = S.scenarios[S.editSlot];
+    sc.split = m; sc.capSplit = null; sc.name = 'Mój podział';
+    renderEditor(); update(); toast(`Skopiowano Twój obecny podział do scenariusza ${S.editSlot}.`, snap);
+  });
   $('capOwn').addEventListener('change', e => {
     const sc = S.scenarios[S.editSlot]; sc.capSplit = e.target.checked ? clone(sc.split) : null; renderEditor(); update();
   });

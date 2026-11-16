@@ -210,3 +210,10 @@ body.simple .adv { display: none !important; }
 .heldf .wide { grid-column: 1 / -1; }
 .heldsum { margin: 10px 0 0; font-size: .875rem; }
 .heldf:empty { display: none; }
+.heldsum p { margin: 0 0 6px; }
+.heldsum .on { color: var(--accent); font-weight: 600; }
+.heldsum button { margin-top: 4px; }
+.field .share { color: var(--ink); font-weight: 600; }
+.field.computed input[type=text] { background: transparent; border-color: transparent; font-weight: 700; padding-left: 0; }
+.field.computed .pair { justify-content: flex-start; gap: 4px; }
+.field.computed input[type=text] { width: 7.5em; max-width: 7.5em; font-size: 1.25rem; min-height: 0; }
