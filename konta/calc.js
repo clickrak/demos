@@ -146,6 +146,10 @@
     const notes = [];
     const row = (k, gross, tax, extra) => { per[k] = Object.assign({ gross, tax, net: gross - tax }, extra || {}); };
 
+    // earlyPenalty: extra tax paid only because the payout is before the age limits (60 / 65).
+    let earlyPenalty = 0;
+    if (endAge < T.ikeFreeAge) earlyPenalty += belka(p.ike.v - p.ike.b);
+    if (endAge < T.ikzeFreeAge) earlyPenalty += Math.max(0, T.pit - T.ikzeExit) * p.ikze.v;
     row('ike', p.ike.v, endAge >= T.ikeFreeAge ? 0 : belka(p.ike.v - p.ike.b));
     const ikzeTax = endAge >= T.ikzeFreeAge ? T.ikzeExit * p.ikze.v : T.pit * p.ikze.v;
     row('ikze', p.ikze.v + p.ikzeRefund.v, ikzeTax + belka(p.ikzeRefund.v - p.ikzeRefund.b));
@@ -163,13 +167,14 @@
       const loss = k.st + cfg.ppk.earlyEmployerToZus * k.emp; // state money lost, 30% of employer part to ZUS
       const gain = (k.own + keep * k.emp) - (k.bOwn + keep * k.bEmp);
       row('ppk', pv, loss + belka(gain));
+      earlyPenalty += loss + belka(gain);
     }
     row('ppe', p.ppe.v, 0, endAge < T.ppeFreeAge && p.ppe.v > 0 ? { locked: true } : {});
     if (per.ppe.locked) notes.push('PPE: przed 60 r.ż. nie można wypłacić (tylko transfer) – wartość pokazana bez podatku.');
 
     const gross = ALL.reduce((s, x) => s + per[x].gross, 0);
     const tax = ALL.reduce((s, x) => s + per[x].tax, 0);
-    return { per, gross, exitTax: tax, taxTotal: tax + okiTax, net: gross - tax, notes };
+    return { per, gross, exitTax: tax, taxTotal: tax + okiTax, net: gross - tax, notes, earlyPenalty };
   }
 
   // Baseline: the same own money each year, invested in a normal (taxable) ETF World account.

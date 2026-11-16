@@ -31,111 +31,129 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip" href="#wynik">Przejdź do wyniku</a>
   <header class="top">
     <div class="wrap">
       <a class="back" href="../">← Demos</a>
-      <h1>Konta Inwestycyjne <small>v0.1</small></h1>
-      <p class="lead">Porównaj IKE, IKZE, OKI, PPK, PPE, obligacje EDO i ETF-y. Wpisz swoje kwoty i zobacz, ile zostanie po podatkach.</p>
-      <nav class="tabs">
-        <a href="#dane">Dane</a><a href="#porownanie">Porównanie</a><a href="#osobno">Każdy osobno</a>
-        <a href="#auto">Auto-podział</a><a href="#scenariusze">Scenariusze</a><a href="#wyniki">Wyniki</a>
-        <a href="#wyplata">Wcześniejsza wypłata</a><a href="#zalozenia">Założenia</a>
-      </nav>
+      <h1>Konta Inwestycyjne <small>v0.2</small></h1>
+      <p class="lead">IKE, IKZE, OKI, PPK czy ETF? Wpisz swoje kwoty i zobacz, ile zostanie po podatkach.</p>
     </div>
   </header>
+  <nav class="tabs" aria-label="Główne widoki"><div class="wrap">
+    <a href="#plan" data-tab="plan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7"/></svg><span>Plan</span></a><a href="#produkty" data-tab="produkty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Produkty</span></a><a href="#zalozenia" data-tab="zalozenia"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg><span>Założenia</span></a>
+  </div></nav>
+  <div class="bar" id="bar" hidden><div class="wrap">
+    <span id="barText"></span>
+    <select id="barScen" class="scenSel" aria-label="Scenariusz"></select>
+  </div></div>
 
   <main class="wrap">
-    <!-- F1 + F8 -->
-    <section id="dane" class="card">
-      <h2>1. Twoje dane</h2>
-      <div class="grid inputs" id="inputs"></div>
-      <div class="row">
-        <label class="check"><input type="checkbox" id="ppkOn"> Oszczędzam w PPK</label>
-        <label class="check"><input type="checkbox" id="ppeOn"> Pracodawca ma PPE</label>
-        <label class="check"><input type="checkbox" id="realTerms"> Pokaż w dzisiejszych złotówkach (po inflacji)</label>
-      </div>
-      <div class="row presets">
-        <span>Rynek:</span>
-        <button data-preset="pessimistic">Pesymistyczny</button>
-        <button data-preset="base">Bazowy</button>
-        <button data-preset="optimistic">Optymistyczny</button>
-        <span class="muted" id="presetInfo"></span>
-      </div>
-    </section>
-
-    <!-- F2 -->
-    <section id="porownanie" class="card">
-      <h2>2. Porównanie produktów</h2>
-      <div class="scroll"><table id="compareTable"></table></div>
-      <p class="muted">* IKE, IKZE i OKI to „opakowania” podatkowe. Ryzyko zależy od tego, co w nich kupisz – tutaj zakładamy ETF World.</p>
-    </section>
-
-    <!-- F3 -->
-    <section id="osobno" class="card">
-      <h2>3. Każdy produkt osobno</h2>
-      <p class="muted">Cała kwota (kapitał + wpłaty miesięczne) w jeden produkt. Część ponad roczny limit trafia na zwykłe konto z ETF World. PPK i PPE liczone są od pensji.</p>
-      <div class="scroll"><table id="singleTable"></table></div>
-    </section>
-
-    <!-- F4 -->
-    <section id="auto" class="card">
-      <h2>4. Automatyczny podział</h2>
-      <p class="muted">Pieniądze trafiają po kolei: najpierw do pierwszego produktu do limitu, potem do następnego. OKI wypełniamy do 100 000 zł (część bez podatku). PPK i PPE działają obok, z pensji.</p>
-      <ol id="orderList" class="order"></ol>
-      <div class="row"><span>Dodaj:</span><span id="orderAdd"></span></div>
-    </section>
-
-    <!-- F5 -->
-    <section id="scenariusze" class="card">
-      <h2>5. Twoje scenariusze</h2>
-      <div class="row">
-        <span>Edytuj:</span>
-        <button class="slot" data-slot="A">A</button><button class="slot" data-slot="B">B</button><button class="slot" data-slot="C">C</button>
-        <input type="text" id="scenName" maxlength="30" aria-label="Nazwa scenariusza">
-      </div>
-      <div class="grid split" id="splitEditor"></div>
-      <p class="muted" id="splitSum"></p>
-    </section>
-
-    <!-- F6 + F7 -->
-    <section id="wyniki" class="card">
-      <h2>6. Wykres i wyniki</h2>
-      <div class="chartbox"><canvas id="chart" aria-label="Wykres wartości portfela"></canvas></div>
-      <p class="muted">Wykres: wartość przed podatkiem przy wypłacie. Tabela niżej: wynik na koniec, po podatkach.</p>
-      <div class="scroll"><table id="summaryTable"></table></div>
-      <div id="notes" class="muted"></div>
-      <details>
-        <summary>Tabela rok po roku</summary>
-        <div class="row">
-          <label>Scenariusz: <select id="yearScen"></select></label>
-          <button id="csvBtn">Pobierz CSV</button>
+    <!-- ===== PLAN ===== -->
+    <div class="view plan" data-view="plan">
+      <section id="dane" class="card a-dane">
+        <h2>Twoje dane</h2>
+        <div class="grid inputs" id="inputs"></div>
+        <div class="switches">
+          <label class="check"><input type="checkbox" id="ppkOn"> Oszczędzam w PPK</label>
+          <label class="check"><input type="checkbox" id="ppeOn"> Pracodawca ma PPE</label>
+          <label class="check"><input type="checkbox" id="realTerms"> Pokaż w dzisiejszych złotówkach (po inflacji)</label>
         </div>
-        <div class="scroll"><table id="yearTable" class="small"></table></div>
+        <div class="seg" role="group" aria-label="Rynek">
+          <span>Rynek:</span>
+          <button data-preset="pessimistic">Słabszy</button>
+          <button data-preset="base">Bazowy</button>
+          <button data-preset="optimistic">Lepszy</button>
+        </div>
+        <p class="muted" id="presetInfo"></p>
+      </section>
+
+      <div class="a-res">
+        <section id="wynik" class="card result" tabindex="-1" aria-labelledby="wynikH">
+          <h2 id="wynikH" class="sr">Wynik</h2>
+          <div id="resultBody"></div>
+          <label class="pick">Scenariusz: <select id="mainScen" class="scenSel"></select></label>
+          <div id="resultMore"></div>
+          <p class="sr" aria-live="polite" id="live"></p>
+        </section>
+        <div id="tips"></div>
+        <section id="wyniki" class="card">
+          <h2>Porównanie scenariuszy</h2>
+          <p class="muted">Ile zostaje na rękę po wszystkich podatkach.</p>
+          <div class="chartbox bars"><canvas id="barChart" aria-label="Wykres: kwota na rękę w każdym scenariuszu. Te same liczby są w tabeli poniżej."></canvas></div>
+          <div class="scroll"><table id="summaryTable" class="cards"></table></div>
+          <div id="notes" class="muted"></div>
+        </section>
+        <section class="card">
+          <h2>Jak rośnie kapitał</h2>
+          <div class="chartbox"><canvas id="chart" aria-label="Wykres wartości portfela rok po roku. Liczby są w tabeli rok po roku."></canvas></div>
+          <p class="muted">Linia pokazuje wartość przed podatkiem. Ostatni punkt „po podatkach” to kwota na rękę – ta sama co w tabeli.</p>
+          <label class="check"><input type="checkbox" id="showAll"> Porównaj wszystkie scenariusze</label>
+          <details>
+            <summary>Tabela rok po roku</summary>
+            <div class="row">
+              <label>Scenariusz: <select id="yearScen" class="scenSel"></select></label>
+              <button id="csvBtn">Pobierz CSV</button>
+            </div>
+            <div class="scroll"><table id="yearTable" class="small"></table></div>
+          </details>
+        </section>
+      </div>
+
+      <details id="dostosuj" class="card a-adj">
+        <summary><h2>Dostosuj podział</h2></summary>
+        <h3 id="auto">Automatyczny podział</h3>
+        <p class="muted">Pieniądze trafiają po kolei: najpierw do pierwszego produktu do limitu, potem do następnego. OKI wypełniamy do 100 000 zł (część bez podatku). PPK i PPE działają obok, z pensji.</p>
+        <ol id="orderList" class="order"></ol>
+        <div class="row"><span>Dodaj:</span><span id="orderAdd"></span></div>
+        <p id="autoNow" class="now"></p>
+        <h3 id="scenariusze">Twoje scenariusze</h3>
+        <div class="row">
+          <span>Edytuj:</span>
+          <button class="slot" data-slot="A">A</button><button class="slot" data-slot="B">B</button><button class="slot" data-slot="C">C</button>
+          <input type="text" id="scenName" maxlength="30" aria-label="Nazwa scenariusza">
+        </div>
+        <div class="grid split" id="splitEditor"></div>
+        <p class="muted" id="splitSum"></p>
       </details>
-    </section>
+    </div>
 
-    <!-- F9 -->
-    <section id="wyplata" class="card">
-      <h2>7. Co jeśli wypłacę wcześniej?</h2>
-      <div class="row">
-        <label>Wypłata po <input type="range" id="earlyN" min="1" max="40"> <b id="earlyNVal"></b> latach</label>
-        <span class="muted" id="earlyAge"></span>
-      </div>
-      <div class="scroll"><table id="earlyTable"></table></div>
-    </section>
+    <!-- ===== PRODUKTY ===== -->
+    <div class="view" data-view="produkty" hidden>
+      <section id="porownanie" class="card">
+        <h2>Porównanie produktów</h2>
+        <div class="scroll"><table id="compareTable" class="cards stack"></table></div>
+        <p class="muted">* IKE, IKZE i OKI to „opakowania” podatkowe. Ryzyko zależy od tego, co w nich kupisz – tutaj zakładamy ETF World.</p>
+      </section>
+      <section id="osobno" class="card">
+        <h2>Każdy produkt osobno</h2>
+        <p class="muted">Cała kwota (kapitał + wpłaty miesięczne) w jeden produkt. Część ponad roczny limit trafia na zwykłe konto z ETF World. PPK i PPE liczone są od pensji. Produkty różnią się ryzykiem, dlatego pokazujemy też zakres: słabszy i lepszy rynek.</p>
+        <div class="scroll"><table id="singleTable" class="cards"></table></div>
+      </section>
+      <section id="wczesniej" class="card">
+        <h2>Wcześniejsza wypłata</h2>
+        <div class="row">
+          <label for="earlyN">Wypłata po <b id="earlyNVal"></b> latach</label>
+          <input type="range" id="earlyN" min="1" max="40">
+          <span class="muted" id="earlyAge"></span>
+        </div>
+        <div class="scroll"><table id="earlyTable" class="cards stack"></table></div>
+      </section>
+    </div>
 
-    <!-- F10 -->
-    <section id="zalozenia" class="card">
-      <h2>8. Założenia</h2>
-      <p class="muted">Wszystkie liczby możesz zmienić. Ustawienia zapisują się w przeglądarce i w linku.</p>
-      <div class="grid settings" id="settings"></div>
-      <div class="row">
-        <button id="resetBtn">Przywróć domyślne</button>
-        <button id="shareBtn">Kopiuj link do tych ustawień</button>
-        <span class="muted" id="shareInfo"></span>
-      </div>
-      <p class="muted">Model jest prosty: liczymy rocznie, wpłaty na początku roku, stała stopa zwrotu, PIT 12% (pierwszy próg), podatek na końcu.</p>
-    </section>
+    <!-- ===== ZAŁOŻENIA ===== -->
+    <div class="view" data-view="zalozenia" hidden>
+      <section class="card">
+        <h2>Założenia</h2>
+        <p class="muted">Wszystkie liczby możesz zmienić. Ustawienia zapisują się w przeglądarce i w linku.</p>
+        <div class="grid settings" id="settings"></div>
+        <div class="row">
+          <button id="resetBtn">Przywróć domyślne</button>
+          <button id="shareBtn">Kopiuj link do tych ustawień</button>
+          <span class="muted" id="shareInfo"></span>
+        </div>
+        <p class="muted">Model jest prosty: liczymy rocznie, wpłaty na początku roku, stała stopa zwrotu, PIT 12% (pierwszy próg), podatek na końcu.</p>
+      </section>
+    </div>
   </main>
 
   <footer class="wrap muted">

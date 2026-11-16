@@ -192,13 +192,13 @@ Keep the calculation tests green in every release. Each release = bump the versi
 
 | Release | Name | Content | Status |
 |---|---|---|---|
-| v0.2 | Struktura | U0 page structure (views Plan, Produkty, Założenia; result card; result bar; tips; auto-split amounts) + all P1 fixes (U6, U7, U8, U10, U11, U13, U16, U18, U26) + U9 charts, U19 | ⏳ |
+| v0.2 | Struktura | U0 page structure (views Plan, Produkty, Założenia; result card; result bar; tips; auto-split amounts) + all P1 fixes (U6, U7, U8, U10, U11, U13, U16, U18, U26) + U9 charts, U19 | ✅ 16.11.2026 |
 | v0.3 | Start | N5 guide, N1 personas (Start view) + P2 fixes U12, U14, U15, U17, U20, U21 | ⏳ |
 | v0.4 | Wypłata | N2 withdrawal view, N3 Markdown save/load, N4 sources + U22–U24 (keyboard, screen reader, contrast) | ⏳ |
 | v0.5 | Dokładność | U25 + calculation details (OKI, EDO, IKZE, PIT 32%, PPK, asset choice, risk view, monthly steps, couple mode, CI) | ⏳ |
 
-- [ ] **U0 Page structure** (5 views with addresses, tabs / bottom bar, result card, sticky result bar, tips, auto-split amounts).
-- [ ] **UX P1 fixes:** U1–U4 (done by U0), U6 tables as cards on phone, U7 touch targets, U8 text sizes, U10 sliders, U11 validation, U13 payout age + warning, U16 no “best” between different risks, U18 chart = table, U26 rename F9.
+- [x] **U0 Page structure** (5 views with addresses, tabs / bottom bar, result card, sticky result bar, tips, auto-split amounts).
+- [x] **UX P1 fixes:** U1–U4 (done by U0), U6 tables as cards on phone, U7 touch targets, U8 text sizes, U10 sliders, U11 validation, U13 payout age + warning, U16 no “best” between different risks, U18 chart = table, U26 rename F9.
 - [ ] **UX P2 fixes:** U5, U9 charts, U12 number format, U14 empty state, U15 split “Twoje wpłaty”, U17 glossary, U19, U20 undo, U21 clean address + shared-link banner, U22–U24 keyboard, screen reader, contrast.
 - [ ] **UX P3:** U25 reduced motion, print style, dark mode.
 - [ ] **UX acceptance:** the 10 checks in “Acceptance — UX” pass at 390×844 and 1280×800.

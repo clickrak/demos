@@ -19,7 +19,7 @@
     monthly: 1000,    // zł per month
     salary: 10000,    // gross zł per month (≈ average wage 2027)
     age: 40,
-    horizon: 25,
+    payoutAge: 65,    // age at payout (years of saving = payoutAge - age)
     ppkOn: true,
     ppeOn: false,
   };

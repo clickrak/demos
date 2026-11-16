@@ -100,6 +100,14 @@
     eq(a.ike, 250, 'ike'); eq(a.etfWorld, 750, 'etf');
   });
 
+  test('Early penalty: 0 at 65, IKZE 2 pp. of the pot at 63', () => {
+    const at65 = K.simulate(cfg, inp({ monthly: 500, age: 40, horizon: 25 }), K.singleAllocator('ikze'));
+    eq(at65.earlyPenalty, 0, 'penalty at 65');
+    const at63 = K.simulate(cfg, inp({ monthly: 500, age: 40, horizon: 23 }), K.singleAllocator('ikze'));
+    const pot = 6000 * ((Math.pow(1 + g, 23) - 1) / g) * (1 + g);
+    eq(at63.earlyPenalty, 0.02 * pot, 'penalty at 63');
+  });
+
   const failed = results.filter(r => !r.ok);
   if (isNode) {
     results.forEach(r => console.log(`${r.ok ? 'OK  ' : 'FAIL'} ${r.name}${r.ok ? '' : ' -> ' + r.msg}`));
