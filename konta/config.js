@@ -15,7 +15,9 @@
   };
 
   const DEFAULT_INPUT = {
-    capital: 20000,   // zł available today
+    capital: 20000,   // zł of NEW money to invest today (goes through the yearly limits)
+    held: { ikze: 0, ike: 0, oki: 0, edo: 0, etfWorld: 0, etfEm: 0, ppk: 0, ppe: 0 }, // zł already on each account today
+    heldGain: 20,     // % of the held savings that is profit (for tax)
     monthly: 1000,    // zł per month
     salary: 10000,    // gross zł per month (≈ average wage 2027)
     age: 40,

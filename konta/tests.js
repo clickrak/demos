@@ -150,6 +150,15 @@
     eq(r.end.ike.v, 10680, 'ike value'); eq(r.end.ike.b, 10000, 'ike base');
   });
 
+  test('Held savings: stay on their account, outside limits, with own cost basis', () => {
+    const base = inp({ capital: 0, monthly: 0, horizon: 1, ppkOn: false, ppeOn: false });
+    const r = K.simulate(cfg, Object.assign({}, base, { held: { ike: 50000, etfWorld: 10000 }, heldGain: 20 }), K.singleAllocator('etfWorld'));
+    eq(r.end.ike.v, 50000 * 1.068, 'ike grows', 1); eq(r.end.ike.b, 40000, 'ike base = 80% of held');
+    eq(r.end.etf.b, 8000, 'etf base'); eq(r.held0.v, 60000, 'held total');
+    const none = K.simulate(cfg, base, K.singleAllocator('etfWorld'));
+    eq(none.end.ike.v, 0, 'no held by default');
+  });
+
   const failed = results.filter(r => !r.ok);
   if (isNode) {
     results.forEach(r => console.log(`${r.ok ? 'OK  ' : 'FAIL'} ${r.name}${r.ok ? '' : ' -> ' + r.msg}`));

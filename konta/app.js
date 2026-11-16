@@ -57,6 +57,8 @@
     s.order = s.order.filter(k => C.FREE_VEHICLES.includes(k));
     if (!s.order.length) s.order = clone(C.DEFAULT_ORDER);
     s.inp.capital = clamp(s.inp.capital, 0, LIM.capital); s.inp.monthly = clamp(s.inp.monthly, 0, LIM.monthly);
+    Object.keys(s.inp.held).forEach(k => { s.inp.held[k] = clamp(s.inp.held[k], 0, LIM.capital); });
+    s.inp.heldGain = clamp(s.inp.heldGain, 0, 100);
     s.inp.salary = clamp(s.inp.salary, 4000, LIM.salary); s.inp.age = clamp(s.inp.age, 18, 75);
     s.inp.payoutAge = clamp(s.inp.payoutAge, s.inp.age + 1, 90);
     if (!['auto', 'A', 'B', 'C'].includes(s.mainScen)) s.mainScen = 'auto';
@@ -201,7 +203,24 @@
     });
     add('payoutAge', 'Wypłata w wieku', { min: () => S.inp.age + 1, max: 90, step: 1, unit: 'lat', hint: 'Bez podatku: IKE od 60 lat; IKZE z podatkiem 10% od 65 lat.' });
     add('salary', 'Pensja brutto (miesięcznie)', { min: 4000, max: LIM.salary, sliderMax: 40000, step: 100, unit: 'zł', hint: 'Od niej liczymy PPK i zwrot podatku z IKZE.' });
+    renderHeld();
     $('ppkOn').checked = S.inp.ppkOn; $('ppeOn').checked = S.inp.ppeOn; $('realTerms').checked = S.realTerms; $('showAll').checked = S.showAll;
+  }
+
+  // ---------- Current savings per account (advanced) ----------
+  const HELD_KEYS = ['ikze', 'ike', 'oki', 'edo', 'etfWorld', 'etfEm', 'ppk', 'ppe'];
+  const heldTotal = () => HELD_KEYS.reduce((s, k) => s + (Number(S.inp.held[k]) || 0), 0);
+  function renderHeld() {
+    const box = $('heldEditor'); box.innerHTML = '';
+    HELD_KEYS.forEach(k => box.appendChild(field(vname(k), () => S.inp.held[k] || 0,
+      { min: 0, max: LIM.capital, step: 1000, unit: 'zł', range: false }, v => { S.inp.held[k] = v; S.touched = true; update(); })));
+    box.appendChild(field('Ile z tego to zysk', () => S.inp.heldGain, { min: 0, max: 100, step: 5, unit: '%', range: false,
+      hint: 'Reszta to wpłaty. Od zysku liczymy 19% podatku Belki (poza IKE/IKZE po 60/65 latach).' }, v => { S.inp.heldGain = v; S.touched = true; update(); }));
+    renderHeldSum();
+  }
+  function renderHeldSum() {
+    const t = heldTotal();
+    $('heldSum').textContent = t > 0 ? `Razem już zgromadzone: ${zl(t)}. Te pieniądze zostają na swoich kontach i rosną – nie liczą się do rocznych limitów IKE/IKZE.` : '';
   }
 
   // ---------- Market presets ----------
@@ -255,6 +274,7 @@
     const pocket = S.inp.capital + 12 * S.inp.monthly * years();
     let more = `<dl class="trio"><div><dt>Z Twojej kieszeni</dt><dd>${zl(pocket)}</dd></div>` +
       (r.ownPaid - pocket > 1 ? `<div><dt>Z pensji (PPK)</dt><dd>${zl(r.ownPaid - pocket)}</dd></div>` : '') +
+      (heldTotal() > 0 ? `<div><dt>Już zgromadzone</dt><dd>${zl(heldTotal())}</dd></div>` : '') +
       `<div><dt>Od pracodawcy i państwa</dt><dd>${zl(employerMoney())}</dd></div>` +
       `<div><dt>Zysk vs zwykłe konto ETF</dt><dd>${signed(r.vsBaseline * f)}</dd></div></dl>`;
     if (isEmpty()) more += '<div class="warn" role="note">Wpisz kapitał na start lub wpłatę miesięczną. Teraz wynik pokazuje tylko pieniądze z pensji (PPK, PPE).</div>';
@@ -336,6 +356,8 @@
     if (fromSal.length) groups.push({ name: 'Z pensji, dodatkowo', note: '– nie z kwoty, którą odkładasz', items: fromSal });
     const total = [].concat(...groups.map(g => g.items)).reduce((s, x) => s + x[1], 0);
     let html = groups.length ? flowBlock(`Co miesiąc razem: ${zl(total)}`, groups) : '<p>Brak wpłat miesięcznych.</p>';
+    const held = HELD_KEYS.filter(v => (S.inp.held[v] || 0) > 0).map(v => [vname(v), S.inp.held[v], VCOL[v] || VCOL.etfWorld]);
+    if (held.length) html += flowBlock(`Już zgromadzone: ${zl(heldTotal())} (zostaje na swoich kontach)`, [{ items: held }]);
     if (S.inp.capital > 0) {
       const cap = C.FREE_VEHICLES.filter(v => sp.capital[v] > 0.5).map(v => [vname(v), sp.capital[v], VCOL[v]]);
       html += flowBlock(`Kapitał na start: ${zl(S.inp.capital)} (jednorazowo)`, [{ items: cap }]);
@@ -874,7 +896,7 @@
   let pending = null;
   function update() {
     if (pending) cancelAnimationFrame(pending);
-    pending = requestAnimationFrame(() => { pending = null; renderResults(); save(); });
+    pending = requestAnimationFrame(() => { pending = null; renderResults(); renderHeldSum(); save(); });
   }
   function renderAll() { renderInputs(); renderEditor(); renderSettings(); renderWdInputs(); renderResults(); renderStart(); renderShared(); }
 

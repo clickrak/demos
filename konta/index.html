@@ -35,7 +35,7 @@
   <header class="top">
     <div class="wrap">
       <a class="back" href="../">← Demos</a>
-      <h1>Konta Inwestycyjne <small>v0.5</small></h1>
+      <h1>Konta Inwestycyjne <small>v0.5.1</small></h1>
       <a id="personaChip" class="chip" href="#start" hidden></a>
       <p class="lead">IKE, IKZE, OKI, PPK czy ETF? Wpisz swoje kwoty i zobacz, ile zostanie po podatkach.</p>
     </div>
@@ -82,6 +82,12 @@
         <p class="hint" id="modeInfo"></p>
         <h2>Twoje dane</h2>
         <div class="grid inputs" id="inputs"></div>
+        <details class="adv held" id="heldBox">
+          <summary>Mam już oszczędności na kontach</summary>
+          <p class="hint">Wpisz, ile masz dziś na każdym koncie. To inne pieniądze niż „Kapitał na start” (ten dopiero wpłacisz i podzielisz według planu).</p>
+          <div class="grid inputs" id="heldEditor"></div>
+          <p class="muted" id="heldSum"></p>
+        </details>
 
         <h3>Z pensji – automatycznie</h3>
         <label class="check"><input type="checkbox" id="ppkOn"> Oszczędzam w PPK</label>

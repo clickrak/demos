@@ -102,6 +102,19 @@
     return { yearly: m, capital };
   }
 
+  // Existing balances per account: inp.held { account: zł }, inp.heldGain = % of it that is profit (rest = paid in).
+  function seedHeld(p, inp) {
+    const h = inp.held || {};
+    const keep = 1 - Math.min(100, Math.max(0, Number(inp.heldGain) || 0)) / 100;
+    let v0 = 0, b0 = 0;
+    const num = k => Math.max(0, Number(h[k]) || 0);
+    ['ike', 'ikze', 'oki', 'etfWorld', 'etfEm', 'ppe'].forEach(k => { const v = num(k); p[k].v += v; p[k].b += v * keep; });
+    const e = num('edo'); if (e > 0) { p.edo.tr.push({ v: e, held: 1 }); p.edo.b += e * keep; }
+    const k = num('ppk'); p.ppk.own += k; p.ppk.bOwn += k * keep; // PPK: whole balance treated as the employee part
+    ['ike', 'ikze', 'oki', 'edo', 'etfWorld', 'etfEm', 'ppk', 'ppe'].forEach(x => { v0 += num(x); b0 += num(x) * keep; });
+    return { v: v0, b: b0 };
+  }
+
   // ---- Main simulation ----
   // inp: { capital, monthly, salary, age, horizon, ppkOn, ppeOn }
   function simulate(cfg, inp, allocate) {
@@ -113,6 +126,7 @@
     const years = [];
     const ownByYear = [];
     let ownPaid = 0, okiTax = 0, ikzeRefundTotal = 0;
+    const held0 = seedHeld(p, inp); // savings already sitting in the accounts (outside the yearly limits)
 
     for (let y = 1; y <= H; y++) {
       const free = (y === 1 ? inp.capital : 0) + 12 * inp.monthly;
@@ -164,7 +178,7 @@
     }
 
     const exit = exitTaxes(cfg, p, inp.age + H, okiTax);
-    return { years, ownByYear, ownPaid, okiTax, ikzeRefundTotal, endAge: inp.age + H, end: endBalances(p), ...exit };
+    return { years, ownByYear, ownPaid, okiTax, ikzeRefundTotal, held0, endAge: inp.age + H, end: endBalances(p), ...exit };
   }
 
   // ---- Withdrawal phase (N2) ----
@@ -283,9 +297,10 @@
   }
 
   // Baseline: the same own money each year, invested in a normal (taxable) ETF World account.
-  function baselineNet(cfg, ownByYear) {
+  function baselineNet(cfg, ownByYear, held0) {
     const g = cfg.returns.etfWorld - cfg.ter;
     let v = 0, b = 0;
+    if (held0) { v = held0.v; b = held0.b; } // savings already held start in the baseline ETF too
     ownByYear.forEach(x => { v = (v + x) * (1 + g); b += x; });
     return v - cfg.tax.belka * Math.max(0, v - b);
   }
@@ -293,7 +308,7 @@
   // Full result for a scenario, including comparison with the baseline.
   function runScenario(cfg, inp, allocate) {
     const res = simulate(cfg, inp, allocate);
-    res.baseline = baselineNet(cfg, res.ownByYear);
+    res.baseline = baselineNet(cfg, res.ownByYear, res.held0);
     res.vsBaseline = res.net - res.baseline;
     res.vsBaselinePct = res.baseline > 0 ? res.vsBaseline / res.baseline : 0;
     res.grossShown = res.net + res.taxTotal; // value before all taxes (OKI tax is paid during the years)

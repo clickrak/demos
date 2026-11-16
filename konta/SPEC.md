@@ -239,3 +239,10 @@ Keep the calculation tests green in every release. Each release = bump the versi
 
 ## Out of scope
 Self-employment limits (IKZE 18 059,40 zł), currency risk, fees other than TER, inheritance, real broker data.
+
+### v0.5.1 – Obecne oszczędności na kontach ✅ (feedback: "initial capital needs a custom split, I want to input my current savings")
+- Two different things, now clearly separated: **Kapitał na start** = new money still to be invested (goes through the yearly IKE/IKZE limits, split by style or by scenario `capSplit`); **Mam już oszczędności na kontach** (advanced only, `inp.held`) = zł already sitting on each account today (IKZE, IKE, OKI, EDO, ETF World, ETF EM, PPK, PPE).
+- Held savings stay on their account, do not use the yearly limits, grow with the account's return, and have their own cost basis: `inp.heldGain` = % that is profit (default 20%) for the 19% tax.
+- Shown in "Gdzie trafiają pieniądze" as its own block and in the result trio; the baseline (plain ETF account) also starts with the same held money, so the comparison stays fair; the Wypłata tab picks the balances up automatically.
+- Known simplification: held PPK is treated as the employee part (no split employer/state).
+- Test added (22/22).
