@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1200px; height: 627px; overflow: hidden; }
+  body { background: #0f6e56; color: #fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: grid; grid-template-columns: 520px 1fr; }
+  .left { padding: 70px 0 60px 70px; display: flex; flex-direction: column; }
+  h1 { font-size: 64px; line-height: 1; letter-spacing: -0.03em; margin: 0 0 22px; }
+  p { font-size: 26px; line-height: 1.35; margin: 0; opacity: .88; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+  .chips span { font-size: 21px; font-weight: 600; padding: 6px 16px; border-radius: 999px; background: rgba(255,255,255,.14); }
+  .right { padding: 60px 60px 60px 20px; }
+  .card { background: #fff; border-radius: 22px; height: 100%; padding: 26px 30px; box-sizing: border-box; color: #1d2433; display: flex; flex-direction: column; }
+  .card h2 { margin: 0 0 4px; font-size: 22px; }
+  .card small { color: #667085; font-size: 16px; }
+  svg { flex: 1; margin-top: 10px; }
+  .legend { display: flex; gap: 18px; font-size: 16px; color: #475467; }
+  .legend i { display: inline-block; width: 14px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h1>Konta Inwestycyjne</h1>
+    <p>Ile zostanie po podatkach? Porównaj konta i zbuduj własny scenariusz.</p>
+    <div class="chips"><span>IKE</span><span>IKZE</span><span>OKI</span><span>PPK</span><span>PPE</span><span>EDO</span><span>ETF</span></div>
+  </div>
+  <div class="right">
+    <div class="card">
+      <h2>Wartość portfela</h2>
+      <small>25 lat · 1 000 zł miesięcznie · limity 2027</small>
+      <svg viewBox="0 0 560 330" preserveAspectRatio="none">
+        <g stroke="#eef0f4" stroke-width="1"><line x1="0" y1="66" x2="560" y2="66"/><line x1="0" y1="132" x2="560" y2="132"/><line x1="0" y1="198" x2="560" y2="198"/><line x1="0" y1="264" x2="560" y2="264"/></g>
+        <path d="M0 320 C 180 300, 330 250, 560 40" fill="none" stroke="#0f6e56" stroke-width="5"/>
+        <path d="M0 320 C 180 302, 330 258, 560 62" fill="none" stroke="#d97706" stroke-width="4"/>
+        <path d="M0 320 C 180 306, 330 270, 560 98" fill="none" stroke="#2563eb" stroke-width="4"/>
+        <path d="M0 320 L 560 210" fill="none" stroke="#98a2b3" stroke-width="3" stroke-dasharray="10 8"/>
+      </svg>
+      <div class="legend"><span><i style="background:#0f6e56"></i>Auto-podział</span><span><i style="background:#d97706"></i>IKZE + IKE</span><span><i style="background:#2563eb"></i>Tylko ETF</span><span><i style="background:#98a2b3"></i>Wpłacone</span></div>
+    </div>
+  </div>
+</body>
+</html>

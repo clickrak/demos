@@ -1,0 +1,11 @@
+{
+  "page": "konta",
+  "title": "Konta Inwestycyjne",
+  "ogTitle": "Konta Inwestycyjne · IKE, IKZE, OKI, PPK czy ETF?",
+  "description": "A simple calculator for Polish employees: compare IKE, IKZE, OKI, PPK, PPE, EDO bonds and ETFs, build your own scenarios and see what is left after tax. Polish.",
+  "ogDescription": "Porównaj IKE, IKZE, OKI, PPK, PPE, obligacje EDO i ETF-y. Wpisz swoje kwoty, zbuduj scenariusz i zobacz, ile zostanie po podatkach. Limity na 2027.",
+  "cardText": "A simple calculator for a Polish employee: compare IKE, IKZE, OKI, PPK, PPE, EDO bonds and ETF World / EM side by side, let the app fill the tax-free limits in your chosen order, build up to three scenarios and see what is left after tax, also if you withdraw early. 2027 limits, all assumptions editable, nothing leaves the browser. Polish.",
+  "tags": ["Finance", "Calculator", "Chart.js", "PL"],
+  "imageAlt": "Konta Inwestycyjne: growth chart comparing investment accounts after tax",
+  "locale": "pl_PL"
+}

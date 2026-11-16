@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title>Konta Inwestycyjne – testy</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; max-width: 800px; margin: 30px auto; padding: 0 16px; }
+    .ok { color: #087443; } .fail { color: #b42318; }
+  </style>
+</head>
+<body>
+  <h1>Testy obliczeń</h1>
+  <p id="sum"></p>
+  <ul id="list"></ul>
+  <p><a href="index.html">← wróć do aplikacji</a></p>
+  <script src="config.js"></script>
+  <script src="calc.js"></script>
+  <script src="tests.js"></script>
+  <script>
+    const r = window.KI_TEST_RESULTS || [];
+    const failed = r.filter(x => !x.ok).length;
+    document.getElementById('sum').innerHTML = `<b class="${failed ? 'fail' : 'ok'}">${r.length - failed}/${r.length} OK</b>`;
+    document.getElementById('list').innerHTML = r.map(x =>
+      `<li class="${x.ok ? 'ok' : 'fail'}">${x.ok ? '✔' : '✘'} ${x.name}${x.ok ? '' : ' – ' + x.msg}</li>`).join('');
+  </script>
+</body>
+</html>
