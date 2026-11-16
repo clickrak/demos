@@ -44,12 +44,20 @@
     return free => { const a = emptyAlloc(); a[veh] = free; return a; };
   }
 
-  function splitAllocator(split) {
+  function byPercent(split, money) {
+    const a = emptyAlloc();
     const total = FREE.reduce((s, k) => s + (Number(split[k]) || 0), 0);
-    return free => {
-      const a = emptyAlloc();
-      if (total <= 0) { a.etfWorld = free; return a; }
-      FREE.forEach(k => { a[k] = free * (Number(split[k]) || 0) / total; });
+    if (total <= 0) { a.etfWorld = money; return a; }
+    FREE.forEach(k => { a[k] = money * (Number(split[k]) || 0) / total; });
+    return a;
+  }
+  // Fixed % split. Optional capSplit: the starting capital (year 1) is split differently.
+  // parts = { capital, yearly } is passed by simulate().
+  function splitAllocator(split, capSplit) {
+    return (free, pots, year, cfg, parts) => {
+      if (!capSplit || !parts || !(parts.capital > 0)) return byPercent(split, free);
+      const a = byPercent(split, free - parts.capital), c = byPercent(capSplit, parts.capital);
+      FREE.forEach(k => { a[k] += c[k]; });
       return a;
     };
   }
@@ -73,6 +81,27 @@
     };
   }
 
+  // Investing style: a share of the money goes to EDO bonds, the rest fills the accounts in order (with limits).
+  function mixAllocator(edoShare, order) {
+    const wf = waterfallAllocator(order);
+    return (free, pots, year, cfg, parts) => {
+      const s = Math.min(1, Math.max(0, edoShare || 0));
+      const a = wf(free * (1 - s), pots, year, cfg, parts);
+      a.edo += free * s;
+      return a;
+    };
+  }
+
+  // Year 1: where the yearly saving goes and where the starting capital goes (after limits).
+  function firstYearSplit(cfg, inp, allocate) {
+    const yearly = 12 * inp.monthly;
+    const m = applyLimits(allocate(yearly, newPots(), 1, cfg, { capital: 0, yearly }), cfg);
+    const t = applyLimits(allocate(inp.capital + yearly, newPots(), 1, cfg, { capital: inp.capital, yearly }), cfg);
+    const capital = emptyAlloc();
+    FREE.forEach(k => { capital[k] = Math.max(0, t[k] - m[k]); });
+    return { yearly: m, capital };
+  }
+
   // ---- Main simulation ----
   // inp: { capital, monthly, salary, age, horizon, ppkOn, ppeOn }
   function simulate(cfg, inp, allocate) {
@@ -87,7 +116,7 @@
 
     for (let y = 1; y <= H; y++) {
       const free = (y === 1 ? inp.capital : 0) + 12 * inp.monthly;
-      const a = applyLimits(allocate(free, p, y, cfg), cfg);
+      const a = applyLimits(allocate(free, p, y, cfg, { capital: y === 1 ? inp.capital : 0, yearly: 12 * inp.monthly }), cfg);
 
       // 1. Contributions (start of year)
       ['ike', 'ikze', 'oki', 'etfWorld', 'etfEm'].forEach(k => { p[k].v += a[k]; p[k].b += a[k]; });
@@ -230,7 +259,7 @@
   const realFactor = (cfg, years) => 1 / Math.pow(1 + cfg.returns.inflation, years);
 
   const api = {
-    FREE, ALL, applyLimits, singleAllocator, splitAllocator, waterfallAllocator,
+    FREE, ALL, applyLimits, singleAllocator, splitAllocator, waterfallAllocator, mixAllocator, firstYearSplit,
     simulate, baselineNet, runScenario, compareSingle, exitRule, realFactor,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

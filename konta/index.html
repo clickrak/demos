@@ -35,7 +35,7 @@
   <header class="top">
     <div class="wrap">
       <a class="back" href="../">← Demos</a>
-      <h1>Konta Inwestycyjne <small>v0.3</small></h1>
+      <h1>Konta Inwestycyjne <small>v0.4</small></h1>
       <a id="personaChip" class="chip" href="#start" hidden></a>
       <p class="lead">IKE, IKZE, OKI, PPK czy ETF? Wpisz swoje kwoty i zobacz, ile zostanie po podatkach.</p>
     </div>
@@ -45,7 +45,7 @@
   </div></nav>
   <div class="bar" id="bar" hidden><div class="wrap">
     <span id="barText"></span>
-    <select id="barScen" class="scenSel" aria-label="Scenariusz"></select>
+    <select id="barScen" class="scenSel adv" aria-label="Scenariusz"></select>
   </div></div>
 
   <div class="wrap"><div class="shared" id="sharedBanner" hidden>
@@ -76,32 +76,50 @@
     <!-- ===== PLAN ===== -->
     <div class="view plan" data-view="plan">
       <section id="dane" class="card a-dane">
+        <div class="seg mode" role="group" aria-label="Widok">
+          <button data-mode="simple">Prosty</button><button data-mode="advanced">Zaawansowany</button>
+        </div>
+        <p class="hint" id="modeInfo"></p>
         <h2>Twoje dane</h2>
         <div class="grid inputs" id="inputs"></div>
-        <div class="switches">
-          <label class="check"><input type="checkbox" id="ppkOn"> Oszczędzam w PPK</label>
-          <label class="check"><input type="checkbox" id="ppeOn"> Pracodawca ma PPE</label>
-          <label class="check"><input type="checkbox" id="realTerms"> Pokaż w dzisiejszych złotówkach (po inflacji)</label>
+
+        <h3>Z pensji – automatycznie</h3>
+        <label class="check"><input type="checkbox" id="ppkOn"> Oszczędzam w PPK</label>
+        <p class="hint" id="ppkInfo"></p>
+        <label class="check"><input type="checkbox" id="ppeOn"> Pracodawca ma PPE</label>
+        <p class="hint" id="ppeInfo"></p>
+
+        <h3>Jak inwestować</h3>
+        <div class="seg" id="styleSeg" role="group" aria-label="Jak inwestować">
+          <button data-style="calm">Spokojnie</button><button data-style="mid">Pośrodku</button><button data-style="bold">Odważnie</button>
         </div>
+        <p class="hint" id="styleInfo"></p>
+
+        <h3>Rynek</h3>
         <div class="seg" role="group" aria-label="Rynek">
-          <span>Rynek:</span>
           <button data-preset="pessimistic">Słabszy</button>
           <button data-preset="base">Bazowy</button>
           <button data-preset="optimistic">Lepszy</button>
         </div>
-        <p class="muted" id="presetInfo"></p>
+        <p class="hint" id="presetInfo"></p>
+        <label class="check"><input type="checkbox" id="realTerms"> Pokaż w dzisiejszych złotówkach (po inflacji)</label>
       </section>
 
       <div class="a-res">
         <section id="wynik" class="card result" tabindex="-1" aria-labelledby="wynikH">
           <h2 id="wynikH" class="sr">Wynik</h2>
           <div id="resultBody"></div>
-          <label class="pick">Scenariusz: <select id="mainScen" class="scenSel"></select></label>
+          <label class="pick adv">Scenariusz: <select id="mainScen" class="scenSel"></select></label>
           <div id="resultMore"></div>
           <p class="sr" aria-live="polite" id="live"></p>
         </section>
         <div id="tips"></div>
-        <section id="wyniki" class="card">
+        <section id="podzial" class="card">
+          <h2>Gdzie trafiają pieniądze</h2>
+          <p class="hint" id="flowScen"></p>
+          <div id="flow"></div>
+        </section>
+        <section id="wyniki" class="card adv">
           <h2>Porównanie scenariuszy</h2>
           <p class="muted">Ile zostaje na rękę po wszystkich podatkach.</p>
           <div class="chartbox bars"><canvas id="barChart" aria-label="Wykres: kwota na rękę w każdym scenariuszu. Te same liczby są w tabeli poniżej."></canvas></div>
@@ -111,9 +129,9 @@
         <section class="card">
           <h2>Jak rośnie kapitał</h2>
           <div class="chartbox"><canvas id="chart" aria-label="Wykres wartości portfela rok po roku. Liczby są w tabeli rok po roku."></canvas></div>
-          <p class="muted">Linia pokazuje wartość przed podatkiem. Ostatni punkt „po podatkach” to kwota na rękę – ta sama co w tabeli.</p>
-          <label class="check"><input type="checkbox" id="showAll"> Porównaj wszystkie scenariusze</label>
-          <details>
+          <p class="muted">Linia pokazuje wartość przed podatkiem. Ostatni punkt „netto” to kwota na rękę po podatkach – ta sama co w wyniku.</p>
+          <label class="check adv"><input type="checkbox" id="showAll"> Porównaj wszystkie scenariusze</label>
+          <details class="adv">
             <summary>Tabela rok po roku</summary>
             <div class="row">
               <label>Scenariusz: <select id="yearScen" class="scenSel"></select></label>
@@ -124,21 +142,28 @@
         </section>
       </div>
 
-      <details id="dostosuj" class="card a-adj">
+      <details id="dostosuj" class="card a-adj adv">
         <summary><h2>Dostosuj podział</h2></summary>
-        <h3 id="auto">Automatyczny podział</h3>
-        <p class="muted">Pieniądze trafiają po kolei: najpierw do pierwszego produktu do limitu, potem do następnego. OKI wypełniamy do 100 000 zł (część bez podatku). PPK i PPE działają obok, z pensji.</p>
+        <h3 id="auto">Auto-podział: kolejność kont</h3>
+        <p class="muted">Część na obligacje EDO ustawiasz w „Jak inwestować”. Resztę wpłacamy po kolei: najpierw do pierwszego konta do limitu, potem do następnego. OKI wypełniamy do 100 000 zł (część bez podatku). PPK i PPE działają obok, z pensji.</p>
         <ol id="orderList" class="order"></ol>
         <div class="row"><span>Dodaj:</span><span id="orderAdd"></span></div>
-        <p id="autoNow" class="now"></p>
-        <h3 id="scenariusze">Twoje scenariusze</h3>
+        <h3 id="scenariusze">Twoje scenariusze A, B, C</h3>
+        <p class="muted">Stały podział w procentach – do porównania z Auto-podziałem.</p>
         <div class="row">
           <span>Edytuj:</span>
           <button class="slot" data-slot="A">A</button><button class="slot" data-slot="B">B</button><button class="slot" data-slot="C">C</button>
           <input type="text" id="scenName" maxlength="30" aria-label="Nazwa scenariusza">
         </div>
+        <h4>Wpłaty miesięczne</h4>
         <div class="grid split" id="splitEditor"></div>
         <p class="muted" id="splitSum"></p>
+        <label class="check"><input type="checkbox" id="capOwn"> Kapitał na start dziel inaczej</label>
+        <div id="capBox" hidden>
+          <h4>Kapitał na start</h4>
+          <div class="grid split" id="capEditor"></div>
+          <p class="muted" id="capSum"></p>
+        </div>
       </details>
     </div>
 

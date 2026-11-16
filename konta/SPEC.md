@@ -129,6 +129,19 @@ P1 = blocks the journey, fix before new features. P2 = fix in v0.2. P3 = nice to
 9. Lighthouse accessibility score at least 95 on Plan and Produkty; no console errors.
 10. First visit opens Start; second visit opens Plan with the saved data.
 
+### UX review 2 — feedback on v0.3 (16.11.2026)
+
+The app is still hard to read for a beginner: it is not clear where the money comes from and where it goes. Goal: simple by default, more control for advanced users. Personas choose the level.
+
+| ID | Problem in v0.3 | Fix | Prio |
+|---|---|---|---|
+| U27 | It is not clear that PPK is calculated from the salary and comes **on top** of the monthly saving | Group “Z pensji – automatycznie” under the inputs with live amounts: “Ty 2% = 200 zł · pracodawca 1,5% = 150 zł · państwo 240 zł/rok. To dodatkowo, nie z kwoty, którą odkładasz.” Labels: “Odkładasz miesięcznie (poza PPK)”, salary hint “Od niej liczymy PPK i zwrot z IKZE” | P1 |
+| U28 | The split is invisible: the user cannot see e.g. “PPK 20%, IKZE 50%, IKE 30%” | Card “Gdzie trafiają pieniądze” next to the result: a stacked bar + list for **one month** (own saving and money from salary, two groups) and for **the starting capital**: name, zł, % of the total. Values for year 1; a note when a yearly limit is full (“IKZE: limit 12 040 zł rocznie, ok. 1 003 zł miesięcznie”) | P1 |
+| U29 | The starting capital always follows the same split as the monthly saving | Auto-podział: capital fills the free limit room of year 1 first (as now) and is shown as its own row in U28. Scenarios A/B/C: option “Kapitał na start dziel inaczej” with its own % (`capSplit`, empty = same as monthly) | P2 |
+| U30 | Beginner and advanced user see the same dense screen | Switch “Widok: Prosty / Zaawansowany” at the top of Plan; persona sets it (Młody and Senior → Prosty, Średni → Zaawansowany), guide ends in Prosty. **Prosty:** inputs, PPK group, style, market, result card, U28 card, growth chart. **Zaawansowany** adds: scenario picker, scenarios A/B/C with capital split, comparison chart and table, order of accounts, yearly table, CSV | P1 |
+| U31 | The guide’s risk answer overwrote scenario A, and with big capital the “calm” mix sent the over-limit part to ETF (stocks) | “Jak inwestować: Spokojnie / Pośrodku / Odważnie” = share of EDO bonds in the Auto-podział (60% / 30% / 0%); the rest follows the order IKZE → IKE → OKI → ETF with limits. Same control in the guide and on Plan | P1 |
+| U32 | Withdrawal (N2) must not be hidden inside Plan | Separate tab “Wypłata” in the main navigation (5 items: Start, Plan, Produkty, Wypłata, Założenia) | P1 |
+
 ## v0.2 — new features (requested)
 
 **N1. Personas (Start view).** User picks one of 3 profiles; it sets default inputs and which view opens. The chosen persona stays visible as a chip in the header (“Profil: Młody · zmień”). Changing it when the user already typed data asks first: “Zastąpić Twoje dane przykładowymi?”.
@@ -194,13 +207,16 @@ Keep the calculation tests green in every release. Each release = bump the versi
 |---|---|---|---|
 | v0.2 | Struktura | U0 page structure (views Plan, Produkty, Założenia; result card; result bar; tips; auto-split amounts) + all P1 fixes (U6, U7, U8, U10, U11, U13, U16, U18, U26) + U9 charts, U19 | ✅ 16.11.2026 |
 | v0.3 | Start | N5 guide, N1 personas (Start view) + P2 fixes U12, U14, U15, U17, U20, U21. Until v0.4: Senior opens Plan, the guide has no “Zapisz .md” | ✅ 16.11.2026 |
-| v0.4 | Wypłata | N2 withdrawal view, N3 Markdown save/load, N4 sources + U22–U24 (keyboard, screen reader, contrast) | ⏳ |
-| v0.5 | Dokładność | U25 + calculation details (OKI, EDO, IKZE, PIT 32%, PPK, asset choice, risk view, monthly steps, couple mode, CI) | ⏳ |
+| v0.4 | Przejrzystość | U27–U31: PPK from salary on top, “Gdzie trafiają pieniądze”, capital split, Prosty / Zaawansowany, investing style | ✅ 16.11.2026 |
+| v0.5 | Wypłata | N2 as a separate tab (U32); Senior opens it | ⏳ |
+| v0.6 | Zapis i źródła | N3 Markdown save/load, N4 sources + U22–U24 rest, Lighthouse ≥ 95 | ⏳ |
+| v0.7 | Dokładność | U25 + calculation details (OKI, EDO, IKZE, PIT 32%, PPK, asset choice, risk view, monthly steps, couple mode, CI) | ⏳ |
 
 - [x] **U0 Page structure** (5 views with addresses, tabs / bottom bar, result card, sticky result bar, tips, auto-split amounts).
 - [x] **UX P1 fixes:** U1–U4 (done by U0), U6 tables as cards on phone, U7 touch targets, U8 text sizes, U10 sliders, U11 validation, U13 payout age + warning, U16 no “best” between different risks, U18 chart = table, U26 rename F9.
 - [x] **UX P2 fixes, part 1 (v0.2–v0.3):** U5, U9 charts, U12 number format, U14 empty state, U15 split “Twoje wpłaty”, U17 glossary, U19, U20 undo, U21 clean address + shared-link banner.
 - [ ] **UX P2 fixes, part 2 (v0.4):** U22–U24 keyboard, screen reader, contrast (skip link, focus after reorder, captions and `scope` are already in; still open: full contrast pass, Lighthouse ≥ 95).
+- [x] **UX review 2 (v0.4):** U27 PPK group, U28 “Gdzie trafiają pieniądze”, U29 capital split (`capSplit`), U30 Prosty / Zaawansowany, U31 style = EDO share in Auto-podział (`mixAllocator`).
 - [ ] **UX P3:** U25 reduced motion, print style, dark mode.
 - [ ] **UX acceptance:** checks 1–8 and 10 pass in v0.3 (automated, Chrome, 390×844 and 1280×800); check 9 (Lighthouse) is still to run.
 - [x] **N1 Personas** (Start view, 3 profiles, defaults with payout age, opening view, persona chip). Open: Senior → Wypłata when N2 exists.

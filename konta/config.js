@@ -61,9 +61,9 @@
   };
 
   const DEFAULT_SCENARIOS = {
-    A: { name: 'Tylko ETF World', split: { ikze: 0, ike: 0, oki: 0, edo: 0, etfWorld: 100, etfEm: 0 } },
-    B: { name: 'IKZE + IKE', split: { ikze: 50, ike: 50, oki: 0, edo: 0, etfWorld: 0, etfEm: 0 } },
-    C: { name: 'Mix', split: { ikze: 20, ike: 40, oki: 0, edo: 20, etfWorld: 0, etfEm: 20 } },
+    A: { name: 'Tylko ETF World', split: { ikze: 0, ike: 0, oki: 0, edo: 0, etfWorld: 100, etfEm: 0 }, capSplit: null },
+    B: { name: 'IKZE + IKE', split: { ikze: 50, ike: 50, oki: 0, edo: 0, etfWorld: 0, etfEm: 0 }, capSplit: null },
+    C: { name: 'Mix', split: { ikze: 20, ike: 40, oki: 0, edo: 20, etfWorld: 0, etfEm: 20 }, capSplit: null },
   };
 
   const DEFAULT_ORDER = ['ikze', 'ike', 'oki', 'etfWorld'];
@@ -72,11 +72,11 @@
   // v0.3 – personas (N1), guide (N5), glossary (U17)
   const PERSONAS = {
     mlody:  { name: 'Młody', range: '20–35 lat', desc: 'Pierwsza praca, mały kapitał. Chcę zobaczyć, ile da regularne odkładanie.',
-              inp: { age: 28, capital: 5000, monthly: 500, payoutAge: 65 }, open: 'przewodnik', cta: 'Zacznij od 6 prostych pytań' },
+              inp: { age: 28, capital: 5000, monthly: 500, payoutAge: 65 }, mode: 'simple', open: 'przewodnik', cta: 'Zacznij od 6 prostych pytań' },
     sredni: { name: 'Średni', range: '35–55 lat', desc: 'Stałe dochody i trochę oszczędności. Chcę wykorzystać limity i ulgi podatkowe.',
-              inp: { age: 45, capital: 50000, monthly: 1500, payoutAge: 65 }, open: 'dostosuj', cta: 'Przejdź do planu i podziału' },
+              inp: { age: 45, capital: 50000, monthly: 1500, payoutAge: 65 }, mode: 'advanced', open: 'dostosuj', cta: 'Przejdź do planu i podziału' },
     senior: { name: 'Senior', range: '55+ lat', desc: 'Blisko emerytury. Chcę zaplanować ostatnie lata oszczędzania.',
-              inp: { age: 60, capital: 300000, monthly: 0, payoutAge: 65 }, open: 'plan', cta: 'Przejdź do planu' },
+              inp: { age: 60, capital: 300000, monthly: 0, payoutAge: 65 }, mode: 'simple', open: 'plan', cta: 'Przejdź do planu' },
   };
   const GUIDE = [
     { key: 'salary', q: 'Ile zarabiasz brutto miesięcznie?', choices: [5000, 7500, 10000, 15000], unit: 'zł', min: 4000, max: 50000,
@@ -93,7 +93,12 @@
       help: 'PPK to program oszczędzania w pracy. Ty wpłacasz 2% pensji, pracodawca dokłada 1,5%, a państwo 240 zł rocznie. Jeśli nie składałeś rezygnacji, najpewniej jesteś zapisany.' },
   ];
   // Risk answer -> split of the free money (rest of the vehicles = 0)
-  const RISK_MIX = { calm: { ikze: 20, ike: 20, edo: 60 }, mid: { ikze: 30, ike: 40, edo: 30 }, bold: { ikze: 40, ike: 60, edo: 0 } };
+  // Investing style = % of each payment in EDO bonds; the rest fills IKZE -> IKE -> OKI -> ETF (U31)
+  const STYLES = {
+    calm: { name: 'Spokojnie', edo: 60, desc: '60% w obligacjach skarbowych EDO, 40% w akcjach (ETF) na kontach z ulgą.' },
+    mid:  { name: 'Pośrodku', edo: 30, desc: '30% w obligacjach EDO, 70% w akcjach (ETF) na kontach z ulgą.' },
+    bold: { name: 'Odważnie', edo: 0, desc: 'Wszystko w akcjach (ETF): najpierw IKZE, potem IKE, OKI i zwykłe konto.' },
+  };
   const GLOSSARY = [
     { re: 'Belki|Belka', t: 'Podatek Belki', d: '19% podatku od zysku z inwestycji, np. ze sprzedaży ETF-u albo od odsetek. Płacisz go tylko od zysku, nie od wpłat.' },
     { re: 'PIT', t: 'PIT', d: 'Podatek dochodowy od pensji. Tutaj zakładamy pierwszy próg: 12%.' },
@@ -105,7 +110,7 @@
     { re: 'rynków wschodzących', t: 'Rynki wschodzące (EM)', d: 'Kraje rozwijające się, np. Chiny, Indie, Brazylia. Większy możliwy zysk i większe wahania.' },
   ];
 
-  const api = { DEFAULT_CONFIG, DEFAULT_INPUT, PRESETS, FREE_VEHICLES, VEHICLES, DEFAULT_SCENARIOS, DEFAULT_ORDER, PERSONAS, GUIDE, RISK_MIX, GLOSSARY };
+  const api = { DEFAULT_CONFIG, DEFAULT_INPUT, PRESETS, FREE_VEHICLES, VEHICLES, DEFAULT_SCENARIOS, DEFAULT_ORDER, PERSONAS, GUIDE, STYLES, GLOSSARY };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.KI_CONFIG = api;
 })(this);

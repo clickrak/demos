@@ -27,7 +27,7 @@
     return {
       inp: clone(C.DEFAULT_INPUT), cfg: clone(C.DEFAULT_CONFIG), scenarios: clone(C.DEFAULT_SCENARIOS),
       order: clone(C.DEFAULT_ORDER), realTerms: false, preset: 'base', earlyN: 10, editSlot: 'A', yearScen: 'auto',
-      mainScen: 'auto', showAll: false, persona: '', touched: false,
+      mainScen: 'auto', showAll: false, persona: '', touched: false, mode: 'simple', style: 'bold',
       guide: { step: 0, ans: { salary: -1, monthly: -1, capital: -1, age: -1, risk: '', ppk: '' } },
     };
   }
@@ -59,6 +59,9 @@
     s.inp.payoutAge = clamp(s.inp.payoutAge, s.inp.age + 1, 90);
     if (!['auto', 'A', 'B', 'C'].includes(s.mainScen)) s.mainScen = 'auto';
     if (!C.PERSONAS[s.persona]) s.persona = '';
+    if (!['simple', 'advanced'].includes(s.mode)) s.mode = 'simple';
+    if (!C.STYLES[s.style]) s.style = 'bold';
+    if (s.mode === 'simple') s.mainScen = 'auto';
     return s;
   }
   const readOwn = () => { try { return JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (e) { return null; } };
@@ -114,6 +117,7 @@
     wrap.innerHTML = `<label for="${id}">${esc(label)}</label><div class="pair">` +
       `<input type="text" id="${id}" inputmode="decimal" autocomplete="off" value="${fmt(v0)}" aria-describedby="${id}e">` +
       (opts.unit ? `<span class="muted">${opts.unit}</span>` : '') + '</div>' +
+      (opts.hint ? `<p class="hint">${opts.hint}</p>` : '') +
       (opts.range === false ? '' : `<input type="range" min="${l.min}" max="${opts.sliderMax || l.max}" step="${opts.step}" value="${v0}" aria-label="${esc(label)} – suwak">`) +
       `<p class="err" id="${id}e" hidden></p>`;
     const numEl = wrap.querySelector('input[type=text]'), rng = wrap.querySelector('input[type=range]'), err = wrap.querySelector('.err');
@@ -182,14 +186,14 @@
       fields[k] = field(label, () => S.inp[k], o, v => { S.inp[k] = v; S.touched = true; if (after) after(v); update(); });
       box.appendChild(fields[k]);
     };
-    add('capital', 'Kapitał na start', { min: 0, max: LIM.capital, sliderMax: 500000, step: 1000, unit: 'zł' });
-    add('monthly', 'Wpłata miesięczna', { min: 0, max: LIM.monthly, sliderMax: 10000, step: 100, unit: 'zł' });
+    add('capital', 'Kapitał na start', { min: 0, max: LIM.capital, sliderMax: 500000, step: 1000, unit: 'zł', hint: 'Jednorazowo, w 1. roku.' });
+    add('monthly', 'Odkładasz miesięcznie', { min: 0, max: LIM.monthly, sliderMax: 10000, step: 100, unit: 'zł', hint: 'Twoje pieniądze, poza PPK.' });
     add('age', 'Twój wiek', { min: 18, max: 75, step: 1, unit: 'lat' }, v => {
       if (S.inp.payoutAge <= v) { S.inp.payoutAge = v + 1; fields.payoutAge.setValue(v + 1); }
       fields.payoutAge.syncLimits();
     });
-    add('payoutAge', 'Wypłata w wieku', { min: () => S.inp.age + 1, max: 90, step: 1, unit: 'lat' });
-    add('salary', 'Pensja brutto (miesięcznie)', { min: 4000, max: LIM.salary, sliderMax: 40000, step: 100, unit: 'zł' });
+    add('payoutAge', 'Wypłata w wieku', { min: () => S.inp.age + 1, max: 90, step: 1, unit: 'lat', hint: 'Bez podatku: IKE od 60 lat; IKZE z podatkiem 10% od 65 lat.' });
+    add('salary', 'Pensja brutto (miesięcznie)', { min: 4000, max: LIM.salary, sliderMax: 40000, step: 100, unit: 'zł', hint: 'Od niej liczymy PPK i zwrot podatku z IKZE.' });
     $('ppkOn').checked = S.inp.ppkOn; $('ppeOn').checked = S.inp.ppeOn; $('realTerms').checked = S.realTerms; $('showAll').checked = S.showAll;
   }
 
@@ -214,10 +218,12 @@
   }
 
   // ---------- Scenarios ----------
+  const allocFor = k => (k === 'auto' ? K.mixAllocator(C.STYLES[S.style].edo / 100, S.order)
+    : K.splitAllocator(S.scenarios[k].split, S.scenarios[k].capSplit));
   function computeScenarios() {
     const inp = calcInp();
-    const out = { auto: { label: 'Auto-podział', res: K.runScenario(S.cfg, inp, K.waterfallAllocator(S.order)) } };
-    SLOTS.forEach(s => { out[s] = { label: `${s}: ${S.scenarios[s].name}`, res: K.runScenario(S.cfg, inp, K.splitAllocator(S.scenarios[s].split)) }; });
+    const out = { auto: { label: 'Auto-podział', res: K.runScenario(S.cfg, inp, allocFor('auto')) } };
+    SLOTS.forEach(s => { out[s] = { label: `${s}: ${S.scenarios[s].name}`, res: K.runScenario(S.cfg, inp, allocFor(s)) }; });
     return out;
   }
   function renderScenSelects(scen) {
@@ -268,10 +274,70 @@
     if (k !== 'auto' && better > r.net * 0.01) tips.push([`Auto-podział daje <b>${signed(better * f)}</b> więcej niż ten scenariusz.`, 'auto', 'Pokaż Auto-podział']);
     else if (!isEmpty()) {
       const y1 = r.years[0].contrib, L = S.cfg.limits;
-      const taxed = y1.etfWorld + y1.etfEm + y1.edo, room = Math.max(0, L.ikze - y1.ikze) + Math.max(0, L.ike - y1.ike);
-      if (taxed > 1 && room > 1) tips.push([`W 1. roku <b>${zl(Math.min(taxed, room))}</b> trafia na konto z podatkiem, choć masz wolny limit IKZE lub IKE.`, 'adjust', 'Dostosuj podział']);
+      const taxed = y1.etfWorld + y1.etfEm, room = Math.max(0, L.ikze - y1.ikze) + Math.max(0, L.ike - y1.ike);
+      if (S.mode === 'advanced' && taxed > 1 && room > 1) tips.push([`W 1. roku <b>${zl(Math.min(taxed, room))}</b> trafia na konto z podatkiem, choć masz wolny limit IKZE lub IKE.`, 'adjust', 'Dostosuj podział']);
     }
     $('tips').innerHTML = tips.slice(0, 3).map(t => `<div class="tip"><span>${t[0]}</span><button data-act="${t[1]}">${t[2]}</button></div>`).join('');
+  }
+
+  // ---------- Mode, PPK group, investing style (U27, U30, U31) ----------
+  function renderMode() {
+    document.body.classList.toggle('simple', S.mode === 'simple');
+    document.querySelectorAll('[data-mode]').forEach(b => { b.classList.toggle('active', b.dataset.mode === S.mode); b.setAttribute('aria-pressed', b.dataset.mode === S.mode); });
+    $('modeInfo').textContent = S.mode === 'simple' ? 'Jeden plan i najważniejsze liczby.'
+      : 'Dodatkowo: scenariusze A, B, C, kolejność kont, osobny podział kapitału, tabela rok po roku.';
+  }
+  function renderSalaryInfo() {
+    const c = S.cfg, sal = S.inp.salary;
+    const me = c.ppk.employee * sal, er = c.ppk.employer * sal;
+    $('ppkInfo').innerHTML = S.inp.ppkOn
+      ? `Co miesiąc z pensji: Ty ${pct(c.ppk.employee)} = <b>${zl(me)}</b>, pracodawca ${pct(c.ppk.employer)} = <b>${zl(er)}</b>, państwo <b>${zl(c.ppk.yearly)}</b> rocznie (+${zl(c.ppk.welcome)} na start). ` +
+        `<b>To dodatkowo</b> – nie z kwoty, którą odkładasz. Od części pracodawcy płacisz PIT (ok. ${zl(c.tax.pit * er)} miesięcznie).`
+      : `Wyłączone. W PPK pracodawca i państwo dokładają ok. ${zl(er + c.ppk.yearly / 12)} miesięcznie.`;
+    const pe = c.ppe.employer * sal;
+    $('ppeInfo').innerHTML = S.inp.ppeOn
+      ? `Pracodawca wpłaca ${pct(c.ppe.employer)} pensji = <b>${zl(pe)}</b> miesięcznie, dodatkowo. Ty płacisz od tego tylko PIT (ok. ${zl(c.tax.pit * pe)}).`
+      : 'Tylko jeśli Twoja firma ma pracowniczy program emerytalny.';
+  }
+  function renderStyle() {
+    document.querySelectorAll('[data-style]').forEach(b => { b.classList.toggle('active', b.dataset.style === S.style); b.setAttribute('aria-pressed', b.dataset.style === S.style); });
+    $('styleInfo').textContent = C.STYLES[S.style].desc + (S.mode === 'advanced' ? ' Dotyczy Auto-podziału.' : '');
+  }
+
+  // ---------- Where the money goes (U28) ----------
+  const VCOL = { ikze: '#0f6e56', ike: '#2563eb', oki: '#7c3aed', edo: '#b45309', etfWorld: '#475569', etfEm: '#be185d',
+    ppkOwn: '#0e7490', ppkEmp: '#0891b2', ppkState: '#155e75', ppe: '#4d7c0f' };
+  function flowBlock(title, groups) {
+    const items = [].concat(...groups.map(g => g.items)), total = items.reduce((s, x) => s + x[1], 0) || 1;
+    return `<p class="flowtitle">${title}</p><div class="fbar" aria-hidden="true">` +
+      items.map(x => `<span style="flex:${x[1].toFixed(2)};background:${x[2]}" title="${esc(x[0])}"></span>`).join('') + '</div><ul class="flowlist">' +
+      groups.map(g => (g.name ? `<li class="grp">${g.name}${g.note ? ` <small>${g.note}</small>` : ''}</li>` : '') +
+        g.items.map(x => `<li><i style="background:${x[2]}"></i><span>${esc(x[0])}</span><b>${zl(x[1])}</b><em>${Math.round(100 * x[1] / total)}%</em></li>`).join('')).join('') + '</ul>';
+  }
+  function renderFlow(scen) {
+    const k = S.mainScen, c = S.cfg, sal = S.inp.salary, L = c.limits;
+    const sp = K.firstYearSplit(c, calcInp(), allocFor(k));
+    $('flowScen').textContent = (S.mode === 'advanced' ? `${scen[k].label}. ` : '') + 'Podział w 1. roku. Procent liczymy od całej kwoty w danym bloku.';
+    const own = C.FREE_VEHICLES.filter(v => sp.yearly[v] > 0.5).map(v => [vname(v), sp.yearly[v] / 12, VCOL[v]]);
+    const fromSal = [];
+    if (S.inp.ppkOn) fromSal.push([`PPK – Ty (${pct(c.ppk.employee)} pensji)`, c.ppk.employee * sal, VCOL.ppkOwn],
+      [`PPK – pracodawca (${pct(c.ppk.employer)})`, c.ppk.employer * sal, VCOL.ppkEmp], [`PPK – państwo (${zl(c.ppk.yearly)} rocznie)`, c.ppk.yearly / 12, VCOL.ppkState]);
+    if (S.inp.ppeOn) fromSal.push([`PPE – pracodawca (${pct(c.ppe.employer)})`, c.ppe.employer * sal, VCOL.ppe]);
+    const groups = [];
+    if (own.length) groups.push({ name: `Twoja wpłata: ${zl(S.inp.monthly)}`, items: own });
+    if (fromSal.length) groups.push({ name: 'Z pensji, dodatkowo', note: '– nie z kwoty, którą odkładasz', items: fromSal });
+    const total = [].concat(...groups.map(g => g.items)).reduce((s, x) => s + x[1], 0);
+    let html = groups.length ? flowBlock(`Co miesiąc razem: ${zl(total)}`, groups) : '<p>Brak wpłat miesięcznych.</p>';
+    if (S.inp.capital > 0) {
+      const cap = C.FREE_VEHICLES.filter(v => sp.capital[v] > 0.5).map(v => [vname(v), sp.capital[v], VCOL[v]]);
+      html += flowBlock(`Kapitał na start: ${zl(S.inp.capital)} (jednorazowo)`, [{ items: cap }]);
+    }
+    const notes = [];
+    ['ikze', 'ike'].forEach(v => { if (sp.yearly[v] + sp.capital[v] >= L[v] - 1) notes.push(`${vname(v)}: roczny limit ${zl(L[v])} (ok. ${zl(L[v] / 12)} miesięcznie) jest wykorzystany – reszta idzie dalej.`); });
+    const ikze = sp.yearly.ikze + sp.capital.ikze;
+    if (ikze > 0.5) notes.push(`Zwrot PIT z IKZE: ok. ${zl(c.tax.pit * ikze)} rocznie (doliczamy go na zwykłe konto ETF).`);
+    if (k === 'auto' && sp.capital.ike + sp.capital.ikze > 0.5 && S.inp.monthly > 0) notes.push('Kapitał na start najpierw wypełnia wolny limit IKZE i IKE w 1. roku.');
+    $('flow').innerHTML = html + notes.map(n => `<p class="hint">${n}</p>`).join('');
   }
 
   // ---------- Charts ----------
@@ -308,7 +374,7 @@
   function renderChart(scen) {
     if (typeof Chart === 'undefined') { document.querySelectorAll('.chartbox').forEach(b => { b.innerHTML = '<p>Nie udało się wczytać wykresu.</p>'; }); return; }
     const H = years(), ys = scen.auto.res.years;
-    const labels = ys.map(y => y.age + ' l.').concat('po podatkach');
+    const labels = ys.map(y => y.age + ' l.').concat('netto');
     const f = y => (S.realTerms ? K.realFactor(S.cfg, y) : 1);
     const keys = S.showAll ? Object.keys(scen) : [S.mainScen];
     const datasets = keys.map(k => ({
@@ -385,10 +451,6 @@
       `<button data-remove="${i}" ${S.order.length === 1 ? 'disabled' : ''} aria-label="${vname(k)}: usuń">✕</button></li>`).join('');
     const missing = C.FREE_VEHICLES.filter(k => !S.order.includes(k));
     $('orderAdd').innerHTML = missing.length ? missing.map(k => `<button data-add="${k}">+ ${vname(k)}</button>`).join(' ') : '<span class="muted">wszystkie dodane</span>';
-    const y1 = scen.auto.res.years[0].contrib;
-    const parts = C.FREE_VEHICLES.filter(k => y1[k] > 0.5).map(k => `${vname(k)} <b>${zl(y1[k])}</b>`);
-    if (y1.ikze > 0.5) parts.push(`zwrot PIT ok. <b>${zl(S.cfg.tax.pit * y1.ikze)}</b>`);
-    $('autoNow').innerHTML = parts.length ? 'W 1. roku: ' + parts.join(' · ') : 'W 1. roku: brak wpłat.';
   }
   function renderEditor() {
     const sc = S.scenarios[S.editSlot];
@@ -397,6 +459,11 @@
     const box = $('splitEditor'); box.innerHTML = '';
     C.FREE_VEHICLES.forEach(k => box.appendChild(field(vname(k), () => sc.split[k] || 0, { min: 0, max: 100, step: 5, unit: '%' },
       v => { sc.split[k] = v; update(); })));
+    const capOn = !!sc.capSplit;
+    $('capOwn').checked = capOn; $('capBox').hidden = !capOn;
+    const cb = $('capEditor'); cb.innerHTML = '';
+    if (capOn) C.FREE_VEHICLES.forEach(k => cb.appendChild(field(vname(k), () => sc.capSplit[k] || 0, { min: 0, max: 100, step: 5, unit: '%' },
+      v => { sc.capSplit[k] = v; update(); })));
     renderSplitSum();
   }
   function renderSplitSum() {
@@ -406,7 +473,11 @@
     const warn = ['ike', 'ikze'].filter(k => sum > 0 && yearly * (sc.split[k] || 0) / sum > S.cfg.limits[k] + 0.01)
       .map(k => `${vname(k)}: część ponad limit trafi do ETF World.`);
     $('splitSum').innerHTML = (sum === 100 ? 'Suma: 100%.' : `Suma: ${sum}% – przeliczamy proporcjonalnie do 100%.`) +
-      ' Kapitał startowy dzielimy tak samo (w 1. roku limity też obowiązują). ' + warn.join(' ');
+      (sc.capSplit ? ' ' : ' Kapitał na start dzielimy tak samo (w 1. roku limity też obowiązują). ') + warn.join(' ');
+    if (sc.capSplit) {
+      const cs = C.FREE_VEHICLES.reduce((s, k) => s + (Number(sc.capSplit[k]) || 0), 0);
+      $('capSum').textContent = (cs === 100 ? 'Suma: 100%.' : `Suma: ${cs}% – przeliczamy proporcjonalnie do 100%.`) + ' Limity IKE i IKZE w 1. roku obejmują wpłaty i kapitał razem; nadwyżka trafia do ETF World.';
+    }
   }
 
   // ---------- Produkty: comparison, each alone, early payout ----------
@@ -516,7 +587,8 @@
     const b = e.target.closest('[data-persona]'); if (!b) return;
     const k = b.dataset.persona, p = C.PERSONAS[k];
     if (S.touched && !window.confirm('Zastąpić Twoje dane przykładowymi?')) return;
-    Object.assign(S.inp, p.inp); S.persona = k; S.touched = false;
+    Object.assign(S.inp, p.inp); S.persona = k; S.touched = false; S.mode = p.mode;
+    if (p.mode === 'simple') S.mainScen = 'auto';
     if (p.open === 'przewodnik') S.guide = defaults().guide;
     renderAll(); save();
     if (p.open === 'dostosuj') $('dostosuj').open = true;
@@ -530,9 +602,8 @@
     S.inp.salary = a.salary; S.inp.monthly = a.monthly; S.inp.capital = a.capital; S.inp.age = a.age;
     S.inp.payoutAge = Math.max(65, a.age + 1);
     S.inp.ppkOn = a.ppk !== 'no';
-    const split = {}; C.FREE_VEHICLES.forEach(k => { split[k] = C.RISK_MIX[a.risk][k] || 0; });
-    S.scenarios.A = { name: 'Mój plan', split };
-    S.mainScen = 'A'; S.editSlot = 'A'; S.touched = true;
+    S.style = C.STYLES[a.risk] ? a.risk : 'mid';
+    S.mainScen = 'auto'; S.mode = 'simple'; S.touched = true;
     renderAll(); save();
   }
   function renderGuide() {
@@ -555,22 +626,19 @@
     renderGuide(); const h = $('guideQ'); if (h) h.focus();
   }
   function renderGuideResult() {
-    const H = years(), inp = calcInp(), split = S.scenarios.A.split;
-    const run = cfg => K.runScenario(cfg, inp, K.splitAllocator(split));
-    const r = run(S.cfg), real = r.net * K.realFactor(S.cfg, H);
+    const H = years(), inp = calcInp(), al = allocFor('auto'), c = S.cfg;
+    const run = cfg => K.runScenario(cfg, inp, al);
+    const r = run(c), real = r.net * K.realFactor(c, H);
     const lo = run(withPreset('pessimistic')).net, hi = run(withPreset('optimistic')).net;
-    const sum = C.FREE_VEHICLES.reduce((s, k) => s + split[k], 0) || 1, m = S.inp.monthly, L = S.cfg.limits;
-    const part = k => m * split[k] / sum;
-    const ikze = Math.min(part('ikze'), L.ikze / 12), ike = Math.min(part('ike'), L.ike / 12), edo = part('edo');
-    const rest = m - ikze - ike - edo;
-    const lines = [S.inp.ppkOn ? 'Zostań w PPK – pracodawca i państwo dokładają do Twoich wpłat.' : 'Rozważ powrót do PPK – pracodawca i państwo dokładają do Twoich wpłat.'];
-    if (ikze > 0.5) lines.push(`IKZE: ok. ${zl(ikze)} miesięcznie – odzyskasz ok. ${zl(ikze * 12 * S.cfg.tax.pit)} rocznie w PIT.`);
-    const l3 = [];
-    if (ike > 0.5) l3.push(`IKE: ok. ${zl(ike)} miesięcznie`);
-    if (edo > 0.5) l3.push(`obligacje EDO: ok. ${zl(edo)} miesięcznie`);
-    if (rest > 0.5) l3.push(`reszta (${zl(rest)}) na zwykłe konto z ETF`);
-    if (l3.length) lines.push(l3.join(', ').replace(/^o/, 'O') + '.');
-    if (m === 0 && S.inp.capital > 0) lines.push('Kapitał na start dzielimy tak samo: najpierw IKZE i IKE do rocznych limitów.');
+    const sp = K.firstYearSplit(c, inp, al);
+    const lines = [S.inp.ppkOn ? `Zostań w PPK – co miesiąc pracodawca i państwo dokładają ok. ${zl(c.ppk.employer * S.inp.salary + c.ppk.yearly / 12)}, poza Twoją wpłatą.`
+      : 'Rozważ PPK – pracodawca i państwo dokładają do Twoich wpłat.'];
+    const mon = C.FREE_VEHICLES.filter(v => sp.yearly[v] > 0.5).map(v => `${vname(v)} ok. ${zl(sp.yearly[v] / 12)}` +
+      (v === 'ikze' ? ` (odzyskasz ok. ${zl(c.tax.pit * sp.yearly.ikze)} rocznie w PIT)` : ''));
+    if (mon.length) lines.push('Co miesiąc: ' + mon.join(', ') + '.');
+    const cap = C.FREE_VEHICLES.filter(v => sp.capital[v] > 0.5).map(v => `${vname(v)} ${zl(sp.capital[v])}`);
+    if (cap.length) lines.push(`Kapitał na start: ${cap.join(', ')}.`);
+    lines.push(`Styl „${C.STYLES[S.style].name}”: ${C.STYLES[S.style].desc}`);
     $('guide').innerHTML = `<p class="muted">Twój wynik</p><h2 id="guideQ" tabindex="-1">W wieku ${r.endAge} lat możesz mieć ok. <span class="pos">${round1000(r.net)}</span></h2>` +
       `<p>To ok. <b>${round1000(real)}</b> w dzisiejszych pieniądzach, czyli ok. <b>${zl(Math.round(real / 240 / 100) * 100)} miesięcznie</b> przez 20 lat emerytury.</p>` +
       `<h3>Prosty plan</h3><ol class="planlist">${lines.map(x => `<li>${x}</li>`).join('')}</ol>` +
@@ -634,10 +702,11 @@
 
   // ---------- Render all ----------
   function renderResults() {
+    renderMode(); renderSalaryInfo(); renderStyle();
     const scen = computeScenarios();
     lastScen = scen;
     renderScenSelects(scen); renderPresets(); renderResult(scen); renderTips(scen);
-    renderBars(scen); renderChart(scen); renderSummary(scen); renderYearTable(scen);
+    renderFlow(scen); renderBars(scen); renderChart(scen); renderSummary(scen); renderYearTable(scen);
     renderOrder(scen); renderSplitSum(); renderCompare(); renderSingle(); renderEarly();
     closeGl(); glossTables();
   }
@@ -652,6 +721,13 @@
   $('ppkOn').addEventListener('change', e => { S.inp.ppkOn = e.target.checked; update(); });
   $('ppeOn').addEventListener('change', e => { S.inp.ppeOn = e.target.checked; update(); });
   $('realTerms').addEventListener('change', e => { S.realTerms = e.target.checked; update(); });
+  document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+    S.mode = b.dataset.mode; if (S.mode === 'simple') S.mainScen = 'auto'; update();
+  }));
+  document.querySelectorAll('[data-style]').forEach(b => b.addEventListener('click', () => { S.style = b.dataset.style; S.touched = true; update(); }));
+  $('capOwn').addEventListener('change', e => {
+    const sc = S.scenarios[S.editSlot]; sc.capSplit = e.target.checked ? clone(sc.split) : null; renderEditor(); update();
+  });
   $('showAll').addEventListener('change', e => { S.showAll = e.target.checked; update(); });
   document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => applyPreset(b.dataset.preset)));
   document.querySelectorAll('.slot').forEach(b => b.addEventListener('click', () => { S.editSlot = b.dataset.slot; renderEditor(); save(); }));

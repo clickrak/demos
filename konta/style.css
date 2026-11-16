@@ -127,6 +127,24 @@ h2.sub { font-size: 1.05rem; margin: 22px 0 10px; }
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 20px; z-index: 45; background: #1d2433; color: #fff; padding: 8px 10px 8px 16px; border-radius: 8px; display: flex; gap: 12px; align-items: center; max-width: calc(100vw - 24px); }
 .shared { background: var(--warn-soft); border: 1px solid #e8b06a; border-radius: var(--radius); padding: 10px 14px; margin-top: 14px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 
+/* v0.4: modes, PPK group, money split */
+body.simple .adv { display: none !important; }
+.card h3:first-of-type { margin-top: 18px; }
+.card h4 { margin: 12px 0 6px; font-size: .9375rem; }
+.hint { color: var(--muted); font-size: .875rem; margin: 2px 0 8px; }
+.seg.mode { margin: 0 0 4px; }
+.seg.mode button { flex: 1; }
+#ppkInfo, #ppeInfo { padding-left: 32px; }
+.fbar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; gap: 2px; margin: 6px 0 8px; background: #fff; }
+.fbar span { min-width: 3px; }
+.flowlist { list-style: none; padding: 0; margin: 0 0 12px; }
+.flowlist li { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto 3.6em; gap: 8px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.flowlist li.grp { display: block; border: 0; padding: 8px 0 2px; font-weight: 600; }
+.flowlist li.grp small { font-weight: 400; color: var(--muted); font-size: .875rem; }
+.flowlist i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.flowlist b { text-align: right; } .flowlist em { font-style: normal; color: var(--muted); text-align: right; font-size: .875rem; }
+.flowtitle { margin: 4px 0 0; font-weight: 600; }
+
 @media (max-width: 900px) {
   .plan { grid-template-columns: minmax(0, 1fr); grid-template-areas: "dane" "res" "adj"; }
 }

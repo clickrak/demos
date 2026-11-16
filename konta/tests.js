@@ -108,6 +108,24 @@
     eq(at63.earlyPenalty, 0.02 * pot, 'penalty at 63');
   });
 
+  test('Style: 0% bonds = waterfall; 60% bonds puts 60% of each year in EDO', () => {
+    const i = inp({ capital: 20000, monthly: 1500, horizon: 10 }), order = ['ikze', 'ike', 'oki', 'etfWorld'];
+    const w = K.simulate(cfg, i, K.waterfallAllocator(order)), m0 = K.simulate(cfg, i, K.mixAllocator(0, order));
+    eq(m0.net, w.net, 'same as waterfall');
+    const m6 = K.simulate(cfg, i, K.mixAllocator(0.6, order));
+    eq(m6.years[1].contrib.edo, 0.6 * 18000, 'edo year 2'); eq(m6.years[1].contrib.ikze, 0.4 * 18000, 'ikze year 2');
+  });
+
+  test('Capital split: capital goes by capSplit, monthly by split', () => {
+    const r = K.simulate(cfg, inp({ capital: 10000, monthly: 1000 }), K.splitAllocator({ ike: 100 }, { edo: 100 }));
+    eq(r.years[0].contrib.ike, 12000, 'ike'); eq(r.years[0].contrib.edo, 10000, 'edo');
+  });
+
+  test('First-year split: Auto puts monthly in IKZE first, capital in IKE', () => {
+    const s = K.firstYearSplit(cfg, inp({ capital: 20000, monthly: 1500 }), K.waterfallAllocator(['ikze', 'ike', 'oki', 'etfWorld']));
+    eq(s.yearly.ikze, 12039.6, 'ikze'); eq(s.yearly.ike, 18000 - 12039.6, 'ike monthly'); eq(s.capital.ike, 20000, 'ike capital');
+  });
+
   const failed = results.filter(r => !r.ok);
   if (isNode) {
     results.forEach(r => console.log(`${r.ok ? 'OK  ' : 'FAIL'} ${r.name}${r.ok ? '' : ' -> ' + r.msg}`));
