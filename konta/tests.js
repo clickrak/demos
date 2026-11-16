@@ -126,6 +126,30 @@
     eq(s.yearly.ikze, 12039.6, 'ikze'); eq(s.yearly.ike, 18000 - 12039.6, 'ike monthly'); eq(s.capital.ike, 20000, 'ike capital');
   });
 
+  test('Withdraw: 0% return, IKE only, 1 000 zł/month lasts exactly 10 years', () => {
+    const c0 = clone(cfg); Object.assign(c0.returns, { etfWorld: 0, inflation: 0 }); c0.ter = 0;
+    const r = K.withdraw(c0, { ike: { v: 120000, b: 100000 } }, { age: 65, strategy: 'fixed', monthly: 1000, indexed: false, order: ['ike'] });
+    eq(r.years.length, 10, 'years'); eq(r.taxTotal, 0, 'no tax after 60'); eq(r.runsOutAge, 75, 'runs out at 75');
+  });
+
+  test('Withdraw: IKZE after 65 pays 10% of each payout; ETF pays 19% of the gain part', () => {
+    const c0 = clone(cfg); Object.assign(c0.returns, { etfWorld: 0, inflation: 0 }); c0.ter = 0;
+    const r = K.withdraw(c0, { ikze: { v: 100000, b: 100000 } }, { age: 66, strategy: 'pct', pct: 0.1, order: ['ikze'], maxAge: 66 });
+    eq(r.years[0].gross, 10000, 'gross'); eq(r.years[0].tax, 1000, 'ikze tax');
+    const e = K.withdraw(c0, { etf: { v: 100000, b: 50000 } }, { age: 66, strategy: 'pct', pct: 0.1, order: ['etf'], maxAge: 66 });
+    eq(e.years[0].tax, 10000 * 0.5 * 0.19, 'etf tax on gain share');
+  });
+
+  test('Withdraw: "spend until age" empties the accounts at that age', () => {
+    const r = K.withdraw(cfg, { etf: { v: 500000, b: 300000 } }, { age: 65, strategy: 'spend', untilAge: 85, order: ['etf'] });
+    eq(r.years.length, 21, 'years 65..85'); eq(r.years[20].left, 0, 'empty at 85', 1);
+  });
+
+  test('Saving result exposes account balances for the withdrawal', () => {
+    const r = K.simulate(cfg, inp({ capital: 10000, horizon: 1 }), K.singleAllocator('ike'));
+    eq(r.end.ike.v, 10680, 'ike value'); eq(r.end.ike.b, 10000, 'ike base');
+  });
+
   const failed = results.filter(r => !r.ok);
   if (isNode) {
     results.forEach(r => console.log(`${r.ok ? 'OK  ' : 'FAIL'} ${r.name}${r.ok ? '' : ' -> ' + r.msg}`));

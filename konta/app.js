@@ -28,6 +28,8 @@
       inp: clone(C.DEFAULT_INPUT), cfg: clone(C.DEFAULT_CONFIG), scenarios: clone(C.DEFAULT_SCENARIOS),
       order: clone(C.DEFAULT_ORDER), realTerms: false, preset: 'base', earlyN: 10, editSlot: 'A', yearScen: 'auto',
       mainScen: 'auto', showAll: false, persona: '', touched: false, mode: 'simple', style: 'bold',
+      wd: { source: 'plan', own: { ike: 0, ikze: 0, oki: 0, ppk: 0, ppe: 0, edo: 0, etf: 0 }, gainPct: 30, startAge: 65,
+        strategy: 'fixed', monthly: 4000, indexed: true, pct: 4, untilAge: 90, order: clone(C.WD_ORDER) },
       guide: { step: 0, ans: { salary: -1, monthly: -1, capital: -1, age: -1, risk: '', ppk: '' } },
     };
   }
@@ -62,6 +64,9 @@
     if (!['simple', 'advanced'].includes(s.mode)) s.mode = 'simple';
     if (!C.STYLES[s.style]) s.style = 'bold';
     if (s.mode === 'simple') s.mainScen = 'auto';
+    if (!['plan', 'own'].includes(s.wd.source)) s.wd.source = 'plan';
+    if (!C.WD_STRATEGIES[s.wd.strategy]) s.wd.strategy = 'fixed';
+    s.wd.order = s.wd.order.filter(k => C.WD_ORDER.includes(k)).concat(C.WD_ORDER.filter(k => !s.wd.order.includes(k)));
     return s;
   }
   const readOwn = () => { try { return JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (e) { return null; } };
@@ -98,6 +103,7 @@
 
   const LIM = { capital: 5000000, monthly: 20000, salary: 50000 };
   let S = load();
+  let wdChart = null, lastWd = null;
   let chart = null, barChart = null, lastScen = null, cardVisible = true, view = 'plan', liveTimer = null;
   const fields = {};
 
@@ -158,9 +164,9 @@
   const signed = x => `<span class="${x >= 0 ? 'pos' : 'neg'}">${x >= 0 ? '+' : '−'}${zl(Math.abs(x))}</span>`;
 
   // ---------- Views (hash routing) ----------
-  const VIEWS = ['start', 'przewodnik', 'plan', 'produkty', 'zalozenia'];
+  const VIEWS = ['start', 'przewodnik', 'plan', 'produkty', 'wyplata', 'zalozenia'];
   const ALIAS = { dane: 'plan', wynik: 'plan', dostosuj: 'plan', auto: 'plan', scenariusze: 'plan', wyniki: 'plan',
-    porownanie: 'produkty', osobno: 'produkty', wczesniej: 'produkty', wyplata: 'produkty' };
+    porownanie: 'produkty', osobno: 'produkty', wczesniej: 'produkty', podzial: 'plan' };
   function route() {
     const h = location.hash.slice(1) || (firstVisit ? 'start' : 'plan');
     view = VIEWS.includes(h) ? h : (ALIAS[h] || 'plan');
@@ -168,7 +174,7 @@
     document.querySelectorAll('[data-tab]').forEach(a => {
       if (a.dataset.tab === (view === 'przewodnik' ? 'start' : view)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
-    const target = ALIAS[h] ? $(h === 'wyplata' ? 'wczesniej' : h) : null;
+    const target = ALIAS[h] ? $(h) : null;
     if (target) {
       if (target.closest('details')) target.closest('details').open = true;
       target.scrollIntoView();
@@ -176,6 +182,7 @@
     } else window.scrollTo(0, 0);
     if (view === 'plan') { if (chart) chart.resize(); if (barChart) barChart.resize(); }
     if (view === 'przewodnik') renderGuide();
+    if (view === 'wyplata' && wdChart) wdChart.resize();
     updateBar();
   }
 
@@ -259,6 +266,7 @@
     }
     const rt = S.cfg.returns;
     more += `<p class="muted">Zakładamy: ETF World ${pct(rt.etfWorld)} rocznie, inflacja ${pct(rt.inflation)}. <a href="#zalozenia">Zmień założenia</a>. ` +
+      '<a class="go" href="#wyplata">Ile to miesięcznie i na ile lat? →</a><br>' +
       'To uproszczony szacunek, nie porada inwestycyjna.</p>';
     $('resultMore').innerHTML = more;
     $('barText').innerHTML = `<b>${zl(r.net * f)}</b> na rękę · ${r.endAge} lat`;
@@ -558,6 +566,155 @@
     });
   }
 
+  // ---------- Wypłata: withdrawal phase (N2, U32) ----------
+  const wdName = k => C.WD_NAMES[k];
+  // Starting balances and age: from the plan (chosen scenario) or typed in.
+  function wdStart(scen) {
+    const W = S.wd;
+    if (W.source === 'plan') {
+      const r = scen[S.mainScen].res;
+      return { start: r.end, age: r.endAge, offset: years(), label: scen[S.mainScen].label };
+    }
+    const g = W.gainPct / 100, start = {};
+    C.WD_ORDER.forEach(k => { const v = W.own[k] || 0; start[k] = { v, b: k === 'ikze' ? v : v * (1 - g) }; });
+    return { start, age: W.startAge, offset: 0 };
+  }
+  const wdOpts = (age, extra) => Object.assign({ age, strategy: S.wd.strategy, monthly: S.wd.monthly, indexed: S.wd.indexed,
+    pct: S.wd.pct / 100, untilAge: S.wd.untilAge, order: S.wd.order, maxAge: 100 }, extra || {});
+  // Highest monthly amount (net) that lasts until toAge.
+  function sustainable(st, toAge) {
+    let lo = 0, hi = Math.max(1000, st.total);
+    for (let i = 0; i < 40; i++) {
+      const mid = (lo + hi) / 2;
+      const r = K.withdraw(S.cfg, st.start, wdOpts(st.age, { strategy: 'fixed', monthly: mid, maxAge: toAge }));
+      if (r.runsOutAge === null) lo = mid; else hi = mid;
+    }
+    return Math.floor(lo / 50) * 50;
+  }
+  function renderWdInputs() {
+    const W = S.wd;
+    document.querySelectorAll('[data-wdsrc]').forEach(b => { b.classList.toggle('active', b.dataset.wdsrc === W.source); b.setAttribute('aria-pressed', b.dataset.wdsrc === W.source); });
+    document.querySelectorAll('[data-wdstr]').forEach(b => { b.classList.toggle('active', b.dataset.wdstr === W.strategy); b.setAttribute('aria-pressed', b.dataset.wdstr === W.strategy); });
+    $('wdStrInfo').textContent = C.WD_STRATEGIES[W.strategy];
+    const src = $('wdSrc'); src.innerHTML = '';
+    if (W.source === 'own') {
+      const box = document.createElement('div'); box.className = 'grid';
+      box.appendChild(field('Wiek na start wypłat', () => W.startAge, { min: 40, max: 95, step: 1, unit: 'lat', range: false }, v => { W.startAge = v; update(); }));
+      C.WD_ORDER.forEach(k => box.appendChild(field(wdName(k), () => W.own[k] || 0, { min: 0, max: 1e8, step: 1000, unit: 'zł', range: false }, v => { W.own[k] = v; update(); })));
+      box.appendChild(field('Ile z tego to zysk', () => W.gainPct, { min: 0, max: 100, step: 5, unit: '%', range: false,
+        hint: 'Część wartości, która jest zyskiem (a nie wpłatami). Od niej liczymy 19% podatku Belki na zwykłym koncie i w EDO.' }, v => { W.gainPct = v; update(); }));
+      src.appendChild(box);
+    } else src.innerHTML = '<p class="hint" id="wdSrcInfo"></p>';
+    const st = $('wdStr'); st.innerHTML = '';
+    if (W.strategy === 'fixed') {
+      st.appendChild(field('Na rękę miesięcznie', () => W.monthly, { min: 100, max: 100000, sliderMax: 20000, step: 100, unit: 'zł' }, v => { W.monthly = v; update(); }));
+      const l = document.createElement('label'); l.className = 'check';
+      l.innerHTML = `<input type="checkbox" ${W.indexed ? 'checked' : ''}> Kwota rośnie co roku razem z inflacją`;
+      l.querySelector('input').addEventListener('change', e => { W.indexed = e.target.checked; update(); });
+      st.appendChild(l);
+      const b = document.createElement('button'); b.type = 'button'; b.dataset.wdfit = '90'; b.textContent = 'Dobierz kwotę, która wystarczy do 90 lat';
+      st.appendChild(b);
+    } else if (W.strategy === 'pct') {
+      st.appendChild(field('Wypłacasz rocznie', () => W.pct, { min: 1, max: 20, step: 0.5, unit: '%', hint: 'Często podaje się 4% jako bezpieczną stawkę.' }, v => { W.pct = v; update(); }));
+    } else {
+      st.appendChild(field('Wydaj wszystko do wieku', () => W.untilAge, { min: () => (lastScen ? wdStart(lastScen).age + 1 : 41), max: 100, step: 1, unit: 'lat' }, v => { W.untilAge = v; update(); }));
+    }
+  }
+  function renderWdOrder() {
+    const o = S.wd.order;
+    $('wdOrder').innerHTML = o.map((k, i) => `<li><span>${wdName(k)}</span>` +
+      `<button data-wdmove="${i}" data-dir="-1" ${i === 0 ? 'disabled' : ''} aria-label="${wdName(k)}: wcześniej">↑</button>` +
+      `<button data-wdmove="${i}" data-dir="1" ${i === o.length - 1 ? 'disabled' : ''} aria-label="${wdName(k)}: później">↓</button></li>`).join('');
+  }
+  function renderWd(scen) {
+    const W = S.wd, st = wdStart(scen);
+    st.total = C.WD_ORDER.reduce((s, k) => s + Math.max(0, (st.start[k] || { v: 0 }).v), 0);
+    if (W.source === 'plan' && $('wdSrcInfo')) {
+      const parts = C.WD_ORDER.filter(k => st.start[k].v > 0.5).map(k => `<li>${wdName(k)}: ${zl(st.start[k].v)}</li>`).join('');
+      $('wdSrcInfo').innerHTML = `${S.mode === 'advanced' ? st.label + ', w' : 'W'} wieku ${st.age} lat masz na kontach <b>${zl(st.total)}</b> (przed podatkiem; podatek liczymy przy każdej wypłacie). Zmienisz to w zakładce <a href="#plan">Plan</a>.<ul class="srclist">${parts}</ul>`;
+    }
+    const r = K.withdraw(S.cfg, st.start, wdOpts(st.age));
+    lastWd = r;
+    const defl = t => (S.realTerms ? K.realFactor(S.cfg, st.offset + t) : 1);
+    const today = t => K.realFactor(S.cfg, st.offset + t);
+    let html;
+    if (st.total < 1) {
+      html = '<p class="big">0 zł</p><div class="warn">Brak pieniędzy na kontach. Wpisz kwoty albo zmień plan.</div>';
+    } else {
+      const first = r.firstMonthly;
+      html = `<p class="eyebrow">Od ${st.age} lat, na rękę${S.realTerms ? ' (w dzisiejszych złotówkach)' : ''}</p><p class="big">${zl(first * defl(0))} <span>miesięcznie</span></p>`;
+      const last = r.years[r.years.length - 1];
+      if (W.strategy === 'fixed') {
+        html += r.runsOutAge ? `<p class="line2">Pieniądze wystarczą do <b>${r.runsOutAge}. roku życia</b>.</p>`
+          : `<p class="line2">Pieniądze wystarczą <b>ponad 100. rok życia</b>. Zostaje ok. ${zl(last.left * defl(r.years.length))}.</p>`;
+      } else if (W.strategy === 'pct') {
+        const at85 = r.years.find(y => y.age === 85);
+        html += `<p class="line2">Pieniądze się nie kończą${at85 ? `; w wieku 85 lat ok. <b>${zl(at85.net / 12 * defl(85 - st.age))}</b> miesięcznie` : ''}.</p>`;
+      } else html += `<p class="line2">Do <b>${W.untilAge}. roku życia</b>, potem konta są puste.</p>`;
+      html += `<dl class="trio"><div><dt>Na kontach na start</dt><dd>${zl(st.total)}</dd></div>` +
+        `<div><dt>Podatki przy wypłatach</dt><dd>${zl(r.taxTotal)}</dd></div>` +
+        `<div><dt>Pierwsza wypłata w dzisiejszych zł</dt><dd>${zl(first * today(0))}</dd></div></dl>`;
+      if (W.strategy === 'fixed' && r.runsOutAge && r.runsOutAge < 90) {
+        html += `<div class="warn" role="note"><b>Pieniądze skończą się w wieku ${r.runsOutAge} lat.</b> Do 90 lat wystarczy ok. <b>${zl(sustainable(st, 90))}</b> miesięcznie.` +
+          '<button class="primary" data-wdfit="90">Ustaw tę kwotę</button></div>';
+      }
+      if (st.age < S.cfg.tax.ikeFreeAge) html += `<div class="warn" role="note">Wypłata przed ${S.cfg.tax.ikeFreeAge}. rokiem życia: IKE i PPK tracą ulgę, IKZE płaci pełny PIT.</div>`;
+      const has = k => st.start[k] && st.start[k].v > 0.5, T = S.cfg.tax, notes = [];
+      if (has('ikze')) notes.push(`IKZE: ${pct(T.ikzeExit)} podatku od każdej wypłaty po ${T.ikzeFreeAge}. roku życia.`);
+      if (has('ike')) notes.push(`IKE: bez podatku po ${T.ikeFreeAge}. roku życia.`);
+      if (has('ppk')) notes.push(`PPK: bez podatku po ${T.ppkFreeAge}. roku życia, jeśli 75% wypłacasz w co najmniej 120 ratach – tutaj wypłacamy stopniowo.`);
+      if (has('etf') || has('edo')) notes.push(`ETF i obligacje: ${pct(T.belka, 0)} podatku Belki od części zysku w każdej wypłacie.`);
+      if (has('oki')) notes.push(`OKI: dalej ${pct(S.cfg.okiTaxRate, 2)} rocznie od wartości ponad ${zl(S.cfg.limits.okiExempt)}.`);
+      html += `<p class="muted">${notes.join(' ')} Pieniądze, których jeszcze nie wypłacasz, dalej pracują (Rynek: ${pct(S.cfg.returns.etfWorld)} rocznie dla ETF). To uproszczony szacunek, nie porada.</p>`;
+      clearTimeout(wdLiveTimer);
+      wdLiveTimer = setTimeout(() => { $('wdLive').textContent = `Od ${st.age} lat: ${zl(first)} miesięcznie na rękę.`; }, 600);
+    }
+    $('wdBody').innerHTML = html;
+    renderWdOrder();
+    // chart + table
+    const labels = r.years.map(y => y.age + ' l.');
+    const left = r.years.map((y, i) => Math.round(y.left * defl(i + 1))), inc = r.years.map((y, i) => Math.round(y.net / 12 * defl(i)));
+    table($('wdTable'), ['Wiek', 'Wypłata brutto (rok)', 'Podatek', 'Na rękę miesięcznie', 'Zostało'],
+      r.years.map((y, i) => ({ cells: [y.age, zl(y.gross * defl(i)), zl(y.tax * defl(i)), `<b>${zl(y.net / 12 * defl(i))}</b>`, zl(y.left * defl(i + 1))] })),
+      { num: [1, 2, 3, 4], caption: 'Wypłaty rok po roku' });
+    if (typeof Chart === 'undefined') return;
+    const data = { labels, datasets: [
+      { type: 'line', label: 'Zostało na kontach', data: left, borderColor: COLORS.auto, backgroundColor: COLORS.auto, borderWidth: 2.5, pointRadius: 0, yAxisID: 'y' },
+      { type: 'bar', label: 'Na rękę miesięcznie', data: inc, backgroundColor: '#93c5b4', yAxisID: 'y1' },
+    ] };
+    if (wdChart) { wdChart.data = data; wdChart.update('none'); return; }
+    wdChart = new Chart($('wdChart'), { data, options: {
+      responsive: true, maintainAspectRatio: false, animation: false, interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'top', align: 'start', labels: { font: { size: 13 } } }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${zl(c.parsed.y)}` } } },
+      scales: { y: { position: 'left', beginAtZero: true, ticks: { callback: v => num(v / 1000) + ' tys.' } },
+        y1: { position: 'right', beginAtZero: true, grid: { drawOnChartArea: false }, ticks: { callback: v => num(v) + ' zł' } },
+        x: { ticks: { maxTicksLimit: 8, maxRotation: 0 } } } } });
+  }
+  let wdLiveTimer = null;
+  document.querySelectorAll('[data-wdsrc]').forEach(b => b.addEventListener('click', () => {
+    S.wd.source = b.dataset.wdsrc;
+    if (S.wd.source === 'own' && !C.WD_ORDER.some(k => S.wd.own[k] > 0) && lastScen) {
+      const e = lastScen[S.mainScen].res.end; C.WD_ORDER.forEach(k => { S.wd.own[k] = Math.round(e[k].v / 1000) * 1000; });
+      S.wd.startAge = S.inp.payoutAge; // start from the plan's numbers, then edit
+    }
+    renderWdInputs(); update();
+  }));
+  document.querySelectorAll('[data-wdstr]').forEach(b => b.addEventListener('click', () => { S.wd.strategy = b.dataset.wdstr; renderWdInputs(); update(); }));
+  document.querySelector('[data-view="wyplata"]').addEventListener('click', e => {
+    const b = e.target.closest('[data-wdfit], [data-wdmove]'); if (!b) return;
+    if (b.dataset.wdfit) {
+      const st = wdStart(lastScen); st.total = C.WD_ORDER.reduce((s, k) => s + Math.max(0, st.start[k].v), 0);
+      S.wd.strategy = 'fixed'; S.wd.monthly = Math.max(100, sustainable(st, +b.dataset.wdfit));
+      renderWdInputs(); renderResults(); save(); $('wdResult').focus({ preventScroll: true }); return;
+    }
+    const i = +b.dataset.wdmove, j = i + (+b.dataset.dir), o = S.wd.order;
+    [o[i], o[j]] = [o[j], o[i]];
+    renderResults(); save();
+    let t = $('wdOrder').querySelector(`[data-wdmove="${j}"][data-dir="${b.dataset.dir}"]`);
+    if (t && t.disabled) t = t.parentElement.querySelector('button:not([disabled])');
+    if (t) t.focus();
+  });
+
   // ---------- Toast with undo (U20) ----------
   let toastTimer = null, toastSnap = null;
   function toast(msg, snap) {
@@ -592,7 +749,11 @@
     if (p.open === 'przewodnik') S.guide = defaults().guide;
     renderAll(); save();
     if (p.open === 'dostosuj') $('dostosuj').open = true;
-    location.hash = p.open === 'przewodnik' ? '#przewodnik' : '#plan';
+    if (p.open === 'wyplata') { // start with an amount that lasts until 90
+      const st = wdStart(lastScen); st.total = C.WD_ORDER.reduce((s, k) => s + Math.max(0, st.start[k].v), 0);
+      S.wd.strategy = 'fixed'; S.wd.monthly = Math.max(100, sustainable(st, 90)); renderWdInputs(); renderResults(); save();
+    }
+    location.hash = p.open === 'przewodnik' ? '#przewodnik' : p.open === 'wyplata' ? '#wyplata' : '#plan';
   });
 
   // ---------- Guide for beginners (N5) ----------
@@ -698,7 +859,7 @@
     if (e.key === 'Escape') closeGl();
     else if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('gl')) { e.preventDefault(); openGl(e.target); }
   });
-  const glossTables = () => ['compareTable', 'singleTable', 'earlyTable', 'summaryTable', 'notes', 'resultMore'].forEach(id => glossify($(id)));
+  const glossTables = () => ['compareTable', 'singleTable', 'earlyTable', 'summaryTable', 'notes', 'resultMore', 'wdBody'].forEach(id => glossify($(id)));
 
   // ---------- Render all ----------
   function renderResults() {
@@ -706,7 +867,7 @@
     const scen = computeScenarios();
     lastScen = scen;
     renderScenSelects(scen); renderPresets(); renderResult(scen); renderTips(scen);
-    renderFlow(scen); renderBars(scen); renderChart(scen); renderSummary(scen); renderYearTable(scen);
+    renderFlow(scen); renderBars(scen); renderChart(scen); renderWd(scen); renderSummary(scen); renderYearTable(scen);
     renderOrder(scen); renderSplitSum(); renderCompare(); renderSingle(); renderEarly();
     closeGl(); glossTables();
   }
@@ -715,7 +876,7 @@
     if (pending) cancelAnimationFrame(pending);
     pending = requestAnimationFrame(() => { pending = null; renderResults(); save(); });
   }
-  function renderAll() { renderInputs(); renderEditor(); renderSettings(); renderResults(); renderStart(); renderShared(); }
+  function renderAll() { renderInputs(); renderEditor(); renderSettings(); renderWdInputs(); renderResults(); renderStart(); renderShared(); }
 
   // ---------- Events ----------
   $('ppkOn').addEventListener('change', e => { S.inp.ppkOn = e.target.checked; update(); });

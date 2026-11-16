@@ -164,7 +164,83 @@
     }
 
     const exit = exitTaxes(cfg, p, inp.age + H, okiTax);
-    return { years, ownByYear, ownPaid, okiTax, ikzeRefundTotal, endAge: inp.age + H, ...exit };
+    return { years, ownByYear, ownPaid, okiTax, ikzeRefundTotal, endAge: inp.age + H, end: endBalances(p), ...exit };
+  }
+
+  // ---- Withdrawal phase (N2) ----
+  const WD_KEYS = ['ike', 'ikze', 'oki', 'ppk', 'ppe', 'edo', 'etf'];
+
+  // Balances at the end of a saving simulation: value v and paid-in base b per account.
+  function endBalances(p) {
+    return {
+      ike: { v: p.ike.v, b: p.ike.b }, ikze: { v: p.ikze.v, b: p.ikze.b }, oki: { v: p.oki.v, b: p.oki.b },
+      ppk: { v: ppkValue(p), b: p.ppk.bOwn + p.ppk.bEmp + p.ppk.bSt }, ppe: { v: p.ppe.v, b: p.ppe.b },
+      edo: { v: edoValue(p), b: p.edo.b },
+      etf: { v: p.etfWorld.v + p.etfEm.v + p.ikzeRefund.v, b: p.etfWorld.b + p.etfEm.b + p.ikzeRefund.b },
+    };
+  }
+
+  // Share of a gross withdrawal that goes to tax, for an account at a given age.
+  function wdTaxRate(cfg, k, acc, age) {
+    const T = cfg.tax;
+    const gainShare = acc.v > 0 ? Math.max(0, (acc.v - acc.b) / acc.v) : 0;
+    switch (k) {
+      case 'ike': return age >= T.ikeFreeAge ? 0 : T.belka * gainShare;
+      case 'ikze': return age >= T.ikzeFreeAge ? T.ikzeExit : T.pit;
+      case 'oki': return 0;
+      case 'ppk': return age >= T.ppkFreeAge ? 0 : T.belka * gainShare;
+      case 'ppe': return age >= T.ppeFreeAge ? 0 : T.belka * gainShare;
+      default: return T.belka * gainShare; // edo, etf
+    }
+  }
+
+  // start: { ike: {v, b}, ... }  o: { age, strategy: 'fixed'|'pct'|'spend', monthly, indexed, pct, untilAge, order, maxAge }
+  // Yearly steps: withdraw at the start of the year (in the given order of accounts), then the rest grows.
+  function withdraw(cfg, start, o) {
+    const r = cfg.returns, gEtf = r.etfWorld - cfg.ter;
+    const rate = { ike: gEtf, ikze: gEtf, oki: gEtf, etf: gEtf, edo: r.inflation + r.edoMargin, ppk: r.ppk, ppe: r.ppe };
+    const acc = {};
+    WD_KEYS.forEach(k => { const s = start[k] || { v: 0, b: 0 }; acc[k] = { v: Math.max(0, s.v), b: Math.max(0, Math.min(s.b, s.v)) }; });
+    const order = (o.order || []).filter(k => WD_KEYS.includes(k)).concat(WD_KEYS.filter(k => !(o.order || []).includes(k)));
+    const maxAge = o.maxAge || 100;
+    const total = () => WD_KEYS.reduce((s, k) => s + acc[k].v, 0);
+    const years = [];
+    let runsOutAge = null, taxTotal = 0, netTotal = 0;
+
+    for (let t = 0, age = o.age; age <= maxAge; t++, age++) {
+      const value = total();
+      if (value < 1) { if (runsOutAge === null && o.strategy === 'fixed') runsOutAge = age; break; }
+      let needNet = null, needGross = null;
+      if (o.strategy === 'fixed') needNet = 12 * o.monthly * (o.indexed ? Math.pow(1 + r.inflation, t) : 1);
+      else if (o.strategy === 'pct') needGross = o.pct * value;
+      else {
+        const n = o.untilAge - age + 1;
+        if (n <= 0) break;
+        needGross = n === 1 ? value : value * gEtf / ((1 + gEtf) * (1 - Math.pow(1 + gEtf, -n)));
+      }
+      let gross = 0, tax = 0, net = 0;
+      const from = {};
+      for (const k of order) {
+        const a = acc[k];
+        if (a.v <= 0.005) continue;
+        if (needNet !== null && net >= needNet - 0.005) break;
+        if (needGross !== null && gross >= needGross - 0.005) break;
+        const tr = wdTaxRate(cfg, k, a, age);
+        const want = needNet !== null ? (needNet - net) / (1 - tr) : needGross - gross;
+        const g = Math.min(a.v, want);
+        a.b -= a.b * (g / a.v); a.v -= g;
+        gross += g; tax += g * tr; net += g * (1 - tr); from[k] = g;
+      }
+      // The rest grows during the year; OKI pays its yearly asset tax.
+      WD_KEYS.forEach(k => { acc[k].v *= 1 + rate[k]; });
+      const okiBase = cfg.okiEtfQualifies ? Math.max(0, acc.oki.v - cfg.limits.okiExempt) : acc.oki.v;
+      const okiTax = cfg.okiTaxRate * okiBase;
+      acc.oki.v -= okiTax; tax += okiTax;
+      taxTotal += tax; netTotal += net;
+      years.push({ age, gross, tax, net, left: total(), from });
+      if (needNet !== null && net < needNet * 0.99) { runsOutAge = age; break; }
+    }
+    return { years, runsOutAge, taxTotal, netTotal, firstMonthly: years.length ? years[0].net / 12 : 0, startTotal: WD_KEYS.reduce((s, k) => s + Math.max(0, (start[k] || { v: 0 }).v), 0) };
   }
 
   // Exit taxes when everything is withdrawn at endAge.
@@ -259,7 +335,7 @@
   const realFactor = (cfg, years) => 1 / Math.pow(1 + cfg.returns.inflation, years);
 
   const api = {
-    FREE, ALL, applyLimits, singleAllocator, splitAllocator, waterfallAllocator, mixAllocator, firstYearSplit,
+    FREE, ALL, applyLimits, singleAllocator, splitAllocator, waterfallAllocator, mixAllocator, firstYearSplit, WD_KEYS, withdraw, wdTaxRate,
     simulate, baselineNet, runScenario, compareSingle, exitRule, realFactor,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

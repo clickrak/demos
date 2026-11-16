@@ -1,5 +1,5 @@
 // Simple offline cache. Bump VERSION when files change.
-const VERSION = 'ki-v0.4';
+const VERSION = 'ki-v0.5';
 const FILES = ['./', 'index.html', 'style.css', 'config.js', 'calc.js', 'app.js', 'vendor/chart.umd.min.js'];
 
 self.addEventListener('install', e => {

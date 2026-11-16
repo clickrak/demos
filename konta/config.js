@@ -75,8 +75,8 @@
               inp: { age: 28, capital: 5000, monthly: 500, payoutAge: 65 }, mode: 'simple', open: 'przewodnik', cta: 'Zacznij od 6 prostych pytań' },
     sredni: { name: 'Średni', range: '35–55 lat', desc: 'Stałe dochody i trochę oszczędności. Chcę wykorzystać limity i ulgi podatkowe.',
               inp: { age: 45, capital: 50000, monthly: 1500, payoutAge: 65 }, mode: 'advanced', open: 'dostosuj', cta: 'Przejdź do planu i podziału' },
-    senior: { name: 'Senior', range: '55+ lat', desc: 'Blisko emerytury. Chcę zaplanować ostatnie lata oszczędzania.',
-              inp: { age: 60, capital: 300000, monthly: 0, payoutAge: 65 }, mode: 'simple', open: 'plan', cta: 'Przejdź do planu' },
+    senior: { name: 'Senior', range: '55+ lat', desc: 'Blisko emerytury. Chcę wiedzieć, na ile lat starczy pieniędzy i jak je wypłacać.',
+              inp: { age: 60, capital: 300000, monthly: 0, payoutAge: 65 }, mode: 'simple', open: 'wyplata', cta: 'Przejdź do wypłat' },
   };
   const GUIDE = [
     { key: 'salary', q: 'Ile zarabiasz brutto miesięcznie?', choices: [5000, 7500, 10000, 15000], unit: 'zł', min: 4000, max: 50000,
@@ -110,7 +110,15 @@
     { re: 'rynków wschodzących', t: 'Rynki wschodzące (EM)', d: 'Kraje rozwijające się, np. Chiny, Indie, Brazylia. Większy możliwy zysk i większe wahania.' },
   ];
 
-  const api = { DEFAULT_CONFIG, DEFAULT_INPUT, PRESETS, FREE_VEHICLES, VEHICLES, DEFAULT_SCENARIOS, DEFAULT_ORDER, PERSONAS, GUIDE, STYLES, GLOSSARY };
+  // Withdrawal (N2): account names and default order (taxed accounts first, IKE last)
+  const WD_NAMES = { ike: 'IKE', ikze: 'IKZE', oki: 'OKI', ppk: 'PPK', ppe: 'PPE', edo: 'Obligacje EDO', etf: 'ETF (zwykłe konto)' };
+  const WD_ORDER = ['etf', 'edo', 'oki', 'ikze', 'ppk', 'ppe', 'ike'];
+  const WD_STRATEGIES = {
+    fixed: 'Co miesiąc ta sama kwota na rękę. Sprawdzamy, do jakiego wieku wystarczy.',
+    pct: 'Co roku wypłacasz stały procent tego, co jest na kontach. Pieniądze się nie kończą, ale kwota się zmienia.',
+    spend: 'Wydajesz wszystko równo do wybranego wieku. Na koniec konta są puste.',
+  };
+  const api = { DEFAULT_CONFIG, DEFAULT_INPUT, PRESETS, FREE_VEHICLES, VEHICLES, DEFAULT_SCENARIOS, DEFAULT_ORDER, PERSONAS, GUIDE, STYLES, GLOSSARY, WD_NAMES, WD_ORDER, WD_STRATEGIES };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.KI_CONFIG = api;
 })(this);

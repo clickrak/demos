@@ -208,7 +208,7 @@ Keep the calculation tests green in every release. Each release = bump the versi
 | v0.2 | Struktura | U0 page structure (views Plan, Produkty, Założenia; result card; result bar; tips; auto-split amounts) + all P1 fixes (U6, U7, U8, U10, U11, U13, U16, U18, U26) + U9 charts, U19 | ✅ 16.11.2026 |
 | v0.3 | Start | N5 guide, N1 personas (Start view) + P2 fixes U12, U14, U15, U17, U20, U21. Until v0.4: Senior opens Plan, the guide has no “Zapisz .md” | ✅ 16.11.2026 |
 | v0.4 | Przejrzystość | U27–U31: PPK from salary on top, “Gdzie trafiają pieniądze”, capital split, Prosty / Zaawansowany, investing style | ✅ 16.11.2026 |
-| v0.5 | Wypłata | N2 as a separate tab (U32); Senior opens it | ⏳ |
+| v0.5 | Wypłata | N2 as a separate tab (U32); Senior opens it with an amount that lasts to 90 | ✅ 16.11.2026 |
 | v0.6 | Zapis i źródła | N3 Markdown save/load, N4 sources + U22–U24 rest, Lighthouse ≥ 95 | ⏳ |
 | v0.7 | Dokładność | U25 + calculation details (OKI, EDO, IKZE, PIT 32%, PPK, asset choice, risk view, monthly steps, couple mode, CI) | ⏳ |
 
@@ -220,7 +220,7 @@ Keep the calculation tests green in every release. Each release = bump the versi
 - [ ] **UX P3:** U25 reduced motion, print style, dark mode.
 - [ ] **UX acceptance:** checks 1–8 and 10 pass in v0.3 (automated, Chrome, 390×844 and 1280×800); check 9 (Lighthouse) is still to run.
 - [x] **N1 Personas** (Start view, 3 profiles, defaults with payout age, opening view, persona chip). Open: Senior → Wypłata when N2 exists.
-- [ ] **N2 Withdrawal view** (strategies, account order, tax per account, “money lasts until age X”).
+- [x] **N2 Withdrawal view** (strategies, account order, tax per account, “money lasts until age X”). Built as tab “Wypłata” (v0.5). Decisions: yearly steps, payout at the start of each year, the rest keeps growing at the preset returns; source = balances of the chosen plan scenario at the payout age, or typed in (with “ile z tego to zysk” for the 19% tax); ETF World, ETF EM and the reinvested IKZE refund are one “ETF (zwykłe konto)” account; PPK treated as tax free after 60 (instalment rule shown as a note, not modelled); IKZE 10% on each payout after 65; button “Dobierz kwotę do 90 lat” (search for the highest amount that lasts).
 - [ ] **N3 Markdown save/load** (summary + state in front matter, round-trip test).
 - [ ] **N4 Sources list** (`sources.js`, status per figure, ⚠️ markers in the UI).
 - [x] **N5 Beginner guide** (6 click questions with “Co to znaczy?”, result card with approx. capital at 65, monthly income, simple plan, range, link to full app).

@@ -35,13 +35,13 @@
   <header class="top">
     <div class="wrap">
       <a class="back" href="../">← Demos</a>
-      <h1>Konta Inwestycyjne <small>v0.4</small></h1>
+      <h1>Konta Inwestycyjne <small>v0.5</small></h1>
       <a id="personaChip" class="chip" href="#start" hidden></a>
       <p class="lead">IKE, IKZE, OKI, PPK czy ETF? Wpisz swoje kwoty i zobacz, ile zostanie po podatkach.</p>
     </div>
   </header>
   <nav class="tabs" aria-label="Główne widoki"><div class="wrap">
-    <a href="#start" data-tab="start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Start</span></a><a href="#plan" data-tab="plan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7"/></svg><span>Plan</span></a><a href="#produkty" data-tab="produkty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Produkty</span></a><a href="#zalozenia" data-tab="zalozenia"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg><span>Założenia</span></a>
+    <a href="#start" data-tab="start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Start</span></a><a href="#plan" data-tab="plan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7"/></svg><span>Plan</span></a><a href="#produkty" data-tab="produkty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Produkty</span></a><a href="#wyplata" data-tab="wyplata"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h17v12H3zM3 7l13-3v3M15 13h5"/></svg><span>Wypłata</span></a><a href="#zalozenia" data-tab="zalozenia"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg><span>Założenia</span></a>
   </div></nav>
   <div class="bar" id="bar" hidden><div class="wrap">
     <span id="barText"></span>
@@ -188,6 +188,49 @@
         </div>
         <div class="scroll"><table id="earlyTable" class="cards stack"></table></div>
       </section>
+    </div>
+
+    <!-- ===== WYPŁATA (N2) ===== -->
+    <div class="view plan wd" data-view="wyplata" hidden>
+      <section class="card a-dane" id="wdIn">
+        <h2>Skąd pieniądze</h2>
+        <div class="seg" role="group" aria-label="Skąd pieniądze">
+          <button data-wdsrc="plan">Z mojego planu</button><button data-wdsrc="own">Wpiszę sam</button>
+        </div>
+        <div id="wdSrc"></div>
+        <h3>Jak wypłacać</h3>
+        <div class="seg" role="group" aria-label="Jak wypłacać">
+          <button data-wdstr="fixed">Stała kwota</button><button data-wdstr="pct">Stały procent</button><button data-wdstr="spend">Do wieku</button>
+        </div>
+        <p class="hint" id="wdStrInfo"></p>
+        <div id="wdStr"></div>
+        <h3>Rynek</h3>
+        <div class="seg" role="group" aria-label="Rynek">
+          <button data-preset="pessimistic">Słabszy</button>
+          <button data-preset="base">Bazowy</button>
+          <button data-preset="optimistic">Lepszy</button>
+        </div>
+        <details id="wdOrderBox">
+          <summary>Kolejność wypłat z kont</summary>
+          <p class="hint">Najpierw wypłacamy z pierwszego konta, a gdy się skończy – z następnego. Zwykle lepiej zacząć od kont z podatkiem, a IKE (bez podatku) zostawić na koniec.</p>
+          <ol id="wdOrder" class="order"></ol>
+        </details>
+      </section>
+      <div class="a-res">
+        <section class="card result" id="wdResult" tabindex="-1" aria-labelledby="wdH">
+          <h2 id="wdH" class="sr">Wynik wypłat</h2>
+          <div id="wdBody"></div>
+          <p class="sr" aria-live="polite" id="wdLive"></p>
+        </section>
+        <section class="card">
+          <h2>Ile zostaje na kontach</h2>
+          <div class="chartbox"><canvas id="wdChart" aria-label="Wykres: kapitał na kontach i wypłata na rękę rok po roku. Liczby są w tabeli poniżej."></canvas></div>
+          <details>
+            <summary>Tabela rok po roku</summary>
+            <div class="scroll"><table id="wdTable" class="small"></table></div>
+          </details>
+        </section>
+      </div>
     </div>
 
     <!-- ===== ZAŁOŻENIA ===== -->
