@@ -9,6 +9,77 @@ The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
+## Next minor: v2.8 (planned 2026-11-19)
+
+Current `appVersion` 2.7.1. No earlier minor plan was waiting. v2.7.0 shipped K2 (Kraków ranking), not G3, so the next
+roadmap entry is **GZM part 2 (G3)** plus the open K1 review. Q1 (review of questions, Opus, design choices) moves to v2.9.
+Tonight is data plus one small screen change, mostly **Sonnet**. One commit per task (rule 8), then the release step.
+
+1. **K1-6 (Sonnet) Kraków class check, batch 6.** Goal: check the 2026/27 classes of the next 5 Kraków licea in ranking order:
+   VI LO (`lo6`), III LO (`lo3`), XIII LO (`lo13`), XLIV LO (`lo44`), XX LO (`lo20`). Same steps as D4; move "check" →
+   "sourced" only with an official page or otouczelnie confirming it; never guess a threshold. Also confirm whether XX LO still
+   runs a bilingual class (open B2 question).
+   Files: `liceum/data/db/pl/krakow/schools.json`, `liceum/data/sources.json`.
+   Check: three tests pass; commit message says how many classes moved to "sourced".
+2. **K3 (Sonnet) Two missing public Kraków licea.** Goal: add XVII LO im. Młodej Polski (otouczelnie Kraków rank 28; bilingual
+   French, open B2 question) and XXV LO (rank 63): address, map point (`kompas/tools/geocode_schools.py`, then compare with the
+   school site and set `geoChecked`), `www`, 2026/27 classes with sources, `kompasId` link in `krakow/ranking.json`.
+   Unconfirmed class facts stay `"status": "check"`. Run `kompas/tools/liceum_travel.py` only if it works offline from the
+   stored GTFS; otherwise leave travel times to the weekly job and say so.
+   Files: `krakow/schools.json`, `krakow/ranking.json`, `sources.json`, maybe `krakow/travel.json`.
+   Check: tests pass (ranking link and region test); open `?test`, area Kraków: both schools on the map and in lists.
+3. **T6 (Sonnet) Tychy: Technikum nr 6 and 2026 thresholds.** Goal: add Technikum nr 6 (the one public Tychy school missing;
+   GZM list order 67) the same way as T3/M1; then look for 2026/27 thresholds of all 9 Tychy schools on the schools' own
+   pages ("progi punktowe 2026") or the city's recruitment page. Today 0 of 39 Tychy classes have a threshold. Enter only
+   thresholds an official page shows; otherwise leave `null` and list the school in the commit message.
+   Files: `liceum/data/db/pl/tychy/schools.json`, `gzm/ranking.json` (`kompasId`), `sources.json`, `config.json` (region note).
+   Check: tests pass; `?test` with the Tychy test kid shows Technikum nr 6 on the map.
+4. **G3 (Sonnet) GZM next schools.** Goal: the next public schools on `gzm/ranking.json` in towns already in the data:
+   I LO Gliwice (licea order 5), Akademickie LO Politechniki Śląskiej (7), Technikum nr 17 ŚTZN Katowice (technika 2),
+   Technikum nr 8 Sosnowiec (3). Same steps as T3 and M1; Katowice thresholds from `otou-ka-progi-2026`. New towns
+   (Chorzów order 4, Tarnowskie Góry 8) wait: they need a `regions` change, which is an Opus step in v2.9.
+   Files: `gliwice/`, `katowice/`, `sosnowiec/schools.json`, `gzm/ranking.json`, `sources.json`, `config.json` (region note).
+   Check: tests pass; area "Tychy i Metropolia": the four schools appear; none appear in area Kraków.
+5. **G4 (Sonnet) Map filter by town** (rest of roadmap G3). Goal: chips above the map in the Tychy + GZM area
+   (`wszystkie`, Tychy, Katowice, Sosnowiec, Gliwice — built from `regions[].towns`, only towns with schools). A tap filters the
+   map points only; lists stay as they are. Not shown in area Kraków (one town). No scoring change.
+   Files: `liceum/app.js`, `liceum/liceum.css`.
+   Check: click-through at 375 px and 1280 px in three looks; nothing wider than the screen.
+6. **L1-8 (Sonnet) School links.** Goal: `www` for 10 schools: the 5 from K1-6, plus Tychy IV LO, Technikum nr 1 and nr 2,
+   and the missing Gliwice and Katowice links. Official sites only.
+   Files: school files above. Check: syntax test (every `www` is http/https); "strona szkoły" opens in a new tab.
+7. **D9 (Sonnet) Source dates.** Goal: make `old_sources.py` meaningful: set `asOf` to `YYYY-MM` for the 6 Liceum and 2 Studia
+   sources that say only `2026` (month = when the page was published or read, from the page); replace `ty-informator-2025` with
+   the Tychy informator for 2026/27 if the city published it (otherwise keep it and note it); mark `gzm-rozporzadzenie-2017`
+   as a legal act that is not stale (add `"stale": false` and let the script skip it). Add a check in `tests/syntax.mjs` that
+   every `asOf` matches `YYYY-MM`. Studia `uj-kampus` and `gus-2020` stay for D7.
+   Files: `liceum/data/sources.json`, `studia/data/sources.json`, `tools/old_sources.py`, `tests/syntax.mjs`.
+   Check: `python3 kompas/tools/old_sources.py` lists only real old sources; three tests pass.
+8. **R2.8 (Opus) Review and release v2.8.0.** Review the Sonnet commits (sources open and say what the data says, no guessed
+   thresholds, areas not mixed), click-through at 375 and 1280 px, set version 2.8.0 in the four places, `dataVersion`,
+   short "Kompas Liceum v2.8.0" in the spec doc, push.
+
+**News found while planning (19 Nov 2026), for the tasks above.**
+- 2027/28 recruitment dates are not out yet. Małopolska set the 2026/27 dates in January 2026 (zarządzenie 10/26 MKO,
+  kuratorium.krakow.pl); expect the 2027 one in January 2027. Keep `recruitmentWindow` as it is.
+- New technikum professions from 1 Sept 2026 (MEN regulation of March 2026, Dz.U. 2026 poz. 404, per infor.pl): technik cyberbezpieczeństwa,
+  technik optoelektroniki, technik optyki okularowej, technik agroogrodnictwa, technik aranżacji florystycznych, technik
+  architektury krajobrazu i arborystyki; technik ogrodnik, technik optyk and technik architektury krajobrazu are being removed
+  (rmf24.pl, 24 Mar 2026). When checking technika classes, watch for these names.
+- Kraków may open a new liceum (Radio Kraków, 17 Aug 2026: 800 pupils without a place; no decision on place or date yet).
+  Nothing to enter; check again in spring.
+
+**Database status (19 Nov 2026).** Known total = schools in the otouczelnie 2026 lists already in the repo (Kraków lists;
+Tychy and other GZM towns from `gzm/ranking.json`), including private, sports and music schools.
+
+| Area | Schools in DB / known | Public missing | Missing `www` | Classes "check" | No threshold | No `scored` | Old or badly dated sources |
+|---|---|---|---|---|---|---|---|
+| Kraków | 48 / 90 | 13 (XVII, XXV LO; 11 technika) | 43 | 156 of 231 | 41 | 87 | 2 (`otou-krk-*`, asOf "2026") |
+| Tychy | 9 / 13 | 1 (Technikum nr 6) | 3 | 39 of 39 | 39 | 30 | 1 (`ty-informator-2025`) |
+| GZM other towns | 5 / 197 | 158 | 2 | 36 of 36 | 10 | 27 | 3 (`otou-slaskie-*`, `gzm-rozporzadzenie-2017`) |
+
+All schools in the DB have an address, a map point and `geoChecked`. K1 so far: 14 of 48 Kraków schools checked (batches 1–5).
+
 ### Release rules
 
 - **One release at a time, in order.** Every version (v1.9, v2.0, v2.1 …) is committed, pushed and live before the next one starts,
@@ -37,9 +108,10 @@ The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
 | v2.4 | Return to the same screen after loading a file; larger text and calmer motion | Sonnet |
 | v2.5 | Bilingual classes: separate track, language test, own point scale | Opus + Sonnet |
 | v2.6 | GZM part 1: ranked list of GZM licea and technika, best first; top schools go in | Opus + Sonnet |
-| v2.7 | GZM part 2: next schools down the list; map filter by town | Sonnet |
-| v2.8 | Review of questions and interests: languages, economy, sociology … not only science and IT | Opus |
-| v2.9 | Ukrainian interface (school and class data stay Polish) | Opus + Sonnet |
+| v2.7 | Kraków matura ranking on school cards (K2; done 2.7.0) and sources on every card (2.7.1) | Sonnet |
+| v2.8 | GZM part 2: next schools down the list; map filter by town; Kraków review (K1, K3); Tychy thresholds | Sonnet |
+| v2.9 | Review of questions and interests: languages, economy, sociology … not only science and IT; new GZM towns in `regions` | Opus |
+| v2.10 | Ukrainian interface (school and class data stay Polish) | Opus + Sonnet |
 | v3.0 | Sports classes and exact points counting | Opus |
 
 Every v2 release also does **L1**: website links for 5–10 schools. English and French interface come after v3.0.
@@ -86,27 +158,27 @@ Every v2 release also does **L1**: website links for 5–10 schools. English and
   Open after v2.5.0: XVII LO (French; sources do not say which first-year class is bilingual), and check whether XX LO, I LO and IX LO
   still run bilingual classes (they host bilingual matura exams). Tychy IV LO 1C: language not in the source.
 
-**v2.6–v2.7 GZM**
+**v2.6, v2.8 GZM**
 - **G1 (Opus, v2.6) GZM ranked list.** All licea and technika in the GZM towns, ordered best to worst by **matura results**,
   with town, address and source. Main order: the Perspektywy "Ranking Maturalny" for licea and for technika (matura results only,
   no olympiads), newest edition (2026; perspektywy.pl). Schools not in it are placed by the otouczelnie.pl ranking for their town
   (matura pass rate + average Polish, maths and English at basic level; covers every school; already a Kompas source).
   Store both ranks and the source for each school. Store it as `kompas/liceum/data/db/pl/gzm/ranking.json`. It sets the order for G2 and G3.
 - **G2 (Sonnet, v2.6) GZM schools, top of the list.** Same steps as T3 and M1, from the top of the ranked list.
-- **G3 (Sonnet, v2.7) GZM schools, next on the list.** Same steps; plus a map filter by town.
+- **G3 (Sonnet, v2.8) GZM schools, next on the list.** Same steps; plus a map filter by town.
 
-**v2.7a Kraków review (asked 19 Nov 2026)**
+**Kraków review (asked 19 Nov 2026; K2 in v2.7, K1 and K3 in v2.8)**
 - **K1 (Sonnet) Kraków schools and classes review.** = D4 for Kraków: every school's 2026/27 classes against otouczelnie and the
   school site, 5 schools per commit; add missing classes, fix labels, move "check" to "sourced" where a source confirms it.
 - **K2 (Sonnet) Kraków ranking info.** Same idea as G1: `kompas/liceum/data/db/pl/krakow/ranking.json` with the Perspektywy
   Ranking Maturalny 2026 rank (readable top ~200) and the otouczelnie Kraków 2026 rank for every school; show the rank on school
   cards (also for GZM schools), with source.
 
-**v2.8**
+**v2.9**
 - **Q1 (Opus) Review of questions and interests.** Check worlds, activity cards, situations, strengths and directions for balance:
   languages, economy and business, sociology and psychology, law and media, arts. Add or rewrite cards; one test kid per world.
 
-**v2.9**
+**v2.10**
 - **I1 (Opus) Texts in language files.** All interface texts in one file per language; a language switch in the header.
 - **I2 (Sonnet) Ukrainian translation.** Simple words for a 14-year-old; mark it for one read by a Ukrainian speaker.
 
