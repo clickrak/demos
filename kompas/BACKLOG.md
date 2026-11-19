@@ -10,55 +10,80 @@ The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
-## Next minor: v2.8 (planned 2026-11-19)
+## Next minor: v2.8 (planned 2026-11-19, released 2026-11-19 as 2.8.0)
 
 Current `appVersion` 2.7.1. No earlier minor plan was waiting. v2.7.0 shipped K2 (Kraków ranking), not G3, so the next
 roadmap entry is **GZM part 2 (G3)** plus the open K1 review. Q1 (review of questions, Opus, design choices) moves to v2.9.
 Tonight is data plus one small screen change, mostly **Sonnet**. One commit per task (rule 8), then the release step.
 
-1. **K1-6 (Sonnet) Kraków class check, batch 6.** Goal: check the 2026/27 classes of the next 5 Kraków licea in ranking order:
+1. [~] **K1-6 (Sonnet) Kraków class check, batch 6.** Goal: check the 2026/27 classes of the next 5 Kraków licea in ranking order:
    VI LO (`lo6`), III LO (`lo3`), XIII LO (`lo13`), XLIV LO (`lo44`), XX LO (`lo20`). Same steps as D4; move "check" →
    "sourced" only with an official page or otouczelnie confirming it; never guess a threshold. Also confirm whether XX LO still
    runs a bilingual class (open B2 question).
    Files: `liceum/data/db/pl/krakow/schools.json`, `liceum/data/sources.json`.
    Check: three tests pass; commit message says how many classes moved to "sourced".
-2. **K3 (Sonnet) Two missing public Kraków licea.** Goal: add XVII LO im. Młodej Polski (otouczelnie Kraków rank 28; bilingual
+2. [ ] **K3 (Sonnet) Two missing public Kraków licea.** Goal: add XVII LO im. Młodej Polski (otouczelnie Kraków rank 28; bilingual
    French, open B2 question) and XXV LO (rank 63): address, map point (`kompas/tools/geocode_schools.py`, then compare with the
    school site and set `geoChecked`), `www`, 2026/27 classes with sources, `kompasId` link in `krakow/ranking.json`.
    Unconfirmed class facts stay `"status": "check"`. Run `kompas/tools/liceum_travel.py` only if it works offline from the
    stored GTFS; otherwise leave travel times to the weekly job and say so.
    Files: `krakow/schools.json`, `krakow/ranking.json`, `sources.json`, maybe `krakow/travel.json`.
    Check: tests pass (ranking link and region test); open `?test`, area Kraków: both schools on the map and in lists.
-3. **T6 (Sonnet) Tychy: Technikum nr 6 and 2026 thresholds.** Goal: add Technikum nr 6 (the one public Tychy school missing;
+3. [ ] **T6 (Sonnet) Tychy: Technikum nr 6 and 2026 thresholds.** Goal: add Technikum nr 6 (the one public Tychy school missing;
    GZM list order 67) the same way as T3/M1; then look for 2026/27 thresholds of all 9 Tychy schools on the schools' own
    pages ("progi punktowe 2026") or the city's recruitment page. Today 0 of 39 Tychy classes have a threshold. Enter only
    thresholds an official page shows; otherwise leave `null` and list the school in the commit message.
    Files: `liceum/data/db/pl/tychy/schools.json`, `gzm/ranking.json` (`kompasId`), `sources.json`, `config.json` (region note).
    Check: tests pass; `?test` with the Tychy test kid shows Technikum nr 6 on the map.
-4. **G3 (Sonnet) GZM next schools.** Goal: the next public schools on `gzm/ranking.json` in towns already in the data:
+4. [ ] **G3 (Sonnet) GZM next schools.** Goal: the next public schools on `gzm/ranking.json` in towns already in the data:
    I LO Gliwice (licea order 5), Akademickie LO Politechniki Śląskiej (7), Technikum nr 17 ŚTZN Katowice (technika 2),
    Technikum nr 8 Sosnowiec (3). Same steps as T3 and M1; Katowice thresholds from `otou-ka-progi-2026`. New towns
    (Chorzów order 4, Tarnowskie Góry 8) wait: they need a `regions` change, which is an Opus step in v2.9.
    Files: `gliwice/`, `katowice/`, `sosnowiec/schools.json`, `gzm/ranking.json`, `sources.json`, `config.json` (region note).
    Check: tests pass; area "Tychy i Metropolia": the four schools appear; none appear in area Kraków.
-5. **G4 (Sonnet) Map filter by town** (rest of roadmap G3). Goal: chips above the map in the Tychy + GZM area
+5. [x] **G4 (Sonnet) Map filter by town** (rest of roadmap G3). Goal: chips above the map in the Tychy + GZM area
    (`wszystkie`, Tychy, Katowice, Sosnowiec, Gliwice — built from `regions[].towns`, only towns with schools). A tap filters the
    map points only; lists stay as they are. Not shown in area Kraków (one town). No scoring change.
    Files: `liceum/app.js`, `liceum/liceum.css`.
    Check: click-through at 375 px and 1280 px in three looks; nothing wider than the screen.
-6. **L1-8 (Sonnet) School links.** Goal: `www` for 10 schools: the 5 from K1-6, plus Tychy IV LO, Technikum nr 1 and nr 2,
+6. [~] **L1-8 (Sonnet) School links.** Goal: `www` for 10 schools: the 5 from K1-6, plus Tychy IV LO, Technikum nr 1 and nr 2,
    and the missing Gliwice and Katowice links. Official sites only.
    Files: school files above. Check: syntax test (every `www` is http/https); "strona szkoły" opens in a new tab.
-7. **D9 (Sonnet) Source dates.** Goal: make `old_sources.py` meaningful: set `asOf` to `YYYY-MM` for the 6 Liceum and 2 Studia
+7. [x] **D9 (Sonnet) Source dates.** Goal: make `old_sources.py` meaningful: set `asOf` to `YYYY-MM` for the 6 Liceum and 2 Studia
    sources that say only `2026` (month = when the page was published or read, from the page); replace `ty-informator-2025` with
    the Tychy informator for 2026/27 if the city published it (otherwise keep it and note it); mark `gzm-rozporzadzenie-2017`
    as a legal act that is not stale (add `"stale": false` and let the script skip it). Add a check in `tests/syntax.mjs` that
    every `asOf` matches `YYYY-MM`. Studia `uj-kampus` and `gus-2020` stay for D7.
    Files: `liceum/data/sources.json`, `studia/data/sources.json`, `tools/old_sources.py`, `tests/syntax.mjs`.
    Check: `python3 kompas/tools/old_sources.py` lists only real old sources; three tests pass.
-8. **R2.8 (Opus) Review and release v2.8.0.** Review the Sonnet commits (sources open and say what the data says, no guessed
+8. [x] **R2.8 (Opus) Review and release v2.8.0.** Review the Sonnet commits (sources open and say what the data says, no guessed
    thresholds, areas not mixed), click-through at 375 and 1280 px, set version 2.8.0 in the four places, `dataVersion`,
    short "Kompas Liceum v2.8.0" in the spec doc, push.
+
+**Done in 2.8.0 (19 Nov 2026).**
+- K1-6 (part): 4 of 5 schools checked (VI, III, XX, XLIV LO); 18 of 31 classes moved to "sourced"; III LO got the missing class 1B;
+  XX LO and XLIV LO thresholds replaced with otouczelnie 2026/27 (conflicts gone). Year confirmed by matching the class
+  min/max with the school range in `otou-progi-licea-2026`. XX LO: no bilingual class on otouczelnie for 2026/27 (aggregator only).
+  Open: VI LO 1C (otouczelnie says general artistic, school file says bilingual English) and 1F (not on otouczelnie, kept as check).
+- G4: town chips above the map in the Tychy + GZM area (in memory only; lists unchanged; none in Kraków).
+- L1-8 (part): `www` for 9 schools (lo6, lo3, lo13, lo44, ty-lo4, ty-t1, ty-t2, gl-t1, ka-lo2). lo20 left out: the MCOO page lists
+  www.xxlo-krakow.edu.pl, but the site could not be opened to confirm it.
+- D9: 8 sources now `asOf` `2026-11` (month added to the repo; pages show no date); `gzm-rozporzadzenie-2017` has `"stale": false`
+  and `old_sources.py` skips it; `tests/syntax.mjs` checks every `asOf` is `YYYY-MM`. No Tychy informator 2026/27 found yet.
+
+**Moved forward to the next Liceum release (not done on 19 Nov).**
+- Night-run limits: the cloud run cannot reach Nominatim (map points) or gtfs.ztp.krakow.pl (Kraków travel times), and WebFetch
+  could not open Wikipedia/Wikidata/OSM pages. Tests need a map point, `geoChecked` and (Kraków) travel times for every school,
+  so no new school could be added safely. Fix: run these tasks where those hosts are reachable, or add the schools and let the
+  "Geocode schools" Action fill points and times (tests fail until it finishes, so decide first).
+- K1-6 rest: XIII LO (`lo13`) — otouczelnie page could not be read; III LO scored lists not on the page.
+- K3: XVII LO and XXV LO (blocked by map point and travel time, above).
+- T6: Technikum nr 6 Tychy (address found: ul. Browarowa 1A, 43-100 Tychy, otouczelnie; class list and map point missing).
+  Tychy thresholds 2026/27: 0 of 39; no official or otouczelnie page shows them. licea-progi.pl has IV LO 2026 numbers
+  (1C 186.45, 1B 151.05, 1A 144.1, 1D 127.45, 1P 71.45; also a class 1MS) — not entered: private site, needs Szymon's decision.
+- G3: I LO Gliwice (bilingual, IB), Akademickie LO Pol. Śl. (alogliwice.polsl.pl has listy_przyjetych_2026_27.pdf),
+  Technikum nr 17 ŚTZN Katowice, Technikum nr 8 Sosnowiec — none added (no sourced map point).
+- L1 rest: lo20 www (see above).
 
 **News found while planning (19 Nov 2026), for the tasks above.**
 - 2027/28 recruitment dates are not out yet. Małopolska set the 2026/27 dates in January 2026 (zarządzenie 10/26 MKO,
@@ -70,16 +95,16 @@ Tonight is data plus one small screen change, mostly **Sonnet**. One commit per 
 - Kraków may open a new liceum (Radio Kraków, 17 Aug 2026: 800 pupils without a place; no decision on place or date yet).
   Nothing to enter; check again in spring.
 
-**Database status (19 Nov 2026).** Known total = schools in the otouczelnie 2026 lists already in the repo (Kraków lists;
+**Database status (19 Nov 2026, after 2.8.0).** Known total = schools in the otouczelnie 2026 lists already in the repo (Kraków lists;
 Tychy and other GZM towns from `gzm/ranking.json`), including private, sports and music schools.
 
 | Area | Schools in DB / known | Public missing | Missing `www` | Classes "check" | No threshold | No `scored` | Old or badly dated sources |
 |---|---|---|---|---|---|---|---|
-| Kraków | 48 / 90 | 13 (XVII, XXV LO; 11 technika) | 43 | 156 of 231 | 41 | 87 | 2 (`otou-krk-*`, asOf "2026") |
-| Tychy | 9 / 13 | 1 (Technikum nr 6) | 3 | 39 of 39 | 39 | 30 | 1 (`ty-informator-2025`) |
-| GZM other towns | 5 / 197 | 158 | 2 | 36 of 36 | 10 | 27 | 3 (`otou-slaskie-*`, `gzm-rozporzadzenie-2017`) |
+| Kraków | 48 / 90 | 13 (XVII, XXV LO; 11 technika) | 39 | 139 of 232 | 37 | 82 | 0 |
+| Tychy | 9 / 13 | 1 (Technikum nr 6) | 0 | 39 of 39 | 39 | 30 | 1 (`ty-informator-2025`, no 2026/27 edition yet) |
+| GZM other towns | 5 / 197 | 158 | 0 | 36 of 36 | 13 | 27 | 0 |
 
-All schools in the DB have an address, a map point and `geoChecked`. K1 so far: 14 of 48 Kraków schools checked (batches 1–5).
+All schools in the DB have an address, a map point and `geoChecked`. K1 so far: 18 of 48 Kraków schools checked (batches 1–6; XIII LO still open).
 
 ### Release rules
 
@@ -110,7 +135,7 @@ All schools in the DB have an address, a map point and `geoChecked`. K1 so far: 
 | v2.5 | Bilingual classes: separate track, language test, own point scale | Opus + Sonnet |
 | v2.6 | GZM part 1: ranked list of GZM licea and technika, best first; top schools go in | Opus + Sonnet |
 | v2.7 | Kraków matura ranking on school cards (K2; done 2.7.0) and sources on every card (2.7.1) | Sonnet |
-| v2.8 | GZM part 2: next schools down the list; map filter by town; Kraków review (K1, K3); Tychy thresholds | Sonnet |
+| v2.8 | Map filter by town, Kraków class check batch 6, links, source dates (2.8.0); new GZM/Kraków schools and Tychy thresholds moved on | Sonnet |
 | v2.9 | Review of questions and interests: languages, economy, sociology … not only science and IT; new GZM towns in `regions` | Opus |
 | v2.10 | Ukrainian interface (school and class data stay Polish) | Opus + Sonnet |
 | v3.0 | Sports classes and exact points counting | Opus |
