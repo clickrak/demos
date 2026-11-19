@@ -621,5 +621,40 @@
   "title": "Przykład spoza Krakowa: CXXXVII LO w Warszawie 2026/27, maksymalnie 225,65 pkt razem ze sprawdzianem kompetencji",
   "asOf": "2026-04",
   "status": "sourced"
+ },
+ {
+  "id": "gzm-rozporzadzenie-2017",
+  "url": "https://eli.gov.pl/api/acts/DU/2017/1290/text.html",
+  "title": "Rozporządzenie Rady Ministrów z 26 czerwca 2017 o utworzeniu GZM (Dz.U. 2017 poz. 1290): lista 41 gmin",
+  "asOf": "2017-06",
+  "status": "sourced"
+ },
+ {
+  "id": "persp-matura-licea-2026",
+  "url": "https://licea.perspektywy.pl/pdf/ranking-licea-matura-2026.pdf",
+  "title": "Perspektywy: Ranking Maturalny Liceów Ogólnokształcących 2026 (matura 2025)",
+  "asOf": "2026-01",
+  "status": "sourced"
+ },
+ {
+  "id": "persp-matura-technika-2026",
+  "url": "https://technika.perspektywy.pl/pdf/ranking-technika-matura-2026.pdf",
+  "title": "Perspektywy: Ranking Maturalny Techników 2026 (matura 2025)",
+  "asOf": "2026-01",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-slaskie-licea-2026",
+  "url": "https://www.otouczelnie.pl/ranking-wojewodztwo/12/1/Ranking-liceow-2026",
+  "title": "otouczelnie.pl: ranking liceów w województwie śląskim 2026 (matura 2025)",
+  "asOf": "2026",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-slaskie-technika-2026",
+  "url": "https://www.otouczelnie.pl/ranking-wojewodztwo/12/2/Ranking-technikow-2026",
+  "title": "otouczelnie.pl: ranking techników w województwie śląskim 2026 (matura 2025)",
+  "asOf": "2026",
+  "status": "sourced"
  }
 ]

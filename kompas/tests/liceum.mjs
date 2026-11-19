@@ -158,4 +158,24 @@ for (const t of ['krakow', 'tychy']) if (!biCls.some(x => x.s.town === t)) fail(
   const prep = checkClass(pts(3), { ...bi, bilingual: { lang: 'hiszpański', kind: 'wstępna' } }, {}, data.config);
   if (prep.chance !== 'realna') fail('preparatory class does not depend on English', prep.chance); }
 console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town === 'krakow').length} Kraków, ${biCls.filter(x => x.s.town === 'tychy').length} Tychy)`);
+// GZM ranked list (v2.6, G1): two lists, ordered, every school in a GZM gmina, both ranks kept, Tychy linked to Kompas.
+{ const R = j('../liceum/data/db/pl/gzm/ranking.json');
+  const GZM = ['Bytom', 'Chorzów', 'Dąbrowa Górnicza', 'Gliwice', 'Katowice', 'Mysłowice', 'Piekary Śląskie', 'Ruda Śląska', 'Siemianowice Śląskie', 'Sosnowiec', 'Świętochłowice', 'Tychy', 'Zabrze',
+    'Będzin', 'Bieruń', 'Czeladź', 'Imielin', 'Knurów', 'Lędziny', 'Łaziska Górne', 'Mikołów', 'Pyskowice', 'Radzionków', 'Sławków', 'Tarnowskie Góry', 'Wojkowice',
+    'Bobrowniki', 'Bojszowy', 'Chełm Śląski', 'Gierałtowice', 'Kobiór', 'Mierzęcice', 'Ożarowice', 'Pilchowice', 'Psary', 'Rudziniec', 'Siewierz', 'Sośnicowice', 'Świerklaniec', 'Wyry', 'Zbrosławice'];
+  if (GZM.length !== 41) fail('GZM list should have 41 gminas');
+  for (const [k, type] of [['licea', 'liceum'], ['technika', 'technikum']]) {
+    const L = R[k] || []; if (L.length < 50) fail('GZM ranking too short', k, L.length);
+    L.forEach((x, i) => {
+      if (x.order !== i + 1) fail('GZM order', k, x.name);
+      if (x.type !== type || !GZM.includes(x.gmina)) fail('GZM school type or gmina', k, x.name, x.gmina);
+      if (!x.otouczelnie || !(x.otouczelnie.rank > 0)) fail('GZM school without otouczelnie rank', x.name);
+      if (/doros|zaoczn/i.test(x.name)) fail('adult school in GZM list', x.name);
+    });
+    const withP = L.filter(x => x.perspektywy).length;
+    if (L.slice(0, withP).some(x => !x.perspektywy)) fail('Perspektywy schools must come first', k);
+  }
+  const tyIds = allSchools.filter(s => s.town === 'tychy').map(s => s.id), linked = [...R.licea, ...R.technika].map(x => x.kompasId).filter(Boolean);
+  for (const id of linked) if (!tyIds.includes(id)) fail('GZM kompasId unknown', id);
+  console.log(`GZM ranking: ${R.licea.length} licea, ${R.technika.length} technika; linked to Kompas: ${linked.length}`); }
 process.exit(bad ? 1 : 0);

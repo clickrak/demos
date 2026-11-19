@@ -1,0 +1,3010 @@
+{
+ "asOf": "2026-11",
+ "note": "GZM licea i technika, od najlepszych do najsłabszych wg wyników matury. Najpierw szkoły z Rankingu Maturalnego Perspektywy 2026 (widoczna część tabeli, ok. 200 miejsc), dalej reszta wg rankingu otouczelnie.pl dla województwa śląskiego 2026 (matura 2025). Bez szkół dla dorosłych i zaocznych. Adresy dochodzą, gdy szkoła wchodzi do Kompasu (G2, G3).",
+ "members": {
+  "count": 41,
+  "sourceId": "gzm-rozporzadzenie-2017",
+  "notIn": [
+   "Jaworzno (nie jest członkiem GZM)",
+   "Ornontowice (nie ma w rozporządzeniu z 2017; do sprawdzenia)"
+  ]
+ },
+ "sourceIds": {
+  "perspektywyLicea": "persp-matura-licea-2026",
+  "perspektywyTechnika": "persp-matura-technika-2026",
+  "otouLicea": "otou-slaskie-licea-2026",
+  "otouTechnika": "otou-slaskie-technika-2026"
+ },
+ "licea": [
+  {
+   "name": "IV LO im. Stanisława Staszica",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "51=",
+    "score": 81.51
+   },
+   "otouczelnie": {
+    "rank": 2,
+    "score": 320.5
+   },
+   "order": 1,
+   "kompasId": null
+  },
+  {
+   "name": "III LO im. Adama Mickiewicza",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "90=",
+    "score": 77.57
+   },
+   "otouczelnie": {
+    "rank": 6,
+    "score": 308.65
+   },
+   "order": 2,
+   "kompasId": null
+  },
+  {
+   "name": "VIII LO im. Marii Skłodowskiej-Curie",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "110=",
+    "score": 75.05
+   },
+   "otouczelnie": {
+    "rank": 7,
+    "score": 307.29
+   },
+   "order": 3,
+   "kompasId": null
+  },
+  {
+   "name": "LO w ZS SRKAK im. kard. Augusta Hlonda",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": {
+    "rank": "124=",
+    "score": 73.97
+   },
+   "otouczelnie": {
+    "rank": 5,
+    "score": 312.03
+   },
+   "order": 4,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Edwarda Dembowskiego",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "133=",
+    "score": 73.53
+   },
+   "otouczelnie": {
+    "rank": 9,
+    "score": 305.49
+   },
+   "order": 5,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Marii Konopnickiej",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "133=",
+    "score": 73.33
+   },
+   "otouczelnie": {
+    "rank": 18,
+    "score": 300.45
+   },
+   "order": 6,
+   "kompasId": null
+  },
+  {
+   "name": "Akademickie LO Politechniki Śląskiej",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "186=",
+    "score": 70.66
+   },
+   "otouczelnie": {
+    "rank": 10,
+    "score": 304.84
+   },
+   "order": 7,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Stanisława Staszica",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 11,
+    "score": 304.38
+   },
+   "order": 8,
+   "kompasId": null
+  },
+  {
+   "name": "V LO im. Andrzeja Struga",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 15,
+    "score": 301.91
+   },
+   "order": 9,
+   "kompasId": null
+  },
+  {
+   "name": "I LO w AZSO im. Juliusza Słowackiego",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 19,
+    "score": 299.56
+   },
+   "order": 10,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Leona Kruczkowskiego",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 20,
+    "score": 299.34
+   },
+   "order": 11,
+   "kompasId": "ty-lo1"
+  },
+  {
+   "name": "I LO im. Mikołaja Kopernika",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 22,
+    "score": 298.83
+   },
+   "order": 12,
+   "kompasId": null
+  },
+  {
+   "name": "LO FILOMATA",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 23,
+    "score": 298.37
+   },
+   "order": 13,
+   "kompasId": null
+  },
+  {
+   "name": "I Społeczne LO im. Stanisława Konarskiego STO",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 25,
+    "score": 297.86
+   },
+   "order": 14,
+   "kompasId": null
+  },
+  {
+   "name": "II LO w ZSO nr 2 im. Gustawa Morcinka",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 29,
+    "score": 294.27
+   },
+   "order": 15,
+   "kompasId": null
+  },
+  {
+   "name": "Katolickie LO im. bł. ks. Emila Szramka",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 33,
+    "score": 290.89
+   },
+   "order": 16,
+   "kompasId": null
+  },
+  {
+   "name": "III LO w ZSO nr 11",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 34,
+    "score": 290.52
+   },
+   "order": 17,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Stefana Żeromskiego",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 35,
+    "score": 289.71
+   },
+   "order": 18,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Cypriana Kamila Norwida",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 39,
+    "score": 288.1
+   },
+   "order": 19,
+   "kompasId": "ty-lo2"
+  },
+  {
+   "name": "IV LO im. Orląt Lwowskich",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 40,
+    "score": 287.76
+   },
+   "order": 20,
+   "kompasId": null
+  },
+  {
+   "name": "V LO im. Jana Zamoyskiego",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 42,
+    "score": 286.99
+   },
+   "order": 21,
+   "kompasId": null
+  },
+  {
+   "name": "III LO w AZSO im. Stefana Batorego",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 44,
+    "score": 285.33
+   },
+   "order": 22,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Emilii Plater",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 46,
+    "score": 284.91
+   },
+   "order": 23,
+   "kompasId": null
+  },
+  {
+   "name": "IV LO im. gen. Stanisława Maczka",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 47,
+    "score": 283.58
+   },
+   "order": 24,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Tadeusza Kościuszki",
+   "town": "Mysłowice",
+   "gmina": "Mysłowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 49,
+    "score": 282.7
+   },
+   "order": 25,
+   "kompasId": null
+  },
+  {
+   "name": "I LO w ZS im. I. J. Paderewskiego",
+   "town": "Knurów",
+   "gmina": "Knurów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 51,
+    "score": 281.97
+   },
+   "order": 26,
+   "kompasId": null
+  },
+  {
+   "name": "III LO w ZSO nr 3 im. Jana Pawła II",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 54,
+    "score": 281.72
+   },
+   "order": 27,
+   "kompasId": null
+  },
+  {
+   "name": "LO In Altum",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 55,
+    "score": 280.94
+   },
+   "order": 28,
+   "kompasId": null
+  },
+  {
+   "name": "IV LO im. Bolesława Chrobrego",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 57,
+    "score": 280.63
+   },
+   "order": 29,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. prof. Zbigniewa Religi w ZS nr 1",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 62,
+    "score": 278.72
+   },
+   "order": 30,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Waleriana Łukasińskiego",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 64,
+    "score": 278.44
+   },
+   "order": 31,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Karola Miarki",
+   "town": "Mikołów",
+   "gmina": "Mikołów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 65,
+    "score": 278.16
+   },
+   "order": 32,
+   "kompasId": null
+  },
+  {
+   "name": "Katolickie LO im. św. Jana Bosko",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 67,
+    "score": 277.53
+   },
+   "order": 33,
+   "kompasId": null
+  },
+  {
+   "name": "Prywatne LO im. Melchiora Wańkowicza",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 70,
+    "score": 277.16
+   },
+   "order": 34,
+   "kompasId": null
+  },
+  {
+   "name": "Salezjańskie Liceum im. św. Dominika Savio",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 71,
+    "score": 275.88
+   },
+   "order": 35,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Jana Smolenia",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 72,
+    "score": 275.76
+   },
+   "order": 36,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Stefanii Sempołowskiej",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 74,
+    "score": 275.72
+   },
+   "order": 37,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. W. Wróblewskiego",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 76,
+    "score": 274.67
+   },
+   "order": 38,
+   "kompasId": null
+  },
+  {
+   "name": "Państwowe Liceum Sztuk Plastycznych im. Józefa Pankiewicza",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "art",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 79,
+    "score": 273.42
+   },
+   "order": 39,
+   "kompasId": null
+  },
+  {
+   "name": "Ogólnokształcąca Szkoła Muzyczna I i II st.",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "music",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 84,
+    "score": 269.67
+   },
+   "order": 40,
+   "kompasId": null
+  },
+  {
+   "name": "Salezjańskie LO",
+   "town": "Świętochłowice",
+   "gmina": "Świętochłowice",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 88,
+    "score": 268.46
+   },
+   "order": 41,
+   "kompasId": null
+  },
+  {
+   "name": "Liceum Sztuk Plastycznych w ZS nr 18",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "art",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 92,
+    "score": 266.3
+   },
+   "order": 42,
+   "kompasId": null
+  },
+  {
+   "name": "I LO w ZSO nr 1",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 93,
+    "score": 266.04
+   },
+   "order": 43,
+   "kompasId": null
+  },
+  {
+   "name": "XVI LO im. Dziewięciu Górników z Wujka",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 94,
+    "score": 265.58
+   },
+   "order": 44,
+   "kompasId": null
+  },
+  {
+   "name": "IX LO im. Wisławy Szymborskiej",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 96,
+    "score": 265.35
+   },
+   "order": 45,
+   "kompasId": null
+  },
+  {
+   "name": "LO w Psarach",
+   "town": "Psary",
+   "gmina": "Psary",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 99,
+    "score": 263.7
+   },
+   "order": 46,
+   "kompasId": null
+  },
+  {
+   "name": "SMS Radzionków, Niepubliczne LO",
+   "town": "Radzionków",
+   "gmina": "Radzionków",
+   "type": "liceum",
+   "kind": "sport",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 101,
+    "score": 261.44
+   },
+   "order": 47,
+   "kompasId": null
+  },
+  {
+   "name": "POSM II st. im. Karola Szymanowskiego",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "music",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 103,
+    "score": 260.03
+   },
+   "order": 48,
+   "kompasId": null
+  },
+  {
+   "name": "LO im. Powstańców Śląskich",
+   "town": "Bieruń",
+   "gmina": "Bieruń",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 106,
+    "score": 259.06
+   },
+   "order": 49,
+   "kompasId": null
+  },
+  {
+   "name": "X LO im. I. J. Paderewskiego",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 107,
+    "score": 258.84
+   },
+   "order": 50,
+   "kompasId": null
+  },
+  {
+   "name": "VI LO im. Janusza Korczaka",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 109,
+    "score": 256.2
+   },
+   "order": 51,
+   "kompasId": null
+  },
+  {
+   "name": "VII LO w ZSTiO nr 4 im. Jędrzeja Śniadeckiego",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 111,
+    "score": 253.4
+   },
+   "order": 52,
+   "kompasId": null
+  },
+  {
+   "name": "LO im. Powstańców Śląskich",
+   "town": "Radzionków",
+   "gmina": "Radzionków",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 113,
+    "score": 252.96
+   },
+   "order": 53,
+   "kompasId": null
+  },
+  {
+   "name": "LO nr 1",
+   "town": "Siemianowice Śląskie",
+   "gmina": "Siemianowice Śląskie",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 114,
+    "score": 252.95
+   },
+   "order": 54,
+   "kompasId": null
+  },
+  {
+   "name": "XI Salezjańskie LO",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 115,
+    "score": 251.4
+   },
+   "order": 55,
+   "kompasId": null
+  },
+  {
+   "name": "Liceum Sztuk Plastycznych im. Tadeusza Kantora",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "art",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 121,
+    "score": 246.97
+   },
+   "order": 56,
+   "kompasId": null
+  },
+  {
+   "name": "X LO w PSB",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 123,
+    "score": 245.95
+   },
+   "order": 57,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Stanisława Wyspiańskiego",
+   "town": "Będzin",
+   "gmina": "Będzin",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 124,
+    "score": 245.54
+   },
+   "order": 58,
+   "kompasId": null
+  },
+  {
+   "name": "V LO im. Władysława Broniewskiego",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 125,
+    "score": 245.49
+   },
+   "order": 59,
+   "kompasId": null
+  },
+  {
+   "name": "VII LO im. Harcerzy Obrońców Katowic",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 126,
+    "score": 243.89
+   },
+   "order": 60,
+   "kompasId": null
+  },
+  {
+   "name": "IV LO w ZS nr 1",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 127,
+    "score": 243.81
+   },
+   "order": 61,
+   "kompasId": "ty-lo4"
+  },
+  {
+   "name": "I LO im. Mikołaja Kopernika",
+   "town": "Będzin",
+   "gmina": "Będzin",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 129,
+    "score": 242.42
+   },
+   "order": 62,
+   "kompasId": null
+  },
+  {
+   "name": "Liceum Sztuk Plastycznych",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "liceum",
+   "kind": "art",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 131,
+    "score": 241.86
+   },
+   "order": 63,
+   "kompasId": null
+  },
+  {
+   "name": "Katolickie LO im. św. Brata Alberta",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 132,
+    "score": 241.7
+   },
+   "order": 64,
+   "kompasId": null
+  },
+  {
+   "name": "VIII LO w ZSO nr 5",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 134,
+    "score": 241.32
+   },
+   "order": 65,
+   "kompasId": null
+  },
+  {
+   "name": "III LO im. Stanisława Wyspiańskiego",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 135,
+    "score": 241.24
+   },
+   "order": 66,
+   "kompasId": "ty-lo3"
+  },
+  {
+   "name": "IV LO im. Marii Skłodowskiej-Curie",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 137,
+    "score": 239.21
+   },
+   "order": 67,
+   "kompasId": null
+  },
+  {
+   "name": "LO nr 2",
+   "town": "Siemianowice Śląskie",
+   "gmina": "Siemianowice Śląskie",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 143,
+    "score": 233.65
+   },
+   "order": 68,
+   "kompasId": null
+  },
+  {
+   "name": "II LO w ZSO nr 1 im. J. Ligonia",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 145,
+    "score": 233.44
+   },
+   "order": 69,
+   "kompasId": null
+  },
+  {
+   "name": "Liceum Sportowe w ZSS im. Polskich Olimpijczyków",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "sport",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 147,
+    "score": 232.75
+   },
+   "order": 70,
+   "kompasId": null
+  },
+  {
+   "name": "II LO w ZSO nr 5",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 148,
+    "score": 232.17
+   },
+   "order": 71,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. rotmistrza Witolda Pileckiego",
+   "town": "Mikołów",
+   "gmina": "Mikołów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 149,
+    "score": 231.82
+   },
+   "order": 72,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Jana Kochanowskiego",
+   "town": "Świętochłowice",
+   "gmina": "Świętochłowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 152,
+    "score": 229.99
+   },
+   "order": 73,
+   "kompasId": null
+  },
+  {
+   "name": "LO nr 3",
+   "town": "Siemianowice Śląskie",
+   "gmina": "Siemianowice Śląskie",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 153,
+    "score": 229.87
+   },
+   "order": 74,
+   "kompasId": null
+  },
+  {
+   "name": "I LO im. Króla Jana III Sobieskiego",
+   "town": "Piekary Śląskie",
+   "gmina": "Piekary Śląskie",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 154,
+    "score": 229.43
+   },
+   "order": 75,
+   "kompasId": null
+  },
+  {
+   "name": "LO im. Jana Pawła II",
+   "town": "Siewierz",
+   "gmina": "Siewierz",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 155,
+    "score": 229.38
+   },
+   "order": 76,
+   "kompasId": null
+  },
+  {
+   "name": "Akademickie LO",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 158,
+    "score": 228.4
+   },
+   "order": 77,
+   "kompasId": null
+  },
+  {
+   "name": "LO w ZS im. Marii Konopnickiej",
+   "town": "Pyskowice",
+   "gmina": "Pyskowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 159,
+    "score": 228.34
+   },
+   "order": 78,
+   "kompasId": null
+  },
+  {
+   "name": "III LO im. Wincentego Styczyńskiego",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 160,
+    "score": 227.42
+   },
+   "order": 79,
+   "kompasId": null
+  },
+  {
+   "name": "IV LO w ZSO nr 12 im. Mikołaja Reja",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 161,
+    "score": 227.22
+   },
+   "order": 80,
+   "kompasId": null
+  },
+  {
+   "name": "IX LO w ZSO nr 2 im. Miłośników Ziemi Śląskiej",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 162,
+    "score": 226.56
+   },
+   "order": 81,
+   "kompasId": null
+  },
+  {
+   "name": "LO w ZS im. Jana Pawła II",
+   "town": "Sławków",
+   "gmina": "Sławków",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 164,
+    "score": 225.25
+   },
+   "order": 82,
+   "kompasId": null
+  },
+  {
+   "name": "LO Mistrzostwa Sportowego",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "sport",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 165,
+    "score": 225.13
+   },
+   "order": 83,
+   "kompasId": null
+  },
+  {
+   "name": "III LO im. Cypriana Kamila Norwida",
+   "town": "Będzin",
+   "gmina": "Będzin",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 169,
+    "score": 221.08
+   },
+   "order": 84,
+   "kompasId": null
+  },
+  {
+   "name": "VI LO w ZSTU",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 172,
+    "score": 220.4
+   },
+   "order": 85,
+   "kompasId": null
+  },
+  {
+   "name": "VII LO w ZSO nr 10",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 173,
+    "score": 220.28
+   },
+   "order": 86,
+   "kompasId": null
+  },
+  {
+   "name": "Liceum Sztuk Plastycznych",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "art",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 175,
+    "score": 218.64
+   },
+   "order": 87,
+   "kompasId": null
+  },
+  {
+   "name": "VI LO im. Jana Długosza",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 176,
+    "score": 218.28
+   },
+   "order": 88,
+   "kompasId": null
+  },
+  {
+   "name": "VIII LO",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 177,
+    "score": 217.69
+   },
+   "order": 89,
+   "kompasId": null
+  },
+  {
+   "name": "Niepubliczne LO Maranatha",
+   "town": "Knurów",
+   "gmina": "Knurów",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 180,
+    "score": 214.74
+   },
+   "order": 90,
+   "kompasId": null
+  },
+  {
+   "name": "Liceum Mistrzostwa Sportowego Tychy",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "liceum",
+   "kind": "sport",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 181,
+    "score": 213.96
+   },
+   "order": 91,
+   "kompasId": null
+  },
+  {
+   "name": "III LO im. Bolesława Prusa",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 182,
+    "score": 210.28
+   },
+   "order": 92,
+   "kompasId": null
+  },
+  {
+   "name": "VII LO w ZSO nr 4",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 183,
+    "score": 209.31
+   },
+   "order": 93,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Stefana Żeromskiego",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 187,
+    "score": 207.12
+   },
+   "order": 94,
+   "kompasId": null
+  },
+  {
+   "name": "VII LO im. Krzysztofa Kamila Baczyńskiego",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 189,
+    "score": 204.18
+   },
+   "order": 95,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Powstańców Śląskich",
+   "town": "Mysłowice",
+   "gmina": "Mysłowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 190,
+    "score": 202.27
+   },
+   "order": 96,
+   "kompasId": null
+  },
+  {
+   "name": "LO w ZSOiT im. rtm. Witolda Pileckiego",
+   "town": "Wojkowice",
+   "gmina": "Wojkowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 191,
+    "score": 200.73
+   },
+   "order": 97,
+   "kompasId": null
+  },
+  {
+   "name": "LO im. Marii Skłodowskiej-Curie",
+   "town": "Czeladź",
+   "gmina": "Czeladź",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 193,
+    "score": 200.1
+   },
+   "order": 98,
+   "kompasId": null
+  },
+  {
+   "name": "V LO Mistrzostwa Sportowego im. Kamili Skolimowskiej",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "sport",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 194,
+    "score": 200.06
+   },
+   "order": 99,
+   "kompasId": null
+  },
+  {
+   "name": "XII LO w ZS Sportowych",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "sport",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 197,
+    "score": 198.75
+   },
+   "order": 100,
+   "kompasId": null
+  },
+  {
+   "name": "IV LO w ZSOiP im. Herberta Clarka Hoovera",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 198,
+    "score": 196.79
+   },
+   "order": 101,
+   "kompasId": null
+  },
+  {
+   "name": "XIV LO im. mjr. Henryka Sucharskiego",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 200,
+    "score": 195.09
+   },
+   "order": 102,
+   "kompasId": null
+  },
+  {
+   "name": "III LO w ZSO nr 2 im. Lucjana Szenwalda",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 203,
+    "score": 194.51
+   },
+   "order": 103,
+   "kompasId": null
+  },
+  {
+   "name": "IX LO w Centrum Edukacji",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 204,
+    "score": 189.75
+   },
+   "order": 104,
+   "kompasId": null
+  },
+  {
+   "name": "LO im. Orląt Lwowskich ZDZ",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 207,
+    "score": 188.44
+   },
+   "order": 105,
+   "kompasId": null
+  },
+  {
+   "name": "II LO w ZSZ",
+   "town": "Knurów",
+   "gmina": "Knurów",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 208,
+    "score": 188.07
+   },
+   "order": 106,
+   "kompasId": null
+  },
+  {
+   "name": "II LO",
+   "town": "Piekary Śląskie",
+   "gmina": "Piekary Śląskie",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 211,
+    "score": 185.56
+   },
+   "order": 107,
+   "kompasId": null
+  },
+  {
+   "name": "II LO im. Mikołaja Reja",
+   "town": "Świętochłowice",
+   "gmina": "Świętochłowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 213,
+    "score": 182.86
+   },
+   "order": 108,
+   "kompasId": null
+  },
+  {
+   "name": "LO Animator",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 216,
+    "score": 175.37
+   },
+   "order": 109,
+   "kompasId": null
+  },
+  {
+   "name": "VII LO w ZSAEiO",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 218,
+    "score": 173.97
+   },
+   "order": 110,
+   "kompasId": null
+  },
+  {
+   "name": "LO ZDZ",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 223,
+    "score": 159.34
+   },
+   "order": 111,
+   "kompasId": null
+  },
+  {
+   "name": "Prywatne LO im. M. Skłodowskiej-Curie Fundacji Serce Szkole",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 224,
+    "score": 158.23
+   },
+   "order": 112,
+   "kompasId": null
+  },
+  {
+   "name": "XV LO im. Witolda Pileckiego",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "liceum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 228,
+    "score": 145.82
+   },
+   "order": 113,
+   "kompasId": null
+  },
+  {
+   "name": "Niepubliczne Policyjne LO AS",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "liceum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 229,
+    "score": 145.03
+   },
+   "order": 114,
+   "kompasId": null
+  }
+ ],
+ "technika": [
+  {
+   "name": "Technikum nr 1 w ZS Techniczno-Informatycznych",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "15=",
+    "score": 65.98
+   },
+   "otouczelnie": {
+    "rank": 1,
+    "score": 285.46
+   },
+   "order": 1,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 17 w ŚTZN",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "30=",
+    "score": 60.78
+   },
+   "otouczelnie": {
+    "rank": 2,
+    "score": 278.69
+   },
+   "order": 2,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 8 w ZSEiI",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "59=",
+    "score": 54.43
+   },
+   "otouczelnie": {
+    "rank": 4,
+    "score": 270.89
+   },
+   "order": 3,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 7 w ZSAP",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "68=",
+    "score": 53.48
+   },
+   "otouczelnie": {
+    "rank": 11,
+    "score": 258.0
+   },
+   "order": 4,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 w ZSTiO",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "111=",
+    "score": 50.54
+   },
+   "otouczelnie": {
+    "rank": 8,
+    "score": 259.69
+   },
+   "order": 5,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Mechaniczno-Elektryczne im. Nikoli Tesli w ZSTiO nr 3",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "111=",
+    "score": 50.52
+   },
+   "otouczelnie": {
+    "rank": 9,
+    "score": 259.37
+   },
+   "order": 6,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Lotnicze ZDZ",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "prv",
+   "perspektywy": {
+    "rank": "143=",
+    "score": 48.35
+   },
+   "otouczelnie": {
+    "rank": 17,
+    "score": 250.41
+   },
+   "order": 7,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2 w ZS Ekonomicznych im. W. Korfantego",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "174=",
+    "score": 47.6
+   },
+   "otouczelnie": {
+    "rank": 69,
+    "score": 220.51
+   },
+   "order": 8,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 6 w ZSTiO",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": {
+    "rank": "183=",
+    "score": 46.89
+   },
+   "otouczelnie": {
+    "rank": 20,
+    "score": 249.24
+   },
+   "order": 9,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 im. Powstańców Śląskich w ZSTiO nr 2",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 14,
+    "score": 253.0
+   },
+   "order": 10,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2 w ZSTiO",
+   "town": "Siemianowice Śląskie",
+   "gmina": "Siemianowice Śląskie",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 18,
+    "score": 250.12
+   },
+   "order": 11,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1 w ZS im. I. J. Paderewskiego",
+   "town": "Knurów",
+   "gmina": "Knurów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 24,
+    "score": 247.21
+   },
+   "order": 12,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 18 w ZS Poligraficzno-Mechanicznych im. AK",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 25,
+    "score": 245.83
+   },
+   "order": 13,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 3 w ZSŁ",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 26,
+    "score": 245.57
+   },
+   "order": 14,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2 w TZN",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 30,
+    "score": 240.76
+   },
+   "order": 15,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2 w Górnośląskim Centrum Edukacyjnym",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 31,
+    "score": 239.65
+   },
+   "order": 16,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 7 w ZS nr 10",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 32,
+    "score": 238.19
+   },
+   "order": 17,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 3",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 34,
+    "score": 235.16
+   },
+   "order": 18,
+   "kompasId": "ty-t3"
+  },
+  {
+   "name": "Technikum nr 2 w ZSBA",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 36,
+    "score": 232.63
+   },
+   "order": 19,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum w ZSZ nr 2",
+   "town": "Knurów",
+   "gmina": "Knurów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 37,
+    "score": 232.5
+   },
+   "order": 20,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum TEB Edukacja",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 39,
+    "score": 231.48
+   },
+   "order": 21,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 6 w ZSGH",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 42,
+    "score": 231.0
+   },
+   "order": 22,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 10 w ZSPS",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 43,
+    "score": 230.74
+   },
+   "order": 23,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 12 w ZSTiO nr 3",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 44,
+    "score": 230.31
+   },
+   "order": 24,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 8",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 45,
+    "score": 230.22
+   },
+   "order": 25,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum",
+   "town": "Bieruń",
+   "gmina": "Bieruń",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 46,
+    "score": 229.93
+   },
+   "order": 26,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum ZS-ZDZ",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "technikum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 48,
+    "score": 227.59
+   },
+   "order": 27,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 9 w CEEH",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 53,
+    "score": 225.4
+   },
+   "order": 28,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1 w ZSCHMiO",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 55,
+    "score": 224.87
+   },
+   "order": 29,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum im. Anieli Fabery w PZS",
+   "town": "Lędziny",
+   "gmina": "Lędziny",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 57,
+    "score": 224.36
+   },
+   "order": 30,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 59,
+    "score": 223.86
+   },
+   "order": 31,
+   "kompasId": "ty-t2"
+  },
+  {
+   "name": "Technikum nr 1 im. Marii Skłodowskiej-Curie",
+   "town": "Czeladź",
+   "gmina": "Czeladź",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 63,
+    "score": 222.33
+   },
+   "order": 32,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 w ZS Budowlano-Ceramicznych",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 65,
+    "score": 221.39
+   },
+   "order": 33,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Ekonomiczne w CKZiU",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 66,
+    "score": 221.25
+   },
+   "order": 34,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 67,
+    "score": 221.21
+   },
+   "order": 35,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 6",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 68,
+    "score": 221.14
+   },
+   "order": 36,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1 w ZS nr 1",
+   "town": "Piekary Śląskie",
+   "gmina": "Piekary Śląskie",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 72,
+    "score": 220.01
+   },
+   "order": 37,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum w ZST",
+   "town": "Mikołów",
+   "gmina": "Mikołów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 73,
+    "score": 219.97
+   },
+   "order": 38,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 w ZSP nr 4",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 76,
+    "score": 216.93
+   },
+   "order": 39,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2 im. St. Ligonia w ZSP nr 2",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 77,
+    "score": 216.82
+   },
+   "order": 40,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum w ZS im. Marii Konopnickiej",
+   "town": "Pyskowice",
+   "gmina": "Pyskowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 78,
+    "score": 216.51
+   },
+   "order": 41,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1 Ekonomiczne w CKZiU",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 79,
+    "score": 215.93
+   },
+   "order": 42,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Chemiczne w ZSTiO nr 4",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 81,
+    "score": 215.23
+   },
+   "order": 43,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum w ZSTiO",
+   "town": "Siewierz",
+   "gmina": "Siewierz",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 83,
+    "score": 213.76
+   },
+   "order": 44,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 3 Gastronomiczno-Hotelarskie w CKZiU",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 84,
+    "score": 213.58
+   },
+   "order": 45,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 12 w ZSTU",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 85,
+    "score": 213.14
+   },
+   "order": 46,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 13",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 86,
+    "score": 212.83
+   },
+   "order": 47,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 89,
+    "score": 212.06
+   },
+   "order": 48,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 8 w ZS Ekonomiczno-Technicznych",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 91,
+    "score": 211.16
+   },
+   "order": 49,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 5 Samochodowo-Mechatroniczne",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 92,
+    "score": 210.75
+   },
+   "order": 50,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 3 w ZSE",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 93,
+    "score": 210.37
+   },
+   "order": 51,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 3",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 99,
+    "score": 206.99
+   },
+   "order": 52,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 im. M. Skłodowskiej-Curie",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 102,
+    "score": 206.0
+   },
+   "order": 53,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 3 w ZS nr 3",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 104,
+    "score": 205.74
+   },
+   "order": 54,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Gastronomiczne w ZSG-U",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 108,
+    "score": 203.27
+   },
+   "order": 55,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum TEB Edukacja",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "technikum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 110,
+    "score": 202.48
+   },
+   "order": 56,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 113,
+    "score": 201.57
+   },
+   "order": 57,
+   "kompasId": "ty-t1"
+  },
+  {
+   "name": "Technikum nr 2 Architektoniczno-Budowlane w CKZiU",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 114,
+    "score": 201.21
+   },
+   "order": 58,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Architektury Krajobrazu im. rtm. Witolda Pileckiego w ZSOiT",
+   "town": "Wojkowice",
+   "gmina": "Wojkowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 118,
+    "score": 200.12
+   },
+   "order": 59,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 5 w CKZiU nr 1",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 119,
+    "score": 199.92
+   },
+   "order": 60,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 121,
+    "score": 199.55
+   },
+   "order": 61,
+   "kompasId": "ty-t4"
+  },
+  {
+   "name": "Technikum nr 3 w ZS nr 5",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 122,
+    "score": 199.49
+   },
+   "order": 62,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2",
+   "town": "Mysłowice",
+   "gmina": "Mysłowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 123,
+    "score": 199.19
+   },
+   "order": 63,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 5 w ZSP nr 5",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 124,
+    "score": 199.15
+   },
+   "order": 64,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 15",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 125,
+    "score": 199.1
+   },
+   "order": 65,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 6 Grafiki, Logistyki i Środowiska",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 128,
+    "score": 198.05
+   },
+   "order": 66,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 6 w ZS",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 129,
+    "score": 197.46
+   },
+   "order": 67,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 8",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 130,
+    "score": 197.1
+   },
+   "order": 68,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 5 w WZS",
+   "town": "Tarnowskie Góry",
+   "gmina": "Tarnowskie Góry",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 131,
+    "score": 195.9
+   },
+   "order": 69,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 13 w ZSTE",
+   "town": "Radzionków",
+   "gmina": "Radzionków",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 134,
+    "score": 193.8
+   },
+   "order": 70,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum w ZSEiU",
+   "town": "Łaziska Górne",
+   "gmina": "Łaziska Górne",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 138,
+    "score": 192.36
+   },
+   "order": 71,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 Transportowe",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 139,
+    "score": 191.47
+   },
+   "order": 72,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 7 Projektowania i Stylizacji Ubioru",
+   "town": "Sosnowiec",
+   "gmina": "Sosnowiec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 142,
+    "score": 190.75
+   },
+   "order": 73,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1 w ZSP-Cogito",
+   "town": "Siemianowice Śląskie",
+   "gmina": "Siemianowice Śląskie",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 143,
+    "score": 189.84
+   },
+   "order": 74,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum w ZSCKR",
+   "town": "Nakło Śląskie",
+   "gmina": "Świerklaniec",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 144,
+    "score": 189.32
+   },
+   "order": 75,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2 w ZS Mechaniczno-Samochodowych",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 145,
+    "score": 188.0
+   },
+   "order": 76,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Budowlane w ZSB",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 147,
+    "score": 187.34
+   },
+   "order": 77,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 149,
+    "score": 185.21
+   },
+   "order": 78,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Elektroniczne w ZST nr 1",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 150,
+    "score": 184.82
+   },
+   "order": 79,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 w ZST",
+   "town": "Dąbrowa Górnicza",
+   "gmina": "Dąbrowa Górnicza",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 152,
+    "score": 183.68
+   },
+   "order": 80,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 4 w ZS Ekonomiczno-Usługowych",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 155,
+    "score": 181.24
+   },
+   "order": 81,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 158,
+    "score": 180.18
+   },
+   "order": 82,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum",
+   "town": "Świętochłowice",
+   "gmina": "Świętochłowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 160,
+    "score": 179.1
+   },
+   "order": 83,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 2 w CKZiU",
+   "town": "Mysłowice",
+   "gmina": "Mysłowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 161,
+    "score": 178.46
+   },
+   "order": 84,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 5 w ZSA-E i O",
+   "town": "Bytom",
+   "gmina": "Bytom",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 166,
+    "score": 176.11
+   },
+   "order": 85,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum TEB Edukacja",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 170,
+    "score": 172.07
+   },
+   "order": 86,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 5 w ZS",
+   "town": "Tychy",
+   "gmina": "Tychy",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 171,
+    "score": 171.78
+   },
+   "order": 87,
+   "kompasId": "ty-t5"
+  },
+  {
+   "name": "Technikum nr 2",
+   "town": "Będzin",
+   "gmina": "Będzin",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 172,
+    "score": 171.19
+   },
+   "order": 88,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 6 Zabrzańskie Centrum Kształcenia Ogólnego i Zawodowego",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 178,
+    "score": 162.04
+   },
+   "order": 89,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 16",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 179,
+    "score": 161.66
+   },
+   "order": 90,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 5 w ZS Spożywczych",
+   "town": "Zabrze",
+   "gmina": "Zabrze",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 180,
+    "score": 160.73
+   },
+   "order": 91,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum ZDZ",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "prv",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 181,
+    "score": 159.22
+   },
+   "order": 92,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum Samochodowe w ZST nr 2",
+   "town": "Chorzów",
+   "gmina": "Chorzów",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 182,
+    "score": 158.1
+   },
+   "order": 93,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 7 w ZS Samochodowych",
+   "town": "Gliwice",
+   "gmina": "Gliwice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 185,
+    "score": 151.14
+   },
+   "order": 94,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 1 im. Powstańców Śląskich",
+   "town": "Ruda Śląska",
+   "gmina": "Ruda Śląska",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 186,
+    "score": 141.73
+   },
+   "order": 95,
+   "kompasId": null
+  },
+  {
+   "name": "Technikum nr 7",
+   "town": "Katowice",
+   "gmina": "Katowice",
+   "type": "technikum",
+   "kind": "pub",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 188,
+    "score": 127.81
+   },
+   "order": 96,
+   "kompasId": null
+  }
+ ]
+}
