@@ -67,7 +67,7 @@
   "pay": {
    "band": 3,
    "group": "Lekarze",
-   "sourceId": "gus-2020"
+   "sourceId": "gus-2024"
   }
  },
  {
@@ -418,7 +418,7 @@
   "pay": {
    "band": 3,
    "group": "Analitycy systemów komputerowych i programiści",
-   "sourceId": "gus-2020"
+   "sourceId": "gus-2024"
   }
  },
  {
@@ -839,7 +839,7 @@
   "pay": {
    "band": 3,
    "group": "Analitycy systemów komputerowych i programiści",
-   "sourceId": "gus-2020"
+   "sourceId": "gus-2024"
   }
  },
  {
@@ -910,7 +910,7 @@
   "pay": {
    "band": 3,
    "group": "Specjaliści ds. baz danych i sieci komputerowych",
-   "sourceId": "gus-2020"
+   "sourceId": "gus-2024"
   }
  },
  {

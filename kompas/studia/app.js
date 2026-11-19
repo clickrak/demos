@@ -1,6 +1,6 @@
 // Kompas Studia v1.1.2. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText } from '../core/scoring.js';
-import { buildMarkdown, fileName, parseSaved } from '../core/export.js';
+import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
 import { ILLUS } from './illus.js';
@@ -569,7 +569,7 @@ function payHtml(k) {
   const src = data.sources.find(x => x.id === k.pay.sourceId);
   const b = k.pay.band;
   return `<span class="pay" aria-label="poziom zarobków ${b} z 3"><b>${'$'.repeat(b)}</b><i>${'$'.repeat(3 - b)}</i></span> ${PAY_TXT[b]}
-    <span class="small muted">Typowa pensja na etacie w grupie „${esc(k.pay.group)}”, w porównaniu z innymi zawodami (${src ? `<a href="${src.url}" target="_blank" rel="noopener">GUS, październik 2020</a>` : 'GUS'}). Liczy się też to, co lubisz robić.</span>`;
+    <span class="small muted">Typowa pensja na etacie w grupie „${esc(k.pay.group)}”, w porównaniu z innymi zawodami (${src ? `<a href="${src.url}" target="_blank" rel="noopener">${payLabel(src)}</a>` : 'GUS'}). Liczy się też to, co lubisz robić.</span>`;
 }
 function cardHtml(slot, c, open, scenario) {
   const k = c.card;

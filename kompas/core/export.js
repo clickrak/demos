@@ -1,6 +1,13 @@
 // Builds the markdown export. Everything happens in the browser; nothing is uploaded.
 import { provenStrengths, proofText, pathSteps, planFocus, planItems } from './scoring.js';
 
+const MONTHS = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+// "GUS, październik 2024" from a source's asOf ("2024-10"), so the words always match the data.
+export function payLabel(src) {
+  const m = /^(\d{4})-(\d{2})$/.exec(src?.asOf || '');
+  return m ? `GUS, ${MONTHS[+m[2] - 1]} ${m[1]}` : 'GUS';
+}
+
 const bar = v => '█'.repeat(Math.round(v / 10)) + '░'.repeat(10 - Math.round(v / 10));
 
 export function fileName(answers, today) {
@@ -39,7 +46,7 @@ export function buildMarkdown(answers, result, data, today) {
     L.push(`### ${title}: ${c.card.name} – ${c.band}`);
     L.push(`Komu pomagam: ${c.card.whoYouHelp}`);
     L.push(`Co mi to daje: ${c.card.whatYouGet}`);
-    if (c.card.pay) L.push(`Zarobki orientacyjnie: ${'$'.repeat(c.card.pay.band)} z $$$ (GUS, październik 2020, grupa „${c.card.pay.group}”)`);
+    if (c.card.pay) L.push(`Zarobki orientacyjnie: ${'$'.repeat(c.card.pay.band)} z $$$ (${payLabel((data.sources || []).find(x => x.id === c.card.pay.sourceId))}, grupa „${c.card.pay.group}”)`);
     if (c.strengthsUsed.length) L.push(`Moje mocne strony, które tu pracują: ${c.strengthsUsed.map(p => p.label).join(', ')}`);
     if (c.reasons.length) L.push(`Dlaczego: ${c.reasons.join('; ')}`);
     L.push(`Odporność na scenariusze: ${data.scenarios.scenarios.map(x => `${x.name}: ${c.card.robustness[x.id]}`).join(' · ')}`);

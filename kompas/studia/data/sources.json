@@ -271,5 +271,12 @@
   "title": "AGH: progi punktowe, rekrutacja 2026/2027, I cykl (otouczelnie); skala AGH 0–1000 pkt",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "gus-2024",
+  "url": "https://publikacje.new.stat.gov.pl/en/publications-portal/structure-wages-and-salaries-occupations-october-2024",
+  "title": "GUS: Struktura wynagrodzeń według zawodów za październik 2024 r. (luty 2026); średnio 8944,79 zł, lekarze 17440,10 zł, analitycy systemów i programiści 15629,51 zł, specjaliści ds. baz danych i sieci 13934,67 zł",
+  "asOf": "2024-10",
+  "status": "sourced"
  }
 ]
