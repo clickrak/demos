@@ -192,7 +192,7 @@ function vTowns() {
     ${r.note ? `<p class="small muted">${esc(r.note)}</p>` : ''}${r.later ? `<p class="small muted">${esc(r.later)}</p>` : ''}
     ${origins().length ? `<h2>Skąd będziesz jechać do szkoły?</h2><p class="muted">Kliknij swoją dzielnicę. Przy każdej szkole pokażemy, ile mniej więcej trwa dojazd. Możesz pominąć.</p>
       <div class="chips">${origins().map(o => chip(`data-from="${o.id}"`, esc(o.name), A.from === o.id)).join('')}${chip('data-from=""', 'pomiń', !A.from)}</div>
-      <p class="small muted">Liczymy komunikacją miejską z okolic środka dzielnicy, we wtorek rano (7:00–7:40), z dojściem pieszo i najwyżej jedną przesiadką. To orientacja: sprawdź dokładnie przyciskiem „Dojazd”.</p>`
+      <p class="small muted">Liczymy komunikacją miejską z kilku miejsc w twojej dzielnicy, we wtorek rano (7:00–7:40), z dojściem pieszo i najwyżej dwiema przesiadkami. To orientacja: sprawdź dokładnie przyciskiem „Dojazd”.</p>`
       : `<p class="small muted">Czas dojazdu dla tego miejsca dojdzie później.</p>`}
     <p class="note2">Jeśli twojego miasta jeszcze nie ma, wybierz najbliższe miejsce: kierunki na kompasie i tak będą twoje.</p>`;
 }

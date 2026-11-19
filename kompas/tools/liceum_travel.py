@@ -3,9 +3,9 @@
 Runs in GitHub Actions (the app itself never calls anything outside):
   1. gets the boundary of each of the 18 Kraków districts from OpenStreetMap Nominatim,
   2. downloads the official Kraków GTFS timetables (same feeds and loader as tools/transport.py for Studia),
-  3. picks up to SAMPLES stops spread over the district (inside its boundary),
+  3. picks SAMPLES stops inside the district boundary where stops are dense (k-means),
   4. for departures on a school-day morning (Tuesday 7:00-7:40) computes the fastest trip from each sample stop
-     to the stops near each school, walking included, with at most one change.
+     to the stops near each school, walking included, with at most two changes.
 Writes kompas/liceum/data/db/pl/krakow/travel.json: per school and district the median over sample stops and
 departures, so a big district (Nowa Huta) gets a typical time, not one from its emptiest corner.
 
@@ -62,13 +62,16 @@ def inside(la, lo, rings):
 
 
 def spread(points, k):
-    """Up to k points far from each other (farthest-point sampling, starting near the centre of the group)."""
+    """k stops that follow where stops are dense (k-means on stop positions; each centre -> its nearest stop).
+    Dense stop areas are where people live, so a big district with rural edges still gets a typical start."""
     if len(points) <= k: return points
-    cla = sum(p[0] for p in points) / len(points); clo = sum(p[1] for p in points) / len(points)
-    pick = [min(points, key=lambda p: dist(p, (cla, clo)))]
-    while len(pick) < k:
-        pick.append(max(points, key=lambda p: min(dist(p, q) for q in pick)))
-    return pick
+    pts = sorted(points)
+    cent = [pts[int((i + 0.5) * len(pts) / k)] for i in range(k)]
+    for _ in range(20):
+        groups = [[] for _ in cent]
+        for p in pts: groups[min(range(len(cent)), key=lambda i: dist(p, cent[i]))].append(p)
+        cent = [(sum(p[0] for p in g) / len(g), sum(p[1] for p in g) / len(g)) if g else c for g, c in zip(groups, cent)]
+    return sorted({min(pts, key=lambda p: dist(p, c)) for c in cent})
 
 
 def main():
@@ -114,9 +117,9 @@ def main():
                 if a < out.get(o, 1e18): out[o] = a
         return out
 
-    def run(start):  # start: {stop: time}; two rounds = at most one change
+    def run(start):  # start: {stop: time}; three rounds = at most two changes
         best = walk_from(start); result = dict(best)
-        for rnd in (1, 2):
+        for rnd in (1, 2, 3):
             new, buf = {}, (0 if rnd == 1 else 60)
             for rows in tripl:
                 on = False
@@ -156,7 +159,7 @@ def main():
     for o in origins: o.pop('rings', None)
 
     out = {'asOf': infos[0]['serviceDay'], 'source': GTFS_BASE, 'feeds': [i['feed'] for i in infos],
-           'method': 'z kilku przystanków rozłożonych po całej dzielnicy, wtorek 7:00–7:40, komunikacja miejska z dojściem pieszo, najwyżej jedna przesiadka; mediana',
+           'method': 'z 6 przystanków w dzielnicy, tam gdzie jest ich najwięcej, wtorek 7:00–7:40, komunikacja miejska z dojściem pieszo, najwyżej dwie przesiadki; mediana',
            'origins': origins, 'schools': table}
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1))
     print('schools', len(table))
