@@ -25,7 +25,7 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "2.1.0",
+ "appVersion": "2.1.1",
  "dataVersion": "2026-11-19",
  "towns": [
   {
@@ -54,6 +54,16 @@
    "travelSourceIds": [
     "krk-dzielnice",
     "krk-gtfs"
+   ],
+   "transit": [
+    {
+     "name": "rozkłady MPK Kraków",
+     "url": "https://mpk.krakow.pl/"
+    },
+    {
+     "name": "jakdojade.pl",
+     "url": "https://jakdojade.pl/"
+    }
    ]
   },
   {
@@ -66,7 +76,17 @@
    "status": "ready",
    "sourceId": "tychy-kokis-2025",
    "note": "4 licea i 3 z 6 techników miejskich. Technika nr 1, 5 i 6 dojdą później: źródła podają dla nich sprzeczne kierunki.",
-   "later": "Katowice i inne miasta Metropolii dojdą w kolejnych wersjach."
+   "later": "Katowice i inne miasta Metropolii dojdą w kolejnych wersjach.",
+   "transit": [
+    {
+     "name": "rozkłady ZTM (Metropolia)",
+     "url": "https://www.metropoliaztm.pl/"
+    },
+    {
+     "name": "jakdojade.pl",
+     "url": "https://jakdojade.pl/"
+    }
+   ]
   }
  ],
  "thresholdYear": "2026/27",
