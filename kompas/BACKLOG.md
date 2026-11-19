@@ -81,8 +81,11 @@ Every v2 release also does **L1**: website links for 5–10 schools. English and
 - **B2 (Sonnet) Bilingual classes.** All bilingual classes in Kraków and Tychy (for example XVII LO), with sources.
 
 **v2.6–v2.7 GZM**
-- **G1 (Opus, v2.6) GZM ranked list.** All licea and technika in the GZM towns, ordered best to worst by the newest Perspektywy ranking,
-  with town, address and source. Store it as `kompas/liceum/data/db/pl/gzm/ranking.json`. It sets the order for G2 and G3.
+- **G1 (Opus, v2.6) GZM ranked list.** All licea and technika in the GZM towns, ordered best to worst by **matura results**,
+  with town, address and source. Main order: the Perspektywy "Ranking Maturalny" for licea and for technika (matura results only,
+  no olympiads), newest edition (2026; perspektywy.pl). Schools not in it are placed by the otouczelnie.pl ranking for their town
+  (matura pass rate + average Polish, maths and English at basic level; covers every school; already a Kompas source).
+  Store both ranks and the source for each school. Store it as `kompas/liceum/data/db/pl/gzm/ranking.json`. It sets the order for G2 and G3.
 - **G2 (Sonnet, v2.6) GZM schools, top of the list.** Same steps as T3 and M1, from the top of the ranked list.
 - **G3 (Sonnet, v2.7) GZM schools, next on the list.** Same steps; plus a map filter by town.
 
