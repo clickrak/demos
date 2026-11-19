@@ -518,6 +518,7 @@
   "address": "al. Bielska 100, 43-100 Tychy",
   "addressSourceId": "we-ty-t3",
   "www": "https://zs4-tychy.edupage.org/",
+  "classListSourceId": "zs4-ty-rekrutacja",
   "classes": [
    {
     "code": "1A",
