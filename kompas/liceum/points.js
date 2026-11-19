@@ -115,7 +115,7 @@ export function scoreLiceum(answers, data) {
       if (rank < 0) continue;
       classes.push({ school, cls, rank, check: checkClass(pts, cls, school, data.config) });
     }
-    classes.sort((a, b) => (a.rank - b.rank) || ((a.cls.threshold == null) - (b.cls.threshold == null)) || ((b.cls.threshold ?? b.school.range.max) - (a.cls.threshold ?? a.school.range.max)));
+    classes.sort((a, b) => (a.rank - b.rank) || ((a.cls.threshold == null) - (b.cls.threshold == null)) || ((b.cls.threshold ?? (b.school.range ? b.school.range.max : 0)) - (a.cls.threshold ?? (a.school.range ? a.school.range.max : 0))));
     return { card, ...f, band: band(f.fit, data.config), paths, strengthsUsed: paths.filter(x => x.kind === 'strength'), reasons: reasonsFor(card, profile, answers, dataV), classes, offers: [], reachable: true, robust: 0 };
   });
   cards.sort((a, b) => (Math.abs(a.fit - b.fit) >= 1 ? b.fit - a.fit : (b.paths.length - a.paths.length) || (b.fit - a.fit)));

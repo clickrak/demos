@@ -37,7 +37,8 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
 }
 { // Liceum
   const cards = json['liceum/data/opportunities.json'] || [], src = ids(json['liceum/data/sources.json']);
-  const schools = json['liceum/data/db/pl/krakow/schools.json'] || [];
+  const schools = Object.entries(json).filter(([f]) => /^liceum\/data\/db\/pl\/[^/]+\/schools\.json$/.test(f)).flatMap(([, d]) => d || []);
+  for (const s of schools) if (s.www != null && !/^https?:\/\/\S+$/.test(s.www)) fail(`liceum school "${s.id}": www must start with https:// or http://`);
   refs('liceum profile area', (json['liceum/data/profiles.json'] || []).flatMap(p => p.areas || []), ids(cards));
   refs('liceum class card', schools.flatMap(s => s.classes.flatMap(c => c.cards || [])), ids(cards));
   refs('liceum class source', schools.flatMap(s => s.classes.map(c => c.sourceId)), src);

@@ -4,6 +4,7 @@
   "name": "I Liceum Ogólnokształcące im. Bartłomieja Nowodworskiego",
   "short": "I LO Nowodworskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "pl. Na Groblach 9, 31-101 Kraków",
   "addressSourceId": "krk-siec-szkol",
   "range": {
@@ -173,6 +174,7 @@
   "name": "II Liceum Ogólnokształcące im. Króla Jana III Sobieskiego",
   "short": "II LO Sobieskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Jana Sobieskiego 9, 31-136 Kraków",
   "range": {
    "min": 164.8,
@@ -358,6 +360,7 @@
   "name": "IV Liceum Ogólnokształcące im. Tadeusza Kościuszki",
   "short": "IV LO Kościuszki",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Krzemionki 11, 30-525 Kraków",
   "range": {
    "min": 162.6,
@@ -577,6 +580,7 @@
   "name": "V Liceum Ogólnokształcące im. Augusta Witkowskiego",
   "short": "V LO Witkowskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Studencka 12, 31-116 Kraków",
   "range": {
    "min": 167.6,
@@ -753,8 +757,10 @@
   "name": "VII Liceum Ogólnokształcące im. Zofii Nałkowskiej",
   "short": "VII LO Nałkowskiej",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Skarbińskiego 5, 30-071 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://vii-lo.krakow.pl/",
   "range": {
    "min": 164.55,
    "max": 172.2,
@@ -948,6 +954,7 @@
   "name": "VIII Liceum Ogólnokształcące im. Stanisława Wyspiańskiego",
   "short": "VIII LO Wyspiańskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Grzegórzecka 24, 31-531 Kraków",
   "range": {
    "min": 169.1,
@@ -1114,6 +1121,7 @@
   "name": "IX Liceum Ogólnokształcące im. Zygmunta Wróblewskiego",
   "short": "IX LO Wróblewskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Kazimierza Czapińskiego 5, 30-048 Kraków",
   "range": {
    "min": 160.55,
@@ -1243,6 +1251,7 @@
   "name": "Technikum Łączności nr 14 w Zespole Szkół Łączności",
   "short": "Technikum Łączności nr 14",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Monte Cassino 31, 30-337 Kraków",
   "range": {
    "min": 146.95,
@@ -1354,6 +1363,7 @@
   "name": "Technikum Elektryczno-Elektroniczne nr 7",
   "short": "Technikum Elektryczno-Elektroniczne nr 7",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Henryka Kamieńskiego 49, 30-644 Kraków",
   "range": {
    "min": 120.35,
@@ -1479,7 +1489,9 @@
   "name": "XXVI Liceum Ogólnokształcące w Zespole Szkół Chemicznych im. Marii Skłodowskiej-Curie",
   "short": "XXVI LO (Zespół Szkół Chemicznych)",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Krupnicza 44, 31-123 Kraków",
+  "www": "https://zschkrakow.pl/",
   "range": {
    "min": 150.75,
    "max": 156.55,
@@ -1570,6 +1582,7 @@
   "name": "XLII Liceum Ogólnokształcące",
   "short": "XLII LO",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Studencka 13, 31-116 Kraków",
   "range": {
    "min": 167.0,
@@ -1676,6 +1689,7 @@
   "name": "XI Liceum Ogólnokształcące im. Marii Dąbrowskiej",
   "short": "XI LO Dąbrowskiej",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Teatralne 33, 31-948 Kraków",
   "range": {
    "min": 157.4,
@@ -1813,6 +1827,7 @@
   "name": "XXVIII Liceum Ogólnokształcące im. Wojciecha Bednarskiego",
   "short": "XXVIII LO Bednarskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Tadeusza Czackiego 11, 30-501 Kraków",
   "range": {
    "min": 110.15,
@@ -1924,7 +1939,9 @@
   "name": "Technikum Chemiczne i Ochrony Środowiska nr 3 w Zespole Szkół Chemicznych",
   "short": "Technikum Chemiczne nr 3 (ZSC)",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Krupnicza 44, 31-123 Kraków",
+  "www": "https://zschkrakow.pl/",
   "range": {
    "min": 131.9,
    "max": 155.05,
@@ -1990,6 +2007,7 @@
   "name": "III Liceum Ogólnokształcące im. Jana Kochanowskiego",
   "short": "III LO Kochanowskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Wysokie 6, 31-818 Kraków",
   "range": {
    "min": 163.75,
@@ -2105,6 +2123,7 @@
   "name": "VI Liceum Ogólnokształcące im. Adama Mickiewicza",
   "short": "VI LO Mickiewicza",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Wąska 7, 31-057 Kraków",
   "range": {
    "min": 165.1,
@@ -2236,7 +2255,9 @@
   "name": "X Liceum Ogólnokształcące im. Komisji Edukacji Narodowej",
   "short": "X LO KEN",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Zygmunta Wróblewskiego 8, 31-148 Kraków",
+  "www": "https://x-lokrakow.edupage.org/",
   "range": {
    "min": 165.85,
    "max": 173.15,
@@ -2374,6 +2395,7 @@
   "name": "XIII Liceum Ogólnokształcące im. Bohaterów Westerplatte",
   "short": "XIII LO Westerplatte",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Sądowa 4, 31-542 Kraków",
   "range": {
    "min": 164.25,
@@ -2516,6 +2538,7 @@
   "name": "XV Liceum Ogólnokształcące im. Marii Skłodowskiej-Curie",
   "short": "XV LO Skłodowskiej-Curie",
   "type": "liceum",
+  "town": "krakow",
   "address": "al. Adolfa Dygasińskiego 15, 30-820 Kraków",
   "range": {
    "min": 122.75,
@@ -2693,6 +2716,7 @@
   "name": "Technikum Energetyczno-Elektroniczne nr 9 im. Tadeusza Kościuszki (Akademia Loretańska)",
   "short": "Technikum Energetyczno-Elektroniczne nr 9",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Loretańska 16, 31-114 Kraków",
   "range": {
    "min": 143.55,
@@ -2831,6 +2855,7 @@
   "name": "XXXI Liceum Ogólnokształcące im. Romana Ingardena",
   "short": "XXXI LO Ingardena",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Kazimierza Odnowiciela 2, Kraków",
   "range": {
    "min": 157.95,
@@ -2899,6 +2924,7 @@
   "name": "XII Liceum Ogólnokształcące im. Cypriana Kamila Norwida",
   "short": "XII LO Norwida",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Kolorowe 29a, Kraków",
   "range": {
    "min": 151.55,
@@ -3058,8 +3084,10 @@
   "name": "XIV Liceum Ogólnokształcące im. Mikołaja Kopernika",
   "short": "XIV LO Kopernika",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Józefa Chełmońskiego 24, 31-322 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://xiv-lo.krakow.pl/",
   "range": {
    "min": 139.5,
    "max": 155.35,
@@ -3195,6 +3223,7 @@
   "name": "XVI Liceum Ogólnokształcące im. Krzysztofa Kamila Baczyńskiego",
   "short": "XVI LO Baczyńskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Willowe 1, 31-901 Kraków",
   "range": {
    "min": 56.95,
@@ -3330,6 +3359,7 @@
   "name": "XVIII Liceum Ogólnokształcące im. św. Jana Kantego",
   "short": "XVIII LO Kantego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Na Błonie 15b, Kraków",
   "range": {
    "min": 137.35,
@@ -3471,6 +3501,7 @@
   "name": "XX Liceum Ogólnokształcące im. Leopolda Staffa",
   "short": "XX LO Staffa",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Szlak 5, 31-161 Kraków",
   "range": {
    "min": 155.8,
@@ -3636,6 +3667,7 @@
   "name": "XXIII Liceum Ogólnokształcące im. płk. pil. Stanisława Skarżyńskiego",
   "short": "XXIII LO Skarżyńskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Seniorów Lotnictwa 5, Kraków",
   "range": {
    "min": 127.85,
@@ -3730,6 +3762,7 @@
   "name": "XXIV Liceum Ogólnokształcące im. św. Jana Pawła II",
   "short": "XXIV LO Jana Pawła II",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Wilka Wyrwińskiego 1, Kraków",
   "range": {
    "min": 128.8,
@@ -3892,6 +3925,7 @@
   "name": "XXVII Liceum Ogólnokształcące im. dr. Henryka Jordana",
   "short": "XXVII LO Jordana",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Senatorska 35, Kraków",
   "range": {
    "min": 161.25,
@@ -4081,6 +4115,7 @@
   "name": "XXX Liceum Ogólnokształcące im. św. Brata Alberta",
   "short": "XXX LO Brata Alberta",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Dywizjonu 303 66, Kraków",
   "range": {
    "min": 58.0,
@@ -4222,6 +4257,7 @@
   "name": "XLI Liceum Ogólnokształcące im. Jana Twardowskiego",
   "short": "XLI LO Twardowskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "Rynek Kleparski 18, Kraków",
   "range": {
    "min": 154.9,
@@ -4361,6 +4397,7 @@
   "name": "XLIII Liceum Ogólnokształcące im. Zofii Chrzanowskiej",
   "short": "XLIII LO Chrzanowskiej",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Bolesława Limanowskiego 60-62, 30-534 Kraków",
   "range": {
    "min": 141.75,
@@ -4458,6 +4495,7 @@
   "name": "XLIV Liceum Ogólnokształcące im. Stanisława Konarskiego",
   "short": "XLIV LO Konarskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Bernardyńska 7, 31-069 Kraków",
   "addressSourceId": "krk-siec-szkol",
   "range": {
@@ -4577,6 +4615,7 @@
   "name": "XLV Liceum Ogólnokształcące",
   "short": "XLV LO",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. ks. Franciszka Blachnickiego 1, Kraków",
   "range": {
    "min": 131.35,
@@ -4669,6 +4708,7 @@
   "name": "XLVI Liceum Ogólnokształcące",
   "short": "XLVI LO",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Józefa Dietla 70, Kraków",
   "range": {
    "min": 102.0,
@@ -4761,6 +4801,7 @@
   "name": "Technikum Komunikacyjne nr 25",
   "short": "Technikum Komunikacyjne nr 25",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Ułanów 3, Kraków",
   "range": {
    "min": 65.0,
@@ -4917,6 +4958,7 @@
   "name": "Technikum Mechaniczne nr 17",
   "short": "Technikum Mechaniczne nr 17",
   "type": "technikum",
+  "town": "krakow",
   "address": "os. Szkolne 37, Kraków",
   "range": {
    "min": 55.6,
@@ -5048,6 +5090,7 @@
   "name": "Technikum Kształtowania Środowiska nr 24",
   "short": "Technikum Kształtowania Środowiska nr 24",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Brzozowa 5, Kraków",
   "range": {
    "min": 48.8,
@@ -5187,6 +5230,7 @@
   "name": "XXI Liceum Ogólnokształcące im. St. I. Witkiewicza-Witkacego",
   "short": "XXI LO Witkacego",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Tysiąclecia 15, Kraków",
   "range": {
    "min": 131.1,
@@ -5232,6 +5276,7 @@
   "name": "XXII Liceum Ogólnokształcące im. gen. Bronisława Ducha",
   "short": "XXII LO Ducha",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Szkolne 26, Kraków",
   "range": {
    "min": 56.25,
@@ -5277,6 +5322,7 @@
   "name": "XXIX Liceum Ogólnokształcące im. Krzysztofa Kieślowskiego",
   "short": "XXIX LO Kieślowskiego",
   "type": "liceum",
+  "town": "krakow",
   "address": "ul. Cechowa 57, Kraków",
   "range": {
    "min": 84.35,
@@ -5322,6 +5368,7 @@
   "name": "XLVII Liceum Ogólnokształcące",
   "short": "XLVII LO",
   "type": "liceum",
+  "town": "krakow",
   "address": "os. Szkolne 18, Kraków",
   "range": {
    "min": 60.35,
@@ -5389,6 +5436,7 @@
   "name": "Technikum Mechaniczne nr 15 im. Szczepana Humberta (ZSM nr 1)",
   "short": "Technikum Mechaniczne nr 15",
   "type": "technikum",
+  "town": "krakow",
   "address": "al. Mickiewicza 5, Kraków",
   "range": {
    "min": 60.7,
@@ -5505,6 +5553,7 @@
   "name": "Technikum Mechaniczne nr 30 (ZSM nr 4)",
   "short": "Technikum Mechaniczne nr 30",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Podbrzezie 10, Kraków",
   "range": {
    "min": 25.7,
@@ -5548,6 +5597,7 @@
   "name": "Technikum Elektryczne nr 8 (ZS Elektrycznych nr 2)",
   "short": "Technikum Elektryczne nr 8",
   "type": "technikum",
+  "town": "krakow",
   "address": "os. Szkolne 26, 31-977 Kraków",
   "range": {
    "min": 33.5,
@@ -5630,6 +5680,7 @@
   "name": "Technikum Geodezji i Kształtowania Środowiska nr 12",
   "short": "Technikum Geodezji i Kształtowania Środowiska nr 12",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Lea 235, Kraków",
   "range": {
    "min": 35.75,
@@ -5721,6 +5772,7 @@
   "name": "Technikum Ekonomiczno-Hotelarskie nr 4",
   "short": "Technikum Ekonomiczno-Hotelarskie nr 4",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Kapucyńska 2, 31-113 Kraków",
   "range": {
    "min": 108.5,
@@ -5812,6 +5864,7 @@
   "name": "Technikum Budowlane nr 1 (ZS Architektoniczno-Budowlanych nr 1)",
   "short": "Technikum Budowlane nr 1",
   "type": "technikum",
+  "town": "krakow",
   "address": "ul. Szablowskiego 1, 30-127 Kraków",
   "range": {
    "min": 52.55,

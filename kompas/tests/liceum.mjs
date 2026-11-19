@@ -8,6 +8,10 @@ const data = {
   questions: j('../liceum/data/questions.json'), opportunities: j('../liceum/data/opportunities.json'),
   schools: j('../liceum/data/db/pl/krakow/schools.json'), sources: j('../liceum/data/sources.json'), profiles: j('../liceum/data/profiles.json')
 };
+// Towns (v2.0): Kraków stays the main data set for the checks below; other ready towns are checked further down.
+const TOWN_BOX = { krakow: [49.95, 50.14, 19.75, 20.15], tychy: [50.05, 50.17, 18.90, 19.07] }; // lat min, lat max, lon min, lon max
+const towns = (data.config.towns || []).filter(t => t.status === 'ready');
+const allSchools = towns.flatMap(t => j(`../liceum/data/db/pl/${t.id}/schools.json`).map(s => ({ ...s, town: s.town || t.id })));
 // Every direction belongs to exactly one compass profile.
 for (const o of data.opportunities) { const n = data.profiles.filter(p => p.areas.includes(o.id)).length; if (n !== 1) fail('direction in', n, 'profiles:', o.id); }
 let bad = 0;
@@ -61,8 +65,9 @@ for (const s of data.schools) {
 }
 console.log(`schools: ${data.schools.length}, classes: ${classes}, to verify in 2027: ${check}, areas: ${data.opportunities.length}`);
 
+const forKid = a => (a.towns ? { ...data, schools: allSchools.filter(s => a.towns.includes(s.town)) } : data);
 for (const p of j('../liceum/data/personas.json')) {
-  const r = scoreLiceum(p.answers, data), s = r.slots;
+  const r = scoreLiceum(p.answers, forKid(p.answers)), s = r.slots;
   console.log(`\n${p.label}`);
   console.log('  ranking :', r.cards.map(c => `${c.card.id}:${c.fit.toFixed(0)}`).join('  '));
   console.log('  najlepsze:', s.best.map(c => c.card.id).join(', '), '| most:', s.most?.card.id, '| niespodzianka:', s.surprise?.card.id || '-');
@@ -86,11 +91,34 @@ const rs = scoreLiceum(softAns, data), c0 = rs.slots.best[0].classes[0];
 console.log('\nSoft-mode check:', rs.slots.best[0].card.id, c0.school.short, c0.cls.code, c0.check.chance, rs.points.approx);
 if (!rs.points.approx || !['realna', 'zawalczenia', 'ambitna'].includes(c0.check.chance)) fail('soft mode should give a chance label');
 // Compass: the expected North for each test kid.
-const NORTH = { P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'] };
+const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'] };
 for (const p of j('../liceum/data/personas.json')) {
-  const P = profilesFor(scoreLiceum(p.answers, data), data);
+  const P = profilesFor(scoreLiceum(p.answers, forKid(p.answers)), forKid(p.answers));
   console.log(`Kompas ${p.id}:`, P.map(x => `${x.compass.pos} ${x.profile.id} ${Math.round(x.fit)}`).join(' · '));
   if (NORTH[p.id] && !NORTH[p.id].includes(P[0].profile.id)) fail('compass north for', p.id, 'is', P[0].profile.id);
   if (!P[0].classes.length) fail('north profile without classes for', p.id);
 }
+// Every school in every town: a town, an address, a map point inside that town, sources and links that resolve.
+const ids = new Set();
+for (const s of allSchools) {
+  if (ids.has(s.id)) fail('school id used twice across towns', s.id); ids.add(s.id);
+  if (!towns.some(t => t.id === s.town)) fail('school without a known town', s.id);
+  if (!s.address) fail('school without an address', s.id);
+  if (s.addressSourceId && !srcIds.has(s.addressSourceId)) fail('address source', s.id);
+  const b = TOWN_BOX[s.town];
+  if (!s.geo) fail('school without map position', s.id);
+  else if (b && !(s.geo.lat > b[0] && s.geo.lat < b[1] && s.geo.lon > b[2] && s.geo.lon < b[3])) fail('school position outside its town', s.id);
+  for (const k of s.classes) {
+    if (!srcIds.has(k.sourceId)) fail('class source', s.id, k.code);
+    for (const c of k.cards) if (!cardIds.has(c)) fail('class card link', s.id, k.code, c);
+    if (k.threshold != null && !(k.threshold > 0 && k.threshold <= 200)) fail('threshold range', s.id, k.code);
+    for (const x of scoredSubjects(k).list) if (!subj.has(x)) fail('scored subject unknown', s.id, k.code, x);
+  }
+}
+// The test kid from Tychy only gets Tychy classes.
+const p7 = j('../liceum/data/personas.json').find(p => p.id === 'P7');
+if (!p7) fail('test kid from Tychy (P7) missing');
+else { const r7 = scoreLiceum(p7.answers, forKid(p7.answers)); const wrong = r7.cards.flatMap(c => c.classes).filter(c => c.school.town !== 'tychy');
+  console.log(`\nTychy check: ${allSchools.filter(s => s.town === 'tychy').length} schools, P7 classes outside Tychy: ${wrong.length}`);
+  if (wrong.length) fail('P7 got classes outside Tychy'); }
 process.exit(bad ? 1 : 0);

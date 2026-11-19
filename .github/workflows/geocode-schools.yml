@@ -12,5 +12,5 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
-          git add kompas/liceum/data/db/pl/krakow/schools.json
+          git add kompas/liceum/data/db/pl/*/schools.json
           git diff --cached --quiet || (git commit -m "Kompas Liceum: school coordinates from OpenStreetMap" && git push)

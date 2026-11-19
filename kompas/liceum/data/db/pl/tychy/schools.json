@@ -1,0 +1,687 @@
+[
+ {
+  "id": "ty-lo1",
+  "name": "I Liceum Ogólnokształcące im. Leona Kruczkowskiego w Tychach",
+  "short": "I LO Kruczkowskiego",
+  "type": "liceum",
+  "town": "tychy",
+  "address": "ul. Janusza Korczaka 6, 43-100 Tychy",
+  "addressSourceId": "otou-ty-licea",
+  "www": "https://www.1lo.oswiata.tychy.pl/",
+  "note": "Przedmioty punktowane: polski, matematyka, język obcy i jeden z: biologia, chemia, geografia, historia (szkoła liczy najlepszy). Klasa 1M to klasa międzynarodowa. Progów z rekrutacji 2026 nie ma w źródłach.",
+  "classes": [
+   {
+    "code": "1C",
+    "label": "biol-chem",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo1",
+    "status": "check"
+   },
+   {
+    "code": "1D1",
+    "label": "ang-wos",
+    "extended": [
+     "angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo1",
+    "status": "check"
+   },
+   {
+    "code": "1D2",
+    "label": "ang-mat",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo1",
+    "status": "check"
+   },
+   {
+    "code": "1E",
+    "label": "ang-mat (matematyka plus)",
+    "extended": [
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "dane-ai",
+     "fizyka"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo1",
+    "status": "check"
+   },
+   {
+    "code": "1M",
+    "label": "ang-pol, klasa międzynarodowa",
+    "extended": [
+     "angielski",
+     "polski"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo1",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "ty-lo2",
+  "name": "II Liceum Ogólnokształcące z Oddziałami Integracyjnymi im. Cypriana Kamila Norwida w Tychach",
+  "short": "II LO Norwida",
+  "type": "liceum",
+  "town": "tychy",
+  "address": "ul. Cypriana Norwida 40, 43-100 Tychy",
+  "addressSourceId": "otou-ty-licea",
+  "www": "https://www.2lo.oswiata.tychy.pl/",
+  "note": "Klasa dwujęzyczna 1D nie jest jeszcze w Kompasie. Progów z rekrutacji 2026 nie ma w źródłach.",
+  "classes": [
+   {
+    "code": "1A1",
+    "label": "mat-fiz-ang",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "angielski"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "programowanie"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1A2",
+    "label": "mat-biol-ang",
+    "extended": [
+     "matematyka",
+     "biologia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1B",
+    "label": "mat-geo-ang",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "biol-chem-ang",
+    "extended": [
+     "biologia",
+     "chemia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1E",
+    "label": "pol-hist-ang",
+    "extended": [
+     "polski",
+     "historia",
+     "angielski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-lo2",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "ty-lo3",
+  "name": "III Liceum Ogólnokształcące im. Stanisława Wyspiańskiego w Tychach",
+  "short": "III LO Wyspiańskiego",
+  "type": "liceum",
+  "town": "tychy",
+  "address": "ul. Elfów 62, 43-100 Tychy",
+  "addressSourceId": "otou-ty-licea",
+  "www": "https://www.3lo.oswiata.tychy.pl/",
+  "note": "Klasy z rekrutacji 2025/26, bo oferty na 2026/27 nie znaleźliśmy w źródłach. Sprawdź na stronie szkoły.",
+  "classes": [
+   {
+    "code": "1A1",
+    "label": "lingwistyczna (angielski, hiszpański albo włoski)",
+    "extended": [
+     "polski",
+     "angielski",
+     "j. hiszpański",
+     "j. włoski"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ty-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1A2",
+    "label": "lingwistyczna (angielski, niemiecki albo hiszpański)",
+    "extended": [
+     "angielski",
+     "j. niemiecki",
+     "j. hiszpański",
+     "j. włoski"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ty-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1B1",
+    "label": "menadżerska (mat-geo-ang)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ty-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1B2",
+    "label": "turystyczna (biol-geo-ang)",
+    "extended": [
+     "angielski",
+     "biologia",
+     "geografia"
+    ],
+    "cards": [
+     "biznes",
+     "jezyki",
+     "srodowisko"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ty-lo3",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "ty-lo4",
+  "name": "IV Liceum Ogólnokształcące w Zespole Szkół nr 1 im. Gustawa Morcinka w Tychach",
+  "short": "IV LO (ZS nr 1)",
+  "type": "liceum",
+  "town": "tychy",
+  "address": "ul. Hanny i Kazimierza Wejchertów 20, 43-100 Tychy",
+  "addressSourceId": "we-ty-lo4",
+  "note": "Klasa dwujęzyczna 1C i sportowa 1MS nie są jeszcze w Kompasie. Progów z rekrutacji 2026 nie ma w pewnych źródłach.",
+  "classes": [
+   {
+    "code": "1A",
+    "label": "prozdrowotna (biol-geo-ang)",
+    "extended": [
+     "biologia",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "sport",
+     "ludzie"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1B",
+    "label": "przyrodniczo-badawcza (biol-chem)",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "humanistyczna (pol-hist-łacina)",
+    "extended": [
+     "polski",
+     "historia",
+     "j. łaciński"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1P",
+    "label": "mundurowa, policja (geo-ang-wos)",
+    "extended": [
+     "geografia",
+     "angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo4",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "ty-t2",
+  "name": "Technikum nr 2 w Zespole Szkół nr 2 w Tychach",
+  "short": "Technikum nr 2",
+  "type": "technikum",
+  "town": "tychy",
+  "address": "ul. Elfów 9, 43-100 Tychy",
+  "addressSourceId": "we-ty-t2",
+  "classes": [
+   {
+    "code": "1E",
+    "label": "technik ekonomista",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t2",
+    "status": "check",
+    "occupation": "technik ekonomista"
+   },
+   {
+    "code": "1H",
+    "label": "technik handlowiec",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "biznes"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t2",
+    "status": "check",
+    "occupation": "technik handlowiec"
+   },
+   {
+    "code": "1K",
+    "label": "technik rachunkowości",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "biznes"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t2",
+    "status": "check",
+    "occupation": "technik rachunkowości"
+   },
+   {
+    "code": "1R",
+    "label": "technik reklamy",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "biznes",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t2",
+    "status": "check",
+    "occupation": "technik reklamy"
+   },
+   {
+    "code": "1T",
+    "label": "technik organizacji turystyki",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "biznes",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t2",
+    "status": "check",
+    "occupation": "technik organizacji turystyki"
+   }
+  ]
+ },
+ {
+  "id": "ty-t3",
+  "name": "Technikum nr 3 w Zespole Szkół nr 4 im. Janusza Groszkowskiego w Tychach",
+  "short": "Technikum nr 3 (ZS nr 4)",
+  "type": "technikum",
+  "town": "tychy",
+  "address": "al. Bielska 100, 43-100 Tychy",
+  "addressSourceId": "we-ty-t3",
+  "www": "https://zs4-tychy.edupage.org/",
+  "classes": [
+   {
+    "code": "1A",
+    "label": "technik automatyk",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t3",
+    "status": "check",
+    "occupation": "technik automatyk"
+   },
+   {
+    "code": "1D",
+    "label": "technik elektronik",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t3",
+    "status": "check",
+    "occupation": "technik elektronik"
+   },
+   {
+    "code": "1E",
+    "label": "technik elektryk",
+    "extended": [
+     "fizyka"
+    ],
+    "cards": [
+     "elektronika",
+     "srodowisko"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t3",
+    "status": "check",
+    "occupation": "technik elektryk"
+   },
+   {
+    "code": "1F",
+    "label": "technik informatyk",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t3",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "1P",
+    "label": "technik programista",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "programowanie"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t3",
+    "status": "check",
+    "occupation": "technik programista"
+   }
+  ]
+ },
+ {
+  "id": "ty-t4",
+  "name": "Technikum nr 4 im. Hanny i Kazimierza Wejchertów w Zespole Szkół nr 5 w Tychach",
+  "short": "Technikum nr 4 (ZS nr 5)",
+  "type": "technikum",
+  "town": "tychy",
+  "address": "ul. Edukacji 11, 43-100 Tychy",
+  "addressSourceId": "otou-ty-technika",
+  "www": "https://zs5.tychy.pl/",
+  "classListSourceId": "zs5-ty-kierunki",
+  "note": "Szkoła kształci też techników usług fryzjerskich; tego kierunku nie ma w Kompasie.",
+  "classes": [
+   {
+    "code": "1A",
+    "label": "technik architektury krajobrazu i arborystyki",
+    "extended": [],
+    "cards": [
+     "srodowisko",
+     "biologia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-t4",
+    "status": "check",
+    "occupation": "technik architektury krajobrazu"
+   },
+   {
+    "code": "1B",
+    "label": "technik budownictwa",
+    "extended": [],
+    "cards": [
+     "budowa"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-t4",
+    "status": "check",
+    "occupation": "technik budownictwa"
+   },
+   {
+    "code": "1M",
+    "label": "technik mechanik (obrabiarki cyfrowe)",
+    "extended": [],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-t4",
+    "status": "check",
+    "occupation": "technik mechanik"
+   }
+  ]
+ }
+]

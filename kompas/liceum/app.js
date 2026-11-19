@@ -1,4 +1,4 @@
-// Kompas Liceum v1.9.0. Screens, soft school self-assessment, results and export. Kraków only; sciences and IT first.
+// Kompas Liceum v2.0.0. Screens, soft school self-assessment, results and export. Kraków and Tychy; town chosen at the start.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
@@ -15,17 +15,20 @@ const today = () => new Date().toISOString().slice(0, 10);
 const f1 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const f2 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [],
-  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], profile: null, likes: { profiles: [], schools: [], classes: [] } });
+  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], towns: ['krakow'], profile: null, likes: { profiles: [], schools: [], classes: [] } });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
   const [dimensions, strengths, config, questions, opportunities, schools, sources, personas, profiles] = await Promise.all([
     '../core/dimensions.json', '../core/strengths.json', 'data/config.json', 'data/questions.json', 'data/opportunities.json',
     'data/db/pl/krakow/schools.json', 'data/sources.json', 'data/personas.json', 'data/profiles.json'].map(get));
-  data = { dimensions, strengths, config, questions, opportunities, schools, sources, personas, profiles };
+  // Other towns: one schools.json per ready town, next to krakow/. A school without `town` is from Kraków (old data).
+  const more = await Promise.all((config.towns || []).filter(t => t.status === 'ready' && t.id !== 'krakow').map(t => get(`data/db/pl/${t.id}/schools.json`)));
+  const allSchools = [...schools, ...more.flat()].map(x => (x.town ? x : { ...x, town: 'krakow' }));
+  data = { dimensions, strengths, config, questions, opportunities, schools: allSchools, allSchools, sources, personas, profiles };
   // Studia programmes, to show what each area leads to after liceum (optional).
   studiaOffers = await fetch('../studia/data/db/pl/krakow/offers.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
-  A = blank();
+  A = blank(); applyTowns();
   applyTheme(); applySkin();
   matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);
   window.addEventListener('hashchange', render);
@@ -72,6 +75,18 @@ function applySkin(animate) {
   }
 }
 
+// ---- towns: the kid says where they look for a school; only those schools are scored and shown -------------------
+const TOWNS = () => data.config.towns || [{ id: 'krakow', name: 'Kraków', in: 'w Krakowie', status: 'ready' }];
+const READY = () => TOWNS().filter(t => t.status === 'ready');
+const townOf = id => TOWNS().find(t => t.id === id) || TOWNS()[0];
+const selTowns = () => { const ok = READY().map(t => t.id), w = (A && A.towns || []).filter(id => ok.includes(id)); return w.length ? w : ['krakow']; };
+function applyTowns() { const w = selTowns(); data.schools = data.allSchools.filter(s => w.includes(s.town)); }
+const townsIn = () => { const n = selTowns().map(id => townOf(id).in); return n.length > 1 ? n.slice(0, -1).join(', ') + ' i ' + n[n.length - 1] : n[0]; };
+const townNames = () => selTowns().map(id => townOf(id).name).join(', ');
+const townChips = () => `<div class="chips" role="group" aria-label="Miasta">${TOWNS().map(t => t.status === 'ready'
+  ? chip(`data-town="${t.id}"`, esc(t.name), selTowns().includes(t.id))
+  : `<button class="chip" disabled aria-disabled="true">${esc(t.name)} <span class="small muted">· ${esc(t.when || 'wkrótce')}</span></button>`).join('')}</div>`;
+
 // ---- screens ------------------------------------------------------------------------------------------------------
 const acts = () => visibleActivities(A, data);
 const syncSort = () => { const v = acts(), i = v.findIndex(x => !(x.id in A.sort)); A.sortPos = i < 0 ? v.length : i; };
@@ -79,6 +94,7 @@ const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="
 const nameOf = id => (data.strengths.find(s => s.id === id) || {}).name || id;
 const screens = [
   { id: 'start', ch: null, view: vStart },
+  { id: 'gdzie', ch: 'ja', view: vTowns },
   { id: 'swiaty', ch: 'ja', view: vWorlds, ok: () => (A.worlds || []).length > 0, hint: () => 'Wybierz co najmniej jeden świat albo „wszystko po trochu”' },
   { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= acts().length, hint: () => `Zostało kart: ${acts().length - A.sortPos}` },
   { id: 'sytuacje', ch: 'ja', view: vSituations },
@@ -92,7 +108,7 @@ const screens = [
   { id: 'lista', ch: 'lista', view: vList },
   { id: 'szkoly', ch: 'szkoly', view: vSchools }
 ];
-const STEP_TITLE = { swiaty: 'Twoje światy', zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
+const STEP_TITLE = { gdzie: 'Gdzie szukasz szkoły', swiaty: 'Twoje światy', zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
 const current = () => screens.find(s => s.id === ((location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start')) || screens[0];
 const hasWorlds = () => !Array.isArray(A.worlds) || A.worlds.length > 0;
 const needResults = () => !(hasWorlds() && A.sortPos >= acts().length && A.values.length === 3 && provenStrengths(A).length === 3);
@@ -142,23 +158,29 @@ function vGate() {
 
 function vStart() {
   const started = hasAnswers();
-  const nCls = data.schools.reduce((t, x) => t + x.classes.length, 0);
-  const steps = [['Ja', 'światy, które cię ciekawią, i co lubisz robić: same kliknięcia', 'ok. 8 min'], ['Szkoła', 'jak ci idzie: słabo, dobrze, świetnie', 'ok. 1 min'], ['Kompas', 'twoje kierunki, a potem szkoły i klasy w Krakowie', '']];
+  const steps = [['Ja', 'światy, które cię ciekawią, i co lubisz robić: same kliknięcia', 'ok. 8 min'], ['Szkoła', 'jak ci idzie: słabo, dobrze, świetnie', 'ok. 1 min'], ['Kompas', `twoje kierunki, a potem szkoły i klasy ${townsIn()}`, '']];
   return `<div class="hero">${ILLUS.start}<div>
-    <span class="kicker2">Kompas Liceum · Kraków 2027</span>
+    <span class="kicker2">Kompas Liceum · rekrutacja 2027</span>
     <h1>Jaka klasa pasuje do tego, co lubisz?</h1>
-    <div class="compassnote"><b>To nie test i nie ocena.</b> To kompas: pokazuje kierunki, które warto odkryć, i klasy w Krakowie, które do nich prowadzą. Nie ma złych odpowiedzi, a punkty i szanse są tylko orientacyjne.</div>
+    <div class="compassnote"><b>To nie test i nie ocena.</b> To kompas: pokazuje kierunki, które warto odkryć, i klasy, które do nich prowadzą. Nie ma złych odpowiedzi, a punkty i szanse są tylko orientacyjne.</div>
     <p class="lead">Klikasz, przesuwasz i wybierasz. Nic nie musisz pisać. Na końcu zobaczysz kierunki oraz licea i technika, które są realne, a które ambitne.</p>
     ${started ? `<p><b>Masz już odpowiedzi.</b> ${needResults() ? 'Możesz dokończyć pytania.' : 'Twój kompas czeka.'}</p>` : ''}
     <div class="startcta">${started && !needResults() ? '<button class="btn big" data-go="wyniki">Mój kompas</button>' : ''}
-      <button class="btn ${started && !needResults() ? 'ghost' : 'big'}" data-go="${started && (A.worlds || []).length ? 'zajecia' : 'swiaty'}">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button>
+      <button class="btn ${started && !needResults() ? 'ghost' : 'big'}" data-go="${started && (A.worlds || []).length ? 'zajecia' : 'gdzie'}">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button>
       <button class="btn ghost" data-go="szkoly">Przeglądaj szkoły</button></div>
     <ol class="steps2">${steps.map((x, k) => `<li><span class="rno">${k + 1}</span><div><b>${x[0]}</b><span class="t">${x[1]}${x[2] ? ' · ' + x[2] : ''}</span></div></li>`).join('')}</ol>
-    <div class="note2"><b>Co jest w bazie.</b> ${data.schools.length} szkół i ${nCls} klas w Krakowie: ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i sportowe dojdą w kolejnej wersji. Progi są z rekrutacji 2026, więc to orientacja, nie obietnica.</div>
+    <div class="note2"><b>Co jest w bazie.</b> ${data.allSchools.length} szkół i ${data.allSchools.reduce((t, x) => t + x.classes.length, 0)} klas w Krakowie i Tychach: ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i sportowe dojdą w kolejnej wersji. Progi w Krakowie są z rekrutacji 2026, więc to orientacja, nie obietnica; dla Tychów progów jeszcze nie mamy.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
     ${TEST ? `<details class="card"><summary>Tryb testowy</summary><div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div></details>` : ''}
   </div></div>`;
+}
+
+function vTowns() {
+  const notes = READY().filter(t => t.note && selTowns().includes(t.id)).map(t => `<p class="small muted"><b>${esc(t.name)}:</b> ${esc(t.note)}</p>`).join('');
+  return `${ILLUS.start}<h1>Gdzie szukasz szkoły?</h1><p class="muted">Wybierz miasto. Możesz kilka. Pokażemy szkoły i klasy tylko stamtąd. Zmienisz to w każdej chwili, także na liście szkół.</p>
+    ${townChips()}${notes}
+    <p class="note2">Inne miasta dojdą w kolejnych wersjach. Jeśli twojego miasta jeszcze nie ma, wybierz najbliższe: kierunki na kompasie i tak będą twoje.</p>`;
 }
 
 function vWorlds() {
@@ -305,7 +327,7 @@ function classRow(x) {
 }
 
 function parentTable(rows) {
-  const e = eff(), th = x => x.cls.threshold != null ? f2(x.cls.threshold) : `zakres ${f2(x.school.range.min)}–${f2(x.school.range.max)}`;
+  const e = eff(), th = x => x.cls.threshold != null ? f2(x.cls.threshold) : x.school.range ? `zakres ${f2(x.school.range.min)}–${f2(x.school.range.max)}` : 'brak danych';
   const pts = x => x.check.complete ? f1(x.check.points) : '–';
   const mg = x => x.check.margin != null ? `${x.check.margin >= 0 ? '+' : '−'}${f1(Math.abs(x.check.margin))}` : '–';
   return `<details class="parent"><summary>Dla rodziców: progi i szacunek punktów</summary>
@@ -443,13 +465,13 @@ function schoolGroups(rows, sort) {
     : g => Math.max(...g.rows.map(x => (CHANCE_RANK[x.check.chance] || 0) - x.rank * 10)); // default: best-matching direction first, then the chance
   return [...by.values()].map(g => ({ ...g, best: bestOf(g.rows) })).sort((a, b) => score(b) - score(a) || a.school.short.localeCompare(b.school.short, 'pl', { numeric: true }));
 }
-const street = s => (s.address || '').replace(/,?\s*\d\d-\d{3}\s*Kraków$/, '').replace(/,\s*Kraków$/, '');
+const street = s => (s.address || '').replace(/,?\s*\d\d-\d{3}\s+[^,]+$/, '').replace(/,\s*(Kraków|Tychy)$/, '');
 function schoolCard(g, i) {
   return `<article class="scard ${liked('s', g.school.id) ? 'liked' : ''}" style="--i:${Math.min(i, 8)}">
-    <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${g.school.address ? ' · ' + esc(street(g.school)) : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
+    <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${selTowns().length > 1 ? ' · ' + esc(townOf(g.school.town).name) : ''}${g.school.address ? ' · ' + esc(street(g.school)) : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
     ${g.rows.length ? `<ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : '<span></span>'}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>` : ''}
     ${g.school.note ? `<details class="snote"><summary class="small muted">Uwaga do danych</summary><p class="small muted">${esc(g.school.note)}</p></details>` : ''}
-    <div class="scta"><button class="linkbtn" data-pin="${g.school.id}">Na mapie</button><a class="linkbtn" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd ↗</a></div></article>`;
+    <div class="scta"><button class="linkbtn" data-pin="${g.school.id}">Na mapie</button><a class="linkbtn" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd ↗</a>${g.school.www ? `<a class="linkbtn" href="${esc(g.school.www)}" target="_blank" rel="noopener">strona szkoły ↗</a>` : ''}</div></article>`;
 }
 function vProfile() {
   const { P } = compassData(), x = P.find(p => p.profile.id === A.profile) || P[0];
@@ -485,14 +507,14 @@ function vProfile() {
 // ---- Moja lista ----------------------------------------------------------------------------------------------------
 function likedRows() {
   const p = eff(), l = L0(), out = [];
-  for (const key of l.classes) { const [sid, code] = key.split('|'), school = data.schools.find(s => s.id === sid), cls = school && school.classes.find(c => c.code === code);
+  for (const key of l.classes) { const [sid, code] = key.split('|'), school = data.allSchools.find(s => s.id === sid), cls = school && school.classes.find(c => c.code === code);
     if (cls) out.push({ school, cls, rank: 0, check: checkClass(p, cls, school, data.config) }); }
   return out;
 }
 function vList() {
   const { P } = compassData(), l = L0(), rows = likedRows();
   const profs = P.filter(x => l.profiles.includes(x.profile.id));
-  const schoolsOnly = l.schools.filter(id => !rows.some(r => r.school.id === id)).map(id => data.schools.find(s => s.id === id)).filter(Boolean);
+  const schoolsOnly = l.schools.filter(id => !rows.some(r => r.school.id === id)).map(id => data.allSchools.find(s => s.id === id)).filter(Boolean);
   const groups = schoolGroups(rows);
   const empty = !profs.length && !rows.length && !schoolsOnly.length;
   return `<div class="rhead"><div><h1>Moja lista</h1><p class="lead">To, co ci się spodobało: profile, szkoły i klasy. Lista jest w pliku z wynikami, więc możesz ją pokazać rodzicom albo wrócić do niej później.</p></div>${LILLUS.szkoly}</div>
@@ -538,14 +560,15 @@ function vSchools() {
   const nCls = shown.reduce((t, x) => t + x.rows.length, 0);
   const entries = shown.map(x => ({ school: x.school, classes: x.rows, best: bestOf(x.rows) }));
   const card = (x, i) => schoolCard({ school: x.school, rows: x.rows, best: bestOf(x.rows) }, i);
-  return `<div class="rhead"><div><h1>Szkoły w Krakowie</h1>
-    <p class="lead">${data.schools.length} liceów i techników w Krakowie, wszystkie klasy oprócz dwujęzycznych i sportowych. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
+  return `<div class="rhead"><div><h1>Szkoły ${townsIn()}</h1>
+    <p class="lead">${data.schools.length} liceów i techników ${townsIn()}, wszystkie klasy oprócz dwujęzycznych i sportowych. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
     ${needResults() ? '' : '<div class="actions"><button class="btn ghost" data-go="wyniki">Mój kompas</button></div>'}</div>${LILLUS.szkoly}</div>
+    <div class="frow"><span class="small muted">Miasto:</span>${townChips()}</div>
     ${filterBar(true)}
     <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
     ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas dwujęzycznych, sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
-    <p class="note2">Nie ma jeszcze klas dwujęzycznych i sportowych (mają osobny test językowy albo sprawności, dojdą w kolejnej wersji). Pomijamy też XVII i XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).</p>`;
+    <p class="note2">Nie ma jeszcze klas dwujęzycznych i sportowych (mają osobny test językowy albo sprawności, dojdą w kolejnej wersji). Pomijamy też XVII i XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${READY().filter(t => t.note && selTowns().includes(t.id)).map(t => ` ${esc(t.name)}: ${esc(t.note)}`).join('')}</p>`;
 }
 
 // ---- map (Leaflet from vendor/, OpenStreetMap tiles; loaded only when a map is on screen) ------------------------------------------------
@@ -566,12 +589,12 @@ function mapSchools(rows) {
   return [...by.values()].map(e => ({ ...e, best: bestOf(e.classes) }));
 }
 let mapEntries = null;
-const dirUrl = s => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address || (s.name + ', Kraków'))}&travelmode=transit`;
+const dirUrl = s => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address || (s.name + ', ' + townOf(s.town).name))}&travelmode=transit`;
 function mapBlock(list, intro) {
   mapEntries = list;
   return `<h2>Mapa szkół</h2><p class="small muted">${intro} Kolor pinezki pokazuje najlepszą szansę w tej szkole. Położenie pochodzi z OpenStreetMap; dokładny dojazd sprawdź przyciskiem „Dojazd”.</p>
     ${legend()}
-    <div class="mapbox" id="map" role="region" aria-label="Mapa szkół w Krakowie"><p class="mapfail muted small">Ładuję mapę…</p></div>`;
+    <div class="mapbox" id="map" role="region" aria-label="Mapa szkół ${townsIn()}"><p class="mapfail muted small">Ładuję mapę…</p></div>`;
 }
 const legend = () => `<p class="legend small"><span class="mapnum realna" aria-hidden="true"></span> realna <span class="mapnum zawalczenia" aria-hidden="true"></span> do zawalczenia <span class="mapnum ambitna" aria-hidden="true"></span> ambitna <span class="mapnum unknown" aria-hidden="true"></span> bez oceny</p>`;
 function mapList(list) {
@@ -606,7 +629,7 @@ function initMap(list) {
 // ---- export / load ------------------------------------------------------------------------------------------------
 function buildMarkdown() {
   const r = scoreLiceum(A, data), s = r.slots, L = [];
-  L.push(`# Kompas Liceum – ${A.name || 'ja'}, ${today()}`, `Ścieżka: wybór liceum i technikum, Kraków · Wersja: v${data.config.appVersion}`, '');
+  L.push(`# Kompas Liceum – ${A.name || 'ja'}, ${today()}`, `Ścieżka: wybór liceum i technikum, ${townNames()} · Wersja: v${data.config.appVersion}`, '');
   if (needResults()) {
     L.push('> Zapis postępu: wyniki pojawią się po wypełnieniu pytań. Wczytaj ten plik w Kompasie, żeby kontynuować.', '');
   } else {
@@ -619,16 +642,16 @@ function buildMarkdown() {
     if (nLikes()) {
       L.push('', '## Moja lista');
       lk.profiles.forEach(id => { const p = data.profiles.find(x => x.id === id); if (p) L.push(`- profil: ${p.name}`); });
-      lk.schools.forEach(id => { const sc = data.schools.find(x => x.id === id); if (sc) L.push(`- szkoła: ${sc.short}${sc.address ? ', ' + sc.address : ''}`); });
+      lk.schools.forEach(id => { const sc = data.allSchools.find(x => x.id === id); if (sc) L.push(`- szkoła: ${sc.short}${sc.address ? ', ' + sc.address : ''}`); });
       lr.forEach(x => L.push(`- klasa: ${x.school.short}, ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`));
     }
     const selP = P.find(x => x.profile.id === A.profile) || P[0], sel = { card: selP.areas[0].card, classes: selP.classes };
-    L.push('', `## Klasy w Krakowie: ${selP.profile.name}`);
+    L.push('', `## Klasy ${townsIn()}: ${selP.profile.name}`);
     L.push(`Progi z rekrutacji ${data.config.thresholdYear}. ${data.config.thresholdNote}`);
     for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`);
     L.push('', '## Dla rodziców: progi i szacunek', hasInput() ? (eff().approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie” (słabo = 3 i ok. 45%, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Policzone z dokładnych ocen i wyników.') : 'Brak odpowiedzi o szkole, więc bez szacunku.', '');
     for (const x of sel.classes.slice(0, 12)) {
-      const th = x.cls.threshold != null ? `próg ${f2(x.cls.threshold)}` : `zakres szkoły ${f2(x.school.range.min)}–${f2(x.school.range.max)}`;
+      const th = x.cls.threshold != null ? `próg ${f2(x.cls.threshold)}` : x.school.range ? `zakres szkoły ${f2(x.school.range.min)}–${f2(x.school.range.max)}` : 'bez progu w źródłach';
       L.push(`- ${x.school.short}, klasa ${x.cls.code}: ${th}${x.check.complete ? `, szacunek ${f1(x.check.points)}` : ''}`);
     }
     L.push('', '## Mój plan');
@@ -652,12 +675,13 @@ function loadFile(text) {
   a.strengths = (a.strengths || []).filter(x => has(data.strengths, x.id) || (missing.push('mocna strona: ' + x.id), false));
   a.values = (a.values || []).filter(v => has(data.dimensions.values, v) || (missing.push('wartość: ' + v), false));
   if (!Array.isArray(obj.answers.worlds)) a.worlds = ['all']; // files from before v1.7
+  a.towns = (Array.isArray(a.towns) ? a.towns : []).filter(id => READY().some(t => t.id === id)); if (!a.towns.length) a.towns = ['krakow']; // before v2.0: Kraków
   for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
   for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push('sytuacja: ' + k); }
   if (a.area && !has(data.opportunities, a.area)) { missing.push('kierunek: ' + a.area); a.area = null; }
   { const v = visibleActivities(a, data), i = v.findIndex(x => !(x.id in a.sort)); a.sortPos = i < 0 ? v.length : i; }
   a.sitPos = Object.keys(a.situations).length;
-  A = a; savedSnap = answersKey();
+  A = a; applyTowns(); savedSnap = answersKey();
   notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '');
   const open = screens.find(s => s.ok && !s.ok()); // first step that still needs an answer
   const target = '#/' + (open ? open.id : 'wyniki');
@@ -684,6 +708,7 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button, a, [data-prof]'); if (!t || !data) return;
   const d = t.dataset;
   if (d.go) { e.preventDefault(); if (location.hash === '#/' + d.go) render(); else location.hash = '#/' + d.go; return; }
+  if (d.town) { const w = selTowns(), i = w.indexOf(d.town); A.towns = i >= 0 ? w.filter(x => x !== d.town) : [...w, d.town]; if (!A.towns.length) A.towns = [d.town]; applyTowns(); save(); render(); return; }
   if (d.world) { let w = A.worlds || []; if (d.world === 'all') w = w.includes('all') ? [] : ['all']; else { w = w.filter(x => x !== 'all'); w = w.includes(d.world) ? w.filter(x => x !== d.world) : [...w, d.world]; } A.worlds = w; syncSort(); save(); render(); return; }
   if (d.where) { const [id, w] = d.where.split('|'), s = A.strengths.find(x => x.id === id); if (s) s.proof = s.proof === w ? '' : w; save(); render(); return; }
   if (d.sortans !== undefined) { sortAnswer(Number(d.sortans)); return; }
@@ -715,7 +740,7 @@ document.addEventListener('click', e => {
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
-  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); if (!Array.isArray(p.answers.worlds)) delete A.worlds; A.points = Object.assign(blank().points, A.points); if (!(p.answers.points || {}).mode && Object.keys(A.points.exam || {}).length) A.points.mode = 'exact'; A.sortPos = acts().length; A.sitPos = data.questions.situations.length; if (location.hash === '#/wyniki') render(); else location.hash = '#/wyniki'; }
+  if (d.persona) { const p = data.personas.find(x => x.id === d.persona); A = Object.assign(blank(), JSON.parse(JSON.stringify(p.answers))); if (!Array.isArray(p.answers.worlds)) delete A.worlds; A.points = Object.assign(blank().points, A.points); if (!(p.answers.points || {}).mode && Object.keys(A.points.exam || {}).length) A.points.mode = 'exact'; A.sortPos = acts().length; A.sitPos = data.questions.situations.length; applyTowns(); if (location.hash === '#/wyniki') render(); else location.hash = '#/wyniki'; }
 });
 document.addEventListener('change', e => {
   const t = e.target, d = t.dataset;

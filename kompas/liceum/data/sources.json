@@ -481,5 +481,82 @@
   "title": "Rada Miasta Krakowa: plan sieci szkół ponadpodstawowych (nazwy i adresy szkół)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "we-ty-lo1",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/i-liceum-im-leona-kruczkowskiego-tychy-1994/profile",
+  "title": "I LO Kruczkowskiego w Tychach, klasy 2026/27 i przedmioty punktowane (Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "we-ty-lo2",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/ii-liceum-z-oddzialami-integracyjnymi-im-cypriana-kamila-norwida-tychy-2036/profile",
+  "title": "II LO Norwida w Tychach, klasy 2026/27 i przedmioty punktowane (Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ty-lo3",
+  "url": "https://www.otouczelnie.pl/artykul/2825/Licea-w-Tychach/26/III-LO-im-Stanislawa-Wyspianskiego",
+  "title": "III LO Wyspiańskiego w Tychach, klasy 2025/26",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "we-ty-lo4",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/iv-liceum-tychy-2062",
+  "title": "IV LO (ZS nr 1) w Tychach, klasy 2026/27 i adres (Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "we-ty-t2",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-nr-2-tychy-5390",
+  "title": "Technikum nr 2 w Tychach, zawody 2026/27 i adres (Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "we-ty-t3",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-nr-3-tychy-5391",
+  "title": "Technikum nr 3 w Tychach, zawody 2026/27 i adres (Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "we-ty-t4",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-nr-4-im-hanny-i-kazimierza-wejchertow-tychy-5393/profile",
+  "title": "Technikum nr 4 w Tychach, zawody 2026/27 i przedmioty punktowane (Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "zs5-ty-kierunki",
+  "url": "https://zs5.tychy.pl/kierunki-ksztalcenia/",
+  "title": "ZS nr 5 w Tychach, kierunki kształcenia w rekrutacji 2026/27 (strona szkoły)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ty-licea",
+  "url": "https://www.otouczelnie.pl/artykul/2825/Licea-w-Tychach",
+  "title": "Licea w Tychach: lista i adresy",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ty-technika",
+  "url": "https://www.otouczelnie.pl/artykul/4015/Technika-w-Tychach",
+  "title": "Technika w Tychach: lista i adresy",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "tychy-kokis-2025",
+  "url": "https://tychy.esesja.pl/zalaczniki/362698/1-sierpien-2026-kokis-organizacja-roku-szkolnego-2025-2026_3473539.pdf",
+  "title": "Rada Miasta Tychy: organizacja roku szkolnego 2025/26 (4 licea i 6 techników miejskich)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]
