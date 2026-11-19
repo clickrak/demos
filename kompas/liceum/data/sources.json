@@ -280,13 +280,6 @@
   "status": "sourced"
  },
  {
-  "id": "w-lo46",
-  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xlvi-liceum-krakow-2605/profile",
-  "title": "XLVI LO, profile klas, przedmioty punktowane i progi 2026/27 (waszaedukacja)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "w-tk25",
   "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-komunikacyjne-nr-25-krakow-474/profile",
   "title": "Technikum Komunikacyjne nr 25, profile klas, przedmioty punktowane i progi 2026/27 (waszaedukacja)",
@@ -696,6 +689,20 @@
   "id": "otou-lo41",
   "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/3033/XLI-LO/klasy",
   "title": "XLI LO, klasy 2026/27 (otouczelnie; bez progów klas)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo46",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/6464/XLVI-LO-w-Krakowie",
+  "title": "XLVI LO, klasy i progi 2026/27 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo47",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/6465/XLVII-LO-w-Krakowie",
+  "title": "XLVII LO, klasy 2026/27 (otouczelnie; bez progów klas)",
   "asOf": "2026-11",
   "status": "sourced"
  }

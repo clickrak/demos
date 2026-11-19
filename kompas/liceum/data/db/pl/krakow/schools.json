@@ -5099,7 +5099,7 @@
   },
   "classes": [
    {
-    "code": "C",
+    "code": "1C",
     "label": "mat-biol-chem",
     "extended": [
      "matematyka",
@@ -5110,8 +5110,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 128.75,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -5119,20 +5119,11 @@
      "biologia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo46",
-    "status": "check",
-    "thresholdConflict": {
-     "value": 160.9,
-     "sourceId": "w-lo46",
-     "range": [
-      102.0,
-      128.75
-     ],
-     "rangeSourceId": "otou-progi-licea-2026"
-    }
+    "sourceId": "otou-lo46",
+    "status": "sourced"
    },
    {
-    "code": "A",
+    "code": "1A",
     "label": "geo-hist-ang",
     "extended": [
      "geografia",
@@ -5143,8 +5134,8 @@
      "spoleczenstwo",
      "srodowisko"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 108.7,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -5152,20 +5143,11 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo46",
-    "status": "check",
-    "thresholdConflict": {
-     "value": 146.5,
-     "sourceId": "w-lo46",
-     "range": [
-      102.0,
-      128.75
-     ],
-     "rangeSourceId": "otou-progi-licea-2026"
-    }
+    "sourceId": "otou-lo46",
+    "status": "sourced"
    },
    {
-    "code": "B",
+    "code": "1B",
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
@@ -5175,8 +5157,8 @@
     "cards": [
      "spoleczenstwo"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 102.0,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -5184,20 +5166,11 @@
      "historia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo46",
-    "status": "check",
-    "thresholdConflict": {
-     "value": 145,
-     "sourceId": "w-lo46",
-     "range": [
-      102.0,
-      128.75
-     ],
-     "rangeSourceId": "otou-progi-licea-2026"
-    }
+    "sourceId": "otou-lo46",
+    "status": "sourced"
    }
   ],
-  "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
+  "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole.",
   "geo": {
    "lat": 50.0558,
    "lon": 19.9442,
@@ -5818,7 +5791,7 @@
   },
   "classes": [
    {
-    "code": "A",
+    "code": "1A",
     "label": "mat-inf-ang",
     "extended": [
      "informatyka",
@@ -5838,12 +5811,12 @@
      "fizyka"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo47",
-    "status": "check"
+    "sourceId": "otou-lo47",
+    "status": "sourced"
    },
    {
-    "code": "C",
-    "label": "pol-inf-ang",
+    "code": "1C",
+    "label": "medialno-językowa (pol-ang-inf)",
     "extended": [
      "informatyka",
      "angielski",
@@ -5861,8 +5834,8 @@
      "biologia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo47",
-    "status": "check",
+    "sourceId": "otou-lo47",
+    "status": "sourced",
     "thresholdConflict": {
      "value": 95.1,
      "sourceId": "w-lo47",
@@ -5872,6 +5845,45 @@
      ],
      "rangeSourceId": "otou-progi-licea-2026"
     }
+   },
+   {
+    "code": "1AH",
+    "label": "artystyczno-humanistyczna (pol-franc-hist)",
+    "extended": [
+     "polski",
+     "francuski",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo47",
+    "status": "check"
+   },
+   {
+    "code": "1EI",
+    "label": "ekonomiczno-informatyczna (ang-mat-geo)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "biznes",
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo47",
+    "status": "check"
    }
   ],
   "geo": {
@@ -5880,7 +5892,7 @@
    "q": "os. Szkolne 18, Kraków, Kraków"
   },
   "geoChecked": true,
-  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły. Oznaczeń dwóch klas (artystyczno-humanistyczna, ekonomiczno-informatyczna) nie ma w źródle; kody 1AH i 1EI są robocze."
  },
  {
   "id": "tm15",
