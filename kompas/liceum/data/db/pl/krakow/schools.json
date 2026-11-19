@@ -761,6 +761,7 @@
    "year": "2026/27",
    "sourceId": "otou-progi-licea-2026"
   },
+  "classListSourceId": "lo7-oddzialy",
   "classes": [
    {
     "code": "1C",
@@ -1249,6 +1250,7 @@
    "year": "2025/26",
    "sourceId": "otou-progi-technika-2025"
   },
+  "classListSourceId": "otou-tl14-klasy",
   "note": "W 2023 na klasę programisty przypadało 9,5 kandydata na miejsce, najwięcej w mieście.",
   "classes": [
    {
@@ -1484,6 +1486,7 @@
    "year": "2026/27",
    "sourceId": "otou-progi-licea-2026"
   },
+  "classListSourceId": "zschk-klasy",
   "note": "Źródła podają różne progi: zakres 150,75–156,55 (otouczelnie) i 158,6–164,9 po klasach (Wasza Edukacja). Sprawdź w szkole.",
   "classes": [
    {
@@ -1928,6 +1931,7 @@
    "year": "2025/26",
    "sourceId": "otou-progi-technika-2025"
   },
+  "classListSourceId": "zschk-klasy",
   "classes": [
    {
     "code": "1A",

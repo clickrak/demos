@@ -44,5 +44,21 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   const codes = schools.flatMap(s => s.classes.map(c => s.id + '|' + c.code));
   if (new Set(codes).size !== codes.length) fail('liceum: a school has two classes with the same code');
 }
-console.log(bad ? `${bad} problem(s)` : `OK: ${files.filter(f => f.endsWith('.js')).length} scripts parse, ${Object.keys(json).length} data files valid, cross-references resolve`);
+{ // Sources: every pointer (any key ending in sourceId or sourceIds) exists, and every source is used at least once
+  const pointers = (v, out = []) => {
+    if (Array.isArray(v)) v.forEach(x => pointers(x, out));
+    else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) {
+      if (/sourceids?$/i.test(k)) [x].flat(Infinity).flatMap(y => y && typeof y === 'object' ? Object.values(y).flat() : [y]).forEach(y => y && out.push(y));
+      else pointers(x, out);
+    }
+    return out;
+  };
+  for (const app of ['studia', 'liceum']) {
+    const known = ids(json[`${app}/data/sources.json`]);
+    const used = new Set(Object.entries(json).filter(([f]) => f.startsWith(app + '/') && f !== `${app}/data/sources.json`).flatMap(([, d]) => pointers(d)));
+    refs(`${app} source pointer`, used, known);
+    for (const id of known) if (!used.has(id)) fail(`${app}: source "${id}" is not used anywhere (attach it or delete it)`);
+  }
+}
+console.log(bad ? `${bad} problem(s)` : `OK: ${files.filter(f => f.endsWith('.js')).length} scripts parse, ${Object.keys(json).length} data files valid, cross-references resolve, every source used`);
 process.exit(bad ? 1 : 0);

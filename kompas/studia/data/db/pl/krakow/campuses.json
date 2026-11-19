@@ -27,6 +27,7 @@
   "id": "uj-kampus",
   "name": "UJ, Kampus 600-lecia",
   "address": "ul. Gronostajowa 7",
+  "sourceId": "uj-kampus",
   "status": "gtfs",
   "geo": {
    "lat": 50.0262,

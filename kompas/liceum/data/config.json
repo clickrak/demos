@@ -26,11 +26,18 @@
  "languageBoost": 0,
  "languageBoostCap": 0,
  "appVersion": "1.8.2",
- "dataVersion": "2026-11-11",
+ "dataVersion": "2026-11-19",
  "thresholdYear": "2026/27",
  "thresholdNote": "Próg to najniższy wynik, który dał miejsce w klasie w rekrutacji 2026. W 2027 będzie inny: zwykle o kilka punktów w górę lub w dół, w popularnych klasach więcej.",
  "examDates": "10–12 maja 2027",
  "recruitmentWindow": "w 2026 rekrutacja trwała od 18 maja do 28 lipca; terminy na 2027 ogłasza Małopolski Kurator Oświaty, zwykle w styczniu",
+ "sourceIds": {
+  "recruitmentWindow": "otou-harmonogram-2026",
+  "points": [
+   "kurator-kryteria",
+   "otou-punkty"
+  ]
+ },
  "soft": {
   "slabo": {
    "grade": 3,

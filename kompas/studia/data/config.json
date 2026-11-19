@@ -23,9 +23,13 @@
  "surpriseMinFit": 60,
  "quickStartMaxYears": 3,
  "declarationDeadline": "7 lutego 2027",
+ "sourceIds": {
+  "declarationDeadline": "otou-matura",
+  "ujExtendedOnly": "uj-zasady-2026"
+ },
  "situationWeight": 0.3,
  "languageBoost": 3,
  "languageBoostCap": 6,
  "appVersion": "1.1.2",
- "dataVersion": "2026-11-13"
+ "dataVersion": "2026-11-19"
 }

@@ -119,13 +119,6 @@
   "status": "sourced"
  },
  {
-  "id": "otou-medyczne-krk",
-  "url": "https://www.otouczelnie.pl/miasto_dzial/226/Studia-medyczne-Krakow",
-  "title": "Studia medyczne w Krakowie: lista kierunków",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "uj-zasady-2026",
   "url": "https://www.otouczelnie.pl/uczelnia_dzial/11390/Zasady-rekrutacji-na-UJ-20262027",
   "title": "Zasady rekrutacji na UJ 2026/27 (liczy się poziom rozszerzony)",
@@ -138,13 +131,6 @@
   "title": "Krakowska Medyczna Szkoła Policealna nr 1: kierunki",
   "asOf": "2026-11",
   "status": "sourced"
- },
- {
-  "id": "zse1-bip",
-  "url": "https://zse1.edu.pl/wp-content/uploads/2022/02/Statut-Szkola-Policealna_nr_2_11-.02.2022.pdf",
-  "title": "Statut Szkoły Policealnej nr 2, ZSE nr 1",
-  "asOf": "2022-02",
-  "status": "to-verify"
  },
  {
   "id": "sapsp-rek",
@@ -252,13 +238,6 @@
   "status": "sourced"
  },
  {
-  "id": "otou-asp-aw",
-  "url": "https://www.otouczelnie.pl/miasto_dzial/1230/Architektura-wnetrz-Krakow/Uczelnie-publiczne",
-  "title": "Architektura wnętrz w Krakowie, uczelnie publiczne, rekrutacja 2026/2027",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "otou-pk-arch",
   "url": "https://www.otouczelnie.pl/uczelnia_dzial/1193/Architektura-Politechnika-Krakowska",
   "title": "Politechnika Krakowska, Wydział Architektury: Architektura, rekrutacja 2026/2027",
@@ -276,13 +255,6 @@
   "id": "otou-ignatianum-dz",
   "url": "https://www.otouczelnie.pl/wydzial/1060/DZIENNIKARSTWO-I-KOMUNIKACJA-SPOLECZNA",
   "title": "Uniwersytet Ignatianum: Dziennikarstwo i komunikacja społeczna, rekrutacja 2026/2027",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
-  "id": "otou-dziennikarstwo-krk",
-  "url": "https://www.otouczelnie.pl/miasto_dzial/1898/Dziennikarstwo-i-komunikacja-spoleczna-Krakow/Uczelnie-publiczne",
-  "title": "Dziennikarstwo i komunikacja społeczna w Krakowie, rekrutacja 2026/2027",
   "asOf": "2026-11",
   "status": "sourced"
  }
