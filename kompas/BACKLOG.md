@@ -1,9 +1,10 @@
 # Kompas backlog
 
-Two parts:
+Three parts:
 
 1. **Kompas Liceum roadmap to v3.0** (set 19 Nov 2026). Releases in order, each task marked **Sonnet** or **Opus**.
 2. **Small jobs** (D1–D8, U1–U7) left after the review of 13 Nov 2026. The roadmap points to them by id.
+3. **Kompas Studia roadmap** (started 19 Nov 2026), at the end of this file. One minor release per night, focus by rotation.
 
 The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
 
@@ -349,3 +350,73 @@ Do not change meaning or numbers. One commit per app, list the changed sentences
 - Bilingual classes (v2.5), sports classes and exact points (v3.0) are now in the Part 1 roadmap, as Opus tasks.
 - Map tiles without OpenStreetMap (a static picture of Kraków) if "no outside calls at all" should also cover the map.
 - Germany / abroad paths (kept open, low priority).
+
+---
+
+## Part 3: Kompas Studia roadmap
+
+Started 19 Nov 2026 at `appVersion` 1.1.2. The first release of this cycle is **v2.0**, then v2.1, v2.2 …
+Liceum has its own roadmap (Part 1); do not touch Liceum work here, but reuse shared code (`kompas/core`) and keep
+`node kompas/tests/liceum.mjs` passing.
+
+### Major goals
+
+Set by the weekend review task (it writes this list; planners keep it and plan minors toward the current goal).
+- **Current major goal (until the weekend review sets one):** v3.0. Trustworthy Kraków facts behind every result
+  (every offer, demand line and pay band with a fresh source), so Aleks can act on the results for matura 2027 choices.
+
+### Release rules
+
+- **One release at a time, in order.** Every version is committed, pushed and live on GitHub Pages before the next one is planned.
+  If the last planned release is not pushed yet, the planner does not plan a new one.
+- **Version number.** Set the release number (for example `2.0.0`) in all places Studia shows it: `appVersion` in
+  `kompas/studia/data/config.json`, two places in `kompas/studia/index.html` (meta description and `class="ver"`), and line 1
+  of `kompas/studia/app.js`. Search the old number in `kompas/studia` to be sure none is left. Fixes inside a release raise the last number.
+- **Agents.** **Sonnet** = data entry and small screen changes with clear rules, a source for every fact and a test to pass.
+  **Opus** = new structure in code or data, scoring, design choices, research where the method must be decided.
+  At the end of each release an Opus agent reviews the Sonnet work (tests, click-through at 375 px and 1280 px in three looks) before the push.
+- **Focus by rotation:** Data → UI/UX → Functionality → Data … Skip a focus only when nothing useful is left in it (say why in the plan).
+- **Spec doc.** After each release add a short "Kompas Studia vX.Y.0" section to the spec doc ("Kompas – study & school choice app (spec)").
+- The rules for every task (Part 2) apply: no personal data, no new network calls, a source for every fact, one task = one commit.
+- **Liceum work may run the same night** (it also edits `kompas/studia/data/sources.json` in D9). `git pull --rebase` before
+  starting and before pushing; keep both sides when merging.
+
+### Releases
+
+| Version | Focus | Main content | Agent | Status |
+|---|---|---|---|---|
+| v2.0 | Data | Kraków job demand for the 17 missing areas (D1); 2026 thresholds for UJ, UJ CM and AGH offers; newer GUS pay (D7); URK offer check (D8) | Sonnet + Opus | planned 19 Nov 2026 |
+
+### v2.0 tasks (Data, planned 19 Nov 2026)
+
+Current `appVersion` 1.1.2. No Part 3 existed, so this is the first release and starts with **Data**. Today 74 offers, all
+`sourced`, none with a threshold; 17 of 26 areas have no `demand`; pay bands from GUS October 2020. Do them in this order;
+one commit per task, then the release step.
+
+1. **ST1 (Sonnet) Kraków job demand for 17 areas** (= D1, all steps there).
+   Where: `studia/data/opportunities.json`, `studia/data/sources.json`.
+   Done when: each of the 17 areas (list in D1) has `demand` with a `sourceId`, or is named "no data" in the commit message; three tests pass;
+   one card with new `demand` shows the line on the results page at 375 px.
+2. **ST2 (Opus) Thresholds 2026 for UJ, UJ CM and AGH offers.** The 33 offers of these three have no "how many points did the last
+   person admitted have". Point scales differ (AGH counts up to 1000, UJ and CM use their own scales), so first decide one field shape, for example
+   `"threshold": { "year": 2026, "points": 812, "max": 1000, "round": "I tura", "sourceId": "…" }`, and keep the scale with the number.
+   Take numbers only from the university's own results page or otouczelnie "progi" pages (AGH:
+   otouczelnie.pl/uczelnia_dzial/4290/…/progi; UJ: otouczelnie.pl/uczelnia_dzial/4297/…/progi); one source entry per page.
+   No number found → no field (never guess). Show it in `offerHtml` (`studia/app.js`) as one small muted line, e.g.
+   "W 2026 ostatnia przyjęta osoba: 812 z 1000 pkt", with the words "to informacja, nie wymóg". No scoring change; not in the compass.
+   Add a test in `tests/syntax.mjs`: every `threshold` has `year`, `points` ≤ `max`, and a known `sourceId`.
+   Where: `studia/data/db/pl/krakow/offers.json`, `studia/data/sources.json`, `studia/app.js`, `tests/syntax.mjs`.
+   Done when: tests pass; commit message says how many of the 33 got a threshold; the line shows on an AGH offer at 375 and 1280 px in three looks.
+3. **ST3 (Sonnet) Newer GUS pay data** (= D7, all steps there; also replace "październik 2020" in `studia/app.js` and `core/export.js`).
+   Where: `studia/data/opportunities.json`, `studia/data/sources.json`, `studia/app.js`, `core/export.js`.
+   Done when: every card with `pay` points to the new GUS source (or D7 is closed with a note that no newer table exists);
+   `grep -rn "październik 2020" kompas` finds nothing; tests pass.
+4. **ST4 (Sonnet) URK water engineering offer** (= D8).
+   Where: `studia/data/db/pl/krakow/offers.json`, `studia/data/sources.json`.
+   Done when: the offer matches the URK page for 2027/28 (or 2026/27 if 2027/28 is not out, then `"status": "check"`); tests pass.
+5. **SR2.0 (Opus) Review and release v2.0.0.** Review the Sonnet commits (sources open and say what the data says, no guessed numbers,
+   no new network calls), click-through at 375 and 1280 px in three looks, set `2.0.0` in the four places, `dataVersion` to today,
+   tick D1, D7, D8 in Part 2, mark v2.0 "pushed" in the table above, short "Kompas Studia v2.0.0" section in the spec doc, push.
+
+**Open question for Szymon (19 Nov 2026).** `studia/index.html` loads GoatCounter (`gc.zgo.at/count.js`, added in commit 03b11b4),
+which goes against rule 2 (no analytics, no CDN scripts). If no answer: leave it as it is, do not remove it.
