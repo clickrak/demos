@@ -698,5 +698,19 @@
   "title": "Technikum nr 1 (ZSTI) w Gliwicach: zawody 2025/26, adres (otouczelnie)",
   "asOf": "2026-11",
   "status": "check"
+ },
+ {
+  "id": "otou-krk-licea-2026",
+  "url": "https://www.otouczelnie.pl/ranking/208/Ranking-liceow-w-Krakowie-2026",
+  "title": "otouczelnie.pl: ranking liceów w Krakowie 2026 (matura 2025)",
+  "asOf": "2026",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-krk-technika-2026",
+  "url": "https://www.otouczelnie.pl/ranking/3007/Ranking-technikow-w-Krakowie-2026",
+  "title": "otouczelnie.pl: ranking techników w Krakowie 2026 (matura 2025)",
+  "asOf": "2026",
+  "status": "sourced"
  }
 ]

@@ -1,0 +1,1253 @@
+{
+ "asOf": "2026-11",
+ "note": "Licea i technika w Krakowie od najlepszych wyników matury. Najpierw szkoły z Rankingu Maturalnego Perspektywy 2026 (widoczna część tabeli, ok. 200 miejsc), dalej wg rankingu otouczelnie.pl dla Krakowa 2026 (matura 2025). Bez szkół dla dorosłych i zaocznych. Nowe szkoły bez matury (XLV, XLVI, XLVII LO) i XXII LO nie mają miejsca.",
+ "sourceIds": {
+  "perspektywyLicea": "persp-matura-licea-2026",
+  "perspektywyTechnika": "persp-matura-technika-2026",
+  "otouLicea": "otou-krk-licea-2026",
+  "otouTechnika": "otou-krk-technika-2026"
+ },
+ "licea": [
+  {
+   "name": "V LO im. Augusta Witkowskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo5",
+   "perspektywy": {
+    "rank": "12=",
+    "score": 91.69
+   },
+   "otouczelnie": {
+    "rank": 1,
+    "score": 322.71
+   },
+   "order": 1
+  },
+  {
+   "name": "I LO im. Bartłomieja Nowodworskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo1",
+   "perspektywy": {
+    "rank": "22=",
+    "score": 88.3
+   },
+   "otouczelnie": {
+    "rank": 3,
+    "score": 318.33
+   },
+   "order": 2
+  },
+  {
+   "name": "VII Prywatne LO im. Mikołaja Reja",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "42=",
+    "score": 82.46
+   },
+   "otouczelnie": {
+    "rank": 7,
+    "score": 314.69
+   },
+   "order": 3
+  },
+  {
+   "name": "VIII LO im. Stanisława Wyspiańskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo8",
+   "perspektywy": {
+    "rank": "51=",
+    "score": 81.3
+   },
+   "otouczelnie": {
+    "rank": 4,
+    "score": 317.48
+   },
+   "order": 4
+  },
+  {
+   "name": "II LO im. Króla Jana III Sobieskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo2",
+   "perspektywy": {
+    "rank": "59=",
+    "score": 80.61
+   },
+   "otouczelnie": {
+    "rank": 6,
+    "score": 315.79
+   },
+   "order": 5
+  },
+  {
+   "name": "VI LO im. Adama Mickiewicza",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo6",
+   "perspektywy": {
+    "rank": "67=",
+    "score": 79.84
+   },
+   "otouczelnie": {
+    "rank": 10,
+    "score": 311.82
+   },
+   "order": 6
+  },
+  {
+   "name": "VIII Prywatne Akademickie LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "72=",
+    "score": 79.42
+   },
+   "otouczelnie": {
+    "rank": 5,
+    "score": 317.37
+   },
+   "order": 7
+  },
+  {
+   "name": "VII LO im. Zofii Nałkowskiej",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo7",
+   "perspektywy": {
+    "rank": "85=",
+    "score": 78.06
+   },
+   "otouczelnie": {
+    "rank": 8,
+    "score": 312.33
+   },
+   "order": 8
+  },
+  {
+   "name": "Publiczne LO Zgromadzenia Sióstr Augustianek",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "110=",
+    "score": 75.46
+   },
+   "otouczelnie": null,
+   "order": 9
+  },
+  {
+   "name": "X LO im. Komisji Edukacji Narodowej",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo10",
+   "perspektywy": {
+    "rank": "133=",
+    "score": 73.69
+   },
+   "otouczelnie": {
+    "rank": 10,
+    "score": 311.82
+   },
+   "order": 10
+  },
+  {
+   "name": "LO Zakonu Pijarów im. ks. Stanisława Konarskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "146=",
+    "score": 73.1
+   },
+   "otouczelnie": {
+    "rank": 14,
+    "score": 305.46
+   },
+   "order": 11
+  },
+  {
+   "name": "III Społeczne LO im. Juliusza Słowackiego STO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "146=",
+    "score": 72.66
+   },
+   "otouczelnie": {
+    "rank": 20,
+    "score": 295.98
+   },
+   "order": 12
+  },
+  {
+   "name": "III LO im. Jana Kochanowskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo3",
+   "perspektywy": {
+    "rank": "155=",
+    "score": 72.34
+   },
+   "otouczelnie": {
+    "rank": 11,
+    "score": 310.33
+   },
+   "order": 13
+  },
+  {
+   "name": "IV LO im. Tadeusza Kościuszki",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo4",
+   "perspektywy": {
+    "rank": "155=",
+    "score": 72.15
+   },
+   "otouczelnie": {
+    "rank": 15,
+    "score": 305.2
+   },
+   "order": 14
+  },
+  {
+   "name": "LO z Oddziałem Dwujęzycznym im. Piotra Michałowskiego TSSP",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "175=",
+    "score": 70.98
+   },
+   "otouczelnie": {
+    "rank": 19,
+    "score": 299.88
+   },
+   "order": 15
+  },
+  {
+   "name": "XLII LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo42",
+   "perspektywy": {
+    "rank": "186=",
+    "score": 70.59
+   },
+   "otouczelnie": {
+    "rank": 9,
+    "score": 312.16
+   },
+   "order": 16
+  },
+  {
+   "name": "Publiczne Salezjańskie LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "199=",
+    "score": 69.95
+   },
+   "otouczelnie": {
+    "rank": 13,
+    "score": 305.48
+   },
+   "order": 17
+  },
+  {
+   "name": "LO św. Rity",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 2,
+    "score": 319.4
+   },
+   "order": 18
+  },
+  {
+   "name": "Ogólnokształcąca Szkoła Muzyczna II st.",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "music",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 12,
+    "score": 309.82
+   },
+   "order": 19
+  },
+  {
+   "name": "XI LO im. Marii Dąbrowskiej",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo11",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 16,
+    "score": 301.4
+   },
+   "order": 20
+  },
+  {
+   "name": "Prywatne LO z Oddziałami Dwujęzycznymi im. Noblistów Polskich",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 17,
+    "score": 300.63
+   },
+   "order": 21
+  },
+  {
+   "name": "XIII LO im. Obrońców Westerplatte",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo13",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 18,
+    "score": 300.14
+   },
+   "order": 22
+  },
+  {
+   "name": "IX LO im. Zygmunta Wróblewskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo9",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 19,
+    "score": 299.88
+   },
+   "order": 23
+  },
+  {
+   "name": "Katolickie LO im. Świętej Rodziny z Nazaretu",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 21,
+    "score": 294.1
+   },
+   "order": 24
+  },
+  {
+   "name": "XLIV LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo44",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 22,
+    "score": 293.69
+   },
+   "order": 25
+  },
+  {
+   "name": "Liceum Jezuitów im. św. Stanisława Kostki",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 23,
+    "score": 292.18
+   },
+   "order": 26
+  },
+  {
+   "name": "XX LO im. Leopolda Staffa",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo20",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 24,
+    "score": 288.81
+   },
+   "order": 27
+  },
+  {
+   "name": "XVII LO im. Młodej Polski",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 25,
+    "score": 282.52
+   },
+   "order": 28
+  },
+  {
+   "name": "LO Sióstr Prezentek",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 26,
+    "score": 280.29
+   },
+   "order": 29
+  },
+  {
+   "name": "XXXI LO im. Romana Ingardena",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo31",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 27,
+    "score": 280.13
+   },
+   "order": 30
+  },
+  {
+   "name": "Publiczne LO Sióstr Salezjanek im. św. Dominika Savio",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 28,
+    "score": 277.09
+   },
+   "order": 31
+  },
+  {
+   "name": "XV LO im. Marii Skłodowskiej-Curie",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo15",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 29,
+    "score": 275.85
+   },
+   "order": 32
+  },
+  {
+   "name": "XII LO im. Cypriana Norwida",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo12",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 30,
+    "score": 275.16
+   },
+   "order": 33
+  },
+  {
+   "name": "Państwowe Liceum Sztuk Plastycznych im. Józefa Kluzy",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "art",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 31,
+    "score": 274.07
+   },
+   "order": 34
+  },
+  {
+   "name": "I LO Sportowe",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "sport",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 32,
+    "score": 273.72
+   },
+   "order": 35
+  },
+  {
+   "name": "POSM II st. im. Fryderyka Chopina",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "music",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 33,
+    "score": 272.36
+   },
+   "order": 36
+  },
+  {
+   "name": "XXVI LO w ZSC im. Marii Skłodowskiej-Curie",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo26",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 34,
+    "score": 270.87
+   },
+   "order": 37
+  },
+  {
+   "name": "Katolickie Liceum Montessori",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 35,
+    "score": 270.44
+   },
+   "order": 38
+  },
+  {
+   "name": "XLI LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo41",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 36,
+    "score": 269.54
+   },
+   "order": 39
+  },
+  {
+   "name": "XXVII LO im. dra Henryka Jordana",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo27",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 37,
+    "score": 266.96
+   },
+   "order": 40
+  },
+  {
+   "name": "XLIII LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo43",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 38,
+    "score": 266.04
+   },
+   "order": 41
+  },
+  {
+   "name": "XXVIII LO im. Wojciecha Bednarskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo28",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 39,
+    "score": 264.71
+   },
+   "order": 42
+  },
+  {
+   "name": "XXIII LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo23",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 40,
+    "score": 260.26
+   },
+   "order": 43
+  },
+  {
+   "name": "XXIV LO im. św. Jana Pawła II",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo24",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 41,
+    "score": 254.19
+   },
+   "order": 44
+  },
+  {
+   "name": "I Prywatne LO im. Marszałka J. Piłsudskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 42,
+    "score": 253.62
+   },
+   "order": 45
+  },
+  {
+   "name": "I Społeczne LO im. X. B. W. Ignacego Krasickiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 43,
+    "score": 252.25
+   },
+   "order": 46
+  },
+  {
+   "name": "XXI LO im. S. I. Witkiewicza-Witkacego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo21",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 44,
+    "score": 250.44
+   },
+   "order": 47
+  },
+  {
+   "name": "IX Prywatne LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 45,
+    "score": 247.38
+   },
+   "order": 48
+  },
+  {
+   "name": "XVIII LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo18",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 46,
+    "score": 243.19
+   },
+   "order": 49
+  },
+  {
+   "name": "III Prywatne LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 47,
+    "score": 242.41
+   },
+   "order": 50
+  },
+  {
+   "name": "V Prywatne LO im. Królowej Jadwigi",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 48,
+    "score": 242.07
+   },
+   "order": 51
+  },
+  {
+   "name": "IV Prywatne LO im. Królów Polskich",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 49,
+    "score": 239.79
+   },
+   "order": 52
+  },
+  {
+   "name": "XIV LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo14",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 50,
+    "score": 237.35
+   },
+   "order": 53
+  },
+  {
+   "name": "Akademickie LO Emmanuel",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 51,
+    "score": 235.71
+   },
+   "order": 54
+  },
+  {
+   "name": "XVI LO im. Krzysztofa Kamila Baczyńskiego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo16",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 52,
+    "score": 234.22
+   },
+   "order": 55
+  },
+  {
+   "name": "LO Mistrzostwa Sportowego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "sport",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 53,
+    "score": 233.48
+   },
+   "order": 56
+  },
+  {
+   "name": "Publiczne LO im. Królowej Apostołów",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 54,
+    "score": 227.39
+   },
+   "order": 57
+  },
+  {
+   "name": "XXX LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo30",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 55,
+    "score": 209.72
+   },
+   "order": 58
+  },
+  {
+   "name": "SMS LO Marcina Gortata",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "sport",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 56,
+    "score": 207.51
+   },
+   "order": 59
+  },
+  {
+   "name": "LO Huty im. Tadeusza Sendzimira",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 57,
+    "score": 203.03
+   },
+   "order": 60
+  },
+  {
+   "name": "Społeczne LO Mistrzostwa Sportowego",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "sport",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 59,
+    "score": 193.12
+   },
+   "order": 61
+  },
+  {
+   "name": "Niepubliczne LO SSPN im. gen. Bernarda Monda",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "sport",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 60,
+    "score": 177.22
+   },
+   "order": 62
+  },
+  {
+   "name": "XXV LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 64,
+    "score": 157.66
+   },
+   "order": 63
+  },
+  {
+   "name": "XXIX LO",
+   "town": "Kraków",
+   "type": "liceum",
+   "kind": "pub",
+   "kompasId": "lo29",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 67,
+    "score": 148.08
+   },
+   "order": 64
+  }
+ ],
+ "technika": [
+  {
+   "name": "Technikum Łączności nr 14 w ZS Łączności",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tl14",
+   "perspektywy": {
+    "rank": "3",
+    "score": 87.81
+   },
+   "otouczelnie": {
+    "rank": 1,
+    "score": 300.99
+   },
+   "order": 1
+  },
+  {
+   "name": "Technikum Chemiczne i Ochrony Środowiska nr 3",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tch3",
+   "perspektywy": {
+    "rank": "19=",
+    "score": 64.63
+   },
+   "otouczelnie": {
+    "rank": 3,
+    "score": 272.7
+   },
+   "order": 2
+  },
+  {
+   "name": "Technikum Elektryczno-Elektroniczne nr 7",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tee7",
+   "perspektywy": {
+    "rank": "29",
+    "score": 61.6
+   },
+   "otouczelnie": {
+    "rank": 4,
+    "score": 272.53
+   },
+   "order": 3
+  },
+  {
+   "name": "Technikum Energetyczno-Elektroniczne nr 9 im. Tadeusza Kościuszki",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tee9",
+   "perspektywy": {
+    "rank": "38=",
+    "score": 59.3
+   },
+   "otouczelnie": {
+    "rank": 2,
+    "score": 279.62
+   },
+   "order": 4
+  },
+  {
+   "name": "Technikum Ekonomiczno-Hotelarskie nr 4",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "teh4",
+   "perspektywy": {
+    "rank": "83=",
+    "score": 52.21
+   },
+   "otouczelnie": {
+    "rank": 7,
+    "score": 248.39
+   },
+   "order": 5
+  },
+  {
+   "name": "Technikum Kształtowania Środowiska nr 24",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tks24",
+   "perspektywy": {
+    "rank": "111=",
+    "score": 50.57
+   },
+   "otouczelnie": null,
+   "order": 6
+  },
+  {
+   "name": "Technikum Budowlane nr 1 w ZSAB nr 1",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tb1",
+   "perspektywy": {
+    "rank": "174=",
+    "score": 47.27
+   },
+   "otouczelnie": {
+    "rank": 6,
+    "score": 248.91
+   },
+   "order": 7
+  },
+  {
+   "name": "Technikum Poligraficzno-Medialne nr 20 im. Z. Klemensiewicza",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": {
+    "rank": "183=",
+    "score": 46.94
+   },
+   "otouczelnie": {
+    "rank": 10,
+    "score": 236.97
+   },
+   "order": 8
+  },
+  {
+   "name": "ZS Polskiego Górnictwa Naftowego i Gazownictwa im. prof. Walerego Goetla",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 5,
+    "score": 254.58
+   },
+   "order": 9
+  },
+  {
+   "name": "Technikum TEB Edukacja",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 8,
+    "score": 246.9
+   },
+   "order": 10
+  },
+  {
+   "name": "Technikum Mechaniczne nr 15 w ZSM nr 1",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tm15",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 9,
+    "score": 238.37
+   },
+   "order": 11
+  },
+  {
+   "name": "Technikum Ekonomiczno-Handlowe nr 5 w ZSE nr 2",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 11,
+    "score": 229.96
+   },
+   "order": 12
+  },
+  {
+   "name": "Technikum Komunikacyjne nr 25 w ZS nr 1",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tk25",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 12,
+    "score": 219.48
+   },
+   "order": 13
+  },
+  {
+   "name": "Technikum Huty im. T. Sendzimira",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "prv",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 13,
+    "score": 217.85
+   },
+   "order": 14
+  },
+  {
+   "name": "Technikum Gastronomiczne nr 11 w ZSG nr 2",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 14,
+    "score": 213.61
+   },
+   "order": 15
+  },
+  {
+   "name": "Technikum Elektryczne nr 8 w ZS Elektrycznych nr 2",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "te8",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 15,
+    "score": 212.57
+   },
+   "order": 16
+  },
+  {
+   "name": "Technikum Geodezji i Kształtowania Środowiska nr 12",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tg12",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 16,
+    "score": 208.63
+   },
+   "order": 17
+  },
+  {
+   "name": "Technikum Mechaniczne nr 16 w ZSM nr 2",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 17,
+    "score": 198.63
+   },
+   "order": 18
+  },
+  {
+   "name": "Technikum Inżynierii Środowiska nr 13",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 18,
+    "score": 193.29
+   },
+   "order": 19
+  },
+  {
+   "name": "Technikum Mechaniczne nr 17 w ZSM nr 3",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tm17",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 19,
+    "score": 178.14
+   },
+   "order": 20
+  },
+  {
+   "name": "Technikum Gastronomiczno-Hotelarskie nr 10",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 20,
+    "score": 177.13
+   },
+   "order": 21
+  },
+  {
+   "name": "Technikum Odzieżowe nr 18 w ZSO nr 1",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 21,
+    "score": 170.04
+   },
+   "order": 22
+  },
+  {
+   "name": "Technikum Mechaniczne nr 30 w ZSM nr 4",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": "tm30",
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 22,
+    "score": 164.74
+   },
+   "order": 23
+  },
+  {
+   "name": "Technikum nr 2 w ZSZ nr 2",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 23,
+    "score": 153.79
+   },
+   "order": 24
+  },
+  {
+   "name": "Technikum Ekonomiczne i Elektroniczne nr 23 w ZSZ nr 1",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 24,
+    "score": 138.05
+   },
+   "order": 25
+  },
+  {
+   "name": "Technikum Przemysłu Spożywczego nr 22 im. św. M. M. Kolbe",
+   "town": "Kraków",
+   "type": "technikum",
+   "kind": "pub",
+   "kompasId": null,
+   "perspektywy": null,
+   "otouczelnie": {
+    "rank": 25,
+    "score": 104.66
+   },
+   "order": 26
+  }
+ ]
+}

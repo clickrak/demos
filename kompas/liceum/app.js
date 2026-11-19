@@ -1,4 +1,4 @@
-// Kompas Liceum v2.6.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.7.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
@@ -28,7 +28,13 @@ async function load() {
   // Travel times (backlog M2): computed ahead by a GitHub Action from timetables; optional per town, no calls at run time.
   const travel = {};
   await Promise.all((config.towns || []).filter(t => t.status === 'ready').map(t => fetch(`data/db/pl/${t.id}/travel.json`).then(r => (r.ok ? r.json() : null)).then(j => { if (j) travel[t.id] = j; }).catch(() => {})));
-  data = { dimensions, strengths, config, questions, opportunities, schools: allSchools, allSchools, sources, personas, profiles, travel };
+  // Matura ranking (K2, G1): one ranked list per area, computed ahead; optional. rank[schoolId] = place in its list.
+  const rank = {};
+  await Promise.all([['krakow', 'w Krakowie'], ['gzm', 'w Metropolii GZM']].map(([f, where]) => fetch(`data/db/pl/${f}/ranking.json`).then(r => (r.ok ? r.json() : null)).then(j => {
+    if (!j) return;
+    for (const [k, word] of [['licea', 'liceów'], ['technika', 'techników']]) for (const x of j[k] || []) if (x.kompasId) rank[x.kompasId] = { order: x.order, total: j[k].length, word, where, p: x.perspektywy, o: x.otouczelnie };
+  }).catch(() => {})));
+  data = { dimensions, strengths, config, questions, opportunities, schools: allSchools, allSchools, sources, personas, profiles, travel, rank };
   // Studia programmes, to show what each area leads to after liceum (optional).
   studiaOffers = await fetch('../studia/data/db/pl/krakow/offers.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
   A = blank(); applyTowns();
@@ -501,10 +507,13 @@ function schoolGroups(rows, sort) {
     : g => Math.max(...g.rows.map(x => (CHANCE_RANK[x.check.chance] || 0) - x.rank * 10)); // default: best-matching direction first, then the chance
   return [...by.values()].map(g => ({ ...g, best: bestOf(g.rows) })).sort((a, b) => score(b) - score(a) || a.school.short.localeCompare(b.school.short, 'pl', { numeric: true }));
 }
+const rankTitle = r => [r.p ? `Perspektywy, Ranking Maturalny 2026: miejsce ${r.p.rank} w Polsce` : '', r.o ? `otouczelnie.pl 2026: miejsce ${r.o.rank} w mieście lub województwie` : ''].filter(Boolean).join('; ');
+const rankLine = s => { const r = data.rank && data.rank[s.id]; return r ? `<p class="small rankl" title="${esc(rankTitle(r))}">Wyniki matur: <b>${r.order}.</b> z ${r.total} ${r.word} ${esc(r.where)}${r.p ? ' · w krajowym rankingu Perspektyw' : ''}</p>` : ''; };
 const street = s => (s.address || '').replace(/,?\s*\d\d-\d{3}\s+[^,]+$/, '').replace(/,\s*(Kraków|Tychy)$/, '');
 function schoolCard(g, i) {
   return `<article class="scard ${liked('s', g.school.id) ? 'liked' : ''}" style="--i:${Math.min(i, 8)}">
     <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${g.school.address ? ' · ' + esc(street(g.school)) : ''}${selTowns().length > 1 ? ' · ' + esc(townOf(g.school.town).name) : ''}${mins(g.school) != null ? ` · <b class="tmin">${minTxt(g.school)}</b>` : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
+    ${rankLine(g.school)}
     ${g.rows.length ? `<ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}${biTag(r.cls)}${hasInput() && r.check.lang && r.check.lang.test ? `<span class="small muted lnote">${esc(langNote(r.check))}</span>` : ''}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : '<span></span>'}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>` : ''}
     ${g.school.note ? `<details class="snote"><summary class="small muted">Uwaga do danych</summary><p class="small muted">${esc(g.school.note)}</p></details>` : ''}
     <div class="scta"><button class="linkbtn" data-pin="${g.school.id}">Na mapie</button><a class="linkbtn" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd ↗</a>${g.school.www ? `<a class="linkbtn" href="${esc(g.school.www)}" target="_blank" rel="noopener">strona szkoły ↗</a>` : ''}</div></article>`;
@@ -604,6 +613,7 @@ function vList() {
 // ---- filters and the school catalogue ------------------------------------------------------------------------------
 const ui = { q: '', type: '', subj: '', chance: '', parea: '', sort: '', travel: '', bi: '' };
 const ROMAN = [[40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
+const rankNo = s => ((data.rank || {})[s.id] || { order: 999 }).order;
 const romanNo = s => { if (s.type !== 'liceum') return 0; const r = s.short.split(' ')[0]; for (let n = 1; n < 60; n++) if (toRoman(n) === r) return n; return 99; };
 const toRoman = n => { let o = ''; for (const [v, r] of ROMAN) while (n >= v) { o += r; n -= v; } return o; };
 const fold = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L').toLowerCase();
@@ -633,7 +643,7 @@ function vSchools() {
   const p = eff();
   const all = data.schools.map(school => ({ school, rows: school.classes.map(cls => ({ school, cls, check: checkClass(p, cls, school, data.config) })) }));
   const shown = all.filter(x => schoolMatch(x.school, ui.q)).map(x => ({ ...x, rows: x.rows.filter(rowPass) })).filter(x => x.rows.length)
-    .sort((a, b) => a.school.type.localeCompare(b.school.type) || romanNo(a.school) - romanNo(b.school) || a.school.short.localeCompare(b.school.short, 'pl', { numeric: true }));
+    .sort((a, b) => a.school.type.localeCompare(b.school.type) || (ui.sort === 'matura' ? rankNo(a.school) - rankNo(b.school) : 0) || romanNo(a.school) - romanNo(b.school) || a.school.short.localeCompare(b.school.short, 'pl', { numeric: true }));
   const nCls = shown.reduce((t, x) => t + x.rows.length, 0);
   const entries = shown.map(x => ({ school: x.school, classes: x.rows, best: bestOf(x.rows) }));
   const card = (x, i) => schoolCard({ school: x.school, rows: x.rows, best: bestOf(x.rows) }, i);
@@ -642,6 +652,7 @@ function vSchools() {
     ${needResults() ? '' : '<div class="actions"><button class="btn ghost" data-go="wyniki">Mój kompas</button></div>'}</div>${LILLUS.szkoly}</div>
     <div class="frow"><span class="small muted">Gdzie:</span>${regionChips()}</div>
     ${filterBar(true)}
+    <div class="frow" role="group" aria-label="Kolejność"><span class="small muted">Kolejność:</span><button class="chip" data-sort="" aria-pressed="${ui.sort !== 'matura'}">numer szkoły</button><button class="chip" data-sort="matura" aria-pressed="${ui.sort === 'matura'}">wyniki matur</button></div>
     <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance || ui.travel || ui.bi ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
     ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}

@@ -354,3 +354,7 @@ html.big #app { overflow-x: clip; } /* pop-art offset shadows must not widen the
 .bicard .chips { margin-top: 6px; }
 @media print { .bitag { border-color: #000; color: #000; } }
 .srows .lbl .bitag { display: table; margin: 4px 0 2px; white-space: normal; }
+
+/* v2.7 matura ranking line on school cards */
+.rankl { margin: 2px 0 6px; color: var(--muted, inherit); }
+.rankl b { font-variant-numeric: tabular-nums; }

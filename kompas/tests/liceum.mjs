@@ -178,4 +178,14 @@ console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town ==
   const tyIds = allSchools.filter(s => regionTowns('tychy').includes(s.town)).map(s => s.id), linked = [...R.licea, ...R.technika].map(x => x.kompasId).filter(Boolean);
   for (const id of linked) if (!tyIds.includes(id)) fail('GZM kompasId unknown', id);
   console.log(`GZM ranking: ${R.licea.length} licea, ${R.technika.length} technika; linked to Kompas: ${linked.length}`); }
+// Kraków ranked list (v2.7, K2): ordered, Perspektywy first, every Kompas link known, no adult schools.
+{ const R = j('../liceum/data/db/pl/krakow/ranking.json'), ids = allSchools.filter(s => s.town === 'krakow').map(s => s.id), seen = new Set();
+  for (const k of ['licea', 'technika']) (R[k] || []).forEach((x, i) => {
+    if (x.order !== i + 1) fail('Kraków ranking order', k, x.name);
+    if (!x.perspektywy && !x.otouczelnie) fail('Kraków ranking: school without any rank', x.name);
+    if (x.kompasId && !ids.includes(x.kompasId)) fail('Kraków ranking: unknown kompasId', x.kompasId);
+    if (x.kompasId && seen.has(x.kompasId)) fail('Kraków ranking: kompasId twice', x.kompasId); seen.add(x.kompasId);
+    if (/doros|zaoczn/i.test(x.name)) fail('adult school in Kraków list', x.name);
+  });
+  console.log(`Kraków ranking: ${R.licea.length} licea, ${R.technika.length} technika; Kompas schools with a place: ${seen.size - (seen.has(null) ? 1 : 0)} of ${ids.length}`); }
 process.exit(bad ? 1 : 0);
