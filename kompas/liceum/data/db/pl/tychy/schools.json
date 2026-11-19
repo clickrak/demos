@@ -769,7 +769,13 @@
     "status": "check",
     "occupation": "technik ochrony środowiska"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.11622,
+   "lon": 19.0076,
+   "q": "Hanny i Kazimierza Wejchertów 20, Tychy"
+  },
+  "geoChecked": true
  },
  {
   "id": "ty-t5",
@@ -852,6 +858,12 @@
     "status": "check",
     "occupation": "technik eksploatacji portów i terminali"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.10758,
+   "lon": 18.98136,
+   "q": "al. Marszałka Piłsudskiego 10, Tychy"
+  },
+  "geoChecked": true
  }
 ]
