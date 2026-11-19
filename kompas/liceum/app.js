@@ -1,4 +1,4 @@
-// Kompas Liceum v2.3.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.4.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
@@ -15,7 +15,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 const f1 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const f2 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [],
-  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], region: 'krakow', from: null, profile: null, likes: { profiles: [], schools: [], classes: [] } });
+  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], region: 'krakow', from: null, lastScreen: null, bigText: false, calm: false, profile: null, likes: { profiles: [], schools: [], classes: [] } });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -39,7 +39,7 @@ async function load() {
 }
 
 // ---- state, theme, skin -------------------------------------------------------------------------------------------
-const answersKey = () => JSON.stringify({ ...A, sortPos: undefined, sitPos: undefined });
+const answersKey = () => JSON.stringify({ ...A, sortPos: undefined, sitPos: undefined, lastScreen: undefined, bigText: undefined, calm: undefined });
 let savedSnap = null, notice = '', theme = null;
 const SKINS = ['neon', 'pop', null], SKIN_NAME = { null: 'Spokojny', neon: 'Neon', pop: 'Pop art' };
 const skinQ = new URLSearchParams(location.search).get('skin');
@@ -63,6 +63,14 @@ function applyTheme() {
   const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
   document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = b.classList.contains('linkbtn') ? (dark ? 'Jasny motyw' : 'Ciemny motyw') : dark ? ICON.sun : ICON.moon; });
 }
+// Comfort (backlog U1): bigger text and calmer motion, kept in the saved file.
+const calm = () => !!(A && A.calm) || matchMedia('(prefers-reduced-motion: reduce)').matches;
+function applyComfort() {
+  const root = document.documentElement;
+  root.classList.toggle('big', !!(A && A.bigText)); root.classList.toggle('calm', !!(A && A.calm));
+  document.querySelectorAll('[data-big]').forEach(b => b.setAttribute('aria-pressed', String(!!A.bigText)));
+  document.querySelectorAll('[data-calm]').forEach(b => b.setAttribute('aria-pressed', String(!!A.calm)));
+}
 function applySkin(animate) {
   const root = document.documentElement;
   if (skin) root.dataset.skin = skin; else delete root.dataset.skin;
@@ -72,7 +80,7 @@ function applySkin(animate) {
   const u = new URL(location.href);
   if (skin === 'neon') u.searchParams.delete('skin'); else u.searchParams.set('skin', skin || 'calm');
   history.replaceState(null, '', u);
-  if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (animate && !calm()) {
     root.classList.remove('skin-in'); void root.offsetWidth; root.classList.add('skin-in');
     clearTimeout(applySkin.h); applySkin.h = setTimeout(() => root.classList.remove('skin-in'), 700);
   }
@@ -127,6 +135,7 @@ const needResults = () => !(hasWorlds() && A.sortPos >= acts().length && A.value
 let lastProg = { ch: null, w: 0 };
 function render() {
   const s = current(), i = screens.indexOf(s);
+  applyComfort();
   document.querySelectorAll('.chapters [data-ch]').forEach(el => { el.classList.toggle('on', el.dataset.ch === s.ch); el.setAttribute('aria-current', el.dataset.ch === s.ch ? 'step' : 'false'); });
   const inQ = s.ch === 'ja' || s.ch === 'szkola';
   const list = screens.filter(x => x.ch === 'ja' || x.ch === 'szkola');
@@ -142,7 +151,8 @@ function render() {
   if ((s.id === 'wyniki' || s.id === 'profil' || s.id === 'rodzic') && needResults()) { $app.innerHTML = vGate(); document.body.classList.remove('wide'); $app.dataset.screen = 'gate'; applySkin(); return; }
   const keep = document.activeElement && document.activeElement.id, changed = $app.dataset.screen !== s.id;
   const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
-  const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
+  const dir = !changed || calm() ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
+  if (s.id !== 'start' && s.id !== 'rodzic') A.lastScreen = s.id;
   document.body.classList.toggle('wide', ['wyniki', 'profil', 'szkoly', 'lista'].includes(s.id));
   if (mapObj) { mapObj.remove(); mapObj = null; }
   mapEntries = null;
@@ -150,7 +160,7 @@ function render() {
   $app.dataset.screen = s.id; $app.classList.toggle('still', !changed); save(); applySkin(); likeCount();
   const pi = $app.querySelector('.prog2 i[data-to]');
   if (pi) requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.width = pi.dataset.to + '%'; }));
-  if (changed) { const b = document.querySelector('.brand'); if (b) { b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); } }
+  if (changed && !calm()) { const b = document.querySelector('.brand'); if (b) { b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); } }
   if (changed) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
   else if (keep && document.getElementById(keep)) { const el = document.getElementById(keep); el.focus(); if (el.setSelectionRange && el.value && el.type === 'text') el.setSelectionRange(el.value.length, el.value.length); }
   if (s.id === 'szkola') liveUpdate();
@@ -737,9 +747,10 @@ function loadFile(text) {
   a.sitPos = Object.keys(a.situations).length;
   A = a; applyTowns(); savedSnap = answersKey();
   notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '');
-  const open = screens.find(s => s.ok && !s.ok()); // first step that still needs an answer
-  const target = '#/' + (open ? open.id : 'wyniki');
-  notice += open ? ' Wracasz do pierwszego kroku, który czeka na odpowiedź.' : '';
+  const last = screens.find(s => s.id === a.lastScreen && s.id !== 'start'); // U6: back to the screen the kid left
+  const open = screens.find(s => s.ok && !s.ok()); // otherwise: first step that still needs an answer
+  const target = '#/' + (last ? last.id : open ? open.id : 'wyniki');
+  notice += last ? ' Wracasz tam, gdzie skończyłeś.' : open ? ' Wracasz do pierwszego kroku, który czeka na odpowiedź.' : '';
   if (location.hash === target) render(); else location.hash = target;
 }
 
@@ -774,7 +785,7 @@ document.addEventListener('click', e => {
   if ('sitreset' in d) { A.sitPos = 0; render(); return; }
   if (d.value) { const i = A.values.indexOf(d.value); if (i >= 0) A.values.splice(i, 1); else if (A.values.length < 3) A.values.push(d.value); save(); render(); return; }
   if (d.strength) { const i = A.strengths.findIndex(s => s.id === d.strength); if (i >= 0) A.strengths.splice(i, 1); else if (A.strengths.length < 3) A.strengths.push({ id: d.strength, proof: '' }); save(); render(); return; }
-  if (d.area) { A.area = d.area; save(); render(); setTimeout(() => document.querySelector('.cls')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 30); return; }
+  if (d.area) { A.area = d.area; save(); render(); setTimeout(() => document.querySelector('.cls')?.scrollIntoView({ block: 'start', behavior: calm() ? 'auto' : 'smooth' }), 30); return; }
   if (d.soft) { const [kind, key, val] = d.soft.split(':'), tgt = (A.points.soft[kind === 'exam' ? 'exam' : 'grades'] ||= {}); if (tgt[key] === val) delete tgt[key]; else tgt[key] = val; A.points.mode = 'soft'; save(); render(); return; }
   if (d.mode) { A.points.mode = d.mode; save(); render(); return; }
   if (d.prof) { A.profile = d.prof; ui.parea = ''; save(); if (location.hash === '#/profil') render(); else location.hash = '#/profil'; return; }
@@ -790,9 +801,12 @@ document.addEventListener('click', e => {
   }
   if (d.f) { const [k, v] = d.f.split(':'); ui[k] = ui[k] === v ? '' : v; render(); return; }
   if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '', travel: '' }); render(); return; }
-  if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
+  if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: calm() ? 'auto' : 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
   if ('print' in d) { window.print(); return; }
+  if ('comfort' in d) { const bar = document.getElementById('comfortbar'); if (bar) { bar.hidden = !bar.hidden; t.setAttribute('aria-expanded', String(!bar.hidden)); } return; }
+  if ('big' in d) { A.bigText = !A.bigText; applyComfort(); save(); return; }
+  if ('calm' in d) { A.calm = !A.calm; applyComfort(); save(); return; }
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }

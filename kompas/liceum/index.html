@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>Kompas Liceum</title>
-  <meta name="description" content="Od tego, co lubisz, do klas w liceach i technikach w Krakowie albo w Tychach. Wersja 2.3.0.">
+  <meta name="description" content="Od tego, co lubisz, do klas w liceach i technikach w Krakowie albo w Tychach. Wersja 2.4.0.">
   <!-- site-head -->
 <link rel="canonical" href="https://clickrak.github.io/demos/kompas/liceum/">
 <!-- Link preview for LinkedIn, Facebook, Slack, Teams, X. Addresses must be absolute. -->
@@ -42,15 +42,17 @@
       <button data-go="swiaty" data-ch="ja">Ja</button><button data-go="szkola" data-ch="szkola">Szkoła</button><button data-go="wyniki" data-ch="wyniki">Kompas</button><button data-go="szkoly" data-ch="szkoly">Szkoły</button><button data-go="lista" data-ch="lista" class="listbtn" aria-label="Moja lista"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.3 3 4.8 6.4 4.5c2-.2 3.6 1 4.6 2.5 1-1.5 2.6-2.7 4.6-2.5 3.4.3 5.2 3.8 3.6 6.9C19 15.6 12 20 12 20z" fill="currentColor"/></svg><span class="lc" data-likecount hidden></span></button>
     </nav>
     <button class="savebtn" data-export="download" title="Pobierz plik z odpowiedziami, żeby wrócić później"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg><span>Zapisz</span></button>
+    <button class="iconbtn comfortbtn" data-comfort aria-expanded="false" aria-controls="comfortbar" aria-label="Wygodniej: większy tekst, mniej ruchu" title="Większy tekst, mniej ruchu">Aa</button>
     <button class="iconbtn" data-skintoggle aria-label="Zmień wygląd" aria-pressed="false"></button>
     <button class="iconbtn" data-themetoggle aria-label="Zmień motyw"></button>
   </header>
+  <div class="comfortbar" id="comfortbar" role="group" aria-label="Wygoda" hidden><button class="chip" data-big aria-pressed="false">większy tekst</button><button class="chip" data-calm aria-pressed="false">spokojniej (mniej ruchu)</button></div>
   <main id="app" tabindex="-1"><p class="loading">Ładuję…</p></main>
   <footer class="foot noprint">
     <p>Odpowiedzi są tylko w tej karcie przeglądarki. Zapisujesz je w pliku, który zostaje u ciebie.</p>
     <p><button class="linkbtn" data-export="download">Zapisz postęp do pliku</button> · <label class="linkbtn">Wczytaj plik<input type="file" accept=".md,text/markdown,text/plain" data-load></label><span class="themelink"> · <button class="linkbtn" data-themetoggle></button></span></p>
     <p id="fmsg" role="status"></p>
-    <p class="ver">Kompas Liceum v2.3.0 · listopad 2026 · Kraków albo Tychy</p>
+    <p class="ver">Kompas Liceum v2.4.0 · listopad 2026 · Kraków albo Tychy</p>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script type="module" src="app.js"></script>
