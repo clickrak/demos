@@ -118,6 +118,17 @@ for (const s of allSchools) {
     for (const x of scoredSubjects(k).list) if (!subj.has(x)) fail('scored subject unknown', s.id, k.code, x);
   }
 }
+// M1: every map point was checked against the street address (geoChecked, set by the geocoding Action).
+for (const s of allSchools) if (!s.geoChecked) fail('map point not checked against the address (run the geocoding Action)', s.id);
+// M2: travel times, where a town has them: a time for every school and district, in a sane range.
+import { existsSync } from 'node:fs';
+for (const t of towns) {
+  const f = new URL(`../liceum/data/db/pl/${t.id}/travel.json`, import.meta.url); if (!existsSync(f)) continue;
+  const tr = JSON.parse(readFileSync(f)), mine = allSchools.filter(s => s.town === t.id);
+  if (!tr.origins || tr.origins.length < 1) fail('travel without origins', t.id);
+  for (const s of mine) for (const o of tr.origins || []) { const m = (tr.schools[s.id] || {})[o.id]; if (!(m >= 1 && m <= 180)) fail('travel time missing or odd', t.id, s.id, o.id, m); }
+  console.log(`Travel ${t.id}: ${tr.origins.length} districts × ${mine.length} schools, as of ${tr.asOf}`);
+}
 // The test kid from Tychy only gets Tychy classes.
 const p7 = j('../liceum/data/personas.json').find(p => p.id === 'P7');
 if (!p7) fail('test kid from Tychy (P7) missing');

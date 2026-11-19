@@ -1,19 +1,37 @@
 name: Geocode schools
+# Kompas Liceum places: fills missing map points, checks every point against the street address (backlog M1),
+# then computes travel times from the 18 Kraków districts to each Kraków school (backlog M2, Kraków GTFS).
+# Runs when a schools.json or one of the tools changes, every three months (new timetables), or by hand.
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '41 4 2 */3 *'
   push:
-    paths: ['kompas/liceum/data/db/pl/*/schools.json']  # fills only schools without a map point
+    paths:
+      - 'kompas/liceum/data/db/pl/*/schools.json'
+      - kompas/tools/geocode_schools.py
+      - kompas/tools/liceum_travel.py
+      - .github/workflows/geocode-schools.yml
 permissions:
   contents: write
+concurrency:
+  group: kompas-liceum-places-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  geocode:
+  places:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 kompas/tools/geocode_schools.py
-      - name: Commit coordinates
+      - name: Map points and check (M1)
+        run: python3 kompas/tools/geocode_schools.py --check
+      - name: Travel times, Kraków (M2)
+        run: python3 kompas/tools/liceum_travel.py
+      - name: Commit
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
-          git add kompas/liceum/data/db/pl/*/schools.json
-          git diff --cached --quiet || (git commit -m "Kompas Liceum: school coordinates from OpenStreetMap" && git push)
+          git add kompas/liceum/data/db/pl/*/schools.json kompas/liceum/data/db/pl/krakow/travel.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Kompas Liceum: map points checked and travel times (OpenStreetMap, Kraków GTFS)"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push

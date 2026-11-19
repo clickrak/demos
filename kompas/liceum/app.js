@@ -1,4 +1,4 @@
-// Kompas Liceum v2.0.1. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy), chosen at the start.
+// Kompas Liceum v2.1.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
@@ -15,7 +15,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 const f1 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const f2 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [],
-  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], region: 'krakow', profile: null, likes: { profiles: [], schools: [], classes: [] } });
+  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], region: 'krakow', from: null, profile: null, likes: { profiles: [], schools: [], classes: [] } });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -25,7 +25,10 @@ async function load() {
   // Other towns: one schools.json per ready town, next to krakow/. A school without `town` is from Kraków (old data).
   const more = await Promise.all((config.towns || []).filter(t => t.status === 'ready' && t.id !== 'krakow').map(t => get(`data/db/pl/${t.id}/schools.json`)));
   const allSchools = [...schools, ...more.flat()].map(x => (x.town ? x : { ...x, town: 'krakow' }));
-  data = { dimensions, strengths, config, questions, opportunities, schools: allSchools, allSchools, sources, personas, profiles };
+  // Travel times (backlog M2): computed ahead by a GitHub Action from timetables; optional per town, no calls at run time.
+  const travel = {};
+  await Promise.all((config.towns || []).filter(t => t.status === 'ready').map(t => fetch(`data/db/pl/${t.id}/travel.json`).then(r => (r.ok ? r.json() : null)).then(j => { if (j) travel[t.id] = j; }).catch(() => {})));
+  data = { dimensions, strengths, config, questions, opportunities, schools: allSchools, allSchools, sources, personas, profiles, travel };
   // Studia programmes, to show what each area leads to after liceum (optional).
   studiaOffers = await fetch('../studia/data/db/pl/krakow/offers.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
   A = blank(); applyTowns();
@@ -85,6 +88,11 @@ const selTowns = () => region().towns;
 function applyTowns() { const w = selTowns(); data.schools = data.allSchools.filter(s => w.includes(s.town)); }
 const townsIn = () => region().in;
 const townNames = () => region().name;
+// Travel time from the kid's district to a school, in minutes (null when unknown or no district chosen).
+const origins = () => selTowns().flatMap(t => (data.travel[t] && data.travel[t].origins) || []);
+const fromName = () => (origins().find(o => o.id === A.from) || {}).name || '';
+const mins = school => { const t = data.travel[school.town]; const v = A.from && t && t.schools[school.id] && t.schools[school.id][A.from]; return v == null || v === false ? null : v; };
+const minTxt = school => { const m = mins(school); return m == null ? '' : `ok. ${m} min`; };
 const regionChips = () => `<div class="chips" role="radiogroup" aria-label="Gdzie szukasz szkoły">${REGIONS().map(r =>
   `<button class="chip" role="radio" data-region="${r.id}" aria-checked="${region().id === r.id}" aria-pressed="${region().id === r.id}">${esc(r.name)}</button>`).join('')}</div>`;
 
@@ -182,6 +190,10 @@ function vTowns() {
   return `${ILLUS.start}<h1>Gdzie szukasz szkoły?</h1><p class="muted">Wybierz jedno miejsce. Pokażemy szkoły i klasy tylko stamtąd. Zmienisz to w każdej chwili, także na liście szkół.</p>
     ${regionChips()}
     ${r.note ? `<p class="small muted">${esc(r.note)}</p>` : ''}${r.later ? `<p class="small muted">${esc(r.later)}</p>` : ''}
+    ${origins().length ? `<h2>Skąd będziesz jechać do szkoły?</h2><p class="muted">Kliknij swoją dzielnicę. Przy każdej szkole pokażemy, ile mniej więcej trwa dojazd. Możesz pominąć.</p>
+      <div class="chips">${origins().map(o => chip(`data-from="${o.id}"`, esc(o.name), A.from === o.id)).join('')}${chip('data-from=""', 'pomiń', !A.from)}</div>
+      <p class="small muted">Liczymy komunikacją miejską z okolic środka dzielnicy, we wtorek rano (7:00–7:40), z dojściem pieszo i najwyżej jedną przesiadką. To orientacja: sprawdź dokładnie przyciskiem „Dojazd”.</p>`
+      : `<p class="small muted">Czas dojazdu dla tego miejsca dojdzie później.</p>`}
     <p class="note2">Jeśli twojego miasta jeszcze nie ma, wybierz najbliższe miejsce: kierunki na kompasie i tak będą twoje.</p>`;
 }
 
@@ -470,7 +482,7 @@ function schoolGroups(rows, sort) {
 const street = s => (s.address || '').replace(/,?\s*\d\d-\d{3}\s+[^,]+$/, '').replace(/,\s*(Kraków|Tychy)$/, '');
 function schoolCard(g, i) {
   return `<article class="scard ${liked('s', g.school.id) ? 'liked' : ''}" style="--i:${Math.min(i, 8)}">
-    <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${g.school.address ? ' · ' + esc(street(g.school)) : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
+    <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${g.school.address ? ' · ' + esc(street(g.school)) : ''}${mins(g.school) != null ? ` · <b class="tmin">${minTxt(g.school)}</b>` : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
     ${g.rows.length ? `<ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : '<span></span>'}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>` : ''}
     ${g.school.note ? `<details class="snote"><summary class="small muted">Uwaga do danych</summary><p class="small muted">${esc(g.school.note)}</p></details>` : ''}
     <div class="scta"><button class="linkbtn" data-pin="${g.school.id}">Na mapie</button><a class="linkbtn" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd ↗</a>${g.school.www ? `<a class="linkbtn" href="${esc(g.school.www)}" target="_blank" rel="noopener">strona szkoły ↗</a>` : ''}</div></article>`;
@@ -497,7 +509,7 @@ function vProfile() {
     ${!hasInput() ? '<p class="note2">Zaznacz, jak ci idzie w szkole, a przy klasach pojawią się szanse. <button class="linkbtn" data-go="szkola">Zaznacz</button></p>' : ''}
     ${filterBar(false)}
     ${hasInput() ? `<div class="frow" role="group" aria-label="Kolejność"><span class="small muted">Najpierw:</span><button class="chip" data-sort="" aria-pressed="${ui.sort !== 'chance'}">najlepiej pasujące</button><button class="chip" data-sort="chance" aria-pressed="${ui.sort === 'chance'}">największa szansa</button></div>` : ''}
-    <p class="count small" role="status">${groups.length} szkół · ${rows.length} klas${ui.type || ui.chance || ui.parea ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
+    <p class="count small" role="status">${groups.length} szkół · ${rows.length} klas${ui.type || ui.chance || ui.parea || ui.travel ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
     ${groups.length ? `<div class="scards">${first.map(schoolCard).join('')}</div>${rest.length ? `<details class="more"><summary>Pokaż jeszcze ${rest.length} szkół</summary><div class="scards">${rest.map(schoolCard).join('')}</div></details>` : ''}`
       : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje do filtrów. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${groups.length ? mapBlock(groups.map(g => ({ school: g.school, classes: g.rows, best: g.best })), 'Szkoły z tego profilu.') : ''}
@@ -529,7 +541,7 @@ function vList() {
 }
 
 // ---- filters and the school catalogue ------------------------------------------------------------------------------
-const ui = { q: '', type: '', subj: '', chance: '', parea: '', sort: '' };
+const ui = { q: '', type: '', subj: '', chance: '', parea: '', sort: '', travel: '' };
 const ROMAN = [[40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
 const romanNo = s => { if (s.type !== 'liceum') return 0; const r = s.short.split(' ')[0]; for (let n = 1; n < 60; n++) if (toRoman(n) === r) return n; return 99; };
 const toRoman = n => { let o = ''; for (const [v, r] of ROMAN) while (n >= v) { o += r; n -= v; } return o; };
@@ -541,7 +553,7 @@ function schoolMatch(school, q) {
   const hay = fold([school.name, school.short, school.address, ...school.classes.map(c => c.label + ' ' + (c.occupation || ''))].join(' '));
   return fold(q).split(/\s+/).every(w => hay.includes(w));
 }
-const rowPass = x => (!ui.type || x.school.type === ui.type) && (!ui.chance || x.check.chance === ui.chance)
+const rowPass = x => (!ui.travel || (mins(x.school) != null && mins(x.school) <= Number(ui.travel))) && (!ui.type || x.school.type === ui.type) && (!ui.chance || x.check.chance === ui.chance)
   && (!ui.subj || x.cls.cards.some(id => ((data.opportunities.find(o => o.id === id) || {}).worlds || []).includes(ui.subj)));
 const SHORT_CH = { realna: 'realna', zawalczenia: 'do zawalczenia', ambitna: 'ambitna' };
 const SUBJ_F = ['matematyka', 'informatyka', 'fizyka', 'biologia', 'chemia', 'geografia'];
@@ -551,6 +563,7 @@ function filterBar(full) {
     ${full ? `<label class="srch"><span class="visually-hidden">Szukaj szkoły</span><input id="fq" type="search" data-filter="q" value="${esc(ui.q)}" placeholder="Szukaj: np. 31, Ingardena, programista" autocomplete="off"></label>` : ''}
     <div class="frow"><span class="small muted">Szkoła:</span>${c('type', '', 'wszystkie')}${c('type', 'liceum', 'liceum')}${c('type', 'technikum', 'technikum')}</div>
     ${full ? `<div class="frow"><span class="small muted">Świat:</span>${c('subj', '', 'każdy')}${data.questions.worlds.map(w => c('subj', w.id, esc(w.name))).join('')}</div>` : ''}
+    ${A.from && origins().length ? `<div class="frow"><span class="small muted">Dojazd z: ${esc(fromName())}</span>${c('travel', '', 'każdy')}${c('travel', '30', 'do 30 min')}${c('travel', '45', 'do 45 min')}</div>` : ''}
     ${hasInput() ? `<div class="frow"><span class="small muted">Szansa:</span>${c('chance', '', 'każda')}${c('chance', 'realna', 'realna')}${c('chance', 'zawalczenia', 'do zawalczenia')}${c('chance', 'ambitna', 'ambitna')}</div>` : ''}
   </div>`;
 }
@@ -567,7 +580,7 @@ function vSchools() {
     ${needResults() ? '' : '<div class="actions"><button class="btn ghost" data-go="wyniki">Mój kompas</button></div>'}</div>${LILLUS.szkoly}</div>
     <div class="frow"><span class="small muted">Gdzie:</span>${regionChips()}</div>
     ${filterBar(true)}
-    <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
+    <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance || ui.travel ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
     ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas dwujęzycznych, sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
     <p class="note2">Nie ma jeszcze klas dwujęzycznych i sportowych (mają osobny test językowy albo sprawności, dojdą w kolejnej wersji). Pomijamy też XVII i XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${region().note ? ' ' + esc(region().note) : ''}</p>`;
@@ -601,7 +614,7 @@ function mapBlock(list, intro) {
 const legend = () => `<p class="legend small"><span class="mapnum realna" aria-hidden="true"></span> realna <span class="mapnum zawalczenia" aria-hidden="true"></span> do zawalczenia <span class="mapnum ambitna" aria-hidden="true"></span> ambitna <span class="mapnum unknown" aria-hidden="true"></span> bez oceny</p>`;
 function mapList(list) {
   return `<ol class="maplist">${list.map((e, i) => `<li><button class="mapnum ${e.best}" data-pin="${e.school.id}" aria-label="Pokaż na mapie: ${esc(e.school.short)}">${i + 1}</button>
-      <div><b>${esc(e.school.short)}</b><div class="sub">${e.classes.map(x => esc(x.cls.code)).join(', ')}${e.school.address ? ' · ' + esc(e.school.address) : ''}</div></div>
+      <div><b>${esc(e.school.short)}</b><div class="sub">${e.classes.map(x => esc(x.cls.code)).join(', ')}${e.school.address ? ' · ' + esc(e.school.address) : ''}${mins(e.school) != null ? ' · ' + minTxt(e.school) : ''}</div></div>
       <a class="btn ghost small" href="${esc(dirUrl(e.school))}" target="_blank" rel="noopener">Dojazd</a></li>`).join('')}</ol>`;
 }
 function initMap(list) {
@@ -617,7 +630,7 @@ function initMap(list) {
       const g = e.school.geo; if (!g) return;
       const icon = L.divIcon({ className: '', html: `<span class="pin ${e.best}">${i + 1}</span>`, iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -14] });
       const m = L.marker([g.lat, g.lon], { icon, title: e.school.short }).addTo(mapObj)
-        .bindPopup(`<b>${esc(e.school.short)}</b><br>${e.classes.slice(0, 6).map(x => `${esc(x.cls.code)}: ${esc(x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans')}`).join('<br>')}`);
+        .bindPopup(`<b>${esc(e.school.short)}</b>${mins(e.school) != null ? ` · ${minTxt(e.school)}` : ''}<br>${e.classes.slice(0, 6).map(x => `${esc(x.cls.code)}: ${esc(x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans')}`).join('<br>')}`);
       pins[e.school.id] = m; pts.push([g.lat, g.lon]);
     });
     if (pts.length > 1) mapObj.fitBounds(pts, { padding: [30, 30], maxZoom: 14, animate: false }); else if (pts.length) mapObj.setView(pts[0], 14);
@@ -644,13 +657,13 @@ function buildMarkdown() {
     if (nLikes()) {
       L.push('', '## Moja lista');
       lk.profiles.forEach(id => { const p = data.profiles.find(x => x.id === id); if (p) L.push(`- profil: ${p.name}`); });
-      lk.schools.forEach(id => { const sc = data.schools.find(x => x.id === id); if (sc) L.push(`- szkoła: ${sc.short}${sc.address ? ', ' + sc.address : ''}`); });
+      lk.schools.forEach(id => { const sc = data.schools.find(x => x.id === id); if (sc) L.push(`- szkoła: ${sc.short}${sc.address ? ', ' + sc.address : ''}${mins(sc) != null ? `, dojazd ${minTxt(sc)} z: ${fromName()}` : ''}`); });
       lr.forEach(x => L.push(`- klasa: ${x.school.short}, ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`));
     }
     const selP = P.find(x => x.profile.id === A.profile) || P[0], sel = { card: selP.areas[0].card, classes: selP.classes };
     L.push('', `## Klasy ${townsIn()}: ${selP.profile.name}`);
     L.push(`Progi z rekrutacji ${data.config.thresholdYear}. ${data.config.thresholdNote}`);
-    for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`);
+    for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}${mins(x.school) != null ? `, dojazd ${minTxt(x.school)}` : ''}`);
     L.push('', '## Dla rodziców: progi i szacunek', hasInput() ? (eff().approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie” (słabo = 3 i ok. 45%, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Policzone z dokładnych ocen i wyników.') : 'Brak odpowiedzi o szkole, więc bez szacunku.', '');
     for (const x of sel.classes.slice(0, 12)) {
       const th = x.cls.threshold != null ? `próg ${f2(x.cls.threshold)}` : x.school.range ? `zakres szkoły ${f2(x.school.range.min)}–${f2(x.school.range.max)}` : 'bez progu w źródłach';
@@ -679,6 +692,7 @@ function loadFile(text) {
   if (!Array.isArray(obj.answers.worlds)) a.worlds = ['all']; // files from before v1.7
   if (!REGIONS().some(r => r.id === a.region)) a.region = Array.isArray(a.towns) && a.towns.length === 1 && a.towns[0] === 'tychy' ? 'tychy' : 'krakow'; // v2.0.0 files had towns[]; older: Kraków
   delete a.towns;
+  { const ok = ((data.config.regions || []).find(r => r.id === a.region) || { towns: [] }).towns.flatMap(t => (data.travel[t] && data.travel[t].origins) || []); if (!ok.some(o => o.id === a.from)) a.from = null; }
   for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
   for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push('sytuacja: ' + k); }
   if (a.area && !has(data.opportunities, a.area)) { missing.push('kierunek: ' + a.area); a.area = null; }
@@ -711,7 +725,8 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button, a, [data-prof]'); if (!t || !data) return;
   const d = t.dataset;
   if (d.go) { e.preventDefault(); if (location.hash === '#/' + d.go) render(); else location.hash = '#/' + d.go; return; }
-  if (d.region) { A.region = d.region; applyTowns(); save(); render(); return; }
+  if (d.region) { A.region = d.region; applyTowns(); if (!origins().some(o => o.id === A.from)) { A.from = null; ui.travel = ''; } save(); render(); return; }
+  if (d.from !== undefined) { A.from = d.from || null; if (!A.from) ui.travel = ''; save(); render(); return; }
   if (d.world) { let w = A.worlds || []; if (d.world === 'all') w = w.includes('all') ? [] : ['all']; else { w = w.filter(x => x !== 'all'); w = w.includes(d.world) ? w.filter(x => x !== d.world) : [...w, d.world]; } A.worlds = w; syncSort(); save(); render(); return; }
   if (d.where) { const [id, w] = d.where.split('|'), s = A.strengths.find(x => x.id === id); if (s) s.proof = s.proof === w ? '' : w; save(); render(); return; }
   if (d.sortans !== undefined) { sortAnswer(Number(d.sortans)); return; }
@@ -737,7 +752,7 @@ document.addEventListener('click', e => {
     likeCount(); return;
   }
   if (d.f) { const [k, v] = d.f.split(':'); ui[k] = ui[k] === v ? '' : v; render(); return; }
-  if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '' }); render(); return; }
+  if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '', travel: '' }); render(); return; }
   if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }

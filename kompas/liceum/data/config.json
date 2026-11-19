@@ -25,7 +25,7 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "2.0.1",
+ "appVersion": "2.1.0",
  "dataVersion": "2026-11-19",
  "towns": [
   {
@@ -50,7 +50,11 @@
     "krakow"
    ],
    "status": "ready",
-   "later": "Skawina, Zabierzów i inne miejscowości powiatu krakowskiego dojdą później."
+   "later": "Skawina, Zabierzów i inne miejscowości powiatu krakowskiego dojdą później.",
+   "travelSourceIds": [
+    "krk-dzielnice",
+    "krk-gtfs"
+   ]
   },
   {
    "id": "tychy",

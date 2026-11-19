@@ -565,5 +565,19 @@
   "title": "Technikum nr 3 (ZS nr 4) w Tychach, rekrutacja 2026/27: planowane oddziały (strona szkoły)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "krk-dzielnice",
+  "url": "http://www.bip.krakow.pl/?bip_id=1&mmi=15450",
+  "title": "Kraków: 18 dzielnic (BIP Miasta Krakowa)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "krk-gtfs",
+  "url": "https://gtfs.ztp.krakow.pl/",
+  "title": "Rozkłady jazdy komunikacji miejskiej w Krakowie, GTFS (Zarząd Transportu Publicznego)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

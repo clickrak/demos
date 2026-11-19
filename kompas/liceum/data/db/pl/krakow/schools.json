@@ -176,6 +176,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Jana Sobieskiego 9, 31-136 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 164.8,
    "max": 179.65,
@@ -362,6 +363,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Krzemionki 11, 30-525 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 162.6,
    "max": 176.5,
@@ -582,6 +584,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Studencka 12, 31-116 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 167.6,
    "max": 195.2,
@@ -956,6 +959,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Grzegórzecka 24, 31-531 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 169.1,
    "max": 180.65,
@@ -1123,6 +1127,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Kazimierza Czapińskiego 5, 30-048 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 160.55,
    "max": 170.3,
@@ -1253,6 +1258,7 @@
   "type": "technikum",
   "town": "krakow",
   "address": "ul. Monte Cassino 31, 30-337 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 146.95,
    "max": 173.4,
@@ -1365,6 +1371,7 @@
   "type": "technikum",
   "town": "krakow",
   "address": "ul. Henryka Kamieńskiego 49, 30-644 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 120.35,
    "max": 149.35,
@@ -1491,6 +1498,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Krupnicza 44, 31-123 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "www": "https://zschkrakow.pl/",
   "range": {
    "min": 150.75,
@@ -1584,6 +1592,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Studencka 13, 31-116 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 167.0,
    "max": 172.8,
@@ -1691,6 +1700,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "os. Teatralne 33, 31-948 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 157.4,
    "max": 166.75,
@@ -1829,6 +1839,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Tadeusza Czackiego 11, 30-501 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 110.15,
    "max": 141.35,
@@ -1941,6 +1952,7 @@
   "type": "technikum",
   "town": "krakow",
   "address": "ul. Krupnicza 44, 31-123 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "www": "https://zschkrakow.pl/",
   "range": {
    "min": 131.9,
@@ -2009,6 +2021,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "os. Wysokie 6, 31-818 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 163.75,
    "max": 173.4,
@@ -2125,6 +2138,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Wąska 7, 31-057 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 165.1,
    "max": 175.7,
@@ -2257,6 +2271,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Zygmunta Wróblewskiego 8, 31-148 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "www": "https://x-lokrakow.edupage.org/",
   "range": {
    "min": 165.85,
@@ -2397,6 +2412,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Sądowa 4, 31-542 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 164.25,
    "max": 171.25,
@@ -2540,6 +2556,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "al. Adolfa Dygasińskiego 15, 30-820 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 122.75,
    "max": 153.15,
@@ -2718,6 +2735,7 @@
   "type": "technikum",
   "town": "krakow",
   "address": "ul. Loretańska 16, 31-114 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 143.55,
    "max": 159.8,
@@ -2856,7 +2874,8 @@
   "short": "XXXI LO Ingardena",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. Kazimierza Odnowiciela 2, Kraków",
+  "address": "ul. Kazimierza Odnowiciela 2, 31-481 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 157.95,
    "max": 159.0,
@@ -2925,7 +2944,8 @@
   "short": "XII LO Norwida",
   "type": "liceum",
   "town": "krakow",
-  "address": "os. Kolorowe 29a, Kraków",
+  "address": "os. Kolorowe 29a, 31-941 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 151.55,
    "max": 164.25,
@@ -3225,6 +3245,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "os. Willowe 1, 31-901 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 56.95,
    "max": 138.0,
@@ -3360,7 +3381,8 @@
   "short": "XVIII LO Kantego",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. Na Błonie 15b, Kraków",
+  "address": "ul. Na Błonie 15b, 30-147 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 137.35,
    "max": 158.15,
@@ -3503,6 +3525,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Szlak 5, 31-161 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 155.8,
    "max": 163.45,
@@ -3668,7 +3691,8 @@
   "short": "XXIII LO Skarżyńskiego",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. Seniorów Lotnictwa 5, Kraków",
+  "address": "ul. Seniorów Lotnictwa 5, 31-455 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 127.85,
    "max": 154.95,
@@ -3763,7 +3787,8 @@
   "short": "XXIV LO Jana Pawła II",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. Wilka Wyrwińskiego 1, Kraków",
+  "address": "ul. Wilka Wyrwińskiego 1, 31-517 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 128.8,
    "max": 154.35,
@@ -3926,7 +3951,8 @@
   "short": "XXVII LO Jordana",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. Senatorska 35, Kraków",
+  "address": "ul. Senatorska 35, 30-106 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 161.25,
    "max": 166.55,
@@ -4116,7 +4142,8 @@
   "short": "XXX LO Brata Alberta",
   "type": "liceum",
   "town": "krakow",
-  "address": "os. Dywizjonu 303 66, Kraków",
+  "address": "os. Dywizjonu 303 66, 31-875 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 58.0,
    "max": 140.85,
@@ -4258,7 +4285,8 @@
   "short": "XLI LO Twardowskiego",
   "type": "liceum",
   "town": "krakow",
-  "address": "Rynek Kleparski 18, Kraków",
+  "address": "Rynek Kleparski 18, 31-150 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 154.9,
    "max": 160.6,
@@ -4399,6 +4427,7 @@
   "type": "liceum",
   "town": "krakow",
   "address": "ul. Bolesława Limanowskiego 60-62, 30-534 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 141.75,
    "max": 152.55,
@@ -4616,7 +4645,8 @@
   "short": "XLV LO",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. ks. Franciszka Blachnickiego 1, Kraków",
+  "address": "ul. ks. Franciszka Blachnickiego 1, 31-535 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 131.35,
    "max": 149.6,
@@ -4709,7 +4739,8 @@
   "short": "XLVI LO",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. Józefa Dietla 70, Kraków",
+  "address": "ul. Józefa Dietla 70, 31-073 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 102.0,
    "max": 128.75,
@@ -4802,7 +4833,8 @@
   "short": "Technikum Komunikacyjne nr 25",
   "type": "technikum",
   "town": "krakow",
-  "address": "ul. Ułanów 3, Kraków",
+  "address": "ul. Ułanów 3, 31-450 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 65.0,
    "max": 150.9,
@@ -4959,7 +4991,8 @@
   "short": "Technikum Mechaniczne nr 17",
   "type": "technikum",
   "town": "krakow",
-  "address": "os. Szkolne 37, Kraków",
+  "address": "os. Szkolne 37, 31-978 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 55.6,
    "max": 70.7,
@@ -5091,7 +5124,8 @@
   "short": "Technikum Kształtowania Środowiska nr 24",
   "type": "technikum",
   "town": "krakow",
-  "address": "ul. Brzozowa 5, Kraków",
+  "address": "ul. Brzozowa 5, 31-050 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 48.8,
    "max": 128.2,
@@ -5231,7 +5265,8 @@
   "short": "XXI LO Witkacego",
   "type": "liceum",
   "town": "krakow",
-  "address": "os. Tysiąclecia 15, Kraków",
+  "address": "os. Tysiąclecia 15, 31-606 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 131.1,
    "max": 131.1,
@@ -5277,7 +5312,8 @@
   "short": "XXII LO Ducha",
   "type": "liceum",
   "town": "krakow",
-  "address": "os. Szkolne 26, Kraków",
+  "address": "os. Szkolne 26, 31-977 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 56.25,
    "max": 56.25,
@@ -5323,7 +5359,8 @@
   "short": "XXIX LO Kieślowskiego",
   "type": "liceum",
   "town": "krakow",
-  "address": "ul. Cechowa 57, Kraków",
+  "address": "ul. Cechowa 57, 30-614 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 84.35,
    "max": 84.35,
@@ -5369,7 +5406,8 @@
   "short": "XLVII LO",
   "type": "liceum",
   "town": "krakow",
-  "address": "os. Szkolne 18, Kraków",
+  "address": "os. Szkolne 18, 31-977 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 60.35,
    "max": 70.0,
@@ -5437,7 +5475,8 @@
   "short": "Technikum Mechaniczne nr 15",
   "type": "technikum",
   "town": "krakow",
-  "address": "al. Mickiewicza 5, Kraków",
+  "address": "al. Mickiewicza 5, 31-120 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 60.7,
    "max": 129.75,
@@ -5554,7 +5593,8 @@
   "short": "Technikum Mechaniczne nr 30",
   "type": "technikum",
   "town": "krakow",
-  "address": "ul. Podbrzezie 10, Kraków",
+  "address": "ul. Podbrzezie 10, 31-054 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 25.7,
    "max": 124.0,
@@ -5599,6 +5639,7 @@
   "type": "technikum",
   "town": "krakow",
   "address": "os. Szkolne 26, 31-977 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 33.5,
    "max": 73.0,
@@ -5681,7 +5722,8 @@
   "short": "Technikum Geodezji i Kształtowania Środowiska nr 12",
   "type": "technikum",
   "town": "krakow",
-  "address": "ul. Lea 235, Kraków",
+  "address": "ul. Lea 235, 30-133 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 35.75,
    "max": 107.9,
@@ -5774,6 +5816,7 @@
   "type": "technikum",
   "town": "krakow",
   "address": "ul. Kapucyńska 2, 31-113 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 108.5,
    "max": 143.85,
@@ -5866,6 +5909,7 @@
   "type": "technikum",
   "town": "krakow",
   "address": "ul. Szablowskiego 1, 30-127 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 52.55,
    "max": 88.7,
