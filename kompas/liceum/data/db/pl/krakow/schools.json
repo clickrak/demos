@@ -91,7 +91,7 @@
     "status": "sourced"
    },
    {
-    "code": "E",
+    "code": "1E",
     "label": "hist-ang-WOS",
     "extended": [
      "historia",
@@ -111,11 +111,12 @@
      "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo1",
-    "status": "check"
+    "sourceId": "otou-lo1",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo1"
    },
    {
-    "code": "G",
+    "code": "1G",
     "label": "mat-geo-ang",
     "extended": [
      "matematyka",
@@ -136,11 +137,12 @@
      "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo1",
-    "status": "check"
+    "sourceId": "otou-lo1",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo1"
    },
    {
-    "code": "K",
+    "code": "1K",
     "label": "pol-hist-łac",
     "extended": [
      "polski",
@@ -150,7 +152,7 @@
     "cards": [
      "spoleczenstwo"
     ],
-    "threshold": 165.6,
+    "threshold": 165.55,
     "thresholdYear": "2026/27",
     "scored": [
      "polski",
@@ -159,8 +161,9 @@
      "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo1",
-    "status": "check"
+    "sourceId": "otou-lo1",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo1"
    }
   ],
   "geo": {
@@ -356,7 +359,8 @@
    "lon": 19.93037,
    "q": "II LO Sobieskiego, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Lista klas zgadza się z otouczelnie (listopad 2026); progów klas tam nie ma, jest zakres dla szkoły."
  },
  {
   "id": "lo4",
@@ -606,12 +610,12 @@
      "chemia",
      "fizyka"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 176.55,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1D",
@@ -627,12 +631,12 @@
      "fizyka",
      "elektronika"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 179.25,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1E",
@@ -648,12 +652,12 @@
      "fizyka",
      "elektronika"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 195.2,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1G",
@@ -669,12 +673,12 @@
      "fizyka",
      "elektronika"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 176.25,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1F",
@@ -688,12 +692,12 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 180.5,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1H",
@@ -707,15 +711,15 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 180.5,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "check"
+    "status": "sourced"
    },
    {
-    "code": "A",
+    "code": "1A",
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
@@ -729,11 +733,11 @@
     "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "w2-lo5",
-    "status": "check"
+    "sourceId": "otou-lo5",
+    "status": "sourced"
    },
    {
-    "code": "B",
+    "code": "1B",
     "label": "geo-hist-WOS",
     "extended": [
      "geografia",
@@ -748,8 +752,8 @@
     "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "w2-lo5",
-    "status": "check"
+    "sourceId": "otou-lo5",
+    "status": "sourced"
    }
   ],
   "geo": {
@@ -984,8 +988,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 177.55,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
@@ -1003,8 +1007,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 177.55,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
@@ -1024,8 +1028,8 @@
      "fizyka",
      "elektronika"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 180.65,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
@@ -1043,8 +1047,8 @@
      "programowanie",
      "dane-ai"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 176.8,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
@@ -1063,16 +1067,16 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 174.8,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
     "status": "sourced"
    },
    {
-    "code": "1EF",
-    "label": "ang-mat-geo",
+    "code": "1F",
+    "label": "geo-mat-ang",
     "extended": [
      "angielski",
      "matematyka",
@@ -1092,8 +1096,9 @@
      "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo8",
-    "status": "check"
+    "sourceId": "otou-lo8",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo8"
    },
    {
     "code": "1G",
@@ -1115,8 +1120,9 @@
      "wos"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo8",
-    "status": "check"
+    "sourceId": "otou-lo8",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo8"
    }
   ],
   "geo": {
