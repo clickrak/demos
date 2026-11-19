@@ -1,4 +1,4 @@
-// Kompas Liceum v2.7.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.7.1. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
@@ -32,9 +32,10 @@ async function load() {
   const rank = {};
   await Promise.all([['krakow', 'w Krakowie'], ['gzm', 'w Metropolii GZM']].map(([f, where]) => fetch(`data/db/pl/${f}/ranking.json`).then(r => (r.ok ? r.json() : null)).then(j => {
     if (!j) return;
-    for (const [k, word] of [['licea', 'liceów'], ['technika', 'techników']]) for (const x of j[k] || []) if (x.kompasId) rank[x.kompasId] = { order: x.order, total: j[k].length, word, where, p: x.perspektywy, o: x.otouczelnie };
+    for (const [k, word] of [['licea', 'liceów'], ['technika', 'techników']]) for (const x of j[k] || []) if (x.kompasId) rank[x.kompasId] = { order: x.order, total: j[k].length, word, where, p: x.perspektywy, o: x.otouczelnie, src: k === 'licea' ? [j.sourceIds.perspektywyLicea, j.sourceIds.otouLicea] : [j.sourceIds.perspektywyTechnika, j.sourceIds.otouTechnika] };
   }).catch(() => {})));
-  data = { dimensions, strengths, config, questions, opportunities, schools: allSchools, allSchools, sources, personas, profiles, travel, rank };
+  const rankSrc = new Set(Object.values(rank).flatMap(r => r.src || []));
+  data = { dimensions, strengths, config, questions, opportunities, schools: allSchools, allSchools, sources, personas, profiles, travel, rank, rankSrc };
   // Studia programmes, to show what each area leads to after liceum (optional).
   studiaOffers = await fetch('../studia/data/db/pl/krakow/offers.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
   A = blank(); applyTowns();
@@ -136,7 +137,8 @@ const screens = [
   { id: 'profil', ch: 'wyniki', view: vProfile },
   { id: 'lista', ch: 'lista', view: vList },
   { id: 'rodzic', ch: 'wyniki', view: vParent },
-  { id: 'szkoly', ch: 'szkoly', view: vSchools }
+  { id: 'szkoly', ch: 'szkoly', view: vSchools },
+  { id: 'zrodla', ch: null, view: vSources }
 ];
 const STEP_TITLE = { gdzie: 'Gdzie szukasz szkoły', swiaty: 'Twoje światy', zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
 const current = () => screens.find(s => s.id === ((location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start')) || screens[0];
@@ -496,7 +498,7 @@ function vKompas() {
     ${exportBox('Zapisz plik z wynikami')}
     <div class="actions noprint"><button class="btn ghost small" data-go="swiaty">Zmień odpowiedzi</button><button class="btn ghost small" data-go="szkola">Zmień, jak ci idzie</button></div>
     ${parentNote()}
-    <details class="card"><summary>Źródła</summary><ul class="small">${data.sources.map(x => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> · stan ${esc(x.asOf)}</li>`).join('')}</ul></details>`;
+    <p class="small"><button class="linkbtn" data-go="zrodla">Wszystkie źródła danych</button></p>`;
 }
 
 // ---- one profile: its directions, then schools and classes ---------------------------------------------------------
@@ -507,6 +509,15 @@ function schoolGroups(rows, sort) {
     : g => Math.max(...g.rows.map(x => (CHANCE_RANK[x.check.chance] || 0) - x.rank * 10)); // default: best-matching direction first, then the chance
   return [...by.values()].map(g => ({ ...g, best: bestOf(g.rows) })).sort((a, b) => score(b) - score(a) || a.school.short.localeCompare(b.school.short, 'pl', { numeric: true }));
 }
+// ---- sources (v2.7.1): every fact links to where it comes from; one page lists them all ------------------------------
+const SRC = () => (data._src ||= Object.fromEntries((Array.isArray(data.sources) ? data.sources : data.sources.sources || []).map(x => [x.id, x])));
+const srcIds = (v, out = new Set()) => {
+  if (Array.isArray(v)) v.forEach(x => srcIds(x, out));
+  else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { if (/sourceids?$/i.test(k)) [x].flat(Infinity).flatMap(y => y && typeof y === 'object' ? Object.values(y).flat() : [y]).forEach(y => y && out.add(y)); else srcIds(x, out); }
+  return out;
+};
+const schoolSrc = s => { const ids = srcIds(s); ((data.rank || {})[s.id] || {}).src?.forEach(id => id && ids.add(id)); return [...ids].map(id => SRC()[id]).filter(Boolean); };
+const srcLink = x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> <span class="muted">· ${esc(x.asOf || '')}${x.status === 'check' ? ' · do sprawdzenia' : ''}</span>`;
 const rankTitle = r => [r.p ? `Perspektywy, Ranking Maturalny 2026: miejsce ${r.p.rank} w Polsce` : '', r.o ? `otouczelnie.pl 2026: miejsce ${r.o.rank} w mieście lub województwie` : ''].filter(Boolean).join('; ');
 const rankLine = s => { const r = data.rank && data.rank[s.id]; return r ? `<p class="small rankl" title="${esc(rankTitle(r))}">Wyniki matur: <b>${r.order}.</b> z ${r.total} ${r.word} ${esc(r.where)}${r.p ? ' · w krajowym rankingu Perspektyw' : ''}</p>` : ''; };
 const street = s => (s.address || '').replace(/,?\s*\d\d-\d{3}\s+[^,]+$/, '').replace(/,\s*(Kraków|Tychy)$/, '');
@@ -516,6 +527,7 @@ function schoolCard(g, i) {
     ${rankLine(g.school)}
     ${g.rows.length ? `<ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}${biTag(r.cls)}${hasInput() && r.check.lang && r.check.lang.test ? `<span class="small muted lnote">${esc(langNote(r.check))}</span>` : ''}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : '<span></span>'}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>` : ''}
     ${g.school.note ? `<details class="snote"><summary class="small muted">Uwaga do danych</summary><p class="small muted">${esc(g.school.note)}</p></details>` : ''}
+    <details class="snote"><summary class="small muted">Źródła danych</summary><ul class="small srcl">${schoolSrc(g.school).map(x => `<li>${srcLink(x)}</li>`).join('')}</ul></details>
     <div class="scta"><button class="linkbtn" data-pin="${g.school.id}">Na mapie</button><a class="linkbtn" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd ↗</a>${g.school.www ? `<a class="linkbtn" href="${esc(g.school.www)}" target="_blank" rel="noopener">strona szkoły ↗</a>` : ''}</div></article>`;
 }
 function vProfile() {
@@ -581,7 +593,7 @@ function vParent() {
     <section><h2>Plan do maja</h2><ul class="pp-plan">${plan.map(it => `<li>${checks[`${sel.areas[0].card.id}:${it.id}`] ? '☑' : '☐'} <b>${esc(it.when)}:</b> ${esc(it.text)}</li>`).join('')}</ul></section>
     <section class="pp-note"><h2>Dla rodzica: skąd te liczby</h2>
       <p class="small">${hasInput() ? (eff().approx ? 'Szanse liczymy z odpowiedzi „słabo, dobrze, świetnie” (słabo = ocena 3 i ok. 45% na egzaminie, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Szanse liczymy z dokładnych ocen i wyników wpisanych w Kompasie.') : 'Nie zaznaczono, jak idzie w szkole, więc bez szans.'}
-      ${esc(data.config.thresholdNote)} ${region().id !== 'krakow' ? 'Dla Tychów i części szkół GZM progów jeszcze nie mamy.' : ''} Dane klas oznaczone „do sprawdzenia” warto potwierdzić na stronie szkoły.
+      ${esc(data.config.thresholdNote)} ${region().id !== 'krakow' ? 'Dla Tychów i części szkół GZM progów jeszcze nie mamy.' : ''} Dane klas oznaczone „do sprawdzenia” warto potwierdzić na stronie szkoły. Źródła: lista w Kompasie (strona „Źródła danych”).
       ${A.from ? 'Czas dojazdu to przybliżenie komunikacją miejską.' : ''}</p>
       <p class="small">Rozmowa: Która klasa daje najwięcej energii, a która tylko dobrze brzmi? Jaka klasa będzie bezpieczna i czy dziecko chce się w niej uczyć?</p></section>
     <p class="small muted">Kompas Liceum v${esc(data.config.appVersion)} · dane ${esc(data.config.dataVersion)} · kompas z odpowiedzi dziecka, bez kont i bez wysyłania danych.</p>
@@ -639,6 +651,23 @@ function filterBar(full) {
     ${hasInput() ? `<div class="frow"><span class="small muted">Szansa:</span>${c('chance', '', 'każda')}${c('chance', 'realna', 'realna')}${c('chance', 'zawalczenia', 'do zawalczenia')}${c('chance', 'ambitna', 'ambitna')}</div>` : ''}
   </div>`;
 }
+function vSources() {
+  const all = Object.values(SRC()), q = fold(ui.srcq || '');
+  const used = (list) => new Set(list.flatMap(s => [...srcIds(s)]));
+  const krk = used(data.allSchools.filter(s => s.town === 'krakow')), gzm = used(data.allSchools.filter(s => s.town !== 'krakow'));
+  const rules = srcIds(data.config), ranks = data.rankSrc || new Set();
+  const group = id => ranks.has(id) ? 'rank' : rules.has(id) ? 'rules' : krk.has(id) ? 'krk' : gzm.has(id) ? 'gzm' : 'other';
+  const G = [['rules', 'Zasady rekrutacji, punkty, terminy'], ['rank', 'Rankingi matur'], ['krk', 'Szkoły i klasy: Kraków'], ['gzm', 'Szkoły i klasy: Tychy i Metropolia GZM'], ['other', 'Kierunki, zawody, studia, dojazd i inne']];
+  const shown = all.filter(x => !q || fold(x.title + ' ' + x.url).includes(q));
+  const nCheck = all.filter(x => x.status === 'check').length;
+  return `<p class="actions noprint"><button class="btn ghost small" data-go="szkoly">← Szkoły</button><button class="btn ghost small" data-go="wyniki">Mój kompas</button></p>
+    <h1>Źródła danych</h1>
+    <p class="lead">Każda informacja w Kompasie ma źródło. Tu jest pełna lista: ${all.length} źródeł, w tym ${nCheck} oznaczonych „do sprawdzenia” (z serwisów zbiorczych albo starszego roku). Przy każdej szkole w „Źródła danych” są te, które jej dotyczą.</p>
+    <label class="srch"><span class="visually-hidden">Szukaj źródła</span><input id="srcq" type="search" data-filter="srcq" value="${esc(ui.srcq || '')}" placeholder="Szukaj: np. otouczelnie, Tychy, progi" autocomplete="off"></label>
+    ${G.map(([g, name]) => { const L = shown.filter(x => group(x.id) === g); return L.length ? `<section class="card"><h2>${name} <span class="small muted">(${L.length})</span></h2><ul class="small srcl">${L.map(x => `<li>${srcLink(x)}</li>`).join('')}</ul></section>` : ''; }).join('')}
+    ${shown.length ? '' : '<p class="empty">Nic nie pasuje.</p>'}
+    <p class="small muted">Kompas nie łączy się z tymi stronami w czasie działania: dane są zapisane w aplikacji, a źródła są do sprawdzenia przez ciebie. Daty to stan, z którego wzięliśmy dane.</p>`;
+}
 function vSchools() {
   const p = eff();
   const all = data.schools.map(school => ({ school, rows: school.classes.map(cls => ({ school, cls, check: checkClass(p, cls, school, data.config) })) }));
@@ -656,6 +685,7 @@ function vSchools() {
     <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance || ui.travel || ui.bi ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
     ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
+    <p class="small"><button class="linkbtn" data-go="zrodla">Wszystkie źródła danych</button></p>
     <p class="note2">Nie ma jeszcze klas sportowych (mają test sprawności). Pomijamy też XVII LO (klasy z francuskim: ze źródeł nie wynika, która klasa pierwsza jest dwujęzyczna, do sprawdzenia), XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${region().note ? ' ' + esc(region().note) : ''}</p>`;
 }
 

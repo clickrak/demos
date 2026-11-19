@@ -358,3 +358,7 @@ html.big #app { overflow-x: clip; } /* pop-art offset shadows must not widen the
 /* v2.7 matura ranking line on school cards */
 .rankl { margin: 2px 0 6px; color: var(--muted, inherit); }
 .rankl b { font-variant-numeric: tabular-nums; }
+
+/* v2.7.1 sources */
+.srcl { padding-left: 1.1em; margin: 6px 0; }
+.srcl li { margin: 3px 0; overflow-wrap: anywhere; }
