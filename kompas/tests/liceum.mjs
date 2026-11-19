@@ -157,7 +157,7 @@ for (const t of ['krakow', 'tychy']) if (!biCls.some(x => x.s.town === t)) fail(
   if (good.chance !== 'realna' || good.lang.test !== 'w-zasiegu') fail('good English: bilingual chance as usual', good.chance);
   const prep = checkClass(pts(3), { ...bi, bilingual: { lang: 'hiszpański', kind: 'wstępna' } }, {}, data.config);
   if (prep.chance !== 'realna') fail('preparatory class does not depend on English', prep.chance); }
-console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town === 'krakow').length} Kraków, ${biCls.filter(x => x.s.town === 'tychy').length} Tychy)`);
+console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town === 'krakow').length} Kraków, ${biCls.filter(x => x.s.town !== 'krakow').length} Tychy + GZM)`);
 // GZM ranked list (v2.6, G1): two lists, ordered, every school in a GZM gmina, both ranks kept, Tychy linked to Kompas.
 { const R = j('../liceum/data/db/pl/gzm/ranking.json');
   const GZM = ['Bytom', 'Chorzów', 'Dąbrowa Górnicza', 'Gliwice', 'Katowice', 'Mysłowice', 'Piekary Śląskie', 'Ruda Śląska', 'Siemianowice Śląskie', 'Sosnowiec', 'Świętochłowice', 'Tychy', 'Zabrze',

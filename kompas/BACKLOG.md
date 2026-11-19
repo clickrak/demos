@@ -95,6 +95,13 @@ Every v2 release also does **L1**: website links for 5–10 schools. English and
 - **G2 (Sonnet, v2.6) GZM schools, top of the list.** Same steps as T3 and M1, from the top of the ranked list.
 - **G3 (Sonnet, v2.7) GZM schools, next on the list.** Same steps; plus a map filter by town.
 
+**v2.7a Kraków review (asked 19 Nov 2026)**
+- **K1 (Sonnet) Kraków schools and classes review.** = D4 for Kraków: every school's 2026/27 classes against otouczelnie and the
+  school site, 5 schools per commit; add missing classes, fix labels, move "check" to "sourced" where a source confirms it.
+- **K2 (Sonnet) Kraków ranking info.** Same idea as G1: `kompas/liceum/data/db/pl/krakow/ranking.json` with the Perspektywy
+  Ranking Maturalny 2026 rank (readable top ~200) and the otouczelnie Kraków 2026 rank for every school; show the rank on school
+  cards (also for GZM schools), with source.
+
 **v2.8**
 - **Q1 (Opus) Review of questions and interests.** Check worlds, activity cards, situations, strengths and directions for balance:
   languages, economy and business, sociology and psychology, law and media, arts. Add or rewrite cards; one test kid per world.
