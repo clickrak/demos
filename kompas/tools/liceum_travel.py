@@ -1,11 +1,13 @@
 """Travel time by public transport from each Kraków district to each Kompas Liceum school.
 
 Runs in GitHub Actions (the app itself never calls anything outside):
-  1. finds a point for each of the 18 Kraków districts with OpenStreetMap Nominatim (once, cached in the output),
-  2. downloads the official Kraków GTFS timetables (same feeds and method as tools/transport.py for Studia),
-  3. for departures on a school-day morning (Tuesday 7:00-7:40) computes the fastest trip from the stops near
-     the district point to the stops near each school, walking included, with at most one change.
-Writes kompas/liceum/data/db/pl/krakow/travel.json: per school and district the median minutes.
+  1. gets the boundary of each of the 18 Kraków districts from OpenStreetMap Nominatim,
+  2. downloads the official Kraków GTFS timetables (same feeds and loader as tools/transport.py for Studia),
+  3. picks up to SAMPLES stops spread over the district (inside its boundary),
+  4. for departures on a school-day morning (Tuesday 7:00-7:40) computes the fastest trip from each sample stop
+     to the stops near each school, walking included, with at most one change.
+Writes kompas/liceum/data/db/pl/krakow/travel.json: per school and district the median over sample stops and
+departures, so a big district (Nowa Huta) gets a typical time, not one from its emptiest corner.
 
 Usage: python3 kompas/tools/liceum_travel.py
 """
@@ -29,20 +31,44 @@ KRK = (49.96, 50.13, 19.79, 20.22)
 DEPARTURES = [7 * 3600 + i * 600 for i in range(5)]    # 7:00 ... 7:40, school starts around 8:00
 WINDOW = (6 * 3600 + 45 * 60, 9 * 3600 + 30 * 60)       # only trips running then matter
 WALK = 1.2 / 1.25                                        # m/s, with a detour factor
-TRANSFER_M, ORIGIN_M, DEST_M = 250, 800, 700
+TRANSFER_M, DEST_M, SAMPLES = 250, 700, 6
 
 
-def district_point(no, name):
-    """Point of the district: the centre Nominatim gives for the district boundary."""
+def district_shape(no, name):
+    """Boundary (list of rings) and centre of the district from Nominatim."""
     for q in (f'Dzielnica {no} {name}, Kraków', f'{name}, Kraków'):
         time.sleep(1.1)
         res = json.loads(get('https://nominatim.openstreetmap.org/search?' + urllib.parse.urlencode(
-            {'q': q, 'format': 'json', 'limit': 3, 'countrycodes': 'pl'})))
+            {'q': q, 'format': 'json', 'limit': 5, 'countrycodes': 'pl', 'polygon_geojson': 1, 'polygon_threshold': 0.0005})))
         for r in res:
+            g = r.get('geojson') or {}
+            if g.get('type') not in ('Polygon', 'MultiPolygon'): continue
             la, lo = float(r['lat']), float(r['lon'])
-            if KRK[0] <= la <= KRK[1] and KRK[2] <= lo <= KRK[3]:
-                return round(la, 5), round(lo, 5), q
+            if not (KRK[0] <= la <= KRK[1] and KRK[2] <= lo <= KRK[3]): continue
+            polys = [g['coordinates']] if g['type'] == 'Polygon' else g['coordinates']
+            return {'lat': round(la, 5), 'lon': round(lo, 5), 'q': q, 'rings': [p[0] for p in polys]}
     return None
+
+
+def inside(la, lo, rings):
+    hit = False
+    for ring in rings:
+        j = len(ring) - 1
+        for i in range(len(ring)):
+            xi, yi = ring[i]; xj, yj = ring[j]
+            if (yi > la) != (yj > la) and lo < (xj - xi) * (la - yi) / (yj - yi + 1e-15) + xi: hit = not hit
+            j = i
+    return hit
+
+
+def spread(points, k):
+    """Up to k points far from each other (farthest-point sampling, starting near the centre of the group)."""
+    if len(points) <= k: return points
+    cla = sum(p[0] for p in points) / len(points); clo = sum(p[1] for p in points) / len(points)
+    pick = [min(points, key=lambda p: dist(p, (cla, clo)))]
+    while len(pick) < k:
+        pick.append(max(points, key=lambda p: min(dist(p, q) for q in pick)))
+    return pick
 
 
 def main():
@@ -53,12 +79,10 @@ def main():
     origins = []
     for i, (no, name) in enumerate(DISTRICTS, 1):
         oid = f'd{i:02d}'
-        if oid in known and known[oid]['name'] == name:
-            origins.append(known[oid]); continue
-        p = district_point(no, name)
-        if not p: print('NO POINT', no, name); continue
-        origins.append({'id': oid, 'no': no, 'name': name, 'lat': p[0], 'lon': p[1], 'q': p[2]})
-        print('district', no, name, p)
+        sh = district_shape(no, name)
+        if not sh: print('NO SHAPE', no, name); continue
+        origins.append({'id': oid, 'no': no, 'name': name, 'lat': sh['lat'], 'lon': sh['lon'], 'q': sh['q'], 'rings': sh['rings']})
+        print('district', no, name, sh['q'])
 
     stops, trips, infos = {}, {}, []
     for k, f in enumerate(FEEDS):
@@ -106,22 +130,33 @@ def main():
         return result
 
     dests = {s['id']: near(s['geo']['lat'], s['geo']['lon'], DEST_M) for s in schools}
+    # One stop per name (platforms of one stop share a name), served by a morning trip.
+    served = {sid for rows in tripl for sid, _, _ in rows}
     table = defaultdict(dict)
     for o in origins:
-        src = near(o['lat'], o['lon'], ORIGIN_M) or near(o['lat'], o['lon'], 2000)[:3]
+        byname = {}
+        for sid, (n, la, lo) in stops.items():
+            if sid in served and n not in byname and inside(la, lo, o['rings']): byname[n] = (la, lo)
+        samples = spread(list(byname.values()), SAMPLES)
+        o['samples'] = [[round(a, 5), round(b, 5)] for a, b in samples]
+        o['stopsInside'] = len(byname)
         per = defaultdict(list)
-        for t0 in DEPARTURES:
-            res = run({sid: t0 + d / WALK for d, sid in src})
-            for s in schools:
-                direct = dist((o['lat'], o['lon']), (s['geo']['lat'], s['geo']['lon'])) / WALK + t0
-                opts = [res[x] + d / WALK for d, x in dests[s['id']] if x in res] + [direct]
-                per[s['id']].append((min(opts) - t0) / 60)
-        for sid, mins in per.items():
-            table[sid][o['id']] = round(statistics.median(mins))
-        print('origin', o['name'], 'done')
+        for p in samples:
+            src = near(p[0], p[1], 150)
+            for t0 in DEPARTURES:
+                res = run({sid: t0 + d / WALK for d, sid in src})
+                for s in schools:
+                    opts = [res[x] + d / WALK for d, x in dests[s['id']] if x in res]
+                    walk = dist(p, (s['geo']['lat'], s['geo']['lon']))
+                    if walk <= 2000: opts.append(t0 + walk / WALK)   # close enough to walk
+                    if opts: per[s['id']].append((min(opts) - t0) / 60)
+        for sid, m in per.items():
+            table[sid][o['id']] = round(statistics.median(m))
+        print('origin', o['name'], len(byname), 'stops inside,', len(samples), 'samples')
+    for o in origins: o.pop('rings', None)
 
     out = {'asOf': infos[0]['serviceDay'], 'source': GTFS_BASE, 'feeds': [i['feed'] for i in infos],
-           'method': 'z przystanków blisko środka dzielnicy, wtorek 7:00–7:40, komunikacja miejska z dojściem pieszo, najwyżej jedna przesiadka; mediana',
+           'method': 'z kilku przystanków rozłożonych po całej dzielnicy, wtorek 7:00–7:40, komunikacja miejska z dojściem pieszo, najwyżej jedna przesiadka; mediana',
            'origins': origins, 'schools': table}
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1))
     print('schools', len(table))
