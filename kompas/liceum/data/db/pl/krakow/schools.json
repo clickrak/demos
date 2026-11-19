@@ -167,7 +167,8 @@
    "lat": 50.05717,
    "lon": 19.93336,
    "q": "I LO Nowodworskiego, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo2",
@@ -354,7 +355,8 @@
    "lat": 50.06852,
    "lon": 19.93037,
    "q": "II LO Sobieskiego, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo4",
@@ -575,7 +577,8 @@
    "lat": 50.04113,
    "lon": 19.94611,
    "q": "Krzemionki 11, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo5",
@@ -753,7 +756,8 @@
    "lat": 50.0622,
    "lon": 19.9288,
    "q": "V LO Witkowskiego, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo7",
@@ -950,7 +954,8 @@
    "lat": 50.0706,
    "lon": 19.90829,
    "q": "VII LO Nałkowskiej, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo8",
@@ -1118,7 +1123,8 @@
    "lat": 50.05874,
    "lon": 19.95538,
    "q": "Grzegórzecka 24, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo9",
@@ -1249,7 +1255,8 @@
    "lat": 50.06874,
    "lon": 19.91938,
    "q": "Kazimierza Czapińskiego 5, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tl14",
@@ -1362,7 +1369,8 @@
    "lat": 50.04642,
    "lon": 19.92223,
    "q": "Monte Cassino 31, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tee7",
@@ -1489,7 +1497,8 @@
    "lat": 50.02439,
    "lon": 19.97723,
    "q": "Henryka Kamieńskiego 49, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo26",
@@ -1583,7 +1592,8 @@
    "lat": 50.06219,
    "lon": 19.92414,
    "q": "Krupnicza 44, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo42",
@@ -1691,7 +1701,8 @@
    "lat": 50.06279,
    "lon": 19.93004,
    "q": "XLII LO, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo11",
@@ -1830,7 +1841,8 @@
    "lat": 50.08081,
    "lon": 20.03248,
    "q": "os. Teatralne 33, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo28",
@@ -1943,7 +1955,8 @@
    "lat": 50.04106,
    "lon": 19.93689,
    "q": "Tadeusza Czackiego 11, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tch3",
@@ -2012,7 +2025,8 @@
    "lat": 50.06219,
    "lon": 19.92414,
    "q": "Krupnicza 44, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo3",
@@ -2129,7 +2143,8 @@
    "lat": 50.089,
    "lon": 20.01819,
    "q": "os. Wysokie 6, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo6",
@@ -2262,7 +2277,8 @@
    "lat": 50.05043,
    "lon": 19.94761,
    "q": "Wąska 7, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo10",
@@ -2403,7 +2419,8 @@
    "lat": 50.0693,
    "lon": 19.94064,
    "q": "Zygmunta Wróblewskiego 8, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo13",
@@ -2547,7 +2564,8 @@
    "lat": 50.06341,
    "lon": 19.96375,
    "q": "Sądowa 4, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo15",
@@ -2726,7 +2744,8 @@
    "lat": 50.02232,
    "lon": 19.986,
    "q": "al. Adolfa Dygasińskiego 15, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tee9",
@@ -2866,7 +2885,8 @@
    "lat": 50.06162,
    "lon": 19.93082,
    "q": "Loretańska 16, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo31",
@@ -2936,7 +2956,8 @@
    "lat": 50.08754,
    "lon": 19.97044,
    "q": "Kazimierza Odnowiciela 2, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo12",
@@ -3097,7 +3118,8 @@
    "lat": 50.07652,
    "lon": 20.02379,
    "q": "os. Kolorowe 29a, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo14",
@@ -3236,7 +3258,8 @@
    "lat": 50.08719,
    "lon": 19.91353,
    "q": "Józefa Chełmońskiego 24, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo16",
@@ -3373,7 +3396,8 @@
    "lat": 50.07236,
    "lon": 20.04696,
    "q": "os. Willowe 1, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo18",
@@ -3516,7 +3540,8 @@
    "lat": 50.0773,
    "lon": 19.88302,
    "q": "Na Błonie 15b, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo20",
@@ -3683,7 +3708,8 @@
    "lat": 50.07022,
    "lon": 19.93347,
    "q": "Szlak 5, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo23",
@@ -3779,7 +3805,8 @@
    "lat": 50.07965,
    "lon": 19.98539,
    "q": "Seniorów Lotnictwa 5, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo24",
@@ -3943,7 +3970,8 @@
    "lat": 50.07205,
    "lon": 19.96535,
    "q": "Wilka Wyrwińskiego 1, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo27",
@@ -4134,7 +4162,8 @@
    "lat": 50.05403,
    "lon": 19.91677,
    "q": "Senatorska 35, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo30",
@@ -4277,7 +4306,8 @@
    "lat": 50.08334,
    "lon": 20.00706,
    "q": "os. Dywizjonu 303 66, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo41",
@@ -4418,7 +4448,8 @@
    "lat": 50.0673,
    "lon": 19.94162,
    "q": "Rynek Kleparski 18, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo43",
@@ -4514,10 +4545,17 @@
    }
   ],
   "geo": {
-   "lat": 50.04315,
-   "lon": 19.96009,
-   "q": "Bolesława Limanowskiego 60-62, Kraków"
-  }
+   "lat": 50.04499,
+   "lon": 19.95574,
+   "q": "Bolesława Limanowskiego 60-62, Kraków",
+   "prev": {
+    "lat": 50.04315,
+    "lon": 19.96009,
+    "q": "Bolesława Limanowskiego 60-62, Kraków"
+   },
+   "movedM": 372
+  },
+  "geoChecked": true
  },
  {
   "id": "lo44",
@@ -4637,7 +4675,8 @@
    "lat": 50.05282,
    "lon": 19.9363,
    "q": "Bernardyńska 7, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo45",
@@ -4731,7 +4770,8 @@
    "lat": 50.05537,
    "lon": 19.95098,
    "q": "ks. Franciszka Blachnickiego 1, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo46",
@@ -4825,7 +4865,8 @@
    "lat": 50.0558,
    "lon": 19.9442,
    "q": "Józefa Dietla 70, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tk25",
@@ -4983,7 +5024,8 @@
    "lat": 50.02292,
    "lon": 19.91732,
    "q": "ul. Ułanów 3, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tm17",
@@ -5116,7 +5158,8 @@
    "lat": 50.07668,
    "lon": 20.05088,
    "q": "os. Szkolne 37, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tks24",
@@ -5257,7 +5300,8 @@
    "lat": 50.05383,
    "lon": 19.94462,
    "q": "Brzozowa 5, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo21",
@@ -5304,7 +5348,8 @@
    "lat": 50.09121,
    "lon": 20.00206,
    "q": "os. Tysiąclecia 15, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo22",
@@ -5351,7 +5396,8 @@
    "lat": 50.07776,
    "lon": 20.04864,
    "q": "os. Szkolne 26, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo29",
@@ -5398,7 +5444,8 @@
    "lat": 50.00585,
    "lon": 19.96567,
    "q": "Cechowa 57, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "lo47",
@@ -5467,7 +5514,8 @@
    "lat": 50.08014,
    "lon": 20.04761,
    "q": "os. Szkolne 18, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tm15",
@@ -5585,7 +5633,8 @@
    "lat": 50.0615,
    "lon": 19.92465,
    "q": "al. Mickiewicza 5, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tm30",
@@ -5630,7 +5679,8 @@
    "lat": 50.05365,
    "lon": 19.94474,
    "q": "Podbrzezie 10, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "te8",
@@ -5714,7 +5764,8 @@
    "lat": 50.07776,
    "lon": 20.04864,
    "q": "same address as XXII LO"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tg12",
@@ -5807,7 +5858,8 @@
    "lat": 50.07369,
    "lon": 19.89054,
    "q": "Lea 235, Kraków, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "teh4",
@@ -5900,7 +5952,8 @@
    "lat": 50.06172,
    "lon": 19.93155,
    "q": "Kapucyńska 2, Kraków"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "tb1",
@@ -6058,6 +6111,7 @@
    "lat": 50.0757,
    "lon": 19.89343,
    "q": "Szablowskiego 1, Kraków"
-  }
+  },
+  "geoChecked": true
  }
 ]

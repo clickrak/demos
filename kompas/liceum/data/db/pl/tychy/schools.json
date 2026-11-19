@@ -105,7 +105,8 @@
    "lat": 50.11988,
    "lon": 19.00006,
    "q": "Janusza Korczaka 6, Tychy"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "ty-lo2",
@@ -239,7 +240,8 @@
    "lat": 50.13359,
    "lon": 18.98037,
    "q": "Cypriana Norwida 40, Tychy"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "ty-lo3",
@@ -336,7 +338,8 @@
    "lat": 50.11767,
    "lon": 18.99799,
    "q": "Elfów 62, Tychy"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "ty-lo4",
@@ -428,7 +431,8 @@
    "lat": 50.11622,
    "lon": 19.0076,
    "q": "Hanny i Kazimierza Wejchertów 20, Tychy"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "ty-t2",
@@ -532,7 +536,8 @@
    "lat": 50.11968,
    "lon": 18.99177,
    "q": "Elfów 9, Tychy"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "ty-t3",
@@ -637,7 +642,8 @@
    "lat": 50.1144,
    "lon": 18.97946,
    "q": "al. Bielska 100, Tychy"
-  }
+  },
+  "geoChecked": true
  },
  {
   "id": "ty-t4",
@@ -718,6 +724,7 @@
    "lat": 50.12108,
    "lon": 18.99437,
    "q": "Edukacji 11, Tychy"
-  }
+  },
+  "geoChecked": true
  }
 ]
