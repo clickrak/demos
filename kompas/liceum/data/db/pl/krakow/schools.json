@@ -4,7 +4,8 @@
   "name": "I Liceum Ogólnokształcące im. Bartłomieja Nowodworskiego",
   "short": "I LO Nowodworskiego",
   "type": "liceum",
-  "address": null,
+  "address": "pl. Na Groblach 9, 31-101 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 165.55,
    "max": 177.45,
@@ -752,7 +753,8 @@
   "name": "VII Liceum Ogólnokształcące im. Zofii Nałkowskiej",
   "short": "VII LO Nałkowskiej",
   "type": "liceum",
-  "address": null,
+  "address": "ul. Skarbińskiego 5, 30-071 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 164.55,
    "max": 172.2,
@@ -3052,7 +3054,8 @@
   "name": "XIV Liceum Ogólnokształcące im. Mikołaja Kopernika",
   "short": "XIV LO Kopernika",
   "type": "liceum",
-  "address": null,
+  "address": "ul. Józefa Chełmońskiego 24, 31-322 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 139.5,
    "max": 155.35,
@@ -4451,7 +4454,8 @@
   "name": "XLIV Liceum Ogólnokształcące im. Stanisława Konarskiego",
   "short": "XLIV LO Konarskiego",
   "type": "liceum",
-  "address": null,
+  "address": "ul. Bernardyńska 7, 31-069 Kraków",
+  "addressSourceId": "krk-siec-szkol",
   "range": {
    "min": 150.55,
    "max": 163.65,

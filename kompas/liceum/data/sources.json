@@ -481,5 +481,12 @@
   "title": "Technikum Budowlane nr 1, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "krk-siec-szkol",
+  "url": "https://www.bip.krakow.pl/_inc/rada/show_pdfdoc.php?id=144889",
+  "title": "Rada Miasta Krakowa: plan sieci szkół ponadpodstawowych (nazwy i adresy szkół)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]
