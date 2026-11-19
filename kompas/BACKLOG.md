@@ -246,6 +246,7 @@ logistyka, woda, laboratorium, media, handel, projektowanie.
    Copy the style of `medycyna`. Use "mieszany" when the jobs inside one area differ.
 3. If the report has no matching job, skip that area and list it in the commit message.
 **Done when** each of the 17 has `demand` or is listed as "no data", and tests pass.
+**Status: done in Studia 2.0.0** (16 areas; `inz-biomed` no data).
 
 ### D2 (P1) Liceum: four missing school addresses
 **Schools:** `lo1`, `lo7`, `lo14`, `lo44` have `"address": null`. The "Dojazd" button then searches by school name only.
@@ -295,10 +296,12 @@ table clearly moves that group (band 1 = clearly below the average, 2 = near it,
 update `sourceId`. The words "GUS, październik 2020" are written by hand in `studia/app.js` (`payHtml`) and `core/export.js`:
 search for `październik 2020` and change both to the new month and year.
 **Done when** all cards with `pay` point to the new source, or the task is closed with a note that no newer table exists.
+**Status: part done in Studia 2.0.0** (4 of 26 cards on `gus-2024`; the rest needs the GUS XLSX table, see Part 3).
 
 ### D8 (P3) Studia: check one offer
 Confirm on the University of Agriculture (URK) site that "Inżynieria i gospodarka wodna" still recruits for 2027/28, and that
 its entry in `offers.json` (subjects, length, link) matches. Fix or mark `"status": "check"`.
+**Status: marked "check" in Studia 2.0.0**; a hand check on the URK site is still open (Part 3).
 
 ---
 
@@ -385,7 +388,7 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
 
 | Version | Focus | Main content | Agent | Status |
 |---|---|---|---|---|
-| v2.0 | Data | Kraków job demand for the 17 missing areas (D1); 2026 thresholds for UJ, UJ CM and AGH offers; newer GUS pay (D7); URK offer check (D8) | Sonnet + Opus | planned 19 Nov 2026 |
+| v2.0 | Data | Kraków job demand for the 17 missing areas (D1); 2026 thresholds for UJ, UJ CM and AGH offers; newer GUS pay (D7); URK offer check (D8) | Sonnet + Opus | pushed 19 Nov 2026 as 2.0.0 (some items moved, see below) |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -393,11 +396,11 @@ Current `appVersion` 1.1.2. No Part 3 existed, so this is the first release and 
 `sourced`, none with a threshold; 17 of 26 areas have no `demand`; pay bands from GUS October 2020. Do them in this order;
 one commit per task, then the release step.
 
-1. **ST1 (Sonnet) Kraków job demand for 17 areas** (= D1, all steps there).
+1. [x] **ST1 (Sonnet) Kraków job demand for 17 areas** (= D1, all steps there).
    Where: `studia/data/opportunities.json`, `studia/data/sources.json`.
    Done when: each of the 17 areas (list in D1) has `demand` with a `sourceId`, or is named "no data" in the commit message; three tests pass;
    one card with new `demand` shows the line on the results page at 375 px.
-2. **ST2 (Opus) Thresholds 2026 for UJ, UJ CM and AGH offers.** The 33 offers of these three have no "how many points did the last
+2. [x] **ST2 (Opus) Thresholds 2026 for UJ, UJ CM and AGH offers.** The 33 offers of these three have no "how many points did the last
    person admitted have". Point scales differ (AGH counts up to 1000, UJ and CM use their own scales), so first decide one field shape, for example
    `"threshold": { "year": 2026, "points": 812, "max": 1000, "round": "I tura", "sourceId": "…" }`, and keep the scale with the number.
    Take numbers only from the university's own results page or otouczelnie "progi" pages (AGH:
@@ -407,16 +410,36 @@ one commit per task, then the release step.
    Add a test in `tests/syntax.mjs`: every `threshold` has `year`, `points` ≤ `max`, and a known `sourceId`.
    Where: `studia/data/db/pl/krakow/offers.json`, `studia/data/sources.json`, `studia/app.js`, `tests/syntax.mjs`.
    Done when: tests pass; commit message says how many of the 33 got a threshold; the line shows on an AGH offer at 375 and 1280 px in three looks.
-3. **ST3 (Sonnet) Newer GUS pay data** (= D7, all steps there; also replace "październik 2020" in `studia/app.js` and `core/export.js`).
+3. [~] **ST3 (Sonnet) Newer GUS pay data** (= D7, all steps there; also replace "październik 2020" in `studia/app.js` and `core/export.js`).
    Where: `studia/data/opportunities.json`, `studia/data/sources.json`, `studia/app.js`, `core/export.js`.
    Done when: every card with `pay` points to the new GUS source (or D7 is closed with a note that no newer table exists);
    `grep -rn "październik 2020" kompas` finds nothing; tests pass.
-4. **ST4 (Sonnet) URK water engineering offer** (= D8).
+4. [x] **ST4 (Sonnet) URK water engineering offer** (= D8).
    Where: `studia/data/db/pl/krakow/offers.json`, `studia/data/sources.json`.
    Done when: the offer matches the URK page for 2027/28 (or 2026/27 if 2027/28 is not out, then `"status": "check"`); tests pass.
-5. **SR2.0 (Opus) Review and release v2.0.0.** Review the Sonnet commits (sources open and say what the data says, no guessed numbers,
+5. [x] **SR2.0 (Opus) Review and release v2.0.0.** Review the Sonnet commits (sources open and say what the data says, no guessed numbers,
    no new network calls), click-through at 375 and 1280 px in three looks, set `2.0.0` in the four places, `dataVersion` to today,
    tick D1, D7, D8 in Part 2, mark v2.0 "pushed" in the table above, short "Kompas Studia v2.0.0" section in the spec doc, push.
+
+**Done in 2.0.0 (19 Nov 2026).**
+- ST1: 16 of 17 areas have `demand`, from the new source `barometr-krk-2026` (Barometr zawodów 2026, miasto Kraków, GUP Kraków).
+  No data: `inz-biomed` (no biomedical engineer line in the barometer).
+- ST2: field `threshold` `{year, points, max, round, sourceId}` and one muted line on the offer card. AGH 11 of 11
+  (source `otou-agh-progi-2026`, I cykl, scale 0–1000; year cross-checked with maturalnie.pl). UJ and UJ CM 0 of 22.
+- ST3 (part): new source `gus-2024` (GUS, October 2024, published February 2026). 4 cards moved (medycyna, dane-medyczne,
+  software, cyber; band 3 confirmed). The month and year next to the pay band now come from the source (`payLabel` in
+  `core/export.js`), so no hand-written "październik 2020" is left in code.
+- ST4: `ur-woda` set to `"status": "check"` (card shows "dane do sprawdzenia").
+
+**Moved to a later Studia release (next Data turn).**
+- ST2 rest: UJ and UJ CM thresholds (22 offers). The otouczelnie UJ "progi" page does not show which year tab is selected or the
+  scale, and two otouczelnie pages give different numbers for Kierunek lekarski (81,33 and 75,67). Use UJ's own results page,
+  or a page that names the year and scale.
+- ST3 rest: 22 cards still on `gus-2020`. Their groups are only in the GUS XLSX ("Tablica 5", file
+  `struktura_wynagrodzen_wedlug_zawodow_za_pazdziernik_2024_r._tablice.xlsx` on stat.gov.pl), which the night run could not open.
+  Then delete `gus-2020`.
+- ST4 rest: confirm `ur-woda` on rekrutacja.urk.edu.pl (the site blocks automated reading). otouczelnie (no year) lists
+  "biologia, chemia, fizyka z astronomią, geografia, informatyka lub matematyka" and no language rule; check which is right.
 
 **Decided by Szymon (19 Nov 2026).**
 - GoatCounter in `studia/index.html` stays (an accepted exception to rule 2). Do not remove it.
