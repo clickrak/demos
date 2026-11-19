@@ -20,6 +20,10 @@ The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
   At the end of each release an Opus agent reviews the Sonnet work (tests, a click-through at 375 px and 1280 px) before the push.
 - **Spec doc.** After each release add a short "Kompas Liceum vX.Y.0" section to the spec doc and tick the task there.
 - The rules for every task (below, under Part 2) apply here too: no personal data, no new network calls, a source for every fact.
+- **Areas never mix** (set 19 Nov 2026, v2.0.1). The kid picks ONE area; schools outside it are ignored everywhere
+  (compass, profiles, lists, likes, map, export). "Kraków i okolice" grows with towns of powiat krakowski
+  (Skawina, Zabierzów …), never with Tychy. "Tychy i Metropolia (GZM)" grows with GZM towns. Areas are
+  `regions` in `liceum/data/config.json`; a town belongs to one area only (tested).
 
 ### Releases
 
