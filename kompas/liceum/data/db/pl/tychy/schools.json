@@ -100,7 +100,12 @@
     "sourceId": "we-ty-lo1",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.11988,
+   "lon": 19.00006,
+   "q": "Janusza Korczaka 6, Tychy"
+  }
  },
  {
   "id": "ty-lo2",
@@ -229,7 +234,12 @@
     "sourceId": "we-ty-lo2",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.13359,
+   "lon": 18.98037,
+   "q": "Cypriana Norwida 40, Tychy"
+  }
  },
  {
   "id": "ty-lo3",
@@ -321,7 +331,12 @@
     "sourceId": "otou-ty-lo3",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.11767,
+   "lon": 18.99799,
+   "q": "Elfów 62, Tychy"
+  }
  },
  {
   "id": "ty-lo4",
@@ -408,7 +423,12 @@
     "sourceId": "we-ty-lo4",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.11622,
+   "lon": 19.0076,
+   "q": "Hanny i Kazimierza Wejchertów 20, Tychy"
+  }
  },
  {
   "id": "ty-t2",
@@ -507,7 +527,12 @@
     "status": "check",
     "occupation": "technik organizacji turystyki"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.11968,
+   "lon": 18.99177,
+   "q": "Elfów 9, Tychy"
+  }
  },
  {
   "id": "ty-t3",
@@ -607,7 +632,12 @@
     "status": "check",
     "occupation": "technik programista"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.1144,
+   "lon": 18.97946,
+   "q": "al. Bielska 100, Tychy"
+  }
  },
  {
   "id": "ty-t4",
@@ -683,6 +713,11 @@
     "status": "check",
     "occupation": "technik mechanik"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.12108,
+   "lon": 18.99437,
+   "q": "Edukacji 11, Tychy"
+  }
  }
 ]
