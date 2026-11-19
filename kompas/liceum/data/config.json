@@ -25,7 +25,7 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "2.2.0",
+ "appVersion": "2.3.0",
  "dataVersion": "2026-11-19",
  "towns": [
   {
@@ -77,7 +77,7 @@
    ],
    "status": "ready",
    "sourceId": "tychy-kokis-2025",
-   "note": "4 licea i 3 z 6 techników miejskich. Technika nr 1, 5 i 6 dojdą później: źródła podają dla nich sprzeczne kierunki.",
+   "note": "4 licea i 5 z 6 techników miejskich. Technikum nr 6 (gastronomia i hotelarstwo) dojdzie, gdy znajdziemy jego ofertę na 2026/27.",
    "later": "Katowice i inne miasta Metropolii dojdą w kolejnych wersjach.",
    "transit": [
     {

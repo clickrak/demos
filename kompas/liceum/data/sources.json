@@ -497,13 +497,6 @@
   "status": "sourced"
  },
  {
-  "id": "otou-ty-lo3",
-  "url": "https://www.otouczelnie.pl/artykul/2825/Licea-w-Tychach/26/III-LO-im-Stanislawa-Wyspianskiego",
-  "title": "III LO Wyspiańskiego w Tychach, klasy 2025/26",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "we-ty-lo4",
   "url": "https://waszaedukacja.pl/ponadgimnazjalne/iv-liceum-tychy-2062",
   "title": "IV LO (ZS nr 1) w Tychach, klasy 2026/27 i adres (Wasza Edukacja)",
@@ -578,6 +571,27 @@
   "url": "https://gtfs.ztp.krakow.pl/",
   "title": "Rozkłady jazdy komunikacji miejskiej w Krakowie, GTFS (Zarząd Transportu Publicznego)",
   "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "we-ty-lo3",
+  "url": "https://waszaedukacja.pl/ponadgimnazjalne/iii-liceum-im-stanislawa-wyspianskiego-tychy-2058",
+  "title": "III LO Wyspiańskiego w Tychach, klasy 2026/27 (Wasza Edukacja)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "zs6-ty-rekrutacja",
+  "url": "https://www.zs6.oswiata.tychy.pl/a/rekrutacja",
+  "title": "Technikum nr 5 (ZS nr 6) w Tychach, nabór 2026/27: zawody i przedmioty (strona szkoły)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "ty-informator-2025",
+  "url": "https://oswiata.tychy.pl/uploads/Kancelaria/R%C3%B3%C5%BCne%20pliki%202025/informator2025-2026.pdf",
+  "title": "Miasto Tychy: informator o szkołach ponadpodstawowych 2025/26",
+  "asOf": "2025-05",
   "status": "sourced"
  }
 ]

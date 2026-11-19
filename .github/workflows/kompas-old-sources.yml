@@ -1,0 +1,15 @@
+name: Kompas old sources
+# Backlog D2: once a year (mid-December, before the new recruitment rules) list sources with asOf older than a year.
+# The job fails when there are any, so GitHub sends a notification; the log lists them.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 6 15 12 *'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 kompas/tools/old_sources.py

@@ -252,16 +252,14 @@
   "address": "ul. Elfów 62, 43-100 Tychy",
   "addressSourceId": "otou-ty-licea",
   "www": "https://www.3lo.oswiata.tychy.pl/",
-  "note": "Klasy z rekrutacji 2025/26, bo oferty na 2026/27 nie znaleźliśmy w źródłach. Sprawdź na stronie szkoły.",
+  "note": "Progów z rekrutacji 2026 nie ma w źródłach.",
   "classes": [
    {
-    "code": "1A1",
-    "label": "lingwistyczna (angielski, hiszpański albo włoski)",
+    "code": "1LA",
+    "label": "lingwistyczna A (ang-pol)",
     "extended": [
-     "polski",
      "angielski",
-     "j. hiszpański",
-     "j. włoski"
+     "polski"
     ],
     "cards": [
      "jezyki",
@@ -271,55 +269,53 @@
     "thresholdYear": null,
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "otou-ty-lo3",
+    "sourceId": "we-ty-lo3",
     "status": "check"
    },
    {
-    "code": "1A2",
-    "label": "lingwistyczna (angielski, niemiecki albo hiszpański)",
+    "code": "1LB",
+    "label": "lingwistyczna B (ang-wos)",
     "extended": [
      "angielski",
-     "j. niemiecki",
-     "j. hiszpański",
-     "j. włoski"
+     "wos"
     ],
     "cards": [
-     "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "jezyki"
     ],
     "threshold": null,
     "thresholdYear": null,
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "otou-ty-lo3",
+    "sourceId": "we-ty-lo3",
     "status": "check"
    },
    {
-    "code": "1B1",
-    "label": "menadżerska (mat-geo-ang)",
+    "code": "1M",
+    "label": "medyczna (biol-chem-ang)",
     "extended": [
-     "angielski",
-     "matematyka",
-     "geografia"
+     "biologia",
+     "chemia",
+     "angielski"
     ],
     "cards": [
-     "biznes",
-     "dane-ai"
+     "biologia",
+     "chemia"
     ],
     "threshold": null,
     "thresholdYear": null,
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "otou-ty-lo3",
+    "sourceId": "we-ty-lo3",
     "status": "check"
    },
    {
-    "code": "1B2",
+    "code": "1T",
     "label": "turystyczna (biol-geo-ang)",
     "extended": [
-     "angielski",
      "biologia",
-     "geografia"
+     "geografia",
+     "angielski"
     ],
     "cards": [
      "biznes",
@@ -330,7 +326,7 @@
     "thresholdYear": null,
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "otou-ty-lo3",
+    "sourceId": "we-ty-lo3",
     "status": "check"
    }
   ],
@@ -339,7 +335,8 @@
    "lon": 18.99799,
    "q": "Elfów 62, Tychy"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "classListSourceId": "we-ty-lo3"
  },
  {
   "id": "ty-lo4",
@@ -726,5 +723,135 @@
    "q": "Edukacji 11, Tychy"
   },
   "geoChecked": true
+ },
+ {
+  "id": "ty-t1",
+  "name": "Technikum nr 1 w Zespole Szkół nr 1 im. Gustawa Morcinka w Tychach",
+  "short": "Technikum nr 1 (ZS nr 1)",
+  "type": "technikum",
+  "town": "tychy",
+  "address": "ul. Hanny i Kazimierza Wejchertów 20, 43-100 Tychy",
+  "addressSourceId": "otou-ty-technika",
+  "note": "Zawody z miejskiego informatora 2025/26; oferty na 2026/27 nie znaleźliśmy. Sprawdź na stronie szkoły.",
+  "classes": [
+   {
+    "code": "TA",
+    "label": "technik analityk",
+    "extended": [
+     "chemia"
+    ],
+    "cards": [
+     "chemia",
+     "biologia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "ty-informator-2025",
+    "status": "check",
+    "occupation": "technik analityk"
+   },
+   {
+    "code": "TOS",
+    "label": "technik ochrony środowiska",
+    "extended": [
+     "biologia"
+    ],
+    "cards": [
+     "srodowisko"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "ty-informator-2025",
+    "status": "check",
+    "occupation": "technik ochrony środowiska"
+   }
+  ]
+ },
+ {
+  "id": "ty-t5",
+  "name": "Technikum nr 5 w Zespole Szkół nr 6 w Tychach",
+  "short": "Technikum nr 5 (ZS nr 6)",
+  "type": "technikum",
+  "town": "tychy",
+  "address": "al. Marszałka Piłsudskiego 10, 43-100 Tychy",
+  "addressSourceId": "otou-ty-technika",
+  "www": "https://www.zs6.oswiata.tychy.pl/",
+  "classListSourceId": "zs6-ty-rekrutacja",
+  "classes": [
+   {
+    "code": "TPS",
+    "label": "technik pojazdów samochodowych",
+    "extended": [
+     "matematyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "zs6-ty-rekrutacja",
+    "status": "check",
+    "occupation": "technik pojazdów samochodowych"
+   },
+   {
+    "code": "TI",
+    "label": "technik informatyk",
+    "extended": [],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "zs6-ty-rekrutacja",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "TL",
+    "label": "technik logistyk",
+    "extended": [],
+    "cards": [
+     "biznes"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "zs6-ty-rekrutacja",
+    "status": "check",
+    "occupation": "technik logistyk"
+   },
+   {
+    "code": "TEP",
+    "label": "technik eksploatacji portów i terminali",
+    "extended": [],
+    "cards": [
+     "biznes",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "zs6-ty-rekrutacja",
+    "status": "check",
+    "occupation": "technik eksploatacji portów i terminali"
+   }
+  ]
  }
 ]
