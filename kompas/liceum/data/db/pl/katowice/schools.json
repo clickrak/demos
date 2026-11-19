@@ -149,7 +149,13 @@
     "sourceId": "otou-ka-lo3",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.26186,
+   "lon": 19.01752,
+   "q": "Adama Mickiewicza 11, Katowice"
+  },
+  "geoChecked": true
  },
  {
   "id": "ka-lo8",
@@ -326,7 +332,13 @@
     "sourceId": "otou-ka-lo8",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.2594,
+   "lon": 19.01497,
+   "q": "3 Maja 42, Katowice"
+  },
+  "geoChecked": true
  },
  {
   "id": "ka-lo2",
@@ -552,6 +564,12 @@
     "sourceId": "otou-ka-lo2",
     "status": "check"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.25203,
+   "lon": 19.01052,
+   "q": "Bartosza Głowackiego 6, Katowice"
+  },
+  "geoChecked": true
  }
 ]

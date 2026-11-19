@@ -197,6 +197,12 @@
      "sourceId": "otou-so-lo4"
     }
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.28427,
+   "lon": 19.13073,
+   "q": "Plac Waldemara Zillingera 1, Sosnowiec"
+  },
+  "geoChecked": true
  }
 ]

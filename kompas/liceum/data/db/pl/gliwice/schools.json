@@ -81,6 +81,12 @@
     "status": "check",
     "occupation": "technik elektryk"
    }
-  ]
+  ],
+  "geo": {
+   "lat": 50.2988,
+   "lon": 18.69494,
+   "q": "Chorzowska 5, Gliwice"
+  },
+  "geoChecked": true
  }
 ]
