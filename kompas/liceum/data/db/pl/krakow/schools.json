@@ -391,12 +391,12 @@
      "fizyka",
      "elektronika"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 170.7,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1B",
@@ -410,12 +410,12 @@
      "fizyka",
      "elektronika"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 172.0,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1C",
@@ -430,12 +430,12 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 172.0,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1D",
@@ -449,40 +449,15 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 176.5,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "check"
+    "status": "sourced"
    },
    {
-    "code": "C",
-    "label": "geo-ang-mat",
-    "extended": [
-     "geografia",
-     "angielski",
-     "matematyka"
-    ],
-    "cards": [
-     "srodowisko",
-     "biznes",
-     "dane-ai"
-    ],
-    "threshold": 172,
-    "thresholdYear": "2026/27",
-    "scored": [
-     "polski",
-     "matematyka",
-     "angielski",
-     "geografia"
-    ],
-    "scoredSourced": true,
-    "sourceId": "w2-lo4",
-    "status": "check"
-   },
-   {
-    "code": "E",
+    "code": "1E",
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
@@ -501,12 +476,13 @@
      "historia"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo4",
-    "status": "check"
+    "sourceId": "otou-lo4",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo4"
    },
    {
-    "code": "F",
-    "label": "geo-hist-WOS",
+    "code": "1F",
+    "label": "hist-geo-WOS",
     "extended": [
      "geografia",
      "historia",
@@ -516,7 +492,7 @@
      "spoleczenstwo",
      "srodowisko"
     ],
-    "threshold": 163.5,
+    "threshold": 162.6,
     "thresholdYear": "2026/27",
     "scored": [
      "polski",
@@ -525,11 +501,12 @@
      "historia"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo4",
-    "status": "check"
+    "sourceId": "otou-lo4",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo4"
    },
    {
-    "code": "GH",
+    "code": "1G2",
     "label": "geo-ang-hiszp",
     "extended": [
      "geografia",
@@ -540,7 +517,7 @@
      "jezyki",
      "spoleczenstwo"
     ],
-    "threshold": 170,
+    "threshold": 169.95,
     "thresholdYear": "2026/27",
     "scored": [
      "polski",
@@ -549,11 +526,12 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo4",
-    "status": "check"
+    "sourceId": "otou-lo4",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo4"
    },
    {
-    "code": "GN",
+    "code": "1G1",
     "label": "geo-ang-niem",
     "extended": [
      "geografia",
@@ -573,8 +551,9 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo4",
-    "status": "check"
+    "sourceId": "otou-lo4",
+    "status": "sourced",
+    "scoredSourceId": "w2-lo4"
    }
   ],
   "geo": {
@@ -1163,29 +1142,10 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo9",
-    "status": "check"
+    "status": "sourced"
    },
    {
-    "code": "1B",
-    "label": "biol-ang-pol",
-    "extended": [
-     "polski",
-     "angielski",
-     "biologia"
-    ],
-    "cards": [
-     "ludzie",
-     "biologia"
-    ],
-    "threshold": null,
-    "thresholdYear": null,
-    "scored": null,
-    "scoredSourced": false,
-    "sourceId": "otou-lo9",
-    "status": "check"
-   },
-   {
-    "code": "1a",
+    "code": "1A",
     "label": "geo-ang-mat",
     "extended": [
      "geografia",
@@ -1207,10 +1167,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo9",
-    "status": "check"
+    "status": "sourced"
    },
    {
-    "code": "1b",
+    "code": "1B",
     "label": "biol-ang-pol",
     "extended": [
      "biologia",
@@ -1231,10 +1191,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo9",
-    "status": "check"
+    "status": "sourced"
    },
    {
-    "code": "1d",
+    "code": "1D",
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
@@ -1254,7 +1214,7 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo9",
-    "status": "check"
+    "status": "sourced"
    }
   ],
   "geo": {
@@ -1262,7 +1222,8 @@
    "lon": 19.91938,
    "q": "Kazimierza Czapińskiego 5, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Każda klasa ma dwie grupy językowe (niemiecki albo włoski). Progi z waszaedukacja, klasy potwierdza otouczelnie."
  },
  {
   "id": "tl14",
@@ -1737,12 +1698,12 @@
      "programowanie",
      "dane-ai"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 166.3,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1C",
@@ -1756,16 +1717,16 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 165.4,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "check"
+    "status": "sourced"
    },
    {
-    "code": "1b",
-    "label": "biol-geo-ang",
+    "code": "1B",
+    "label": "turystyczna (biol-geo-ang)",
     "extended": [
      "biologia",
      "geografia",
@@ -1776,16 +1737,16 @@
      "srodowisko",
      "sport"
     ],
-    "threshold": 162.4,
+    "threshold": 162.35,
     "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "w2-lo11",
-    "status": "check"
+    "sourceId": "otou-lo11",
+    "status": "sourced"
    },
    {
-    "code": "1d",
-    "label": "ang-hiszp-pol-wł",
+    "code": "1D",
+    "label": "językowa (pol-ang + hiszp. lub wł.)",
     "extended": [
      "angielski",
      "j. hiszpański",
@@ -1796,16 +1757,16 @@
      "jezyki",
      "spoleczenstwo"
     ],
-    "threshold": 161,
+    "threshold": 157.4,
     "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "w2-lo11",
-    "status": "check"
+    "sourceId": "otou-lo11",
+    "status": "sourced"
    },
    {
-    "code": "1e",
-    "label": "geo-ang-mat",
+    "code": "1E",
+    "label": "menedżerska (ang-mat-geo)",
     "extended": [
      "geografia",
      "angielski",
@@ -1816,16 +1777,16 @@
      "biznes",
      "dane-ai"
     ],
-    "threshold": 166.8,
+    "threshold": 166.75,
     "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "w2-lo11",
-    "status": "check"
+    "sourceId": "otou-lo11",
+    "status": "sourced"
    },
    {
-    "code": "1f",
-    "label": "hist-ang-pol",
+    "code": "1F",
+    "label": "humanistyczno-pedagogiczna (pol-ang-hist)",
     "extended": [
      "historia",
      "angielski",
@@ -1835,12 +1796,12 @@
      "spoleczenstwo",
      "jezyki"
     ],
-    "threshold": 159.2,
+    "threshold": 159.15,
     "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
-    "sourceId": "w2-lo11",
-    "status": "check"
+    "sourceId": "otou-lo11",
+    "status": "sourced"
    }
   ],
   "geo": {
