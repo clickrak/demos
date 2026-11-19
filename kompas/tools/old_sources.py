@@ -14,6 +14,7 @@ t = date.today(); now = t.year * 12 + t.month - 1
 old = []
 for app in ('liceum', 'studia'):
     for s in json.loads((ROOT / app / 'data/sources.json').read_text(encoding='utf8')):
+        if s.get('stale') is False: continue  # legal acts do not go stale
         try: y, m = map(int, s['asOf'].split('-')[:2])
         except Exception: old.append((app, s['id'], s.get('asOf'), s['url'], 'asOf not YYYY-MM')); continue
         age = now - (y * 12 + m - 1)

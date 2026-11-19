@@ -584,14 +584,14 @@
   "id": "vilo-sprawdzian-2026",
   "url": "https://vilo.krakow.pl/sprawdzian-kompetencji-jezykowych/",
   "title": "VI LO Mickiewicza: sprawdzian kompetencji językowych (oddziały międzynarodowe, 3 czerwca 2026)",
-  "asOf": "2026",
+  "asOf": "2026-11",
   "status": "sourced"
  },
  {
   "id": "krk-zasady-dwujezyczne",
   "url": "https://plikimpi.krakow.pl/zalacznik/587082",
   "title": "Kraków: zasady rekrutacji do oddziałów dwujęzycznych i międzynarodowych (pozytywny wynik sprawdzianu kompetencji językowych, terminy ustala dyrektor)",
-  "asOf": "2026",
+  "asOf": "2026-11",
   "status": "sourced"
  },
  {
@@ -606,6 +606,7 @@
   "url": "https://eli.gov.pl/api/acts/DU/2017/1290/text.html",
   "title": "Rozporządzenie Rady Ministrów z 26 czerwca 2017 o utworzeniu GZM (Dz.U. 2017 poz. 1290): lista 41 gmin",
   "asOf": "2017-06",
+  "stale": false,
   "status": "sourced"
  },
  {
@@ -626,14 +627,14 @@
   "id": "otou-slaskie-licea-2026",
   "url": "https://www.otouczelnie.pl/ranking-wojewodztwo/12/1/Ranking-liceow-2026",
   "title": "otouczelnie.pl: ranking liceów w województwie śląskim 2026 (matura 2025)",
-  "asOf": "2026",
+  "asOf": "2026-11",
   "status": "sourced"
  },
  {
   "id": "otou-slaskie-technika-2026",
   "url": "https://www.otouczelnie.pl/ranking-wojewodztwo/12/2/Ranking-technikow-2026",
   "title": "otouczelnie.pl: ranking techników w województwie śląskim 2026 (matura 2025)",
-  "asOf": "2026",
+  "asOf": "2026-11",
   "status": "sourced"
  },
  {
@@ -682,14 +683,14 @@
   "id": "otou-krk-licea-2026",
   "url": "https://www.otouczelnie.pl/ranking/208/Ranking-liceow-w-Krakowie-2026",
   "title": "otouczelnie.pl: ranking liceów w Krakowie 2026 (matura 2025)",
-  "asOf": "2026",
+  "asOf": "2026-11",
   "status": "sourced"
  },
  {
   "id": "otou-krk-technika-2026",
   "url": "https://www.otouczelnie.pl/ranking/3007/Ranking-technikow-w-Krakowie-2026",
   "title": "otouczelnie.pl: ranking techników w Krakowie 2026 (matura 2025)",
-  "asOf": "2026",
+  "asOf": "2026-11",
   "status": "sourced"
  },
  {

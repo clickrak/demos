@@ -63,6 +63,7 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   for (const app of ['studia', 'liceum']) {
     const known = ids(json[`${app}/data/sources.json`]);
     const used = new Set(Object.entries(json).filter(([f]) => f.startsWith(app + '/') && f !== `${app}/data/sources.json`).flatMap(([, d]) => pointers(d)));
+    for (const s of json[`${app}/data/sources.json`]) if (!/^\d{4}-\d{2}$/.test(String(s.asOf))) fail(`${app}: source "${s.id}" asOf "${s.asOf}" is not YYYY-MM`);
     refs(`${app} source pointer`, used, known);
     for (const id of known) if (!used.has(id)) fail(`${app}: source "${id}" is not used anywhere (attach it or delete it)`);
   }
