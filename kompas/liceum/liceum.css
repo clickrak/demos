@@ -362,3 +362,4 @@ html.big #app { overflow-x: clip; } /* pop-art offset shadows must not widen the
 /* v2.7.1 sources */
 .srcl { padding-left: 1.1em; margin: 6px 0; }
 .srcl li { margin: 3px 0; overflow-wrap: anywhere; }
+.maptowns { margin: 8px 0; flex-wrap: wrap; }

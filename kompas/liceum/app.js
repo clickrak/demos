@@ -708,10 +708,30 @@ function mapSchools(rows) {
 }
 let mapEntries = null;
 const dirUrl = s => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address || (s.name + ', ' + townOf(s.town).name))}&travelmode=transit`;
+// Town filter above the map (v2.8): only when the area has more than one town with schools in this list. Memory only (ui).
+function mapTowns(list) {
+  const have = new Set(list.map(e => e.school.town));
+  return selTowns().filter(t => have.has(t));
+}
+function mapTownChips(list) {
+  const towns = mapTowns(list);
+  if (towns.length < 2) { ui.mapTown = ''; return ''; }
+  if (!towns.includes(ui.mapTown)) ui.mapTown = '';
+  return `<div class="chips maptowns" role="group" aria-label="Miasto na mapie">${chip('data-maptown=""', 'wszystkie', !ui.mapTown)}${towns.map(t => chip(`data-maptown="${esc(t)}"`, esc(townOf(t).name), ui.mapTown === t)).join('')}</div>`;
+}
+function applyMapTown() {
+  if (!mapObj || !mapObj._pins) return;
+  const pts = [];
+  for (const id of Object.keys(mapObj._pins)) {
+    const m = mapObj._pins[id], on = !ui.mapTown || m._town === ui.mapTown;
+    if (on) { if (!mapObj.hasLayer(m)) m.addTo(mapObj); pts.push(m.getLatLng()); } else { m.closePopup(); if (mapObj.hasLayer(m)) mapObj.removeLayer(m); }
+  }
+  if (pts.length > 1) mapObj.fitBounds(pts, { padding: [30, 30], maxZoom: 14, animate: false }); else if (pts.length) mapObj.setView(pts[0], 14);
+}
 function mapBlock(list, intro) {
   mapEntries = list;
   return `<h2>Mapa szkół</h2><p class="small muted">${intro} Kolor pinezki pokazuje najlepszą szansę w tej szkole. Położenie pochodzi z OpenStreetMap. Dojazd sprawdzisz przyciskiem „Dojazd” albo tu: ${transitLinks()}.</p>
-    ${legend()}
+    ${mapTownChips(list)}${legend()}
     <div class="mapbox" id="map" role="region" aria-label="Mapa szkół ${townsIn()}"><p class="mapfail muted small">Ładuję mapę…</p></div>`;
 }
 const legend = () => `<p class="legend small"><span class="mapnum realna" aria-hidden="true"></span> realna <span class="mapnum zawalczenia" aria-hidden="true"></span> do zawalczenia <span class="mapnum ambitna" aria-hidden="true"></span> ambitna <span class="mapnum unknown" aria-hidden="true"></span> bez oceny</p>`;
@@ -734,10 +754,11 @@ function initMap(list) {
       const icon = L.divIcon({ className: '', html: `<span class="pin ${e.best}">${i + 1}</span>`, iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -14] });
       const m = L.marker([g.lat, g.lon], { icon, title: e.school.short }).addTo(mapObj)
         .bindPopup(`<b>${esc(e.school.short)}</b>${mins(e.school) != null ? ` · ${minTxt(e.school)}` : ''}<br>${e.classes.slice(0, 6).map(x => `${esc(x.cls.code)}: ${esc(x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans')}`).join('<br>')}`);
-      pins[e.school.id] = m; pts.push([g.lat, g.lon]);
+      m._town = e.school.town; pins[e.school.id] = m; pts.push([g.lat, g.lon]);
     });
     if (pts.length > 1) mapObj.fitBounds(pts, { padding: [30, 30], maxZoom: 14, animate: false }); else if (pts.length) mapObj.setView(pts[0], 14);
     mapObj._pins = pins;
+    if (ui.mapTown) applyMapTown();
     const miss = list.filter(e => !e.school.geo).map(e => e.school.short);
     if (!pts.length) mapObj.setView([50.0647, 19.945], 12);
     if (miss.length) box.insertAdjacentHTML('afterend', `<p class="small muted">Bez pinezki (brak położenia): ${miss.map(esc).join(', ')}.</p>`);
@@ -860,7 +881,12 @@ document.addEventListener('click', e => {
   }
   if (d.f) { const [k, v] = d.f.split(':'); ui[k] = ui[k] === v ? '' : v; render(); return; }
   if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '', travel: '', bi: '' }); render(); return; }
-  if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: calm() ? 'auto' : 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
+  if (d.maptown !== undefined) {
+    ui.mapTown = d.maptown;
+    document.querySelectorAll('[data-maptown]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.maptown === ui.mapTown)));
+    applyMapTown(); return;
+  }
+  if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { if (!mapObj.hasLayer(m)) { ui.mapTown = ''; document.querySelectorAll('[data-maptown]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.maptown === ''))); applyMapTown(); } document.getElementById('map').scrollIntoView({ block: 'center', behavior: calm() ? 'auto' : 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
   if ('print' in d) { window.print(); return; }
   if ('comfort' in d) { const bar = document.getElementById('comfortbar'); if (bar) { bar.hidden = !bar.hidden; t.setAttribute('aria-expanded', String(!bar.hidden)); } return; }
