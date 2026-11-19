@@ -380,6 +380,7 @@
   "town": "tychy",
   "address": "ul. Hanny i Kazimierza Wejchertów 20, 43-100 Tychy",
   "addressSourceId": "we-ty-lo4",
+  "www": "https://zs1tychy.edupage.org/",
   "note": "Klasa sportowa 1MS nie jest jeszcze w Kompasie. Progów z rekrutacji 2026 nie ma w pewnych źródłach.",
   "classes": [
    {
@@ -497,6 +498,7 @@
   "town": "tychy",
   "address": "ul. Elfów 9, 43-100 Tychy",
   "addressSourceId": "we-ty-t2",
+  "www": "https://www.t2.oswiata.tychy.pl/",
   "classes": [
    {
     "code": "1E",
@@ -790,6 +792,7 @@
   "town": "tychy",
   "address": "ul. Hanny i Kazimierza Wejchertów 20, 43-100 Tychy",
   "addressSourceId": "otou-ty-technika",
+  "www": "https://zs1tychy.edupage.org/",
   "note": "Zawody z miejskiego informatora 2025/26; oferty na 2026/27 nie znaleźliśmy. Sprawdź na stronie szkoły.",
   "classes": [
    {
