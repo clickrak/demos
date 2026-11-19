@@ -1,5 +1,8 @@
 name: Geocode schools
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    paths: ['kompas/liceum/data/db/pl/*/schools.json']  # fills only schools without a map point
 permissions:
   contents: write
 jobs:
