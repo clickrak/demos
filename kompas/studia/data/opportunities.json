@@ -179,6 +179,11 @@
   "whatYouGet": "Praca w ruchu, a efekt widać u konkretnego człowieka.",
   "force": "starzenie",
   "whyNeeded": "Coraz więcej starszych osób będzie potrzebować rehabilitacji. To praca, po której widać efekt u konkretnego człowieka.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Fizjoterapeuci i masażyści są w Krakowie w równowadze: praca jest, ale bez dużego niedoboru.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano pacjent po operacji kolana: ćwiczenia krok po kroku.",
    "W południe senior uczący się znowu chodzić po schodach.",
@@ -314,6 +319,11 @@
   "whatYouGet": "Połączenie wiedzy i rozmowy z ludźmi, pewna praca w każdym mieście.",
   "force": "starzenie",
   "whyNeeded": "Starsze osoby biorą coraz więcej leków naraz i potrzebują kogoś, kto to ogarnie.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Farmaceuci oraz biolodzy i biotechnolodzy są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano przyjęcie dostawy i sprawdzenie leków.",
    "W ciągu dnia rozmowy z pacjentami przy okienku.",
@@ -380,6 +390,11 @@
   "whatYouGet": "Łączysz liczby z sensem: jedna analiza może zmienić sposób leczenia wielu osób.",
   "force": "automatyzacja",
   "whyNeeded": "Szpitale i firmy zbierają coraz więcej danych, a mało kto rozumie jednocześnie dane i biologię.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Programiści i specjaliści od analizy danych są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Porządkowanie danych z badania klinicznego.",
    "Spotkanie z lekarzami: jakie pytanie chcą zadać danym?",
@@ -511,6 +526,11 @@
   "whatYouGet": "Praca w ruchu i z ludźmi, z widocznym efektem. Twoje własne treningi to już doświadczenie.",
   "force": "starzenie",
   "whyNeeded": "Dzieci ruszają się mniej, seniorów jest więcej: rośnie praca przy zapobieganiu, nie tylko przy leczeniu.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Instruktorzy rekreacji i sportu są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano trening z grupą zawodników.",
    "Analiza nagrania i danych z zegarków.",
@@ -719,6 +739,11 @@
   "whatYouGet": "Najtrudniejsza inżynieria, ścisłe procedury i projekt na całą karierę.",
   "force": "energia",
   "whyNeeded": "Pierwszy blok jądrowy planowany jest na 2036 r., kiedy będziesz już po studiach.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje inżynierów elektryków i energetyków. O energetyce jądrowej barometr nie mówi osobno.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Analiza procedury bezpieczeństwa linijka po linijce.",
    "Spotkanie z zespołem z innego kraju, po angielsku.",
@@ -857,6 +882,11 @@
   "whatYouGet": "Ciągła zagadka: myślisz jak atakujący, żeby obronić innych.",
   "force": "bezpieczenstwo",
   "whyNeeded": "Polska jest częstym celem cyberataków, a każda większa instytucja potrzebuje kogoś, kto je wykryje.",
+  "demand": {
+   "level": "mieszany",
+   "text": "Specjaliści od sieci i baz danych są w Krakowie w równowadze, a techników informatyków jest za dużo.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Przegląd alarmów z nocy.",
    "Analiza podejrzanego pliku albo maila.",
@@ -923,6 +953,11 @@
   "whatYouGet": "Programujesz rzeczy, które się ruszają. Efekt widzisz od razu.",
   "force": "automatyzacja",
   "whyNeeded": "Mniej rąk do pracy oznacza więcej robotów, a ktoś musi je zaprojektować i naprawić.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje elektroników, automatyków i robotyków oraz specjalistów mechaników.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Program dla robota na linii produkcyjnej.",
    "Na hali: test i szukanie, dlaczego robot staje.",
@@ -988,6 +1023,11 @@
   "whatYouGet": "Duże projekty, jasna struktura i poczucie, że robisz coś ważnego.",
   "force": "bezpieczenstwo",
   "whyNeeded": "Polska mocno zwiększa wydatki na obronność, więc rośnie przemysł i potrzeba inżynierów.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje pracowników służb mundurowych.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Testy systemu łączności na poligonie.",
    "Dokumentacja i procedury.",
@@ -1058,6 +1098,11 @@
   "whatYouGet": "Praca, w której ukraiński i angielski są narzędziem, nie dodatkiem. Dużo ruchu i zmian.",
   "force": "bezpieczenstwo",
   "whyNeeded": "Polska będzie naturalnym zapleczem odbudowy Ukrainy, gdy tylko pozwoli na to pokój.",
+  "demand": {
+   "level": "mieszany",
+   "text": "Specjaliści do spraw administracji są w Krakowie w równowadze, a pracowników biurowych jest za dużo.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Spotkanie online z partnerami w Ukrainie, po ukraińsku i angielsku.",
    "Harmonogram dostaw materiałów.",
@@ -1124,6 +1169,11 @@
   "whatYouGet": "Wielojęzyczne zespoły, sprawy, które dotyczą milionów ludzi.",
   "force": "bezpieczenstwo",
   "whyNeeded": "Odbudowa Ukrainy i bezpieczeństwo Europy to praca na dekady.",
+  "demand": {
+   "level": "mieszany",
+   "text": "Specjaliści do spraw administracji są w Krakowie w równowadze, a pracowników biurowych jest za dużo.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano czytanie raportów i dokumentów.",
    "W południe spotkanie online z partnerami z trzech krajów.",
@@ -1194,6 +1244,11 @@
   "whatYouGet": "Szybkie decyzje i układanie skomplikowanej układanki. Efekt widać każdego dnia.",
   "force": "bezpieczenstwo",
   "whyNeeded": "Polska jest węzłem transportowym NATO i zapleczem dla Ukrainy.",
+  "demand": {
+   "level": "mieszany",
+   "text": "Spedytorzy i logistycy są w Krakowie w równowadze, a magazynierów i kierowców brakuje.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano: co dojechało, co utknęło.",
    "Nowy plan tras po zamknięciu drogi.",
@@ -1259,6 +1314,11 @@
   "whatYouGet": "Praca w terenie i przy danych, z wpływem na miejsce, w którym żyjesz.",
   "force": "energia",
   "whyNeeded": "Susze i powodzie zdarzają się częściej, a gminy muszą się do nich przygotować.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Inżynierowie inżynierii środowiska są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Pomiary w rzece albo w oczyszczalni.",
    "Model: gdzie zaleje przy dużej ulewie?",
@@ -1543,6 +1603,11 @@
   "whatYouGet": "Spokojna, skupiona praca, w której dokładność naprawdę się liczy.",
   "force": "starzenie",
   "whyNeeded": "Więcej badań w starzejącym się społeczeństwie i ostrzejsze normy jakości w przemyśle.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Diagności laboratoryjni i chemicy są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano przygotowanie próbek i sprzętu.",
    "W południe pomiary i kontrola wyników.",
@@ -1608,6 +1673,11 @@
   "whatYouGet": "Szybkie tempo, nowe tematy co tydzień i praca, którą ludzie naprawdę czytają albo oglądają. Pewność zatrudnienia jest mniejsza niż w wielu zawodach.",
   "force": "automatyzacja",
   "whyNeeded": "AI zalewa sieć tekstami i obrazami. Rośnie potrzeba ludzi, którzy sprawdzają fakty i mówią jasno.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Dziennikarze, redaktorzy i specjaliści od PR są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano spotkanie redakcji: które tematy robimy dziś.",
    "W południe rozmowa z rozmówcą i sprawdzenie, czy liczby się zgadzają.",
@@ -1678,6 +1748,11 @@
   "whatYouGet": "Szybko widać efekty: sprzedaż, liczby, zadowolonych klientów. Dużo kontaktu z ludźmi i jasna droga awansu, czasem presja wyników.",
   "force": "automatyzacja",
   "whyNeeded": "Coraz więcej zakupów odbywa się w sieci, także między krajami. Firmy szukają ludzi, którzy łączą liczby, języki i kontakt z klientem.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Specjaliści od marketingu i sprzedaży oraz przedstawiciele handlowi są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano sprawdzenie, co sprzedało się wczoraj w sklepie internetowym.",
    "W południe rozmowa z dostawcą o cenie i terminie.",
@@ -1750,6 +1825,11 @@
   "whatYouGet": "Twój pomysł staje się prawdziwym miejscem albo przedmiotem. Dużo rysowania, ale też liczenia, przepisów i rozmów z klientem.",
   "force": "starzenie",
   "whyNeeded": "Starzejące się społeczeństwo potrzebuje mieszkań i miejsc bez barier, a stare budynki trzeba przebudować tak, żeby zużywały mniej energii.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Architekci, dekoratorzy wnętrz i graficy komputerowi są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano pomiar mieszkania i rozmowa z rodziną o tym, czego potrzebuje.",
    "W południe szkic i model 3D w programie.",

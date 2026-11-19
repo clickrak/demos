@@ -257,5 +257,12 @@
   "title": "Uniwersytet Ignatianum: Dziennikarstwo i komunikacja społeczna, rekrutacja 2026/2027",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "barometr-krk-2026",
+  "url": "https://gupkrakow.praca.gov.pl/documents/14665609/61160708/Barometr+Zawod%C3%B3w+2026+-+miasto+Krak%C3%B3w.pdf/0000bb5b-c6a5-435f-5a0a-365373154376?t=1774532446650",
+  "title": "Barometr zawodów 2026, miasto Kraków (GUP Kraków): deficyt, równowaga, nadwyżka",
+  "asOf": "2026-03",
+  "status": "sourced"
  }
 ]
