@@ -1,0 +1,202 @@
+[
+ {
+  "id": "so-lo4",
+  "name": "IV Liceum Ogólnokształcące z Oddziałami Dwujęzycznymi im. Stanisława Staszica w Sosnowcu",
+  "short": "IV LO Staszica",
+  "type": "liceum",
+  "town": "sosnowiec",
+  "address": "Plac Waldemara Zillingera 1, 41-206 Sosnowiec",
+  "addressSourceId": "otou-so-lo4",
+  "www": "https://www.staszic.edu.pl/",
+  "note": "Lista klas z rekrutacji 2025/26 (nowszej nie znaleźliśmy), więc wszystko do sprawdzenia. Progów nie ma w źródłach.",
+  "classes": [
+   {
+    "code": "1A1",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "fizyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-so-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1A2",
+    "label": "biol-chem-mat",
+    "extended": [
+     "matematyka",
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-so-lo4",
+    "status": "check"
+   },
+   {
+    "code": "1B1",
+    "label": "dwujęzyczna z angielskim (mat-fiz-inf)",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "fizyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-so-lo4",
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "dwujęzyczna",
+     "sourceId": "otou-so-lo4"
+    }
+   },
+   {
+    "code": "1B2",
+    "label": "dwujęzyczna z angielskim (biol-chem)",
+    "extended": [
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-so-lo4",
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "dwujęzyczna",
+     "sourceId": "otou-so-lo4"
+    }
+   },
+   {
+    "code": "1C1",
+    "label": "dwujęzyczna z angielskim (mat-geo-biznes)",
+    "extended": [
+     "matematyka",
+     "geografia",
+     "biznes i zarządzanie"
+    ],
+    "cards": [
+     "biznes",
+     "srodowisko",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "geografia",
+     "angielski"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-so-lo4",
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "dwujęzyczna",
+     "sourceId": "otou-so-lo4"
+    }
+   },
+   {
+    "code": "1C2",
+    "label": "dwujęzyczna z angielskim (pol-hist-WOS)",
+    "extended": [
+     "polski",
+     "historia",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-so-lo4",
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "dwujęzyczna",
+     "sourceId": "otou-so-lo4"
+    }
+   },
+   {
+    "code": "1D",
+    "label": "międzynarodowa pre-IB, po angielsku",
+    "extended": [],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-so-lo4",
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "międzynarodowa",
+     "sourceId": "otou-so-lo4"
+    }
+   }
+  ]
+ }
+]

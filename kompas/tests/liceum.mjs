@@ -9,7 +9,7 @@ const data = {
   schools: j('../liceum/data/db/pl/krakow/schools.json'), sources: j('../liceum/data/sources.json'), profiles: j('../liceum/data/profiles.json')
 };
 // Towns (v2.0): Kraków stays the main data set for the checks below; other ready towns are checked further down.
-const TOWN_BOX = { krakow: [49.95, 50.14, 19.75, 20.15], tychy: [50.05, 50.17, 18.90, 19.07] }; // lat min, lat max, lon min, lon max
+const TOWN_BOX = { krakow: [49.95, 50.14, 19.75, 20.15], tychy: [50.05, 50.17, 18.90, 19.07], katowice: [50.15, 50.30, 18.90, 19.13], sosnowiec: [50.24, 50.34, 19.08, 19.30], gliwice: [50.25, 50.37, 18.55, 18.78] }; // lat min, lat max, lon min, lon max
 const towns = (data.config.towns || []).filter(t => t.status === 'ready');
 const allSchools = towns.flatMap(t => j(`../liceum/data/db/pl/${t.id}/schools.json`).map(s => ({ ...s, town: s.town || t.id })));
 // Every direction belongs to exactly one compass profile.
@@ -132,9 +132,9 @@ for (const t of towns) {
 // The test kid from Tychy only gets Tychy classes.
 const p7 = j('../liceum/data/personas.json').find(p => p.id === 'P7');
 if (!p7) fail('test kid from Tychy (P7) missing');
-else { const r7 = scoreLiceum(p7.answers, forKid(p7.answers)); const wrong = r7.cards.flatMap(c => c.classes).filter(c => c.school.town !== 'tychy');
-  console.log(`\nTychy check: ${allSchools.filter(s => s.town === 'tychy').length} schools, P7 classes outside Tychy: ${wrong.length}`);
-  if (wrong.length) fail('P7 got classes outside Tychy'); }
+else { const r7 = scoreLiceum(p7.answers, forKid(p7.answers)); const wrong = r7.cards.flatMap(c => c.classes).filter(c => !regionTowns('tychy').includes(c.school.town)); // Tychy + GZM, never Kraków
+  console.log(`\nTychy + GZM check: ${allSchools.filter(s => regionTowns('tychy').includes(s.town)).length} schools, P7 classes outside the area: ${wrong.length}`);
+  if (wrong.length) fail('P7 got classes outside Tychy and GZM'); }
 
 // Bilingual track (v2.5): bilingual classes are tagged and sourced, only shown when the kid asks, and a weak English
 // answer makes the chance "ambitna" (the language test), except in preparatory classes.
@@ -175,7 +175,7 @@ console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town ==
     const withP = L.filter(x => x.perspektywy).length;
     if (L.slice(0, withP).some(x => !x.perspektywy)) fail('Perspektywy schools must come first', k);
   }
-  const tyIds = allSchools.filter(s => s.town === 'tychy').map(s => s.id), linked = [...R.licea, ...R.technika].map(x => x.kompasId).filter(Boolean);
+  const tyIds = allSchools.filter(s => regionTowns('tychy').includes(s.town)).map(s => s.id), linked = [...R.licea, ...R.technika].map(x => x.kompasId).filter(Boolean);
   for (const id of linked) if (!tyIds.includes(id)) fail('GZM kompasId unknown', id);
   console.log(`GZM ranking: ${R.licea.length} licea, ${R.technika.length} technika; linked to Kompas: ${linked.length}`); }
 process.exit(bad ? 1 : 0);

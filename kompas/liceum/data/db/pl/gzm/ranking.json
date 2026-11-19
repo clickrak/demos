@@ -31,7 +31,7 @@
     "score": 320.5
    },
    "order": 1,
-   "kompasId": null
+   "kompasId": "so-lo4"
   },
   {
    "name": "III LO im. Adama Mickiewicza",
@@ -48,7 +48,7 @@
     "score": 308.65
    },
    "order": 2,
-   "kompasId": null
+   "kompasId": "ka-lo3"
   },
   {
    "name": "VIII LO im. Marii Skłodowskiej-Curie",
@@ -65,7 +65,7 @@
     "score": 307.29
    },
    "order": 3,
-   "kompasId": null
+   "kompasId": "ka-lo8"
   },
   {
    "name": "LO w ZS SRKAK im. kard. Augusta Hlonda",
@@ -116,7 +116,7 @@
     "score": 300.45
    },
    "order": 6,
-   "kompasId": null
+   "kompasId": "ka-lo2"
   },
   {
    "name": "Akademickie LO Politechniki Śląskiej",
@@ -1650,7 +1650,7 @@
     "score": 285.46
    },
    "order": 1,
-   "kompasId": null
+   "kompasId": "gl-t1"
   },
   {
    "name": "Technikum nr 17 w ŚTZN",

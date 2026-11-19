@@ -1,0 +1,86 @@
+[
+ {
+  "id": "gl-t1",
+  "name": "Technikum nr 1 w Zespole Szkół Techniczno-Informatycznych w Gliwicach",
+  "short": "Technikum nr 1 (ZSTI)",
+  "type": "technikum",
+  "town": "gliwice",
+  "address": "ul. Chorzowska 5, 44-100 Gliwice",
+  "addressSourceId": "otou-gl-t1",
+  "note": "Lista zawodów z rekrutacji 2025/26, do sprawdzenia. Progów nie ma w źródłach.",
+  "classes": [
+   {
+    "code": "1TP",
+    "label": "technik programista",
+    "extended": [
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-gl-t1",
+    "status": "check",
+    "occupation": "technik programista"
+   },
+   {
+    "code": "1TI",
+    "label": "technik informatyk",
+    "extended": [
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "cyber"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "informatyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-gl-t1",
+    "status": "check",
+    "occupation": "technik informatyk"
+   },
+   {
+    "code": "1TE",
+    "label": "technik elektryk",
+    "extended": [
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "elektronika",
+     "fizyka"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-gl-t1",
+    "status": "check",
+    "occupation": "technik elektryk"
+   }
+  ]
+ }
+]

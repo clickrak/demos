@@ -656,5 +656,47 @@
   "title": "otouczelnie.pl: ranking techników w województwie śląskim 2026 (matura 2025)",
   "asOf": "2026",
   "status": "sourced"
+ },
+ {
+  "id": "otou-ka-lo3",
+  "url": "https://www.otouczelnie.pl/artykul/213/Licea-w-Katowicach/384/III-LO-im-Adama-Mickiewicza/klasy",
+  "title": "III LO Mickiewicza w Katowicach: klasy i progi 2026/27, adres (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ka-lo8",
+  "url": "https://www.otouczelnie.pl/artykul/213/Licea-w-Katowicach/389/VIII-LO-im-Marii-Sklodowskiej-Curie/klasy",
+  "title": "VIII LO Skłodowskiej-Curie w Katowicach: klasy i progi 2026/27, adres (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ka-lo2",
+  "url": "https://www.otouczelnie.pl/artykul/213/Licea-w-Katowicach/383/II-LO-im-Marii-Konopnickiej/klasy",
+  "title": "II LO Konopnickiej w Katowicach: klasy i progi 2026/27, adres (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ka-progi-2026",
+  "url": "https://www.otouczelnie.pl/progi-punktowe/licea/miasto/653/Katowice",
+  "title": "Progi punktowe liceów w Katowicach, rekrutacja 2026/27 (zakres dla szkoły; potwierdza rok progów klas)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-so-lo4",
+  "url": "https://www.otouczelnie.pl/artykul/2816/Licea-w-Sosnowcu/17/IV-LO-im-Stanislawa-Staszica/klasy",
+  "title": "IV LO Staszica w Sosnowcu: klasy 2025/26 i przedmioty punktowane, adres (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "check"
+ },
+ {
+  "id": "otou-gl-t1",
+  "url": "https://www.otouczelnie.pl/artykul/3824/Technika-w-Gliwicach/1934/Technikum-Nr-1-Zespol-Szkol-Techniczno-Informatycznych/klasy",
+  "title": "Technikum nr 1 (ZSTI) w Gliwicach: zawody 2025/26, adres (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "check"
  }
 ]

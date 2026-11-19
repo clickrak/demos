@@ -1,4 +1,4 @@
-// Kompas Liceum v2.5.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.6.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
@@ -195,7 +195,7 @@ function vStart() {
       <button class="btn ${started && !needResults() ? 'ghost' : 'big'}" data-go="${started && (A.worlds || []).length ? 'zajecia' : 'gdzie'}">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button>
       <button class="btn ghost" data-go="szkoly">Przeglądaj szkoły</button></div>
     <ol class="steps2">${steps.map((x, k) => `<li><span class="rno">${k + 1}</span><div><b>${x[0]}</b><span class="t">${x[1]}${x[2] ? ' · ' + x[2] : ''}</span></div></li>`).join('')}</ol>
-    <div class="note2"><b>Co jest w bazie.</b> ${data.allSchools.length} szkół i ${data.allSchools.reduce((t, x) => t + x.classes.length, 0)} klas (Kraków i Tychy, zawsze osobno): ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i międzynarodowe są osobną ścieżką (z testem językowym), sportowe dojdą później. Progi w Krakowie są z rekrutacji 2026, więc to orientacja, nie obietnica; dla Tychów progów jeszcze nie mamy.</div>
+    <div class="note2"><b>Co jest w bazie.</b> ${data.allSchools.length} szkół i ${data.allSchools.reduce((t, x) => t + x.classes.length, 0)} klas (Kraków albo Tychy z Metropolią GZM, zawsze osobno): ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i międzynarodowe są osobną ścieżką (z testem językowym), sportowe dojdą później. Progi są z rekrutacji 2026 (w Krakowie i w części szkół GZM), więc to orientacja, nie obietnica; dla Tychów progów jeszcze nie mamy.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
     ${TEST ? `<details class="card"><summary>Tryb testowy</summary><div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div></details>` : ''}
@@ -504,7 +504,7 @@ function schoolGroups(rows, sort) {
 const street = s => (s.address || '').replace(/,?\s*\d\d-\d{3}\s+[^,]+$/, '').replace(/,\s*(Kraków|Tychy)$/, '');
 function schoolCard(g, i) {
   return `<article class="scard ${liked('s', g.school.id) ? 'liked' : ''}" style="--i:${Math.min(i, 8)}">
-    <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${g.school.address ? ' · ' + esc(street(g.school)) : ''}${mins(g.school) != null ? ` · <b class="tmin">${minTxt(g.school)}</b>` : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
+    <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${g.school.address ? ' · ' + esc(street(g.school)) : ''}${selTowns().length > 1 ? ' · ' + esc(townOf(g.school.town).name) : ''}${mins(g.school) != null ? ` · <b class="tmin">${minTxt(g.school)}</b>` : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
     ${g.rows.length ? `<ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}${biTag(r.cls)}${hasInput() && r.check.lang && r.check.lang.test ? `<span class="small muted lnote">${esc(langNote(r.check))}</span>` : ''}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : '<span></span>'}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>` : ''}
     ${g.school.note ? `<details class="snote"><summary class="small muted">Uwaga do danych</summary><p class="small muted">${esc(g.school.note)}</p></details>` : ''}
     <div class="scta"><button class="linkbtn" data-pin="${g.school.id}">Na mapie</button><a class="linkbtn" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd ↗</a>${g.school.www ? `<a class="linkbtn" href="${esc(g.school.www)}" target="_blank" rel="noopener">strona szkoły ↗</a>` : ''}</div></article>`;
@@ -572,7 +572,7 @@ function vParent() {
     <section><h2>Plan do maja</h2><ul class="pp-plan">${plan.map(it => `<li>${checks[`${sel.areas[0].card.id}:${it.id}`] ? '☑' : '☐'} <b>${esc(it.when)}:</b> ${esc(it.text)}</li>`).join('')}</ul></section>
     <section class="pp-note"><h2>Dla rodzica: skąd te liczby</h2>
       <p class="small">${hasInput() ? (eff().approx ? 'Szanse liczymy z odpowiedzi „słabo, dobrze, świetnie” (słabo = ocena 3 i ok. 45% na egzaminie, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Szanse liczymy z dokładnych ocen i wyników wpisanych w Kompasie.') : 'Nie zaznaczono, jak idzie w szkole, więc bez szans.'}
-      ${esc(data.config.thresholdNote)} ${region().id !== 'krakow' ? 'Dla tego miejsca progów jeszcze nie mamy.' : ''} Dane klas oznaczone „do sprawdzenia” warto potwierdzić na stronie szkoły.
+      ${esc(data.config.thresholdNote)} ${region().id !== 'krakow' ? 'Dla Tychów i części szkół GZM progów jeszcze nie mamy.' : ''} Dane klas oznaczone „do sprawdzenia” warto potwierdzić na stronie szkoły.
       ${A.from ? 'Czas dojazdu to przybliżenie komunikacją miejską.' : ''}</p>
       <p class="small">Rozmowa: Która klasa daje najwięcej energii, a która tylko dobrze brzmi? Jaka klasa będzie bezpieczna i czy dziecko chce się w niej uczyć?</p></section>
     <p class="small muted">Kompas Liceum v${esc(data.config.appVersion)} · dane ${esc(data.config.dataVersion)} · kompas z odpowiedzi dziecka, bez kont i bez wysyłania danych.</p>

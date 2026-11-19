@@ -13,6 +13,9 @@ ROOT = 'kompas/liceum/data/db/pl'
 TOWNS = {  # name used in queries, box: lat min, lat max, lon min, lon max
     'krakow': ('Kraków', (49.95, 50.14, 19.75, 20.15)),
     'tychy': ('Tychy', (50.05, 50.17, 18.90, 19.07)),
+    'katowice': ('Katowice', (50.15, 50.30, 18.90, 19.13)),
+    'sosnowiec': ('Sosnowiec', (50.24, 50.34, 19.08, 19.30)),
+    'gliwice': ('Gliwice', (50.25, 50.37, 18.55, 18.78)),
 }
 CHECK_M = 150
 UA = 'kompas-liceum-geocoder/1.2 (https://github.com/clickrak/demos)'

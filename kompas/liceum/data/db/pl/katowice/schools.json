@@ -1,0 +1,557 @@
+[
+ {
+  "id": "ka-lo3",
+  "name": "III Liceum Ogólnokształcące im. Adama Mickiewicza w Katowicach",
+  "short": "III LO Mickiewicza",
+  "type": "liceum",
+  "town": "katowice",
+  "address": "ul. Adama Mickiewicza 11, 40-092 Katowice",
+  "addressSourceId": "otou-ka-lo3",
+  "www": "https://mickiewiczkatowice.edupage.org/",
+  "note": "Klasa Pre-IB ma próg ponad 200 pkt (test językowy dodaje punkty), więc nie liczymy dla niej szans. Progi z rekrutacji 2026/27.",
+  "classes": [
+   {
+    "code": "1PIB",
+    "label": "pre-IB, po angielsku (mat-pol-ang)",
+    "extended": [
+     "polski",
+     "angielski",
+     "matematyka"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo3",
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "międzynarodowa",
+     "sourceId": "otou-ka-lo3"
+    }
+   },
+   {
+    "code": "1B",
+    "label": "biol-chem",
+    "extended": [
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 176.05,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1C1",
+    "label": "mat-ang-fiz",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "dane-ai"
+    ],
+    "threshold": 168.95,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1C2",
+    "label": "mat-ang-inf",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 158.5,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "his-WOS-ang",
+    "extended": [
+     "angielski",
+     "historia",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 157.45,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1E1",
+    "label": "biol-chem-mat",
+    "extended": [
+     "matematyka",
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 180.4,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo3",
+    "status": "check"
+   },
+   {
+    "code": "1E2",
+    "label": "mat-geo-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 169.0,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo3",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "ka-lo8",
+  "name": "VIII Liceum Ogólnokształcące im. Marii Skłodowskiej-Curie z Oddziałami Dwujęzycznymi w Katowicach",
+  "short": "VIII LO Skłodowskiej-Curie",
+  "type": "liceum",
+  "town": "katowice",
+  "address": "ul. 3 Maja 42, 40-097 Katowice",
+  "addressSourceId": "otou-ka-lo8",
+  "www": "https://8lo.pl/",
+  "note": "Klasa 0A to klasa wstępna z niemieckim (test predyspozycji). Progi z rekrutacji 2026/27.",
+  "classes": [
+   {
+    "code": "0A",
+    "label": "klasa wstępna z niemieckim (ang-mat-hist)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "biznes"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check",
+    "bilingual": {
+     "lang": "niemiecki",
+     "kind": "wstępna",
+     "sourceId": "otou-ka-lo8"
+    }
+   },
+   {
+    "code": "1B1",
+    "label": "mat-geo-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 159.0,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check"
+   },
+   {
+    "code": "1B2",
+    "label": "mat-hist-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "biznes"
+    ],
+    "threshold": 157.2,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check"
+   },
+   {
+    "code": "1C1a",
+    "label": "mat-fiz-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "dane-ai"
+    ],
+    "threshold": 162.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check"
+   },
+   {
+    "code": "1C1b",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": 160.5,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check"
+   },
+   {
+    "code": "1C2",
+    "label": "mat-inf-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 158.65,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check"
+   },
+   {
+    "code": "1D1",
+    "label": "mat-fiz-ang",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "dane-ai"
+    ],
+    "threshold": 171.15,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check"
+   },
+   {
+    "code": "1D2",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai",
+     "fizyka",
+     "elektronika"
+    ],
+    "threshold": 179.25,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo8",
+    "status": "check"
+   }
+  ]
+ },
+ {
+  "id": "ka-lo2",
+  "name": "II Liceum Ogólnokształcące im. Marii Konopnickiej z Oddziałami Dwujęzycznymi w Katowicach",
+  "short": "II LO Konopnickiej",
+  "type": "liceum",
+  "town": "katowice",
+  "address": "ul. Bartosza Głowackiego 6, 40-052 Katowice",
+  "addressSourceId": "otou-ka-lo2",
+  "note": "Klasa 0H to klasa wstępna z hiszpańskim (test predyspozycji). Progi z rekrutacji 2026/27.",
+  "classes": [
+   {
+    "code": "0H",
+    "label": "klasa wstępna z hiszpańskim",
+    "extended": [
+     "hiszpański"
+    ],
+    "cards": [
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check",
+    "bilingual": {
+     "lang": "hiszpański",
+     "kind": "wstępna",
+     "sourceId": "otou-ka-lo2"
+    }
+   },
+   {
+    "code": "1A1a",
+    "label": "humanistyczno-prawna (pol-ang-hist)",
+    "extended": [
+     "polski",
+     "angielski",
+     "historia"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 160.45,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1A1b",
+    "label": "humanistyczno-prawna (ang-hist-WOS)",
+    "extended": [
+     "angielski",
+     "historia",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": 160.9,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1A2a",
+    "label": "lingwistyczno-geograficzna (ang-hiszp-geo)",
+    "extended": [
+     "angielski",
+     "hiszpański",
+     "geografia"
+    ],
+    "cards": [
+     "jezyki",
+     "srodowisko"
+    ],
+    "threshold": 158.0,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1A2b",
+    "label": "lingwistyczno-geograficzna (ang-geo-hist)",
+    "extended": [
+     "angielski",
+     "geografia",
+     "historia"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo",
+     "srodowisko"
+    ],
+    "threshold": 154.65,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1B1",
+    "label": "biol-chem (ang)",
+    "extended": [
+     "angielski",
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 169.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1B2",
+    "label": "biol-chem (ang)",
+    "extended": [
+     "angielski",
+     "chemia",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 169.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1C1a",
+    "label": "sigma (ang-mat-inf)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "informatyka"
+    ],
+    "cards": [
+     "programowanie",
+     "dane-ai"
+    ],
+    "threshold": 160.75,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1C1b",
+    "label": "sigma (ang-mat-fiz)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "fizyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "dane-ai"
+    ],
+    "threshold": 166.95,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1C2",
+    "label": "matematyczna (ang-mat-geo)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": 163.4,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   },
+   {
+    "code": "1C3",
+    "label": "matematyczno-biologiczna (ang-mat-biol)",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "biologia"
+    ],
+    "cards": [
+     "biologia",
+     "ludzie"
+    ],
+    "threshold": 167.5,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-ka-lo2",
+    "status": "check"
+   }
+  ]
+ }
+]
