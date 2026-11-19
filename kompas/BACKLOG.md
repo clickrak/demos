@@ -418,5 +418,6 @@ one commit per task, then the release step.
    no new network calls), click-through at 375 and 1280 px in three looks, set `2.0.0` in the four places, `dataVersion` to today,
    tick D1, D7, D8 in Part 2, mark v2.0 "pushed" in the table above, short "Kompas Studia v2.0.0" section in the spec doc, push.
 
-**Open question for Szymon (19 Nov 2026).** `studia/index.html` loads GoatCounter (`gc.zgo.at/count.js`, added in commit 03b11b4),
-which goes against rule 2 (no analytics, no CDN scripts). If no answer: leave it as it is, do not remove it.
+**Decided by Szymon (19 Nov 2026).**
+- GoatCounter in `studia/index.html` stays (an accepted exception to rule 2). Do not remove it.
+- 2026 thresholds are shown on offer cards (ST2), as one small muted line marked as information, not a requirement.
