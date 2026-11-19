@@ -264,5 +264,12 @@
   "title": "Barometr zawodów 2026, miasto Kraków (GUP Kraków): deficyt, równowaga, nadwyżka",
   "asOf": "2026-03",
   "status": "sourced"
+ },
+ {
+  "id": "otou-agh-progi-2026",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4290/Akademia-Gorniczo-Hutnicza-im-Stanislawa-Staszica-AGH-w-Krakowie-rekrutacja-na-studia-20262027/progi",
+  "title": "AGH: progi punktowe, rekrutacja 2026/2027, I cykl (otouczelnie); skala AGH 0–1000 pkt",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

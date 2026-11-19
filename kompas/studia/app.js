@@ -541,6 +541,13 @@ function transit(c) {
 }
 const routeUrl = c => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.address + ', Kraków')}&travelmode=transit`;
 
+// Last year's threshold: the points of the last person admitted. Information only, not a requirement; not used in scoring.
+function thresholdHtml(o) {
+  const t = o.threshold;
+  if (!t) return '';
+  const src = data.sources.find(x => x.id === t.sourceId);
+  return `<div class="small muted">W ${t.year} ostatnia przyjęta osoba: ${t.points} z ${t.max} pkt${t.round ? ` (${esc(t.round)})` : ''}. To informacja, nie wymóg.${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</div>`;
+}
 function offerHtml(o, chk) {
   const c = campus(o.campus);
   const route = routeUrl(c);
@@ -549,6 +556,7 @@ function offerHtml(o, chk) {
     <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">Wymagania: ${esc(o.requires.note || '-')}</div>
+    ${thresholdHtml(o)}
     ${chk.fix ? `<div class="small fix">Co możesz zrobić: ${esc(chk.fix)}</div>` : ''}
     <div class="small">${esc(c.name)}, ${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${route}" target="_blank" rel="noopener">Zaplanuj dojazd</a></div>
   </div>`;

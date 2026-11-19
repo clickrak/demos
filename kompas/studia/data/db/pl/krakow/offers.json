@@ -424,6 +424,13 @@
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka"
   },
+  "threshold": {
+   "year": 2026,
+   "points": 800,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
+  },
   "status": "sourced",
   "sourceId": "agh-2027",
   "next": "praca programisty albo 1,5-roczne magisterskie"
@@ -448,6 +455,13 @@
    ],
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka albo fizyka"
+  },
+  "threshold": {
+   "year": 2026,
+   "points": 982,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
   },
   "status": "sourced",
   "sourceId": "agh-2027",
@@ -475,6 +489,13 @@
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka"
   },
+  "threshold": {
+   "year": 2026,
+   "points": 936,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
+  },
   "status": "sourced",
   "sourceId": "agh-2027",
   "next": "praca przy automatyzacji produkcji i robotach albo 1,5-roczne magisterskie"
@@ -501,6 +522,13 @@
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka, chemia albo informatyka"
   },
+  "threshold": {
+   "year": 2026,
+   "points": 700,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
+  },
   "status": "sourced",
   "sourceId": "agh-2027",
   "next": "praca w elektrowniach, sieciach i OZE albo 1,5-roczne magisterskie"
@@ -524,6 +552,13 @@
    ],
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą (lista do sprawdzenia w tabeli)"
+  },
+  "threshold": {
+   "year": 2026,
+   "points": 920,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
   },
   "status": "sourced",
   "sourceId": "agh-2027",
@@ -552,6 +587,13 @@
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia może być przedmiotem z największą wagą"
   },
+  "threshold": {
+   "year": 2026,
+   "points": 950,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
+  },
   "status": "sourced",
   "sourceId": "agh-2027",
   "next": "praca przy sprzęcie medycznym i w firmach medycznych albo 1,5-roczne magisterskie"
@@ -579,6 +621,13 @@
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia jest na liście"
   },
+  "threshold": {
+   "year": 2026,
+   "points": 702,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
+  },
   "status": "sourced",
   "sourceId": "agh-2027",
   "next": "praca przy aparaturze w szpitalach, np. w radioterapii, albo magisterskie"
@@ -603,6 +652,13 @@
    ],
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą"
+  },
+  "threshold": {
+   "year": 2026,
+   "points": 860,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
   },
   "status": "sourced",
   "sourceId": "agh-2027",
@@ -633,6 +689,13 @@
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy (biologia jest na liście) i drugi z listy z językiem obcym"
   },
+  "threshold": {
+   "year": 2026,
+   "points": 1000,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
+  },
   "status": "sourced",
   "sourceId": "otou-agh-iiad",
   "next": "praca analityka danych albo 1,5-roczne magisterskie"
@@ -660,6 +723,13 @@
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia i geografia są na liście"
   },
+  "threshold": {
+   "year": 2026,
+   "points": 770,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
+  },
   "status": "sourced",
   "sourceId": "agh-2027",
   "next": "praca przy wodzie, powietrzu i odpadach w firmach i urzędach albo magisterskie"
@@ -684,6 +754,13 @@
    ],
    "count": 1,
    "note": "AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą"
+  },
+  "threshold": {
+   "year": 2026,
+   "points": 900,
+   "max": 1000,
+   "round": "I cykl",
+   "sourceId": "otou-agh-progi-2026"
   },
   "status": "sourced",
   "sourceId": "agh-2027",

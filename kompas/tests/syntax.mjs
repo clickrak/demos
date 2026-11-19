@@ -34,6 +34,12 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   for (const c of cards) if (!c.force) fail(`studia card "${c.id}" has no force`);
   const offers = json['studia/data/db/pl/krakow/offers.json'] || [];
   refs('studia offer source', offers.map(o => o.sourceId), src);
+  for (const o of offers) if (o.threshold) { // ST2: last year's threshold, shown as information only
+    const t = o.threshold;
+    if (!Number.isInteger(t.year) || t.year < 2020) fail(`studia offer "${o.id}": threshold needs a year`);
+    if (typeof t.points !== 'number' || typeof t.max !== 'number' || t.points < 0 || t.points > t.max) fail(`studia offer "${o.id}": threshold points must be between 0 and max`);
+    if (!src.has(t.sourceId)) fail(`studia offer "${o.id}": threshold has unknown sourceId "${t.sourceId}"`);
+  }
 }
 { // Liceum
   const cards = json['liceum/data/opportunities.json'] || [], src = ids(json['liceum/data/sources.json']);
