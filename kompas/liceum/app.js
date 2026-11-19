@@ -1,4 +1,4 @@
-// Kompas Liceum v2.1.1. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.2.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
@@ -116,6 +116,7 @@ const screens = [
   { id: 'wyniki', ch: 'wyniki', view: vKompas },
   { id: 'profil', ch: 'wyniki', view: vProfile },
   { id: 'lista', ch: 'lista', view: vList },
+  { id: 'rodzic', ch: 'wyniki', view: vParent },
   { id: 'szkoly', ch: 'szkoly', view: vSchools }
 ];
 const STEP_TITLE = { gdzie: 'Gdzie szukasz szkoły', swiaty: 'Twoje światy', zajecia: 'Co lubisz robić', sytuacje: 'Co robisz, gdy…', styl: 'Styl pracy', wartosci: 'Co jest ważne', mocne: 'Mocne strony', szkola: 'Jak ci idzie w szkole' };
@@ -138,7 +139,7 @@ function render() {
   lastProg = inQ ? { ch: 'q', w: progW } : { ch: null, w: 0 };
   const crumb = inQ ? `<p class="crumb2"><b>${STEP_TITLE[s.id]}</b> · krok ${idx + 1} z ${list.length}</p><div class="prog2" aria-hidden="true"><i style="width:${progFrom}%" data-to="${progW}"></i></div>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : ''; notice = '';
-  if ((s.id === 'wyniki' || s.id === 'profil') && needResults()) { $app.innerHTML = vGate(); document.body.classList.remove('wide'); $app.dataset.screen = 'gate'; applySkin(); return; }
+  if ((s.id === 'wyniki' || s.id === 'profil' || s.id === 'rodzic') && needResults()) { $app.innerHTML = vGate(); document.body.classList.remove('wide'); $app.dataset.screen = 'gate'; applySkin(); return; }
   const keep = document.activeElement && document.activeElement.id, changed = $app.dataset.screen !== s.id;
   const prevIdx = screens.findIndex(x => x.id === $app.dataset.screen);
   const dir = !changed ? '' : prevIdx > i ? 'slide-b' : 'slide-f';
@@ -383,7 +384,7 @@ function planItems(sel) {
     else if (top.check.chance) out.push({ id: 'pkt', when: 'do końca roku szkolnego', text: `Trzymaj poziom z matematyki i polskiego${subTxt}. W drugim semestrze sprawdź dokładniej, gdzie jesteś.` });
     else out.push({ id: 'pkt', when: 'w styczniu', text: 'Zaznacz w Kompasie, jak ci idzie w szkole, żeby zobaczyć, które klasy są realne, a które ambitne.' });
   }
-  out.push({ id: 'zasady', when: 'styczeń 2027', text: `Sprawdź terminy rekrutacji 2027 na stronie Małopolskiego Kuratora Oświaty (${data.config.recruitmentWindow}) i regulamin każdej szkoły z twojej listy.` });
+  out.push({ id: 'zasady', when: 'styczeń 2027', text: `Sprawdź terminy rekrutacji 2027 na stronie ${region().curator || 'kuratora oświaty'}${region().recruitmentWindow ? ` (${region().recruitmentWindow})` : ''} i regulamin każdej szkoły z twojej listy.` });
   out.push({ id: 'lista', when: 'przed złożeniem wniosku', text: 'Ułóż listę klas od wymarzonej do bezpiecznej: jedna ambitna, jedna realna, jedna z zapasem.' });
   out.push({ id: 'egz', when: data.config.examDates, text: 'Egzamin ósmoklasisty (polski, matematyka, język obcy).' });
   out.push({ id: 'talk', when: 'kiedy chcesz', text: 'Pokaż ten plan komuś, komu ufasz, i zapytaj, co o nim myśli.' });
@@ -448,7 +449,7 @@ function profileCard(x, mode) {
 const profileRow = x => `<li class="prow"><button class="prowbtn" data-prof="${x.profile.id}"><span class="cposb">${x.compass.pos}</span>${icon(x.profile.icon, 'ico')}<b>${esc(x.profile.name)}</b>
     <span class="fitbar" aria-hidden="true"><i style="width:${Math.round(x.fit)}%"></i></span><span class="small muted fw">${fitWord(x.fit)}</span>${chanceSum(x.classes, true)}<span class="chev" aria-hidden="true">›</span></button>${heart('p', x.profile.id, x.profile.name)}</li>`;
 const exportBox = label => `<div class="exportbox noprint"><div><label class="small" for="name">Imię <span class="muted">(opcjonalnie, do nazwy pliku)</span></label><input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off"></div>
-    <button class="btn" data-export="download">${label}</button><button class="btn ghost" data-export="print">Drukuj</button></div>`;
+    <button class="btn" data-export="download">${label}</button><button class="btn ghost" data-export="print">Drukuj</button>${needResults() ? '' : '<button class="btn ghost" data-go="rodzic">Podsumowanie dla rodzica</button>'}</div>`;
 function vKompas() {
   const { P } = compassData(), top = P[0], selId = A.profile || top.profile.id;
   const sel = (P.find(x => x.profile.id === selId) || top), area = sel.areas[0];
@@ -517,6 +518,40 @@ function vProfile() {
     ${parentTable(rows)}
     <h2>Inne kierunki na kompasie</h2>
     <div class="actions">${others.map(p => `<button class="btn ghost" data-prof="${p.profile.id}">${p.compass.pos} · ${esc(p.profile.short)}</button>`).join('')}<button class="btn ghost" data-go="wyniki">Cały kompas</button></div>`;
+}
+
+// ---- parent summary (backlog P1): one printable page from the kid's answers; print or save as PDF in the browser ------
+function vParent() {
+  const { r, P } = compassData(), l = L0(), liked = likedRows();
+  const north = P[0], sel = P.find(x => x.profile.id === A.profile) || north;
+  const rows = (liked.length ? liked : sel.classes.slice(0, 6)).slice(0, 8);
+  const chance = x => (x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny');
+  const th = x => (x.cls.threshold != null ? f2(x.cls.threshold) : 'brak');
+  const vals = A.values.map(v => (data.dimensions.values.find(x => x.id === v) || {}).name || v);
+  const checks = A.checks || {}, plan = planItems({ card: sel.areas[0].card, classes: sel.classes });
+  const likedSchools = l.schools.map(id => data.schools.find(s => s.id === id)).filter(s => s && !liked.some(x => x.school.id === s.id));
+  return `<div class="parentpage">
+    <p class="noprint actions"><button class="btn" data-print>Drukuj albo zapisz jako PDF</button><button class="btn ghost" data-go="wyniki">← Wróć do kompasu</button></p>
+    <header class="pp-head"><h1>Kompas Liceum: podsumowanie dla rodzica</h1>
+      <p>${A.name ? `<b>${esc(A.name)}</b> · ` : ''}${today()} · ${esc(townNames())}${A.from && fromName() ? ` · dojazd z: ${esc(fromName())}` : ''}</p>
+      <p class="small">To nie test i nie ocena. Kompas pokazuje kierunki do odkrycia. Punkty i szanse są orientacyjne.</p></header>
+    <section><h2>Kompas: najbliższe kierunki</h2><ol class="pp-dirs">${P.slice(0, 3).map((x, i) => `<li><b>${x.compass.pos} · ${esc(x.profile.name)}</b> (${fitWord(x.fit)})${!i && x.areas[0].reasons.length ? `<br><span class="small">${esc(x.areas[0].reasons.join('; '))}</span>` : ''}</li>`).join('')}</ol>
+      <p class="small">Dalej: ${P.slice(3).map(x => `${x.compass.pos} ${esc(x.profile.short || x.profile.name)}`).join(' · ')}</p></section>
+    <section class="pp-two"><div><h2>Mocne strony</h2><ul>${provenStrengths(A).map(x => `<li>${esc(nameOf(x.id))}: ${esc(x.proof.trim())}</li>`).join('')}</ul></div>
+      <div><h2>Ważne w pracy</h2><ol>${vals.map(v => `<li>${esc(v)}</li>`).join('')}</ol></div></section>
+    <section><h2>${liked.length ? 'Moja lista: klasy' : `Klasy do sprawdzenia: ${esc(sel.profile.name)}`}</h2>
+      <table class="pp-table"><thead><tr><th>Szkoła</th><th>Klasa</th><th>Szansa</th><th>Próg ${esc(data.config.thresholdYear)}</th>${A.from ? '<th>Dojazd</th>' : ''}</tr></thead>
+      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)}</td><td>${esc(x.cls.code)} ${esc(x.cls.label)}</td><td>${esc(chance(x))}</td><td>${th(x)}</td>${A.from ? `<td>${mins(x.school) != null ? minTxt(x.school) : '–'}</td>` : ''}</tr>`).join('')}</tbody></table>
+      ${likedSchools.length ? `<p class="small">Szkoły z serduszkiem: ${likedSchools.map(s => esc(s.short)).join(', ')}.</p>` : ''}
+      ${l.profiles.length ? `<p class="small">Profile z serduszkiem: ${l.profiles.map(id => esc((data.profiles.find(p => p.id === id) || {}).name || id)).join(', ')}.</p>` : ''}</section>
+    <section><h2>Plan do maja</h2><ul class="pp-plan">${plan.map(it => `<li>${checks[`${sel.areas[0].card.id}:${it.id}`] ? '☑' : '☐'} <b>${esc(it.when)}:</b> ${esc(it.text)}</li>`).join('')}</ul></section>
+    <section class="pp-note"><h2>Dla rodzica: skąd te liczby</h2>
+      <p class="small">${hasInput() ? (eff().approx ? 'Szanse liczymy z odpowiedzi „słabo, dobrze, świetnie” (słabo = ocena 3 i ok. 45% na egzaminie, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Szanse liczymy z dokładnych ocen i wyników wpisanych w Kompasie.') : 'Nie zaznaczono, jak idzie w szkole, więc bez szans.'}
+      ${esc(data.config.thresholdNote)} ${region().id !== 'krakow' ? 'Dla tego miejsca progów jeszcze nie mamy.' : ''} Dane klas oznaczone „do sprawdzenia” warto potwierdzić na stronie szkoły.
+      ${A.from ? 'Czas dojazdu to przybliżenie komunikacją miejską.' : ''}</p>
+      <p class="small">Rozmowa: Która klasa daje najwięcej energii, a która tylko dobrze brzmi? Jaka klasa będzie bezpieczna i czy dziecko chce się w niej uczyć?</p></section>
+    <p class="small muted">Kompas Liceum v${esc(data.config.appVersion)} · dane ${esc(data.config.dataVersion)} · kompas z odpowiedzi dziecka, bez kont i bez wysyłania danych.</p>
+  </div>`;
 }
 
 // ---- Moja lista ----------------------------------------------------------------------------------------------------
@@ -757,6 +792,7 @@ document.addEventListener('click', e => {
   if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '', travel: '' }); render(); return; }
   if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
+  if ('print' in d) { window.print(); return; }
   if ('themetoggle' in d) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if ('skintoggle' in d) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }

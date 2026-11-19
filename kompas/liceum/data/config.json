@@ -25,7 +25,7 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "2.1.1",
+ "appVersion": "2.2.0",
  "dataVersion": "2026-11-19",
  "towns": [
   {
@@ -64,7 +64,9 @@
      "name": "jakdojade.pl",
      "url": "https://jakdojade.pl/"
     }
-   ]
+   ],
+   "curator": "Małopolskiego Kuratora Oświaty",
+   "recruitmentWindow": "w 2026 rekrutacja trwała od 18 maja do 28 lipca; terminy na 2027 ogłasza Małopolski Kurator Oświaty, zwykle w styczniu"
   },
   {
    "id": "tychy",
@@ -86,7 +88,8 @@
      "name": "jakdojade.pl",
      "url": "https://jakdojade.pl/"
     }
-   ]
+   ],
+   "curator": "Śląskiego Kuratora Oświaty"
   }
  ],
  "thresholdYear": "2026/27",
