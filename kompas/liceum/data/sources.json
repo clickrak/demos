@@ -155,15 +155,29 @@
  },
  {
   "id": "otou-lo3",
-  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/290/III-LO-im-Jana-Kochanowskiego/progi-punktowe-2026-2027",
-  "title": "III LO Kochanowskiego, progi klas 2026/27",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/290/III-LO-im-Jana-Kochanowskiego",
+  "title": "III LO Kochanowskiego, klasy i progi 2026/27 (otouczelnie)",
   "asOf": "2026-11",
   "status": "sourced"
  },
  {
   "id": "otou-lo6",
   "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/293/VI-LO-im-Adama-Mickiewicza",
-  "title": "VI LO Mickiewicza, klasy i progi",
+  "title": "VI LO Mickiewicza, klasy, przedmioty punktowane i progi 2026/27 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo20",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/303/XX-LO-im-Leopolda-Staffa/progi-punktowe",
+  "title": "XX LO Staffa, progi klas 2026/27 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo44",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/3039/XLIV-LO/progi-punktowe",
+  "title": "XLIV LO Konarskiego, progi klas 2026/27 (otouczelnie)",
   "asOf": "2026-11",
   "status": "sourced"
  },

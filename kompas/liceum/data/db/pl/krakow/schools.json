@@ -2089,6 +2089,24 @@
     "status": "check"
    },
    {
+    "code": "1B",
+    "label": "pol-wos-ang",
+    "extended": [
+     "polski",
+     "wos",
+     "angielski"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 163.75,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo3",
+    "status": "check"
+   },
+   {
     "code": "1C",
     "label": "biologiczno-chemiczna",
     "extended": [
@@ -2186,10 +2204,10 @@
    "year": "2026/27",
    "sourceId": "otou-progi-licea-2026"
   },
-  "note": "Nazwy klas na stronie szkoły (A–F, H1–H2, M1–M2) i w serwisach z progami różnią się. Klasy A, B i C są dwujęzyczne z angielskim, M1 i M2 międzynarodowe, H1 i H2 to klasy wstępne z hiszpańskim. Sprawdź w szkole, która klasa ma matematykę, fizykę i informatykę.",
+  "note": "Nazwy klas na stronie szkoły (A–F, H1–H2, M1–M2) i w serwisach z progami różnią się. Klasy A, B i C są dwujęzyczne z angielskim, M1 i M2 międzynarodowe, H1 i H2 to klasy wstępne z hiszpańskim. Otouczelnie (2026/27) nie pokazuje klasy 1F, a klasę 1C opisuje jako ogólnodostępną artystyczną. Sprawdź w szkole.",
   "classes": [
    {
-    "code": "A",
+    "code": "1A",
     "label": "dwujęzyczna z angielskim, ekonomiczna (mat-geo-WOS)",
     "extended": [
      "matematyka",
@@ -2201,12 +2219,17 @@
      "srodowisko",
      "spoleczenstwo"
     ],
-    "threshold": 171.8,
+    "threshold": 171.75,
     "thresholdYear": "2026/27",
-    "scored": null,
-    "scoredSourced": false,
-    "sourceId": "w2-lo6",
-    "status": "check",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "geografia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo6",
+    "status": "sourced",
     "bilingual": {
      "lang": "angielski",
      "kind": "dwujęzyczna",
@@ -2227,10 +2250,15 @@
     ],
     "threshold": 175.7,
     "thresholdYear": "2026/27",
-    "scored": null,
-    "scoredSourced": false,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
     "sourceId": "otou-lo6",
-    "status": "check",
+    "status": "sourced",
     "bilingual": {
      "lang": "angielski",
      "kind": "dwujęzyczna",
@@ -2238,7 +2266,7 @@
     }
    },
    {
-    "code": "C",
+    "code": "1C",
     "label": "dwujęzyczna z angielskim, architektoniczna (pol-mat-hist. sztuki)",
     "extended": [
      "polski",
@@ -2249,11 +2277,16 @@
      "budowa",
      "spoleczenstwo"
     ],
-    "threshold": 168.7,
+    "threshold": 168.65,
     "thresholdYear": "2026/27",
-    "scored": null,
-    "scoredSourced": false,
-    "sourceId": "w2-lo6",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo6",
     "status": "check",
     "bilingual": {
      "lang": "angielski",
@@ -2277,13 +2310,18 @@
     ],
     "threshold": 170.7,
     "thresholdYear": "2026/27",
-    "scored": null,
-    "scoredSourced": false,
+    "scored": [
+     "polski",
+     "matematyka",
+     "fizyka",
+     "angielski"
+    ],
+    "scoredSourced": true,
     "sourceId": "otou-lo6",
-    "status": "check"
+    "status": "sourced"
    },
    {
-    "code": "E",
+    "code": "1E",
     "label": "WOS-pol-hist",
     "extended": [
      "wos",
@@ -2298,15 +2336,15 @@
     "scored": [
      "polski",
      "matematyka",
-     "angielski",
-     "historia"
+     "historia",
+     "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo6",
-    "status": "check"
+    "sourceId": "otou-lo6",
+    "status": "sourced"
    },
    {
-    "code": "F",
+    "code": "1F",
     "label": "ogólnodostępna biol-chem-mat",
     "extended": [
      "biologia",
@@ -2325,7 +2363,7 @@
     "status": "check"
    },
    {
-    "code": "H1",
+    "code": "1H1",
     "label": "klasa wstępna z hiszpańskim (geo-hist)",
     "extended": [
      "geografia",
@@ -2344,8 +2382,8 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo6",
-    "status": "check",
+    "sourceId": "otou-lo6",
+    "status": "sourced",
     "bilingual": {
      "lang": "hiszpański",
      "kind": "wstępna",
@@ -2353,7 +2391,7 @@
     }
    },
    {
-    "code": "H2",
+    "code": "1H2",
     "label": "klasa wstępna z hiszpańskim (mat-geo)",
     "extended": [
      "matematyka",
@@ -2373,8 +2411,8 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w2-lo6",
-    "status": "check",
+    "sourceId": "otou-lo6",
+    "status": "sourced",
     "bilingual": {
      "lang": "hiszpański",
      "kind": "wstępna",
@@ -2382,7 +2420,7 @@
     }
    },
    {
-    "code": "M1",
+    "code": "1M1",
     "label": "międzynarodowa, po angielsku (matura IB w klasach 3–4)",
     "extended": [],
     "cards": [
@@ -2391,10 +2429,15 @@
     ],
     "threshold": 172.1,
     "thresholdYear": "2026/27",
-    "scored": null,
-    "scoredSourced": false,
-    "sourceId": "w2-lo6",
-    "status": "check",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo6",
+    "status": "sourced",
     "bilingual": {
      "lang": "angielski",
      "kind": "międzynarodowa",
@@ -2402,19 +2445,24 @@
     }
    },
    {
-    "code": "M2",
+    "code": "1M2",
     "label": "międzynarodowa, po angielsku (matura IB w klasach 3–4)",
     "extended": [],
     "cards": [
      "jezyki",
      "spoleczenstwo"
     ],
-    "threshold": 172.3,
+    "threshold": 172.25,
     "thresholdYear": "2026/27",
-    "scored": null,
-    "scoredSourced": false,
-    "sourceId": "w2-lo6",
-    "status": "check",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "biologia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo6",
+    "status": "sourced",
     "bilingual": {
      "lang": "angielski",
      "kind": "międzynarodowa",
@@ -3756,6 +3804,30 @@
   },
   "classes": [
    {
+    "code": "1A",
+    "label": "hist-pol-WOS",
+    "extended": [
+     "historia",
+     "polski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo"
+    ],
+    "threshold": 158.05,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo20",
+    "status": "sourced",
+    "scoredSourceId": "w-lo20"
+   },
+   {
     "code": "1B",
     "label": "mat-geo-ang",
     "extended": [
@@ -3768,8 +3840,8 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 158.05,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -3777,106 +3849,9 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo20",
-    "status": "check",
-    "thresholdConflict": {
-     "value": 167.1,
-     "sourceId": "w-lo20",
-     "range": [
-      155.8,
-      163.45
-     ],
-     "rangeSourceId": "otou-progi-licea-2026"
-    }
-   },
-   {
-    "code": "1D",
-    "label": "mat-fiz-inf",
-    "extended": [
-     "matematyka",
-     "fizyka",
-     "informatyka"
-    ],
-    "cards": [
-     "fizyka",
-     "elektronika",
-     "programowanie"
-    ],
-    "threshold": null,
-    "thresholdYear": null,
-    "scored": [
-     "polski",
-     "matematyka",
-     "angielski",
-     "fizyka"
-    ],
-    "scoredSourced": true,
-    "sourceId": "w-lo20",
-    "status": "check",
-    "thresholdConflict": {
-     "value": 165.1,
-     "sourceId": "w-lo20",
-     "range": [
-      155.8,
-      163.45
-     ],
-     "rangeSourceId": "otou-progi-licea-2026"
-    }
-   },
-   {
-    "code": "1E",
-    "label": "biol-chem",
-    "extended": [
-     "biologia",
-     "chemia"
-    ],
-    "cards": [
-     "biologia",
-     "chemia"
-    ],
-    "threshold": null,
-    "thresholdYear": null,
-    "scored": [
-     "polski",
-     "matematyka",
-     "biologia",
-     "chemia"
-    ],
-    "scoredSourced": true,
-    "sourceId": "w-lo20",
-    "status": "check",
-    "thresholdConflict": {
-     "value": 167.6,
-     "sourceId": "w-lo20",
-     "range": [
-      155.8,
-      163.45
-     ],
-     "rangeSourceId": "otou-progi-licea-2026"
-    }
-   },
-   {
-    "code": "1A",
-    "label": "hist-pol-WOS",
-    "extended": [
-     "historia",
-     "polski",
-     "wos"
-    ],
-    "cards": [
-     "spoleczenstwo"
-    ],
-    "threshold": 159.1,
-    "thresholdYear": "2026/27",
-    "scored": [
-     "polski",
-     "matematyka",
-     "angielski",
-     "historia"
-    ],
-    "scoredSourced": true,
-    "sourceId": "w-lo20",
-    "status": "check"
+    "sourceId": "otou-lo20",
+    "status": "sourced",
+    "scoredSourceId": "w-lo20"
    },
    {
     "code": "1C",
@@ -3899,8 +3874,59 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo20",
-    "status": "check"
+    "sourceId": "otou-lo20",
+    "status": "sourced",
+    "scoredSourceId": "w-lo20"
+   },
+   {
+    "code": "1D",
+    "label": "mat-fiz-inf",
+    "extended": [
+     "matematyka",
+     "fizyka",
+     "informatyka"
+    ],
+    "cards": [
+     "fizyka",
+     "elektronika",
+     "programowanie"
+    ],
+    "threshold": 161.8,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "fizyka"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo20",
+    "status": "sourced",
+    "scoredSourceId": "w-lo20"
+   },
+   {
+    "code": "1E",
+    "label": "biol-chem",
+    "extended": [
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 163.45,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo20",
+    "status": "sourced",
+    "scoredSourceId": "w-lo20"
    },
    {
     "code": "1F",
@@ -3914,7 +3940,7 @@
      "jezyki",
      "spoleczenstwo"
     ],
-    "threshold": 157.8,
+    "threshold": 157.75,
     "thresholdYear": "2026/27",
     "scored": [
      "polski",
@@ -3923,11 +3949,11 @@
      "wos"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo20",
-    "status": "check"
+    "sourceId": "otou-lo20",
+    "status": "sourced",
+    "scoredSourceId": "w-lo20"
    }
   ],
-  "note": "Progi klas z waszaedukacja są wyższe niż zakres szkoły w otouczelnie. Sprawdź w szkole. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
   "geo": {
    "lat": 50.07022,
    "lon": 19.93347,
@@ -4873,40 +4899,7 @@
   },
   "classes": [
    {
-    "code": "B",
-    "label": "mat-biol-chem",
-    "extended": [
-     "matematyka",
-     "biologia",
-     "chemia"
-    ],
-    "cards": [
-     "biologia",
-     "chemia"
-    ],
-    "threshold": null,
-    "thresholdYear": null,
-    "scored": [
-     "polski",
-     "matematyka",
-     "biologia",
-     "chemia"
-    ],
-    "scoredSourced": true,
-    "sourceId": "w-lo44",
-    "status": "check",
-    "thresholdConflict": {
-     "value": 165.3,
-     "sourceId": "w-lo44",
-     "range": [
-      150.55,
-      163.65
-     ],
-     "rangeSourceId": "otou-progi-licea-2026"
-    }
-   },
-   {
-    "code": "A",
+    "code": "1A",
     "label": "mat-fiz-ang",
     "extended": [
      "matematyka",
@@ -4927,11 +4920,62 @@
      "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo44",
-    "status": "check"
+    "sourceId": "otou-lo44",
+    "status": "sourced",
+    "scoredSourceId": "w-lo44"
    },
    {
-    "code": "D",
+    "code": "1B",
+    "label": "mat-biol-chem",
+    "extended": [
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "cards": [
+     "biologia",
+     "chemia"
+    ],
+    "threshold": 158.2,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "biologia",
+     "chemia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo44",
+    "status": "sourced",
+    "scoredSourceId": "w-lo44"
+   },
+   {
+    "code": "1C",
+    "label": "prawniczo-lingwistyczna (ang-niem-WOS)",
+    "extended": [
+     "angielski",
+     "j. niemiecki",
+     "wos"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 150.55,
+    "thresholdYear": "2026/27",
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "wos"
+    ],
+    "scoredSourced": true,
+    "sourceId": "otou-lo44",
+    "status": "sourced",
+    "scoredSourceId": "w-lo44"
+   },
+   {
+    "code": "1D",
     "label": "mat-geo-ang",
     "extended": [
      "matematyka",
@@ -4952,32 +4996,9 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo44",
-    "status": "check"
-   },
-   {
-    "code": "C",
-    "label": "ang-niem-WOS",
-    "extended": [
-     "angielski",
-     "j. niemiecki",
-     "wos"
-    ],
-    "cards": [
-     "jezyki",
-     "spoleczenstwo"
-    ],
-    "threshold": 150.55,
-    "thresholdYear": "2026/27",
-    "scored": [
-     "polski",
-     "matematyka",
-     "angielski",
-     "wos"
-    ],
-    "scoredSourced": true,
-    "sourceId": "w-lo44",
-    "status": "check"
+    "sourceId": "otou-lo44",
+    "status": "sourced",
+    "scoredSourceId": "w-lo44"
    }
   ],
   "geo": {
@@ -4985,8 +5006,7 @@
    "lon": 19.9363,
    "q": "Bernardyńska 7, Kraków"
   },
-  "geoChecked": true,
-  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
+  "geoChecked": true
  },
  {
   "id": "lo45",
