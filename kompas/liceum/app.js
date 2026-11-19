@@ -1,7 +1,7 @@
-// Kompas Liceum v2.4.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.5.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
-import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
+import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
 import { icon } from '../studia/icons.js';
 import { LILLUS } from './illus.js';
 import { ILLUS } from '../studia/illus.js';
@@ -15,7 +15,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 const f1 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const f2 = n => Number(n).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [],
-  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], region: 'krakow', from: null, lastScreen: null, bigText: false, calm: false, profile: null, likes: { profiles: [], schools: [], classes: [] } });
+  points: { mode: 'soft', soft: { exam: {}, grades: {} }, exam: {}, grades: {}, stripe: false, volunteering: false, achievements: 0 }, area: null, checks: {}, reflection: {}, worlds: [], region: 'krakow', from: null, bi: null, lastScreen: null, bigText: false, calm: false, profile: null, likes: { profiles: [], schools: [], classes: [] } });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -108,6 +108,11 @@ const regionChips = () => `<div class="chips" role="radiogroup" aria-label="Gdzi
 // ---- screens ------------------------------------------------------------------------------------------------------
 const acts = () => visibleActivities(A, data);
 const syncSort = () => { const v = acts(), i = v.findIndex(x => !(x.id in A.sort)); A.sortPos = i < 0 ? v.length : i; };
+// Bilingual track (v2.5): a small tag on every bilingual, international or preparatory class, and the test note.
+const BI_TAG = { 'dwujęzyczna': 'dwujęzyczna', 'międzynarodowa': 'międzynarodowa', 'wstępna': 'klasa wstępna' };
+const biTag = cls => cls.bilingual ? `<span class="bitag" title="Trzeba zdać test w szkole">${esc(BI_TAG[cls.bilingual.kind] || 'dwujęzyczna')}${cls.bilingual.lang ? ' · ' + esc(cls.bilingual.lang) : ''}</span>` : '';
+const biText = cls => cls.bilingual ? ` [${BI_TAG[cls.bilingual.kind] || 'dwujęzyczna'}${cls.bilingual.lang ? ', ' + cls.bilingual.lang : ''}, test w szkole]` : '';
+const langNote = check => check && check.lang && check.lang.test ? LANG_TXT[check.lang.test] : check && check.lang ? 'test językowy w szkole' : '';
 const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
 const nameOf = id => (data.strengths.find(s => s.id === id) || {}).name || id;
 const screens = [
@@ -190,7 +195,7 @@ function vStart() {
       <button class="btn ${started && !needResults() ? 'ghost' : 'big'}" data-go="${started && (A.worlds || []).length ? 'zajecia' : 'gdzie'}">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button>
       <button class="btn ghost" data-go="szkoly">Przeglądaj szkoły</button></div>
     <ol class="steps2">${steps.map((x, k) => `<li><span class="rno">${k + 1}</span><div><b>${x[0]}</b><span class="t">${x[1]}${x[2] ? ' · ' + x[2] : ''}</span></div></li>`).join('')}</ol>
-    <div class="note2"><b>Co jest w bazie.</b> ${data.allSchools.length} szkół i ${data.allSchools.reduce((t, x) => t + x.classes.length, 0)} klas (Kraków i Tychy, zawsze osobno): ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i sportowe dojdą w kolejnej wersji. Progi w Krakowie są z rekrutacji 2026, więc to orientacja, nie obietnica; dla Tychów progów jeszcze nie mamy.</div>
+    <div class="note2"><b>Co jest w bazie.</b> ${data.allSchools.length} szkół i ${data.allSchools.reduce((t, x) => t + x.classes.length, 0)} klas (Kraków i Tychy, zawsze osobno): ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i międzynarodowe są osobną ścieżką (z testem językowym), sportowe dojdą później. Progi w Krakowie są z rekrutacji 2026, więc to orientacja, nie obietnica; dla Tychów progów jeszcze nie mamy.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
     ${TEST ? `<details class="card"><summary>Tryb testowy</summary><div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div></details>` : ''}
@@ -295,7 +300,8 @@ function parentNote() {
   return `<details class="parent"><summary>Dla rodziców: jak to liczymy</summary>
     <p class="small">Pytamy tylko o przedmioty. Odpowiedź o polskim, matematyce i angielskim liczymy też jako spodziewany wynik egzaminu ósmoklasisty. Odpowiedzi „słabo / dobrze / świetnie” zamieniamy na typowe wartości: <b>słabo</b> to ocena ${so.slabo.grade} i ok. ${so.slabo.exam}% na egzaminie, <b>dobrze</b> to ${so.dobrze.grade} i ok. ${so.dobrze.exam}%, <b>świetnie</b> to ${so.swietnie.grade} i ok. ${so.swietnie.exam}%. Przedmiot bez odpowiedzi liczymy jak „dobrze”.</p>
     <p class="small">Z tego powstaje szacunek punktów rekrutacyjnych (maksymalnie 200): egzamin ósmoklasisty daje do 100 pkt (polski 0,35, matematyka 0,35, język obcy 0,30 × wynik w procentach), świadectwo do 100 pkt (polski, matematyka i dwa przedmioty zależne od klasy: ocena 6 = 18, 5 = 17, 4 = 14, 3 = 8, 2 = 2 pkt) oraz dodatki za pasek, wolontariat i osiągnięcia.</p>
-    <p class="small">Szacunek porównujemy z progami z rekrutacji ${esc(c.thresholdYear)}. Zapas co najmniej ${c.chanceMargin} pkt to <b>realna szansa</b>, od −${c.chanceMargin} do +${c.chanceMargin} pkt to <b>do zawalczenia</b>, niżej to <b>ambitna</b>. To orientacja do rozmowy, nie prognoza: progi zmieniają się co roku, a przed egzaminem nikt nie zna swojego wyniku. Dokładne punkty warto policzyć w drugim semestrze albo w oficjalnym kalkulatorze rekrutacji.</p></details>`;
+    <p class="small">Szacunek porównujemy z progami z rekrutacji ${esc(c.thresholdYear)}. Zapas co najmniej ${c.chanceMargin} pkt to <b>realna szansa</b>, od −${c.chanceMargin} do +${c.chanceMargin} pkt to <b>do zawalczenia</b>, niżej to <b>ambitna</b>. To orientacja do rozmowy, nie prognoza: progi zmieniają się co roku, a przed egzaminem nikt nie zna swojego wyniku. Dokładne punkty warto policzyć w drugim semestrze albo w oficjalnym kalkulatorze rekrutacji.</p>
+    <p class="small"><b>Klasy dwujęzyczne i międzynarodowe.</b> Trzeba zdać sprawdzian kompetencji językowych; termin ustala szkoła (w 2026 np. VI LO: 3 czerwca dla klas międzynarodowych). Progi z Krakowa 2026 są w zwykłej skali do 200 pkt, więc porównujemy je jak inne. W niektórych miastach test dodaje punkty (np. jedno z warszawskich liceów: do 225 pkt), tam progi nie są porównywalne. Angielski „świetnie” = test w zasięgu, „dobrze” = trzeba popracować, „słabo” = test będzie trudny i szansę pokazujemy jako ambitną. Klasa wstępna uczy nowego języka od zera i ma test predyspozycji, a nie z angielskiego.</p></details>`;
 }
 function vSchool() {
   const p = A.points, ex = p.exam, g = p.grades, mode = pMode();
@@ -323,9 +329,12 @@ function vSchool() {
           <input id="ach" type="number" inputmode="numeric" min="0" max="18" step="1" data-pt="achievements" value="${p.achievements || 0}"></div></div>
       <div class="card exactask"><p class="small">Wolisz prościej? Wróć do odpowiedzi „słabo, dobrze, świetnie”.</p><button class="btn ghost" data-mode="soft">Wróć do prostej wersji</button></div>`;
   }
+  const bi = `<div class="card bicard"><h3>Klasa dwujęzyczna?</h3>
+      <p class="small">W klasie dwujęzycznej część lekcji (np. geografia, biologia) jest po angielsku. Żeby się dostać, trzeba mieć punkty jak zwykle <b>i zdać test językowy w szkole</b>. Klasa międzynarodowa jest prawie cała po angielsku. Szansę na test liczymy z tego, jak ci idzie angielski.</p>
+      <div class="chips" role="radiogroup" aria-label="Klasy dwujęzyczne">${chip('data-bi="nie" role="radio"', 'nie szukam', A.bi !== 'tak')}${chip('data-bi="tak" role="radio"', 'pokaż mi też klasy dwujęzyczne', A.bi === 'tak')}</div></div>`;
   return `${LILLUS.szkola}<h1>Jak ci idzie w szkole?</h1>
     <p>Nie liczymy dokładnych punktów. Zaznacz, jak się czujesz z danym przedmiotem, a przy klasach zobaczysz, które są <b>realne</b>, a które <b>ambitne</b>.</p>
-    <div class="ptform">${body}</div>
+    <div class="ptform">${body.replace('<div class="card exactask">', bi + '<div class="card exactask">')}</div>
     <div class="live" id="live" role="status" aria-live="polite"></div>
     ${parentNote()}`;
 }
@@ -346,7 +355,8 @@ const pill = ch => `<span class="pill ${ch.chance || 'unknown'}">${esc(ch.chance
 function classRow(x) {
   const { school, cls, check } = x;
   return `<li><div><span class="sch">${esc(school.short)}</span><span class="badge">${school.type === 'liceum' ? 'liceum' : 'technikum'}</span>
-      <div class="sub">klasa ${esc(cls.code)} · ${esc(cls.label)}${cls.occupation ? ' (zawód + matura)' : ''}</div>
+      <div class="sub">klasa ${esc(cls.code)} · ${esc(cls.label)}${cls.occupation ? ' (zawód + matura)' : ''} ${biTag(cls)}</div>
+      ${langNote(check) ? `<div class="sub">${esc(langNote(check))}</div>` : ''}
       ${school.address ? `<div class="sub">${esc(school.address)}</div>` : ''}
       ${cls.status !== 'sourced' ? '<div class="sub muted">dane do sprawdzenia w rekrutacji 2027</div>' : ''}</div>
     ${pill(check)}</li>`;
@@ -361,7 +371,7 @@ function parentTable(rows) {
       ${e.assumed && e.assumed.length ? ` Przedmioty bez odpowiedzi liczone jak „dobrze”: ${e.assumed.map(s => esc(SUBJECT_NAME[s])).join(', ')}.` : ''}
       Progi z rekrutacji ${esc(data.config.thresholdYear)}; w 2027 mogą być inne.</p>
     <div class="tablewrap"><table class="ptable"><thead><tr><th>Szkoła i klasa</th><th>Próg</th><th>Szacunek</th><th>Różnica</th></tr></thead>
-      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)} · ${esc(x.cls.code)}</td><td>${th(x)}</td><td>${pts(x)}</td><td>${mg(x)}</td></tr>`).join('')}</tbody></table></div>
+      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)} · ${esc(x.cls.code)}${x.cls.bilingual ? ' (+ test)' : ''}</td><td>${th(x)}</td><td>${pts(x)}</td><td>${mg(x)}</td></tr>`).join('')}</tbody></table></div>
     ${parentNote().replace('<details class="parent"><summary>Dla rodziców: jak to liczymy</summary>', '<div class="parentin">').replace(/<\/details>$/, '</div>')}</details>`;
 }
 
@@ -495,15 +505,18 @@ const street = s => (s.address || '').replace(/,?\s*\d\d-\d{3}\s+[^,]+$/, '').re
 function schoolCard(g, i) {
   return `<article class="scard ${liked('s', g.school.id) ? 'liked' : ''}" style="--i:${Math.min(i, 8)}">
     <header><div><h3>${esc(g.school.short)}</h3><p class="sub">${g.school.type}${g.school.address ? ' · ' + esc(street(g.school)) : ''}${mins(g.school) != null ? ` · <b class="tmin">${minTxt(g.school)}</b>` : ''}</p></div>${heart('s', g.school.id, g.school.short)}</header>
-    ${g.rows.length ? `<ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : '<span></span>'}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>` : ''}
+    ${g.rows.length ? `<ul class="srows">${g.rows.map(r => `<li><span class="code">${esc(r.cls.code)}</span><span class="lbl">${esc(r.cls.label)}${biTag(r.cls)}${hasInput() && r.check.lang && r.check.lang.test ? `<span class="small muted lnote">${esc(langNote(r.check))}</span>` : ''}</span>${hasInput() ? `<span class="pill ${r.check.chance || 'unknown'}">${esc(SHORT_CH[r.check.chance] || 'bez oceny')}</span>` : '<span></span>'}${heart('c', clsKey(r), `${g.school.short} ${r.cls.code}`)}</li>`).join('')}</ul>` : ''}
     ${g.school.note ? `<details class="snote"><summary class="small muted">Uwaga do danych</summary><p class="small muted">${esc(g.school.note)}</p></details>` : ''}
     <div class="scta"><button class="linkbtn" data-pin="${g.school.id}">Na mapie</button><a class="linkbtn" href="${esc(dirUrl(g.school))}" target="_blank" rel="noopener">Dojazd ↗</a>${g.school.www ? `<a class="linkbtn" href="${esc(g.school.www)}" target="_blank" rel="noopener">strona szkoły ↗</a>` : ''}</div></article>`;
 }
 function vProfile() {
   const { P } = compassData(), x = P.find(p => p.profile.id === A.profile) || P[0];
   const areaSel = x.areas.find(a => a.card.id === ui.parea) || null, focus = areaSel || x.areas[0];
-  const rows = x.classes.filter(c => (!areaSel || c.cls.cards.includes(areaSel.card.id)) && rowPass(c));
-  const groups = schoolGroups(rows, ui.sort), first = groups.slice(0, 12), rest = groups.slice(12);
+  const rowsAll = x.classes.filter(c => (!areaSel || c.cls.cards.includes(areaSel.card.id)) && rowPass(c));
+  const rows = rowsAll.filter(c => !c.cls.bilingual), biRows = rowsAll.filter(c => c.cls.bilingual);
+  const groups = schoolGroups(rows, ui.sort), first = groups.slice(0, 12), rest = groups.slice(12), biGroups = schoolGroups(biRows, ui.sort);
+  const cardIds = (areaSel ? [areaSel] : x.areas).map(a => a.card.id);
+  const biHidden = A.bi === 'tak' ? 0 : data.schools.reduce((t, s) => t + s.classes.filter(c => c.bilingual && c.cards.some(id => cardIds.includes(id))).length, 0);
   const stud = studiaFor(focus.card);
   const others = P.filter(p => p !== x).slice(0, 4);
   return `<p class="actions"><button class="btn ghost small" data-go="wyniki">← Wróć do kompasu</button></p>
@@ -524,8 +537,10 @@ function vProfile() {
     <p class="count small" role="status">${groups.length} szkół · ${rows.length} klas${ui.type || ui.chance || ui.parea || ui.travel ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
     ${groups.length ? `<div class="scards">${first.map(schoolCard).join('')}</div>${rest.length ? `<details class="more"><summary>Pokaż jeszcze ${rest.length} szkół</summary><div class="scards">${rest.map(schoolCard).join('')}</div></details>` : ''}`
       : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje do filtrów. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
-    ${groups.length ? mapBlock(groups.map(g => ({ school: g.school, classes: g.rows, best: g.best })), 'Szkoły z tego profilu.') : ''}
-    ${parentTable(rows)}
+    ${biGroups.length ? `<h2 class="bih">Klasy dwujęzyczne i międzynarodowe</h2><p class="small">Osobna ścieżka: punkty jak zwykle <b>plus test językowy w szkole</b>. Szansę na test liczymy z tego, jak ci idzie angielski. <button class="linkbtn" data-bi="nie">Ukryj</button></p>
+      <div class="scards">${biGroups.map(schoolCard).join('')}</div>` : biHidden ? `<p class="note2">W tym kierunku są też klasy dwujęzyczne lub międzynarodowe (${biHidden}). Mają test językowy w szkole. <button class="linkbtn" data-bi="tak">Pokaż je</button></p>` : ''}
+    ${groups.length + biGroups.length ? mapBlock([...groups, ...biGroups].map(g => ({ school: g.school, classes: g.rows, best: g.best })), 'Szkoły z tego profilu.') : ''}
+    ${parentTable(rowsAll)}
     <h2>Inne kierunki na kompasie</h2>
     <div class="actions">${others.map(p => `<button class="btn ghost" data-prof="${p.profile.id}">${p.compass.pos} · ${esc(p.profile.short)}</button>`).join('')}<button class="btn ghost" data-go="wyniki">Cały kompas</button></div>`;
 }
@@ -551,7 +566,7 @@ function vParent() {
       <div><h2>Ważne w pracy</h2><ol>${vals.map(v => `<li>${esc(v)}</li>`).join('')}</ol></div></section>
     <section><h2>${liked.length ? 'Moja lista: klasy' : `Klasy do sprawdzenia: ${esc(sel.profile.name)}`}</h2>
       <table class="pp-table"><thead><tr><th>Szkoła</th><th>Klasa</th><th>Szansa</th><th>Próg ${esc(data.config.thresholdYear)}</th>${A.from ? '<th>Dojazd</th>' : ''}</tr></thead>
-      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)}</td><td>${esc(x.cls.code)} ${esc(x.cls.label)}</td><td>${esc(chance(x))}</td><td>${th(x)}</td>${A.from ? `<td>${mins(x.school) != null ? minTxt(x.school) : '–'}</td>` : ''}</tr>`).join('')}</tbody></table>
+      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)}</td><td>${esc(x.cls.code)} ${esc(x.cls.label)}${esc(biText(x.cls))}</td><td>${esc(chance(x))}</td><td>${th(x)}</td>${A.from ? `<td>${mins(x.school) != null ? minTxt(x.school) : '–'}</td>` : ''}</tr>`).join('')}</tbody></table>
       ${likedSchools.length ? `<p class="small">Szkoły z serduszkiem: ${likedSchools.map(s => esc(s.short)).join(', ')}.</p>` : ''}
       ${l.profiles.length ? `<p class="small">Profile z serduszkiem: ${l.profiles.map(id => esc((data.profiles.find(p => p.id === id) || {}).name || id)).join(', ')}.</p>` : ''}</section>
     <section><h2>Plan do maja</h2><ul class="pp-plan">${plan.map(it => `<li>${checks[`${sel.areas[0].card.id}:${it.id}`] ? '☑' : '☐'} <b>${esc(it.when)}:</b> ${esc(it.text)}</li>`).join('')}</ul></section>
@@ -587,7 +602,7 @@ function vList() {
 }
 
 // ---- filters and the school catalogue ------------------------------------------------------------------------------
-const ui = { q: '', type: '', subj: '', chance: '', parea: '', sort: '', travel: '' };
+const ui = { q: '', type: '', subj: '', chance: '', parea: '', sort: '', travel: '', bi: '' };
 const ROMAN = [[40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
 const romanNo = s => { if (s.type !== 'liceum') return 0; const r = s.short.split(' ')[0]; for (let n = 1; n < 60; n++) if (toRoman(n) === r) return n; return 99; };
 const toRoman = n => { let o = ''; for (const [v, r] of ROMAN) while (n >= v) { o += r; n -= v; } return o; };
@@ -599,7 +614,7 @@ function schoolMatch(school, q) {
   const hay = fold([school.name, school.short, school.address, ...school.classes.map(c => c.label + ' ' + (c.occupation || ''))].join(' '));
   return fold(q).split(/\s+/).every(w => hay.includes(w));
 }
-const rowPass = x => (!ui.travel || (mins(x.school) != null && mins(x.school) <= Number(ui.travel))) && (!ui.type || x.school.type === ui.type) && (!ui.chance || x.check.chance === ui.chance)
+const rowPass = x => (!ui.bi || (ui.bi === 'dw') === !!x.cls.bilingual) && (!ui.travel || (mins(x.school) != null && mins(x.school) <= Number(ui.travel))) && (!ui.type || x.school.type === ui.type) && (!ui.chance || x.check.chance === ui.chance)
   && (!ui.subj || x.cls.cards.some(id => ((data.opportunities.find(o => o.id === id) || {}).worlds || []).includes(ui.subj)));
 const SHORT_CH = { realna: 'realna', zawalczenia: 'do zawalczenia', ambitna: 'ambitna' };
 const SUBJ_F = ['matematyka', 'informatyka', 'fizyka', 'biologia', 'chemia', 'geografia'];
@@ -610,6 +625,7 @@ function filterBar(full) {
     <div class="frow"><span class="small muted">Szkoła:</span>${c('type', '', 'wszystkie')}${c('type', 'liceum', 'liceum')}${c('type', 'technikum', 'technikum')}</div>
     ${full ? `<div class="frow"><span class="small muted">Świat:</span>${c('subj', '', 'każdy')}${data.questions.worlds.map(w => c('subj', w.id, esc(w.name))).join('')}</div>` : ''}
     ${A.from && origins().length ? `<div class="frow"><span class="small muted">Dojazd z: ${esc(fromName())}</span>${c('travel', '', 'każdy')}${c('travel', '30', 'do 30 min')}${c('travel', '45', 'do 45 min')}</div>` : ''}
+    ${full ? `<div class="frow"><span class="small muted">Klasy:</span>${c('bi', '', 'wszystkie')}${c('bi', 'bez', 'bez testu językowego')}${c('bi', 'dw', 'dwujęzyczne i międzynarodowe')}</div>` : ''}
     ${hasInput() ? `<div class="frow"><span class="small muted">Szansa:</span>${c('chance', '', 'każda')}${c('chance', 'realna', 'realna')}${c('chance', 'zawalczenia', 'do zawalczenia')}${c('chance', 'ambitna', 'ambitna')}</div>` : ''}
   </div>`;
 }
@@ -622,14 +638,14 @@ function vSchools() {
   const entries = shown.map(x => ({ school: x.school, classes: x.rows, best: bestOf(x.rows) }));
   const card = (x, i) => schoolCard({ school: x.school, rows: x.rows, best: bestOf(x.rows) }, i);
   return `<div class="rhead"><div><h1>Szkoły ${townsIn()}</h1>
-    <p class="lead">${data.schools.length} liceów i techników ${townsIn()}, wszystkie klasy oprócz dwujęzycznych i sportowych. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
+    <p class="lead">${data.schools.length} liceów i techników ${townsIn()}, wszystkie klasy oprócz sportowych. Klasy dwujęzyczne mają znaczek i test językowy w szkole. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
     ${needResults() ? '' : '<div class="actions"><button class="btn ghost" data-go="wyniki">Mój kompas</button></div>'}</div>${LILLUS.szkoly}</div>
     <div class="frow"><span class="small muted">Gdzie:</span>${regionChips()}</div>
     ${filterBar(true)}
-    <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance || ui.travel ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
-    ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas dwujęzycznych, sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
+    <p class="count small" role="status">Pokazano ${shown.length} z ${data.schools.length} szkół · ${nCls} klas${ui.q || ui.type || ui.subj || ui.chance || ui.travel || ui.bi ? ' · <button class="linkbtn" data-fclear>wyczyść filtry</button>' : ''}</p>
+    ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
-    <p class="note2">Nie ma jeszcze klas dwujęzycznych i sportowych (mają osobny test językowy albo sprawności, dojdą w kolejnej wersji). Pomijamy też XVII i XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${region().note ? ' ' + esc(region().note) : ''}</p>`;
+    <p class="note2">Nie ma jeszcze klas sportowych (mają test sprawności). Pomijamy też XVII LO (klasy z francuskim: ze źródeł nie wynika, która klasa pierwsza jest dwujęzyczna, do sprawdzenia), XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${region().note ? ' ' + esc(region().note) : ''}</p>`;
 }
 
 // ---- map (Leaflet from vendor/, OpenStreetMap tiles; loaded only when a map is on screen) ------------------------------------------------
@@ -704,13 +720,13 @@ function buildMarkdown() {
       L.push('', '## Moja lista');
       lk.profiles.forEach(id => { const p = data.profiles.find(x => x.id === id); if (p) L.push(`- profil: ${p.name}`); });
       lk.schools.forEach(id => { const sc = data.schools.find(x => x.id === id); if (sc) L.push(`- szkoła: ${sc.short}${sc.address ? ', ' + sc.address : ''}${mins(sc) != null ? `, dojazd ${minTxt(sc)} z: ${fromName()}` : ''}`); });
-      lr.forEach(x => L.push(`- klasa: ${x.school.short}, ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`));
+      lr.forEach(x => L.push(`- klasa: ${x.school.short}, ${x.cls.code} (${x.cls.label})${biText(x.cls)}: ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}`));
     }
     const selP = P.find(x => x.profile.id === A.profile) || P[0], sel = { card: selP.areas[0].card, classes: selP.classes };
     L.push('', `## Klasy ${townsIn()}: ${selP.profile.name}`);
     if (region().transit) L.push(`Dojazd: ${region().transit.map(l => `${l.name} ${l.url}`).join(', ')}`);
     L.push(`Progi z rekrutacji ${data.config.thresholdYear}. ${data.config.thresholdNote}`);
-    for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}${mins(x.school) != null ? `, dojazd ${minTxt(x.school)}` : ''}`);
+    for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label})${biText(x.cls)}: ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}${mins(x.school) != null ? `, dojazd ${minTxt(x.school)}` : ''}`);
     L.push('', '## Dla rodziców: progi i szacunek', hasInput() ? (eff().approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie” (słabo = 3 i ok. 45%, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Policzone z dokładnych ocen i wyników.') : 'Brak odpowiedzi o szkole, więc bez szacunku.', '');
     for (const x of sel.classes.slice(0, 12)) {
       const th = x.cls.threshold != null ? `próg ${f2(x.cls.threshold)}` : x.school.range ? `zakres szkoły ${f2(x.school.range.min)}–${f2(x.school.range.max)}` : 'bez progu w źródłach';
@@ -739,6 +755,7 @@ function loadFile(text) {
   if (!Array.isArray(obj.answers.worlds)) a.worlds = ['all']; // files from before v1.7
   if (!REGIONS().some(r => r.id === a.region)) a.region = Array.isArray(a.towns) && a.towns.length === 1 && a.towns[0] === 'tychy' ? 'tychy' : 'krakow'; // v2.0.0 files had towns[]; older: Kraków
   delete a.towns;
+  if (!['tak', 'nie'].includes(a.bi)) a.bi = null; // files from before v2.5
   { const ok = ((data.config.regions || []).find(r => r.id === a.region) || { towns: [] }).towns.flatMap(t => (data.travel[t] && data.travel[t].origins) || []); if (!ok.some(o => o.id === a.from)) a.from = null; }
   for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
   for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push('sytuacja: ' + k); }
@@ -788,6 +805,7 @@ document.addEventListener('click', e => {
   if (d.area) { A.area = d.area; save(); render(); setTimeout(() => document.querySelector('.cls')?.scrollIntoView({ block: 'start', behavior: calm() ? 'auto' : 'smooth' }), 30); return; }
   if (d.soft) { const [kind, key, val] = d.soft.split(':'), tgt = (A.points.soft[kind === 'exam' ? 'exam' : 'grades'] ||= {}); if (tgt[key] === val) delete tgt[key]; else tgt[key] = val; A.points.mode = 'soft'; save(); render(); return; }
   if (d.mode) { A.points.mode = d.mode; save(); render(); return; }
+  if (d.bi) { A.bi = d.bi; save(); render(); return; }
   if (d.prof) { A.profile = d.prof; ui.parea = ''; save(); if (location.hash === '#/profil') render(); else location.hash = '#/profil'; return; }
   if (d.parea !== undefined) { ui.parea = d.parea; render(); return; }
   if (d.sort !== undefined) { ui.sort = d.sort; render(); return; }
@@ -800,7 +818,7 @@ document.addEventListener('click', e => {
     likeCount(); return;
   }
   if (d.f) { const [k, v] = d.f.split(':'); ui[k] = ui[k] === v ? '' : v; render(); return; }
-  if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '', travel: '' }); render(); return; }
+  if ('fclear' in d) { Object.assign(ui, { q: '', type: '', subj: '', chance: '', parea: '', travel: '', bi: '' }); render(); return; }
   if (d.pin) { const m = mapObj && mapObj._pins && mapObj._pins[d.pin]; if (m) { document.getElementById('map').scrollIntoView({ block: 'center', behavior: calm() ? 'auto' : 'smooth' }); mapObj.setView(m.getLatLng(), 15); m.openPopup(); } return; }
   if (d.export) { doExport(d.export); return; }
   if ('print' in d) { window.print(); return; }

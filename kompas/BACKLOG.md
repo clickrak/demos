@@ -83,6 +83,8 @@ Every v2 release also does **L1**: website links for 5–10 schools. English and
 - **B1 (Opus) Bilingual track.** Read the 2027 rules for bilingual classes (language test, point scale). Add a separate track in scoring
   and on the profile screen. Kept simple: the kid says how the language goes (słabo / dobrze / świetnie), as elsewhere.
 - **B2 (Sonnet) Bilingual classes.** All bilingual classes in Kraków and Tychy (for example XVII LO), with sources.
+  Open after v2.5.0: XVII LO (French; sources do not say which first-year class is bilingual), and check whether XX LO, I LO and IX LO
+  still run bilingual classes (they host bilingual matura exams). Tychy IV LO 1C: language not in the source.
 
 **v2.6–v2.7 GZM**
 - **G1 (Opus, v2.6) GZM ranked list.** All licea and technika in the GZM towns, ordered best to worst by **matura results**,

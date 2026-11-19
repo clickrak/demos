@@ -593,5 +593,33 @@
   "title": "Miasto Tychy: informator o szkołach ponadpodstawowych 2025/26",
   "asOf": "2025-05",
   "status": "sourced"
+ },
+ {
+  "id": "vilo-jezyki-2026",
+  "url": "https://vilo.krakow.pl/wp-content/uploads/2026/02/jezyki-2026-2027-oferta-czesc-2.om111.pdf",
+  "title": "VI LO Mickiewicza: oddziały i języki 2026/27 (dwujęzyczne A, B, C; międzynarodowe M1, M2; wstępne H1, H2), strona szkoły",
+  "asOf": "2026-02",
+  "status": "sourced"
+ },
+ {
+  "id": "vilo-sprawdzian-2026",
+  "url": "https://vilo.krakow.pl/sprawdzian-kompetencji-jezykowych/",
+  "title": "VI LO Mickiewicza: sprawdzian kompetencji językowych (oddziały międzynarodowe, 3 czerwca 2026)",
+  "asOf": "2026",
+  "status": "sourced"
+ },
+ {
+  "id": "krk-zasady-dwujezyczne",
+  "url": "https://plikimpi.krakow.pl/zalacznik/587082",
+  "title": "Kraków: zasady rekrutacji do oddziałów dwujęzycznych i międzynarodowych (pozytywny wynik sprawdzianu kompetencji językowych, terminy ustala dyrektor)",
+  "asOf": "2026",
+  "status": "sourced"
+ },
+ {
+  "id": "waw-lo137-2026",
+  "url": "https://lo137targowek.eduwarszawa.pl/brepo/panel_repo/2026/04/15/w0ytpz/regulamin-rekrutacji-lo-137-2026-2027.pdf",
+  "title": "Przykład spoza Krakowa: CXXXVII LO w Warszawie 2026/27, maksymalnie 225,65 pkt razem ze sprawdzianem kompetencji",
+  "asOf": "2026-04",
+  "status": "sourced"
  }
 ]

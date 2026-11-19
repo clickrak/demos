@@ -345,3 +345,12 @@ html.big { font-size: 118%; }
 html.calm *, html.calm *::before, html.calm *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 @media print { .comfortbar, .comfortbtn { display: none !important; } }
 html.big #app { overflow-x: clip; } /* pop-art offset shadows must not widen the page with big text */
+
+/* v2.5 bilingual track */
+.bitag { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; font-size: .74rem; line-height: 1.5; vertical-align: 1px;
+  border: 1px solid currentColor; color: var(--accent, #2b6cb0); white-space: nowrap; }
+.lnote { display: block; }
+.bih { margin-top: 1.4em; }
+.bicard .chips { margin-top: 6px; }
+@media print { .bitag { border-color: #000; color: #000; } }
+.srows .lbl .bitag { display: table; margin: 4px 0 2px; white-space: normal; }

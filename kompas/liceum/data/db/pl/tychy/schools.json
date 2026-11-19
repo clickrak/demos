@@ -98,7 +98,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo1",
-    "status": "check"
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "międzynarodowa",
+     "sourceId": "we-ty-lo1"
+    }
    }
   ],
   "geo": {
@@ -117,7 +122,7 @@
   "address": "ul. Cypriana Norwida 40, 43-100 Tychy",
   "addressSourceId": "otou-ty-licea",
   "www": "https://www.2lo.oswiata.tychy.pl/",
-  "note": "Klasa dwujęzyczna 1D nie jest jeszcze w Kompasie. Progów z rekrutacji 2026 nie ma w źródłach.",
+  "note": "Progów z rekrutacji 2026 nie ma w źródłach.",
   "classes": [
    {
     "code": "1A1",
@@ -234,6 +239,35 @@
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
     "status": "check"
+   },
+   {
+    "code": "1D",
+    "label": "dwujęzyczna z angielskim (hist-ang-WOS)",
+    "extended": [
+     "historia",
+     "angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": [
+     "polski",
+     "matematyka",
+     "angielski",
+     "historia"
+    ],
+    "scoredSourced": true,
+    "sourceId": "we-ty-lo2",
+    "status": "check",
+    "bilingual": {
+     "lang": "angielski",
+     "kind": "dwujęzyczna",
+     "sourceId": "we-ty-lo2"
+    }
    }
   ],
   "geo": {
@@ -346,7 +380,7 @@
   "town": "tychy",
   "address": "ul. Hanny i Kazimierza Wejchertów 20, 43-100 Tychy",
   "addressSourceId": "we-ty-lo4",
-  "note": "Klasa dwujęzyczna 1C i sportowa 1MS nie są jeszcze w Kompasie. Progów z rekrutacji 2026 nie ma w pewnych źródłach.",
+  "note": "Klasa sportowa 1MS nie jest jeszcze w Kompasie. Progów z rekrutacji 2026 nie ma w pewnych źródłach.",
   "classes": [
    {
     "code": "1A",
@@ -422,6 +456,30 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
     "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "dwujęzyczna (mat-geo), język do sprawdzenia w szkole",
+    "extended": [
+     "matematyka",
+     "geografia"
+    ],
+    "cards": [
+     "srodowisko",
+     "biznes",
+     "dane-ai"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-lo4",
+    "status": "check",
+    "bilingual": {
+     "lang": null,
+     "kind": "dwujęzyczna",
+     "sourceId": "we-ty-lo4"
+    }
    }
   ],
   "geo": {

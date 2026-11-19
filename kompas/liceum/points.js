@@ -73,8 +73,25 @@ export function checkClass(p, cls, school, config) {
       chance = points >= school.range.max ? 'realna' : points >= school.range.min ? 'zawalczenia' : 'ambitna';
     }
   }
-  return { points, exam: ex, cert: ce, complete, level, margin, basis, chance, missing: ce.missing, entered: ex.entered, approx: !!(p && p.approx) };
+  const lang = langTest(p, cls);
+  if (lang && lang.test === 'trudny' && (chance === 'realna' || chance === 'zawalczenia')) chance = 'ambitna';
+  return { points, exam: ex, cert: ce, complete, level, margin, basis, chance, lang, missing: ce.missing, entered: ex.entered, approx: !!(p && p.approx) };
 }
+
+// Bilingual track (v2.5). Bilingual and international classes need a passed language test at the school, on top of
+// the usual points (Kraków 2026: thresholds on the usual 200 scale). The kid's language level comes from his English
+// answer: 5–6 (świetnie) = test on reach, 4 (dobrze) = possible with work, 2–3 (słabo) = hard, so the chance drops to
+// "ambitna". Preparatory classes (wstępna) test aptitude for a new language, not English, so there is no level check.
+export const BI_KIND = { 'dwujęzyczna': 'dwujęzyczna', 'międzynarodowa': 'międzynarodowa', 'wstępna': 'wstępna' };
+export function langTest(p, cls) {
+  const b = cls && cls.bilingual; if (!b) return null;
+  if (b.kind === 'wstępna') return { kind: b.kind, lang: b.lang, test: 'predyspozycje' };
+  const g = b.lang === 'angielski' ? Number(((p && p.grades) || {}).angielski) || 0 : 0;
+  const test = !g ? null : g >= 5 ? 'w-zasiegu' : g === 4 ? 'do-pracy' : 'trudny';
+  return { kind: b.kind, lang: b.lang, test };
+}
+export const LANG_TXT = { 'w-zasiegu': 'test językowy w zasięgu', 'do-pracy': 'test językowy: trzeba popracować', trudny: 'test językowy będzie trudny', predyspozycje: 'test predyspozycji (nowy język od zera)' };
+export const inTrack = (answers, cls) => !cls.bilingual || (answers && answers.bi === 'tak');
 
 export const LEVEL_TXT = {
   over: 'powyżej zeszłorocznego progu', near: 'blisko progu, ale nad nim', close: 'tuż pod progiem', under: 'poniżej progu',
@@ -111,6 +128,7 @@ export function scoreLiceum(answers, data) {
     const paths = pathsTo(card, profile, answers, dataV);
     const classes = [];
     for (const school of data.schools) for (const cls of school.classes) {
+      if (!inTrack(answers, cls)) continue;
       const rank = cls.cards.indexOf(card.id);
       if (rank < 0) continue;
       classes.push({ school, cls, rank, check: checkClass(pts, cls, school, data.config) });

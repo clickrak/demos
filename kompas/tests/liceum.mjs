@@ -135,4 +135,27 @@ if (!p7) fail('test kid from Tychy (P7) missing');
 else { const r7 = scoreLiceum(p7.answers, forKid(p7.answers)); const wrong = r7.cards.flatMap(c => c.classes).filter(c => c.school.town !== 'tychy');
   console.log(`\nTychy check: ${allSchools.filter(s => s.town === 'tychy').length} schools, P7 classes outside Tychy: ${wrong.length}`);
   if (wrong.length) fail('P7 got classes outside Tychy'); }
+
+// Bilingual track (v2.5): bilingual classes are tagged and sourced, only shown when the kid asks, and a weak English
+// answer makes the chance "ambitna" (the language test), except in preparatory classes.
+const biCls = allSchools.flatMap(s => s.classes.filter(c => c.bilingual).map(c => ({ s, c })));
+for (const { s, c } of biCls) {
+  const b = c.bilingual;
+  if (!['dwujęzyczna', 'międzynarodowa', 'wstępna'].includes(b.kind)) fail('bilingual kind', s.id, c.code, b.kind);
+  if (!(b.lang === null || typeof b.lang === 'string')) fail('bilingual lang', s.id, c.code);
+  if (!new Set((data.sources.sources || data.sources).map(x => x.id)).has(b.sourceId)) fail('bilingual source', s.id, c.code, b.sourceId);
+}
+for (const t of ['krakow', 'tychy']) if (!biCls.some(x => x.s.town === t)) fail('no bilingual classes in', t);
+{ const p1 = j('../liceum/data/personas.json')[0], kid = { ...p1.answers, region: 'krakow' };
+  const n = a => scoreLiceum(a, forKid(a)).cards.flatMap(c => c.classes).filter(c => c.cls.bilingual).length;
+  if (n({ ...kid, bi: null })) fail('bilingual classes shown without asking');
+  if (!n({ ...kid, bi: 'tak' })) fail('bilingual classes missing after asking'); }
+{ const bi = { scored: ['polski', 'matematyka', 'angielski', 'geografia'], threshold: 120, bilingual: { lang: 'angielski', kind: 'dwujęzyczna' } };
+  const pts = g => ({ exam: { polski: 90, matematyka: 90, obcy: 90 }, grades: { polski: 6, matematyka: 6, angielski: g, geografia: 6 } });
+  const weak = checkClass(pts(3), bi, {}, data.config), good = checkClass(pts(6), bi, {}, data.config);
+  if (weak.chance !== 'ambitna' || weak.lang.test !== 'trudny') fail('weak English should make a bilingual class ambitna', weak.chance);
+  if (good.chance !== 'realna' || good.lang.test !== 'w-zasiegu') fail('good English: bilingual chance as usual', good.chance);
+  const prep = checkClass(pts(3), { ...bi, bilingual: { lang: 'hiszpański', kind: 'wstępna' } }, {}, data.config);
+  if (prep.chance !== 'realna') fail('preparatory class does not depend on English', prep.chance); }
+console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town === 'krakow').length} Kraków, ${biCls.filter(x => x.s.town === 'tychy').length} Tychy)`);
 process.exit(bad ? 1 : 0);

@@ -25,7 +25,7 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "2.4.0",
+ "appVersion": "2.5.0",
  "dataVersion": "2026-11-19",
  "towns": [
   {
@@ -121,5 +121,13 @@
   }
  },
  "chanceMargin": 8,
- "worldBoost": 8
+ "worldBoost": 8,
+ "bilingual": {
+  "note": "Klasy dwujęzyczne i międzynarodowe: punkty jak zwykle plus pozytywny wynik sprawdzianu kompetencji językowych w szkole. Progi Kraków 2026 w skali do 200 pkt; w części miast test dodaje punkty.",
+  "sourceIds": [
+   "krk-zasady-dwujezyczne",
+   "vilo-sprawdzian-2026",
+   "waw-lo137-2026"
+  ]
+ }
 }
