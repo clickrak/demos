@@ -1,4 +1,4 @@
-// Kompas Liceum v2.1.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.1.1. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass } from './points.js';
@@ -93,6 +93,7 @@ const origins = () => selTowns().flatMap(t => (data.travel[t] && data.travel[t].
 const fromName = () => (origins().find(o => o.id === A.from) || {}).name || '';
 const mins = school => { const t = data.travel[school.town]; const v = A.from && t && t.schools[school.id] && t.schools[school.id][A.from]; return v == null || v === false ? null : v; };
 const minTxt = school => { const m = mins(school); return m == null ? '' : `ok. ${m} min`; };
+const transitLinks = () => (region().transit || []).map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.name)} ↗</a>`).join(' · ');
 const regionChips = () => `<div class="chips" role="radiogroup" aria-label="Gdzie szukasz szkoły">${REGIONS().map(r =>
   `<button class="chip" role="radio" data-region="${r.id}" aria-checked="${region().id === r.id}" aria-pressed="${region().id === r.id}">${esc(r.name)}</button>`).join('')}</div>`;
 
@@ -192,8 +193,8 @@ function vTowns() {
     ${r.note ? `<p class="small muted">${esc(r.note)}</p>` : ''}${r.later ? `<p class="small muted">${esc(r.later)}</p>` : ''}
     ${origins().length ? `<h2>Skąd będziesz jechać do szkoły?</h2><p class="muted">Kliknij swoją dzielnicę. Przy każdej szkole pokażemy, ile mniej więcej trwa dojazd. Możesz pominąć.</p>
       <div class="chips">${origins().map(o => chip(`data-from="${o.id}"`, esc(o.name), A.from === o.id)).join('')}${chip('data-from=""', 'pomiń', !A.from)}</div>
-      <p class="small muted">Liczymy komunikacją miejską z kilku miejsc w twojej dzielnicy, we wtorek rano (7:00–7:40), z dojściem pieszo i najwyżej dwiema przesiadkami. To orientacja: sprawdź dokładnie przyciskiem „Dojazd”.</p>`
-      : `<p class="small muted">Czas dojazdu dla tego miejsca dojdzie później.</p>`}
+      <p class="small muted">Liczymy komunikacją miejską z kilku miejsc w twojej dzielnicy, we wtorek rano (7:00–7:40), z dojściem pieszo. To tylko przybliżenie. Dokładny dojazd sprawdzisz tu: ${transitLinks()}.</p>`
+      : `<p class="small muted">Czas dojazdu dla tego miejsca dojdzie później. Dojazd sprawdzisz tu: ${transitLinks()}.</p>`}
     <p class="note2">Jeśli twojego miasta jeszcze nie ma, wybierz najbliższe miejsce: kierunki na kompasie i tak będą twoje.</p>`;
 }
 
@@ -607,7 +608,7 @@ let mapEntries = null;
 const dirUrl = s => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.address || (s.name + ', ' + townOf(s.town).name))}&travelmode=transit`;
 function mapBlock(list, intro) {
   mapEntries = list;
-  return `<h2>Mapa szkół</h2><p class="small muted">${intro} Kolor pinezki pokazuje najlepszą szansę w tej szkole. Położenie pochodzi z OpenStreetMap; dokładny dojazd sprawdź przyciskiem „Dojazd”.</p>
+  return `<h2>Mapa szkół</h2><p class="small muted">${intro} Kolor pinezki pokazuje najlepszą szansę w tej szkole. Położenie pochodzi z OpenStreetMap. Dojazd sprawdzisz przyciskiem „Dojazd” albo tu: ${transitLinks()}.</p>
     ${legend()}
     <div class="mapbox" id="map" role="region" aria-label="Mapa szkół ${townsIn()}"><p class="mapfail muted small">Ładuję mapę…</p></div>`;
 }
@@ -662,6 +663,7 @@ function buildMarkdown() {
     }
     const selP = P.find(x => x.profile.id === A.profile) || P[0], sel = { card: selP.areas[0].card, classes: selP.classes };
     L.push('', `## Klasy ${townsIn()}: ${selP.profile.name}`);
+    if (region().transit) L.push(`Dojazd: ${region().transit.map(l => `${l.name} ${l.url}`).join(', ')}`);
     L.push(`Progi z rekrutacji ${data.config.thresholdYear}. ${data.config.thresholdNote}`);
     for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label}): ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}${mins(x.school) != null ? `, dojazd ${minTxt(x.school)}` : ''}`);
     L.push('', '## Dla rodziców: progi i szacunek', hasInput() ? (eff().approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie” (słabo = 3 i ok. 45%, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Policzone z dokładnych ocen i wyników.') : 'Brak odpowiedzi o szkole, więc bez szacunku.', '');
