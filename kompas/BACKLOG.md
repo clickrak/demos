@@ -1,8 +1,110 @@
 # Kompas backlog
 
-Small, self-contained jobs left after the review of 13 Nov 2026 (Studia v1.1.2, Liceum v1.8.2).
+Two parts:
+
+1. **Kompas Liceum roadmap to v3.0** (set 19 Nov 2026). Releases in order, each task marked **Sonnet** or **Opus**.
+2. **Small jobs** (D1–D8, U1–U7) left after the review of 13 Nov 2026. The roadmap points to them by id.
+
+The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
+
+## Part 1: Kompas Liceum roadmap to v3.0
+
+### Release rules
+
+- **One release at a time, in order.** Every version (v1.9, v2.0, v2.1 …) is committed, pushed and live before the next one starts,
+  so it can be reviewed on GitHub Pages.
+- **Version number.** Set `appVersion` in `kompas/liceum/data/config.json`, the two places in `kompas/liceum/index.html` and line 1 of
+  `kompas/liceum/app.js` to the release number (for example `2.1.0`). Fixes inside a release raise the last number.
+- **Agents.** **Sonnet** = data entry and small screen changes with clear rules, a source for every fact and a test to pass.
+  **Opus** = new structure in code or data, scoring, design choices, research where the order or method must be decided.
+  At the end of each release an Opus agent reviews the Sonnet work (tests, a click-through at 375 px and 1280 px) before the push.
+- **Spec doc.** After each release add a short "Kompas Liceum vX.Y.0" section to the spec doc and tick the task there.
+- The rules for every task (below, under Part 2) apply here too: no personal data, no new network calls, a source for every fact.
+
+### Releases
+
+| Version | Main content | Agent |
+|---|---|---|
+| v1.9 | Small fixes: four missing addresses, one spelling for subjects, unused sources | Sonnet |
+| v2.0 | Tychy: towns in the data, town choice at the start, Tychy schools, map and "Dojazd" | Opus + Sonnet |
+| v2.1 | Location of every school checked one by one; travel time to school on the card | Opus + Sonnet |
+| v2.2 | Parent summary: one printable page from the kid's file | Opus |
+| v2.3 | Class data check, 5 schools at a time; yearly old-data check | Sonnet |
+| v2.4 | Return to the same screen after loading a file; larger text and calmer motion | Sonnet |
+| v2.5 | Bilingual classes: separate track, language test, own point scale | Opus + Sonnet |
+| v2.6 | GZM part 1: ranked list of GZM licea and technika, best first; top schools go in | Opus + Sonnet |
+| v2.7 | GZM part 2: next schools down the list; map filter by town | Sonnet |
+| v2.8 | Review of questions and interests: languages, economy, sociology … not only science and IT | Opus |
+| v2.9 | Ukrainian interface (school and class data stay Polish) | Opus + Sonnet |
+| v3.0 | Sports classes and exact points counting | Opus |
+
+Every v2 release also does **L1**: website links for 5–10 schools. English and French interface come after v3.0.
+
+### Tasks
+
+**Every release**
+- **L1 (Sonnet) School links.** `www` for 5–10 schools per release and "strona szkoły" on the school card (details: D3).
+  Kraków first, then Tychy, then GZM in ranking order. The first release with L1 also adds the link code and the test from D3.
+
+**v1.9**
+- **S1 (Sonnet) Missing addresses.** = D2.
+- **S2 (Sonnet) Tidy data.** = D5 and D6.
+
+**v2.0 Tychy**
+- **T1 (Opus) Towns in the data.** Each school gets `town`. Tychy data goes in `kompas/liceum/data/db/pl/tychy/`, next to `krakow/`.
+  The app loads the schools of the chosen town(s). Old saved files still load (no town = Kraków).
+- **T2 (Opus) Town choice.** Chips at the start: Kraków, Tychy (later GZM towns). Kraków by default. Kept in the saved file.
+- **T3 (Sonnet) Tychy schools.** All licea and technika in Tychy: classes, extended subjects, scored subjects, 2026/27 thresholds.
+  Every fact has a source; otherwise `"status": "check"`. Never guess a threshold.
+- **T4 (Sonnet) Map for the chosen town.** The map centres on the town; run `kompas/tools/geocode_schools.py` for Tychy addresses.
+- **T5 (Sonnet) Tests.** A test kid from Tychy; a check that every school has a town and an address.
+
+**v2.1 Location**
+- **M1 (Sonnet) Check every school location.** Compare address and map point with the school's own site; set `"geoChecked": true`.
+- **M2 (Opus) Travel time to school.** From the kid's district or town by public transport, on the school card and as a filter
+  ("do 30 min"). Times are computed ahead (GitHub Action, like Studia's GTFS job) and stored in the repo; no calls when the app runs.
+
+**v2.2**
+- **P1 (Opus) Parent summary.** One printable page from the kid's file: compass, Moja lista, plan to May. Made in the browser
+  (print to PDF), no sharing, no accounts.
+
+**v2.3**
+- **D1 (Sonnet) Class data check.** = D4, 5 schools per commit.
+- **D2 (Sonnet) Old-data check.** A yearly GitHub Action that lists sources with `asOf` older than a year (opens an issue or fails a check).
+
+**v2.4**
+- **U1 (Sonnet) Comfort.** = U6, plus "większy tekst" and "spokojniej" (less motion) switches in the header, kept in the saved file.
+
+**v2.5 Bilingual**
+- **B1 (Opus) Bilingual track.** Read the 2027 rules for bilingual classes (language test, point scale). Add a separate track in scoring
+  and on the profile screen. Kept simple: the kid says how the language goes (słabo / dobrze / świetnie), as elsewhere.
+- **B2 (Sonnet) Bilingual classes.** All bilingual classes in Kraków and Tychy (for example XVII LO), with sources.
+
+**v2.6–v2.7 GZM**
+- **G1 (Opus, v2.6) GZM ranked list.** All licea and technika in the GZM towns, ordered best to worst by the newest Perspektywy ranking,
+  with town, address and source. Store it as `kompas/liceum/data/db/pl/gzm/ranking.json`. It sets the order for G2 and G3.
+- **G2 (Sonnet, v2.6) GZM schools, top of the list.** Same steps as T3 and M1, from the top of the ranked list.
+- **G3 (Sonnet, v2.7) GZM schools, next on the list.** Same steps; plus a map filter by town.
+
+**v2.8**
+- **Q1 (Opus) Review of questions and interests.** Check worlds, activity cards, situations, strengths and directions for balance:
+  languages, economy and business, sociology and psychology, law and media, arts. Add or rewrite cards; one test kid per world.
+
+**v2.9**
+- **I1 (Opus) Texts in language files.** All interface texts in one file per language; a language switch in the header.
+- **I2 (Sonnet) Ukrainian translation.** Simple words for a 14-year-old; mark it for one read by a Ukrainian speaker.
+
+**v3.0**
+- **V1 (Opus) Sports classes and exact points.** A separate track for the fitness test; exact points counting as an option,
+  after the 2027 rules are checked.
+
+---
+
+## Part 2: Small jobs (from the review of 13 Nov 2026)
+
 Each one is mostly data entry or a small screen change. None needs new scoring logic.
 Do them one at a time, in any order. Priority: **P1** helps the kids most, **P3** is tidying.
+Liceum jobs (D2–D6, U6) are now scheduled in Part 1; Studia jobs stay here.
 
 ## Rules for every task
 
@@ -156,7 +258,6 @@ Do not change meaning or numbers. One commit per app, list the changed sentences
 
 ## Not for the cheap agent (needs a decision first)
 
-- Bilingual and sports classes in Liceum (separate entry tests).
-- Exact points mode as the default in the second semester.
+- Bilingual classes (v2.5), sports classes and exact points (v3.0) are now in the Part 1 roadmap, as Opus tasks.
 - Map tiles without OpenStreetMap (a static picture of Kraków) if "no outside calls at all" should also cover the map.
 - Germany / abroad paths (kept open, low priority).
