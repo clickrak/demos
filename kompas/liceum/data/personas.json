@@ -690,9 +690,7 @@
     "achievements": 4,
     "volunteering": false
    },
-   "towns": [
-    "tychy"
-   ]
+   "region": "tychy"
   }
  }
 ]

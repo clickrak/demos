@@ -25,7 +25,7 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "2.0.0",
+ "appVersion": "2.0.1",
  "dataVersion": "2026-11-19",
  "towns": [
   {
@@ -38,16 +38,31 @@
    "id": "tychy",
    "name": "Tychy",
    "in": "w Tychach",
+   "status": "ready"
+  }
+ ],
+ "regions": [
+  {
+   "id": "krakow",
+   "name": "Kraków i okolice",
+   "in": "w Krakowie",
+   "towns": [
+    "krakow"
+   ],
    "status": "ready",
-   "sourceId": "tychy-kokis-2025",
-   "note": "4 licea i 3 z 6 techników miejskich. Technika nr 1, 5 i 6 dojdą później: źródła podają dla nich sprzeczne kierunki."
+   "later": "Skawina, Zabierzów i inne miejscowości powiatu krakowskiego dojdą później."
   },
   {
-   "id": "gzm",
-   "name": "Katowice i inne miasta Metropolii (GZM)",
-   "in": "w GZM",
-   "status": "soon",
-   "when": "wkrótce"
+   "id": "tychy",
+   "name": "Tychy i Metropolia (GZM)",
+   "in": "w Tychach",
+   "towns": [
+    "tychy"
+   ],
+   "status": "ready",
+   "sourceId": "tychy-kokis-2025",
+   "note": "4 licea i 3 z 6 techników miejskich. Technika nr 1, 5 i 6 dojdą później: źródła podają dla nich sprzeczne kierunki.",
+   "later": "Katowice i inne miasta Metropolii dojdą w kolejnych wersjach."
   }
  ],
  "thresholdYear": "2026/27",

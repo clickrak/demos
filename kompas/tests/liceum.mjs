@@ -65,7 +65,10 @@ for (const s of data.schools) {
 }
 console.log(`schools: ${data.schools.length}, classes: ${classes}, to verify in 2027: ${check}, areas: ${data.opportunities.length}`);
 
-const forKid = a => (a.towns ? { ...data, schools: allSchools.filter(s => a.towns.includes(s.town)) } : data);
+const regionTowns = id => ((data.config.regions || []).find(r => r.id === id) || { towns: ['krakow'] }).towns;
+const forKid = a => (a.region && a.region !== 'krakow' ? { ...data, schools: allSchools.filter(s => regionTowns(a.region).includes(s.town)) } : data);
+// Areas never mix: no town may sit in two areas.
+{ const t = (data.config.regions || []).flatMap(r => r.towns); if (new Set(t).size !== t.length) fail('a town is in two areas'); }
 for (const p of j('../liceum/data/personas.json')) {
   const r = scoreLiceum(p.answers, forKid(p.answers)), s = r.slots;
   console.log(`\n${p.label}`);
