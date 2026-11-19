@@ -1487,7 +1487,7 @@
    "sourceId": "otou-progi-licea-2026"
   },
   "classListSourceId": "zschk-klasy",
-  "note": "Źródła podają różne progi: zakres 150,75–156,55 (otouczelnie) i 158,6–164,9 po klasach (Wasza Edukacja). Sprawdź w szkole.",
+  "note": "Źródła podają różne progi: zakres 150,75–156,55 (otouczelnie) i 158,6–164,9 po klasach (Wasza Edukacja). Sprawdź w szkole. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
   "classes": [
    {
     "code": "1B",
@@ -1500,8 +1500,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": 164.9,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -1510,7 +1510,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo26",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 164.9,
+     "sourceId": "wazna-lo26",
+     "range": [
+      150.75,
+      156.55
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "1C",
@@ -1523,8 +1532,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": 161.4,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -1533,7 +1542,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo26",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 161.4,
+     "sourceId": "wazna-lo26",
+     "range": [
+      150.75,
+      156.55
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "1D",
@@ -1546,8 +1564,8 @@
      "ludzie",
      "biologia"
     ],
-    "threshold": 158.6,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -1556,7 +1574,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo26",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 158.6,
+     "sourceId": "wazna-lo26",
+     "range": [
+      150.75,
+      156.55
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    }
   ],
   "geo": {
@@ -1641,8 +1668,8 @@
      "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo42",
-    "status": "check"
+    "sourceId": "otou-lo42",
+    "status": "sourced"
    },
    {
     "code": "1D",
@@ -1664,8 +1691,8 @@
      "angielski"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo42",
-    "status": "check"
+    "sourceId": "otou-lo42",
+    "status": "sourced"
    }
   ],
   "geo": {
@@ -1861,8 +1888,8 @@
      "ludzie",
      "biologia"
     ],
-    "threshold": 156.8,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -1871,7 +1898,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo28",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 156.8,
+     "sourceId": "w2-lo28",
+     "range": [
+      110.15,
+      141.35
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "B",
@@ -1885,8 +1921,8 @@
      "biznes",
      "jezyki"
     ],
-    "threshold": 156.1,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -1895,7 +1931,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo28",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 156.1,
+     "sourceId": "w2-lo28",
+     "range": [
+      110.15,
+      141.35
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "C",
@@ -1909,8 +1954,8 @@
      "spoleczenstwo",
      "jezyki"
     ],
-    "threshold": 146.6,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -1919,7 +1964,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo28",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 146.6,
+     "sourceId": "w2-lo28",
+     "range": [
+      110.15,
+      141.35
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    }
   ],
   "geo": {
@@ -1927,7 +1981,8 @@
    "lon": 19.93689,
    "q": "Tadeusza Czackiego 11, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "tch3",
@@ -2789,8 +2844,8 @@
      "biznes",
      "dane-ai"
     ],
-    "threshold": 157,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -2799,7 +2854,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo15",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 157,
+     "sourceId": "w2-lo15",
+     "range": [
+      122.75,
+      153.15
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "F",
@@ -2857,7 +2921,8 @@
    "lon": 19.986,
    "q": "al. Adolfa Dygasińskiego 15, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "tee9",
@@ -3401,12 +3466,12 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 106.7,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1C",
@@ -3420,12 +3485,12 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 127.6,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1A",
@@ -3439,12 +3504,12 @@
      "ludzie",
      "biologia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 131.3,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1E",
@@ -3458,12 +3523,12 @@
      "jezyki",
      "biznes"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 121.45,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1F",
@@ -3477,12 +3542,12 @@
      "spoleczenstwo",
      "sport"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 68.45,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "check"
+    "status": "sourced"
    },
    {
     "code": "1D",
@@ -3496,12 +3561,12 @@
      "spoleczenstwo",
      "jezyki"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 56.95,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "check"
+    "status": "sourced"
    }
   ],
   "geo": {
@@ -3509,7 +3574,8 @@
    "lon": 20.04696,
    "q": "os. Willowe 1, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Klasy mają po dwie grupy językowe; próg to niższy z dwóch (otouczelnie 2026/27)."
  },
  {
   "id": "lo18",
@@ -3539,8 +3605,8 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": 158.4,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -3549,7 +3615,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo18",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 158.4,
+     "sourceId": "w-lo18",
+     "range": [
+      137.35,
+      158.15
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "b",
@@ -3611,8 +3686,8 @@
      "spoleczenstwo",
      "jezyki"
     ],
-    "threshold": 136.8,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -3621,7 +3696,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo18",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 136.8,
+     "sourceId": "w-lo18",
+     "range": [
+      137.35,
+      158.15
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "e",
@@ -3653,7 +3737,8 @@
    "lon": 19.88302,
    "q": "Na Błonie 15b, Kraków, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "lo20",
@@ -3683,8 +3768,8 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": 167.1,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -3693,7 +3778,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo20",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 167.1,
+     "sourceId": "w-lo20",
+     "range": [
+      155.8,
+      163.45
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "1D",
@@ -3708,8 +3802,8 @@
      "elektronika",
      "programowanie"
     ],
-    "threshold": 165.1,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -3718,7 +3812,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo20",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 165.1,
+     "sourceId": "w-lo20",
+     "range": [
+      155.8,
+      163.45
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "1E",
@@ -3731,8 +3834,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": 167.6,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -3741,7 +3844,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo20",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 167.6,
+     "sourceId": "w-lo20",
+     "range": [
+      155.8,
+      163.45
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "1A",
@@ -3815,7 +3927,7 @@
     "status": "check"
    }
   ],
-  "note": "Progi klas z waszaedukacja są wyższe niż zakres szkoły w otouczelnie. Sprawdź w szkole.",
+  "note": "Progi klas z waszaedukacja są wyższe niż zakres szkoły w otouczelnie. Sprawdź w szkole. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
   "geo": {
    "lat": 50.07022,
    "lon": 19.93347,
@@ -3851,8 +3963,8 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": 157.2,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -3861,7 +3973,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo23",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 157.2,
+     "sourceId": "w-lo23",
+     "range": [
+      127.85,
+      154.95
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "B",
@@ -3918,7 +4039,8 @@
    "lon": 19.98539,
    "q": "Seniorów Lotnictwa 5, Kraków, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "lo24",
@@ -3947,8 +4069,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": 158.6,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -3957,7 +4079,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo24",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 158.6,
+     "sourceId": "w-lo24",
+     "range": [
+      128.8,
+      154.35
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "E",
@@ -4083,7 +4214,8 @@
    "lon": 19.96535,
    "q": "Wilka Wyrwińskiego 1, Kraków, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "lo27",
@@ -4437,7 +4569,7 @@
   },
   "classes": [
    {
-    "code": "C",
+    "code": "1C",
     "label": "biol-chem-ang",
     "extended": [
      "biologia",
@@ -4448,8 +4580,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": 164.3,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -4457,11 +4589,20 @@
      "chemia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo41",
-    "status": "check"
+    "sourceId": "otou-lo41",
+    "status": "check",
+    "thresholdConflict": {
+     "value": 164.3,
+     "sourceId": "w-lo41",
+     "range": [
+      154.9,
+      160.6
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
-    "code": "B",
+    "code": "1B",
     "label": "mat-geo-ang",
     "extended": [
      "matematyka",
@@ -4473,8 +4614,8 @@
      "dane-ai",
      "biznes"
     ],
-    "threshold": 163.3,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -4482,12 +4623,21 @@
      "geografia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo41",
-    "status": "check"
+    "sourceId": "otou-lo41",
+    "status": "check",
+    "thresholdConflict": {
+     "value": 163.3,
+     "sourceId": "w-lo41",
+     "range": [
+      154.9,
+      160.6
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
-    "code": "A",
-    "label": "pol-biol-ang",
+    "code": "1A",
+    "label": "pol-ang-biol",
     "extended": [
      "polski",
      "biologia",
@@ -4497,8 +4647,8 @@
      "ludzie",
      "biologia"
     ],
-    "threshold": 162.6,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -4506,12 +4656,21 @@
      "biologia"
     ],
     "scoredSourced": true,
-    "sourceId": "w-lo41",
-    "status": "check"
+    "sourceId": "otou-lo41",
+    "status": "check",
+    "thresholdConflict": {
+     "value": 162.6,
+     "sourceId": "w-lo41",
+     "range": [
+      154.9,
+      160.6
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
-    "code": "D",
-    "label": "pol-ang-hiszp",
+    "code": "1D1",
+    "label": "językowa (pol-ang-hiszp)",
     "extended": [
      "polski",
      "angielski",
@@ -4521,20 +4680,29 @@
      "jezyki",
      "spoleczenstwo"
     ],
-    "threshold": 161,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
      "angielski"
     ],
     "scoredSourced": false,
-    "sourceId": "w-lo41",
-    "status": "check"
+    "sourceId": "otou-lo41",
+    "status": "check",
+    "thresholdConflict": {
+     "value": 161,
+     "sourceId": "w-lo41",
+     "range": [
+      154.9,
+      160.6
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
-    "code": "W",
-    "label": "pol-ang-wł",
+    "code": "1D2",
+    "label": "językowa (pol-ang-wł)",
     "extended": [
      "polski",
      "angielski",
@@ -4552,7 +4720,7 @@
      "angielski"
     ],
     "scoredSourced": false,
-    "sourceId": "w-lo41",
+    "sourceId": "otou-lo41",
     "status": "check"
    }
   ],
@@ -4561,7 +4729,8 @@
    "lon": 19.94162,
    "q": "Rynek Kleparski 18, Kraków, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "lo43",
@@ -4590,12 +4759,21 @@
      "programowanie",
      "dane-ai"
     ],
-    "threshold": 153.1,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": null,
     "scoredSourced": false,
     "sourceId": "w-lo43",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 153.1,
+     "sourceId": "w-lo43",
+     "range": [
+      141.75,
+      152.55
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "b",
@@ -4609,12 +4787,21 @@
      "ludzie",
      "biologia"
     ],
-    "threshold": 157.2,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": null,
     "scoredSourced": false,
     "sourceId": "w-lo43",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 157.2,
+     "sourceId": "w-lo43",
+     "range": [
+      141.75,
+      152.55
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "c",
@@ -4667,7 +4854,8 @@
    },
    "movedM": 372
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "lo44",
@@ -4696,8 +4884,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": 165.3,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -4706,7 +4894,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo44",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 165.3,
+     "sourceId": "w-lo44",
+     "range": [
+      150.55,
+      163.65
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "A",
@@ -4788,7 +4985,8 @@
    "lon": 19.9363,
    "q": "Bernardyńska 7, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "lo45",
@@ -4912,8 +5110,8 @@
      "biologia",
      "chemia"
     ],
-    "threshold": 160.9,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -4922,7 +5120,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo46",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 160.9,
+     "sourceId": "w-lo46",
+     "range": [
+      102.0,
+      128.75
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "A",
@@ -4936,8 +5143,8 @@
      "spoleczenstwo",
      "srodowisko"
     ],
-    "threshold": 146.5,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -4946,7 +5153,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo46",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 146.5,
+     "sourceId": "w-lo46",
+     "range": [
+      102.0,
+      128.75
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    },
    {
     "code": "B",
@@ -4959,8 +5175,8 @@
     "cards": [
      "spoleczenstwo"
     ],
-    "threshold": 145,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -4969,10 +5185,19 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo46",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 145,
+     "sourceId": "w-lo46",
+     "range": [
+      102.0,
+      128.75
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    }
   ],
-  "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole.",
+  "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
   "geo": {
    "lat": 50.0558,
    "lon": 19.9442,
@@ -5490,8 +5715,8 @@
      "biznes",
      "dane-ai"
     ],
-    "threshold": 53.5,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -5500,10 +5725,19 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo22",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 53.5,
+     "sourceId": "w-lo22",
+     "range": [
+      56.25,
+      56.25
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    }
   ],
-  "note": "Jedna klasa licealna w zespole szkół. Niski próg oznacza dużo wolnych miejsc.",
+  "note": "Jedna klasa licealna w zespole szkół. Niski próg oznacza dużo wolnych miejsc. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
   "geo": {
    "lat": 50.07776,
    "lon": 20.04864,
@@ -5538,8 +5772,8 @@
      "ludzie",
      "biologia"
     ],
-    "threshold": 134.9,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -5548,10 +5782,19 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo29",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 134.9,
+     "sourceId": "w-lo29",
+     "range": [
+      84.35,
+      84.35
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    }
   ],
-  "note": "Klasa integracyjna (uczą się razem uczniowie z orzeczeniami i bez). Próg z waszaedukacja jest wyższy niż w otouczelnie.",
+  "note": "Klasa integracyjna (uczą się razem uczniowie z orzeczeniami i bez). Próg z waszaedukacja jest wyższy niż w otouczelnie. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
   "geo": {
    "lat": 50.00585,
    "lon": 19.96567,
@@ -5609,8 +5852,8 @@
     "cards": [
      "programowanie"
     ],
-    "threshold": 95.1,
-    "thresholdYear": "2026/27",
+    "threshold": null,
+    "thresholdYear": null,
     "scored": [
      "polski",
      "matematyka",
@@ -5619,7 +5862,16 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo47",
-    "status": "check"
+    "status": "check",
+    "thresholdConflict": {
+     "value": 95.1,
+     "sourceId": "w-lo47",
+     "range": [
+      60.35,
+      70.0
+     ],
+     "rangeSourceId": "otou-progi-licea-2026"
+    }
    }
   ],
   "geo": {
@@ -5627,7 +5879,8 @@
    "lon": 20.04761,
    "q": "os. Szkolne 18, Kraków, Kraków"
   },
-  "geoChecked": true
+  "geoChecked": true,
+  "note": "Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły."
  },
  {
   "id": "tm15",

@@ -434,13 +434,6 @@
   "status": "sourced"
  },
  {
-  "id": "w-lo42",
-  "url": "https://waszaedukacja.pl/ponadgimnazjalne/xlii-liceum-krakow-18801/profile",
-  "title": "XLII LO, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "w-teh4",
   "url": "https://waszaedukacja.pl/ponadgimnazjalne/technikum-ekonomiczno-hotelarskie-nr-4-krakow-432/profile",
   "title": "Technikum Ekonomiczno-Hotelarskie nr 4, wszystkie profile klas i progi 2026/27 (waszaedukacja)",
@@ -696,6 +689,13 @@
   "id": "otou-lo10",
   "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/297/X-LO-im-Komisji-Edukacji-Narodowej",
   "title": "X LO KEN, klasy i progi 2026/27 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo41",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/3033/XLI-LO/klasy",
+  "title": "XLI LO, klasy 2026/27 (otouczelnie; bez progów klas)",
   "asOf": "2026-11",
   "status": "sourced"
  }

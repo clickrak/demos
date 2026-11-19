@@ -188,4 +188,7 @@ console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town ==
     if (/doros|zaoczn/i.test(x.name)) fail('adult school in Kraków list', x.name);
   });
   console.log(`Kraków ranking: ${R.licea.length} licea, ${R.technika.length} technika; Kompas schools with a place: ${seen.size - (seen.has(null) ? 1 : 0)} of ${ids.length}`); }
+// A class threshold must fit its school's range when both are from the same year (K1, v2.7.2): two sources must agree.
+for (const s of allSchools) { const r = s.range; if (!r) continue;
+  for (const c of s.classes) if (c.threshold != null && c.thresholdYear === r.year && (c.threshold < r.min - 0.06 || c.threshold > r.max + 0.06)) fail('class threshold outside the school range', s.id, c.code, c.threshold, r.min, r.max); }
 process.exit(bad ? 1 : 0);
