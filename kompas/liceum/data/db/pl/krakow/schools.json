@@ -94,7 +94,7 @@
     "label": "hist-ang-WOS",
     "extended": [
      "historia",
-     "j. angielski",
+     "angielski",
      "wos"
     ],
     "cards": [
@@ -119,7 +119,7 @@
     "extended": [
      "matematyka",
      "geografia",
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "srodowisko",
@@ -142,7 +142,7 @@
     "code": "K",
     "label": "pol-hist-łac",
     "extended": [
-     "j. polski",
+     "polski",
      "historia",
      "j. łaciński"
     ],
@@ -303,7 +303,7 @@
     "label": "hist. sztuki-ang-mat",
     "extended": [
      "historia sztuki",
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -328,7 +328,7 @@
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
-     "j. polski",
+     "polski",
      "wos"
     ],
     "cards": [
@@ -450,7 +450,7 @@
     "label": "geo-ang-mat",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -475,7 +475,7 @@
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
-     "j. polski",
+     "polski",
      "wos"
     ],
     "cards": [
@@ -522,7 +522,7 @@
     "label": "geo-ang-hiszp",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "j. hiszpański"
     ],
     "cards": [
@@ -546,7 +546,7 @@
     "label": "geo-ang-niem",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "j. niemiecki"
     ],
     "cards": [
@@ -709,7 +709,7 @@
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
-     "j. polski",
+     "polski",
      "wos"
     ],
     "cards": [
@@ -841,8 +841,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -890,7 +890,7 @@
     "label": "geo-ang-mat",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -1057,7 +1057,7 @@
     "code": "1EF",
     "label": "ang-mat-geo",
     "extended": [
-     "j. angielski",
+     "angielski",
      "matematyka",
      "geografia"
     ],
@@ -1083,7 +1083,7 @@
     "label": "WOS-pol-hist",
     "extended": [
      "wos",
-     "j. polski",
+     "polski",
      "historia"
     ],
     "cards": [
@@ -1143,7 +1143,7 @@
     "code": "1B",
     "label": "biol-ang-pol",
     "extended": [
-     "język polski",
+     "polski",
      "angielski",
      "biologia"
     ],
@@ -1163,7 +1163,7 @@
     "label": "geo-ang-mat",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -1188,8 +1188,8 @@
     "label": "biol-ang-pol",
     "extended": [
      "biologia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "ludzie",
@@ -1212,7 +1212,7 @@
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
-     "j. polski",
+     "polski",
      "wos"
     ],
     "cards": [
@@ -1537,7 +1537,7 @@
     "label": "biologiczno-polonistyczna (z językiem migowym)",
     "extended": [
      "biologia",
-     "język polski"
+     "polski"
     ],
     "cards": [
      "ludzie",
@@ -1617,7 +1617,7 @@
     "code": "1A",
     "label": "ang-mat-geo",
     "extended": [
-     "j. angielski",
+     "angielski",
      "matematyka",
      "geografia"
     ],
@@ -1643,7 +1643,7 @@
     "label": "hist-pol-mat",
     "extended": [
      "historia",
-     "j. polski",
+     "polski",
      "matematyka"
     ],
     "cards": [
@@ -1725,7 +1725,7 @@
     "extended": [
      "biologia",
      "geografia",
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "biologia",
@@ -1743,9 +1743,9 @@
     "code": "1d",
     "label": "ang-hiszp-pol-wł",
     "extended": [
-     "j. angielski",
+     "angielski",
      "j. hiszpański",
-     "j. polski",
+     "polski",
      "j. włoski"
     ],
     "cards": [
@@ -1764,7 +1764,7 @@
     "label": "geo-ang-mat",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -1784,8 +1784,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -1842,8 +1842,8 @@
     "label": "biol-ang-pol",
     "extended": [
      "biologia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "ludzie",
@@ -1867,7 +1867,7 @@
     "extended": [
      "biznes i zarządzanie",
      "geografia",
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "biznes",
@@ -1890,7 +1890,7 @@
     "label": "hist-ang-WOS",
     "extended": [
      "historia",
-     "j. angielski",
+     "angielski",
      "wos"
     ],
     "cards": [
@@ -1998,7 +1998,7 @@
     "code": "1A",
     "label": "polonistyczno-biologiczna (polski, biologia, angielski)",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -2155,7 +2155,7 @@
     "label": "WOS-pol-hist",
     "extended": [
      "wos",
-     "j. polski",
+     "polski",
      "historia"
     ],
     "cards": [
@@ -2245,7 +2245,7 @@
     "label": "biol-pol-ang",
     "extended": [
      "biologia",
-     "język polski",
+     "polski",
      "angielski"
     ],
     "cards": [
@@ -2481,7 +2481,7 @@
     "label": "biol-pol-ang",
     "extended": [
      "biologia",
-     "język polski",
+     "polski",
      "angielski"
     ],
     "cards": [
@@ -2583,8 +2583,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -2607,7 +2607,7 @@
     "label": "geo-ang-mat",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -2632,7 +2632,7 @@
     "label": "geo-ang-hiszp-wł",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "j. hiszpański",
      "j. włoski"
     ],
@@ -2657,7 +2657,7 @@
     "label": "geo-ang-WOS",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "wos"
     ],
     "cards": [
@@ -2977,7 +2977,7 @@
     "code": "B",
     "label": "pol-biol",
     "extended": [
-     "język polski",
+     "polski",
      "biologia"
     ],
     "cards": [
@@ -3000,7 +3000,7 @@
     "code": "A",
     "label": "pol-hist",
     "extended": [
-     "j. polski",
+     "polski",
      "historia"
     ],
     "cards": [
@@ -3023,7 +3023,7 @@
     "label": "geo-ang",
     "extended": [
      "geografia",
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -3116,7 +3116,7 @@
     "code": "D",
     "label": "pol-biol-ang",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -3159,8 +3159,8 @@
     "code": "C",
     "label": "ang-pol-hist",
     "extended": [
-     "j. angielski",
-     "j. polski",
+     "angielski",
+     "polski",
      "historia"
     ],
     "cards": [
@@ -3242,8 +3242,8 @@
     "code": "1A",
     "label": "psychologiczno-pedagogiczna (pol-ang-biol)",
     "extended": [
-     "j. polski",
-     "j. angielski",
+     "polski",
+     "angielski",
      "biologia"
     ],
     "cards": [
@@ -3261,7 +3261,7 @@
     "code": "1E",
     "label": "turystyczna (ang-geo-hist)",
     "extended": [
-     "j. angielski",
+     "angielski",
      "geografia",
      "historia"
     ],
@@ -3280,7 +3280,7 @@
     "code": "1F",
     "label": "mundurowa (ang-geo-WOS)",
     "extended": [
-     "j. angielski",
+     "angielski",
      "geografia",
      "wos"
     ],
@@ -3299,7 +3299,7 @@
     "code": "1D",
     "label": "przygotowania wojskowego (ang-hist-WOS)",
     "extended": [
-     "j. angielski",
+     "angielski",
      "historia",
      "wos"
     ],
@@ -3387,7 +3387,7 @@
     "code": "d",
     "label": "pol-biol-ang",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -3412,8 +3412,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -3553,7 +3553,7 @@
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
-     "j. polski",
+     "polski",
      "wos"
     ],
     "cards": [
@@ -3576,7 +3576,7 @@
     "label": "geo-ang-niem",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "j. niemiecki"
     ],
     "cards": [
@@ -3599,7 +3599,7 @@
     "code": "1F",
     "label": "ang-fr-WOS",
     "extended": [
-     "j. angielski",
+     "angielski",
      "j. francuski",
      "wos"
     ],
@@ -3695,8 +3695,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -3835,7 +3835,7 @@
     "label": "hist-pol",
     "extended": [
      "historia",
-     "j. polski"
+     "polski"
     ],
     "cards": [
      "spoleczenstwo"
@@ -3857,7 +3857,7 @@
     "label": "hist-ang-WOS",
     "extended": [
      "historia",
-     "j. angielski",
+     "angielski",
      "wos"
     ],
     "cards": [
@@ -4046,8 +4046,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -4138,7 +4138,7 @@
     "code": "1D",
     "label": "promocja zdrowia (pol-biol-ang)",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -4163,8 +4163,8 @@
     "label": "humanistyczna (pol-hist-ang)",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -4187,8 +4187,8 @@
     "label": "turystyczno-językowa (geo-ang-pol)",
     "extended": [
      "geografia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "jezyki",
@@ -4279,7 +4279,7 @@
     "code": "A",
     "label": "pol-biol-ang",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -4303,8 +4303,8 @@
     "code": "D",
     "label": "pol-ang-hiszp",
     "extended": [
-     "j. polski",
-     "j. angielski",
+     "polski",
+     "angielski",
      "j. hiszpański"
     ],
     "cards": [
@@ -4326,8 +4326,8 @@
     "code": "W",
     "label": "pol-ang-wł",
     "extended": [
-     "j. polski",
-     "j. angielski",
+     "polski",
+     "angielski",
      "j. włoski"
     ],
     "cards": [
@@ -4388,7 +4388,7 @@
     "code": "b",
     "label": "pol-biol-ang",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -4408,8 +4408,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -4427,7 +4427,7 @@
     "label": "geo-ang-WOS",
     "extended": [
      "geografia",
-     "j. angielski",
+     "angielski",
      "wos"
     ],
     "cards": [
@@ -4541,7 +4541,7 @@
     "code": "C",
     "label": "ang-niem-WOS",
     "extended": [
-     "j. angielski",
+     "angielski",
      "j. niemiecki",
      "wos"
     ],
@@ -4609,7 +4609,7 @@
     "code": "1C",
     "label": "pol-biol-ang",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -4634,8 +4634,8 @@
     "label": "hist-ang-pol",
     "extended": [
      "historia",
-     "j. angielski",
-     "j. polski"
+     "angielski",
+     "polski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -4703,7 +4703,7 @@
     "extended": [
      "geografia",
      "historia",
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "spoleczenstwo",
@@ -4726,7 +4726,7 @@
     "label": "hist-pol-WOS",
     "extended": [
      "historia",
-     "j. polski",
+     "polski",
      "wos"
     ],
     "cards": [
@@ -4883,7 +4883,7 @@
     "code": "LA",
     "label": "technik logistyk",
     "extended": [
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "biznes"
@@ -5195,7 +5195,7 @@
     "code": "1 ALFA",
     "label": "pol-biol-filozofia-ang",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "filozofia",
      "angielski"
@@ -5285,7 +5285,7 @@
     "code": "1",
     "label": "integracyjna pol-biol-ang",
     "extended": [
-     "język polski",
+     "polski",
      "biologia",
      "angielski"
     ],
@@ -5356,7 +5356,7 @@
     "extended": [
      "informatyka",
      "angielski",
-     "język polski"
+     "polski"
     ],
     "cards": [
      "programowanie"
@@ -5687,7 +5687,7 @@
     "label": "technik logistyk",
     "extended": [
      "geografia",
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "biznes"
@@ -5729,7 +5729,7 @@
     "code": "1a",
     "label": "technik ekonomista",
     "extended": [
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -5753,7 +5753,7 @@
     "code": "1b",
     "label": "technik rachunkowości",
     "extended": [
-     "j. angielski",
+     "angielski",
      "matematyka"
     ],
     "cards": [
@@ -5777,7 +5777,7 @@
     "label": "technik hotelarstwa",
     "extended": [
      "geografia",
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "biznes",
@@ -5842,7 +5842,7 @@
     "code": "A",
     "label": "technik aranżacji wnętrz",
     "extended": [
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "budowa"
@@ -5888,7 +5888,7 @@
     "code": "R",
     "label": "technik renowacji elementów architektury",
     "extended": [
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "budowa",
@@ -5911,7 +5911,7 @@
     "code": "N",
     "label": "technik gospodarki nieruchomościami",
     "extended": [
-     "j. angielski"
+     "angielski"
     ],
     "cards": [
      "biznes",
