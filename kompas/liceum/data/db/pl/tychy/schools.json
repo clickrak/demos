@@ -137,8 +137,8 @@
      "elektronika",
      "programowanie"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 155.05,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -147,7 +147,8 @@
     ],
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo2"
    },
    {
     "code": "1A2",
@@ -160,8 +161,8 @@
     "cards": [
      "biologia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 161.85,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -170,7 +171,8 @@
     ],
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo2"
    },
    {
     "code": "1B",
@@ -185,8 +187,8 @@
      "biznes",
      "dane-ai"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 150.85,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -195,7 +197,8 @@
     ],
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo2"
    },
    {
     "code": "1C",
@@ -209,12 +212,13 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 160.15,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo2",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo2"
    },
    {
     "code": "1E",
@@ -228,8 +232,8 @@
      "spoleczenstwo",
      "jezyki"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 133.45,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -238,7 +242,8 @@
     ],
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo2"
    },
    {
     "code": "1D",
@@ -252,8 +257,8 @@
      "spoleczenstwo",
      "jezyki"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 106.05,
+    "thresholdYear": "2026/27",
     "scored": [
      "polski",
      "matematyka",
@@ -267,7 +272,8 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "we-ty-lo2"
-    }
+    },
+    "thresholdSourceId": "lp-ty-lo2"
    }
   ],
   "geo": {
@@ -299,12 +305,13 @@
      "jezyki",
      "spoleczenstwo"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 119.4,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo3"
    },
    {
     "code": "1LB",
@@ -317,12 +324,13 @@
      "spoleczenstwo",
      "jezyki"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 105.85,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo3"
    },
    {
     "code": "1M",
@@ -336,12 +344,13 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 122.55,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo3"
    },
    {
     "code": "1T",
@@ -356,12 +365,13 @@
      "jezyki",
      "srodowisko"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 116.55,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo3"
    }
   ],
   "geo": {
@@ -381,7 +391,7 @@
   "address": "ul. Hanny i Kazimierza Wejchertów 20, 43-100 Tychy",
   "addressSourceId": "we-ty-lo4",
   "www": "https://zs1tychy.edupage.org/",
-  "note": "Klasa sportowa 1MS nie jest jeszcze w Kompasie. Progów z rekrutacji 2026 nie ma w pewnych źródłach.",
+  "note": "Klasa 1MS (mistrzostwa sportowego) dopisana z licea-progi.pl. Progów z rekrutacji 2026 nie ma w pewnych źródłach.",
   "classes": [
    {
     "code": "1A",
@@ -396,12 +406,13 @@
      "sport",
      "ludzie"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 144.1,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo4"
    },
    {
     "code": "1B",
@@ -414,12 +425,13 @@
      "biologia",
      "chemia"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 151.05,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo4"
    },
    {
     "code": "1D",
@@ -432,12 +444,13 @@
     "cards": [
      "spoleczenstwo"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 127.45,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo4"
    },
    {
     "code": "1P",
@@ -451,12 +464,13 @@
      "spoleczenstwo",
      "sport"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 71.45,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
-    "status": "check"
+    "status": "check",
+    "thresholdSourceId": "lp-ty-lo4"
    },
    {
     "code": "1C",
@@ -470,8 +484,8 @@
      "biznes",
      "dane-ai"
     ],
-    "threshold": null,
-    "thresholdYear": null,
+    "threshold": 186.45,
+    "thresholdYear": "2026/27",
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
@@ -480,7 +494,29 @@
      "lang": null,
      "kind": "dwujęzyczna",
      "sourceId": "we-ty-lo4"
-    }
+    },
+    "thresholdSourceId": "lp-ty-lo4"
+   },
+   {
+    "code": "1MS",
+    "label": "mistrzostwa sportowego GKS Tychy (biol-geo-ang)",
+    "extended": [
+     "biologia",
+     "geografia",
+     "angielski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": 100,
+    "thresholdYear": "2026/27",
+    "thresholdSourceId": "lp-ty-lo4",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "lp-ty-lo4",
+    "status": "check",
+    "note": "Klasa dopisana z licea-progi.pl. Profil i przedmioty do potwierdzenia w szkole."
    }
   ],
   "geo": {

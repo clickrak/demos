@@ -720,5 +720,26 @@
   "title": "XLVII LO, klasy 2026/27 (otouczelnie; bez progów klas)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "lp-ty-lo2",
+  "url": "https://licea-progi.pl/licea/tychy/szkola/lo-ii",
+  "title": "II LO Tychy, progi 2026 (licea-progi.pl, strona prywatna, do potwierdzenia)",
+  "asOf": "2026-11",
+  "status": "check"
+ },
+ {
+  "id": "lp-ty-lo3",
+  "url": "https://licea-progi.pl/licea/tychy/szkola/lo-iii",
+  "title": "III LO Tychy, progi 2026 (licea-progi.pl, strona prywatna, do potwierdzenia)",
+  "asOf": "2026-11",
+  "status": "check"
+ },
+ {
+  "id": "lp-ty-lo4",
+  "url": "https://licea-progi.pl/licea/tychy/szkola/lo-iv",
+  "title": "IV LO Tychy, progi 2026 (licea-progi.pl, strona prywatna, do potwierdzenia)",
+  "asOf": "2026-11",
+  "status": "check"
  }
 ]
