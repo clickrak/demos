@@ -71,6 +71,13 @@ Tonight is data plus one small screen change, mostly **Sonnet**. One commit per 
 - D9: 8 sources now `asOf` `2026-11` (month added to the repo; pages show no date); `gzm-rozporzadzenie-2017` has `"stale": false`
   and `old_sources.py` skips it; `tests/syntax.mjs` checks every `asOf` is `YYYY-MM`. No Tychy informator 2026/27 found yet.
 
+**2.8.1 (20 Nov 2026), decided by Szymon: licea-progi.pl accepted as a source.** Tychy 2026/27 thresholds for 16 of 40
+classes (II LO 6, III LO 4, IV LO 6) from licea-progi.pl (sources `lp-ty-lo2`, `lp-ty-lo3`, `lp-ty-lo4`, status "check";
+field `thresholdSourceId`). All stay `"status": "check"` until an official page confirms them. IV LO got class 1MS
+(sports, fitness test; profile and subjects to confirm). I LO: the page shows no 2026 class thresholds. Technika: the site has none.
+Texts on the start, schools and parent pages now say where Tychy thresholds come from. **To confirm in a future release:**
+the 16 thresholds and IV LO 1MS against school or city pages; sports classes as a track stay V1 (v3.0).
+
 **Moved forward to the next Liceum release (not done on 19 Nov).**
 - Night-run limits: the cloud run cannot reach Nominatim (map points) or gtfs.ztp.krakow.pl (Kraków travel times), and WebFetch
   could not open Wikipedia/Wikidata/OSM pages. Tests need a map point, `geoChecked` and (Kraków) travel times for every school,
@@ -79,8 +86,7 @@ Tonight is data plus one small screen change, mostly **Sonnet**. One commit per 
 - K1-6 rest: XIII LO (`lo13`) — otouczelnie page could not be read; III LO scored lists not on the page.
 - K3: XVII LO and XXV LO (blocked by map point and travel time, above).
 - T6: Technikum nr 6 Tychy (address found: ul. Browarowa 1A, 43-100 Tychy, otouczelnie; class list and map point missing).
-  Tychy thresholds 2026/27: 0 of 39; no official or otouczelnie page shows them. licea-progi.pl has IV LO 2026 numbers
-  (1C 186.45, 1B 151.05, 1A 144.1, 1D 127.45, 1P 71.45; also a class 1MS) — not entered: private site, needs Szymon's decision.
+  Tychy thresholds: done in 2.8.1 from licea-progi.pl (see above); technika and I LO still without.
 - G3: I LO Gliwice (bilingual, IB), Akademickie LO Pol. Śl. (alogliwice.polsl.pl has listy_przyjetych_2026_27.pdf),
   Technikum nr 17 ŚTZN Katowice, Technikum nr 8 Sosnowiec — none added (no sourced map point).
 - L1 rest: lo20 www (see above).
@@ -95,13 +101,13 @@ Tonight is data plus one small screen change, mostly **Sonnet**. One commit per 
 - Kraków may open a new liceum (Radio Kraków, 17 Aug 2026: 800 pupils without a place; no decision on place or date yet).
   Nothing to enter; check again in spring.
 
-**Database status (19 Nov 2026, after 2.8.0).** Known total = schools in the otouczelnie 2026 lists already in the repo (Kraków lists;
+**Database status (20 Nov 2026, after 2.8.1).** Known total = schools in the otouczelnie 2026 lists already in the repo (Kraków lists;
 Tychy and other GZM towns from `gzm/ranking.json`), including private, sports and music schools.
 
 | Area | Schools in DB / known | Public missing | Missing `www` | Classes "check" | No threshold | No `scored` | Old or badly dated sources |
 |---|---|---|---|---|---|---|---|
 | Kraków | 48 / 90 | 13 (XVII, XXV LO; 11 technika) | 39 | 139 of 232 | 37 | 82 | 0 |
-| Tychy | 9 / 13 | 1 (Technikum nr 6) | 0 | 39 of 39 | 39 | 30 | 1 (`ty-informator-2025`, no 2026/27 edition yet) |
+| Tychy | 9 / 13 | 1 (Technikum nr 6) | 0 | 40 of 40 | 24 (16 from licea-progi.pl, to confirm) | 31 | 1 (`ty-informator-2025`, no 2026/27 edition yet) |
 | GZM other towns | 5 / 197 | 158 | 0 | 36 of 36 | 13 | 27 | 0 |
 
 All schools in the DB have an address, a map point and `geoChecked`. K1 so far: 18 of 48 Kraków schools checked (batches 1–6; XIII LO still open).

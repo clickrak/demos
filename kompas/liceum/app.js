@@ -1,4 +1,4 @@
-// Kompas Liceum v2.8.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.8.1. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
@@ -203,7 +203,7 @@ function vStart() {
       <button class="btn ${started && !needResults() ? 'ghost' : 'big'}" data-go="${started && (A.worlds || []).length ? 'zajecia' : 'gdzie'}">${started ? 'Wróć do pytań' : 'Zaczynamy'}</button>
       <button class="btn ghost" data-go="szkoly">Przeglądaj szkoły</button></div>
     <ol class="steps2">${steps.map((x, k) => `<li><span class="rno">${k + 1}</span><div><b>${x[0]}</b><span class="t">${x[1]}${x[2] ? ' · ' + x[2] : ''}</span></div></li>`).join('')}</ol>
-    <div class="note2"><b>Co jest w bazie.</b> ${data.allSchools.length} szkół i ${data.allSchools.reduce((t, x) => t + x.classes.length, 0)} klas (Kraków albo Tychy z Metropolią GZM, zawsze osobno): ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i międzynarodowe są osobną ścieżką (z testem językowym), sportowe dojdą później. Progi są z rekrutacji 2026 (w Krakowie i w części szkół GZM), więc to orientacja, nie obietnica; dla Tychów progów jeszcze nie mamy.</div>
+    <div class="note2"><b>Co jest w bazie.</b> ${data.allSchools.length} szkół i ${data.allSchools.reduce((t, x) => t + x.classes.length, 0)} klas (Kraków albo Tychy z Metropolią GZM, zawsze osobno): ścisłe, przyrodnicze, językowe, humanistyczne, biznesowe i techniczne. Klasy dwujęzyczne i międzynarodowe są osobną ścieżką (z testem językowym), sportowe dojdą później (jest już jedna, IV LO Tychy 1MS, do sprawdzenia). Progi są z rekrutacji 2026, więc to orientacja, nie obietnica. Progi liceów w Tychach są z prywatnej strony licea-progi.pl i są do sprawdzenia; technika w Tychach jeszcze bez progów.</div>
     <div class="skinpick" role="group" aria-label="Wygląd aplikacji"><span class="small muted">Wygląd:</span>
       <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button><button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button><button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button></div>
     ${TEST ? `<details class="card"><summary>Tryb testowy</summary><div class="actions">${data.personas.map(p => `<button class="btn ghost" data-persona="${p.id}">${esc(p.label)}</button>`).join('')}</div></details>` : ''}
@@ -593,7 +593,7 @@ function vParent() {
     <section><h2>Plan do maja</h2><ul class="pp-plan">${plan.map(it => `<li>${checks[`${sel.areas[0].card.id}:${it.id}`] ? '☑' : '☐'} <b>${esc(it.when)}:</b> ${esc(it.text)}</li>`).join('')}</ul></section>
     <section class="pp-note"><h2>Dla rodzica: skąd te liczby</h2>
       <p class="small">${hasInput() ? (eff().approx ? 'Szanse liczymy z odpowiedzi „słabo, dobrze, świetnie” (słabo = ocena 3 i ok. 45% na egzaminie, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Szanse liczymy z dokładnych ocen i wyników wpisanych w Kompasie.') : 'Nie zaznaczono, jak idzie w szkole, więc bez szans.'}
-      ${esc(data.config.thresholdNote)} ${region().id !== 'krakow' ? 'Dla Tychów i części szkół GZM progów jeszcze nie mamy.' : ''} Dane klas oznaczone „do sprawdzenia” warto potwierdzić na stronie szkoły. Źródła: lista w Kompasie (strona „Źródła danych”).
+      ${esc(data.config.thresholdNote)} ${region().id !== 'krakow' ? 'Progi liceów w Tychach są z prywatnej strony licea-progi.pl (do sprawdzenia); dla techników w Tychach i części szkół GZM progów jeszcze nie mamy.' : ''} Dane klas oznaczone „do sprawdzenia” warto potwierdzić na stronie szkoły. Źródła: lista w Kompasie (strona „Źródła danych”).
       ${A.from ? 'Czas dojazdu to przybliżenie komunikacją miejską.' : ''}</p>
       <p class="small">Rozmowa: Która klasa daje najwięcej energii, a która tylko dobrze brzmi? Jaka klasa będzie bezpieczna i czy dziecko chce się w niej uczyć?</p></section>
     <p class="small muted">Kompas Liceum v${esc(data.config.appVersion)} · dane ${esc(data.config.dataVersion)} · kompas z odpowiedzi dziecka, bez kont i bez wysyłania danych.</p>
@@ -677,7 +677,7 @@ function vSchools() {
   const entries = shown.map(x => ({ school: x.school, classes: x.rows, best: bestOf(x.rows) }));
   const card = (x, i) => schoolCard({ school: x.school, rows: x.rows, best: bestOf(x.rows) }, i);
   return `<div class="rhead"><div><h1>Szkoły ${townsIn()}</h1>
-    <p class="lead">${data.schools.length} liceów i techników ${townsIn()}, wszystkie klasy oprócz sportowych. Klasy dwujęzyczne mają znaczek i test językowy w szkole. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
+    <p class="lead">${data.schools.length} liceów i techników ${townsIn()}, wszystkie klasy oprócz sportowych (poza jedną w Tychach, do sprawdzenia). Klasy dwujęzyczne mają znaczek i test językowy w szkole. ${hasInput() ? 'Etykiety szans liczymy z tego, jak ci idzie w szkole.' : 'Zaznacz, jak ci idzie w szkole, a zobaczysz też szanse.'}</p>
     ${needResults() ? '' : '<div class="actions"><button class="btn ghost" data-go="wyniki">Mój kompas</button></div>'}</div>${LILLUS.szkoly}</div>
     <div class="frow"><span class="small muted">Gdzie:</span>${regionChips()}</div>
     ${filterBar(true)}
@@ -686,7 +686,7 @@ function vSchools() {
     ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
     <p class="small"><button class="linkbtn" data-go="zrodla">Wszystkie źródła danych</button></p>
-    <p class="note2">Nie ma jeszcze klas sportowych (mają test sprawności). Pomijamy też XVII LO (klasy z francuskim: ze źródeł nie wynika, która klasa pierwsza jest dwujęzyczna, do sprawdzenia), XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${region().note ? ' ' + esc(region().note) : ''}</p>`;
+    <p class="note2">Klas sportowych prawie nie ma (mają test sprawności); jedyna to IV LO Tychy 1MS, dopisana do sprawdzenia. Pomijamy też XVII LO (klasy z francuskim: ze źródeł nie wynika, która klasa pierwsza jest dwujęzyczna, do sprawdzenia), XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${region().note ? ' ' + esc(region().note) : ''}</p>`;
 }
 
 // ---- map (Leaflet from vendor/, OpenStreetMap tiles; loaded only when a map is on screen) ------------------------------------------------

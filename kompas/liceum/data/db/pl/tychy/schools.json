@@ -391,7 +391,7 @@
   "address": "ul. Hanny i Kazimierza Wejchertów 20, 43-100 Tychy",
   "addressSourceId": "we-ty-lo4",
   "www": "https://zs1tychy.edupage.org/",
-  "note": "Klasa 1MS (mistrzostwa sportowego) dopisana z licea-progi.pl. Progów z rekrutacji 2026 nie ma w pewnych źródłach.",
+  "note": "Klasa 1MS (mistrzostwa sportowego, z testem sprawności) dopisana z licea-progi.pl. Progi 2026 z licea-progi.pl (strona prywatna), do potwierdzenia.",
   "classes": [
    {
     "code": "1A",
@@ -516,7 +516,7 @@
     "scoredSourced": false,
     "sourceId": "lp-ty-lo4",
     "status": "check",
-    "note": "Klasa dopisana z licea-progi.pl. Profil i przedmioty do potwierdzenia w szkole."
+    "note": "Klasa sportowa, dopisana z licea-progi.pl: w rekrutacji jest test sprawności. Profil i przedmioty do potwierdzenia w szkole."
    }
   ],
   "geo": {
