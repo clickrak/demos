@@ -53,7 +53,7 @@ One commit per task (rule 8), then the release step. Do them in this order (2 an
    IX LO (`lo9`), XX LO (`lo20`, www.xxlo-krakow.edu.pl from MCOO, could not be opened in v2.8). Official sites only
    (school site, BIP or the city's list `krk-siec-szkol`); skip a school whose site cannot be confirmed and say so.
    Files: `krakow/schools.json`. Check: syntax test; "strona szkoły" opens in a new tab on two cards.
-6. [ ] **Q1a (Opus) Questions audit, first slice of Q1.** Goal: count worlds, activity cards, situations, strengths and
+6. [x] **Q1a (Opus) Questions audit, first slice of Q1.** Goal: count worlds, activity cards, situations, strengths and
    directions per field (science/IT, languages, economy and business, sociology and psychology, law and media, arts, sport,
    care and health, hands-on) and write a short table plus 3–5 concrete proposals in this file under v2.10 / Q1, as questions
    for Szymon. No card or scoring change tonight (design choices wait for his answer).
@@ -278,6 +278,27 @@ Every v2 release also does **L1**: website links for 5–10 schools. English and
 **v2.9 (first slice: Q1a audit), v2.10 (rest)**
 - **Q1 (Opus) Review of questions and interests.** Check worlds, activity cards, situations, strengths and directions for balance:
   languages, economy and business, sociology and psychology, law and media, arts. Add or rewrite cards; one test kid per world.
+
+**Q1a audit (21 Nov 2026, v2.9).** Made by `python3 kompas/tools/questions_audit.py` (read-only; the field of each item is set
+by hand in the script; "ogólne" = style or skill that fits every field). Situations measure work style, not field.
+
+
+
+What it shows: science/IT has 12 of 40 activities, 2 of 8 worlds and 7 of 14 directions; every other field has one direction.
+A kid who picks "Komputery i technika" sees 7 world cards, a kid who picks "Języki i świat" sees 3. **Arts** has no world and no
+direction (only a12 and the strength "rysunek"), although Kraków has artistic and media classes (e.g. VI LO 1C, XVII LO).
+**Care and health** sits inside "biologia" (przyrodniczy). **Law** and **media** share one direction ("spoleczenstwo").
+
+**Questions for Szymon (answer before v2.10; no card or scoring change until then):**
+1. Add an **arts** field: a world "Sztuka i projektowanie" and a direction (plastyka, film, design, architektura wnętrz) linked
+   to artistic/media classes? Yes / no / later.
+2. Split **care and health** from biology: a direction "Zdrowie i opieka" (ratownictwo, pielęgniarstwo, fizjoterapia, dietetyka)
+   in the social or natural-science profile? Or keep it in "biologia"?
+3. Split **law and media**: "Prawo i administracja" and "Media i komunikacja" as two directions, or keep one?
+4. **Even out the worlds:** 5 activities in every world (add 2 each to languages, business, people, society, building, sport;
+   trim tech to 5), so no world weighs more just by having more cards? This changes compass results a little for everyone.
+5. **Situations:** add 2 situations (e.g. a conflict in class, a trip abroad) so that people, languages and business show up
+   there too? They would stay style questions (same 6 interests), not field questions.
 
 **v2.11**
 - **I1 (Opus) Texts in language files.** All interface texts in one file per language; a language switch in the header.
