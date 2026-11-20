@@ -7,6 +7,7 @@
   "town": "krakow",
   "address": "pl. Na Groblach 9, 31-101 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://www.bip.krakow.pl/LO1",
   "range": {
    "min": 165.55,
    "max": 177.45,
@@ -571,6 +572,7 @@
   "town": "krakow",
   "address": "ul. Studencka 12, 31-116 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://www.bip.krakow.pl/LO5",
   "range": {
    "min": 167.6,
    "max": 195.2,
