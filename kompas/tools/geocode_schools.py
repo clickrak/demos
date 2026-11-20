@@ -7,7 +7,9 @@ Usage: geocode_schools.py [town ...] [--redo] [--check]   (no town = all towns)
 --check (backlog M1): for each school without "geoChecked", geocode the street address again and compare it with the
 map point. Within CHECK_M metres: geoChecked = true. Farther away and the address was found: the point moves to the
 address (the old one is kept in geo.prev, with the distance) and geoChecked = true. Address not found: left for a person.
-Kraków addresses are checked against the city's list of schools (krk-siec-szkol) before this step."""
+Kraków addresses are checked against the city's list of schools (krk-siec-szkol) before this step.
+Waiting schools (backlog P9) have "geoPending": true and no geo; outside Kraków the flag is removed here once geo is
+set and geoChecked is true (Kraków: by liceum_travel.py, once travel times exist too)."""
 import json, re, time, urllib.parse, urllib.request, sys, os
 ROOT = 'kompas/liceum/data/db/pl'
 TOWNS = {  # name used in queries, box: lat min, lat max, lon min, lon max
@@ -77,6 +79,13 @@ for town in wanted:
             else:
                 print('CHECK: ok', s['id'], d, 'm')
             s['geoChecked'] = True; changed += 1
+    # Waiting schools (P9): the flag goes once the point is set and checked. Kraków also needs travel times,
+    # so liceum_travel.py clears it there.
+    for s in schools:
+        if s.get('geoPending') and s.get('geo') and s.get('geoChecked') and town != 'krakow':
+            s.pop('geoPending', None); s.pop('geoPendingSince', None); changed += 1; print('ready (no longer waiting)', s['id'])
+        elif s.get('geoPending'):
+            print('still waiting', s['id'])
     if changed:
         open(P, 'w', encoding='utf8').write(json.dumps(schools, ensure_ascii=False, indent=1))
     total += changed

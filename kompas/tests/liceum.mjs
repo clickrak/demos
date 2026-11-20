@@ -6,12 +6,15 @@ const j = p => JSON.parse(readFileSync(new URL(p, import.meta.url)));
 const data = {
   dimensions: j('../core/dimensions.json'), strengths: j('../core/strengths.json'), config: j('../liceum/data/config.json'),
   questions: j('../liceum/data/questions.json'), opportunities: j('../liceum/data/opportunities.json'),
-  schools: j('../liceum/data/db/pl/krakow/schools.json'), sources: j('../liceum/data/sources.json'), profiles: j('../liceum/data/profiles.json')
+  schools: j('../liceum/data/db/pl/krakow/schools.json').filter(s => !s.geoPending), sources: j('../liceum/data/sources.json'), profiles: j('../liceum/data/profiles.json')
 };
 // Towns (v2.0): Kraków stays the main data set for the checks below; other ready towns are checked further down.
 const TOWN_BOX = { krakow: [49.95, 50.14, 19.75, 20.15], tychy: [50.05, 50.17, 18.90, 19.07], katowice: [50.15, 50.30, 18.90, 19.13], sosnowiec: [50.24, 50.34, 19.08, 19.30], gliwice: [50.25, 50.37, 18.55, 18.78] }; // lat min, lat max, lon min, lon max
 const towns = (data.config.towns || []).filter(t => t.status === 'ready');
-const allSchools = towns.flatMap(t => j(`../liceum/data/db/pl/${t.id}/schools.json`).map(s => ({ ...s, town: s.town || t.id })));
+// Waiting schools (v2.9, P9): "geoPending" schools have no checked map point yet. The app ignores them, so the checks below
+// skip them too; rankings may already link to them (rawSchools), and their own checks are at the end.
+const rawSchools = towns.flatMap(t => j(`../liceum/data/db/pl/${t.id}/schools.json`).map(s => ({ ...s, town: s.town || t.id })));
+const allSchools = rawSchools.filter(s => !s.geoPending);
 // Every direction belongs to exactly one compass profile.
 for (const o of data.opportunities) { const n = data.profiles.filter(p => p.areas.includes(o.id)).length; if (n !== 1) fail('direction in', n, 'profiles:', o.id); }
 let bad = 0;
@@ -175,11 +178,11 @@ console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town ==
     const withP = L.filter(x => x.perspektywy).length;
     if (L.slice(0, withP).some(x => !x.perspektywy)) fail('Perspektywy schools must come first', k);
   }
-  const tyIds = allSchools.filter(s => regionTowns('tychy').includes(s.town)).map(s => s.id), linked = [...R.licea, ...R.technika].map(x => x.kompasId).filter(Boolean);
+  const tyIds = rawSchools.filter(s => regionTowns('tychy').includes(s.town)).map(s => s.id), linked = [...R.licea, ...R.technika].map(x => x.kompasId).filter(Boolean);
   for (const id of linked) if (!tyIds.includes(id)) fail('GZM kompasId unknown', id);
   console.log(`GZM ranking: ${R.licea.length} licea, ${R.technika.length} technika; linked to Kompas: ${linked.length}`); }
 // Kraków ranked list (v2.7, K2): ordered, Perspektywy first, every Kompas link known, no adult schools.
-{ const R = j('../liceum/data/db/pl/krakow/ranking.json'), ids = allSchools.filter(s => s.town === 'krakow').map(s => s.id), seen = new Set();
+{ const R = j('../liceum/data/db/pl/krakow/ranking.json'), ids = rawSchools.filter(s => s.town === 'krakow').map(s => s.id), seen = new Set();
   for (const k of ['licea', 'technika']) (R[k] || []).forEach((x, i) => {
     if (x.order !== i + 1) fail('Kraków ranking order', k, x.name);
     if (!x.perspektywy && !x.otouczelnie) fail('Kraków ranking: school without any rank', x.name);
@@ -191,4 +194,23 @@ console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town ==
 // A class threshold must fit its school's range when both are from the same year (K1, v2.7.2): two sources must agree.
 for (const s of allSchools) { const r = s.range; if (!r) continue;
   for (const c of s.classes) if (c.threshold != null && c.thresholdYear === r.year && (c.threshold < r.min - 0.06 || c.threshold > r.max + 0.06)) fail('class threshold outside the school range', s.id, c.code, c.threshold, r.min, r.max); }
+// Waiting schools (P9): valid data, a start date, not stuck for more than 30 days, and no flag left behind once the point is set.
+{ const pend = rawSchools.filter(s => s.geoPending), today = new Date(), all = new Set(rawSchools.map(s => s.id));
+  if (all.size !== rawSchools.length) fail('school id used twice (with waiting schools)');
+  for (const s of pend) {
+    if (s.geoPending !== true) fail('geoPending must be true', s.id);
+    if (s.geo && s.geoChecked) fail('geoPending left behind (map point is set and checked): remove the flag', s.id);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(s.geoPendingSince || '')) fail('waiting school needs geoPendingSince YYYY-MM-DD', s.id);
+    else if ((today - new Date(s.geoPendingSince)) / 864e5 > 30) fail('waiting school stuck for more than 30 days (check the "Geocode schools" Action)', s.id, s.geoPendingSince);
+    if (!s.address) fail('waiting school without an address', s.id);
+    if (s.town === 'krakow' && (!s.range || !srcIds.has(s.range.sourceId))) fail('waiting Kraków school needs a range with a source (checked once it is live)', s.id);
+    if (!towns.some(t => t.id === s.town)) fail('waiting school without a known town', s.id);
+    for (const k of s.classes) {
+      if (!srcIds.has(k.sourceId)) fail('class source', s.id, k.code);
+      for (const c of k.cards) if (!cardIds.has(c)) fail('class card link', s.id, k.code, c);
+      if (k.threshold != null && !(k.threshold > 0 && k.threshold <= 200)) fail('threshold range', s.id, k.code);
+      for (const x of scoredSubjects(k).list) if (!subj.has(x)) fail('scored subject unknown', s.id, k.code, x);
+    }
+  }
+  console.log(`Waiting schools (geoPending): ${pend.length}${pend.length ? ' — ' + pend.map(s => s.id).join(', ') : ''}`); }
 process.exit(bad ? 1 : 0);

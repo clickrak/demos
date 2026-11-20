@@ -163,6 +163,13 @@ def main():
            'origins': origins, 'schools': table}
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1))
     print('schools', len(table))
+    # Waiting schools (P9): clear the flag once the point is set, checked, and every district has a time.
+    raw, done = json.loads((DB / 'schools.json').read_text()), 0
+    for s in raw:
+        if s.get('geoPending') and s.get('geo') and s.get('geoChecked') and all(o['id'] in table.get(s['id'], {}) for o in origins):
+            s.pop('geoPending', None); s.pop('geoPendingSince', None); done += 1; print('ready (no longer waiting)', s['id'])
+    if done:
+        (DB / 'schools.json').write_text(json.dumps(raw, ensure_ascii=False, indent=1))
 
 
 if __name__ == '__main__':

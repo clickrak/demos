@@ -19,7 +19,7 @@ the night run cannot reach Nominatim or the Kraków GTFS (checked again tonight:
 the shell). Task 1 removes that block without guessing a map point; tasks 2–3 then add the waiting schools.
 One commit per task (rule 8), then the release step. Do them in this order (2 and 3 need 1).
 
-1. [ ] **P9 (Opus) Waiting schools ("geoPending").** Goal: a school may be added with `"geoPending": true` and no `geo`;
+1. [x] **P9 (Opus) Waiting schools ("geoPending").** Goal: a school may be added with `"geoPending": true` and no `geo`;
    the app ignores it everywhere (lists, map, compass, export) and the tests skip the map-point and travel-time checks for it,
    so the repo stays green until the "Geocode schools" Action fills the point. The Action (`geocode_schools.py --check`, then
    `liceum_travel.py` for Kraków) removes the flag only when `geo` is set, `geoChecked` is true and (Kraków) travel times exist.
@@ -326,6 +326,7 @@ Liceum jobs (D2–D6, U6) are now scheduled in Part 1; Studia jobs stay here.
 | Studia forces and sectors | `kompas/studia/data/scenarios.json` |
 | Studia questions | `kompas/studia/data/questions.json` |
 | Liceum schools and classes | `kompas/liceum/data/db/pl/krakow/schools.json` |
+| Liceum waiting schools (P9, v2.9) | same `schools.json` files: a new school without a checked map point gets `"geoPending": true` and `"geoPendingSince": "YYYY-MM-DD"` and no `geo`. The app and tests skip it until the "Geocode schools" Action sets `geo` + `geoChecked` (and Kraków travel times) and removes the flag. Tests fail if the flag is left behind or older than 30 days. |
 | Sources | `kompas/studia/data/sources.json`, `kompas/liceum/data/sources.json` |
 | Screens | `kompas/studia/app.js`, `kompas/studia/story.js`, `kompas/liceum/app.js` |
 | Shared styles (both apps) | `kompas/studia/style.css`, `v11.css`, `skin-neon.css`, `skin-pop.css`; Liceum only: `kompas/liceum/liceum.css` |

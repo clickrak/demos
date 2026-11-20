@@ -24,7 +24,8 @@ async function load() {
     'data/db/pl/krakow/schools.json', 'data/sources.json', 'data/personas.json', 'data/profiles.json'].map(get));
   // Other towns: one schools.json per ready town, next to krakow/. A school without `town` is from Kraków (old data).
   const more = await Promise.all((config.towns || []).filter(t => t.status === 'ready' && t.id !== 'krakow').map(t => get(`data/db/pl/${t.id}/schools.json`)));
-  const allSchools = [...schools, ...more.flat()].map(x => (x.town ? x : { ...x, town: 'krakow' }));
+  // Waiting schools (v2.9, P9): "geoPending" = no checked map point yet; ignored everywhere until the geocoding Action clears it.
+  const allSchools = [...schools, ...more.flat()].filter(x => !x.geoPending).map(x => (x.town ? x : { ...x, town: 'krakow' }));
   // Travel times (backlog M2): computed ahead by a GitHub Action from timetables; optional per town, no calls at run time.
   const travel = {};
   await Promise.all((config.towns || []).filter(t => t.status === 'ready').map(t => fetch(`data/db/pl/${t.id}/travel.json`).then(r => (r.ok ? r.json() : null)).then(j => { if (j) travel[t.id] = j; }).catch(() => {})));
