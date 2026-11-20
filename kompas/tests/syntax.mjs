@@ -40,6 +40,10 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
     if (typeof t.points !== 'number' || typeof t.max !== 'number' || t.points < 0 || t.points > t.max) fail(`studia offer "${o.id}": threshold points must be between 0 and max`);
     if (!src.has(t.sourceId)) fail(`studia offer "${o.id}": threshold has unknown sourceId "${t.sourceId}"`);
   }
+  for (const q of json['studia/data/questions.json']?.reflection || []) { // SU2: tap ideas are stored joined with ", "
+    if (!Array.isArray(q.ideas) || q.ideas.length < 5 || q.ideas.length > 6) fail(`studia reflection "${q.id}": needs 5-6 ideas`);
+    for (const v of q.ideas || []) if (typeof v !== 'string' || !v.trim() || v.includes(',') || v.length > 40) fail(`studia reflection "${q.id}": idea "${v}" must be short text without a comma`);
+  }
 }
 { // Liceum
   const cards = json['liceum/data/opportunities.json'] || [], src = ids(json['liceum/data/sources.json']);

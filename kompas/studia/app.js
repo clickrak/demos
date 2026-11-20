@@ -1,4 +1,4 @@
-// Kompas Studia v2.0.0. Screens, navigation, results, export.
+// Kompas Studia v2.1.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -54,6 +54,7 @@ let theme = null;       // null follows the system; kept in memory only
 const SKINS = [null, 'neon', 'pop'];
 const SKIN_NAME = { null: 'Spokojny', neon: 'Neon', pop: 'Pop art' };
 let skin = SKINS.includes(new URLSearchParams(location.search).get('skin')) ? new URLSearchParams(location.search).get('skin') : null;
+let focusSel = null;    // a control to focus after the next re-render (keyboard users)
 let tapSel = null;      // the control just tapped, so it can pop once after the re-render
 let lastProg = { ch: null, w: 0 };
 let drawOnce = true;    // the path map draws itself the first time the results open
@@ -190,6 +191,7 @@ function render() {
   const pi = $app.querySelector('.prog i[data-to]');
   if (pi) requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.width = pi.dataset.to + '%'; }));
   if (tapSel) { $app.querySelector(tapSel)?.classList.add('pop'); tapSel = null; }
+  if (focusSel) { $app.querySelector(focusSel)?.focus({ preventScroll: true }); focusSel = null; }
   if (changed) { const b = document.querySelector('.brand'); if (b) { b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); } }
   applySkin();
   if (s.id === 'kompas' && !needResults()) { applyTheme(); applySkin(); storyCleanup = storyInit($app, storyCtx); }
@@ -275,6 +277,19 @@ function vMatura() {
     <p class="small muted">Deklarację ${term('deklaracja', 'deklaracja maturalna')} można zmienić do ${data.config.declarationDeadline}. Potem już nie.</p>`;
 }
 
+const SPORTS = ['siłownia', 'bieganie', 'piłka', 'pływanie', 'wspinaczka', 'rower', 'sztuki walki', 'taniec', 'inne', 'nie trenuję'];
+// A.sport stays one text: chosen chips first, then his own words. Parts that are not chips go back into the text field.
+function sportParts() {
+  const parts = splitList(A.sport);
+  return { on: parts.filter(x => SPORTS.includes(x)), rest: parts.filter(x => !SPORTS.includes(x)).join(', ') };
+}
+const setSport = (on, rest) => { A.sport = [...on, String(rest || '').trim()].filter(Boolean).join(', '); };
+function tapSport(v) {
+  const { on, rest } = sportParts();
+  let next = on.includes(v) ? on.filter(x => x !== v) : v === 'nie trenuję' ? [v] : [...on.filter(x => x !== 'nie trenuję'), v];
+  next = SPORTS.filter(x => next.includes(x));
+  setSport(next, rest); save(); render();
+}
 function vLanguages() {
   const rows = data.questions.languages.map((l, i) => { const lv = A.jezyki[l.id] || 'brak';
     return `<fieldset class="card langcard" style="border:1px solid var(--line)"><legend class="sr">${l.name}</legend>
@@ -282,8 +297,10 @@ function vLanguages() {
       <div class="chips" role="radiogroup" aria-label="Poziom: ${l.name}">${data.questions.languageLevels.map(v => chip(`data-lang="${l.id}" data-val="${v}"`, v, lv === v)).join('')}</div></fieldset>`; }).join('');
   return `${ILLUS.jezyki}<h1>Języki i sport</h1>
     <p>Jak dogadujesz się w każdym z tych języków? Wybierz poziom w każdym bloku. Języki otwierają drzwi, nigdy ich nie zamykają.</p>${rows}
-    <label class="field" for="sport">Jaki sport uprawiasz albo uprawiałeś? Od kiedy, jak często?</label>
-    <input id="sport" type="text" data-field="sport" value="${esc(A.sport)}" placeholder="np. siłownia od roku, wcześniej wspinaczka">
+    <p class="field" id="sportq">Jaki sport uprawiasz albo uprawiałeś? Możesz wybrać kilka.</p>
+    <div class="chips" role="group" aria-labelledby="sportq">${SPORTS.map(v => chip(`data-sport="${v}"`, v, sportParts().on.includes(v))).join('')}</div>
+    <label class="small muted" for="sport">Od kiedy, jak często? <span>(opcjonalnie)</span></label>
+    <input id="sport" type="text" data-sportx value="${esc(sportParts().rest)}" placeholder="np. od roku, 3 razy w tygodniu">
     <p class="small muted">Sport to dobre źródło dowodów na mocne strony, np. regularność albo wytrwałość.</p>`;
 }
 
@@ -351,8 +368,14 @@ function vValues() {
 
 function vStrengths() {
   const picked = A.strengths.map(s => s.id);
+  // Answered strengths shrink to one line ("Języki · w szkole [zmień]"); the "gdzie to widać?" block shows only for the rest.
+  // A strength typed into right now stays open until the next re-render, so typing is never cut off.
   const list = A.strengths.map(s => { const st = data.strengths.find(x => x.id === s.id);
     const own = !!s.proof.trim() && !isWhere(s.proof);
+    const name = esc(st.name.charAt(0).toUpperCase() + st.name.slice(1));
+    if (s.proof.trim()) { const p = s.proof.trim(), short = p.length > 40 ? p.slice(0, 39).trimEnd() + '…' : p;
+      return `<div class="strength done"><p class="sline"><b>${name}</b> · <span>${esc(short)}</span></p>
+        <button class="btn ghost small-btn" data-reproof="${s.id}" aria-label="Zmień, gdzie widać: ${esc(st.name)}">zmień</button></div>`; }
     return `<div class="strength"><p class="field" id="pl-${s.id}">${esc(st.name.charAt(0).toUpperCase() + st.name.slice(1))}: gdzie to widać?</p>
       <div class="chips" role="group" aria-labelledby="pl-${s.id}">${WHERE.map(w => chip(`data-where="${s.id}|${w}"`, w, s.proof === w)).join('')}</div>
       <details class="ownproof"${own ? ' open' : ''}><summary>albo opisz to jednym zdaniem</summary>
@@ -360,7 +383,7 @@ function vStrengths() {
   return `<h1>Twoje mocne strony</h1>
     <p>Wybierz 5 rzeczy, które ci wychodzą, i dotknij, gdzie to widać. Nie musisz nic pisać. <span class="pickn">${A.strengths.length} z 5</span></p>
     <div class="chips">${data.strengths.map(s => chip(`data-strength="${s.id}"`, s.name, picked.includes(s.id))).join('')}</div>
-    ${list ? `<div class="card">${list}</div>` : ''}
+    ${list ? `<div class="card slist">${list}</div>` : ''}
     <p class="small muted">Mocna strona liczy się, kiedy wiesz, gdzie ją widać. To nie musi być nic wielkiego.</p>`;
 }
 
@@ -499,14 +522,16 @@ function vReach() {
     <p class="small muted">W tej wersji pokazujemy uczelnie w Krakowie. Inne miejsca pojawią się później.</p>`;
 }
 
+const START_MIN = [10, 20, 30, 45, 60, 90];
 function vLength() {
   return `<h1>Ile chcesz się uczyć?</h1>
     <div class="chips stack">${data.questions.studyLength.map(o => chip(`data-set="studyLength" data-val="${o.id}"`, o.label, A.studyLength === o.id)).join('')}</div>
     <p class="explain">Krótka droga, np. szkoła policealna (1–2,5 roku, bezpłatna, bez matury) albo 3-letni licencjat, to pełnoprawna opcja. Zostawia otwarte dalsze studia.</p>
     <p>Czy bierzesz pod uwagę uczelnie prywatne? Są płatne.</p>
     <div class="chips">${data.questions.privateOk.map(o => chip(`data-set="privateOk" data-val="${o.id}"`, o.label, A.privateOk === o.id)).join('')}</div>
-    <label class="field" for="start">Ile minut jedziesz z domu na Dworzec Główny?</label>
-    <input id="start" type="number" min="0" max="180" data-field="startMin" value="${esc(A.startMin)}" inputmode="numeric">
+    <p class="field" id="startq">Ile minut jedziesz z domu na Dworzec Główny?</p>
+    <div class="chips" role="radiogroup" aria-labelledby="startq">${START_MIN.map(m => chip(`data-set="startMin" data-val="${m}"`, `${m} min`, Number(A.startMin) === m)).join('')}</div>
+    ${START_MIN.includes(Number(A.startMin)) ? '' : `<p class="small muted">Z twojego pliku: ${esc(A.startMin)} min. Dotknij, żeby zmienić.</p>`}
     <p class="small muted">Liczymy z tego czas dojazdu na uczelnię. Zostaje na tym urządzeniu.</p>`;
 }
 
@@ -518,10 +543,23 @@ function vDoubt() {
       <p>Jak mocno to cię męczy?</p><div class="chips">${chip('data-strong="0"', 'trochę', !A.doubtStrong)}${chip('data-strong="1"', 'bardzo', A.doubtStrong)}</div>` : ''}`;
 }
 
+// Lists kept as one text joined with ", " (reflection ideas, sport), so old files and the export stay the same.
+const splitList = v => String(v || '').split(',').map(x => x.trim()).filter(Boolean);
+// A tap on an idea: on → take it out; off → replace an empty field or one that holds only ideas, else add after ", ".
+function tapIdea(qid, idea) {
+  const q = data.questions.reflection.find(x => x.id === qid); if (!q) return;
+  const cur = String(A.reflection[qid] || ''), parts = splitList(cur);
+  if (parts.includes(idea)) A.reflection[qid] = parts.filter(x => x !== idea).join(', ');
+  else if (!cur.trim() || parts.every(x => (q.ideas || []).includes(x))) A.reflection[qid] = idea;
+  else A.reflection[qid] = cur.replace(/[\s,.;]+$/, '') + ', ' + idea; // a last dot or comma gives way to the list separator
+  save(); render();
+}
 function vReflection() {
   return `<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
-    ${data.questions.reflection.map(q => `<label class="field" for="rf-${q.id}">${q.text}</label>
-      <textarea id="rf-${q.id}" data-refl="${q.id}">${esc(A.reflection[q.id] || '')}</textarea>`).join('')}${growCompass(3)}`;
+    ${data.questions.reflection.map(q => { const parts = splitList(A.reflection[q.id]);
+      return `<label class="field" for="rf-${q.id}">${q.text}</label>
+      ${q.ideas?.length ? `<div class="chips ideas" role="group" aria-label="Pomysły na odpowiedź">${q.ideas.map(v => chip(`data-idea="${q.id}" data-val="${esc(v)}"`, esc(v), parts.includes(v))).join('')}</div>` : ''}
+      <textarea id="rf-${q.id}" data-refl="${q.id}" placeholder="albo napisz po swojemu">${esc(A.reflection[q.id] || '')}</textarea>`; }).join('')}${growCompass(3)}`;
 }
 
 // ---- results ----------------------------------------------------------------
@@ -1220,7 +1258,7 @@ document.addEventListener('click', e => {
   const d = t.dataset;
   if (d.skintoggle !== undefined) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
-  const tk = ['set', 'toggle', 'value', 'strength', 'lang', 'sector'].find(k => d[k] !== undefined);
+  const tk = ['set', 'toggle', 'value', 'strength', 'lang', 'sector', 'sport', 'idea'].find(k => d[k] !== undefined);
   if (tk) tapSel = `[data-${tk}="${CSS.escape(d[tk])}"]` + (d.val !== undefined ? `[data-val="${CSS.escape(d.val)}"]` : '');
   if (d.themetoggle !== undefined) { const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; theme = dark ? 'light' : 'dark'; applyTheme(); return; }
   if (d.term !== undefined) { const open = t.getAttribute('aria-expanded') !== 'true'; t.setAttribute('aria-expanded', String(open)); t.nextElementSibling.hidden = !open; return; }
@@ -1232,7 +1270,12 @@ document.addEventListener('click', e => {
   if (d.goopt) { kierSel = d.goopt; location.hash = '#/w-kierunki'; return; }
   if (d.kier) { kierSel = d.kier; render(); return; }
   if (d.flip !== undefined) { t.setAttribute('aria-pressed', String(t.getAttribute('aria-pressed') !== 'true')); return; }
-  if (d.set) { setA(d.set, A[d.set] === d.val && d.set !== 'certainty' && d.set !== 'studyLength' ? null : d.val); return; }
+  if (d.set) { // startMin is a number and is never cleared (an empty base would make the commute times start at 0)
+    if (d.set === 'startMin') { setA('startMin', Number(d.val)); return; }
+    setA(d.set, A[d.set] === d.val && d.set !== 'certainty' && d.set !== 'studyLength' ? null : d.val); return; }
+  if (d.sport) { tapSport(d.sport); return; }
+  if (d.idea) { tapIdea(d.idea, d.val); return; }
+  if (d.reproof) { const s = A.strengths.find(x => x.id === d.reproof); if (s) s.proof = ''; focusSel = `[data-where^="${CSS.escape(d.reproof)}|"]`; save(); render(); return; }
   if (d.toggle) { const arr = A[d.toggle]; const i = arr.indexOf(d.val); i >= 0 ? arr.splice(i, 1) : arr.push(d.val); save(); render(); return; }
   if (d.lang) { A.jezyki[d.lang] = d.val; save(); render(); return; }
   if (d.sortans !== undefined) { sortAnswer(Number(d.sortans)); return; }
@@ -1307,13 +1350,14 @@ function loadFile(text) {
 
 document.addEventListener('input', e => {
   const t = e.target, d = t.dataset;
-  if (d.field) { A[d.field] = d.field === 'startMin' ? Number(t.value) : t.value; save(); if (t.id === 'name' || t.id === 'cando' || t.id === 'sport' || t.id === 'start') return; }
+  if (d.field) { A[d.field] = d.field === 'startMin' ? Number(t.value) : t.value; save(); if (t.id === 'name' || t.id === 'cando') return; }
   if (d.slider) { A.sliders[d.slider] = Number(t.value); save(); return; }
   if (d.proof) { const s = A.strengths.find(x => x.id === d.proof); s.proof = t.value; save();
     t.closest('.strength')?.querySelectorAll('[data-where]').forEach(b => b.setAttribute('aria-pressed', 'false'));
     const ok = provenStrengths(A).length === 5; const next = $app.querySelector('.nav .btn:not(.ghost)'); if (next) next.disabled = !ok;
     const h = document.getElementById('navhint'); if (h) h.textContent = ok ? '' : current().hint(); return; }
-  if (d.refl) { A.reflection[d.refl] = t.value; save(); }
+  if (d.refl) { A.reflection[d.refl] = t.value; save(); return; }
+  if (d.sportx !== undefined) { setSport(sportParts().on, t.value); save(); }
 });
 
 async function doExport(kind) {

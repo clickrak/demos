@@ -408,6 +408,7 @@ its entry in `offers.json` (subjects, length, link) matches. Fix or mark `"statu
 ## Small screen tasks (little logic)
 
 ### U1 (P1) Studia: minutes from home as chips
+**Status: done in Studia 2.1.0** (20 Nov 2026).
 **Where.** `kompas/studia/app.js`, screen "Gdzie chcesz być potrzebny?" (search `data-field="startMin"`). It is a number field.
 **Do.** Replace it with chips: `10`, `20`, `30`, `45`, `60`, `90 min`. A tap sets `A.startMin`. Keep the same question text.
 Use the existing `chip()` helper and the `data-set="startMin" data-val="30"` pattern used for `privateOk` on the same screen
@@ -415,6 +416,7 @@ Use the existing `chip()` helper and the `data-set="startMin" data-val="30"` pat
 **Done when** the screen has no keyboard input and the commute times in the results still change with the choice.
 
 ### U2 (P1) Studia: tap ideas for the three reflection questions
+**Status: done in Studia 2.1.0** (20 Nov 2026).
 **Where.** `vReflection` in `kompas/studia/app.js`; questions are in `questions.json` → `reflection` (f1, f2, f3).
 **Do.** Add to each question in the data a list `"ideas": ["…", "…"]` (5–6 short answers a teenager could tap, for f1 for example
 "w sporcie", "grając", "przy muzyce", "pomagając komuś", "ucząc się czegoś nowego"). Show them as chips above the text area.
@@ -428,11 +430,13 @@ A tap writes the idea into `A.reflection[q.id]` (tap again = clear). Keep the te
 **Done when** the sentence can be chosen with one tap and still edited by hand.
 
 ### U4 (P2) Studia: sport as chips
+**Status: done in Studia 2.1.0** (20 Nov 2026).
 **Where.** `data-field="sport"` on the "Języki i sport" screen.
 **Do.** Chips: siłownia, bieganie, piłka, pływanie, wspinaczka, rower, sztuki walki, taniec, inne, nie trenuję (many can be on).
 Store them joined with ", " in `A.sport`, so the export and old files keep working. Keep a short optional text field.
 
 ### U5 (P2) Studia: shorter strengths screen on phones
+**Status: done in Studia 2.1.0** (20 Nov 2026).
 **Now.** After picking 5 strengths, the phone screen shows 5 blocks × 6 chips and is long.
 **Do.** Show the "gdzie to widać?" block only for strengths without an answer, plus a one-line summary for the answered ones
 (`Języki · w szkole  [zmień]`). `[zmień]` clears `proof` for that strength.
@@ -489,7 +493,7 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
 | Version | Focus | Main content | Agent | Status |
 |---|---|---|---|---|
 | v2.0 | Data | Kraków job demand for the 17 missing areas (D1); 2026 thresholds for UJ, UJ CM and AGH offers; newer GUS pay (D7); URK offer check (D8) | Sonnet + Opus | pushed 19 Nov 2026 as 2.0.0 (some items moved, see below) |
-| v2.1 | UI/UX | Fewer keyboards: minutes from home as chips (U1), tap ideas for the reflection questions (U2), sport as chips (U4), shorter strengths screen on phones (U5) | Sonnet + Opus | planned 20 Nov 2026 |
+| v2.1 | UI/UX | Fewer keyboards: minutes from home as chips (U1), tap ideas for the reflection questions (U2), sport as chips (U4), shorter strengths screen on phones (U5) | Sonnet + Opus | pushed 20 Nov 2026 as 2.1.0 |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -553,7 +557,7 @@ Current `appVersion` 2.0.0, pushed and live (Pages build on `main` succeeded). T
 clear rules in Part 2. No new facts, so no new sources; no scoring change. The Data leftovers of v2.0 (UJ thresholds, 22 GUS cards,
 URK check) wait for the next Data turn (v2.3). Do them in this order; one commit per task, then the release step.
 
-1. [ ] **SU1 (Sonnet) Minutes from home as chips** (= U1, all steps there).
+1. [x] **SU1 (Sonnet) Minutes from home as chips** (= U1, all steps there).
    Where: `studia/app.js` (search `data-field="startMin"`; click handler near `if (d.set)`).
    Note: the `data-set` handler clears a value when the same chip is tapped again (sets `null`). For `startMin` that would make the
    commute base 0, so either keep `startMin` out of the tap-again-to-clear rule (like `certainty`) or store a number and never `null`.
@@ -561,20 +565,20 @@ URK check) wait for the next Data turn (v2.3). Do them in this order; one commit
    Done when: the screen has no number field; tapping `10` and then `90 min` changes the commute times on the results page;
    tapping the chosen chip again does not set 0; old saved files with any number (e.g. 25) still load (no chip on, times still use 25);
    three tests pass.
-2. [ ] **SU2 (Sonnet) Tap ideas for the three reflection questions** (= U2, all steps there).
+2. [x] **SU2 (Sonnet) Tap ideas for the three reflection questions** (= U2, all steps there).
    Where: `studia/data/questions.json` (`reflection` → `ideas`), `studia/app.js` (`vReflection`, click handler).
    Ideas are short, plain Polish, no grading tone, 5–6 per question. They are answer options, not facts, so they need no source.
    Idea text goes through `esc()`. If a kid typed his own text, a tap replaces it only when the field is empty or holds an idea;
    otherwise the tap adds the idea after `, ` (never delete what he wrote).
    Done when: all three questions can be answered with taps only; the chosen chip is visibly on; the export (`core/export.js`) shows
    the answers as before; at 375 px the chips wrap and nothing is wider than the screen; three tests pass.
-3. [ ] **SU3 (Sonnet) Sport as chips** (= U4, all steps there).
+3. [x] **SU3 (Sonnet) Sport as chips** (= U4, all steps there).
    Where: `studia/app.js` ("Języki i sport" screen, `data-field="sport"`; click handler).
    Store as text joined with `, ` in `A.sport`. On load, split `A.sport` by `,` to light the chips; any part that is not a chip
    goes into the short optional text field. "nie trenuję" turns the other chips off, and any other chip turns it off.
    Done when: sport can be set with taps only; an old file with `"sport": "siłownia od roku, wcześniej wspinaczka"` loads without
    losing text; the export shows the same `A.sport` string; three tests pass.
-4. [ ] **SU4 (Opus) Shorter strengths screen on phones** (= U5, all steps there).
+4. [x] **SU4 (Opus) Shorter strengths screen on phones** (= U5, all steps there).
    Where: `studia/app.js` (strengths proof block, search `data-where=` and `class="ownproof"`), `studia/style.css` or `v11.css` for the summary line.
    Opus because it changes how the screen is built and must keep the "own sentence" path (`ownproof`) and the step check
    (line with `Zaznacz, gdzie to widać`) working. Summary line: `Języki · w szkole  [zmień]`, own sentences cut to about 40 characters
@@ -582,11 +586,22 @@ URK check) wait for the next Data turn (v2.3). Do them in this order; one commit
    Done when: with 5 strengths all answered, the screen at 375 px is at most about two phone screens tall (measure with Playwright,
    page height ≤ 2 × 812 px, write the number in the commit message); `[zmień]` works; the next step still unlocks only when all
    5 have a proof; works in three looks; three tests pass.
-5. [ ] **SR2.1 (Opus) Review and release v2.1.0.** Review the Sonnet commits (no new network calls, no typing needed on the four
+5. [x] **SR2.1 (Opus) Review and release v2.1.0.** Review the Sonnet commits (no new network calls, no typing needed on the four
    screens, old saved files still load, export unchanged in shape). Click through the whole Studia flow at 375 and 1280 px in three looks
    (`?skin=neon`, `?skin=pop`, none) with a test person (`?test`). Set `2.1.0` in the four places (search `2.0.0` in `kompas/studia`;
    `dataVersion` changes only if data changed: SU2 edits `questions.json`, so set it to the release date). Tick U1, U2, U4, U5 in Part 2,
    mark v2.1 "pushed" in the table above, add a short "Kompas Studia v2.1.0" section to the spec doc, `git pull --rebase`, push.
+
+**Done in 2.1.0 (20 Nov 2026).** One release commit (the four tasks touch the same click handler).
+- SU1: number field replaced by chips 10/20/30/45/60/90 min; `startMin` stays a number and is never cleared by a second tap.
+  An old file with another number (e.g. 25) keeps it, lights no chip and shows "Z twojego pliku: 25 min".
+- SU2: 6 `ideas` per reflection question in `questions.json`; a tap fills an empty field or one holding only an idea, otherwise adds
+  after `, ` (a last `.` or `,` of his text gives way to the separator). Tap again takes the idea out. New check in `tests/syntax.mjs`.
+- SU3: 10 sport chips; `A.sport` is still one text (chips first, then his own words). Parts that are not chips go to the optional field.
+- SU4: answered strengths are one line (`Języki · w szkole  [zmień]`, own sentences cut at 40 characters). Persona A at 375 px:
+  page height 1491 px (calm), 1484 (neon), 1606 (pop), all ≤ 1624.
+- Review: three tests pass; click-through at 375 and 1280 px in three looks, nothing wider than the screen, no JS errors.
+  The only console error is GoatCounter being blocked in the test sandbox (accepted exception, not new).
 
 **Not in v2.1 (next UI/UX turn):** U3 ("Mogę to zrobić, bo…" chips, two places), U7 (tone read of all texts).
 **Next Data turn (v2.3):** the three v2.0 leftovers above.

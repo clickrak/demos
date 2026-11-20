@@ -543,6 +543,13 @@ body { -webkit-font-smoothing: antialiased; }
 /* Strengths: tap where it shows; typing is optional. */
 .strength .field { margin: 0 0 6px; font-weight: 600; }
 .ownproof { margin-top: 6px; }
+.strength.done { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.strength.done .sline { margin: 0; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.strength.done .btn { flex: none; }
+.card.slist > .strength:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+.strength.done .sline span { color: var(--muted); }
+.strength.done .btn { padding: 6px 14px; min-height: 40px; }
+.chips.ideas { margin: 4px 0 6px; }
 .ownproof summary { cursor: pointer; font-size: .85rem; color: var(--muted); padding: 6px 0; min-height: 32px; width: fit-content; }
 .ownproof summary:hover { color: var(--accent); }
 .ownproof input { margin-top: 4px; }

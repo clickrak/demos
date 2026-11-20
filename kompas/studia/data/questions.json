@@ -295,15 +295,39 @@
  "reflection": [
   {
    "id": "f1",
-   "text": "Kiedy ostatnio straciłeś poczucie czasu? Co wtedy robiłeś?"
+   "text": "Kiedy ostatnio straciłeś poczucie czasu? Co wtedy robiłeś?",
+   "ideas": [
+    "grając",
+    "przy muzyce",
+    "w sporcie",
+    "rysując albo tworząc",
+    "ucząc się czegoś nowego",
+    "pomagając komuś"
+   ]
   },
   {
    "id": "f2",
-   "text": "Czego na pewno nie chcesz robić za 10 lat?"
+   "text": "Czego na pewno nie chcesz robić za 10 lat?",
+   "ideas": [
+    "siedzieć cały dzień przy biurku",
+    "robić ciągle to samo",
+    "pracować sam",
+    "pracować w hałasie i tłumie",
+    "pracować w nocy",
+    "ciągle się spieszyć"
+   ]
   },
   {
    "id": "f3",
-   "text": "Za co chwalą cię inni, nawet jeśli tobie to przychodzi łatwo?"
+   "text": "Za co chwalą cię inni, nawet jeśli tobie to przychodzi łatwo?",
+   "ideas": [
+    "za pomoc innym",
+    "za tłumaczenie trudnych rzeczy",
+    "za spokój",
+    "za poczucie humoru",
+    "za naprawianie rzeczy",
+    "za dobrą organizację"
+   ]
   }
  ],
  "situations": [
