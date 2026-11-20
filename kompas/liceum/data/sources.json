@@ -741,5 +741,19 @@
   "title": "IV LO Tychy, progi 2026 (licea-progi.pl, strona prywatna, do potwierdzenia)",
   "asOf": "2026-11",
   "status": "check"
+ },
+ {
+  "id": "otou-lo17",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-publiczne-i-prywatne-w-Krakowie-wyszukiwarka/302/XVII-LO-im-Mlodej-Polski",
+  "title": "XVII LO Młodej Polski, adres, klasy i progi (otouczelnie; progi zgodne z zakresem 2026/27)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-lo25",
+  "url": "https://www.otouczelnie.pl/artykul/208/Licea-w-Krakowie/3045/XXV-LO",
+  "title": "XXV LO, adres, klasy i progi (otouczelnie; progi zgodne z zakresem 2026/27)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

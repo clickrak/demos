@@ -412,7 +412,7 @@
    "town": "Kraków",
    "type": "liceum",
    "kind": "pub",
-   "kompasId": null,
+   "kompasId": "lo17",
    "perspektywy": null,
    "otouczelnie": {
     "rank": 25,
@@ -867,7 +867,7 @@
    "town": "Kraków",
    "type": "liceum",
    "kind": "pub",
-   "kompasId": null,
+   "kompasId": "lo25",
    "perspektywy": null,
    "otouczelnie": {
     "rank": 64,

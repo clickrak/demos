@@ -6514,5 +6514,234 @@
    "q": "Szablowskiego 1, Kraków"
   },
   "geoChecked": true
+ },
+ {
+  "id": "lo17",
+  "name": "XVII Liceum Ogólnokształcące im. Młodej Polski",
+  "short": "XVII LO Młodej Polski",
+  "type": "liceum",
+  "town": "krakow",
+  "address": "ul. Złoty Róg 30, 30-095 Kraków",
+  "addressSourceId": "otou-lo17",
+  "range": {
+   "min": 123.25,
+   "max": 156.55,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026"
+  },
+  "classes": [
+   {
+    "code": "0",
+    "label": "wstępna do dwujęzycznej z francuskim (biol-geo)",
+    "extended": [
+     "biologia",
+     "geografia"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko",
+     "jezyki"
+    ],
+    "threshold": 123.25,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo17",
+    "status": "check",
+    "bilingual": {
+     "lang": "francuski",
+     "kind": "wstępna",
+     "sourceId": "otou-lo17"
+    }
+   },
+   {
+    "code": "1A",
+    "label": "biol-geo",
+    "extended": [
+     "biologia",
+     "geografia"
+    ],
+    "cards": [
+     "biologia",
+     "srodowisko"
+    ],
+    "threshold": 156.55,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo17",
+    "status": "check"
+   },
+   {
+    "code": "1B",
+    "label": "ang-franc-WOS",
+    "extended": [
+     "angielski",
+     "j. francuski",
+     "wos"
+    ],
+    "cards": [
+     "jezyki",
+     "spoleczenstwo"
+    ],
+    "threshold": 139.3,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo17",
+    "status": "check"
+   },
+   {
+    "code": "1C",
+    "label": "ang-mat-WOS",
+    "extended": [
+     "angielski",
+     "matematyka",
+     "wos"
+    ],
+    "cards": [
+     "jezyki",
+     "biznes",
+     "spoleczenstwo"
+    ],
+    "threshold": 138.0,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo17",
+    "status": "check"
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-21"
+ },
+ {
+  "id": "lo25",
+  "name": "XXV Liceum Ogólnokształcące",
+  "short": "XXV LO",
+  "type": "liceum",
+  "town": "krakow",
+  "address": "ul. Telimeny 9, 30-838 Kraków",
+  "addressSourceId": "otou-lo25",
+  "range": {
+   "min": 62.4,
+   "max": 110.35,
+   "year": "2026/27",
+   "sourceId": "otou-progi-licea-2026",
+   "note": "otouczelnie podaje 0,00 jako najniższy próg (klasa 1C bez progu); najniższy prawdziwy próg klasy: 62,4"
+  },
+  "classes": [
+   {
+    "code": "1A",
+    "label": "mundurowa, bezpieczeństwo publiczne (ang-WOS)",
+    "extended": [
+     "angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": 73.95,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo25",
+    "status": "sourced"
+   },
+   {
+    "code": "1B",
+    "label": "mundurowa, wojskowa (ang-WOS)",
+    "extended": [
+     "angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": 79.65,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo25",
+    "status": "sourced"
+   },
+   {
+    "code": "1C",
+    "label": "mundurowa, wojskowa (pol-ang)",
+    "extended": [
+     "polski",
+     "angielski"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo25",
+    "status": "sourced"
+   },
+   {
+    "code": "1D",
+    "label": "przygotowania wojskowego (ang-geo)",
+    "extended": [
+     "angielski",
+     "geografia"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": 110.35,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo25",
+    "status": "sourced"
+   },
+   {
+    "code": "1E",
+    "label": "mundurowa, bezpieczeństwo publiczne (ang-WOS)",
+    "extended": [
+     "angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": 74.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo25",
+    "status": "sourced"
+   },
+   {
+    "code": "1F",
+    "label": "mundurowa, bezpieczeństwo publiczne (ang-WOS)",
+    "extended": [
+     "angielski",
+     "wos"
+    ],
+    "cards": [
+     "spoleczenstwo",
+     "sport"
+    ],
+    "threshold": 62.4,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-lo25",
+    "status": "sourced"
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-21"
  }
 ]
