@@ -86,8 +86,8 @@ Sonnet agents' WebFetch calls were refused (and the shell cannot reach otouczeln
 - L1-9 rest: VIII LO, II LO, IV LO, XLII LO, XI LO, IX LO, XX LO (search hints: viii-lo.krakow.pl, sobieski.krakow.pl; not opened).
 - To confirm: XVII LO class codes and which class is bilingual; full names (XXV LO may be "im. Stefana Żeromskiego", not opened);
   `www` for lo17, lo25 (hints liceum.zso7.pl, xxvlo.pl) and ty-t6; ty-t6 full name on an official page.
-- After the push the "Geocode schools" Action should fill the three map points. If a flag is still there on 21 Dec 2026, the
-  tests fail on purpose (stuck school).
+- Map points: done. The "Geocode schools" Action run after the push (commit 25aaa93) set and checked the three points, added
+  Kraków travel times for lo17 and lo25 and removed all three flags; tests green, 0 waiting schools. All three are now live.
 
 **Not tonight.** G3 (I LO Gliwice, Akademickie LO Pol. Śl., Technikum nr 17 Katowice, Technikum nr 8 Sosnowiec) moves to v2.10
 with the new GZM towns, now that P9 lets schools wait for a point. Tychy: confirm the 16 licea-progi.pl thresholds and IV LO 1MS
@@ -105,11 +105,11 @@ Tychy and other GZM towns from `gzm/ranking.json`), including private, sports an
 
 | Area | Schools in DB / known | Waiting for map point | Public missing | Missing `www` | Classes "check" | No threshold | No `scored` | No `extended` | Old sources (> 12 months) |
 |---|---|---|---|---|---|---|---|---|---|
-| Kraków | 50 / 90 | 2 (lo17, lo25) | 11 (technika) | 39 | 143 of 242 | 38 | 92 | 2 | 0 |
-| Tychy | 10 / 13 | 1 (ty-t6) | 0 | 1 | 42 of 42 | 26 (16 others from licea-progi.pl, to confirm) | 33 | 6 | 1 (`ty-informator-2025`, 18 months; no 2026/27 edition found) |
+| Kraków | 50 / 90 | 0 (lo17, lo25 live since 21 Nov) | 11 (technika) | 39 | 143 of 242 | 38 | 92 | 2 | 0 |
+| Tychy | 10 / 13 | 0 (ty-t6 live since 21 Nov) | 0 | 1 | 42 of 42 | 26 (16 others from licea-progi.pl, to confirm) | 33 | 6 | 1 (`ty-informator-2025`, 18 months; no 2026/27 edition found) |
 | GZM other towns | 5 / 197 | 0 | 158 | 0 | 36 of 36 | 13 | 27 | 1 | 0 |
 
-All live schools have an address, a map point and `geoChecked`. K1 so far: 18 of 50 Kraków schools checked; ranking links
+All schools have an address, a map point and `geoChecked`. K1 so far: 18 of 50 Kraków schools checked; ranking links
 46 of 50 Kraków and 15 GZM. Studia sources older than a year (`uj-kampus`, `gus-2020`, `gus-2024`) belong to Part 3.
 
 ## Minor v2.8 (planned 2026-11-19, released 2026-11-19 as 2.8.0)
