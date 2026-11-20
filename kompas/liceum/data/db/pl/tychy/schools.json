@@ -962,5 +962,54 @@
    "q": "al. Marszałka Piłsudskiego 10, Tychy"
   },
   "geoChecked": true
+ },
+ {
+  "id": "ty-t6",
+  "name": "Technikum nr 6 w Zespole Szkół nr 7 w Tychach",
+  "short": "Technikum nr 6",
+  "type": "technikum",
+  "town": "tychy",
+  "address": "ul. Browarowa 1A, 43-100 Tychy",
+  "addressSourceId": "we-ty-t6",
+  "classes": [
+   {
+    "code": "1T",
+    "label": "technik hotelarstwa",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "biznes",
+     "jezyki"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t6",
+    "status": "check",
+    "occupation": "technik hotelarstwa"
+   },
+   {
+    "code": "1Ż",
+    "label": "technik żywienia i usług gastronomicznych",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "biologia",
+     "ludzie"
+    ],
+    "threshold": null,
+    "thresholdYear": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "we-ty-t6",
+    "status": "check",
+    "occupation": "technik żywienia i usług gastronomicznych"
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-21"
  }
 ]
