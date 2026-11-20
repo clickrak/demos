@@ -6614,8 +6614,12 @@
     "status": "check"
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-21"
+  "geo": {
+   "lat": 50.08139,
+   "lon": 19.89516,
+   "q": "Złoty Róg 30, Kraków"
+  },
+  "geoChecked": true
  },
  {
   "id": "lo25",
@@ -6743,7 +6747,11 @@
     "status": "sourced"
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-21"
+  "geo": {
+   "lat": 50.01974,
+   "lon": 20.01614,
+   "q": "Telimeny 9, Kraków"
+  },
+  "geoChecked": true
  }
 ]

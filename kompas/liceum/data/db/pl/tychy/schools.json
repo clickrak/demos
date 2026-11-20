@@ -1009,7 +1009,11 @@
     "occupation": "technik żywienia i usług gastronomicznych"
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-21"
+  "geo": {
+   "lat": 50.13627,
+   "lon": 18.96147,
+   "q": "Browarowa 1A, Tychy"
+  },
+  "geoChecked": true
  }
 ]
