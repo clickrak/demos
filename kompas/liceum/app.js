@@ -1,4 +1,4 @@
-// Kompas Liceum v2.8.1. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
+// Kompas Liceum v2.9.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
@@ -687,7 +687,7 @@ function vSchools() {
     ${shown.length ? `<div class="scards">${shown.map(card).join('')}</div>` : `<div class="empty">${LILLUS.pusto}<p>Nic nie pasuje. Tej szkoły może nie być w bazie: Kompas nie ma jeszcze klas sportowych i szkół prywatnych. <button class="linkbtn" data-fclear>Wyczyść filtry</button></p></div>`}
     ${shown.length ? mapBlock(entries, 'Szkoły z listy powyżej.') : ''}
     <p class="small"><button class="linkbtn" data-go="zrodla">Wszystkie źródła danych</button></p>
-    <p class="note2">Klas sportowych prawie nie ma (mają test sprawności); jedyna to IV LO Tychy 1MS, dopisana do sprawdzenia. Pomijamy też XVII LO (klasy z francuskim: ze źródeł nie wynika, która klasa pierwsza jest dwujęzyczna, do sprawdzenia), XXV LO, szkoły sportowe, prywatne i technika bez kierunków z Kompasu (np. gastronomia).${region().note ? ' ' + esc(region().note) : ''}</p>`;
+    <p class="note2">Klas sportowych prawie nie ma (mają test sprawności); jedyna to IV LO Tychy 1MS, dopisana do sprawdzenia. Pomijamy też szkoły sportowe, prywatne i technika bez kierunków z Kompasu (w Krakowie np. gastronomia). Nowe szkoły pokazujemy dopiero wtedy, gdy sprawdzimy ich miejsce na mapie.${region().note ? ' ' + esc(region().note) : ''}</p>`;
 }
 
 // ---- map (Leaflet from vendor/, OpenStreetMap tiles; loaded only when a map is on screen) ------------------------------------------------
