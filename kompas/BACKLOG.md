@@ -1015,6 +1015,11 @@ and broader scope". Built the same afternoon. 14:00 bug report (phone screenshot
 4. [x] **SB1 Fix road view**: the curve from the area to the trunk now ends above the caption; caption moved right of the trunk.
 5. [x] **SR2.5 Review**: three tests pass; 375 and 1280 px in three looks on 7 question screens; old 2.4 file loads with the notice.
 
+**2.5.1 (21 Nov 14:15, Szymon: "na świecie musi bardziej być oczywiste, że można kliknąć i zobaczyć, gdzie rośnie praca").**
+On "Świat za 10 lat": each force has the line "Tu rośnie praca. Dotknij, żeby zobaczyć:" above real buttons (border, ›);
+each sector has a "Zobacz ›" button, one soft pulse on the first one until something is opened; a tap opens the sector in place
+with its areas (icon, who you help, why needed) and scrolls to it; "Zwiń" closes it. 375 and 1280 px in three looks.
+
 **Note:** the new tap cards widen the profile, but cards for law, arts, food, animals, history (proposal 1–9) still wait for
 Szymon's pick, so for now these interests lead to the nearest existing cards.
 **Next by rotation:** v2.6 = Data (item 5 UJ thresholds, item 6 GUS 2024 pay, and the cards Szymon picks).

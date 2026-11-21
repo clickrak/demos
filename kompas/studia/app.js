@@ -1,4 +1,4 @@
-// Kompas Studia v2.5.0. Screens, navigation, results, export.
+// Kompas Studia v2.5.1. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -435,15 +435,20 @@ function vForces() {
     <div class="forces">${data.scenarios.forces.map((f, i) => { const s = src(f.sourceId), hot = sectorSel && f.sectors.includes(sectorSel);
       return `<div class="force rise${hot ? ' hot' : ''}${sectorSel && !hot ? ' dim' : ''}" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3><p class="small">${esc(f.text)}</p>
         ${f.line && f.line !== f.text ? `<p class="small fline">${esc(f.line)}</p>` : ''}
-        <div class="tags" aria-label="Gdzie rośnie praca">${f.sectors.map(id => { const x = sec(id); return `<button class="tag-s sbtn-s${sectorSel === id ? ' on' : ''}" data-sector="${id}" aria-pressed="${sectorSel === id}">→ ${esc(x.name)}</button>`; }).join('')}</div>
+        <p class="tags-l">${icon('route', 'ico sm')} Tu rośnie praca. <b>Dotknij</b>, żeby zobaczyć:</p>
+        <div class="tags" aria-label="Gdzie rośnie praca">${f.sectors.map(id => { const x = sec(id); return `<button class="tag-s sbtn-s${sectorSel === id ? ' on' : ''}" data-sector="${id}" data-from="force" aria-pressed="${sectorSel === id}" aria-controls="sec-${id}">${esc(x.name)} <span class="chev" aria-hidden="true">›</span></button>`; }).join('')}</div>
         <p class="small muted">${s ? `<a href="${s.url}" target="_blank" rel="noopener">źródło</a>, ` : ''}stan na ${esc(f.asOf)}</p></div></div>`; }).join('')}</div>
     <h2>Gdzie rośnie praca</h2>
-    <p class="small muted">Każdy sektor rośnie z powodu jednej lub kilku sił powyżej. Dotknij sektora, żeby zobaczyć, skąd się bierze.</p>
+    <p class="small">${icon('route', 'ico sm')} <b>Dotknij sektora</b>: zobaczysz, jakie konkretne prace w nim rosną i dlaczego.</p>
     <div class="sectors">${data.scenarios.sectors.map((x, i) => { const why = data.scenarios.forces.filter(f => f.sectors.includes(x.id));
-      const cards = x.cards.map(id => data.opportunities.find(c => c.id === id)).filter(Boolean);
-      return `<button class="sector rise${sectorSel === x.id ? ' on' : ''}${sectorSel && sectorSel !== x.id ? ' dim' : ''}" style="--i:${i}" data-sector="${x.id}" aria-pressed="${sectorSel === x.id}">
-        <b>${esc(x.name)}</b><span class="small">Dlaczego rośnie: ${why.map(f => esc(f.name.toLowerCase())).join(', ')}</span>
-        <span class="small muted">Na przykład: ${cards.slice(0, 4).map(c => esc(c.name)).join(', ')}</span></button>`; }).join('')}</div>
+      const cards = x.cards.map(id => data.opportunities.find(c => c.id === id)).filter(Boolean), on = sectorSel === x.id;
+      return `<div class="sectorw${on ? ' on' : ''}" id="sec-${x.id}"><button class="sector rise${on ? ' on' : ''}${sectorSel && !on ? ' dim' : ''}" style="--i:${i}" data-sector="${x.id}" aria-expanded="${on}">
+        <span class="sec-h"><b>${esc(x.name)}</b><span class="sec-go">${on ? 'Zwiń' : 'Zobacz'} <span class="chev" aria-hidden="true">${on ? '⌃' : '›'}</span></span></span>
+        <span class="small">Dlaczego rośnie: ${why.map(f => esc(f.name.toLowerCase())).join(', ')}</span>
+        ${on ? '' : `<span class="small muted">${cards.length} ${cards.length === 1 ? 'obszar' : cards.length < 5 ? 'obszary' : 'obszarów'}: ${cards.slice(0, 3).map(c => esc(c.name)).join(', ')}${cards.length > 3 ? '…' : ''}</span>`}</button>
+        ${on ? `<div class="sec-more rise">${cards.map((c, k) => `<div class="area" style="--i:${k}"><span class="area-ico">${icon(c.cluster)}</span><div><h3>${esc(c.name)}</h3><p class="small">${esc(c.whoYouHelp)}</p>
+          <p class="small muted">${esc(c.whyNeeded)}</p></div></div>`).join('')}
+          <p class="small muted">Czy któryś z nich pasuje do ciebie, pokaże kompas na końcu.</p></div>` : ''}</div>`; }).join('')}</div>
     ${(() => { const inSector = new Set(data.scenarios.sectors.flatMap(x => x.cards)), rest = data.opportunities.filter(c => !inSector.has(c.id));
       return rest.length ? `<p class="small">Nie wszystko mieści się w sześciu sektorach. Te obszary też rosną dzięki tym samym siłom, tylko w wielu branżach naraz: ${rest.map(c => `<b>${esc(c.name)}</b>`).join(' · ')}.</p>` : ''; })()}
     <p class="small muted">${esc(data.scenarios.shrinking)}</p>
@@ -1389,7 +1394,9 @@ document.addEventListener('click', e => {
   if (d.term !== undefined) { const open = t.getAttribute('aria-expanded') !== 'true'; t.setAttribute('aria-expanded', String(open)); t.nextElementSibling.hidden = !open; return; }
   if (d.go) { location.hash = '#/' + d.go; return; }
   if (d.scroll) { document.getElementById(d.scroll)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); return; }
-  if (d.sector !== undefined) { sectorSel = sectorSel === d.sector ? null : d.sector; render(); return; }
+  if (d.sector !== undefined) { sectorSel = sectorSel === d.sector ? null : d.sector; render();
+    if (sectorSel) setTimeout(() => document.getElementById('sec-' + sectorSel)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: d.from === 'force' ? 'start' : 'nearest' }), 30);
+    return; }
   if (d.area !== undefined) { areaFilter = d.area || null; render(); return; }
   if (d.pick !== undefined) { pickDirection(d.pick, Number(t.dataset.ang)); return; }
   if (d.goopt) { kierSel = d.goopt; location.hash = '#/w-kierunki'; return; }
