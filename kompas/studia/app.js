@@ -1,9 +1,10 @@
-// Kompas Studia v2.4.0. Screens, navigation, results, export.
+// Kompas Studia v2.5.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
 import { ILLUS } from './illus.js';
+import { actPicto, sitPicto } from './pictos.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
@@ -119,7 +120,7 @@ const screens = [
 ];
 // Short name and rough minutes per question screen: the side rail and the "time left" line use them.
 const META = {
-  pewnosc: ['Pewność', .5], matura: ['Matura', .5], jezyki: ['Języki i sport', 1], zajecia: ['Co lubisz robić', 3], sytuacje: ['Co robisz, gdy…', 1.5],
+  pewnosc: ['Pewność', .5], matura: ['Matura', .5], jezyki: ['Języki i sport', 1], zajecia: ['Co lubisz robić', 4], sytuacje: ['Co robisz, gdy…', 2],
   styl: ['Styl pracy', 1.5], wartosci: ['Co jest ważne', 1], mocne: ['Mocne strony', 4], odbicie: ['To już widać', .5],
   sily: ['Świat za 10 lat', 2], karty: ['Gdzie możesz się przydać', 1.5],
   dlugosc: ['Ile nauki', 1], zasieg: ['Gdzie', .5], niepokoj: ['Co cię niepokoi', 1], refleksja: ['Chwila dla siebie', 2]
@@ -314,7 +315,7 @@ function vSort() {
   }
   const a = acts[pos];
   return `${A.sortPos === 0 ? ILLUS.zajecia : ''}<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
-    <div class="card sort"><p class="sortcount">${pos + 1} z ${n}</p><div class="q">${esc(a.text)}</div>
+    <div class="card sort"><p class="sortcount">${pos + 1} z ${n}</p>${actPicto(a)}<div class="q">${esc(a.text)}</div>
       <div class="row">
         <button class="btn ghost" data-sortans="-1">nie lubię</button>
         <button class="btn" data-sortans="1">lubię</button>
@@ -335,7 +336,7 @@ function vSituations() {
   }
   const q = qs[pos];
   return `${A.sitPos === 0 ? ILLUS.sytuacje : ''}<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
-    <div class="card"><p class="sortcount">${pos + 1} z ${n}</p><p class="q-s">${esc(q.text)}</p>
+    <div class="card"><p class="sortcount">${pos + 1} z ${n}</p>${sitPicto(q)}<p class="q-s">${esc(q.text)}</p>
       <div class="chips stack">${q.answers.map(a => chip(`data-sitans="${a.id}"`, esc(a.text), A.situations[q.id] === a.id)).join('')}</div>
       <div class="row-s"><button class="chip" data-sitans="">pomiń</button>${pos > 0 ? '<button class="chip" data-sitback>cofnij</button>' : ''}</div>
     </div>${dots}`;
@@ -355,13 +356,13 @@ document.addEventListener('pointerup', e => { if (!swipe) return; const dx = e.c
 document.addEventListener('pointercancel', () => { if (swipe) { swipe.c.style.transform = ''; swipe = null; } });
 
 function vStyle() {
-  return `<h1>Jak lubisz pracować?</h1><p class="muted">Przesuń w stronę, która bardziej do ciebie pasuje. Środek też jest w porządku.</p>
+  return `${ILLUS.styl}<h1>Jak lubisz pracować?</h1><p class="muted">Przesuń w stronę, która bardziej do ciebie pasuje. Środek też jest w porządku.</p>
     ${data.dimensions.workStyle.map(w => `<div class="slider"><div class="ends"><span>${w.left}</span><span>${w.right}</span></div>
       <input type="range" min="-3" max="3" step="1" id="sl-${w.id}" data-slider="${w.id}" value="${A.sliders[w.id] ?? 0}" aria-label="${w.left} albo ${w.right}"></div>`).join('')}`;
 }
 
 function vValues() {
-  return `<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz pięć, w kolejności: najpierw najważniejsze. <span class="pickn">${A.values.length} z 5</span></p>
+  return `${ILLUS.wartosci}<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz pięć, w kolejności: najpierw najważniejsze. <span class="pickn">${A.values.length} z 5</span></p>
     <div class="chips">${data.dimensions.values.map(v => { const i = A.values.indexOf(v.id);
       return chip(`data-value="${v.id}"`, `${i >= 0 ? `<span class="n">${i + 1}.</span> ` : ''}${v.name}`, i >= 0); }).join('')}</div>`;
 }
@@ -524,7 +525,7 @@ function vReach() {
 
 const START_MIN = [10, 20, 30, 45, 60, 90];
 function vLength() {
-  return `<h1>Ile chcesz się uczyć?</h1>
+  return `${ILLUS.dlugosc}<h1>Ile chcesz się uczyć?</h1>
     <div class="chips stack">${data.questions.studyLength.map(o => chip(`data-set="studyLength" data-val="${o.id}"`, o.label, A.studyLength === o.id)).join('')}</div>
     <p class="explain">Krótka droga, np. szkoła policealna (1–2,5 roku, bezpłatna, bez matury) albo 3-letni licencjat, to pełnoprawna opcja. Zostawia otwarte dalsze studia.</p>
     <p>Czy bierzesz pod uwagę uczelnie prywatne? Są płatne.</p>
@@ -537,7 +538,7 @@ function vLength() {
 
 function vDoubt() {
   const d = data.questions.doubts.find(x => x.id === A.doubt);
-  return `<h1>Co cię najbardziej niepokoi w tym wyborze?</h1><p class="muted">Opcjonalnie. Możesz to pominąć.</p>
+  return `${ILLUS.niepokoj}<h1>Co cię najbardziej niepokoi w tym wyborze?</h1><p class="muted">Opcjonalnie. Możesz to pominąć.</p>
     <div class="chips stack">${data.questions.doubts.map(x => chip(`data-set="doubt" data-val="${x.id}"`, x.label, A.doubt === x.id)).join('')}</div>
     ${d ? `<div class="card fade"><p>${d.card}</p></div>
       <p>Jak mocno to cię męczy?</p><div class="chips">${chip('data-strong="0"', 'trochę', !A.doubtStrong)}${chip('data-strong="1"', 'bardzo', A.doubtStrong)}</div>` : ''}`;
@@ -579,7 +580,7 @@ function tapIdea(qid, idea) {
   save(); render();
 }
 function vReflection() {
-  return `<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
+  return `${ILLUS.refleksja}<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
     ${data.questions.reflection.map(q => { const parts = splitList(A.reflection[q.id]);
       return `<label class="field" for="rf-${q.id}">${q.text}</label>
       ${q.ideas?.length ? `<div class="chips ideas" role="group" aria-label="Pomysły na odpowiedź">${q.ideas.map(v => chip(`data-idea="${q.id}" data-val="${esc(v)}"`, esc(v), parts.includes(v))).join('')}</div>` : ''}
@@ -968,7 +969,7 @@ function vRoadSvg(o) {
     return { placed, h: out.length * rh }; };
   const top = rows(roots, 48);
   const yS = 48 + top.h + 44, label = wrap(o.quick ? 'Szybki start' : c.card.name, 26);
-  const yStud0 = yS + 72 + label.length * 17;
+  const yStud0 = yS + 100 + label.length * 17; // room for the curve to reach the trunk above the caption (2.5 fix)
   const SH = 50, studY = studies.map((_, i) => yStud0 + i * (SH + 10));
   const yJobs = yStud0 + studies.length * (SH + 10) + 44;
   const jb = rows(jobs, yJobs + 22);
@@ -980,9 +981,10 @@ function vRoadSvg(o) {
   top.placed.forEach(p => { g += `<g class="vpill"><rect x="${p.x}" y="${p.y - 15}" width="${p.w}" height="30" rx="15"/><text x="${p.x + p.w / 2}" y="${p.y + 5}" text-anchor="middle">${esc(p.t)}</text></g>`; });
   g += `<g class="vstation" style="--d:.5s"><circle cx="${W / 2}" cy="${yS}" r="18" fill="${col}"/><text x="${W / 2}" y="${yS + 6}" text-anchor="middle" class="vno">${o.no}</text>
     <text text-anchor="middle" class="vname" style="fill:${col}">${tspans(label, W / 2, yS + 36 + (label.length - 1) * 8.5, 17)}</text></g>`;
-  g += `<text x="12" y="${yStud0 - 16}" class="vcap">GDZIE SIĘ UCZYĆ W KRAKOWIE</text>`;
-  const trunkX = 30;
-  g += `<path class="vl" style="--d:.7s" pathLength="1" d="M${W / 2},${yS + 32 + label.length * 17} C${W / 2},${yStud0 - 20} ${trunkX},${yStud0 - 40} ${trunkX},${studY[0] || yStud0} L${trunkX},${yJobs - 10}" stroke="${col}"/>`;
+  const trunkX = 30, yName = yS + 30 + label.length * 17, yTurn = yStud0 - 34;
+  // The curve reaches the trunk above the caption, and the caption sits right of the trunk, so the line never crosses text.
+  g += `<path class="vl" style="--d:.7s" pathLength="1" d="M${W / 2},${yName} C${W / 2},${yTurn - 6} ${trunkX},${yName + 4} ${trunkX},${yTurn} L${trunkX},${yJobs - 10}" stroke="${col}"/>`;
+  g += `<text x="${trunkX + 18}" y="${yStud0 - 12}" class="vcap">GDZIE SIĘ UCZYĆ W KRAKOWIE</text>`;
   studies.forEach((st, i) => { const y = studY[i], ok = st.check.reachable, warn = !ok || st.check.soft;
     g += `<g class="vstudy" style="--d:${(0.9 + i * 0.15).toFixed(2)}s" data-study="${esc(st.offer.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${esc(st.offer.name)}, ${esc(st.offer.institution)}: pokaż szczegóły"><path d="M${trunkX},${y + SH / 2} H${trunkX + 20}" stroke="${col}" class="vtick"/><circle cx="${trunkX}" cy="${y + SH / 2}" r="6" fill="var(--card)" stroke="${col}" stroke-width="3"/>
       <rect x="${trunkX + 20}" y="${y}" width="${W - trunkX - 32}" height="${SH}" rx="12" class="${warn ? 'warnbox' : ''}"/>
@@ -1465,8 +1467,10 @@ function loadFile(text) {
   a.sortPos = Object.keys(a.sort).length >= data.questions.activities.length ? data.questions.activities.length : Object.keys(a.sort).length;
   // Cards added in a later version (e.g. a24 in 2.4): the file has answers for all older cards, so "Co lubisz robić" asks only the new ones.
   const newActs = data.questions.activities.filter(x => !(x.id in a.sort)).length;
-  const newNote = newActs && newActs <= 3 && Object.keys(a.sort).length >= data.questions.activities.length - newActs
-    ? ` W „Co lubisz robić” ${newActs === 1 ? 'doszła 1 nowa karta' : `doszły ${newActs} nowe karty`}: możesz ją dodać, kiedy chcesz.` : '';
+  const newSits = (data.questions.situations || []).filter(x => !(x.id in (a.situations || {}))).length;
+  const plural = (n, one, few, many) => n === 1 ? one : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? few : many;
+  const oldFile = Object.keys(a.sort).length >= 20; // a finished file from an older version, not a half-done one
+  const newNote = oldFile && (newActs || newSits) ? ` Od twojej wersji ${[newActs && `${newActs} ${plural(newActs, 'nowa karta', 'nowe karty', 'nowych kart')} w „Co lubisz robić”`, newSits && `${newSits} ${plural(newSits, 'nowa sytuacja', 'nowe sytuacje', 'nowych sytuacji')} w „Co robisz, gdy…”`].filter(Boolean).join(' i ')}: możesz je dodać, kiedy chcesz.` : '';
   a.sitPos = Object.keys(a.situations).length;
   A = a;
   prevFile = { date: obj.date, snapshot: snap, missing };

@@ -195,3 +195,13 @@ main:has(.gate) { max-width: 720px; }
 @media (max-width: 759px) { .cmp-table { display: none; } .cmp-cards { display: flex; } .cmp-hint { display: block; } }
 @media print { .cmp-cards, .cmp-hint, .cmp .chips { display: none !important; } .cmp-table { display: block !important; } }
 .cmp .chip[aria-pressed="true"] .muted { color: inherit; opacity: .85; }
+
+/* v2.5: pictograms on activity and situation cards */
+.picto-w { display: block; width: 64px; height: 64px; margin: 4px auto 8px; color: var(--pc, var(--accent)); }
+.picto-w.sit { width: 52px; height: 52px; margin: 0 0 6px; color: var(--l2); }
+.picto { width: 100%; height: 100%; display: block; }
+.card.sort .picto-w { animation: pictoin .35s ease-out; }
+@keyframes pictoin { from { opacity: 0; transform: translateY(4px) scale(.94); } }
+@media (prefers-reduced-motion: reduce) { .card.sort .picto-w { animation: none; } }
+html[data-skin="neon"] .picto { filter: drop-shadow(0 0 4px currentColor); }
+html[data-skin="pop"] .picto { stroke-width: 2.2; }

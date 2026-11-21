@@ -244,6 +244,64 @@
     "tec": 1,
     "spo": 1
    }
+  },
+  {
+   "id": "a25",
+   "text": "Zagrać, zaśpiewać albo odegrać rolę przed publicznością.",
+   "w": {
+    "twr": 2,
+    "spo": 1
+   }
+  },
+  {
+   "id": "a26",
+   "text": "Zajmować się zwierzętami albo roślinami, codziennie i porządnie.",
+   "w": {
+    "tec": 1,
+    "spo": 1,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a27",
+   "text": "Znaleźć lukę w regulaminie albo stanąć w obronie czyjejś sprawy.",
+   "w": {
+    "ana": 1,
+    "prz": 2
+   }
+  },
+  {
+   "id": "a28",
+   "text": "Odkryć historię starego miejsca, budynku albo przedmiotu.",
+   "w": {
+    "ana": 1,
+    "twr": 1,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a29",
+   "text": "Ugotować coś dla innych i dobrać, co komu służy.",
+   "w": {
+    "spo": 1,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a30",
+   "text": "Zrobić ankietę i sprawdzić, co ludzie naprawdę myślą.",
+   "w": {
+    "ana": 1,
+    "spo": 1,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a31",
+   "text": "Rozwiązać zadanie z matematyki, którego nikt w klasie nie umie.",
+   "w": {
+    "ana": 2
+   }
   }
  ],
  "neededWhere": [
@@ -497,6 +555,81 @@
      "text": "Strona techniczna: zdjęcia, mapa, montaż.",
      "w": {
       "tec": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "e5",
+   "text": "W szkole jest debata: czy zakazać telefonów na przerwach? Jaką rolę bierzesz?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Zbieram dane i badania, żeby argumenty miały na czym stać.",
+     "w": {
+      "ana": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Wychodzę na środek i przekonuję salę.",
+     "w": {
+      "prz": 2,
+      "twr": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Słucham obu stron i szukam rozwiązania, które wszyscy przyjmą.",
+     "w": {
+      "spo": 2,
+      "sys": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Robię plakat albo krótki film, który pokazuje problem.",
+     "w": {
+      "twr": 2,
+      "tec": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "e6",
+   "text": "Klasa ma 3000 zł na wycieczkę, a organizacja spada na ciebie. Od czego zaczynasz?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Liczę koszty i porównuję oferty w tabeli.",
+     "w": {
+      "ana": 1,
+      "sys": 2
+     }
+    },
+    {
+     "id": "b",
+     "text": "Pytam wszystkich, czego chcą, i szukam kompromisu.",
+     "w": {
+      "spo": 2,
+      "prz": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Dzwonię do przewoźnika i negocjuję lepszą cenę.",
+     "w": {
+      "prz": 2
+     }
+    },
+    {
+     "id": "d",
+     "text": "Sprawdzam trasę, sprzęt i co może pójść nie tak po drodze.",
+     "w": {
+      "tec": 2,
+      "sys": 1
      }
     }
    ]

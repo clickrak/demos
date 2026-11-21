@@ -698,7 +698,7 @@ fits the focus, take the first "next week" item that does.
 | v2.2 | Functionality | Star an offer (v3.0 item 3) and the declaration helper (v3.0 item 2) | Sonnet + Opus | pushed 21 Nov 2026 as 2.2.0 (built in the afternoon, at Szymon's request) |
 | v2.3 | Data | Study directions map + card proposal (1a); digital media card and media/commerce offers (1b, part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.3.0 (afternoon, at Szymon's request) |
 | v2.4 | UI/UX | Compare 2–3 starred offers (v3.0 item 4); "Mogę to zrobić, bo…" chips (U3); a games/UX tap card (1c, agreed part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.4.0 (afternoon, at Szymon's request) |
-| v2.5 | Functionality | Points estimate for AGH offers (v3.0 item 8, first part): tap expected matura %, see estimated points next to the 2026 threshold | Opus + Sonnet | planned 21 Nov 2026 (Szymon: "plan 2.5"); to be built by the next coding run |
+| v2.5 | UI/UX + questions | Illustrations (pictograms on every activity and situation card, 5 more screen illustrations); question review for a broader range of interests (7 tap cards, 2 situations); fix: road line crossing the "Gdzie się uczyć" caption | Opus | pushed 21 Nov 2026 as 2.5.0 (Szymon replaced the points plan, 21 Nov 13:57) |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -957,7 +957,7 @@ One commit per task, then the release step. `git pull --rebase` first (Liceum ma
 
 **Not in v2.4:** sources page (item 7, next UI/UX turn), the other proposed tap cards (wait for Szymon's pick of cards 1–9).
 
-### v2.5 tasks (Functionality, planned 21 Nov 2026)
+### Points estimate (moved to later by Szymon, 21 Nov 2026; was the first v2.5 plan, kept for when it comes back)
 
 Current `appVersion` 2.4.0, pushed. Last release UI/UX, so this is **Functionality**. Items 2, 3, 4 are done; item 1 (rest)
 waits for Szymon's pick of cards 1–9; the only Functionality item left is **item 8, points estimate** (L, Opus). Too big for one
@@ -990,9 +990,32 @@ in Table 1 of the rules ([otouczelnie summary](https://www.otouczelnie.pl/uczeln
    the line; an old file without `expected` loads; 375 and 1280 px in three looks.
 3. [ ] **SF5 (Sonnet) Export and file.** Export "## Moje punkty (szacunek)": his expected % per subject and, per AGH offer, estimate vs
    2026 threshold; `A.expected` survives save and load (test).
-4. [ ] **SR2.5 (Opus) Review and release v2.5.0.** Check the formula against the source once more (one worked example in the commit
+4. [ ] **SR (Opus) Review and release.** Check the formula against the source once more (one worked example in the commit
    message); tests; click-through; version 2.5.0 in the four places; `dataVersion`; spec doc section; mark v2.5 pushed; push.
 
 **Not in v2.5:** UJ / UJ CM / UEK formulas (after their thresholds, item 5), sources page (item 7), parent summary (item 9).
 **Next by rotation:** v2.6 = Data (item 5 UJ thresholds, item 6 GUS 2024 pay, and the cards Szymon picks from 1–9).
+
+### v2.5 tasks (built 21 Nov 2026, replacing the points plan)
+
+Szymon, 21 Nov 13:57: "move counting points for later, make new 2.5 with more illustrations and question review to scope interest
+and broader scope". Built the same afternoon. 14:00 bug report (phone screenshot): on the road view the line crosses the
+"GDZIE SIĘ UCZYĆ W KRAKOWIE" caption; fixed in this release.
+
+1. [x] **SV1 Pictograms** (`studia/pictos.js`): one line picture per activity card (31) and situation (6), 24×24 like `icons.js`,
+   colour from the card's main interest. Test: every activity and situation has one (`tests/run.mjs`).
+2. [x] **SV2 Screen illustrations** (`studia/illus.js`): styl (sliders), wartości (five cards), długość (road with 3 flags),
+   niepokój (cloud and sun), refleksja (notebook). Now 11 of 16 question screens have one.
+3. [x] **SQ1 Question review, broader interests** (from the 1a proposal, the tap-card part): activities a25 stage and music,
+   a26 animals and plants, a27 rules and defending a cause, a28 history of places, a29 cooking for others, a30 surveys,
+   a31 hard maths; situations e5 school debate, e6 class trip on a budget. Weight per interest now ana 15 · tec 16 · spo 16 ·
+   twr 13 · prz 12 · sys 11 (was ana 10 · tec 15 · spo 13 · twr 12 · prz 10 · sys 8). All 6 personas still pass.
+   Old files: notice "Od twojej wersji N nowych kart … i N nowe sytuacje …", only the new ones are asked.
+   Time on the rail: "Co lubisz robić" 4 min, "Co robisz, gdy…" 2 min.
+4. [x] **SB1 Fix road view**: the curve from the area to the trunk now ends above the caption; caption moved right of the trunk.
+5. [x] **SR2.5 Review**: three tests pass; 375 and 1280 px in three looks on 7 question screens; old 2.4 file loads with the notice.
+
+**Note:** the new tap cards widen the profile, but cards for law, arts, food, animals, history (proposal 1–9) still wait for
+Szymon's pick, so for now these interests lead to the nearest existing cards.
+**Next by rotation:** v2.6 = Data (item 5 UJ thresholds, item 6 GUS 2024 pay, and the cards Szymon picks).
 

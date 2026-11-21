@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { scoreAll, subjectFit, declarationHelp, compareIds } from '../core/scoring.js';
 import { buildMarkdown, parseSaved } from '../core/export.js';
+import { PICTO_IDS } from '../studia/pictos.js';
 
 const j = p => JSON.parse(readFileSync(new URL(p, import.meta.url)));
 const data = {
@@ -102,6 +103,9 @@ const mdC = buildMarkdown(aC, scoreAll(aC, data), sc, '2026-11-21');
 const head = mdC.split('\n').find(l => l.startsWith('| | '));
 ok(mdC.includes('## Porównanie') && head && head.split('|').length - 3 === 2, 'export compare table has one column per compared offer');
 ok(JSON.stringify(parseSaved(mdC).answers.compare) === JSON.stringify(aC.compare), 'compare pick survives save and load');
+// v2.5: every activity and situation card has its pictogram.
+for (const a of data.questions.activities) ok(PICTO_IDS.act.includes(a.id), `activity ${a.id} has a pictogram`);
+for (const q of data.questions.situations) ok(PICTO_IDS.sit.includes(q.id), `situation ${q.id} has a pictogram`);
 console.log(`\ndeclaration helper: persona B best extra subject ${hB.gains[0]?.subject}, stars basis ${hS.total} offers`);
 
 process.exit(bad ? 1 : 0);
