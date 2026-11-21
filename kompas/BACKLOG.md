@@ -6,7 +6,7 @@ Three parts:
 2. **Small jobs** (D1–D8, U1–U7) left after the review of 13 Nov 2026. The roadmap points to them by id.
 3. **Kompas Studia roadmap** (started 19 Nov 2026), at the end of this file. One minor release per night, focus by rotation.
 
-The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
+The Liceum roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)"); the Studia v3.0 goals are in "Kompas Studia roadmap: v3.0 goals (weekend review, 21 Nov)".
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
@@ -638,28 +638,40 @@ Liceum has its own roadmap (Part 1); do not touch Liceum work here, but reuse sh
 ### Major goals
 
 Set by the weekend review task (it writes this list; planners keep it and plan minors toward the current goal).
-- **Current major goal (until the weekend review sets one):** v3.0. Trustworthy Kraków facts behind every result
-  (every offer, demand line and pay band with a fresh source), so Aleks can act on the results for matura 2027 choices.
+- **Current major goal (agreed with Szymon, weekend review 21 Nov 2026):** v3.0. **A wider compass and a choice before the
+  declaration.** The cards cover the whole range of what kids like (also media, digital media, commerce), and by 7 Feb 2027
+  Aleks can see which rozszerzenie opens his liked directions, star offers and compare them. Every fact still needs a fresh source.
+- Previous goal (trustworthy Kraków facts) is kept as a rule, not as the main goal: items 5–6 finish it.
 
-#### v3.0 main improvements — PROPOSAL, NOT YET AGREED (weekend review 21 Nov 2026)
+#### v3.0 main improvements (agreed 21 Nov 2026, in priority order)
 
-Szymon has not answered yet. Planners: keep planning toward the current goal above; you may pick items 1–2 (they serve it).
-Do not treat the order below as agreed until this heading says "agreed".
+**This week (from 22 Nov):**
+1. **Study directions review + media, digital media, commerce + broader interest cards** (Szymon's idea, top priority) — Data + Functionality · L · Opus + Sonnet.
+   Today 26 cards, mostly health, tech and security; "Co lubisz robić" has 23 activities, few for media, commerce, art, business.
+   - a) Opus (Data night): map all study directions (Polish fields and disciplines + what Kraków universities really offer),
+     table "covered / thin / missing" against the 26 cards. Write it in this file as a proposal of new or split cards
+     (at least: digital media / games / UX, deeper media and commerce/marketing/business) and of new activity and situation
+     cards for a broader centre of interest. **Szymon confirms the list** before code (ask in the plan; until then do b only for
+     media, digital media and commerce).
+   - b) Sonnet (Data): add the confirmed cards with Kraków offers, `requires`, sources; fill `media`, `handel` (offers, demand, pay).
+   - c) Opus (Functionality/UI): add the new activity and situation cards (taps only) so each card can be reached; keep the
+     scoring balanced (no card unreachable, no card always on top; test with the personas); tests in `tests/run.mjs`.
+2. **Declaration helper before 7 Feb 2027:** which rozszerzenie opens most of his liked directions — Functionality · M · Opus
+3. **Star an offer:** kept in the saved file and listed in the export — Functionality · S · Sonnet
 
-1. UJ + UJ CM 2026 thresholds from UJ's own results pages (22 offers; v2.0 ST2 rest) — Data · M · Opus
-2. GUS 2024 pay for the last 22 cards, then delete `gus-2020` (v2.0 ST3 rest) — Data · S · Sonnet
-3. Declaration helper before 7 Feb 2027: which rozszerzenie opens most of his liked directions — Functionality · M · Opus
-4. Star an offer: kept in the saved file and listed in the export — Functionality · S · Sonnet
-5. Sources page (all sources with `asOf`, like Liceum v2.7.1) + "Mogę to zrobić, bo…" chips (U3) — UI/UX · S · Sonnet
-6. Points estimate: tap expected matura % → his points per offer next to the 2026 threshold — Functionality · L · Opus
-7. Compare 2–3 offers side by side (subjects, threshold, length, commute) — UI/UX · M · Opus
-8. Parent summary: one printable page for the family table — UI/UX · M · Opus
-9. Open days 2027 for Kraków universities, a dated data file shown in the plan — Data · S · Sonnet
-10. More Kraków offers (fuller PK, UEK, UKEN; art, media, commerce) — Data · L · Sonnet + Opus review
+**Next week (from 29 Nov):**
+4. **Compare 2–3 starred offers** side by side (subjects, threshold, length, commute) — UI/UX · M · Opus
+5. UJ + UJ CM 2026 thresholds from UJ's own results pages (22 offers; v2.0 ST2 rest) — Data · M · Opus
+6. GUS 2024 pay for the last 22 cards, then delete `gus-2020` (v2.0 ST3 rest) — Data · S · Sonnet
+7. Sources page (all sources with `asOf`, like Liceum v2.7.1) + "Mogę to zrobić, bo…" chips (U3) — UI/UX · S · Sonnet
+8. Points estimate: tap expected matura % → his points per offer next to the 2026 threshold — Functionality · L · Opus
+9. Parent summary: one printable page for the family table — UI/UX · M · Opus (if no room, moves to v4.0)
 
-- Proposed this week: 1+2, 3, 4, 5. Proposed next week: 6, 7, 8, 9.
-- Proposed for v4.0: 10, other cities (Katowice, Warsaw; Munich/Augsburg phase 2), U7 tone read, URK check if still open.
+**For v4.0 (not now):** open days 2027 (dropped from v3.0 by Szymon); more Kraków offers beyond item 1; other cities
+(Katowice, Warsaw; Munich/Augsburg phase 2); U7 tone read; URK check if still open.
 
+Planners: pick the next item of this list that fits tonight's focus (Data → UI/UX → Functionality). If nothing in "this week"
+fits the focus, take the first "next week" item that does.
 ### Release rules
 
 - **One release at a time, in order.** Every version is committed, pushed and live on GitHub Pages before the next one is planned.
