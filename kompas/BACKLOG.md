@@ -696,6 +696,7 @@ fits the focus, take the first "next week" item that does.
 | v2.1 | UI/UX | Fewer keyboards: minutes from home as chips (U1), tap ideas for the reflection questions (U2), sport as chips (U4), shorter strengths screen on phones (U5) | Sonnet + Opus | pushed 20 Nov 2026 as 2.1.0 |
 | v2.2 | Functionality | Star an offer (v3.0 item 3) and the declaration helper (v3.0 item 2) | Sonnet + Opus | pushed 21 Nov 2026 as 2.2.0 (built in the afternoon, at Szymon's request) |
 | v2.3 | Data | Study directions map + card proposal (1a); digital media card and media/commerce offers (1b, part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.3.0 (afternoon, at Szymon's request) |
+| v2.4 | UI/UX | Compare 2–3 starred offers (v3.0 item 4); "Mogę to zrobić, bo…" chips (U3); a games/UX tap card (1c, agreed part) | Opus + Sonnet | planned 21 Nov 2026 (Szymon: "prepare 2.4"); to be built by the 22:45 run |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -901,4 +902,46 @@ offers; "thin" = touched by a card but no real home; "missing" = no card. Theolo
 Plus 1–2 situations (e.g. a school debate; a class trip to plan with a budget). Scoring check with one test kid per new card (1c).
 
 **Open question for Szymon:** which of cards 1–9 go into v3.0 (and which wait for v4.0), and are the tap cards OK.
+
+### v2.4 tasks (UI/UX, planned 21 Nov 2026)
+
+Current `appVersion` 2.3.0, pushed. Last release Data, so this is **UI/UX**. "This week" items left are Data (1b rest, after
+Szymon's pick) and 1c, so per the planner rule the first "next week" UI/UX item comes in: **item 4, compare starred offers**,
+plus two small screen items with clear rules. No new facts, no scoring change (SU7 adds one tap card, scoring checked).
+Built tonight by the 22:45 run (the 21:45 planner sees v2.4 planned and not pushed, and plans nothing new).
+One commit per task, then the release step. `git pull --rebase` first (Liceum may run the same night).
+
+1. [ ] **SU5 (Opus) Compare 2–3 starred offers** (v3.0 item 4).
+   Where: `studia/app.js` (new `compareHtml(r, where)` next to `declarationHtml`), `studia/story.js` (inside `#s-deklaracja`,
+   under the helper, or its own band `#s-porownanie` + menu entry), the one-page report (`vResults`), `studia/v11.css`,
+   `core/export.js`.
+   What: shown when he has 2 or more stars. Chips above pick which 2–3 starred offers to compare (default: the first 3 stars;
+   `A.compare` = list of offer ids, kept in the file; ids not starred any more are dropped). Rows (same order everywhere):
+   uczelnia i kampus · długość (lata, poziom) · przedmioty (`subjectFit` words from v2.2 + `requires.note`) ·
+   próg 2026 (`threshold` line or "brak danych") · dojazd (`commute()` + campus) · prywatna/publiczna · co dalej (`next`).
+   Desktop (≥ 760 px): a real `<table>` with offers as columns, row headers `<th scope="row">`. Phone: one card per offer
+   in a horizontal scroll-snap row (each card has all rows), no table wider than the screen. With 1 star: one line
+   "Oznacz jeszcze jedną gwiazdkę, żeby porównać". Export: "## Porównanie" as a markdown table (rows × offers).
+   Done when: persona B with 3 stars shows the table at 1280 px and 3 swipe cards at 375 px in three looks; un-starring an
+   offer updates the comparison in place (same as `#declwrap`); export has the table; a file saved and loaded keeps `A.compare`;
+   new checks in `tests/run.mjs` (compare ids subset of stars after load; export table has one column per compared offer).
+2. [ ] **SU6 (Sonnet) "Mogę to zrobić, bo…" chips** (= U3, Part 2). Two places: `#cando` in the story (`#s-plik`) and in
+   `vPartStrengths`. Under the field 3 chips built from his answers: `bo umiem: ${first proven strength}`, `bo ważne jest dla
+   mnie: ${first value}`, `bo już to robię ${proof place of the first strength}` (skip a chip if its part is empty). A tap fills
+   an empty field or replaces a field that holds only a chip text; otherwise adds after `, ` (never delete his own words;
+   same rule as SU2). Chip text through `esc()`. Done when: the sentence can be made with one tap and edited by hand;
+   export unchanged in shape; 375 px chips wrap.
+3. [ ] **SU7 (Opus) Games/UX tap card** (part of 1c that is already agreed: digital media). Add to `questions.json`
+   activities: `a24` "Zaprojektować poziom gry albo ekran aplikacji i sprawdzić, czy ktoś się w nim nie gubi" with dims
+   `{"twr": 2, "tec": 1, "spo": 1}` (final weights by Opus after the scoring check). Old files with 23 sorted cards: on load,
+   if all old cards are sorted and only new ones are missing, put `sortPos` on the first new card and show a one-line notice
+   ("Doszła 1 nowa karta") instead of failing the step (search `a.sortPos = ` in `loadFile`). Scoring check: run the personas,
+   `media-cyfrowe` must not jump to the top for A, B, C, E; D keeps it in the top 3. If needed add persona F
+   ("gra i projektuje gry") to `personas.json` with `expect.topClusters: ["media"]`.
+   Done when: three tests pass (persona expectations); the card shows in "Co lubisz robić" at 375 px; an old 2.3 file loads with the notice.
+4. [ ] **SR2.4 (Opus) Review and release v2.4.0.** Click-through at 375 and 1280 px in three looks (persona B with 3 stars, persona D);
+   version 2.4.0 in the four places; `dataVersion` to the release date (SU7 changes `questions.json`); short "Kompas Studia v2.4.0"
+   section in the spec doc; mark v2.4 pushed in the table; tick U3 in Part 2 and item 4 in Major goals; push.
+
+**Not in v2.4:** sources page (item 7, next UI/UX turn), the other proposed tap cards (wait for Szymon's pick of cards 1–9).
 
