@@ -216,6 +216,7 @@
   "town": "krakow",
   "address": "ul. Jana Sobieskiego 9, 31-136 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://www.sobieski.krakow.pl/",
   "range": {
    "min": 164.8,
    "max": 179.65,
@@ -447,6 +448,7 @@
   "town": "krakow",
   "address": "ul. Krzemionki 11, 30-525 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://www.iv-lo.krakow.pl/",
   "range": {
    "min": 162.6,
    "max": 176.5,
@@ -1152,6 +1154,7 @@
   "town": "krakow",
   "address": "ul. Grzegórzecka 24, 31-531 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://www.viii-lo.krakow.pl/",
   "range": {
    "min": 169.1,
    "max": 180.65,
@@ -1361,6 +1364,7 @@
   "town": "krakow",
   "address": "ul. Kazimierza Czapińskiego 5, 30-048 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://www.wroblewski.krakow.pl/",
   "range": {
    "min": 160.55,
    "max": 170.3,
@@ -1910,6 +1914,7 @@
   "town": "krakow",
   "address": "ul. Studencka 13, 31-116 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://lo42krakow.pl/",
   "range": {
    "min": 167.0,
    "max": 172.8,
@@ -2037,6 +2042,7 @@
   "town": "krakow",
   "address": "os. Teatralne 33, 31-948 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "https://xilo.krakow.pl/",
   "range": {
    "min": 157.4,
    "max": 166.75,
@@ -4508,6 +4514,7 @@
   "town": "krakow",
   "address": "ul. Szlak 5, 31-161 Kraków",
   "addressSourceId": "krk-siec-szkol",
+  "www": "http://www.xxlo-krakow.edu.pl/",
   "range": {
    "min": 155.8,
    "max": 163.45,
@@ -7736,6 +7743,7 @@
   "town": "krakow",
   "address": "ul. Złoty Róg 30, 30-095 Kraków",
   "addressSourceId": "otou-lo17",
+  "www": "https://liceum.zso7.pl/",
   "range": {
    "min": 123.25,
    "max": 156.55,
@@ -7862,6 +7870,7 @@
   "town": "krakow",
   "address": "ul. Telimeny 9, 30-838 Kraków",
   "addressSourceId": "otou-lo25",
+  "www": "https://www.xxvlo.pl/",
   "range": {
    "min": 62.4,
    "max": 110.35,
