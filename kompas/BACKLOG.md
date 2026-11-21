@@ -10,45 +10,121 @@ The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
-## Major v3.0 – draft (questions open, 2026-11-21)
+## Major v3.0 – plan (agreed 2026-11-21)
 
-**Nightly planners: do not take tasks from this section yet.** Szymon has not answered. Keep planning v2.10 from the roadmap
-below as before. When he answers, this heading becomes "Major v3.0 – plan (agreed …)" with night-sized tasks.
+**Agreed with Szymon on 21 Nov 2026** (answers by tap). Nightly planners: take one minor per night from the table below, in order;
+the usual release rules apply (one release at a time, Opus review at the end of each, three tests green, 375 and 1280 px in three looks).
 
-**Where Kompas Liceum stands (2.9.0).** 8 steps of taps and sliders (area, worlds, 40 activity cards, situations, work style,
-values, strengths with "where it shows" chips, school results), then the compass with 8 profiles, profile screen with classes
-(realne / do zawalczenia / ambitne), Moja lista, plan to May 2027, parent summary (print), school catalogue with map, travel
-times, rankings, sources page; three looks (neon, spokojny, pop), "większy tekst", "spokojniej", Tychy + GZM area, bilingual track.
-Data: Kraków 50 of 90 schools (143 of 242 classes still "check"), Tychy 10 of 13, GZM 5.
+**Goal.** v3.0 makes Kompas fair to every kind of kid: the questions are balanced (an arts world and profile, health, law vs media),
+art and music schools are in the catalogue, sports classes have their own track, and points can be counted exactly. The app opens in
+the calm look, with line drawings for the profiles, less typing and a one-page parent summary. The boys reacted most to the
+**compass result** and the **schools map**: keep both at the centre, and test every change on those two screens.
 
-**Already promised for v3.0 by the roadmap:** V1 sports classes (fitness test track) and exact points counting as an option.
-Before it: v2.10 (Q1 rest, new GZM towns, G3 schools) and v2.11 (Ukrainian interface).
+**Szymon's answers.**
+- Themes in: 1 sports classes + exact points, 5 fairer questions, 6 parent page, 8 tap exam %, plus **art schools** (his addition:
+  art licea, music schools, and an arts world + profile leading to them).
+- Look: **calm ("spokojny") becomes the default**; neon and pop stay as choices. No full redesign (theme 3 not picked).
+- Illustrations: **line drawings, only a few**: one per profile (compass and profile screens), not for worlds.
+- Kept: Ukrainian interface (not dropped; moves after v3.0, see below). **GoatCounter stays** on Kompas pages (rule 2 updated).
+- Later (after v3.0): new areas (Kraków okolice towns, Chorzów, Tarnowskie Góry). Not picked: compass animation.
 
-**Gaps seen while preparing.**
-- Q1 needs Szymon's answers (5 questions under v2.10 / Q1); the Q1a audit table itself is missing from this file (blank lines).
-- Data tasks K1-7 and L1-9 slipped twice: night runs cannot open school pages (WebFetch refused, Nominatim/GTFS blocked).
-- Only 4 line illustrations (szkola, szkoly, wyniki, pusto); profiles and worlds have only small icons.
-- The compass shows the result at once; no "needle finds north" moment. Neon is the default look and uses many capitals.
-- Kompas pages load the site-wide GoatCounter counter, but rule 2 says "no analytics".
-- Exam % and achievements are number fields (the only typing left apart from the optional name).
+**Scope.** Arts world + 9th profile + arts directions; health direction apart from biology; law and media as two directions; worlds
+evened out; art licea and music schools (Kraków and Tychy/GZM area towns already in the data) with entrance-exam info instead of a
+threshold; calm look by default; exam % by taps; 9 profile drawings; one-page parent summary; sports track (fitness test) and exact
+points option (after the 2027 rules are checked).
 
-**Candidate themes for v3.0** (value for the kids · rough size · agent)
-1. Sports classes + exact points (promised V1): a sports kid sees real chances; points as an option · L · Opus
-2. Illustrations for the 8 profiles and 8 worlds, same line style as now: results feel like "worlds", not a table · M · Opus style + Sonnet
-3. Calmer visual style: "spokojny" as default, fewer capitals, softer colours, bigger tap targets · M · Opus
-4. Compass animation: needle swings and settles on north after the last step (off with "spokojniej") · S · Opus
-5. Fairer questions (Q1 rest): arts world, health apart from biology, law vs media, even worlds · M · Opus + Sonnet
-6. Parent summary polish: one A4 page, top 3 profiles, liked classes vs threshold, dates to May · S · Opus
-7. New areas: Kraków i okolice (powiat krakowski towns, e.g. Skawina, Zabierzów) and GZM (Chorzów, Tarnowskie Góry) + G3 schools · M · Opus + Sonnet
-8. Taps instead of typing for exam % (slider or chips: ok. 50 / 70 / 90 %) · S · Sonnet
+**Out of scope for v3.0.** New towns or areas; compass animation; full visual redesign; world illustrations; Ukrainian, English and
+French interface (Ukrainian = v3.1, as I1/I2); G3 schools and new GZM towns (after v3.0). Data jobs K1, L1 continue as small extras
+only when a night run can open the pages.
 
-**Questions for Szymon (sent 21 Nov 2026):**
-1. Which themes go into v3.0? (numbers; proposal 1, 2, 3, 4, 6)
-2. What did the boys react to: compass, card sorting, school map, too long, nothing yet?
-3. Look: keep neon as default / "spokojny" as default / new softer look?
-4. Illustrations: line drawings like now / flat colour pictures / none?
-5. Q1 questions (arts, health, law vs media, even worlds, 2 situations): yes to all / pick numbers / later?
-6. Drop or keep: Ukrainian interface (v2.11)? GoatCounter on Kompas pages?
+**Open questions (ask Szymon when convenient; do not block the plan).**
+- Q1 item 5: add 2 situations (conflict in class, trip abroad)? Not answered; not in v3.0 unless he says yes.
+- Arts as a 9th compass point changes the 8-wind compass: Q2 decides the layout (9 even points, or arts on the inner ring). Show
+  Szymon a 375 px screenshot in the v2.10 release note.
+
+**Q1a audit table (21 Nov 2026, `python3 kompas/tools/questions_audit.py`; restored here).**
+
+| | nauki ścisłe/IT | języki | ekonomia i biznes | socjologia i psychologia | prawo i media | sztuka | sport | opieka i zdrowie | praca rękami | ogólne | razem |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| światy | 2 | 1 | 1 | 1 | 1 | 0 | 1 | 0 | 1 | 0 | 8 |
+| czynności (wszystkie) | 12 | 3 | 4 | 4 | 3 | 1 | 3 | 2 | 5 | 3 | 40 |
+| czynności: wspólny rdzeń | 2 | 0 | 1 | 1 | 0 | 1 | 0 | 1 | 1 | 3 | 10 |
+| sytuacje | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 3 |
+| mocne strony | 1 | 1 | 2 | 2 | 0 | 1 | 1 | 0 | 0 | 9 | 17 |
+| kierunki | 7 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 1 | 0 | 14 |
+
+Activities per world: tech 7, natura 5, ludzie 3, jezyki 3, biznes 3, budowa 3, sport 3, spoleczenstwo 3.
+
+### v3.0 tasks
+
+**v2.10 – Fairer questions (night of 22 Nov)**
+1. **Q2 (Opus) Arts world and profile.** Goal: a world "Sztuka i projektowanie" (5 activity cards: e.g. drawing, film/photo,
+   music, design, stage), a 9th profile "Artystyczny" with directions (plastyka, film i media wizualne, muzyka, design i
+   architektura wnętrz) and the strength "rysunek" linked to it; the compass shows 9 points (decide layout; still readable at 375 px).
+   Old saved files still load (no arts answers = arts 0). Files: `liceum/data/questions.json`, `profiles.json`, `opportunities.json`,
+   `core/scoring.js` only if needed, `liceum/app.js`, `liceum/liceum.css`, `tests/liceum.mjs`.
+   Check: three tests pass; a new test kid P8 (arts) gets "Artystyczny" in the north; P1–P7 keep their north profile.
+2. **Q3 (Opus) Health, law and media.** Goal: direction "Zdrowie i opieka" (ratownictwo, pielęgniarstwo, fizjoterapia, dietetyka)
+   apart from "biologia"; "spoleczenstwo" split into "Prawo i administracja" and "Media i komunikacja", each linked to the
+   right classes (biol-chem, hum, media/dziennikarskie). Files: `opportunities.json`, `profiles.json`, `tests/liceum.mjs`.
+   Check: three tests pass; P2 (health) sees "Zdrowie i opieka" on the profile screen; P5 still north "Języki".
+3. **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note).
+
+**v2.11 – Art and music schools (night of 23 Nov)**
+1. **A1 (Opus) Schools with an entrance exam.** Goal: a class can have `entry: {kind: "plastyczny" | "muzyczny", note, sourceId}`
+   instead of a threshold; the card shows "egzamin wstępny / przesłuchanie w szkole" (like the bilingual test tag), chances use
+   "do sprawdzenia w szkole", never a guessed number. Linked to the "Artystyczny" profile. Files: `liceum/app.js`, `points.js` (only
+   to skip the threshold), `tests/liceum.mjs`, `tests/syntax.mjs`.
+   Check: three tests pass; a temporary test class with `entry` shows the tag and no points gap.
+2. **A2 (Sonnet) Art licea and music schools, Kraków.** Goal: the public art liceum/licea plastyczne and the music school(s) of the
+   second degree in Kraków with general-education classes, from the school's own page or the city list (MKiDN schools count):
+   address, profile, exam/audition dates for 2027 if published, `www`; add as waiting schools (`geoPending`) if no map point.
+   Files: `krakow/schools.json`, `sources.json`. Check: three tests pass; P8 sees them under "Artystyczny".
+3. **A3 (Sonnet) Art and music schools, Tychy + GZM towns in the data.** Same as A2 for Tychy, Katowice, Gliwice, Sosnowiec only
+   (no new towns). Files: those `schools.json`, `sources.json`. Check: same; none appear in area Kraków.
+4. **R2.11 (Opus) Review and release v2.11.0.**
+
+**v2.12 – Even worlds, calm look, taps (night of 24 Nov)**
+1. **Q4 (Opus) Even out the worlds.** Goal: 5 activities in each of the 9 worlds (add 2 each to jezyki, biznes, ludzie,
+   spoleczenstwo, budowa, sport; trim tech from 7 to 5, keep the best two as strengths or directions). Re-run the audit script and
+   update the table above. Files: `questions.json`, `kompas/tools/questions_audit.py`, `tests/liceum.mjs`.
+   Check: three tests pass; audit shows 5 per world; P1–P8 north profiles listed in the commit message (say if one changed).
+2. **U8 (Sonnet) Calm look by default.** Goal: no `?skin` and no saved choice = calm look; neon and pop stay in the look menu and in
+   the saved file. Files: `liceum/app.js`, `liceum/index.html`. Check: fresh open shows calm; `?skin=neon` still works; 375/1280 px.
+3. **U9 (Sonnet) Exam % by taps.** Goal: the three exam fields (and achievements) become chips or a slider (e.g. ok. 30 / 50 / 70 /
+   90 %, step 5 on the slider); the number stays in the saved file as before. Files: `liceum/app.js`, `liceum/liceum.css`.
+   Check: points result unchanged for P1–P8; no keyboard opens on phone; three tests pass.
+4. **R2.12 (Opus) Review and release v2.12.0.**
+
+**v2.13 – Profile drawings (night of 25 Nov)**
+1. **IL1 (Opus) Style sheet and 3 drawings.** Goal: rules for profile drawings in the `illus.js` line style (viewBox, stroke
+   widths, palette `--l0..--l5`, draw-once animation, off with "spokojniej"), written at the top of `illus.js`; drawings for
+   Ścisły, Artystyczny, Ludzie. Shown on the north card of the compass and on the profile screen. Files: `liceum/illus.js`,
+   `liceum/app.js`, `liceum/liceum.css`. Check: three looks + dark mode readable; nothing wider than 375 px.
+2. **IL2 (Sonnet) The other 6 drawings** following IL1's sheet exactly. Files: `liceum/illus.js`. Check: same.
+3. **R2.13 (Opus) Review and release v2.13.0.**
+
+**v2.14 – Parent page (night of 26 Nov)**
+1. **P2 (Opus) One-page parent summary.** Goal: fits one A4 page when printed: top 3 profiles (with drawing), liked classes with
+   the kid's points next to the 2026 threshold (or "egzamin w szkole"), travel time, dates to May 2027; calm tone, no grading.
+   Files: `liceum/app.js` (vParent), `liceum/liceum.css` (print). Check: print preview at A4 = 1 page for P1, P5 and P8.
+2. **R2.14 (Opus) Review and release v2.14.0.**
+
+**v2.15 – Sports classes, data (night of 27 Nov)**
+1. **V1a (Opus) 2027 rules check.** Goal: read the rules for sports classes (fitness test, extra criteria) and the exact points
+   formula for 2027/28 (kuratorium Kraków and Katowice, MEN rozporządzenie); write the method in this file; add
+   `sport: {test, sourceId}` to the class structure and the test. If the 2027/28 act is still not out, use 2026/27 and say so on screen.
+   Files: `BACKLOG.md`, `tests/syntax.mjs`, `sources.json`. Check: three tests pass.
+2. **V1b (Sonnet) Mark sports classes.** Goal: every sports / sports-championship class in Kraków and Tychy/GZM data gets `sport`
+   with a source (e.g. Tychy IV LO 1MS); unconfirmed = "check". Files: school files, `sources.json`. Check: three tests pass.
+3. **R2.15 (Opus) Review and release v2.15.0.**
+
+**v3.0 – Sports track and exact points (night of 28 Nov)**
+1. **V1c (Opus) Sports track and exact points.** Goal: Sport profile leads to sports classes with "test sprawnościowy w szkole";
+   an option "policz dokładnie" (marks per subject by taps, exam %, extras) next to the quick estimate, using `points.js` checked
+   against V1a. Files: `liceum/app.js`, `points.js`, `tests/liceum.mjs`. Check: test cases from the official example give the same points.
+2. **R3.0 (Opus) Review and release v3.0.0.** Full click-through of all steps with P1–P8, compass and map first (the screens the boys
+   like), 375 and 1280 px, three looks; version 3.0.0 in the four places; "Kompas Liceum v3.0.0" in the spec doc; tell Szymon.
 
 ## Minor v2.9 (planned 2026-11-20, released 2026-11-21 as 2.9.0)
 
@@ -276,9 +352,15 @@ the 16 thresholds and IV LO 1MS against school or city pages; sports classes as 
 | v2.7 | Kraków matura ranking on school cards (K2; done 2.7.0) and sources on every card (2.7.1) | Sonnet |
 | v2.8 | Map filter by town, Kraków class check batch 6, links, source dates (2.8.0); new GZM/Kraków schools and Tychy thresholds moved on | Sonnet |
 | v2.9 | Waiting schools (`geoPending`) so new schools can go in without a map point; XVII, XXV LO, Technikum nr 6 Tychy; Kraków class check batch 7; links; audit of questions (first slice of Q1) | Opus + Sonnet |
-| v2.10 | Review of questions and interests (Q1 rest, after Szymon's answers): languages, economy, sociology …; new GZM towns in `regions`; G3 schools | Opus + Sonnet |
-| v2.11 | Ukrainian interface (school and class data stay Polish) | Opus + Sonnet |
-| v3.0 | Sports classes and exact points counting | Opus |
+| v2.10 | Fairer questions: arts world + 9th profile "Artystyczny", health, law vs media (Q2, Q3) | Opus |
+| v2.11 | Art licea and music schools with entrance exams (A1–A3) | Opus + Sonnet |
+| v2.12 | Even worlds (Q4), calm look by default (U8), exam % by taps (U9) | Opus + Sonnet |
+| v2.13 | Line drawings for the 9 profiles (IL1, IL2) | Opus + Sonnet |
+| v2.14 | One-page parent summary (P2) | Opus |
+| v2.15 | Sports classes: 2027 rules and data (V1a, V1b) | Opus + Sonnet |
+| v3.0 | Sports track and exact points (V1c); release review | Opus |
+| v3.1 | Ukrainian interface (I1, I2; moved from v2.11 on 21 Nov) | Opus + Sonnet |
+| later | New areas (Kraków okolice towns, Chorzów, Tarnowskie Góry), G3 schools, Q1 extra situations if Szymon says yes | Opus + Sonnet |
 
 Every v2 release also does **L1**: website links for 5–10 schools. English and French interface come after v3.0.
 
@@ -354,7 +436,7 @@ A kid who picks "Komputery i technika" sees 7 world cards, a kid who picks "Jęz
 direction (only a12 and the strength "rysunek"), although Kraków has artistic and media classes (e.g. VI LO 1C, XVII LO).
 **Care and health** sits inside "biologia" (przyrodniczy). **Law** and **media** share one direction ("spoleczenstwo").
 
-**Questions for Szymon (answer before v2.10; no card or scoring change until then):**
+**Questions for Szymon** (answered 21 Nov 2026: 1–4 yes, 5 open; see "Major v3.0 – plan" at the top of Part 1):
 1. Add an **arts** field: a world "Sztuka i projektowanie" and a direction (plastyka, film, design, architektura wnętrz) linked
    to artistic/media classes? Yes / no / later.
 2. Split **care and health** from biology: a direction "Zdrowie i opieka" (ratownictwo, pielęgniarstwo, fizjoterapia, dietetyka)
@@ -365,7 +447,7 @@ direction (only a12 and the strength "rysunek"), although Kraków has artistic a
 5. **Situations:** add 2 situations (e.g. a conflict in class, a trip abroad) so that people, languages and business show up
    there too? They would stay style questions (same 6 interests), not field questions.
 
-**v2.11**
+**v3.1 (was v2.11)**
 - **I1 (Opus) Texts in language files.** All interface texts in one file per language; a language switch in the header.
 - **I2 (Sonnet) Ukrainian translation.** Simple words for a 14-year-old; mark it for one read by a Ukrainian speaker.
 
@@ -384,8 +466,8 @@ Liceum jobs (D2–D6, U6) are now scheduled in Part 1; Studia jobs stay here.
 ## Rules for every task
 
 1. **No personal data** in this repo (it is public). No names, marks or answers of real people, also not in tests or examples.
-2. **No new network calls** when the app runs. Allowed today: OpenStreetMap map tiles in Liceum, and links that open only when tapped.
-   No analytics, no cookies, no browser storage, no CDN scripts or fonts.
+2. **No new network calls** when the app runs. Allowed today: OpenStreetMap map tiles in Liceum, links that open only when tapped,
+   and the site-wide GoatCounter visit counter (kept by Szymon, 21 Nov 2026). No other analytics, no cookies, no browser storage, no CDN scripts or fonts.
 3. **Every fact needs a source.** Add the page to the app's `data/sources.json` (`id`, `url`, `title`, `asOf` as `YYYY-MM`, `status`)
    and point to it with `sourceId`. If you cannot confirm a fact on an official page, do not invent it: leave the field empty
    or keep `"status": "check"`.
