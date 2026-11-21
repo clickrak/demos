@@ -258,7 +258,7 @@
     "via": [
      [
       "tram",
-      "16"
+      "3"
      ],
      [
       "tram",
@@ -874,7 +874,7 @@
     }
    ],
    "fromHub": {
-    "min": 8,
+    "min": 9,
     "median": 9,
     "via": [
      [
@@ -915,7 +915,7 @@
    ],
    "fromHub": {
     "min": 21,
-    "median": 23,
+    "median": 24,
     "via": [
      [
       "tram",
@@ -1297,6 +1297,58 @@
     "min": 8,
     "median": 10,
     "via": []
+   }
+  },
+  "uj-ihs": {
+   "address": "ul. Grodzka 53",
+   "lat": 50.05708,
+   "lon": 19.93805,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Plac Wszystkich Świętych",
+     "m": 230,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Poczta Główna",
+     "m": 350,
+     "tram": [
+      "1",
+      "3",
+      "12",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Filharmonia",
+     "m": 360,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 12,
+    "median": 15,
+    "via": [
+     [
+      "tram",
+      "3"
+     ]
+    ]
    }
   }
  }
