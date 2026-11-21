@@ -232,3 +232,4 @@ html[data-skin="pop"] .force .tag-s { color: #111; border: 2px solid #111; }
 html[data-skin="pop"] .force .tag-s.on, html[data-skin="pop"] .sector:hover .sec-go, html[data-skin="pop"] .sector.on .sec-go { background: #111; color: #fff; }
 html[data-skin="pop"] .sec-go { color: #111; border-color: #111; background: #fff; }
 html[data-skin="pop"] .sec-more { border-color: #111; }
+.cmp-table thead td { width: 170px; }

@@ -1,4 +1,4 @@
-// Kompas Studia v2.5.1. Screens, navigation, results, export.
+// Kompas Studia v2.5.2. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -1059,7 +1059,7 @@ function compareRows() {
 function compareHtml() {
   const stars = (A.stars || []).filter(id => data.offers.some(o => o.id === id));
   const head = '<h2 id="porownanie">Porównaj gwiazdki</h2>';
-  if (stars.length < 2) return `${head}<div class="card cmp"><p class="small muted">${stars.length ? 'Oznacz jeszcze jedną gwiazdkę ☆, żeby porównać studia obok siebie.' : 'Oznacz ☆ 2 albo 3 studia, a tu zobaczysz je obok siebie.'}</p></div>`;
+  if (stars.length < 2) return `${head}<div class="card cmp"><p class="small muted">${stars.length ? 'Oznacz jeszcze jedną gwiazdkę ☆ (w „Kierunkach” powyżej dotknij studiów na drodze), żeby porównać je obok siebie.' : 'W „Kierunkach” powyżej dotknij studiów na drodze i oznacz ☆ 2 albo 3. Tu zobaczysz je obok siebie.'}</p></div>`;
   const ids = compareIds(A, data), offs = ids.map(id => data.offers.find(o => o.id === id)), rows = compareRows();
   const pick = stars.length > 2 ? `<p class="small muted">Wybierz 2 albo 3:</p><div class="chips" role="group" aria-label="Które studia porównać">${stars.map(id => { const o = data.offers.find(x => x.id === id), on = ids.includes(id);
     return `<button class="chip" data-cmp="${esc(id)}" aria-pressed="${on}" ${!on && ids.length >= 3 ? 'disabled' : ''}>${esc(o.name)} <span class="muted">${esc(shortInst(o.institution))}</span></button>`; }).join('')}</div>` : '';
@@ -1282,7 +1282,7 @@ function vResults() {
   return `
     <h1>Cały raport</h1><p class="small muted noprint">Wszystko na jednej stronie, gotowe do druku. <button class="linkbtn" data-go="kompas">Wróć do kompasu</button></p>
     ${changesSince(r)}
-    <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['deklaracja', 'Deklaracja'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
+    <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['porownanie', 'Porównaj'], ['deklaracja', 'Deklaracja'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
     <h2 id="r-mocne">Twoje mocne strony</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
     <section class="print-only cutouts"><p class="small">Wytnij karty i połóż je na stole podczas rozmowy.</p><div class="cut">${provenStrengths(A).map(x => `<div class="cutcard"><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span>${esc(proofText(x.proof))}</span></div>`).join('')}</div></section>
     <h2 id="r-drogi">Twoje drogi</h2>
@@ -1303,8 +1303,8 @@ function vResults() {
     ${s.surprise ? cardHtml('Niespodzianka', s.surprise, false, sc) : ''}
     ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
 
-    <div id="declwrap">${declarationHtml(r, 'report')}</div>
     <div id="cmpwrap">${compareHtml()}</div>
+    <div id="declwrap">${declarationHtml(r, 'report')}</div>
     <h2 id="r-linie">Twoje linie w czasie</h2>
     <p class="muted small">Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Wspólne przystanki to przesiadki: do jesieni 2027 wszystkie drogi biegną razem, więc zmiana linii jest normalna. Pomarańczowy przystanek oznacza, że przed 7 lutego coś warto zmienić w deklaracji.</p>
     <div class="card trammap">${tramMapSvg(tramLines(r))}${tramLegend(tramLines(r))}</div>

@@ -163,7 +163,7 @@ export function storyHtml(ctx) {
   <div class="sprog" id="sprog"></div>
   <header class="sbar">
     <button class="pill" data-go="refleksja">← Pytania</button>
-    <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-droga', 'Droga'], ['s-deklaracja', 'Deklaracja'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plan', 'Plan'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
+    <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-porownanie', 'Porównaj'], ['s-droga', 'Droga'], ['s-deklaracja', 'Deklaracja'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plan', 'Plan'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
     <span class="sbar-r"><button class="pill icon" data-skintoggle aria-label="Zmień wygląd"></button><button class="pill icon" data-themetoggle aria-label="Zmień motyw"></button><button class="pill strong" data-export="download">Zapisz plik</button></span>
   </header>
 
@@ -211,6 +211,8 @@ export function storyHtml(ctx) {
     </div>
   </section>
 
+  <section class="band alt" id="s-porownanie"><div class="wrap"><span class="kicker">Twoje gwiazdki</span><div id="cmpwrap">${ctx.cmpHtml()}</div></div></section>
+
   <section class="scrolly flip" id="s-droga">
     <div class="sticky"><div class="graphic">${tramSvg(ctx, lines)}</div></div>
     <div class="steps">
@@ -230,7 +232,7 @@ export function storyHtml(ctx) {
     </div>
   </section>
 
-  <section class="band" id="s-deklaracja"><div class="wrap"><div id="declwrap">${ctx.declHtml()}</div><div id="cmpwrap">${ctx.cmpHtml()}</div></div></section>
+  <section class="band" id="s-deklaracja"><div class="wrap" id="declwrap">${ctx.declHtml()}</div></section>
 
   <section class="band alt" id="s-krakow">
     <div class="wrap two">

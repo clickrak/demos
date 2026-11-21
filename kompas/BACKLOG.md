@@ -668,6 +668,23 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
 8. Points estimate: tap expected matura % → his points per offer next to the 2026 threshold — Functionality · L · Opus
 9. Parent summary: one printable page for the family table — UI/UX · M · Opus (if no room, moves to v4.0)
 
+**Added by Szymon, 21 Nov 14:43 (plan for v3.0):**
+10. **Strengths as the foundation of the compass** — UI/UX · M · Opus. On the story's compass (`#s-kompas`, `sceneSvg` in
+    `studia/story.js`) the strengths sit too close to the circle. Draw them a little apart, below the compass, as a base or
+    foundation the directions grow from (e.g. a row of stones or a plinth with the 5 strengths, thin lines rising to the needle's
+    directions). Keep the scroll steps and the highlight of inputs; check 375 and 1280 px in three looks.
+11. **A link under each university or school, right in the "Kierunki" view** — Data + UI/UX · M · Sonnet (data) + Opus (screen).
+    Today the study detail opens only after a tap on the road. Data: an official page `url` per offer (course or recruitment page of
+    the university, not otouczelnie), 81 offers, as a new field next to `sourceId`; test that every offer has an http(s) `url`.
+    Screen: under each study on the road and in the panel, the university and a visible "strona kierunku ↗" link (new tab), without
+    opening the detail first. Same in the one-page report.
+12. **Travel time counted from the centre, not from home** — Functionality · M · Opus. Today: "minutes from home to Dworzec Główny"
+    plus the campus time from Dworzec. This penalises families living outside the centre (Szymon: "to not bias against żelków").
+    New: the kid picks the start point, **Rynek Główny** or **Dworzec Główny** (chips), and times are shown as "z Rynku ok. 18–24 min";
+    home minutes are no longer added (old files keep `startMin` but it is not used; a one-line note says so). Data: compute
+    `fromRynek` next to `fromHub` with `kompas/tools/transport.py` from the stored Kraków GTFS (same method, stop "Rynek Główny" /
+    nearest stops). Also in the compare table, "Kraków" map section and export.
+
 **For v4.0 (not now):** open days 2027 (dropped from v3.0 by Szymon); more Kraków offers beyond item 1; other cities
 (Katowice, Warsaw; Munich/Augsburg phase 2); U7 tone read; URK check if still open.
 
@@ -1019,6 +1036,10 @@ and broader scope". Built the same afternoon. 14:00 bug report (phone screenshot
 On "Świat za 10 lat": each force has the line "Tu rośnie praca. Dotknij, żeby zobaczyć:" above real buttons (border, ›);
 each sector has a "Zobacz ›" button, one soft pulse on the first one until something is opened; a tap opens the sector in place
 with its areas (icon, who you help, why needed) and scrolls to it; "Zwiń" closes it. 375 and 1280 px in three looks.
+
+**2.5.2 (21 Nov 14:43, Szymon: big fix).** "Porównaj gwiazdki" moved right after "Kierunki z bliska" as its own story section
+(`#s-porownanie`) and into the top menu ("Porównaj"); in the report it comes right before the declaration helper and has a menu
+entry. The hint points to "Kierunki" above. Checked 375 and 1280 px in three looks.
 
 **Note:** the new tap cards widen the profile, but cards for law, arts, food, animals, history (proposal 1–9) still wait for
 Szymon's pick, so for now these interests lead to the nearest existing cards.
