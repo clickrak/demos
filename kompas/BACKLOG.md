@@ -698,6 +698,7 @@ fits the focus, take the first "next week" item that does.
 | v2.2 | Functionality | Star an offer (v3.0 item 3) and the declaration helper (v3.0 item 2) | Sonnet + Opus | pushed 21 Nov 2026 as 2.2.0 (built in the afternoon, at Szymon's request) |
 | v2.3 | Data | Study directions map + card proposal (1a); digital media card and media/commerce offers (1b, part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.3.0 (afternoon, at Szymon's request) |
 | v2.4 | UI/UX | Compare 2–3 starred offers (v3.0 item 4); "Mogę to zrobić, bo…" chips (U3); a games/UX tap card (1c, agreed part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.4.0 (afternoon, at Szymon's request) |
+| v2.5 | Functionality | Points estimate for AGH offers (v3.0 item 8, first part): tap expected matura %, see estimated points next to the 2026 threshold | Opus + Sonnet | planned 21 Nov 2026 (Szymon: "plan 2.5"); to be built by the next coding run |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -955,4 +956,43 @@ One commit per task, then the release step. `git pull --rebase` first (Liceum ma
 - Review: three tests pass (5 new compare checks, persona F); 375 and 1280 px in three looks; no JS errors.
 
 **Not in v2.4:** sources page (item 7, next UI/UX turn), the other proposed tap cards (wait for Szymon's pick of cards 1–9).
+
+### v2.5 tasks (Functionality, planned 21 Nov 2026)
+
+Current `appVersion` 2.4.0, pushed. Last release UI/UX, so this is **Functionality**. Items 2, 3, 4 are done; item 1 (rest)
+waits for Szymon's pick of cards 1–9; the only Functionality item left is **item 8, points estimate** (L, Opus). Too big for one
+night for all universities, so v2.5 does **AGH only** (the 11 AGH offers already have a sourced 2026 threshold on the same
+0–1000 scale). UJ and UJ CM follow when item 5 (their thresholds) is done. Core rule stays: Kompas is a compass, not a grade.
+The estimate is a rough "orientacyjnie", never a promise, and never changes the scoring or the order of options.
+
+Background (to confirm from the AGH rules, `agh-2027`): AGH ranks by a recruitment index (WR, max 1000), built from two groups
+of main subjects with different weights plus double the basic-level maths points; each course's subjects for the two groups are
+in Table 1 of the rules ([otouczelnie summary](https://www.otouczelnie.pl/uczelnia_dzial/11105/Zasady-rekrutacji-AGH-20252026),
+[opinieouczelniach](https://opinieouczelniach.pl/uczelnia/akademia-gorniczo-hutnicza-im-stanislawa-staszica-w-krakowie/progi-punktowe/)).
+
+1. [ ] **SF3 (Opus) AGH formula as data.** Read the AGH 2027/28 rules (`agh-2027`, uchwała Senatu, § 5 and Table 1) and write the
+   exact WR formula: the weights of the two subject groups (G1/G2 or P1/P2), how basic and extended levels convert, the maths term,
+   the cap at 1000. Store it once in `studia/data/config.json` as `pointRules.agh` `{ "sourceId": "agh-2027", "max": 1000, … }`
+   and per AGH offer the subjects of each group (`points: { "rule": "agh", "g1": ["fizyka","informatyka"], "g2": [...] }`), taken from
+   Table 1 (one source entry per page). Write `estimatePoints(offer, expected, config)` in `core/scoring.js`: picks the best subject
+   per group from what he expects, returns `{ points, max, missing: [...] }` or `null` when the offer has no rule. If the rules use
+   a choice he cannot express (e.g. a subject not in Kompas's list), say so in `missing`, never guess.
+   Done when: unit checks in `tests/run.mjs` against 3 worked examples written from the rules (e.g. maths 80% ext + physics 70% ext);
+   `syntax.mjs` checks that every `points.rule` exists in `pointRules` and every AGH offer has one.
+2. [ ] **SF4 (Opus) "Ile mogę mieć punktów?" taps.** A small block in the declaration section (`#declwrap`, under the helper) and in
+   the report: for each subject in his extended list plus basic maths, chips 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 % (no typing),
+   stored as `A.expected = { "matematyka": { "level": "r", "pct": 70 }, … }` and kept in the file. Shown only when he has at least one
+   starred AGH offer or an AGH offer in his options. Per AGH offer: "ok. 640 z 1000 pkt · próg 2026: 700 (I cykl)" with a plain-words
+   gap ("brakuje ok. 60 pkt" / "powyżej progu z 2026") and the line "To szacunek: progi co roku są inne, a matura dopiero w maju 2027."
+   Parent note (one line in "Dla rodzica"): the estimate is for planning, not for pressure.
+   Also in "Porównaj gwiazdki" as a row "Twoje punkty (szacunek)" for AGH offers. Updates in place (no page jump), like `#declwrap`.
+   Done when: persona B with expected maths 80 % and physics 70 % shows numbers that match the SF3 unit examples; changing a chip updates
+   the line; an old file without `expected` loads; 375 and 1280 px in three looks.
+3. [ ] **SF5 (Sonnet) Export and file.** Export "## Moje punkty (szacunek)": his expected % per subject and, per AGH offer, estimate vs
+   2026 threshold; `A.expected` survives save and load (test).
+4. [ ] **SR2.5 (Opus) Review and release v2.5.0.** Check the formula against the source once more (one worked example in the commit
+   message); tests; click-through; version 2.5.0 in the four places; `dataVersion`; spec doc section; mark v2.5 pushed; push.
+
+**Not in v2.5:** UJ / UJ CM / UEK formulas (after their thresholds, item 5), sources page (item 7), parent summary (item 9).
+**Next by rotation:** v2.6 = Data (item 5 UJ thresholds, item 6 GUS 2024 pay, and the cards Szymon picks from 1–9).
 
