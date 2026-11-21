@@ -96,13 +96,29 @@ const softAns = { ...p0.answers, points: { mode: 'soft', soft: { exam: { polski:
 const rs = scoreLiceum(softAns, data), c0 = rs.slots.best[0].classes[0];
 console.log('\nSoft-mode check:', rs.slots.best[0].card.id, c0.school.short, c0.cls.code, c0.check.chance, rs.points.approx);
 if (!rs.points.approx || !['realna', 'zawalczenia', 'ambitna'].includes(c0.check.chance)) fail('soft mode should give a chance label');
+// CD1 (v2.10): every direction is reachable: at least 2 activity cards in one of its worlds and a strength that exists.
+for (const o of data.opportunities) {
+  const n = data.questions.activities.filter(a => (a.worlds || []).some(w => (o.worlds || []).includes(w))).length;
+  if (n < 2) fail('CD1: fewer than 2 activity cards reach', o.id);
+  if (!o.strengths.some(x => strIds.has(x))) fail('CD1: no strength for', o.id);
+}
+// Old saved files (8 profiles, no arts answers) still score: arts activities count as 0.
+{ const old = j('../liceum/data/personas.json')[0].answers, r = scoreLiceum({ ...old, sort: Object.fromEntries(Object.entries(old.sort).filter(([k]) => !/^(c|h|l|m)\d$/.test(k))) }, data);
+  if (profilesFor(r, data).length !== data.profiles.length) fail('old file: compass should list every profile'); }
 // Compass: the expected North for each test kid.
-const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'] };
+const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'], P8: ['artystyczny'], P9: ['przyrodniczy', 'spoleczny'], P10: ['humanistyczny'], P11: ['humanistyczny'] };
+// CD1 (v2.10): each new direction is in the top 3 for its test kid, and its compass profile is N, NNE or NNW.
+const DIRKID = { P8: 'sztuka', P9: 'zdrowie', P10: 'prawo', P11: 'media' };
 for (const p of j('../liceum/data/personas.json')) {
   const P = profilesFor(scoreLiceum(p.answers, forKid(p.answers)), forKid(p.answers));
   console.log(`Kompas ${p.id}:`, P.map(x => `${x.compass.pos} ${x.profile.id} ${Math.round(x.fit)}`).join(' · '));
   if (NORTH[p.id] && !NORTH[p.id].includes(P[0].profile.id)) fail('compass north for', p.id, 'is', P[0].profile.id);
   if (!P[0].classes.length) fail('north profile without classes for', p.id);
+  if (DIRKID[p.id]) {
+    const r = scoreLiceum(p.answers, forKid(p.answers)), d = DIRKID[p.id];
+    if (!r.slots.best.slice(0, 3).some(c => c.card.id === d)) fail('CD1: direction not in top 3 for', p.id, d);
+    if (!P.slice(0, 3).some(x => x.profile.areas.includes(d))) fail('CD1: profile of', d, 'not N/NNE/NNW for', p.id);
+  }
 }
 // Every school in every town: a town, an address, a map point inside that town, sources and links that resolve.
 const ids = new Set();

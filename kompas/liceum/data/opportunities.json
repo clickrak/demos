@@ -335,63 +335,132 @@
  },
  {
   "id": "biologia",
-  "name": "Biologia, zdrowie i medycyna",
+  "name": "Biologia i laboratorium",
   "cluster": "bio",
   "interests": {
-   "ana": 75,
-   "tec": 35,
-   "spo": 85,
-   "twr": 15,
-   "prz": 20,
-   "sys": 60
+   "ana": 85,
+   "tec": 45,
+   "spo": 45,
+   "twr": 25,
+   "prz": 15,
+   "sys": 65
   },
   "workStyle": {
    "zespol": 1,
-   "ludzie": -1,
-   "ruch": -1,
+   "ludzie": 1,
+   "ruch": 0,
    "konkret": -1,
-   "decyzje": 0,
-   "zmiana": 1,
-   "projekty": 1,
+   "decyzje": 1,
+   "zmiana": 0,
+   "projekty": 2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "pewnosc",
+   "prestiz",
+   "pomaganie"
+  ],
+  "strengths": [
+   "dokladnosc",
+   "ciekawosc",
+   "logika",
+   "wytrwalosc",
+   "spokoj"
+  ],
+  "roles": "biolog, biotechnolog, diagnosta laboratoryjny, genetyk, farmaceuta",
+  "whoYouHelp": "Lekarze i pacjenci, którzy czekają na wynik badania, oraz wszyscy, którym pomogą nowe leki i odkrycia.",
+  "whatYouGet": "Praca z mikroskopem, próbkami i danymi. Spokojne, dokładne sprawdzanie, a czasem odkrycie, którego nikt wcześniej nie widział.",
+  "dayInLife": [
+   "Rano: przygotowujesz próbki do badania.",
+   "Południe: analizujesz wyniki i porównujesz je z poprzednimi.",
+   "Po południu: krótkie spotkanie zespołu i notatki do raportu."
+  ],
+  "experiment": "Wyhoduj pleśń na kromce chleba w trzech miejscach (lodówka, okno, szafka) i przez tydzień zapisuj, co się dzieje. Co z tego wynika?",
+  "related": [
+   "zdrowie",
+   "chemia",
+   "srodowisko"
+  ],
+  "afterSchool": "Biologia, biotechnologia, analityka medyczna i farmacja w Krakowie. Wymagają zwykle rozszerzonej biologii i chemii, więc klasa biol-chem to droga prosto tam.",
+  "studiaCards": [
+   "laboratorium",
+   "farmacja",
+   "morze"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "icon": "zdrowie",
+  "worlds": [
+   "natura"
+  ],
+  "field": [
+   "MED"
+  ]
+ },
+ {
+  "id": "zdrowie",
+  "name": "Zdrowie i opieka",
+  "cluster": "bio",
+  "interests": {
+   "ana": 65,
+   "tec": 45,
+   "spo": 90,
+   "twr": 15,
+   "prz": 25,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -2,
+   "ruch": -2,
+   "konkret": -2,
+   "decyzje": -1,
+   "zmiana": 2,
+   "projekty": -1,
    "wspolpraca": 2
   },
   "values": [
    "pomaganie",
-   "prestiz",
    "pewnosc",
+   "prestiz",
    "trudne"
   ],
   "strengths": [
    "empatia",
    "spokoj",
    "odpowiedzialnosc",
-   "wytrwalosc",
-   "dokladnosc"
+   "dokladnosc",
+   "kondycja"
   ],
-  "roles": "lekarz, ratownik, pielęgniarz, fizjoterapeuta, biolog",
-  "whoYouHelp": "Chorzy i ich rodziny. Czasem też ludzie, którym pomagasz dzięki badaniom.",
-  "whatYouGet": "Praca, która ma znaczenie od pierwszego dnia, i wiedza, która się nie starzeje.",
+  "roles": "lekarz, ratownik medyczny, pielęgniarz, fizjoterapeuta, położna",
+  "whoYouHelp": "Chorzy, ranni i starsi ludzie oraz ich rodziny, często w najtrudniejszym dniu ich życia.",
+  "whatYouGet": "Praca, która ma znaczenie od pierwszego dnia. Dużo ruchu, praca w zespole i szybkie decyzje, gdy liczy się czas.",
   "dayInLife": [
-   "Rano: rozmowa z pacjentem i decyzja, co dalej.",
-   "Potem: sprawdzasz wyniki badań.",
-   "Po południu: krótkie omówienie przypadku z zespołem."
+   "Rano: obchód i rozmowa z pacjentem, jak się czuje.",
+   "Południe: wezwanie do wypadku albo zabieg w gabinecie.",
+   "Po południu: przekazanie dyżuru zespołowi i notatki."
   ],
   "experiment": "Zrób kurs pierwszej pomocy i porozmawiaj 20 minut z lekarzem, ratownikiem albo pielęgniarką o ich zwykłym dyżurze.",
   "related": [
-   "chemia",
-   "srodowisko"
+   "biologia",
+   "ludzie",
+   "sport"
   ],
-  "afterSchool": "Medycyna, farmacja, pielęgniarstwo i fizjoterapia w Krakowie. Prawie wszystkie wymagają rozszerzonej biologii i chemii, więc klasa biol-chem to droga prosto tam.",
+  "afterSchool": "Medycyna, pielęgniarstwo, ratownictwo medyczne i fizjoterapia w Krakowie (UJ CM, AWF, UAFM). Prawie wszystkie wymagają rozszerzonej biologii i często chemii, więc klasa biol-chem to droga prosto tam.",
   "studiaCards": [
    "medycyna",
-   "farmacja",
    "pielegniarstwo",
-   "rehabilitacja"
+   "rehabilitacja",
+   "sluzby"
   ],
   "robustness": {
    "A": "wysoka",
    "B": "wysoka",
-   "C": "średnia"
+   "C": "wysoka"
   },
   "icon": "zdrowie",
   "worlds": [
@@ -721,6 +790,7 @@
   ],
   "afterSchool": "Architektura i budownictwo na Politechnice Krakowskiej i AGH. W liceum: matematyka z fizyką albo geografią. Technikum budowlane albo geodezyjne daje zawód po 4 latach.",
   "studiaCards": [
+   "architektura",
    "projektowanie"
   ],
   "robustness": {
@@ -853,7 +923,9 @@
   ],
   "afterSchool": "Psychologia i pedagogika na UJ i UKEN (dawniej Uniwersytet Pedagogiczny). W liceum: klasy z biologią i polskim, często nazywane psychologiczno-pedagogicznymi.",
   "studiaCards": [
-   "psychologia"
+   "psychologia",
+   "edukacja",
+   "mowa"
   ],
   "robustness": {
    "A": "wysoka",
@@ -871,58 +943,58 @@
  },
  {
   "id": "spoleczenstwo",
-  "name": "Historia, prawo i media",
+  "name": "Historia i kultura",
   "cluster": "spoleczenstwo",
   "interests": {
-   "ana": 65,
+   "ana": 70,
    "tec": 10,
-   "spo": 55,
-   "twr": 75,
-   "prz": 65,
-   "sys": 55
+   "spo": 45,
+   "twr": 65,
+   "prz": 40,
+   "sys": 60
   },
   "workStyle": {
-   "zespol": 0,
-   "ludzie": -1,
-   "ruch": 1,
-   "konkret": 1,
-   "decyzje": 1,
-   "zmiana": 1,
-   "projekty": 1,
-   "wspolpraca": 0
+   "zespol": -1,
+   "ludzie": 0,
+   "ruch": 2,
+   "konkret": 2,
+   "decyzje": 2,
+   "zmiana": 0,
+   "projekty": 2,
+   "wspolpraca": 1
   },
   "values": [
-   "wplyw",
-   "prestiz",
    "kreatywnosc",
-   "niezaleznosc"
+   "niezaleznosc",
+   "wplyw",
+   "prestiz"
   ],
   "strengths": [
-   "przekonywanie",
    "ciekawosc",
-   "tlumaczenie",
    "dokladnosc",
+   "tlumaczenie",
+   "wytrwalosc",
    "logika"
   ],
-  "roles": "prawnik, dziennikarz, historyk, specjalista od komunikacji, urzędnik, dyplomata",
-  "whoYouHelp": "Ludzie, którzy potrzebują rzetelnej informacji albo obrony swoich praw.",
-  "whatYouGet": "Praca ze słowem i argumentami. Wpływ na to, co ludzie wiedzą i myślą.",
+  "roles": "historyk, archiwista, muzealnik, przewodnik, nauczyciel historii, badacz kultury",
+  "whoYouHelp": "Ludzie, którzy chcą wiedzieć, skąd się wzięli i jak było naprawdę: uczniowie, turyści, czytelnicy, rodziny szukające przodków.",
+  "whatYouGet": "Dużo czytania i szukania w źródłach. Opowiadasz innym o przeszłości tak, że chcą słuchać.",
   "dayInLife": [
-   "Poranek: czytasz dokumenty i szukasz ważnych faktów.",
-   "Południe: rozmowa z klientem albo nagranie materiału.",
-   "Po południu: piszesz tekst albo opinię."
+   "Rano: archiwum albo biblioteka, szukasz starych dokumentów.",
+   "Południe: oprowadzasz grupę albo prowadzisz lekcję.",
+   "Po południu: piszesz tekst o tym, co znalazłeś."
   ],
-  "experiment": "Wybierz jeden temat z wiadomości i sprawdź go w trzech różnych źródłach. Co się zgadza, a co nie?",
+  "experiment": "Poproś dziadków albo sąsiada o jedno stare zdjęcie i dowiedz się wszystkiego, co się da: kto, gdzie, kiedy. Zapisz to jako krótką historię.",
   "related": [
-   "jezyki",
-   "biznes",
-   "ludzie"
-  ],
-  "afterSchool": "Prawo, historia, dziennikarstwo i politologia na UJ. W liceum: klasy z polskim, historią i WOS.",
-  "studiaCards": [
+   "prawo",
    "media",
-   "mowa",
-   "sluzby"
+   "jezyki"
+  ],
+  "afterSchool": "Historia, historia sztuki, archeologia i kulturoznawstwo na UJ i UKEN. W liceum: klasy z polskim i historią.",
+  "studiaCards": [
+   "historia-sztuki",
+   "turystyka",
+   "edukacja"
   ],
   "robustness": {
    "A": "średnia",
@@ -934,9 +1006,207 @@
    "spoleczenstwo"
   ],
   "field": [
-   "HUM",
-   "LAW",
+   "HUM"
+  ]
+ },
+ {
+  "id": "prawo",
+  "name": "Prawo i administracja",
+  "cluster": "spoleczenstwo",
+  "interests": {
+   "ana": 75,
+   "tec": 10,
+   "spo": 55,
+   "twr": 40,
+   "prz": 75,
+   "sys": 65
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 0,
+   "ruch": 2,
+   "konkret": 2,
+   "decyzje": 2,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "wplyw",
+   "prestiz",
+   "pewnosc",
+   "zarobki"
+  ],
+  "strengths": [
+   "logika",
+   "przekonywanie",
+   "dokladnosc",
+   "tlumaczenie",
+   "wytrwalosc"
+  ],
+  "roles": "adwokat, radca prawny, sędzia, prokurator, urzędnik, specjalista od przepisów w firmie",
+  "whoYouHelp": "Ludzie i firmy, które mają spór, podpisują umowę albo nie rozumieją przepisów; mieszkańcy, którzy załatwiają sprawy w urzędzie.",
+  "whatYouGet": "Dużo czytania i pisania, szukanie argumentów i luk w tekście. Uczysz się spokojnie przekonywać, bo zawsze jest druga strona.",
+  "dayInLife": [
+   "Rano: czytasz umowę klienta i zaznaczasz, co jest ryzykowne.",
+   "Południe: rozprawa w sądzie albo spotkanie w urzędzie.",
+   "Po południu: piszesz pismo i sprawdzasz podobne sprawy."
+  ],
+  "experiment": "Weź regulamin aplikacji, której używasz, i znajdź trzy zdania niekorzystne dla ciebie. Napisz, co byś zmienił i dlaczego.",
+  "related": [
+   "spoleczenstwo",
+   "biznes",
+   "jezyki"
+  ],
+  "afterSchool": "Prawo i administracja na UJ, UEK i UKEN. Liczą się zwykle polski, historia albo WOS, czasem matematyka lub język obcy. W liceum: klasy z WOS i historią.",
+  "studiaCards": [
+   "prawo",
+   "ue"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "icon": "prawo",
+  "worlds": [
+   "spoleczenstwo"
+  ],
+  "field": [
+   "LAW"
+  ]
+ },
+ {
+  "id": "media",
+  "name": "Media i komunikacja",
+  "cluster": "spoleczenstwo",
+  "interests": {
+   "ana": 45,
+   "tec": 30,
+   "spo": 60,
+   "twr": 85,
+   "prz": 65,
+   "sys": 35
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": -1,
+   "ruch": 0,
+   "konkret": 0,
+   "decyzje": -2,
+   "zmiana": 3,
+   "projekty": -1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "kreatywnosc",
+   "wplyw",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "przekonywanie",
+   "pomyslowosc",
+   "ciekawosc",
+   "tlumaczenie",
+   "szybka_nauka"
+  ],
+  "roles": "dziennikarz, reporter, twórca podcastów i wideo, specjalista od social mediów, rzecznik prasowy",
+  "whoYouHelp": "Ludzie, którzy chcą rzetelnej informacji, oraz firmy i instytucje, które muszą jasno coś powiedzieć.",
+  "whatYouGet": "Szybkie tempo, ciągle nowe tematy i rozmowy z ludźmi. Twój tekst albo film widzą tysiące osób.",
+  "dayInLife": [
+   "Rano: kolegium redakcyjne, wybieracie tematy dnia.",
+   "Południe: wywiad albo nagranie w terenie.",
+   "Po południu: montaż, tytuł i publikacja, a potem komentarze."
+  ],
+  "experiment": "Nagraj trzyminutowy wywiad z kimś z rodziny o jego pierwszej pracy. Wytnij najlepszą minutę i pokaż komuś. Co zadziałało?",
+  "related": [
+   "spoleczenstwo",
+   "jezyki",
+   "sztuka"
+  ],
+  "afterSchool": "Dziennikarstwo i komunikacja społeczna (UJ, Ignatianum), public relations (UKEN), film i nowe media (UJ). Liczy się zwykle polski i język obcy. W liceum: klasy z polskim i WOS albo medialne.",
+  "studiaCards": [
+   "media",
+   "media-cyfrowe"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "icon": "media",
+  "worlds": [
+   "spoleczenstwo"
+  ],
+  "field": [
    "MEDIA"
+  ]
+ },
+ {
+  "id": "sztuka",
+  "name": "Sztuka i projektowanie",
+  "cluster": "art",
+  "interests": {
+   "ana": 35,
+   "tec": 45,
+   "spo": 40,
+   "twr": 95,
+   "prz": 40,
+   "sys": 35
+  },
+  "workStyle": {
+   "zespol": -1,
+   "ludzie": 1,
+   "ruch": 0,
+   "konkret": -2,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": 2,
+   "wspolpraca": 0
+  },
+  "values": [
+   "kreatywnosc",
+   "niezaleznosc",
+   "wplyw"
+  ],
+  "strengths": [
+   "rysunek",
+   "oko",
+   "pomyslowosc",
+   "wytrwalosc",
+   "dyscyplina"
+  ],
+  "roles": "grafik, projektant wnętrz, ilustrator, fotograf, operator filmowy, projektant mody, muzyk",
+  "whoYouHelp": "Ludzie, którzy chcą ładnie i wygodnie mieszkać, firmy, które potrzebują logo i reklamy, widzowie i słuchacze.",
+  "whatYouGet": "Twój pomysł staje się czymś, co można zobaczyć albo usłyszeć. Dużo ćwiczenia, teczka prac i egzaminy praktyczne zamiast samych punktów.",
+  "dayInLife": [
+   "Rano: szkice i rozmowa z klientem, czego potrzebuje.",
+   "Południe: praca w programie graficznym albo w pracowni.",
+   "Po południu: poprawki, druk próbny albo próba przed występem."
+  ],
+  "experiment": "Przez dwa tygodnie rób codziennie jeden szkic, zdjęcie albo krótkie nagranie. Wybierz pięć najlepszych: to początek twojej teczki.",
+  "related": [
+   "budowa",
+   "media",
+   "spoleczenstwo"
+  ],
+  "afterSchool": "ASP (architektura wnętrz, grafika, wzornictwo), UKEN (design, komunikacja wizualna), Akademia Muzyczna, AST (aktorstwo). Zwykle decyduje egzamin praktyczny i teczka prac, a nie tylko matura. Szkoły plastyczne i muzyczne dojdą w kolejnej wersji.",
+  "studiaCards": [
+   "projektowanie",
+   "historia-sztuki",
+   "media-cyfrowe"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "icon": "sztuka",
+  "worlds": [
+   "sztuka"
+  ],
+  "field": [
+   "ART"
   ]
  }
 ]

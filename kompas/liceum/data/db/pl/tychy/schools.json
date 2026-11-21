@@ -19,6 +19,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -41,6 +42,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki"
     ],
     "threshold": null,
@@ -51,6 +53,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "LAW",
      "LNG"
     ]
    },
@@ -108,7 +111,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -123,7 +127,8 @@
     },
     "fields": [
      "LNG",
-     "HUM"
+     "HUM",
+     "MEDIA"
     ]
    }
   ],
@@ -245,6 +250,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 160.15,
@@ -269,6 +275,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 133.45,
@@ -285,6 +292,7 @@
     "thresholdSourceId": "lp-ty-lo2",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    },
@@ -298,6 +306,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki"
     ],
     "threshold": 106.05,
@@ -319,6 +328,7 @@
     "thresholdSourceId": "lp-ty-lo2",
     "fields": [
      "HUM",
+     "LAW",
      "LNG"
     ]
    }
@@ -350,7 +360,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media"
     ],
     "threshold": 119.4,
     "thresholdYear": "2026/27",
@@ -361,7 +372,8 @@
     "thresholdSourceId": "lp-ty-lo3",
     "fields": [
      "LNG",
-     "HUM"
+     "HUM",
+     "MEDIA"
     ]
    },
    {
@@ -373,6 +385,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki"
     ],
     "threshold": 105.85,
@@ -384,6 +397,7 @@
     "thresholdSourceId": "lp-ty-lo3",
     "fields": [
      "HUM",
+     "LAW",
      "LNG"
     ]
    },
@@ -397,6 +411,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 122.55,
@@ -468,6 +483,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "sport",
      "ludzie"
     ],
@@ -494,6 +510,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 151.05,
@@ -698,7 +715,9 @@
     ],
     "cards": [
      "biznes",
-     "jezyki"
+     "jezyki",
+     "media",
+     "sztuka"
     ],
     "threshold": null,
     "thresholdYear": null,

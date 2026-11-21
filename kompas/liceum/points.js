@@ -181,7 +181,7 @@ export function levers(p = {}, cls) {
 export const COMPASS = [
   { pos: 'N', deg: 0, label: 'północ: najlepiej pasuje' }, { pos: 'NNE', deg: 22.5, label: 'bliska alternatywa' }, { pos: 'NNW', deg: -22.5, label: 'bliska alternatywa' },
   { pos: 'NE', deg: 50, label: 'też warto zajrzeć' }, { pos: 'NW', deg: -50, label: 'też warto zajrzeć' }, { pos: 'E', deg: 95, label: 'dalej od ciebie' },
-  { pos: 'W', deg: -95, label: 'dalej od ciebie' }, { pos: 'S', deg: 180, label: 'najmniej pasuje teraz' }
+  { pos: 'W', deg: -95, label: 'dalej od ciebie' }, { pos: 'SE', deg: 140, label: 'daleko od ciebie' }, { pos: 'S', deg: 180, label: 'najmniej pasuje teraz' }
 ];
 export function profilesFor(result, data) {
   const byId = Object.fromEntries(result.cards.map(c => [c.card.id, c]));

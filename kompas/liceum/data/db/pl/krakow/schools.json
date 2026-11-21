@@ -72,6 +72,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 175.1,
@@ -95,6 +96,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 177.45,
@@ -118,6 +120,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki"
     ],
     "threshold": 168.9,
@@ -134,6 +137,7 @@
     "scoredSourceId": "w2-lo1",
     "fields": [
      "HUM",
+     "LAW",
      "LNG"
     ]
    },
@@ -277,6 +281,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -349,6 +354,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -373,6 +379,7 @@
     "cards": [
      "spoleczenstwo",
      "budowa",
+     "sztuka",
      "jezyki"
     ],
     "threshold": 169.2,
@@ -389,6 +396,7 @@
     "fields": [
      "HUM",
      "BUD",
+     "ART",
      "LNG"
     ]
    },
@@ -401,7 +409,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 164.8,
     "thresholdYear": "2026/27",
@@ -415,7 +425,9 @@
     "sourceId": "w2-lo2",
     "status": "check",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    }
   ],
@@ -527,6 +539,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 176.5,
@@ -549,7 +562,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 166.3,
     "thresholdYear": "2026/27",
@@ -564,7 +579,9 @@
     "status": "sourced",
     "scoredSourceId": "w2-lo4",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    },
    {
@@ -577,6 +594,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "srodowisko"
     ],
     "threshold": 162.6,
@@ -593,6 +611,7 @@
     "scoredSourceId": "w2-lo4",
     "fields": [
      "HUM",
+     "LAW",
      "BIO"
     ]
    },
@@ -787,6 +806,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 180.5,
@@ -810,6 +830,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 180.5,
@@ -832,7 +853,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 170.2,
     "thresholdYear": "2026/27",
@@ -841,7 +864,9 @@
     "sourceId": "otou-lo5",
     "status": "sourced",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    },
    {
@@ -854,6 +879,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "srodowisko"
     ],
     "threshold": 167.6,
@@ -864,6 +890,7 @@
     "status": "sourced",
     "fields": [
      "HUM",
+     "LAW",
      "BIO"
     ]
    }
@@ -933,6 +960,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 172.2,
@@ -961,6 +989,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 170.95,
@@ -989,6 +1018,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 166.8,
@@ -1005,6 +1035,7 @@
     "scoredSourceId": "w2-lo7",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    },
@@ -1138,6 +1169,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 177.55,
@@ -1161,6 +1193,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 177.55,
@@ -1290,7 +1323,9 @@
      "historia"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 169.1,
     "thresholdYear": "2026/27",
@@ -1305,7 +1340,9 @@
     "status": "sourced",
     "scoredSourceId": "w2-lo8",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    }
   ],
@@ -1340,6 +1377,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -1422,7 +1460,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 162,
     "thresholdYear": "2026/27",
@@ -1436,7 +1476,9 @@
     "sourceId": "w2-lo9",
     "status": "sourced",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    }
   ],
@@ -1750,6 +1792,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -1786,6 +1829,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -1883,6 +1927,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 172.8,
@@ -2032,6 +2077,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 165.4,
@@ -2082,7 +2128,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media"
     ],
     "threshold": 157.4,
     "thresholdYear": "2026/27",
@@ -2092,7 +2139,8 @@
     "status": "sourced",
     "fields": [
      "LNG",
-     "HUM"
+     "HUM",
+     "MEDIA"
     ]
    },
    {
@@ -2131,6 +2179,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 159.15,
@@ -2141,6 +2190,7 @@
     "status": "sourced",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG",
      "EDU"
     ]
@@ -2276,6 +2326,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki"
     ],
     "threshold": null,
@@ -2300,6 +2351,7 @@
     },
     "fields": [
      "HUM",
+     "LAW",
      "LNG"
     ]
    }
@@ -2437,7 +2489,9 @@
      "angielski"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 163.75,
     "thresholdYear": "2026/27",
@@ -2446,7 +2500,9 @@
     "sourceId": "otou-lo3",
     "status": "check",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    },
    {
@@ -2458,6 +2514,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 170.05,
@@ -2481,6 +2538,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 173.4,
@@ -2580,7 +2638,8 @@
     "cards": [
      "biznes",
      "srodowisko",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "prawo"
     ],
     "threshold": 171.75,
     "thresholdYear": "2026/27",
@@ -2601,7 +2660,8 @@
     "fields": [
      "ECO",
      "BIO",
-     "HUM"
+     "HUM",
+     "LAW"
     ]
    },
    {
@@ -2614,6 +2674,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 175.7,
@@ -2647,7 +2708,9 @@
     ],
     "cards": [
      "budowa",
-     "spoleczenstwo"
+     "sztuka",
+     "spoleczenstwo",
+     "media"
     ],
     "threshold": 168.65,
     "thresholdYear": "2026/27",
@@ -2667,8 +2730,9 @@
     },
     "fields": [
      "BUD",
+     "ART",
      "HUM",
-     "ART"
+     "MEDIA"
     ]
    },
    {
@@ -2711,7 +2775,9 @@
      "historia"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 165.1,
     "thresholdYear": "2026/27",
@@ -2725,7 +2791,9 @@
     "sourceId": "otou-lo6",
     "status": "sourced",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    },
    {
@@ -2738,6 +2806,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 173.7,
@@ -2909,7 +2978,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 165.85,
     "thresholdYear": "2026/27",
@@ -2918,7 +2989,9 @@
     "sourceId": "otou-lo10",
     "status": "sourced",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    },
    {
@@ -2955,6 +3028,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 173.0,
@@ -2978,6 +3052,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 173.15,
@@ -3102,6 +3177,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 171.3,
@@ -3130,7 +3206,8 @@
     ],
     "cards": [
      "chemia",
-     "biologia"
+     "biologia",
+     "zdrowie"
     ],
     "threshold": 169.0,
     "thresholdYear": "2026/27",
@@ -3271,6 +3348,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -3342,6 +3420,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 150.3,
@@ -3357,6 +3436,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    },
@@ -3439,6 +3519,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki",
      "biznes"
     ],
@@ -3455,6 +3536,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "LAW",
      "LNG",
      "ECO"
     ]
@@ -3727,6 +3809,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 163,
@@ -3783,7 +3866,8 @@
     ],
     "cards": [
      "chemia",
-     "biologia"
+     "biologia",
+     "zdrowie"
     ],
     "threshold": 152.5,
     "thresholdYear": "2026/27",
@@ -3917,6 +4001,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 155.35,
@@ -4027,6 +4112,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 139.5,
@@ -4042,6 +4128,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    }
@@ -4104,6 +4191,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 127.6,
@@ -4344,6 +4432,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": null,
@@ -4368,6 +4457,7 @@
     },
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    },
@@ -4381,7 +4471,8 @@
     ],
     "cards": [
      "biznes",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "prawo"
     ],
     "threshold": 146.9,
     "thresholdYear": "2026/27",
@@ -4396,7 +4487,8 @@
     "status": "check",
     "fields": [
      "ECO",
-     "HUM"
+     "HUM",
+     "LAW"
     ]
    }
   ],
@@ -4432,7 +4524,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 158.05,
     "thresholdYear": "2026/27",
@@ -4447,7 +4541,9 @@
     "status": "sourced",
     "scoredSourceId": "w-lo20",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    },
    {
@@ -4551,6 +4647,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 163.45,
@@ -4580,7 +4677,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "prawo"
     ],
     "threshold": 157.75,
     "thresholdYear": "2026/27",
@@ -4596,7 +4694,8 @@
     "scoredSourceId": "w-lo20",
     "fields": [
      "LNG",
-     "HUM"
+     "HUM",
+     "LAW"
     ]
    }
   ],
@@ -4702,6 +4801,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 137,
@@ -4717,6 +4817,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    }
@@ -4754,6 +4855,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -4902,6 +5004,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki"
     ],
     "threshold": 141.4,
@@ -4917,6 +5020,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "LAW",
      "LNG"
     ]
    }
@@ -4954,6 +5058,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 166.1,
@@ -4982,6 +5087,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 166.6,
@@ -5126,6 +5232,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 161.3,
@@ -5141,6 +5248,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    }
@@ -5206,6 +5314,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 137.4,
@@ -5234,7 +5343,8 @@
     ],
     "cards": [
      "ludzie",
-     "biologia"
+     "biologia",
+     "zdrowie"
     ],
     "threshold": 140.9,
     "thresholdYear": "2026/27",
@@ -5263,6 +5373,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 130.5,
@@ -5278,6 +5389,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    },
@@ -5343,6 +5455,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -5458,7 +5571,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -5481,7 +5595,8 @@
     },
     "fields": [
      "LNG",
-     "HUM"
+     "HUM",
+     "MEDIA"
     ]
    },
    {
@@ -5494,7 +5609,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media"
     ],
     "threshold": 158.7,
     "thresholdYear": "2026/27",
@@ -5508,7 +5624,8 @@
     "status": "check",
     "fields": [
      "LNG",
-     "HUM"
+     "HUM",
+     "MEDIA"
     ]
    }
   ],
@@ -5610,6 +5727,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 144.3,
@@ -5620,6 +5738,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    },
@@ -5633,6 +5752,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "prawo",
      "jezyki",
      "biznes"
     ],
@@ -5644,6 +5764,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "LAW",
      "LNG",
      "ECO"
     ]
@@ -5720,6 +5841,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 158.2,
@@ -5749,7 +5871,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "prawo"
     ],
     "threshold": 150.55,
     "thresholdYear": "2026/27",
@@ -5834,6 +5957,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 149.6,
@@ -5891,6 +6015,7 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "media",
      "jezyki"
     ],
     "threshold": 133.7,
@@ -5906,6 +6031,7 @@
     "status": "check",
     "fields": [
      "HUM",
+     "MEDIA",
      "LNG"
     ]
    }
@@ -5942,6 +6068,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": 128.75,
@@ -5997,7 +6124,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": 102.0,
     "thresholdYear": "2026/27",
@@ -6011,7 +6140,9 @@
     "sourceId": "otou-lo46",
     "status": "sourced",
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    }
   ],
@@ -6735,7 +6866,8 @@
      "polski"
     ],
     "cards": [
-     "programowanie"
+     "programowanie",
+     "media"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -6772,6 +6904,8 @@
     ],
     "cards": [
      "spoleczenstwo",
+     "sztuka",
+     "media",
      "jezyki"
     ],
     "threshold": null,
@@ -6782,8 +6916,9 @@
     "status": "check",
     "fields": [
      "HUM",
-     "LNG",
-     "ART"
+     "ART",
+     "MEDIA",
+     "LNG"
     ]
    },
    {
@@ -7348,7 +7483,8 @@
      "angielski"
     ],
     "cards": [
-     "budowa"
+     "budowa",
+     "sztuka"
     ],
     "threshold": 126.1,
     "thresholdYear": "2026/27",
@@ -7554,7 +7690,8 @@
     ],
     "cards": [
      "jezyki",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "prawo"
     ],
     "threshold": 139.3,
     "thresholdYear": "2026/27",
@@ -7564,7 +7701,8 @@
     "status": "check",
     "fields": [
      "LNG",
-     "HUM"
+     "HUM",
+     "LAW"
     ]
    },
    {
@@ -7578,7 +7716,8 @@
     "cards": [
      "jezyki",
      "biznes",
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "prawo"
     ],
     "threshold": 138.0,
     "thresholdYear": "2026/27",
@@ -7589,7 +7728,8 @@
     "fields": [
      "LNG",
      "ECO",
-     "HUM"
+     "HUM",
+     "LAW"
     ]
    }
   ],

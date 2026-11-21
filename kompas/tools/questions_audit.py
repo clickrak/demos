@@ -14,16 +14,18 @@ strengths = json.loads((K / 'core/strengths.json').read_text())
 FIELDS = ['nauki ścisłe/IT', 'języki', 'ekonomia i biznes', 'socjologia i psychologia', 'prawo i media', 'sztuka',
           'sport', 'opieka i zdrowie', 'praca rękami', 'ogólne']
 S, L, E, P, M, A, SP, C, H, G = FIELDS
-FIELD_WORLD = {'tech': S, 'natura': S, 'jezyki': L, 'biznes': E, 'ludzie': P, 'spoleczenstwo': M, 'sport': SP, 'budowa': H}
+FIELD_WORLD = {'tech': S, 'natura': S, 'jezyki': L, 'biznes': E, 'ludzie': P, 'spoleczenstwo': M, 'sport': SP, 'budowa': H, 'sztuka': A}
 FIELD_ACT = {'a1': S, 'a2': H, 'a3': S, 'a4': S, 'a5': S, 'a6': C, 'a7': S, 'a8': S, 'a9': P, 'a10': G, 'a11': S, 'a12': A,
              'a13': S, 'a14': S, 'a15': S, 'a16': C, 'a17': S, 'a18': G, 'a19': S, 'a20': H, 'a21': E, 'a22': G,
              'b1': L, 'b2': L, 'b3': L, 'b4': E, 'b5': E, 'b6': E, 'b7': H, 'b8': H, 'b9': H, 'b10': SP, 'b11': SP, 'b12': SP,
-             'b13': P, 'b14': P, 'b15': P, 'b16': M, 'b17': M, 'b18': M}
+             'b13': P, 'b14': P, 'b15': P, 'b16': M, 'b17': M, 'b18': M,
+             'c1': A, 'c2': A, 'c3': A, 'c4': A, 'c5': A, 'h1': C, 'h2': C, 'l1': M, 'l2': M, 'm1': M, 'm2': M}  # v2.10
 FIELD_STR = {'wytrwalosc': G, 'spokoj': G, 'logika': S, 'tlumaczenie': P, 'empatia': P, 'dokladnosc': G, 'ciekawosc': G,
              'zespol': G, 'dyscyplina': G, 'kondycja': SP, 'jezyki': L, 'szybka_nauka': G, 'organizowanie': E,
-             'pomyslowosc': G, 'odpowiedzialnosc': G, 'rysunek': A, 'przekonywanie': E}
+             'pomyslowosc': G, 'odpowiedzialnosc': G, 'rysunek': A, 'przekonywanie': E, 'orientacja': H, 'oko': A}
 FIELD_CARD = {'programowanie': S, 'cyber': S, 'dane-ai': S, 'elektronika': S, 'fizyka': S, 'chemia': S, 'srodowisko': S,
-              'biologia': C, 'jezyki': L, 'biznes': E, 'ludzie': P, 'spoleczenstwo': M, 'sport': SP, 'budowa': H}
+              'biologia': S, 'zdrowie': C, 'jezyki': L, 'biznes': E, 'ludzie': P, 'spoleczenstwo': M, 'prawo': M, 'media': M,
+              'sport': SP, 'budowa': H, 'sztuka': A}
 
 def count(items, key, table):
     c = {f: 0 for f in FIELDS}

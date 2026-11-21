@@ -692,5 +692,490 @@
    },
    "region": "tychy"
   }
+ },
+ {
+  "id": "P8",
+  "label": "Uczeń P8: rysuje, filmuje, gra na scenie",
+  "expect": {
+   "topClusters": [
+    "art"
+   ]
+  },
+  "answers": {
+   "name": "P8",
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": 0,
+    "a4": 0,
+    "a5": 1,
+    "a6": 0,
+    "a7": 0,
+    "a8": -1,
+    "a9": 0,
+    "a10": 0,
+    "a11": -1,
+    "a12": 1,
+    "a13": 0,
+    "a14": -1,
+    "a15": -1,
+    "a16": 0,
+    "a17": -1,
+    "a18": 0,
+    "a19": 0,
+    "a20": 0,
+    "a21": 0,
+    "a22": 0,
+    "b1": 0,
+    "b2": 0,
+    "b3": 0,
+    "b4": -1,
+    "b5": 0,
+    "b6": -1,
+    "b7": 1,
+    "b8": 0,
+    "b9": 0,
+    "b10": 0,
+    "b11": 0,
+    "b12": 0,
+    "b13": 0,
+    "b14": 0,
+    "b15": 0,
+    "b16": 0,
+    "b17": 1,
+    "b18": 0,
+    "c1": 1,
+    "c2": 1,
+    "c3": 1,
+    "c4": 1,
+    "c5": 1,
+    "h1": 0,
+    "h2": 0,
+    "l1": 0,
+    "l2": 0,
+    "m1": 0,
+    "m2": 0
+   },
+   "situations": {
+    "e1": "b",
+    "e2": "b",
+    "e3": "b"
+   },
+   "sliders": {
+    "zespol": -1,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -2,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 2,
+    "wspolpraca": 0
+   },
+   "values": [
+    "kreatywnosc",
+    "niezaleznosc",
+    "wplyw"
+   ],
+   "strengths": [
+    {
+     "id": "rysunek",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "oko",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "pomyslowosc",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "exam": {
+     "polski": 85,
+     "matematyka": 72,
+     "obcy": 92
+    },
+    "grades": {
+     "polski": 5,
+     "matematyka": 4,
+     "angielski": 5,
+     "fizyka": 4,
+     "informatyka": 4,
+     "biologia": 6,
+     "chemia": 5,
+     "geografia": 4,
+     "historia": 5
+    },
+    "stripe": false,
+    "achievements": 2,
+    "volunteering": true
+   }
+  }
+ },
+ {
+  "id": "P9",
+  "label": "Uczeń P9: ratownik, pierwsza pomoc",
+  "expect": {
+   "topClusters": [
+    "bio"
+   ],
+   "notTop": [
+    "programowanie"
+   ]
+  },
+  "answers": {
+   "name": "P9",
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": 0,
+    "a4": 0,
+    "a5": 0,
+    "a6": 1,
+    "a7": 0,
+    "a8": -1,
+    "a9": 1,
+    "a10": 0,
+    "a11": -1,
+    "a12": 0,
+    "a13": 0,
+    "a14": -1,
+    "a15": -1,
+    "a16": 1,
+    "a17": -1,
+    "a18": 0,
+    "a19": 0,
+    "a20": 0,
+    "a21": 0,
+    "a22": 0,
+    "b1": 0,
+    "b2": 0,
+    "b3": 0,
+    "b4": 0,
+    "b5": -1,
+    "b6": -1,
+    "b7": 0,
+    "b8": 0,
+    "b9": 0,
+    "b10": 1,
+    "b11": 1,
+    "b12": 0,
+    "b13": 1,
+    "b14": 0,
+    "b15": 0,
+    "b16": 0,
+    "b17": 0,
+    "b18": 0,
+    "c1": 0,
+    "c2": 0,
+    "c3": -1,
+    "c4": 0,
+    "c5": -1,
+    "h1": 1,
+    "h2": 1,
+    "l1": 0,
+    "l2": 0,
+    "m1": 0,
+    "m2": 0
+   },
+   "situations": {
+    "e1": "c",
+    "e2": "a",
+    "e3": "a"
+   },
+   "sliders": {
+    "zespol": 2,
+    "ludzie": -2,
+    "ruch": -2,
+    "konkret": -2,
+    "decyzje": -1,
+    "zmiana": 2,
+    "projekty": -1,
+    "wspolpraca": 2
+   },
+   "values": [
+    "pomaganie",
+    "pewnosc",
+    "trudne"
+   ],
+   "strengths": [
+    {
+     "id": "empatia",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "spokoj",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "kondycja",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "exam": {
+     "polski": 85,
+     "matematyka": 72,
+     "obcy": 92
+    },
+    "grades": {
+     "polski": 5,
+     "matematyka": 4,
+     "angielski": 5,
+     "fizyka": 4,
+     "informatyka": 4,
+     "biologia": 6,
+     "chemia": 5,
+     "geografia": 4,
+     "historia": 5
+    },
+    "stripe": false,
+    "achievements": 2,
+    "volunteering": true
+   }
+  }
+ },
+ {
+  "id": "P10",
+  "label": "Uczeń P10: regulaminy, spory i argumenty",
+  "expect": {
+   "topClusters": [
+    "spoleczenstwo",
+    "biznes"
+   ]
+  },
+  "answers": {
+   "name": "P10",
+   "sort": {
+    "a1": 0,
+    "a2": -1,
+    "a3": 0,
+    "a4": 0,
+    "a5": 0,
+    "a6": 0,
+    "a7": -1,
+    "a8": -1,
+    "a9": 0,
+    "a10": 0,
+    "a11": 0,
+    "a12": 0,
+    "a13": 0,
+    "a14": 1,
+    "a15": 0,
+    "a16": 0,
+    "a17": 0,
+    "a18": 1,
+    "a19": 0,
+    "a20": 0,
+    "a21": 1,
+    "a22": 1,
+    "b1": 0,
+    "b2": 0,
+    "b3": 0,
+    "b4": 0,
+    "b5": 0,
+    "b6": 0,
+    "b7": 0,
+    "b8": 0,
+    "b9": -1,
+    "b10": -1,
+    "b11": 0,
+    "b12": 0,
+    "b13": 0,
+    "b14": 0,
+    "b15": 0,
+    "b16": 1,
+    "b17": 0,
+    "b18": 1,
+    "c1": -1,
+    "c2": 0,
+    "c3": -1,
+    "c4": 0,
+    "c5": -1,
+    "h1": 0,
+    "h2": 0,
+    "l1": 1,
+    "l2": 1,
+    "m1": 0,
+    "m2": 0
+   },
+   "situations": {
+    "e1": "a",
+    "e2": "c",
+    "e3": "c"
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 0,
+    "ruch": 2,
+    "konkret": 2,
+    "decyzje": 2,
+    "zmiana": 0,
+    "projekty": 1,
+    "wspolpraca": 0
+   },
+   "values": [
+    "wplyw",
+    "prestiz",
+    "pewnosc"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "przekonywanie",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "exam": {
+     "polski": 85,
+     "matematyka": 72,
+     "obcy": 92
+    },
+    "grades": {
+     "polski": 5,
+     "matematyka": 4,
+     "angielski": 5,
+     "fizyka": 4,
+     "informatyka": 4,
+     "biologia": 6,
+     "chemia": 5,
+     "geografia": 4,
+     "historia": 5
+    },
+    "stripe": false,
+    "achievements": 2,
+    "volunteering": true
+   }
+  }
+ },
+ {
+  "id": "P11",
+  "label": "Uczeń P11: podcasty, wywiady, artykuły",
+  "expect": {
+   "topClusters": [
+    "spoleczenstwo",
+    "jezyki"
+   ]
+  },
+  "answers": {
+   "name": "P11",
+   "sort": {
+    "a1": 0,
+    "a2": -1,
+    "a3": 0,
+    "a4": -1,
+    "a5": 0,
+    "a6": 0,
+    "a7": -1,
+    "a8": -1,
+    "a9": 0,
+    "a10": 0,
+    "a11": -1,
+    "a12": 1,
+    "a13": 0,
+    "a14": -1,
+    "a15": 0,
+    "a16": 0,
+    "a17": 0,
+    "a18": 0,
+    "a19": 0,
+    "a20": 0,
+    "a21": 1,
+    "a22": 0,
+    "b1": 1,
+    "b2": 0,
+    "b3": 0,
+    "b4": 0,
+    "b5": 0,
+    "b6": -1,
+    "b7": 0,
+    "b8": 0,
+    "b9": -1,
+    "b10": 0,
+    "b11": 0,
+    "b12": 0,
+    "b13": 0,
+    "b14": 0,
+    "b15": 0,
+    "b16": 1,
+    "b17": 1,
+    "b18": 0,
+    "c1": 0,
+    "c2": 1,
+    "c3": 0,
+    "c4": 0,
+    "c5": 0,
+    "h1": 0,
+    "h2": 0,
+    "l1": 0,
+    "l2": 0,
+    "m1": 1,
+    "m2": 1
+   },
+   "situations": {
+    "e1": "b",
+    "e2": "d",
+    "e3": "d"
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": -1,
+    "ruch": 0,
+    "konkret": 0,
+    "decyzje": -2,
+    "zmiana": 3,
+    "projekty": -1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "kreatywnosc",
+    "wplyw",
+    "niezaleznosc"
+   ],
+   "strengths": [
+    {
+     "id": "przekonywanie",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "Przykład z mojego życia."
+    },
+    {
+     "id": "pomyslowosc",
+     "proof": "Przykład z mojego życia."
+    }
+   ],
+   "points": {
+    "exam": {
+     "polski": 85,
+     "matematyka": 72,
+     "obcy": 92
+    },
+    "grades": {
+     "polski": 5,
+     "matematyka": 4,
+     "angielski": 5,
+     "fizyka": 4,
+     "informatyka": 4,
+     "biologia": 6,
+     "chemia": 5,
+     "geografia": 4,
+     "historia": 5
+    },
+    "stripe": false,
+    "achievements": 2,
+    "volunteering": true
+   }
+  }
  }
 ]

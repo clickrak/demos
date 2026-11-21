@@ -413,6 +413,128 @@
    "worlds": [
     "spoleczenstwo"
    ]
+  },
+  {
+   "id": "c1",
+   "text": "Rysować albo malować dla siebie, nawet godzinami.",
+   "w": {
+    "twr": 2,
+    "tec": 1
+   },
+   "worlds": [
+    "sztuka"
+   ]
+  },
+  {
+   "id": "c2",
+   "text": "Robić zdjęcia albo krótkie filmy i potem je montować.",
+   "w": {
+    "twr": 2,
+    "tec": 1
+   },
+   "worlds": [
+    "sztuka"
+   ]
+  },
+  {
+   "id": "c3",
+   "text": "Grać na instrumencie albo śpiewać i ćwiczyć utwór, aż wyjdzie.",
+   "w": {
+    "twr": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "sztuka"
+   ]
+  },
+  {
+   "id": "c4",
+   "text": "Zaprojektować plakat, logo albo ubranie.",
+   "w": {
+    "twr": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "sztuka"
+   ]
+  },
+  {
+   "id": "c5",
+   "text": "Występować na scenie: teatr, kabaret albo taniec.",
+   "w": {
+    "twr": 2,
+    "spo": 1
+   },
+   "worlds": [
+    "sztuka"
+   ]
+  },
+  {
+   "id": "h1",
+   "text": "Nauczyć się pierwszej pomocy i ćwiczyć ją na fantomie.",
+   "w": {
+    "spo": 2,
+    "tec": 1
+   },
+   "worlds": [
+    "ludzie",
+    "natura"
+   ]
+  },
+  {
+   "id": "h2",
+   "text": "Wiedzieć, jak działają leki, szczepienia i badania krwi.",
+   "w": {
+    "ana": 2,
+    "spo": 1
+   },
+   "worlds": [
+    "natura"
+   ]
+  },
+  {
+   "id": "l1",
+   "text": "Przeczytać regulamin i znaleźć w nim haczyk.",
+   "w": {
+    "ana": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "spoleczenstwo"
+   ]
+  },
+  {
+   "id": "l2",
+   "text": "Bronić kogoś, kogo niesprawiedliwie oskarżono.",
+   "w": {
+    "prz": 2,
+    "spo": 1
+   },
+   "worlds": [
+    "spoleczenstwo"
+   ]
+  },
+  {
+   "id": "m1",
+   "text": "Napisać artykuł albo post, który ludzie przeczytają do końca.",
+   "w": {
+    "twr": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "spoleczenstwo"
+   ]
+  },
+  {
+   "id": "m2",
+   "text": "Przeprowadzić wywiad z kimś ciekawym.",
+   "w": {
+    "spo": 2,
+    "twr": 1
+   },
+   "worlds": [
+    "spoleczenstwo"
+   ]
   }
  ],
  "situations": [
@@ -586,7 +708,7 @@
   },
   {
    "id": "budowa",
-   "name": "Budowanie i projektowanie",
+   "name": "Budowanie i architektura",
    "hint": "domy, mosty, wnętrza",
    "icon": "technika"
   },
@@ -601,6 +723,12 @@
    "name": "Historia, prawo i media",
    "hint": "dyskusje, źródła, dziennikarstwo",
    "icon": "media"
+  },
+  {
+   "id": "sztuka",
+   "name": "Sztuka i projektowanie",
+   "hint": "rysunek, film, muzyka, scena",
+   "icon": "sztuka"
   }
  ]
 }

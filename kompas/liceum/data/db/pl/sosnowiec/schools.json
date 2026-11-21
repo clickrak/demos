@@ -51,6 +51,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -114,6 +115,7 @@
     ],
     "cards": [
      "biologia",
+     "zdrowie",
      "chemia"
     ],
     "threshold": null,
@@ -182,7 +184,9 @@
      "wos"
     ],
     "cards": [
-     "spoleczenstwo"
+     "spoleczenstwo",
+     "media",
+     "prawo"
     ],
     "threshold": null,
     "thresholdYear": null,
@@ -201,7 +205,9 @@
      "sourceId": "otou-so-lo4"
     },
     "fields": [
-     "HUM"
+     "HUM",
+     "MEDIA",
+     "LAW"
     ]
    },
    {

@@ -434,7 +434,7 @@ const clsKey = x => `${x.school.id}|${x.cls.code}`;
 
 // ---- the compass ---------------------------------------------------------------------------------------------------
 function compassData() { const r = scoreLiceum(A, data); return { r, P: profilesFor(r, data) }; }
-const CDEG = { N: 0, NNE: 27, NNW: -27, NE: 58, NW: -58, E: 96, W: -96, S: 180 };
+const CDEG = { N: 0, NNE: 27, NNW: -27, NE: 58, NW: -58, E: 96, W: -96, SE: 140, S: 180 };
 function compassSvg(P, selId) {
   const cx = 250, cy = 222, R0 = 128, rad = d => (d - 90) * Math.PI / 180;
   const ticks = Array.from({ length: 16 }, (_, i) => { const d = i * 22.5, l = i % 4 === 0 ? 14 : i % 2 === 0 ? 9 : 5;
