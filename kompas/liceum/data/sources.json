@@ -762,5 +762,19 @@
   "title": "Technikum nr 6 w Tychach, zawody 2026/27 i adres (Wasza Edukacja)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "otou-tm16",
+  "url": "https://www.otouczelnie.pl/artykul/3007/Technika-w-Krakowie/1447/Technikum-Mechaniczne-nr-16-w-ZSM-nr-2/progi-punktowe",
+  "title": "Technikum Mechaniczne nr 16 w ZSM nr 2, progi 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-tm16-klasy",
+  "url": "https://www.otouczelnie.pl/artykul/3007/Technika-w-Krakowie/1447/Technikum-Mechaniczne-nr-16-w-ZSM-nr-2/klasy",
+  "title": "Technikum Mechaniczne nr 16 w ZSM nr 2, klasy i przedmioty rozszerzone",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

@@ -6481,6 +6481,109 @@
   "geoChecked": true
  },
  {
+  "id": "tm16",
+  "name": "Technikum Mechaniczne nr 16 w Zespole Szkół Mechanicznych nr 2",
+  "short": "Technikum Mechaniczne nr 16",
+  "type": "technikum",
+  "town": "krakow",
+  "address": "al. gen. Jana Skrzyneckiego 12, 30-363 Kraków",
+  "addressSourceId": "krk-siec-szkol",
+  "range": {
+   "min": 58.5,
+   "max": 75.85,
+   "year": "2026/27",
+   "sourceId": "otou-tm16"
+  },
+  "classListSourceId": "otou-tm16-klasy",
+  "classes": [
+   {
+    "code": "1TA",
+    "label": "technik pojazdów samochodowych",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "mechanika"
+    ],
+    "threshold": 72.2,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tm16",
+    "status": "sourced",
+    "occupation": "technik pojazdów samochodowych",
+    "fields": [
+     "ENG"
+    ]
+   },
+   {
+    "code": "1TE",
+    "label": "technik usług fryzjerskich",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "sztuka"
+    ],
+    "threshold": 58.5,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tm16",
+    "status": "sourced",
+    "occupation": "technik usług fryzjerskich",
+    "fields": [
+     "TUR"
+    ]
+   },
+   {
+    "code": "1TL",
+    "label": "technik logistyk",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "transport",
+     "biznes"
+    ],
+    "threshold": 75.85,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tm16",
+    "status": "sourced",
+    "occupation": "technik logistyk",
+    "fields": [
+     "ECO"
+    ]
+   },
+   {
+    "code": "1TT",
+    "label": "technik organizacji turystyki",
+    "extended": [
+     "angielski"
+    ],
+    "cards": [
+     "jezyki",
+     "biznes"
+    ],
+    "threshold": 68.15,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tm16",
+    "status": "sourced",
+    "occupation": "technik organizacji turystyki",
+    "fields": [
+     "TUR",
+     "ECO"
+    ]
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-22"
+ },
+ {
   "id": "tks24",
   "name": "Technikum Kształtowania Środowiska nr 24",
   "short": "Technikum Kształtowania Środowiska nr 24",
