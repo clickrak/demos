@@ -6592,8 +6592,12 @@
     ]
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-22"
+  "geo": {
+   "lat": 50.03346,
+   "lon": 19.93458,
+   "q": "al. gen. Jana Skrzyneckiego 12, Kraków"
+  },
+  "geoChecked": true
  },
  {
   "id": "tks24",
