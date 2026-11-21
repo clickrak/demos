@@ -660,5 +660,367 @@
    },
    "studyLength": "srednio"
   }
+ },
+ {
+  "id": "G",
+  "label": "Persona G: morze, nurkowanie i biologia",
+  "expect": {
+   "topClusters": [
+    "przyroda",
+    "analityka",
+    "zdrowie"
+   ],
+   "notTop": [
+    "handel",
+    "media"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "G",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "geografia"
+   ],
+   "sort": {
+    "a1": 0,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": 1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": 1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": 0,
+    "a14": -1,
+    "a15": -1,
+    "a16": 1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": 0,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": 1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": 1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -3,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 3,
+    "wspolpraca": 1
+   },
+   "values": [
+    "trudne",
+    "zagranica",
+    "niezaleznosc",
+    "pewnosc",
+    "czas"
+   ],
+   "strengths": [
+    {
+     "id": "ciekawosc",
+     "proof": "w hobby"
+    },
+    {
+     "id": "kondycja",
+     "proof": "w sporcie"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w sporcie"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "orientacja",
+     "proof": "w hobby"
+    }
+   ],
+   "situations": {
+    "e1": "a",
+    "e7": "a",
+    "e2": "b"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "H",
+  "label": "Persona H: latanie, samoloty i podróże",
+  "expect": {
+   "topClusters": [
+    "technika",
+    "podroze"
+   ],
+   "notTop": [
+    "mowa",
+    "psychologia"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "H",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "fizyka"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": 1,
+    "a5": 0,
+    "a6": -1,
+    "a7": -1,
+    "a8": 1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": 0,
+    "a19": 1,
+    "a20": 0,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": 1,
+    "a34": 1,
+    "a35": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -3,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 3,
+    "wspolpraca": 1
+   },
+   "values": [
+    "zagranica",
+    "trudne",
+    "prestiz",
+    "zarobki",
+    "niezaleznosc"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "orientacja",
+     "proof": "w hobby"
+    },
+    {
+     "id": "spokoj",
+     "proof": "w sporcie"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w hobby"
+    },
+    {
+     "id": "jezyki",
+     "proof": "w językach"
+    }
+   ],
+   "situations": {
+    "e7": "c",
+    "e6": "d"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "I",
+  "label": "Persona I: muzea, zabytki i historia sztuki",
+  "expect": {
+   "topClusters": [
+    "sztuka",
+    "media"
+   ],
+   "notTop": [
+    "cyber",
+    "atom"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "I",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "historia",
+    "polski"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": 1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": -1,
+    "a7": 0,
+    "a8": -1,
+    "a9": -1,
+    "a10": 1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": -1,
+    "a20": 0,
+    "a21": 1,
+    "a22": -1,
+    "a23": 1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": 1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": 1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -3,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 3,
+    "wspolpraca": 1
+   },
+   "values": [
+    "kreatywnosc",
+    "niezaleznosc",
+    "czas",
+    "wplyw",
+    "pomaganie"
+   ],
+   "strengths": [
+    {
+     "id": "oko",
+     "proof": "w hobby"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "tlumaczenie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "pomyslowosc",
+     "proof": "w hobby"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e7": "b",
+    "e5": "d"
+   },
+   "studyLength": "srednio"
+  }
  }
 ]

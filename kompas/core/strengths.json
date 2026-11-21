@@ -142,5 +142,23 @@
    "prz"
   ],
   "example": "Sprzedałem stary rower za lepszą cenę, niż się spodziewałem."
+ },
+ {
+  "id": "orientacja",
+  "name": "orientacja w terenie i na mapie",
+  "dims": [
+   "tec",
+   "sys"
+  ],
+  "example": "Poprowadziłem rodzinę górskim szlakiem z mapą i nikt się nie zgubił."
+ },
+ {
+  "id": "oko",
+  "name": "oko do sztuki i szczegółów",
+  "dims": [
+   "twr",
+   "ana"
+  ],
+  "example": "Na wycieczce zauważyłem, że dwa kościoły mają takie samo sklepienie."
  }
 ]

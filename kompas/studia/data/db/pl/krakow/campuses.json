@@ -187,5 +187,28 @@
   "name": "Uniwersytet Ignatianum",
   "address": "ul. Kopernika 26",
   "status": "gtfs"
+ },
+ {
+  "id": "uj-ihs",
+  "name": "UJ, Instytut Historii Sztuki",
+  "address": "ul. Grodzka 53",
+  "sourceId": "uj-ihs-adres",
+  "status": "address"
+ },
+ {
+  "id": "ug-oig",
+  "name": "Uniwersytet Gdański, Wydział Oceanografii i Geografii",
+  "address": "Trójmiasto (Gdańsk, Gdynia)",
+  "city": "Gdańsk",
+  "outside": true,
+  "status": "outside"
+ },
+ {
+  "id": "prz",
+  "name": "Politechnika Rzeszowska",
+  "address": "Rzeszów",
+  "city": "Rzeszów",
+  "outside": true,
+  "status": "outside"
  }
 ]

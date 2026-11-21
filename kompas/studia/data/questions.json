@@ -22,6 +22,7 @@
   "fizyka",
   "geografia",
   "historia",
+  "historia sztuki",
   "WOS",
   "informatyka",
   "niemiecki"
@@ -301,6 +302,40 @@
    "text": "Rozwiązać zadanie z matematyki, którego nikt w klasie nie umie.",
    "w": {
     "ana": 2
+   }
+  },
+  {
+   "id": "a32",
+   "text": "Pływać, żeglować albo nurkować i poznawać, co żyje w wodzie.",
+   "w": {
+    "tec": 1,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a33",
+   "text": "Śledzić samoloty albo rakiety i rozumieć, jak to wszystko lata.",
+   "w": {
+    "tec": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a34",
+   "text": "Poznawać w podróży nowe kraje, ludzi i jedzenie.",
+   "w": {
+    "spo": 1,
+    "prz": 1,
+    "twr": 1
+   }
+  },
+  {
+   "id": "a35",
+   "text": "Chodzić po muzeach i rozpoznawać, z jakiej epoki jest obraz albo budynek.",
+   "w": {
+    "twr": 1,
+    "ana": 1,
+    "sys": 1
    }
   }
  ],
@@ -627,6 +662,45 @@
     {
      "id": "d",
      "text": "Sprawdzam trasę, sprzęt i co może pójść nie tak po drodze.",
+     "w": {
+      "tec": 2,
+      "sys": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "e7",
+   "text": "Dostajesz tydzień i bilet w dowolne miejsce. Dokąd jedziesz?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Nad morze: żagle, nurkowanie i sprawdzanie, co żyje pod wodą.",
+     "w": {
+      "tec": 1,
+      "ana": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Do miasta pełnego muzeów, starych kościołów i zamków.",
+     "w": {
+      "twr": 2,
+      "ana": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Samolotem jak najdalej, żeby poznać ludzi i inną kulturę.",
+     "w": {
+      "spo": 1,
+      "prz": 1,
+      "twr": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "W góry, z mapą i namiotem, z dala od ludzi.",
      "w": {
       "tec": 2,
       "sys": 1

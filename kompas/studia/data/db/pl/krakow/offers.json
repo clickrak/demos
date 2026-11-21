@@ -1959,7 +1959,8 @@
    "countFrom": [
     "fizyka",
     "informatyka",
-    "polski"
+    "polski",
+    "historia sztuki"
    ],
    "count": 1,
    "note": "matematyka oraz dwa przedmioty z list, które obejmują m.in. fizykę, informatykę, polski, historię sztuki i filozofię"
@@ -2055,7 +2056,8 @@
     "chemia",
     "fizyka",
     "informatyka",
-    "matematyka"
+    "matematyka",
+    "historia sztuki"
    ],
    "count": 2,
    "note": "dwa przedmioty z szerokiej listy (m.in. polski, język obcy, historia, historia sztuki, WOS, informatyka); UJ liczy tylko poziom rozszerzony"
@@ -2148,5 +2150,117 @@
   "status": "sourced",
   "sourceId": "otou-uek-zasady-2026",
   "next": "nowe produkty i usługi, e-commerce, marketing w firmie; albo magisterskie"
+ },
+ {
+  "id": "ug-oceanografia",
+  "name": "Oceanografia",
+  "institution": "Uniwersytet Gdański, Wydział Oceanografii i Geografii",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "ug-oig",
+  "cards": [
+   "morze"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "geografia",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "język obcy, matematyka oraz jeden przedmiot z listy, która obejmuje biologię, chemię i fizykę"
+  },
+  "status": "sourced",
+  "sourceId": "otou-ug-oceanografia",
+  "next": "instytuty morskie, ochrona środowiska, energetyka na morzu; albo magisterskie",
+  "outside": "Gdańsk"
+ },
+ {
+  "id": "prz-lotnictwo",
+  "name": "Lotnictwo i kosmonautyka",
+  "institution": "Politechnika Rzeszowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "prz",
+  "cards": [
+   "lotnictwo"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "chemia",
+    "informatyka",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 1,
+   "note": "matematyka oraz jeden z: fizyka, chemia, informatyka albo język obcy"
+  },
+  "status": "sourced",
+  "sourceId": "otou-prz-lotnictwo",
+  "next": "przemysł lotniczy (Dolina Lotnicza wokół Rzeszowa), obsługa samolotów, drony; albo magisterskie",
+  "outside": "Rzeszów"
+ },
+ {
+  "id": "uek-turystyka",
+  "name": "Turystyka i rekreacja",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "turystyka"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "informatyka",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "next": "biura podróży, hotele, organizacja wydarzeń i wyjazdów; albo magisterskie"
+ },
+ {
+  "id": "uj-historia-sztuki",
+  "name": "Historia sztuki",
+  "institution": "Uniwersytet Jagielloński, Wydział Historyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-ihs",
+  "cards": [
+   "historia-sztuki"
+  ],
+  "requires": {
+   "countFrom": [
+    "historia",
+    "historia sztuki",
+    "polski"
+   ],
+   "count": 2,
+   "note": "dwa przedmioty z: historia, historia sztuki, język polski; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-hsz",
+  "next": "muzea, galerie, ochrona zabytków, rynek sztuki, turystyka kulturowa; albo magisterskie"
  }
 ]

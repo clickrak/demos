@@ -299,5 +299,33 @@
   "title": "UJ: Filmoznawstwo i wiedza o nowych mediach, rekrutacja 2026/2027 (otouczelnie)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "otou-ug-oceanografia",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/3513/Oceanografia",
+  "title": "Uniwersytet Gdański: Oceanografia, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-prz-lotnictwo",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2830/Lotnictwo-i-kosmonautyka",
+  "title": "Politechnika Rzeszowska: Lotnictwo i kosmonautyka, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-hsz",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2461/Historia-sztuki-Uniwersytet-Jagiellonski-w-Krakowie",
+  "title": "UJ: Historia sztuki, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uj-ihs-adres",
+  "url": "https://muzeauczelniane.pl/en/collection-of-the-institute-of-art-history/",
+  "title": "Instytut Historii Sztuki UJ: adres ul. Grodzka 53 (Muzea uczelniane)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

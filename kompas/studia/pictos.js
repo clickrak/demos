@@ -33,7 +33,11 @@ const ACT = {
   a28: '<path d="M4 21V9l4-3v15M8 21V5l4-2 4 2v16M16 21V9l4 3v9M3 21h18"/><path d="M11 9h2M11 13h2"/>', // old building
   a29: '<path d="M4 11h16v2a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7z"/><path d="M9 7c0-1.5 1-1.5 1-3M13 7c0-1.5 1-1.5 1-3"/><path d="M2 11h2M20 11h2"/>', // cook
   a30: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="m8 10 1.5 1.5L12 9M8 15l1.5 1.5L12 14M14 10.5h2M14 15.5h2"/>', // survey
-  a31: '<path d="M4 4h16v16H4z"/><path d="M7 8h4M9 6v4M14 8h3M7 15l3 3M10 15l-3 3M14 15h3M14 17.5h3"/>' // maths
+  a31: '<path d="M4 4h16v16H4z"/><path d="M7 8h4M9 6v4M14 8h3M7 15l3 3M10 15l-3 3M14 15h3M14 17.5h3"/>',  // maths
+  a32: '<path d="M2 17c2 0 2-1.5 4-1.5S8 17 10 17s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M6 13c2-3 5-4 8-3 2 .7 3 2 4 3-3 1-6 1-8 0"/><circle cx="15" cy="11" r=".6"/><path d="M5 9l1-1M8 6l.5-1.5"/>',
+  a33: '<path d="M2 14l9-2 6-6c1-1 3-1 3 0s0 2-1 3l-6 6-2 9-2-1v-6l-4 1-1-2z"/>',
+  a34: '<rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V4h6v3M4 12h16"/><circle cx="17" cy="16" r="1"/>',
+  a35: '<rect x="4" y="4" width="16" height="12" rx="1"/><path d="M4 13l4-4 3 3 3-2 6 5"/><circle cx="15" cy="8" r="1.4"/><path d="M8 20h8M12 16v4"/>'
 };
 const SIT = {
   e1: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10M12 16v4"/><path d="M8 9l2 2-2 2M12 13h4"/>', // group project
@@ -41,7 +45,8 @@ const SIT = {
   e3: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/><path d="M12 10v7M8.5 13.5h7"/>', // sprained ankle
   e4: '<path d="M4 20V10l4-3 4 3 4-3 4 3v10z"/><path d="M8 20v-5h3v5M14 13h3v3h-3z"/>', // city project
   e5: '<path d="M4 4h7v6H6l-2 2zM20 8h-7v6h5l2 2z"/><path d="M8 20h8M12 16v4"/>', // debate
-  e6: '<path d="M3 17h18M5 17V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><path d="M5 12h14"/>' // class trip bus
+  e6: '<path d="M3 17h18M5 17V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><path d="M5 12h14"/>',  // class trip bus
+  e7: '<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17"/><path d="M15 7l2-2M7 17l-2 2"/><path d="M9 9l6 6"/>'
 };
 // Colour from the card's main interest, so a row of cards reads at a glance (same line palette as the results).
 const DIM_COLOR = { ana: 'var(--l0)', tec: 'var(--l1)', spo: 'var(--l2)', twr: 'var(--l3)', prz: 'var(--l4)', sys: 'var(--accent)' };

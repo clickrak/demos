@@ -1922,5 +1922,265 @@
    "group": "Architekci, geodeci i projektanci",
    "sourceId": "gus-2020"
   }
+ },
+ {
+  "id": "morze",
+  "name": "Morze, oceany i klimat",
+  "cluster": "przyroda",
+  "interests": {
+   "ana": 75,
+   "tec": 60,
+   "spo": 30,
+   "twr": 35,
+   "prz": 25,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": -1,
+   "ruch": 2,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "niezaleznosc",
+   "zagranica"
+  ],
+  "strengths": [
+   "ciekawosc",
+   "wytrwalosc",
+   "dokladnosc",
+   "kondycja",
+   "orientacja"
+  ],
+  "roles": "oceanograf, biolog morski, specjalista od klimatu, pracownik farm wiatrowych na morzu, badacz na statku",
+  "whoYouHelp": "Ludzie nad morzem i wszyscy, którzy zależą od klimatu, ryb i czystej wody; firmy budujące farmy wiatrowe na Bałtyku.",
+  "whatYouGet": "Praca blisko natury, rejsy badawcze, pomiary w terenie i w laboratorium. W Krakowie tego kierunku nie ma: oceanografię studiuje się nad morzem.",
+  "force": "energia",
+  "whyNeeded": "Klimat się ociepla, a na Bałtyku powstają morskie farmy wiatrowe. Potrzeba ludzi, którzy rozumieją morze.",
+  "dayInLife": [
+   "Rano pobieranie próbek wody z pokładu statku badawczego.",
+   "W południe sprawdzanie w laboratorium, co żyje w próbkach.",
+   "Po południu analiza danych z czujników i mapa zmian temperatury morza."
+  ],
+  "growth": [
+   "asystent w instytucie albo na statku badawczym",
+   "oceanograf, specjalista ds. środowiska morskiego",
+   "kierownik projektów badawczych albo ekspert w firmie offshore"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Rośnie z energetyką na morzu i klimatem; mało miejsc pracy w Krakowie.",
+  "experiment": "Obejrzyj na żywo dane z boi na Bałtyku (np. na stronie IMGW albo w aplikacji z mapą fal) przez tydzień i zapisz, co się zmienia.",
+  "related": [
+   "woda",
+   "laboratorium",
+   "energetyka"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "lotnictwo",
+  "name": "Lotnictwo, drony i kosmos",
+  "cluster": "technika",
+  "interests": {
+   "ana": 70,
+   "tec": 90,
+   "spo": 25,
+   "twr": 40,
+   "prz": 30,
+   "sys": 65
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -2,
+   "ruch": 0,
+   "konkret": 1,
+   "decyzje": 1,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "trudne",
+   "prestiz",
+   "zagranica"
+  ],
+  "strengths": [
+   "logika",
+   "dokladnosc",
+   "spokoj",
+   "odpowiedzialnosc",
+   "orientacja"
+  ],
+  "roles": "inżynier lotniczy, mechanik i technik lotniczy, operator dronów, kontroler ruchu lotniczego, pilot",
+  "whoYouHelp": "Pasażerowie, którzy chcą bezpiecznie dolecieć, linie lotnicze, wojsko i firmy budujące satelity.",
+  "whatYouGet": "Bardzo precyzyjna praca, w której każdy szczegół ma znaczenie, i dużo języka angielskiego. Najbliższa publiczna uczelnia z lotnictwem jest w Rzeszowie.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Rośnie ruch lotniczy, obronność i przemysł dronów oraz satelitów; brakuje inżynierów i mechaników.",
+  "dayInLife": [
+   "Rano przegląd samolotu albo drona według listy kontrolnej.",
+   "W południe projektowanie części w programie i obliczenia wytrzymałości.",
+   "Po południu test w tunelu aerodynamicznym albo próbny lot."
+  ],
+  "growth": [
+   "technik albo młodszy inżynier",
+   "inżynier konstruktor albo specjalista ds. obsługi",
+   "główny inżynier, pilot albo kontroler ruchu"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "experiment": "Zbuduj i oblataj prosty model szybowca albo zrób kurs operatora drona (A1/A3 jest online i bezpłatny w ULC).",
+  "related": [
+   "automatyka",
+   "obronnosc",
+   "logistyka"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "turystyka",
+  "name": "Turystyka i podróże",
+  "cluster": "podroze",
+  "interests": {
+   "ana": 30,
+   "tec": 30,
+   "spo": 80,
+   "twr": 55,
+   "prz": 75,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 2,
+   "ruch": 2,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 2,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "zagranica",
+   "niezaleznosc",
+   "kreatywnosc"
+  ],
+  "strengths": [
+   "jezyki",
+   "organizowanie",
+   "empatia",
+   "orientacja",
+   "przekonywanie"
+  ],
+  "roles": "organizator wyjazdów, pilot wycieczek, przewodnik, pracownik hotelu, linii lotniczej albo biura podróży",
+  "whoYouHelp": "Turyści, którzy chcą dobrze przeżyć wyjazd, i miasta oraz regiony, które żyją z turystyki.",
+  "whatYouGet": "Ciągle nowe miejsca i ludzie, dużo języków. Praca w sezonie bywa intensywna, a zarobki na starcie są niewysokie.",
+  "force": "demografia",
+  "whyNeeded": "Kraków to jedno z najczęściej odwiedzanych miast w Polsce, a seniorzy coraz więcej podróżują.",
+  "dayInLife": [
+   "Rano odbiór grupy z lotniska i krótkie powitanie po angielsku.",
+   "W południe oprowadzanie po Starym Mieście i rozwiązywanie małych problemów.",
+   "Wieczorem plan na jutro i potwierdzenie rezerwacji."
+  ],
+  "growth": [
+   "rezydent, pilot wycieczek albo recepcjonista",
+   "organizator wyjazdów, kierownik zmiany w hotelu",
+   "szef biura podróży albo własna firma turystyczna"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Zależy od gospodarki i bezpieczeństwa; języki i organizacja się przenoszą.",
+  "experiment": "Zaplanuj od zera weekendowy wyjazd dla rodziny: trasa, budżet, noclegi, plan B na deszcz. Potem zapytaj, co by zmienili.",
+  "related": [
+   "jezyki",
+   "handel",
+   "ukraina"
+  ],
+  "languages": [
+   "en",
+   "de"
+  ]
+ },
+ {
+  "id": "historia-sztuki",
+  "name": "Historia sztuki, muzea i zabytki",
+  "cluster": "sztuka",
+  "interests": {
+   "ana": 60,
+   "tec": 20,
+   "spo": 40,
+   "twr": 85,
+   "prz": 25,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": -1,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": -1,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "kreatywnosc",
+   "niezaleznosc",
+   "czas"
+  ],
+  "strengths": [
+   "oko",
+   "ciekawosc",
+   "dokladnosc",
+   "tlumaczenie",
+   "pomyslowosc"
+  ],
+  "roles": "historyk sztuki, kurator wystaw, pracownik muzeum, specjalista ds. ochrony zabytków, przewodnik, pracownik domu aukcyjnego",
+  "whoYouHelp": "Odwiedzający muzea, miasta, które dbają o zabytki, i ludzie, którzy chcą zrozumieć, na co patrzą.",
+  "whatYouGet": "Praca z prawdziwymi dziełami i opowiadanie o nich innym. Etatów w muzeach jest niewiele; pomagają języki i drugi konkret (np. turystyka, media, rynek sztuki).",
+  "force": "automatyzacja",
+  "whyNeeded": "AI tworzy obrazy bez końca. Rośnie wartość ludzi, którzy umieją sprawdzić, co jest autentyczne, i opowiedzieć historię miejsca.",
+  "dayInLife": [
+   "Rano opis nowego obiektu w zbiorach muzeum.",
+   "W południe przygotowanie tekstów i układu sali na wystawę.",
+   "Po południu oprowadzanie grupy albo spotkanie z konserwatorem zabytku."
+  ],
+  "growth": [
+   "asystent w muzeum, galerii albo urzędzie konserwatorskim",
+   "kurator, specjalista ds. zabytków albo przewodnik",
+   "kierownik działu, dyrektor galerii albo własna działalność na rynku sztuki"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "niska",
+   "C": "średnia"
+  },
+  "robustnessNote": "Mało etatów, ale Kraków to miasto zabytków, muzeów i turystów.",
+  "experiment": "Wybierz jeden kościół albo kamienicę w Krakowie, dowiedz się, z jakiej epoki jest i po czym to poznać. Oprowadź po nim kogoś z rodziny.",
+  "related": [
+   "projektowanie",
+   "media",
+   "turystyka"
+  ],
+  "languages": [
+   "en"
+  ]
  }
 ]

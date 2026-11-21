@@ -1,4 +1,4 @@
-// Kompas Studia v2.5.2. Screens, navigation, results, export.
+// Kompas Studia v2.6.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -477,7 +477,7 @@ function vCardsPreview() {
     <details class="card"><summary>Pokaż wszystkie obszary (${data.opportunities.length})</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>${growCompass(2)}`;
 }
 
-const shortInst = n => n.replace(/^Uniwersytet Jagielloński.*$/, 'UJ').replace(/^UJ Collegium Medicum$/, 'UJ CM').replace(/^Krakowska Medyczna Szkoła Policealna nr 1$/, 'Medyczna Szkoła Policealna nr 1')
+const shortInst = n => n.replace(/^Uniwersytet Gdański.*$/, 'UG, Gdańsk').replace(/^Politechnika Rzeszowska$/, 'Politechnika Rzeszowska, Rzeszów').replace(/^Uniwersytet Jagielloński.*$/, 'UJ').replace(/^UJ Collegium Medicum$/, 'UJ CM').replace(/^Krakowska Medyczna Szkoła Policealna nr 1$/, 'Medyczna Szkoła Policealna nr 1')
   .replace(/^Uniwersytet Andrzeja Frycza Modrzewskiego$/, 'UAFM').replace(/^Politechnika Krakowska$/, 'PK').replace(/^Uniwersytet Rolniczy$/, 'UR').replace(/^Szkoła Aspirantów Państwowej Straży Pożarnej$/, 'SA PSP');
 
 // Full-screen compass: north = best option, NNE and NNW = the next two; the needle swings between the three
@@ -596,6 +596,7 @@ function vReflection() {
 const campus = id => data.campuses.find(c => c.id === id);
 
 function commute(c) {
+  if (c.outside) return `poza Krakowem: ${c.city}, trzeba się przeprowadzić`;
   const h = c.tr?.fromHub;
   if (!h) return 'czas dojazdu: brak danych';
   const base = Number(A.startMin) || 0;
@@ -604,10 +605,11 @@ function commute(c) {
 }
 const lineText = st => [st.tram.length ? `tramwaje ${st.tram.join(', ')}` : '', st.bus.length ? `autobusy ${st.bus.join(', ')}` : ''].filter(Boolean).join('; ');
 function transit(c) {
+  if (c.outside) return '';
   const sts = (c.tr?.stops || []).filter(st => st.tram.length || st.bus.length).slice(0, 2);
   return sts.length ? sts.map(st => `przystanek ${esc(st.name)} (${st.m} m): ${esc(lineText(st))}`).join('; ') : 'linie: brak danych';
 }
-const routeUrl = c => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.address + ', Kraków')}&travelmode=transit`;
+const routeUrl = c => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.outside ? c.name + ', ' + c.city : c.address + ', Kraków')}&travelmode=transit`;
 
 // Last year's threshold: the points of the last person admitted. Information only, not a requirement; not used in scoring.
 function thresholdHtml(o) {
@@ -645,7 +647,7 @@ function offerHtml(o, chk) {
     <div class="small">Wymagania: ${esc(o.requires.note || '-')}</div>
     ${thresholdHtml(o)}
     ${chk.fix ? `<div class="small fix">Co możesz zrobić: ${esc(chk.fix)}</div>` : ''}
-    <div class="small">${esc(c.name)}, ${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${route}" target="_blank" rel="noopener">Zaplanuj dojazd</a></div>
+    <div class="small">${[`${esc(c.name)}${c.outside ? '' : `, ${esc(c.address)}`}`, transit(c), commute(c), `<a href="${route}" target="_blank" rel="noopener">${c.outside ? 'Pokaż na mapie' : 'Zaplanuj dojazd'}</a>`].filter(Boolean).join(' · ')}</div>
   </div>`;
 }
 
@@ -995,7 +997,7 @@ function vRoadSvg(o) {
       <rect x="${trunkX + 20}" y="${y}" width="${W - trunkX - 32}" height="${SH}" rx="12" class="${warn ? 'warnbox' : ''}"/>
       <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 30 ? st.offer.name.slice(0, 29) + '…' : st.offer.name)}</text>
       <text x="${W - 26}" y="${y + 30}" text-anchor="end" class="vmore">›</text>
-      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc(shortInst(st.offer.institution))} · ${String(st.offer.durationYears).replace('.', ',')} ${st.offer.durationYears < 5 ? 'lata' : 'lat'}${!ok ? ' · wymaga zmiany w maturze' : st.check.soft ? ' · warto dopisać rozszerzenie' : ''}</text></g>`; });
+      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc((t => t.length > 46 ? t.slice(0, 45) + '…' : t)(`${shortInst(st.offer.institution)} · ${String(st.offer.durationYears).replace('.', ',')} ${st.offer.durationYears < 5 ? 'lata' : 'lat'}${!ok ? ' · wymaga zmiany w maturze' : st.check.soft ? ' · warto dopisać rozszerzenie' : ''}`))}</text></g>`; });
   if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">brak kierunku w Krakowie w bazie</text>`;
   g += `<path class="vl" style="--d:1.3s" pathLength="1" d="M${trunkX},${yJobs - 10} C${trunkX},${yJobs + 4} ${W / 2},${yJobs - 4} ${W / 2},${yJobs + 6}" stroke="${col}"/>`;
   g += `<text x="12" y="${yJobs - 18}" class="vcap" text-anchor="start" dx="${trunkX + 10}">${o.quick ? 'PIERWSZA PRACA' : 'PRZYKŁADOWE ZAWODY'}</text>`;

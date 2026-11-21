@@ -715,6 +715,7 @@ fits the focus, take the first "next week" item that does.
 | v2.2 | Functionality | Star an offer (v3.0 item 3) and the declaration helper (v3.0 item 2) | Sonnet + Opus | pushed 21 Nov 2026 as 2.2.0 (built in the afternoon, at Szymon's request) |
 | v2.3 | Data | Study directions map + card proposal (1a); digital media card and media/commerce offers (1b, part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.3.0 (afternoon, at Szymon's request) |
 | v2.4 | UI/UX | Compare 2–3 starred offers (v3.0 item 4); "Mogę to zrobić, bo…" chips (U3); a games/UX tap card (1c, agreed part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.4.0 (afternoon, at Szymon's request) |
+| v2.6 | Data + questions (top priority, Aleks's feedback) | New cards: sea and oceans, aviation, travel and tourism, art history; 4 offers (UG Gdańsk, PRz Rzeszów, UEK, UJ); 4 activities, 1 situation, 2 strengths; "historia sztuki" as a matura subject; offers outside Kraków | Opus | pushed 21 Nov 2026 as 2.6.0 |
 | v2.5 | UI/UX + questions | Illustrations (pictograms on every activity and situation card, 5 more screen illustrations); question review for a broader range of interests (7 tap cards, 2 situations); fix: road line crossing the "Gdzie się uczyć" caption | Opus | pushed 21 Nov 2026 as 2.5.0 (Szymon replaced the points plan, 21 Nov 13:57) |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
@@ -1044,4 +1045,29 @@ entry. The hint points to "Kierunki" above. Checked 375 and 1280 px in three loo
 **Note:** the new tap cards widen the profile, but cards for law, arts, food, animals, history (proposal 1–9) still wait for
 Szymon's pick, so for now these interests lead to the nearest existing cards.
 **Next by rotation:** v2.6 = Data (item 5 UJ thresholds, item 6 GUS 2024 pay, and the cards Szymon picks).
+
+### v2.6 tasks (built 21 Nov 2026, top priority: Aleks's feedback)
+
+Aleks, relayed by Szymon at 14:57: nothing about the sea (oceanography, for Wiktoria), nothing about flying and travel (for Mateusz);
+add something like art history (a friend is thinking about it); so also more skill/interest questions. "Do it now."
+
+1. [x] **Cards (4):** `morze` "Morze, oceany i klimat" (cluster przyroda, force energia), `lotnictwo` "Lotnictwo, drony i kosmos"
+   (technika, bezpieczenstwo), `turystyka` "Turystyka i podróże" (podroze, demografia), `historia-sztuki` "Historia sztuki, muzea i zabytki"
+   (sztuka, automatyzacja). New cluster icons `przyroda`, `podroze`. No `demand` / `pay` yet (same blockers as `media-cyfrowe`).
+2. [x] **Offers (4):** UG Oceanografia (Gdańsk; `otou-ug-oceanografia`), Politechnika Rzeszowska Lotnictwo i kosmonautyka
+   (`otou-prz-lotnictwo`), UEK Turystyka i rekreacja (`otou-uek-zasady-2026`), UJ Historia sztuki (`otou-uj-hsz`; campus ul. Grodzka 53,
+   `uj-ihs-adres`). Oceanography and aviation are not taught at public universities in Kraków, so these are the first offers **outside
+   Kraków**: campuses with `outside: true` and `city`; the card says "poza Krakowem: Gdańsk, trzeba się przeprowadzić", the link
+   says "Pokaż na mapie", the Kraków map skips them. The cards say plainly where it is studied.
+3. [x] **Questions:** activities a32 sea and diving, a33 planes and rockets, a34 travel and cultures, a35 museums and epochs;
+   situation e7 "a week and a ticket anywhere"; strengths `orientacja` (orientacja w terenie i na mapie) and `oko` (oko do sztuki i
+   szczegółów) in `core/strengths.json` (shared with Liceum; Liceum tests pass). "historia sztuki" added to the matura subjects
+   (also counted for AGH Tworzenie przestrzeni wirtualnych i gier and UJ Filmoznawstwo). Pictograms for all new cards.
+4. [x] **Personas G (sea), H (flying, travel), I (art history):** each gets its card first (morze / lotnictwo / historia-sztuki).
+   D now gets historia-sztuki in the top 3, E gets turystyka 2nd; all 9 personas pass.
+5. [x] **Review:** three tests pass; 375 and 1280 px in three looks; fixed: long university names on the road are cut, no double
+   "outside Kraków" text.
+
+**Open:** `uj-ihs` has no travel data yet (needs a map point and the weekly transport job); no Kraków demand or GUS pay for the 4 new
+cards; other sea-related Kraków options (e.g. geography, environmental studies at UJ/AGH) could be added as nearer alternatives.
 
