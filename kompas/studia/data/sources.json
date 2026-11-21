@@ -418,5 +418,110 @@
   "title": "GUP Kraków: Krakowskie Obserwatorium Rynku Pracy, grudzień 2025 (Barometr zawodów 2026 dla Krakowa: zawody deficytowe i nadwyżkowe)",
   "asOf": "2025-12",
   "status": "sourced"
+ },
+ {
+  "id": "otou-uj-socjologia",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2486/Socjologia-Uniwersytet-Jagiellonski-w-Krakowie",
+  "title": "UJ: Socjologia, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uj-phils-adres",
+  "url": "https://phils.uj.edu.pl/en_US/wydzial",
+  "title": "UJ, Wydział Filozoficzny: Instytut Filozofii i Instytut Socjologii, ul. Grodzka 52",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-fizyka",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2437/Fizyka-Uniwersytet-Jagiellonski-w-Krakowie",
+  "title": "UJ: Fizyka, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-przedmioty",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4297/Uniwersytet-Jagiellonski-UJ-rekrutacja-na-studia-20262027/przedmioty-maturalne",
+  "title": "UJ: przedmioty maturalne wszystkich kierunków 2026/2027 (Astronomia, Chemia …) (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-krk-matematyka",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/11124/Matematyka-Krakow/Przedmioty-maturalne",
+  "title": "Matematyka w Krakowie: przedmioty maturalne 2026/2027 (AGH) (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-krk-aktorstwo",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/11083/Aktorstwo-Krakow/Uczelnie-publiczne",
+  "title": "Aktorstwo w Krakowie: AST, egzamin wstępny, jednolite 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-ast-wa",
+  "url": "https://www.otouczelnie.pl/wydzial/96/wydzial-aktorski",
+  "title": "AST, Wydział Aktorski: ul. Straszewskiego 22, aktorstwo 4,5 roku (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-amuz-wi",
+  "url": "https://www.otouczelnie.pl/wydzial/80/Wydzial-II-Instrumentalny",
+  "title": "Akademia Muzyczna, Wydział II Instrumentalny: ul. św. Tomasza 43, instrumentalistyka 3 lata, egzamin wstępny (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-asp-wm",
+  "url": "https://www.otouczelnie.pl/wydzial/708/Wydzial-Malarstwa",
+  "title": "ASP, Wydział Malarstwa: pl. Matejki 13, malarstwo jednolite 5 lat (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "asp-malarstwo-zasady",
+  "url": "https://bip.asp.krakow.pl/images/uchwala-nr-21_2024_zalacznik-nr-1-do-uchwaly-rekrutacyjnej-2025-2026.pdf",
+  "title": "ASP Kraków: zasady przyjęć 2025/26, malarstwo: egzamin wstępny (portfolio online, potem egzamin)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-historia",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2462/Historia-Uniwersytet-Jagiellonski-w-Krakowie",
+  "title": "UJ: Historia, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-wh",
+  "url": "https://www.otouczelnie.pl/wydzial/129/Wydzial-Historyczny-UJ",
+  "title": "UJ, Wydział Historyczny: ul. Gołębia 24; archeologia 3 lata, etnologia (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-etnologia",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2412/Etnologia-i-antropologia-kulturowa",
+  "title": "UJ: Etnologia i antropologia kulturowa, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-krk-archeologia",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/21216/ARCHEOLOGIA",
+  "title": "Archeologia w Krakowie (UJ): najczęściej punktowane przedmioty 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-krk-filozofia",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/16840/Filozofia-Krakow/Przedmioty-maturalne",
+  "title": "Filozofia w Krakowie: przedmioty maturalne UJ 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

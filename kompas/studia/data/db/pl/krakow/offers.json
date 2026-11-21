@@ -2630,5 +2630,398 @@
   "sourceId": "otou-uken-przedmioty",
   "url": "https://www.uken.krakow.pl",
   "next": "nauczyciel i terapeuta dzieci z niepełnosprawnościami, szkoły integracyjne i specjalne"
+ },
+ {
+  "id": "uj-socjologia",
+  "name": "Socjologia",
+  "institution": "Uniwersytet Jagielloński, Wydział Filozoficzny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-grodzka52",
+  "cards": [
+   "spoleczenstwo"
+  ],
+  "field": "PSY",
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 1,
+   "note": "język obcy oraz kolejne przedmioty z szerokiej listy; UJ liczy tylko poziom rozszerzony; pełną listę sprawdź na stronie UJ"
+  },
+  "status": "check",
+  "sourceId": "otou-uj-socjologia",
+  "url": "https://phils.uj.edu.pl",
+  "next": "badania społeczne i rynku, samorząd, organizacje; albo magisterskie"
+ },
+ {
+  "id": "agh-socjologia",
+  "name": "Socjologia",
+  "institution": "AGH, Wydział Humanistyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "agh",
+  "cards": [
+   "spoleczenstwo"
+  ],
+  "field": "PSY",
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "geografia",
+    "historia",
+    "informatyka",
+    "polski",
+    "WOS",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 2,
+   "note": "matematyka oraz dwa przedmioty z list, które obejmują m.in. filozofię, geografię, historię, informatykę, polski, WOS i język obcy"
+  },
+  "status": "sourced",
+  "sourceId": "otou-agh-wh",
+  "url": "https://rekrutacja.agh.edu.pl",
+  "next": "analiza danych społecznych, badania, HR; albo magisterskie"
+ },
+ {
+  "id": "uek-nauki-spoleczne",
+  "name": "Nauki społeczne stosowane",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "spoleczenstwo"
+  ],
+  "field": "PSY",
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "fizyka",
+    "geografia",
+    "historia",
+    "informatyka",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: filozofia, fizyka, geografia, historia, informatyka, polski, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl",
+  "next": "samorząd, organizacje, badania i projekty społeczne; albo magisterskie"
+ },
+ {
+  "id": "uj-fizyka",
+  "name": "Fizyka",
+  "institution": "Uniwersytet Jagielloński, Wydział Fizyki, Astronomii i Informatyki Stosowanej",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-kampus",
+  "cards": [
+   "nauka"
+  ],
+  "field": "SCI",
+  "requires": {
+   "countFrom": [
+    "chemia",
+    "fizyka",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: chemia, fizyka, informatyka, matematyka; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-fizyka",
+  "url": "https://www.fais.uj.edu.pl",
+  "next": "badania, przemysł wysokich technologii, analiza danych; albo magisterskie"
+ },
+ {
+  "id": "uj-astronomia",
+  "name": "Astronomia",
+  "institution": "Uniwersytet Jagielloński, Wydział Fizyki, Astronomii i Informatyki Stosowanej",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-kampus",
+  "cards": [
+   "nauka"
+  ],
+  "field": "SCI",
+  "requires": {
+   "countFrom": [
+    "chemia",
+    "fizyka",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: chemia, fizyka, informatyka, matematyka; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-przedmioty",
+  "url": "https://www.fais.uj.edu.pl",
+  "next": "badania kosmosu, przemysł kosmiczny, analiza danych; albo magisterskie"
+ },
+ {
+  "id": "uj-chemia",
+  "name": "Chemia",
+  "institution": "Uniwersytet Jagielloński, Wydział Chemii",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-kampus",
+  "cards": [
+   "nauka"
+  ],
+  "field": "SCI",
+  "requires": {
+   "extended": [
+    "chemia"
+   ],
+   "countFrom": [
+    "biologia",
+    "fizyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "chemia oraz jeden z: biologia, fizyka, matematyka; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-przedmioty",
+  "url": "https://chemia.uj.edu.pl",
+  "next": "laboratoria, przemysł chemiczny i farmaceutyczny; albo magisterskie"
+ },
+ {
+  "id": "agh-matematyka",
+  "name": "Matematyka",
+  "institution": "AGH, Wydział Matematyki Stosowanej",
+  "kind": "programme",
+  "level": "studia",
+  "durationYears": 3,
+  "campus": "agh",
+  "cards": [
+   "nauka"
+  ],
+  "field": "SCI",
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "informatyka",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 1,
+   "note": "matematyka oraz jeden z: fizyka, informatyka, język obcy"
+  },
+  "status": "check",
+  "sourceId": "otou-krk-matematyka",
+  "url": "https://rekrutacja.agh.edu.pl",
+  "next": "analiza danych, finanse, programowanie, badania; albo magisterskie"
+ },
+ {
+  "id": "ast-aktorstwo",
+  "name": "Aktorstwo",
+  "institution": "Akademia Sztuk Teatralnych",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 4.5,
+  "campus": "ast",
+  "cards": [
+   "sztuka-scena"
+  ],
+  "field": "ART",
+  "requires": {
+   "exam": true,
+   "note": "egzamin wstępny w kilku etapach (m.in. wiersze, proza, piosenka, ruch); matura wymagana, ale o przyjęciu decyduje egzamin"
+  },
+  "status": "sourced",
+  "sourceId": "otou-krk-aktorstwo",
+  "url": "https://krakow.ast.krakow.pl/kandydaci",
+  "next": "teatr, film, telewizja, dubbing, radio"
+ },
+ {
+  "id": "amuz-instrumentalistyka",
+  "name": "Instrumentalistyka",
+  "institution": "Akademia Muzyczna w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "amuz",
+  "cards": [
+   "sztuka-scena"
+  ],
+  "field": "ART",
+  "requires": {
+   "exam": true,
+   "note": "egzamin wstępny z gry na instrumencie (przesłuchanie); o przyjęciu decyduje wynik egzaminu"
+  },
+  "status": "sourced",
+  "sourceId": "otou-amuz-wi",
+  "url": "https://www.amuz.krakow.pl",
+  "next": "orkiestry, zespoły, nauczanie gry, koncerty; albo magisterskie"
+ },
+ {
+  "id": "asp-malarstwo",
+  "name": "Malarstwo",
+  "institution": "Akademia Sztuk Pięknych w Krakowie",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "asp-wm",
+  "cards": [
+   "sztuka-scena"
+  ],
+  "field": "ART",
+  "requires": {
+   "exam": true,
+   "note": "egzamin wstępny: najpierw portfolio online, potem egzamin praktyczny z rysunku i malarstwa"
+  },
+  "status": "sourced",
+  "sourceId": "asp-malarstwo-zasady",
+  "url": "https://malarstwo.asp.krakow.pl",
+  "next": "własna twórczość, wystawy, scenografia, nauczanie sztuki"
+ },
+ {
+  "id": "uj-historia",
+  "name": "Historia",
+  "institution": "Uniwersytet Jagielloński, Wydział Historyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wh",
+  "cards": [
+   "historia"
+  ],
+  "field": "HUM",
+  "requires": {
+   "extended": [
+    "historia"
+   ],
+   "countFrom": [
+    "geografia",
+    "historia sztuki",
+    "polski",
+    "WOS",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 1,
+   "note": "historia oraz jeden przedmiot z listy, która obejmuje m.in. filozofię, geografię, historię muzyki, historię sztuki; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-historia",
+  "url": "https://www.historyczny.uj.edu.pl",
+  "next": "muzea, archiwa, szkoły, wydawnictwa, media; albo magisterskie"
+ },
+ {
+  "id": "uj-archeologia",
+  "name": "Archeologia",
+  "institution": "Uniwersytet Jagielloński, Wydział Historyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wh",
+  "cards": [
+   "historia"
+  ],
+  "field": "HUM",
+  "requires": {
+   "countFrom": [
+    "historia",
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia sztuki"
+   ],
+   "count": 1,
+   "note": "najczęściej punktowane: historia, język obcy, geografia, historia sztuki, filozofia; dokładną listę sprawdź na stronie UJ"
+  },
+  "status": "check",
+  "sourceId": "otou-krk-archeologia",
+  "url": "https://www.historyczny.uj.edu.pl",
+  "next": "wykopaliska, ochrona zabytków, muzea; albo magisterskie"
+ },
+ {
+  "id": "uj-etnologia",
+  "name": "Etnologia i antropologia kulturowa",
+  "institution": "Uniwersytet Jagielloński, Wydział Historyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wh",
+  "cards": [
+   "historia",
+   "spoleczenstwo"
+  ],
+  "field": "HUM",
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "biologia",
+    "chemia",
+    "fizyka",
+    "geografia",
+    "historia",
+    "historia sztuki",
+    "informatyka",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden przedmiot z bardzo szerokiej listy; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-etnologia",
+  "url": "https://www.historyczny.uj.edu.pl",
+  "next": "muzea, kultura, organizacje, badania terenowe; albo magisterskie"
+ },
+ {
+  "id": "uj-filozofia",
+  "name": "Filozofia",
+  "institution": "Uniwersytet Jagielloński, Wydział Filozoficzny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-grodzka52",
+  "cards": [
+   "historia"
+  ],
+  "field": "HUM",
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "fizyka",
+    "historia",
+    "historia sztuki",
+    "informatyka",
+    "polski",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 2,
+   "note": "dwa z listy, która obejmuje m.in. biologię, filozofię, fizykę, historię, historię sztuki, informatykę, języki; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-krk-filozofia",
+  "url": "https://filozofia.uj.edu.pl",
+  "next": "etyka AI, media, HR, nauczanie, badania; albo magisterskie"
  }
 ]

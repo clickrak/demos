@@ -217,5 +217,40 @@
   "address": "ul. Gołębia 24",
   "sourceId": "otou-uj-wpia",
   "status": "address"
+ },
+ {
+  "id": "uj-grodzka52",
+  "name": "UJ, Wydział Filozoficzny (filozofia, socjologia)",
+  "address": "ul. Grodzka 52",
+  "sourceId": "uj-phils-adres",
+  "status": "address"
+ },
+ {
+  "id": "uj-wh",
+  "name": "UJ, Wydział Historyczny",
+  "address": "ul. Gołębia 24",
+  "sourceId": "otou-uj-wh",
+  "status": "address"
+ },
+ {
+  "id": "amuz",
+  "name": "Akademia Muzyczna, Wydział Instrumentalny",
+  "address": "ul. św. Tomasza 43",
+  "sourceId": "otou-amuz-wi",
+  "status": "address"
+ },
+ {
+  "id": "ast",
+  "name": "Akademia Sztuk Teatralnych",
+  "address": "ul. Straszewskiego 22",
+  "sourceId": "otou-ast-wa",
+  "status": "address"
+ },
+ {
+  "id": "asp-wm",
+  "name": "ASP, Wydział Malarstwa",
+  "address": "pl. Matejki 13",
+  "sourceId": "otou-asp-wm",
+  "status": "address"
  }
 ]

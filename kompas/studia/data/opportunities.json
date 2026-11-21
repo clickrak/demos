@@ -2485,5 +2485,267 @@
    "group": "Nauczyciele i inni specjaliści nauczania",
    "sourceId": "gus-2020"
   }
+ },
+ {
+  "id": "spoleczenstwo",
+  "name": "Społeczeństwo, polityka i praca socjalna",
+  "cluster": "ludzie",
+  "field": "PSY",
+  "interests": {
+   "ana": 70,
+   "tec": 15,
+   "spo": 80,
+   "twr": 45,
+   "prz": 55,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 1,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": 0,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "wplyw",
+   "pomaganie",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "ciekawosc",
+   "empatia",
+   "logika",
+   "tlumaczenie",
+   "przekonywanie"
+  ],
+  "roles": "socjolog, badacz opinii, analityk polityk publicznych, pracownik socjalny, specjalista w samorządzie albo organizacji pozarządowej",
+  "whoYouHelp": "Ludzie, którym jest trudniej, i miasta oraz państwo, które chcą wiedzieć, czego naprawdę potrzebują mieszkańcy.",
+  "whatYouGet": "Rozumiesz, dlaczego ludzie myślą i robią to, co robią. Dużo rozmów, ankiet i danych; pensje na starcie są niewysokie, rosną z doświadczeniem.",
+  "force": "demografia",
+  "whyNeeded": "Starzejące się społeczeństwo, migracje i nierówności: ktoś musi je zbadać i zaproponować dobre rozwiązania.",
+  "dayInLife": [
+   "Rano wywiad z mieszkańcami osiedla albo rozmowa z podopiecznym.",
+   "W południe analiza ankiety: co wyszło i co z tego wynika.",
+   "Po południu raport albo spotkanie w urzędzie o nowym programie."
+  ],
+  "growth": [
+   "asystent badacza, pracownik socjalny albo stażysta w urzędzie",
+   "socjolog, analityk, koordynator programów",
+   "kierownik badań, dyrektor ośrodka albo ekspert polityk publicznych"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "experiment": "Zrób w klasie krótką anonimową ankietę o jednym problemie szkoły (5 pytań) i napisz na pół strony, co z niej wynika.",
+  "related": [
+   "psychologia",
+   "ue",
+   "prawo"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "nauka",
+  "name": "Nauka i badania",
+  "cluster": "analityka",
+  "field": "SCI",
+  "interests": {
+   "ana": 95,
+   "tec": 55,
+   "spo": 20,
+   "twr": 45,
+   "prz": 20,
+   "sys": 65
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": -2,
+   "ruch": -1,
+   "konkret": -2,
+   "decyzje": 0,
+   "zmiana": 0,
+   "projekty": 2,
+   "wspolpraca": 0
+  },
+  "values": [
+   "trudne",
+   "niezaleznosc",
+   "prestiz"
+  ],
+  "strengths": [
+   "logika",
+   "ciekawosc",
+   "wytrwalosc",
+   "dokladnosc",
+   "szybka_nauka"
+  ],
+  "roles": "fizyk, matematyk, chemik, astronom, badacz w instytucie, analityk danych, nauczyciel akademicki",
+  "whoYouHelp": "Wszyscy, którzy korzystają z odkryć: od leków i komputerów po satelity. Firmy, które potrzebują ludzi umiejących myśleć od podstaw.",
+  "whatYouGet": "Szukasz odpowiedzi na pytania, na które nikt jeszcze nie zna odpowiedzi. Długa droga (często doktorat), ale bardzo szerokie możliwości pracy poza nauką.",
+  "force": "automatyzacja",
+  "whyNeeded": "AI, energia i medycyna potrzebują ludzi, którzy rozumieją matematykę i fizykę głębiej niż narzędzia.",
+  "dayInLife": [
+   "Rano czytanie nowego artykułu i pomysł na sprawdzenie hipotezy.",
+   "W południe obliczenia, symulacja albo pomiar w laboratorium.",
+   "Po południu seminarium: tłumaczysz wyniki innym i słuchasz krytyki."
+  ],
+  "growth": [
+   "student w kole naukowym, potem doktorant",
+   "badacz albo analityk w firmie",
+   "profesor, kierownik zespołu albo ekspert w przemyśle"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "wysoka"
+  },
+  "experiment": "Przez tydzień rozwiązuj codziennie jedno zadanie z olimpiady (matematyka, fizyka albo chemia, zadania są online). Zapisz, które cię wciągnęło.",
+  "related": [
+   "laboratorium",
+   "software",
+   "atom"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "sztuka-scena",
+  "name": "Sztuka, muzyka i scena",
+  "cluster": "sztuka",
+  "field": "ART",
+  "interests": {
+   "ana": 25,
+   "tec": 30,
+   "spo": 55,
+   "twr": 98,
+   "prz": 45,
+   "sys": 25
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 1,
+   "ruch": 1,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 2,
+   "projekty": -1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "kreatywnosc",
+   "niezaleznosc",
+   "wplyw"
+  ],
+  "strengths": [
+   "pomyslowosc",
+   "wytrwalosc",
+   "dyscyplina",
+   "oko",
+   "przekonywanie"
+  ],
+  "roles": "aktor, muzyk, wokalista, malarz, scenograf, artysta, pedagog sztuki",
+  "whoYouHelp": "Widzowie i słuchacze, którzy przychodzą przeżyć coś ważnego; szkoły i domy kultury, które uczą sztuki.",
+  "whatYouGet": "Robisz to, co kochasz, przed ludźmi albo dla nich. Na studia dostajesz się przez egzamin wstępny lub przesłuchanie, a praca bywa niestała.",
+  "force": "automatyzacja",
+  "whyNeeded": "AI tworzy obrazy i muzykę bez końca. Tym bardziej ludzie szukają żywej sztuki i prawdziwych artystów.",
+  "dayInLife": [
+   "Rano ćwiczenia: instrument, głos, ruch albo rysunek.",
+   "W południe próba z zespołem albo praca w pracowni.",
+   "Wieczorem występ, wystawa albo zajęcia z dziećmi w domu kultury."
+  ],
+  "growth": [
+   "student, występy i wystawy studenckie",
+   "artysta, muzyk w orkiestrze albo aktor w teatrze",
+   "solista, artysta z własnym nazwiskiem albo pedagog uczelni"
+  ],
+  "robustness": {
+   "A": "niska",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "Mało etatów, dużo konkurencji; pomaga drugi zawód, np. uczenie albo media.",
+  "experiment": "Przygotuj w miesiąc jeden krótki występ albo pracę (utwór, monolog, obraz) i pokaż go przynajmniej 5 osobom.",
+  "related": [
+   "historia-sztuki",
+   "media",
+   "projektowanie"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "historia",
+  "name": "Historia, kultura i dziedzictwo",
+  "cluster": "jezyki",
+  "field": "HUM",
+  "interests": {
+   "ana": 70,
+   "tec": 15,
+   "spo": 45,
+   "twr": 60,
+   "prz": 25,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": -1,
+   "ruch": 0,
+   "konkret": -1,
+   "decyzje": 0,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "niezaleznosc",
+   "czas",
+   "kreatywnosc"
+  ],
+  "strengths": [
+   "ciekawosc",
+   "dokladnosc",
+   "tlumaczenie",
+   "wytrwalosc",
+   "logika"
+  ],
+  "roles": "historyk, archeolog, filozof, etnolog, archiwista, pracownik muzeum, nauczyciel historii, redaktor",
+  "whoYouHelp": "Ludzie, którzy chcą zrozumieć, skąd przyszli; muzea, szkoły, wydawnictwa i miasta, które dbają o pamięć.",
+  "whatYouGet": "Czytasz źródła, odkrywasz zapomniane historie i tłumaczysz je innym. Mało etatów wprost w zawodzie; umiejętność myślenia i pisania przydaje się wszędzie.",
+  "force": "automatyzacja",
+  "whyNeeded": "W morzu treści z AI rośnie wartość ludzi, którzy sprawdzają źródła i rozumieją kontekst.",
+  "dayInLife": [
+   "Rano w archiwum albo na wykopalisku.",
+   "W południe opis znalezisk albo dokumentów i porównanie z innymi źródłami.",
+   "Po południu tekst do książki, wystawy albo lekcja w szkole."
+  ],
+  "growth": [
+   "student na praktykach w muzeum, archiwum, wykopaliskach",
+   "historyk, archeolog, nauczyciel albo redaktor",
+   "kurator, profesor albo autor książek"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "niska",
+   "C": "średnia"
+  },
+  "robustnessNote": "Mało etatów w zawodzie, ale umiejętności przenoszą się do mediów, urzędów i edukacji.",
+  "experiment": "Odszukaj w archiwum rodzinnym albo w internecie (Polona, szukajwarchiwach.gov.pl) jeden stary dokument o swojej okolicy i opisz, co z niego wynika.",
+  "related": [
+   "historia-sztuki",
+   "jezyki",
+   "edukacja"
+  ],
+  "languages": [
+   "en"
+  ]
  }
 ]

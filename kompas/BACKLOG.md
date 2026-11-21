@@ -895,7 +895,7 @@ fits the focus, take the first "next week" item that does.
 | v2.5 | UI/UX + questions | Illustrations (pictograms on every activity and situation card, 5 more screen illustrations); question review for a broader range of interests (7 tap cards, 2 situations); fix: road line crossing the "Gdzie się uczyć" caption | Opus | pushed 21 Nov 2026 as 2.5.0 (Szymon replaced the points plan, 21 Nov 13:57) |
 | v2.7 | Data (wave 1) | Cards Prawo i administracja, Architektura i budownictwo, Mechanika/materiały/produkcja, Edukacja i nauczanie with Kraków offers, sources, `url`, demand and GUS pay | Opus + Sonnet | pushed 21 Nov 2026 as 2.7.0 (afternoon, Szymon: "implement") |
 | v2.8 | Questions + functionality (wave 1) | Activity and situation cards, test kids and reachability test for the 4 cards | Opus | pushed 21 Nov 2026 as 2.8.0 |
-| v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | planned |
+| v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | pushed 21 Nov 2026 as 2.9.0 (Szymon: "next wave"); UJ thresholds moved to v2.11 |
 | v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | planned |
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | planned |
 | v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | planned |
@@ -1330,6 +1330,18 @@ at the end and paste the table in "Coverage waves". One task = one commit.
 3. **SW2c (Sonnet) Demand and pay** for the 4 cards (as SW1c).
 4. **SD5 (Opus) UJ and UJ CM 2026 thresholds** from UJ's own results pages (v3.0 item 5): 22 old offers plus the new UJ offers.
 5. **SR2.9 (Opus) Review and release v2.9.0.**
+
+**Done in 2.9.0 (21 Nov 2026, evening).** 39 cards, 112 offers.
+- Cards (each with `field`): `spoleczenstwo` (PSY), `nauka` (SCI), `sztuka-scena` (ART), `historia` (HUM).
+- Offers (14 new, all with `url` and `field`): społeczeństwo: UJ Socjologia (`check`: subject list cut off in the source), AGH Socjologia,
+  UEK Nauki społeczne stosowane; nauka: UJ Fizyka, UJ Astronomia, UJ Chemia, AGH Matematyka (`check`: subjects from the Kraków list);
+  sztuka-scena: AST Aktorstwo, Akademia Muzyczna Instrumentalistyka, ASP Malarstwo, all `exam: true` (no threshold); historia: UJ Historia,
+  UJ Archeologia (`check`), UJ Etnologia (also on spoleczenstwo), UJ Filozofia.
+- New campuses: `uj-grodzka52`, `uj-wh`, `amuz`, `ast`, `asp-wm` (addresses with sources; travel data waits for the weekly job). 15 sources.
+- Radar (Studia): Nauki ścisłe 2 → 3 (no longer "shared"), Sztuka 3 (4 → 7 items), Historia 3 (2 → 5), Psychologia i społeczne 3 (4 → 7).
+  Below 3 now only Sport, Bezpieczeństwo, Turystyka (wave 3).
+- Not done, moved: UJ Politologia and Praca socjalna (requirements not readable in the run), SW2c demand and pay, SD5 UJ thresholds → v2.11.
+- Reachability today: `nauka` (G) and `historia` (I, D) reach a top 3; `spoleczenstwo` and `sztuka-scena` wait for their personas in v2.10.
 
 **v2.10 – Wave 2 Questions and functionality (night of 25 Nov)**
 1. **SQ3a (Opus) Activities and situations for wave 2:** e.g. "Zbadać, dlaczego ludzie się dzielą, i napisać o tym raport" (society),

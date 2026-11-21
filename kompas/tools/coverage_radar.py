@@ -36,9 +36,9 @@ for o in off:
 miss=[o['id'] for o in off if o['id'] not in S]; assert not miss,miss
 sc=collections.Counter(S[o['id']] for o in off)
 # own Studia cards by axis
-S_card={'MED':['medycyna','pielegniarstwo','rehabilitacja','farmacja'],'PSY':['psychologia','ue','ukraina'],'EDU':['mowa','edukacja'],'INF':['software','cyber','dane-medyczne'],
-'ENG':['energetyka','atom','automatyka','inz-biomed','lotnictwo','mechanika'],'BUD':['architektura'],'SCI':['laboratorium'],'BIO':['woda','morze'],'ECO':['finanse','handel','logistyka'],'LAW':['prawo'],'LNG':['jezyki'],'HUM':['historia-sztuki'],
-'MEDIA':['media','media-cyfrowe'],'ART':['projektowanie'],'SPO':['sport'],'SEC':['sluzby','obronnosc'],'TUR':['turystyka']}
+S_card={'MED':['medycyna','pielegniarstwo','rehabilitacja','farmacja'],'PSY':['psychologia','ue','ukraina','spoleczenstwo'],'EDU':['mowa','edukacja'],'INF':['software','cyber','dane-medyczne'],
+'ENG':['energetyka','atom','automatyka','inz-biomed','lotnictwo','mechanika'],'BUD':['architektura'],'SCI':['laboratorium','nauka'],'BIO':['woda','morze'],'ECO':['finanse','handel','logistyka'],'LAW':['prawo'],'LNG':['jezyki'],'HUM':['historia-sztuki','historia'],
+'MEDIA':['media','media-cyfrowe'],'ART':['projektowanie','sztuka-scena'],'SPO':['sport'],'SEC':['sluzby','obronnosc'],'TUR':['turystyka']}
 # --- Liceum
 cardax={'biologia':['MED'],'chemia':['SCI'],'fizyka':['SCI'],'dane-ai':['INF','SCI'],'programowanie':['INF'],'cyber':['INF'],'elektronika':['ENG'],'srodowisko':['BIO'],
 'jezyki':['LNG'],'biznes':['ECO'],'budowa':['BUD'],'sport':['SPO'],'ludzie':['PSY','EDU'],'spoleczenstwo':['HUM']}
@@ -83,7 +83,7 @@ L_card={k:[o for o,fs in dirfield.items() if k in fs] for k,_ in AX}
 # 'shared' card (one card covers several axes) counts as partial
 # a field is 'shared' when every direction that has it serves 3+ fields and has another main field
 shared={k for k,_ in AX if L_card[k] and all(len(dirfield[o])>=3 and dirfield[o][0]!=k for o in L_card[k])}
-sharedS={'SCI'}
+sharedS=set()  # SCI got its own card 'nauka' in Studia 2.9
 def level(n,cards,hi,is_shared=False):
     if n==0 and not cards: return 0
     if is_shared and cards: return 2 if n>0 else 2
