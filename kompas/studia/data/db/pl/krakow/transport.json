@@ -1405,6 +1405,275 @@
      ]
     ]
    }
+  },
+  "uj-grodzka52": {
+   "address": "ul. Grodzka 52",
+   "lat": 50.05733,
+   "lon": 19.9391,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Plac Wszystkich Świętych",
+     "m": 210,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Poczta Główna",
+     "m": 280,
+     "tram": [
+      "1",
+      "3",
+      "12",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Starowiślna",
+     "m": 390,
+     "tram": [
+      "1",
+      "3",
+      "12",
+      "13",
+      "17",
+      "18",
+      "22"
+     ],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 10,
+    "median": 13,
+    "via": [
+     [
+      "tram",
+      "3"
+     ]
+    ]
+   }
+  },
+  "uj-wh": {
+   "address": "ul. Gołębia 24",
+   "lat": 50.06086,
+   "lon": 19.93324,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "UJ / AST",
+     "m": 120,
+     "tram": [
+      "14"
+     ],
+     "bus": [
+      "502"
+     ]
+    },
+    {
+     "name": "Filharmonia",
+     "m": 180,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Teatr Bagatela",
+     "m": 240,
+     "tram": [
+      "14",
+      "18"
+     ],
+     "bus": [
+      "502"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 15,
+    "median": 19,
+    "via": [
+     [
+      "tram",
+      "3"
+     ],
+     [
+      "tram",
+      "74"
+     ]
+    ]
+   }
+  },
+  "amuz": {
+   "address": "ul. św. Tomasza 43",
+   "lat": 50.06172,
+   "lon": 19.94323,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Poczta Główna",
+     "m": 200,
+     "tram": [
+      "1",
+      "3",
+      "12",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Teatr Słowackiego",
+     "m": 290,
+     "tram": [
+      "3",
+      "5",
+      "12",
+      "14"
+     ],
+     "bus": [
+      "502"
+     ]
+    },
+    {
+     "name": "Plac Wszystkich Świętych",
+     "m": 450,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 8,
+    "median": 11,
+    "via": []
+   }
+  },
+  "ast": {
+   "address": "ul. Straszewskiego 22",
+   "lat": 50.06021,
+   "lon": 19.93239,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "UJ / AST",
+     "m": 50,
+     "tram": [
+      "14"
+     ],
+     "bus": [
+      "502"
+     ]
+    },
+    {
+     "name": "Filharmonia",
+     "m": 110,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Teatr Bagatela",
+     "m": 310,
+     "tram": [
+      "14",
+      "18"
+     ],
+     "bus": [
+      "502"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 14,
+    "median": 18,
+    "via": [
+     [
+      "tram",
+      "3"
+     ],
+     [
+      "tram",
+      "74"
+     ]
+    ]
+   }
+  },
+  "asp-wm": {
+   "address": "pl. Matejki 13",
+   "lat": 50.06626,
+   "lon": 19.94132,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Stary Kleparz",
+     "m": 70,
+     "tram": [
+      "5",
+      "14",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Dworzec Główny Zachód",
+     "m": 250,
+     "tram": [
+      "3"
+     ],
+     "bus": [
+      "105",
+      "130",
+      "132",
+      "179",
+      "304",
+      "405"
+     ]
+    },
+    {
+     "name": "Teatr Słowackiego",
+     "m": 260,
+     "tram": [
+      "3",
+      "5",
+      "12",
+      "14"
+     ],
+     "bus": [
+      "502"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 4,
+    "median": 4,
+    "via": []
+   }
   }
  }
 }
