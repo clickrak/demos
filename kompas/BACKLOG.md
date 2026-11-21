@@ -10,6 +10,46 @@ The same roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)").
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
+## Major v3.0 – draft (questions open, 2026-11-21)
+
+**Nightly planners: do not take tasks from this section yet.** Szymon has not answered. Keep planning v2.10 from the roadmap
+below as before. When he answers, this heading becomes "Major v3.0 – plan (agreed …)" with night-sized tasks.
+
+**Where Kompas Liceum stands (2.9.0).** 8 steps of taps and sliders (area, worlds, 40 activity cards, situations, work style,
+values, strengths with "where it shows" chips, school results), then the compass with 8 profiles, profile screen with classes
+(realne / do zawalczenia / ambitne), Moja lista, plan to May 2027, parent summary (print), school catalogue with map, travel
+times, rankings, sources page; three looks (neon, spokojny, pop), "większy tekst", "spokojniej", Tychy + GZM area, bilingual track.
+Data: Kraków 50 of 90 schools (143 of 242 classes still "check"), Tychy 10 of 13, GZM 5.
+
+**Already promised for v3.0 by the roadmap:** V1 sports classes (fitness test track) and exact points counting as an option.
+Before it: v2.10 (Q1 rest, new GZM towns, G3 schools) and v2.11 (Ukrainian interface).
+
+**Gaps seen while preparing.**
+- Q1 needs Szymon's answers (5 questions under v2.10 / Q1); the Q1a audit table itself is missing from this file (blank lines).
+- Data tasks K1-7 and L1-9 slipped twice: night runs cannot open school pages (WebFetch refused, Nominatim/GTFS blocked).
+- Only 4 line illustrations (szkola, szkoly, wyniki, pusto); profiles and worlds have only small icons.
+- The compass shows the result at once; no "needle finds north" moment. Neon is the default look and uses many capitals.
+- Kompas pages load the site-wide GoatCounter counter, but rule 2 says "no analytics".
+- Exam % and achievements are number fields (the only typing left apart from the optional name).
+
+**Candidate themes for v3.0** (value for the kids · rough size · agent)
+1. Sports classes + exact points (promised V1): a sports kid sees real chances; points as an option · L · Opus
+2. Illustrations for the 8 profiles and 8 worlds, same line style as now: results feel like "worlds", not a table · M · Opus style + Sonnet
+3. Calmer visual style: "spokojny" as default, fewer capitals, softer colours, bigger tap targets · M · Opus
+4. Compass animation: needle swings and settles on north after the last step (off with "spokojniej") · S · Opus
+5. Fairer questions (Q1 rest): arts world, health apart from biology, law vs media, even worlds · M · Opus + Sonnet
+6. Parent summary polish: one A4 page, top 3 profiles, liked classes vs threshold, dates to May · S · Opus
+7. New areas: Kraków i okolice (powiat krakowski towns, e.g. Skawina, Zabierzów) and GZM (Chorzów, Tarnowskie Góry) + G3 schools · M · Opus + Sonnet
+8. Taps instead of typing for exam % (slider or chips: ok. 50 / 70 / 90 %) · S · Sonnet
+
+**Questions for Szymon (sent 21 Nov 2026):**
+1. Which themes go into v3.0? (numbers; proposal 1, 2, 3, 4, 6)
+2. What did the boys react to: compass, card sorting, school map, too long, nothing yet?
+3. Look: keep neon as default / "spokojny" as default / new softer look?
+4. Illustrations: line drawings like now / flat colour pictures / none?
+5. Q1 questions (arts, health, law vs media, even worlds, 2 situations): yes to all / pick numbers / later?
+6. Drop or keep: Ukrainian interface (v2.11)? GoatCounter on Kompas pages?
+
 ## Minor v2.9 (planned 2026-11-20, released 2026-11-21 as 2.9.0)
 
 Current `appVersion` 2.8.1; v2.8 is released (2.8.0 and 2.8.1 pushed), so nothing is waiting. The roadmap entry for v2.9
