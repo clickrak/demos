@@ -6279,6 +6279,7 @@
      "matematyka"
     ],
     "cards": [
+     "mechanika",
      "elektronika",
      "fizyka"
     ],
@@ -6305,6 +6306,7 @@
      "angielski"
     ],
     "cards": [
+     "transport",
      "biznes"
     ],
     "threshold": 120.5,
@@ -6408,6 +6410,7 @@
      "matematyka"
     ],
     "cards": [
+     "mechanika",
      "elektronika",
      "fizyka"
     ],
@@ -6436,6 +6439,7 @@
     ],
     "cards": [
      "elektronika",
+     "mechanika",
      "fizyka"
     ],
     "threshold": null,
@@ -6457,6 +6461,7 @@
      "matematyka"
     ],
     "cards": [
+     "mechanika",
      "elektronika",
      "fizyka"
     ],
@@ -7082,6 +7087,7 @@
      "matematyka"
     ],
     "cards": [
+     "mechanika",
      "elektronika",
      "fizyka"
     ],
@@ -7137,6 +7143,7 @@
     ],
     "cards": [
      "elektronika",
+     "mechanika",
      "fizyka"
     ],
     "threshold": 100.3,
@@ -7212,6 +7219,7 @@
      "fizyka"
     ],
     "cards": [
+     "mechanika",
      "elektronika",
      "fizyka"
     ],
@@ -7310,6 +7318,7 @@
      "matematyka"
     ],
     "cards": [
+     "mechanika",
      "elektronika",
      "fizyka"
     ],
@@ -7410,6 +7419,7 @@
      "angielski"
     ],
     "cards": [
+     "transport",
      "biznes"
     ],
     "threshold": 64.7,
@@ -7691,6 +7701,7 @@
      "geografia"
     ],
     "cards": [
+     "mechanika",
      "budowa"
     ],
     "threshold": 115.8,
