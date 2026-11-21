@@ -896,7 +896,7 @@ fits the focus, take the first "next week" item that does.
 | v2.7 | Data (wave 1) | Cards Prawo i administracja, Architektura i budownictwo, Mechanika/materiały/produkcja, Edukacja i nauczanie with Kraków offers, sources, `url`, demand and GUS pay | Opus + Sonnet | pushed 21 Nov 2026 as 2.7.0 (afternoon, Szymon: "implement") |
 | v2.8 | Questions + functionality (wave 1) | Activity and situation cards, test kids and reachability test for the 4 cards | Opus | pushed 21 Nov 2026 as 2.8.0 |
 | v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | pushed 21 Nov 2026 as 2.9.0 (Szymon: "next wave"); UJ thresholds moved to v2.11 |
-| v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | planned |
+| v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | pushed 21 Nov 2026 as 2.10.0 |
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | planned |
 | v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | planned |
 | v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards | Opus | planned |
@@ -1352,6 +1352,16 @@ at the end and paste the table in "Coverage waves". One task = one commit.
 3. **SQ3c (Sonnet) Entrance-exam tag** on offers with `exam: true` (card, road, compare table): "egzamin wstępny albo przesłuchanie",
    no points gap. Check: 375 and 1280 px.
 4. **SR2.10 (Opus) Review and release v2.10.0.**
+
+**Done in 2.10.0 (21 Nov 2026, evening).** 45 activities, 9 situations, 17 personas.
+- Activities a41 inequality talks (society), a42 why nature works, atom to stars (science), a43 daily practice for the stage (stage arts),
+  a44 archive documents, what really happened (history), a45 help someone find the right office or organisation (social work);
+  situation e9 "school's 100th anniversary open day" (one answer per wave 2 card). Pictograms for all.
+- Personas N (society), O (science), P (stage), Q (history): each has its own card **first**; A–M unchanged. 28 of 39 cards reach a top 3,
+  max 4 of 17 kids per card.
+- Entrance exam (SQ3c): one wording for all `exam: true` offers, "egzamin wstępny albo przesłuchanie" (was drawing and portfolio only),
+  in the offer badge, the plan step and the compare table's threshold row ("decyduje egzamin" on the road).
+- Checked 375 and 1280 px for N–Q, no script errors. Still open from v2.9: UJ Politologia, Praca socjalna, demand and pay, UJ thresholds.
 
 **v2.11 – Wave 3 Data (night of 26 Nov)**
 1. **SW3a (Opus) Three cards:** `zywienie` "Żywienie i dietetyka" (dietetics, food technology), `weterynaria` "Weterynaria, zwierzęta i rolnictwo"

@@ -1,4 +1,4 @@
-// Kompas Studia v2.9.0. Screens, navigation, results, export.
+// Kompas Studia v2.10.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -1053,7 +1053,7 @@ function compareRows() {
     ['Uczelnia i miejsce', o => { const c = campus(o.campus); return `${esc(o.institution)}${c ? `<br><span class="small muted">${esc(c.name)}, ${esc(c.address)}</span>` : ''}`; }],
     ['Długość', o => `${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'} · ${esc(o.level)}`],
     ['Twoje przedmioty', o => { const f = subjectFit(o, ext); return `<b>${f === null ? (o.requires?.noMatura ? 'matura niewymagana' : o.requires?.exam ? 'decyduje egzamin' : 'nie zależy od rozszerzeń') : FIT_TXT[f]}</b><br><span class="small muted">${esc(o.requires?.note || '')}</span>`; }],
-    ['Próg 2026', o => o.threshold ? `${o.threshold.points} z ${o.threshold.max} pkt${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : '<span class="muted">brak danych</span>'],
+    ['Próg 2026', o => o.threshold ? `${o.threshold.points} z ${o.threshold.max} pkt${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : o.requires?.exam ? '<span class="badge warn">egzamin wstępny albo przesłuchanie</span>' : '<span class="muted">brak danych</span>'],
     ['Dojazd', o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
     ['Uczelnia', o => o.private ? `prywatna, płatna${o.cost ? `<br><span class="small muted">${esc(o.cost)}</span>` : ''}` : 'publiczna'],
     ['Co dalej', o => esc(o.next || '-')]];

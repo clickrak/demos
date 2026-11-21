@@ -104,7 +104,7 @@ const head = mdC.split('\n').find(l => l.startsWith('| | '));
 ok(mdC.includes('## Porównanie') && head && head.split('|').length - 3 === 2, 'export compare table has one column per compared offer');
 ok(JSON.stringify(parseSaved(mdC).answers.compare) === JSON.stringify(aC.compare), 'compare pick survives save and load');
 // Coverage waves (v2.8+): each new card is in the top 3 of its own test kid, and no card is in the top 3 of more than half of the kids.
-const OWN = { J: 'prawo', K: 'architektura', L: 'mechanika', M: 'edukacja', G: 'morze', H: 'lotnictwo', I: 'historia-sztuki', F: 'media-cyfrowe' };
+const OWN = { N: 'spoleczenstwo', O: 'nauka', P: 'sztuka-scena', Q: 'historia', J: 'prawo', K: 'architektura', L: 'mechanika', M: 'edukacja', G: 'morze', H: 'lotnictwo', I: 'historia-sztuki', F: 'media-cyfrowe' };
 const personas = j('../studia/data/personas.json'), topCount = {};
 for (const p of personas) {
   const best = scoreAll(p.answers, data).slots.best.map(c => c.card.id);

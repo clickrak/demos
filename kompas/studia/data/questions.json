@@ -379,6 +379,46 @@
     "sys": 2,
     "spo": 1
    }
+  },
+  {
+   "id": "a41",
+   "text": "Porozmawiać z ludźmi z różnych środowisk i zrozumieć, skąd biorą się nierówności.",
+   "w": {
+    "spo": 2,
+    "ana": 1
+   }
+  },
+  {
+   "id": "a42",
+   "text": "Zrozumieć, dlaczego coś działa w przyrodzie, od atomu po gwiazdy, aż wszystko się zgadza.",
+   "w": {
+    "ana": 2,
+    "tec": 1
+   }
+  },
+  {
+   "id": "a43",
+   "text": "Ćwiczyć codziennie na instrumencie, głos albo ruch, żeby wystąpić na scenie.",
+   "w": {
+    "twr": 2,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a44",
+   "text": "Szukać w archiwum starych dokumentów i sprawdzać, co naprawdę się wtedy wydarzyło.",
+   "w": {
+    "ana": 2,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a45",
+   "text": "Pomóc komuś w trudnej sytuacji znaleźć urząd albo organizację, która mu pomoże.",
+   "w": {
+    "spo": 2,
+    "sys": 1
+   }
   }
  ],
  "neededWhere": [
@@ -785,6 +825,45 @@
      "w": {
       "spo": 2,
       "prz": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "e9",
+   "text": "Szkoła świętuje 100-lecie i robi dzień otwarty. Co przygotowujesz?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Ankietę wśród absolwentów: co szkoła im dała i co by zmienili.",
+     "w": {
+      "spo": 2,
+      "ana": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Pokaz doświadczeń z fizyki i chemii z wyjaśnieniem, co się dzieje.",
+     "w": {
+      "ana": 2,
+      "tec": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Koncert albo scenkę na otwarcie, na scenie przed wszystkimi.",
+     "w": {
+      "twr": 2,
+      "spo": 1
+     }
+    },
+    {
+     "id": "d",
+     "text": "Wystawę starych zdjęć i dokumentów z archiwum szkoły.",
+     "w": {
+      "ana": 1,
+      "twr": 1,
+      "sys": 1
      }
     }
    ]

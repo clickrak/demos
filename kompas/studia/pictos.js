@@ -42,7 +42,12 @@ const ACT = {
   a37: '<path d="M3 21h18"/><rect x="5" y="9" width="14" height="12"/><path d="M5 9l7-5 7 5M5 15h14M12 9v12"/>',
   a38: '<path d="M4 4h16v4H4zM6 8v9h12V8"/><path d="M12 8v4"/><path d="M9 17l3-3 3 3"/><path d="M4 21h16"/>',
   a39: '<circle cx="7" cy="6" r="2.5"/><circle cx="15" cy="10" r="1.8"/><circle cx="20" cy="10" r="1.8"/><path d="M3 21v-5a4 4 0 0 1 8 0v5M13 21v-3a2 2 0 0 1 4 0v3M18 21v-3a2 2 0 0 1 4 0"/>',
-  a40: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h4M7 13h4M7 17h4"/><path d="M14 13l2 2 4-4"/>'
+  a40: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h4M7 13h4M7 17h4"/><path d="M14 13l2 2 4-4"/>',
+  a41: '<circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><path d="M2 21v-4a4 4 0 0 1 8 0v4M14 21v-4a4 4 0 0 1 8 0v4"/><path d="M10 11h4"/><path d="M12 9v4"/>',
+  a42: '<circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="9" ry="3.5"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)"/>',
+  a43: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+  a44: '<path d="M5 4h11l3 3v13H5z"/><path d="M8 9h8M8 12h8M8 15h5"/><circle cx="17" cy="17" r="3"/><path d="M19 19l2.5 2.5"/>',
+  a45: '<path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/><path d="M9 12h6M12 9v6"/>'
 };
 const SIT = {
   e1: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10M12 16v4"/><path d="M8 9l2 2-2 2M12 13h4"/>', // group project
@@ -52,7 +57,8 @@ const SIT = {
   e5: '<path d="M4 4h7v6H6l-2 2zM20 8h-7v6h5l2 2z"/><path d="M8 20h8M12 16v4"/>', // debate
   e6: '<path d="M3 17h18M5 17V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><path d="M5 12h14"/>',  // class trip bus
   e7: '<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17"/><path d="M15 7l2-2M7 17l-2 2"/><path d="M9 9l6 6"/>',
-  e8: '<path d="M4 20h16"/><rect x="5" y="9" width="14" height="8" rx="1"/><path d="M12 9v8M5 13h3M16 13h3"/><circle cx="12" cy="13" r="1.5"/><path d="M8 5h8"/>'
+  e8: '<path d="M4 20h16"/><rect x="5" y="9" width="14" height="8" rx="1"/><path d="M12 9v8M5 13h3M16 13h3"/><circle cx="12" cy="13" r="1.5"/><path d="M8 5h8"/>',
+  e9: '<path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5"/><path d="M12 5V2l3 1-3 1"/>' // school jubilee
 };
 // Colour from the card's main interest, so a row of cards reads at a glance (same line palette as the results).
 const DIM_COLOR = { ana: 'var(--l0)', tec: 'var(--l1)', spo: 'var(--l2)', twr: 'var(--l3)', prz: 'var(--l4)', sys: 'var(--accent)' };
