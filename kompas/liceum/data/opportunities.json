@@ -244,7 +244,8 @@
   "experiment": "Złóż prosty układ z diodą na płytce stykowej albo z Arduino. Zrób zdjęcie i zapisz, co zadziałało od razu, a co nie.",
   "related": [
    "fizyka",
-   "programowanie"
+   "programowanie",
+   "mechanika"
   ],
   "afterSchool": "Automatyka, elektronika i energetyka na AGH i Politechnice Krakowskiej. Technikum elektroniczne daje zawód technika po 4 latach i zostawia otwartą maturę.",
   "studiaCards": [
@@ -260,6 +261,75 @@
   "worlds": [
    "tech",
    "budowa"
+  ],
+  "field": [
+   "ENG"
+  ]
+ },
+ {
+  "id": "mechanika",
+  "name": "Mechanika, pojazdy i produkcja",
+  "cluster": "tech",
+  "interests": {
+   "ana": 55,
+   "tec": 95,
+   "spo": 15,
+   "twr": 35,
+   "prz": 25,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 2,
+   "ruch": -2,
+   "konkret": -3,
+   "decyzje": 0,
+   "zmiana": 0,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "zarobki",
+   "trudne",
+   "kreatywnosc"
+  ],
+  "strengths": [
+   "orientacja",
+   "dokladnosc",
+   "kondycja",
+   "wytrwalosc",
+   "pomyslowosc"
+  ],
+  "roles": "mechanik, mechatronik, technik pojazdów samochodowych, operator maszyn CNC, konstruktor",
+  "whoYouHelp": "Kierowcy, fabryki i warsztaty, w których maszyna albo auto musi znowu ruszyć.",
+  "whatYouGet": "Praca rękami i z narzędziami. Od razu widać, czy silnik albo maszyna działa.",
+  "dayInLife": [
+   "Rano: szukasz, dlaczego auto albo maszyna nie chce ruszyć.",
+   "Potem: wymieniasz część i ustawiasz maszynę według rysunku.",
+   "Po południu: próba na hali i krótka notatka, co było zepsute."
+  ],
+  "experiment": "Rozkręć i złóż z kimś dorosłym stary rower, kosiarkę albo zabawkę z silnikiem. Zapisz, ile było części i która była najtrudniejsza.",
+  "related": [
+   "elektronika",
+   "budowa",
+   "transport"
+  ],
+  "afterSchool": "Mechanika i budowa maszyn na AGH i Politechnice Krakowskiej, zarządzanie i inżynieria produkcji na UEK. Technikum mechaniczne albo samochodowe daje zawód technika po 4 latach i zostawia otwartą maturę.",
+  "studiaCards": [
+   "mechanika",
+   "lotnictwo",
+   "automatyka"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "icon": "technika",
+  "worlds": [
+   "budowa",
+   "tech"
   ],
   "field": [
    "ENG"
@@ -718,7 +788,8 @@
   "related": [
    "dane-ai",
    "spoleczenstwo",
-   "jezyki"
+   "jezyki",
+   "transport"
   ],
   "afterSchool": "Ekonomia, finanse i zarządzanie na Uniwersytecie Ekonomicznym, AGH albo UJ. W liceum: klasy z matematyką i biznesem albo geografią. Technikum ekonomiczne daje zawód już po 4 latach.",
   "studiaCards": [
@@ -728,6 +799,72 @@
   ],
   "robustness": {
    "A": "średnia",
+   "B": "średnia",
+   "C": "wysoka"
+  },
+  "icon": "biznes",
+  "worlds": [
+   "biznes"
+  ],
+  "field": [
+   "ECO"
+  ]
+ },
+ {
+  "id": "transport",
+  "name": "Transport i logistyka",
+  "cluster": "biznes",
+  "interests": {
+   "ana": 60,
+   "tec": 45,
+   "spo": 40,
+   "twr": 20,
+   "prz": 70,
+   "sys": 90
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 1,
+   "ruch": 0,
+   "konkret": -2,
+   "decyzje": -2,
+   "zmiana": 1,
+   "projekty": -2,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "zarobki",
+   "zagranica",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "organizowanie",
+   "orientacja",
+   "dokladnosc",
+   "spokoj",
+   "odpowiedzialnosc"
+  ],
+  "roles": "logistyk, spedytor, dyspozytor, planista transportu, technik transportu kolejowego",
+  "whoYouHelp": "Sklepy, fabryki i zwykli ludzie, którzy czekają na paczkę, pociąg albo dostawę na czas.",
+  "whatYouGet": "Plan, mapa i telefon. Codziennie łamigłówka: jak dowieźć wszystko szybko i taniej.",
+  "dayInLife": [
+   "Rano: sprawdzasz, gdzie są dziś ciężarówki i pociągi z towarem.",
+   "Potem: korek na trasie, więc szybko układasz nową drogę.",
+   "Po południu: planujesz dostawy na jutro i liczysz koszty."
+  ],
+  "experiment": "Zaplanuj na mapie trasę rodzinnego wyjazdu albo dowozu zakupów do trzech osób. Policz czas i koszt i sprawdź, czy da się szybciej.",
+  "related": [
+   "biznes",
+   "mechanika",
+   "jezyki"
+  ],
+  "afterSchool": "Transport i logistyka na Politechnice Krakowskiej; logistyka także na uczelniach ekonomicznych. Technikum logistyczne, spedycyjne albo kolejowe daje zawód technika po 4 latach i zostawia otwartą maturę.",
+  "studiaCards": [
+   "logistyka"
+  ],
+  "robustness": {
+   "A": "wysoka",
    "B": "średnia",
    "C": "wysoka"
   },

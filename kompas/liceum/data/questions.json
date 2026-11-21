@@ -535,6 +535,73 @@
    "worlds": [
     "spoleczenstwo"
    ]
+  },
+  {
+   "id": "k1",
+   "text": "Rozłożyć rower, hulajnogę albo silnik i złożyć z powrotem tak, żeby działało.",
+   "w": {
+    "tec": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "budowa"
+   ]
+  },
+  {
+   "id": "k2",
+   "text": "Grzebać przy samochodzie, motorowerze albo kosiarce razem z kimś, kto się zna.",
+   "w": {
+    "tec": 2,
+    "ana": 1
+   },
+   "worlds": [
+    "budowa"
+   ]
+  },
+  {
+   "id": "k3",
+   "text": "Oglądać, jak w fabryce maszyny robią rzeczy, np. auta albo czekoladę.",
+   "w": {
+    "tec": 1,
+    "sys": 1,
+    "ana": 1
+   },
+   "worlds": [
+    "budowa"
+   ]
+  },
+  {
+   "id": "t1",
+   "text": "Zaplanować trasę dostawy tak, żeby objechać wszystkich jak najszybciej.",
+   "w": {
+    "sys": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "biznes"
+   ]
+  },
+  {
+   "id": "t2",
+   "text": "Sprawdzać rozkłady, mapy i połączenia: pociągi, autobusy, samoloty.",
+   "w": {
+    "sys": 2,
+    "ana": 1
+   },
+   "worlds": [
+    "biznes"
+   ]
+  },
+  {
+   "id": "t3",
+   "text": "Pilnować, żeby wszystko dotarło na czas, gdy coś się nagle zmienia.",
+   "w": {
+    "prz": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "biznes"
+   ]
   }
  ],
  "situations": [
@@ -702,14 +769,14 @@
   },
   {
    "id": "biznes",
-   "name": "Biznes i pieniądze",
-   "hint": "firma, handel, ekonomia",
+   "name": "Biznes, handel i logistyka",
+   "hint": "firma, pieniądze, transport",
    "icon": "biznes"
   },
   {
    "id": "budowa",
-   "name": "Budowanie i architektura",
-   "hint": "domy, mosty, wnętrza",
+   "name": "Budowanie, maszyny i pojazdy",
+   "hint": "domy, mosty, silniki, auta",
    "icon": "technika"
   },
   {

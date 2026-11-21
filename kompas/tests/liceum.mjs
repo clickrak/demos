@@ -103,12 +103,12 @@ for (const o of data.opportunities) {
   if (!o.strengths.some(x => strIds.has(x))) fail('CD1: no strength for', o.id);
 }
 // Old saved files (8 profiles, no arts answers) still score: arts activities count as 0.
-{ const old = j('../liceum/data/personas.json')[0].answers, r = scoreLiceum({ ...old, sort: Object.fromEntries(Object.entries(old.sort).filter(([k]) => !/^(c|h|l|m)\d$/.test(k))) }, data);
+{ const old = j('../liceum/data/personas.json')[0].answers, r = scoreLiceum({ ...old, sort: Object.fromEntries(Object.entries(old.sort).filter(([k]) => !/^(c|h|l|m|k|t)\d$/.test(k))) }, data);
   if (profilesFor(r, data).length !== data.profiles.length) fail('old file: compass should list every profile'); }
 // Compass: the expected North for each test kid.
-const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'], P8: ['artystyczny'], P9: ['przyrodniczy', 'spoleczny'], P10: ['humanistyczny'], P11: ['humanistyczny'] };
+const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'], P8: ['artystyczny'], P9: ['przyrodniczy', 'spoleczny'], P10: ['humanistyczny'], P11: ['humanistyczny'], P12: ['inzynierski', 'scisly'], P13: ['ekonomiczny'] };
 // CD1 (v2.10): each new direction is in the top 3 for its test kid, and its compass profile is N, NNE or NNW.
-const DIRKID = { P8: 'sztuka', P9: 'zdrowie', P10: 'prawo', P11: 'media' };
+const DIRKID = { P8: 'sztuka', P9: 'zdrowie', P10: 'prawo', P11: 'media', P12: 'mechanika', P13: 'transport' };
 for (const p of j('../liceum/data/personas.json')) {
   const P = profilesFor(scoreLiceum(p.answers, forKid(p.answers)), forKid(p.answers));
   console.log(`Kompas ${p.id}:`, P.map(x => `${x.compass.pos} ${x.profile.id} ${Math.round(x.fit)}`).join(' · '));
