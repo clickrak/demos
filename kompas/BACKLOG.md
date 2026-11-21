@@ -68,6 +68,29 @@ Order check: wave 1 stays (law sits in the biggest group, building and mechanics
 services (wave 3: tourism, security, sport) are bigger groups than education; they keep their waves because education is only shared
 today, while history, arts and security already have a card. No swap.
 
+**v3.0 result (Studia), 21 Nov 2026, after 3.0.0.** Every Studia field is at level 3 or 4. Moved since 2.12.0: Psychologia i nauki
+społeczne 7 → 9 items, level 3 → 4 (UJ Politologia, UKEN Praca socjalna). Liceum still has Bezpieczeństwo and Turystyka at 1 (Liceum waves).
+
+| Field | Studia items | Studia level | Liceum items | Liceum level |
+|---|---|---|---|---|
+| Medycyna i zdrowie | 23 | 4 | 77 | 4 |
+| Psychologia i nauki społeczne | 9 | 4 | 18 | 4 |
+| Pedagogika i edukacja | 6 | 3 | 19 | 4 |
+| Informatyka, dane, AI | 8 | 4 | 99 | 4 |
+| Inżynieria i technika | 12 | 4 | 54 | 4 |
+| Budownictwo i architektura | 7 | 3 | 6 | 3 |
+| Nauki ścisłe | 6 | 3 | 131 | 4 |
+| Przyroda i środowisko | 8 | 4 | 52 | 4 |
+| Ekonomia i biznes | 9 | 4 | 56 | 4 |
+| Prawo i administracja | 5 | 3 | 30 | 4 |
+| Języki i filologie | 5 | 3 | 52 | 4 |
+| Historia, filozofia, kultura | 5 | 3 | 79 | 4 |
+| Media i komunikacja | 7 | 3 | 33 | 4 |
+| Sztuka i design | 7 | 3 | 4 | 3 |
+| Sport | 3 | 3 | 17 | 4 |
+| Bezpieczeństwo i obronność | 3 | 3 | 9 | 1 |
+| Turystyka i usługi | 3 | 3 | 8 | 1 |
+
 **Rules for the waves.**
 1. **Offer and questions together.** A new Studia card or Liceum direction is done only when (a) it has real offers or classes with a source,
    and (b) the discovery questions reach it: at least 2 activity cards and, where it fits, a strength, one test kid per new card ends with
@@ -877,7 +900,8 @@ Liceum has its own roadmap (Part 1); do not touch Liceum work here, but reuse sh
 ### Major goals
 
 Set by the weekend review task (it writes this list; planners keep it and plan minors toward the current goal).
-- **Current major goal (changed by Szymon, 21 Nov 2026, 15:13): cover all study directions, in three waves (see "Coverage waves" at the top of this file), then v3.0 as the review.** UI/UX items wait.
+- **Studia waves done (3.0.0, 21 Nov 2026):** every field at level 3 or more, every card in a test kid's top 3. **Next: v3.1 UI/UX** (items 10, 7 and the screen part of 11), then v3.2 and v3.3 as listed below. Liceum waves continue in Part 1.
+- Previous goal (changed by Szymon, 21 Nov 2026, 15:13): cover all study directions, in three waves (see "Coverage waves" at the top of this file), then v3.0 as the review.
 - Previous goal (agreed in the weekend review, 21 Nov 2026), still valid after the waves: v3.0. **A wider compass and a choice before the
   declaration.** The cards cover the whole range of what kids like (also media, digital media, commerce), and by 7 Feb 2027
   Aleks can see which rozszerzenie opens his liked directions, star offers and compare them. Every fact still needs a fresh source.
@@ -964,7 +988,7 @@ fits the focus, take the first "next week" item that does.
 | v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | pushed 21 Nov 2026 as 2.10.0 |
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | pushed 21 Nov 2026 as 2.11.0 |
 | v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | pushed 21 Nov 2026 as 2.12.0 |
-| v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards; every card in a top 3 (10 test kids), demand and pay gaps, open offers (Politologia, Praca socjalna, 11 `check`), UJ thresholds if reachable | Opus + Sonnet | planned 21 Nov 2026 (plan in "v3.0 – Coverage review") |
+| v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards; every card in a top 3 (10 test kids), demand and pay gaps, open offers (Politologia, Praca socjalna, 11 `check`), UJ thresholds if reachable | Opus + Sonnet | pushed 21 Nov 2026 as 3.0.0 (SD5 UJ thresholds moved to v3.2; pay for 12 cards moved to v3.1) |
 | v3.1–v3.3 | UI/UX, functionality (later) | Strengths as the foundation (10), sources page (7), links in Kierunki (11), travel from the centre (12), points estimate (8), parent summary (9) | Opus + Sonnet | after v3.0 |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
@@ -1461,7 +1485,7 @@ at the end and paste the table in "Coverage waves". One task = one commit.
   not cards that cannot be reached; v3.0 adds kids for them or explains why not.
 
 **v3.0 – Coverage review (night of 28 Nov)**
-1. **SR3.0 (Opus):** radar at level 3 everywhere (or a written reason), spec doc section "Kompas Studia v3.0.0", declaration helper and star
+1. [x] **SR3.0 (Opus):** radar at level 3 everywhere (or a written reason), spec doc section "Kompas Studia v3.0.0", declaration helper and star
    comparison checked with the new cards at 375 and 1280 px, "Kompas Studia v3.0.0"; tell Szymon with the radar table. Then the UI/UX items
    (v3.1–v3.3) in the order given above.
 
@@ -1472,7 +1496,7 @@ at level 3 or 4 (Bezpieczeństwo and Turystyka are at 1 only in Liceum: Liceum w
 and adds **no new cards, no new screens and no look changes** (UI/UX waits for v3.1). Order: SR3b and SR3c (data) → SR3a → SR3d → SR3.0.
 One task = one commit; `git pull --rebase` before each push (Liceum may push the same night).
 
-1. **SR3a (Opus) Every card reaches a top 3.** Cards with no top 3 today: `dane-medyczne`, `energetyka`, `jezyki`, `medycyna`, `obronnosc`,
+1. [x] **SR3a (Opus) Every card reaches a top 3.** Cards with no top 3 today: `dane-medyczne`, `energetyka`, `jezyki`, `medycyna`, `obronnosc`,
    `pielegniarstwo`, `psychologia`, `sluzby`, `sport`, `woda`. Add one test kid per card in `personas.json` (ids U, V, W, X, Y, Z, AA, AB,
    AC, AD; taps only: activities, situations, strengths, sliders; a short neutral label like "lubi pomagać chorym", no personal data).
    Each kid gets its card **first or top 3** with a fair answer set (answers a real kid with that interest would tap, not every card's
@@ -1481,13 +1505,13 @@ One task = one commit; `git pull --rebase` before each push (Liceum may push the
    Then make the test in `tests/run.mjs` strict: **every** card (42 of 42) is top 3 for at least one kid; no card top 3 for more than half
    of the kids; A–T keep their current first card (list them in the test so a weight change cannot move them silently).
    Check: `node kompas/tests/run.mjs` says "42 of 42 cards"; the most frequent card stays at or under 5 of 30 if possible (write the number).
-2. **SR3b (Sonnet) Demand and pay for the cards that have none:** `media-cyfrowe`, `morze`, `lotnictwo`, `turystyka`, `historia-sztuki`,
+2. [x] **SR3b (Sonnet) Demand and pay for the cards that have none:** `media-cyfrowe`, `morze`, `lotnictwo`, `turystyka`, `historia-sztuki`,
    `spoleczenstwo`, `nauka`, `sztuka-scena`, `historia`, `zywienie`, `weterynaria`, `geografia` (and `demand` for `inz-biomed`).
    Demand: the Kraków lists already in `sources.json` (`barometr-krk-2026`, `korp-krk-2025-12`), same wording as SW1c. Pay: GUS 2024
    group and band (`gus-2024`) when the table shows a figure for the group; otherwise the 2020 group as for `architektura` (D7 method).
    Never a guessed band. A card with no source stays without the field; list those in the commit message and here.
    Check: `node kompas/tests/syntax.mjs` (every source used, every `sourceId` resolves).
-3. **SR3c (Sonnet) Close the open offers.**
+3. [x] **SR3c (Sonnet) Close the open offers.**
    a) New offers for `spoleczenstwo`: **UJ Politologia** and **UJ Praca socjalna** (if UJ does not run praca socjalna in 2027, take UKEN
       or another public Kraków university that lists it). Each: `requires` from the official recruitment page (rekrutacja.uj.edu.pl or the
       university's own page) or otouczelnie, `status`, `sourceId` (new source with `asOf`), official `url`, `field: "PSY"`, `campus`
@@ -1499,15 +1523,34 @@ One task = one commit; `git pull --rebase` before each push (Liceum may push the
       official page (subjects, length, campus). Confirmed → `sourced` with the new source; not confirmed → stays `check` with the reason
       in the commit message. Also find the official `url` for `pk-budownictwo`.
    Check: tests pass; radar re-run (Psychologia i nauki społeczne should go from 7 to 9 items).
-4. **SR3d (Opus, time box 20 min) SD5 UJ and UJ CM 2026 thresholds.** From UJ's results pages, or the otouczelnie "progi UJ 2026" page
+4. [x] **SR3d (Opus, time box 20 min) SD5 UJ and UJ CM 2026 thresholds.** From UJ's results pages, or the otouczelnie "progi UJ 2026" page
    (same way as `otou-agh-progi-2026`). Only offers with a number on the page; store `year`, `points`, `max`, `round`, `sourceId` as for
    AGH (UJ points scale may differ: copy the page's maximum, never convert). If no page opens in the time box, move SD5 to v3.2 (it
    feeds the points estimate, item 8) and write that here.
-5. **SR3.0 (Opus) Review and release 3.0.0** (Szymon's text above, plus): radar re-run and the new table pasted in "Coverage waves" as
+5. [x] **SR3.0 (Opus) Review and release 3.0.0** (Szymon's text above, plus): radar re-run and the new table pasted in "Coverage waves" as
    "v3.0 result (Studia)" with the fields that moved; declaration helper output for 3 of the new kids; star and compare one offer from each
    wave (prawo, sztuka-scena with the exam tag, weterynaria) at 375 and 1280 px in three looks, no script errors; `node kompas/tests/liceum.mjs`
    still passes; version 3.0.0 in the four places; release table row v3.0 → pushed; "Major goals": waves done, next = v3.1 UI/UX
    (items 10, 7, screen part of 11); spec doc section "Kompas Studia v3.0.0" (Claude Docs); push to main.
+
+**Done in 3.0.0 (21 Nov 2026, night).** 42 cards, 126 offers, 30 test kids.
+- SR3a: test kids U–AD (dane-medyczne, energetyka, jezyki, medycyna, obronnosc, pielegniarstwo, psychologia, sluzby, sport, woda), taps only.
+  Each has its card **first**; no weight change was needed. `tests/run.mjs` is strict now: 42 of 42 cards in some top 3, no card above
+  half, A–AD keep their first card (listed in the test). Most frequent: `zywienie` 6 of 30 (X and AA have it third; could not get to 5
+  with fair answers), `edukacja` 5.
+- SR3b: Kraków demand for all 13 cards from `barometr-krk-2026` (deficit and surplus checked against the KORP Dec 2025 lists).
+  **Pay not added** for media-cyfrowe, morze, lotnictwo, turystyka, historia-sztuki, spoleczenstwo, nauka, sztuka-scena, historia,
+  zywienie, weterynaria, geografia: GUS 2024 Tablica 5 (xlsx) could not be opened and `gus-2020` has no figure for these groups.
+  Moved to v3.1 (with the rest of item 6).
+- SR3c: new offers UJ Politologia (`uj-insp`, ul. Reymonta 4) and UKEN Praca socjalna (`uken-izss`, os. Stalowe 17; UJ runs praca
+  socjalna only as II stopnia). 10 of 11 `check` offers now `sourced` (official AGH, UEK, UKEN, AKF pages; otouczelnie 2026/27 for UJ
+  and URK). Still `check`: `uj-dietetyka` (run by Wydział Lekarski UJ CM, place of classes not confirmed). `pk-budownictwo` has its `url`.
+  AWF Kraków is now called Akademia Kultury Fizycznej (AKF); offers say so, the campus name stays for now. 8 superseded sources removed.
+  The two new campuses wait for the weekly transport job.
+- SR3d: **no 2026 UJ thresholds found** (otouczelnie and others show 2025/26 only; UJ pages refuse automated reading). SD5 moves to v3.2
+  (it feeds the points estimate, item 8).
+- SR3.0: radar table above ("v3.0 result"); declaration helper for X, AA, W; star and compare uj-prawo, ast-aktorstwo (exam tag),
+  urk-weterynaria, uj-politologia at 375 and 1280 px in three looks: no page errors, nothing wider than the screen. Liceum tests pass.
 
 **Not in v3.0 (moves to v3.1, decided by the planner unless Szymon says otherwise):** official `url` for the 86 older offers that have none
 (item 11 data, done with its screen part in v3.1, Sonnet); GUS 2024 pay for the old cards still on `gus-2020` (item 6 rest, v3.1 Sonnet).
