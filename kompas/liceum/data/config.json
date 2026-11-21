@@ -25,8 +25,8 @@
  "situationWeight": 0.3,
  "languageBoost": 0,
  "languageBoostCap": 0,
- "appVersion": "2.10.0",
- "dataVersion": "2026-11-21",
+ "appVersion": "2.11.0",
+ "dataVersion": "2026-11-22",
  "towns": [
   {
    "id": "krakow",
