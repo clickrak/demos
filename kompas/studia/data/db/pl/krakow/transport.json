@@ -1350,6 +1350,61 @@
      ]
     ]
    }
+  },
+  "uj-wpia": {
+   "address": "ul. Gołębia 24",
+   "lat": 50.06086,
+   "lon": 19.93324,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "UJ / AST",
+     "m": 120,
+     "tram": [
+      "14"
+     ],
+     "bus": [
+      "502"
+     ]
+    },
+    {
+     "name": "Filharmonia",
+     "m": 180,
+     "tram": [
+      "1",
+      "13",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Teatr Bagatela",
+     "m": 240,
+     "tram": [
+      "14",
+      "18"
+     ],
+     "bus": [
+      "502"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 15,
+    "median": 19,
+    "via": [
+     [
+      "tram",
+      "3"
+     ],
+     [
+      "tram",
+      "74"
+     ]
+    ]
+   }
   }
  }
 }
