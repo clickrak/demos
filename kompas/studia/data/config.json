@@ -30,6 +30,6 @@
  "situationWeight": 0.3,
  "languageBoost": 3,
  "languageBoostCap": 6,
- "appVersion": "2.2.0",
- "dataVersion": "2026-11-20"
+ "appVersion": "2.3.0",
+ "dataVersion": "2026-11-21"
 }

@@ -1940,5 +1940,213 @@
   "status": "sourced",
   "sourceId": "otou-pk-arch",
   "next": "magisterskie, potem praktyka i egzamin na uprawnienia architekta"
+ },
+ {
+  "id": "agh-gry",
+  "name": "Tworzenie przestrzeni wirtualnych i gier",
+  "institution": "AGH, Wydział Humanistyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "agh",
+  "cards": [
+   "media-cyfrowe"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "informatyka",
+    "polski"
+   ],
+   "count": 1,
+   "note": "matematyka oraz dwa przedmioty z list, które obejmują m.in. fizykę, informatykę, polski, historię sztuki i filozofię"
+  },
+  "status": "sourced",
+  "sourceId": "otou-agh-wh",
+  "next": "projektant gier i światów wirtualnych, twórca VR, praca w studiu gier; albo magisterskie"
+ },
+ {
+  "id": "agh-informatyka-spoleczna",
+  "name": "Informatyka społeczna",
+  "institution": "AGH, Wydział Humanistyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "agh",
+  "cards": [
+   "media-cyfrowe",
+   "media"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "informatyka",
+    "angielski",
+    "niemiecki",
+    "polski",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "matematyka oraz jeden z: fizyka, informatyka, język obcy i jeden z: fizyka, informatyka, polski, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-agh-wh",
+  "next": "analityk danych o ludziach, specjalista social media, UX research, e-commerce; albo magisterskie"
+ },
+ {
+  "id": "agh-kulturoznawstwo",
+  "name": "Kulturoznawstwo (m.in. komunikacja wizualna)",
+  "institution": "AGH, Wydział Humanistyczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "agh",
+  "cards": [
+   "media",
+   "media-cyfrowe"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "historia",
+    "informatyka",
+    "polski",
+    "WOS",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 2,
+   "note": "matematyka oraz dwa przedmioty z list, które obejmują fizykę, historię, informatykę, polski, WOS i język obcy"
+  },
+  "status": "sourced",
+  "sourceId": "otou-agh-wh",
+  "next": "projekty kulturalne i medialne, grafika i komunikacja wizualna; albo magisterskie"
+ },
+ {
+  "id": "uj-film-nowe-media",
+  "name": "Filmoznawstwo i wiedza o nowych mediach",
+  "institution": "Uniwersytet Jagielloński, Wydział Zarządzania i Komunikacji Społecznej",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-kampus",
+  "cards": [
+   "media",
+   "media-cyfrowe"
+  ],
+  "requires": {
+   "countFrom": [
+    "polski",
+    "angielski",
+    "niemiecki",
+    "historia",
+    "WOS",
+    "geografia",
+    "biologia",
+    "chemia",
+    "fizyka",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 2,
+   "note": "dwa przedmioty z szerokiej listy (m.in. polski, język obcy, historia, historia sztuki, WOS, informatyka); UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-film",
+  "next": "film, telewizja, gry i media cyfrowe: redakcja, programowanie treści, krytyka; albo magisterskie"
+ },
+ {
+  "id": "uek-gbs",
+  "name": "Global business services",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "handel",
+   "jezyki"
+  ],
+  "requires": {
+   "must": [
+    "angielski"
+   ],
+   "countFrom": [
+    "geografia",
+    "historia",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "język angielski oraz jeden z: geografia, historia, informatyka, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "next": "centra usług dla firm (finanse, obsługa klienta, zakupy) w Krakowie, praca po angielsku; albo magisterskie"
+ },
+ {
+  "id": "uek-przedsiebiorczosc",
+  "name": "Przedsiębiorczość i innowacje w gospodarce",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "handel"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "informatyka",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "next": "własna firma, start-upy, sprzedaż i rozwój produktów; albo magisterskie"
+ },
+ {
+  "id": "uek-innowacje-biznes",
+  "name": "Innowacje w biznesie",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "handel"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "informatyka",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "next": "nowe produkty i usługi, e-commerce, marketing w firmie; albo magisterskie"
  }
 ]

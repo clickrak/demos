@@ -1698,7 +1698,8 @@
   "related": [
    "jezyki",
    "handel",
-   "projektowanie"
+   "projektowanie",
+   "media-cyfrowe"
   ],
   "languages": [
    "en"
@@ -1708,6 +1709,71 @@
    "group": "Literaci, dziennikarze i filolodzy",
    "sourceId": "gus-2020"
   }
+ },
+ {
+  "id": "media-cyfrowe",
+  "name": "Media cyfrowe, gry i UX",
+  "cluster": "media",
+  "interests": {
+   "ana": 45,
+   "tec": 75,
+   "spo": 40,
+   "twr": 90,
+   "prz": 40,
+   "sys": 45
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -1,
+   "ruch": -2,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 1,
+   "projekty": -1,
+   "wspolpraca": 2
+  },
+  "values": [
+   "kreatywnosc",
+   "niezaleznosc",
+   "zarobki"
+  ],
+  "strengths": [
+   "pomyslowosc",
+   "rysunek",
+   "ciekawosc",
+   "szybka_nauka",
+   "zespol"
+  ],
+  "roles": "projektant gier, projektant UX/UI, grafik 3D, twórca treści cyfrowych, tester gier",
+  "whoYouHelp": "Gracze, użytkownicy aplikacji i stron: ludzie, którzy chcą, żeby coś było ciekawe i łatwe w użyciu.",
+  "whatYouGet": "Tworzysz rzeczy, w które ktoś naprawdę gra albo klika. Praca w zespole z grafikami i programistami, często projekt za projektem. Konkurencja o pierwszą pracę jest duża, liczy się portfolio.",
+  "force": "automatyzacja",
+  "whyNeeded": "Coraz więcej usług, nauki i rozrywki dzieje się na ekranie. Kraków ma wiele studiów gier i firm IT, które szukają ludzi łączących technikę z wyczuciem.",
+  "dayInLife": [
+   "Rano krótkie spotkanie zespołu: co działa w nowej wersji gry albo aplikacji, a co nie.",
+   "W południe projektowanie poziomu, ekranu albo postaci i szybki test z kolegą.",
+   "Po południu obserwujesz, jak gracze albo użytkownicy z niego korzystają, i poprawiasz."
+  ],
+  "growth": [
+   "stażysta albo młodszy projektant, tester, grafik",
+   "projektant gier, UX albo grafik 3D",
+   "lead designer, dyrektor kreatywny albo własne studio"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "robustnessNote": "AI robi szybkie grafiki i proste projekty; zostają pomysł, wyczucie użytkownika i praca z zespołem.",
+  "experiment": "Zrób w miesiąc małą grę albo makietę aplikacji (np. w Scratch, Godot albo Figma) i daj ją przetestować trzem osobom. Zapisz, gdzie się zgubili.",
+  "related": [
+   "media",
+   "software",
+   "projektowanie"
+  ],
+  "languages": [
+   "en"
+  ]
  },
  {
   "id": "handel",

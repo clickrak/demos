@@ -278,5 +278,26 @@
   "title": "GUS: Struktura wynagrodzeń według zawodów za październik 2024 r. (luty 2026); średnio 8944,79 zł, lekarze 17440,10 zł, analitycy systemów i programiści 15629,51 zł, specjaliści ds. baz danych i sieci 13934,67 zł",
   "asOf": "2024-10",
   "status": "sourced"
+ },
+ {
+  "id": "otou-agh-wh",
+  "url": "https://www.otouczelnie.pl/wydzial/63/Wydzial-Humanistyczny-AGH",
+  "title": "AGH, Wydział Humanistyczny: kierunki i przedmioty maturalne, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uek-zasady-2026",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/11389/Zasady-rekrutacji-na-UE-w-Krakowie-na-rok-20262027",
+  "title": "UEK: zasady rekrutacji 2026/2027, §2 przedmioty dla każdego kierunku (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-film",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/16529/Filmoznawstwo-i-wiedza-o-nowych-mediach-Krakow",
+  "title": "UJ: Filmoznawstwo i wiedza o nowych mediach, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]
