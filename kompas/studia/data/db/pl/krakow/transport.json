@@ -1674,6 +1674,52 @@
     "median": 4,
     "via": []
    }
+  },
+  "uj-wgg": {
+   "address": "ul. Gronostajowa 3a",
+   "lat": 50.02678,
+   "lon": 19.90285,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Ruczaj",
+     "m": 160,
+     "tram": [
+      "11",
+      "12",
+      "17",
+      "18"
+     ],
+     "bus": []
+    },
+    {
+     "name": "Kampus UJ",
+     "m": 240,
+     "tram": [
+      "11",
+      "12",
+      "17",
+      "18"
+     ],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 31,
+    "median": 34,
+    "via": [
+     [
+      "tram",
+      "3"
+     ],
+     [
+      "tram",
+      "12"
+     ]
+    ]
+   }
   }
  }
 }
