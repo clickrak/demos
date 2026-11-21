@@ -104,7 +104,7 @@ const head = mdC.split('\n').find(l => l.startsWith('| | '));
 ok(mdC.includes('## Porównanie') && head && head.split('|').length - 3 === 2, 'export compare table has one column per compared offer');
 ok(JSON.stringify(parseSaved(mdC).answers.compare) === JSON.stringify(aC.compare), 'compare pick survives save and load');
 // Coverage waves (v2.8+): each new card is in the top 3 of its own test kid, and no card is in the top 3 of more than half of the kids.
-const OWN = { R: 'zywienie', S: 'weterynaria', T: 'geografia', N: 'spoleczenstwo', O: 'nauka', P: 'sztuka-scena', Q: 'historia', J: 'prawo', K: 'architektura', L: 'mechanika', M: 'edukacja', G: 'morze', H: 'lotnictwo', I: 'historia-sztuki', F: 'media-cyfrowe' };
+const OWN = { U: 'dane-medyczne', V: 'energetyka', W: 'jezyki', X: 'medycyna', Y: 'obronnosc', Z: 'pielegniarstwo', AA: 'psychologia', AB: 'sluzby', AC: 'sport', AD: 'woda', R: 'zywienie', S: 'weterynaria', T: 'geografia', N: 'spoleczenstwo', O: 'nauka', P: 'sztuka-scena', Q: 'historia', J: 'prawo', K: 'architektura', L: 'mechanika', M: 'edukacja', G: 'morze', H: 'lotnictwo', I: 'historia-sztuki', F: 'media-cyfrowe' };
 const personas = j('../studia/data/personas.json'), topCount = {};
 for (const p of personas) {
   const best = scoreAll(p.answers, data).slots.best.map(c => c.card.id);
@@ -112,6 +112,10 @@ for (const p of personas) {
   if (OWN[p.id]) ok(best.includes(OWN[p.id]), `persona ${p.id} has ${OWN[p.id]} in the top 3`);
 }
 for (const [id, n] of Object.entries(topCount)) ok(n <= personas.length / 2, `card ${id} is top 3 for ${n} of ${personas.length} kids (max half)`);
+// v3.0: every card is in the top 3 of at least one kid, and every kid keeps his first card (a weight change cannot move them silently).
+for (const c of data.opportunities) ok(topCount[c.id] > 0, `card ${c.id} is in some kid's top 3`);
+const FIRST = { A: 'edukacja', B: 'laboratorium', C: 'zywienie', D: 'projektowanie', E: 'handel', F: 'media-cyfrowe', G: 'morze', H: 'lotnictwo', I: 'historia-sztuki', J: 'prawo', K: 'architektura', L: 'mechanika', M: 'edukacja', N: 'spoleczenstwo', O: 'nauka', P: 'sztuka-scena', Q: 'historia', R: 'zywienie', S: 'weterynaria', T: 'geografia', U: 'dane-medyczne', V: 'energetyka', W: 'jezyki', X: 'medycyna', Y: 'obronnosc', Z: 'pielegniarstwo', AA: 'psychologia', AB: 'sluzby', AC: 'sport', AD: 'woda' };
+for (const p of personas) ok(FIRST[p.id] && scoreAll(p.answers, data).slots.best[0].card.id === FIRST[p.id], `persona ${p.id} keeps ${FIRST[p.id]} first`);
 for (const id of Object.values(OWN)) ok(data.opportunities.some(c => c.id === id), `card ${id} exists`);
 console.log(`reachability: ${Object.keys(topCount).length} of ${data.opportunities.length} cards reach a top 3; most often: ${Object.entries(topCount).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, v]) => k + ' ' + v).join(', ')}`);
 

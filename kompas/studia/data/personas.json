@@ -2438,5 +2438,1375 @@
    },
    "studyLength": "srednio"
   }
+ },
+ {
+  "id": "U",
+  "label": "Persona U: dane, programy i zdrowie",
+  "expect": {
+   "topClusters": [
+    "analityka"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona U",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "matematyka"
+   ],
+   "sort": {
+    "a1": 1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": 1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": 1,
+    "a17": -1,
+    "a18": 1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": 1,
+    "konkret": 1,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "trudne",
+    "pomaganie",
+    "zarobki",
+    "zagranica",
+    "wplyw"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "w szkole"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "a",
+    "e2": "a",
+    "e3": "d",
+    "e4": "a",
+    "e5": "a",
+    "e6": "a",
+    "e7": "c",
+    "e8": "a",
+    "e9": "b",
+    "e10": "c"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "V",
+  "label": "Persona V: prąd, urządzenia i sieci",
+  "expect": {
+   "topClusters": [
+    "technika"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona V",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "fizyka"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": 1,
+    "a5": -1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": 1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -1,
+    "decyzje": 1,
+    "zmiana": 0,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pewnosc",
+    "zarobki",
+    "wplyw",
+    "trudne",
+    "pomaganie"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "zespol",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "a",
+    "e2": "b",
+    "e3": "d",
+    "e4": "a",
+    "e5": "a",
+    "e6": "d",
+    "e7": "d",
+    "e8": "c",
+    "e9": "b",
+    "e10": "c"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "W",
+  "label": "Persona W: języki, tłumaczenie i podróże",
+  "expect": {
+   "topClusters": [
+    "jezyki"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "bardzo dobry",
+    "de": "komunikatywny",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona W",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "angielski",
+    "niemiecki"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": -1,
+    "a7": 1,
+    "a8": -1,
+    "a9": -1,
+    "a10": 1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": 1,
+    "a18": -1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": 1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": -1,
+    "ludzie": -1,
+    "ruch": 1,
+    "konkret": -1,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 0,
+    "wspolpraca": 1
+   },
+   "values": [
+    "zagranica",
+    "kreatywnosc",
+    "niezaleznosc",
+    "pomaganie",
+    "wplyw"
+   ],
+   "strengths": [
+    {
+     "id": "jezyki",
+     "proof": "w szkole"
+    },
+    {
+     "id": "tlumaczenie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "c",
+    "e2": "d",
+    "e3": "b",
+    "e4": "b",
+    "e5": "c",
+    "e6": "b",
+    "e7": "b",
+    "e8": "d",
+    "e9": "c",
+    "e10": "d"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "X",
+  "label": "Persona X: ciało, laboratorium i pomaganie chorym",
+  "expect": {
+   "topClusters": [
+    "zdrowie"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona X",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "chemia"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": 1,
+    "a4": -1,
+    "a5": -1,
+    "a6": 1,
+    "a7": -1,
+    "a8": -1,
+    "a9": 1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": 1,
+    "a17": -1,
+    "a18": -1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": -1,
+    "ruch": -1,
+    "konkret": -1,
+    "decyzje": 0,
+    "zmiana": 1,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pomaganie",
+    "prestiz",
+    "pewnosc",
+    "trudne",
+    "wplyw"
+   ],
+   "strengths": [
+    {
+     "id": "spokoj",
+     "proof": "w szkole"
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "empatia",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "a",
+    "e2": "e",
+    "e3": "a",
+    "e4": "a",
+    "e5": "c",
+    "e6": "b",
+    "e7": "c",
+    "e8": "d",
+    "e9": "a",
+    "e10": "d"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "Y",
+  "label": "Persona Y: technika, dyscyplina i bezpieczeństwo kraju",
+  "expect": {
+   "topClusters": [
+    "bezpieczenstwo"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona Y",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "fizyka"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": 1,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": 1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": 1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -1,
+    "decyzje": 0,
+    "zmiana": -1,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pewnosc",
+    "wplyw",
+    "trudne",
+    "pomaganie",
+    "niezaleznosc"
+   ],
+   "strengths": [
+    {
+     "id": "dyscyplina",
+     "proof": "w szkole"
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "zespol",
+     "proof": "w szkole"
+    },
+    {
+     "id": "spokoj",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "a",
+    "e2": "b",
+    "e3": "d",
+    "e4": "a",
+    "e5": "a",
+    "e6": "d",
+    "e7": "d",
+    "e8": "c",
+    "e9": "b",
+    "e10": "c"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "Z",
+  "label": "Persona Z: lubi pomagać chorym",
+  "expect": {
+   "topClusters": [
+    "zdrowie"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona Z",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "chemia"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": 1,
+    "a4": -1,
+    "a5": -1,
+    "a6": 1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": 1,
+    "a17": 1,
+    "a18": -1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": -1,
+    "ruch": -1,
+    "konkret": -1,
+    "decyzje": -1,
+    "zmiana": 0,
+    "projekty": -1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pomaganie",
+    "pewnosc",
+    "zagranica",
+    "wplyw",
+    "niezaleznosc"
+   ],
+   "strengths": [
+    {
+     "id": "empatia",
+     "proof": "w szkole"
+    },
+    {
+     "id": "spokoj",
+     "proof": "w szkole"
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "kondycja",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "b",
+    "e2": "e",
+    "e3": "b",
+    "e4": "c",
+    "e5": "c",
+    "e6": "b",
+    "e7": "d",
+    "e8": "c",
+    "e9": "a",
+    "e10": "b"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "AA",
+  "label": "Persona AA: rozmowy, emocje i jak działa mózg",
+  "expect": {
+   "topClusters": [
+    "ludzie"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona AA",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "polski"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": 1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": 1,
+    "a17": -1,
+    "a18": -1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": 1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": 1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": -1,
+    "ruch": 1,
+    "konkret": 0,
+    "decyzje": 1,
+    "zmiana": 0,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pomaganie",
+    "wplyw",
+    "trudne",
+    "niezaleznosc",
+    "czas"
+   ],
+   "strengths": [
+    {
+     "id": "empatia",
+     "proof": "w szkole"
+    },
+    {
+     "id": "spokoj",
+     "proof": "w szkole"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "tlumaczenie",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "b",
+    "e2": "e",
+    "e3": "b",
+    "e4": "c",
+    "e5": "c",
+    "e6": "b",
+    "e7": "b",
+    "e8": "d",
+    "e9": "a",
+    "e10": "d"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "AB",
+  "label": "Persona AB: ratowanie, kondycja i spokój w trudnych chwilach",
+  "expect": {
+   "topClusters": [
+    "bezpieczenstwo"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona AB",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "angielski"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": 1,
+    "a4": -1,
+    "a5": -1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": 1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": 1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": -1,
+    "ruch": -1,
+    "konkret": -1,
+    "decyzje": -1,
+    "zmiana": 1,
+    "projekty": -1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pomaganie",
+    "pewnosc",
+    "wplyw",
+    "niezaleznosc",
+    "czas"
+   ],
+   "strengths": [
+    {
+     "id": "spokoj",
+     "proof": "w szkole"
+    },
+    {
+     "id": "kondycja",
+     "proof": "w szkole"
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "zespol",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dyscyplina",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "b",
+    "e2": "e",
+    "e3": "a",
+    "e4": "e",
+    "e5": "c",
+    "e6": "d",
+    "e7": "d",
+    "e8": "c",
+    "e9": "a",
+    "e10": "c"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "AC",
+  "label": "Persona AC: trening, ruch i prowadzenie rozgrzewki",
+  "expect": {
+   "topClusters": [
+    "ruch"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona AC",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "polski"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": 1,
+    "a12": 1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": 1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": -1,
+    "ruch": -1,
+    "konkret": -1,
+    "decyzje": -1,
+    "zmiana": 1,
+    "projekty": 0,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pomaganie",
+    "niezaleznosc",
+    "wplyw",
+    "czas",
+    "pewnosc"
+   ],
+   "strengths": [
+    {
+     "id": "kondycja",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dyscyplina",
+     "proof": "w szkole"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "zespol",
+     "proof": "w szkole"
+    },
+    {
+     "id": "organizowanie",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "b",
+    "e2": "e",
+    "e3": "a",
+    "e4": "e",
+    "e5": "c",
+    "e6": "b",
+    "e7": "d",
+    "e8": "d",
+    "e9": "a",
+    "e10": "c"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "AD",
+  "label": "Persona AD: rzeki, pogoda i praca w terenie",
+  "expect": {
+   "topClusters": [
+    "technika"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "Persona AD",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "geografia"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": 1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": 1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": 1,
+    "ruch": -1,
+    "konkret": -1,
+    "decyzje": 1,
+    "zmiana": 0,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "wplyw",
+    "pewnosc",
+    "pomaganie",
+    "niezaleznosc",
+    "czas"
+   ],
+   "strengths": [
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "zespol",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e1": "a",
+    "e2": "a",
+    "e3": "d",
+    "e4": "a",
+    "e5": "a",
+    "e6": "d",
+    "e7": "d",
+    "e8": "c",
+    "e9": "b",
+    "e10": "c"
+   },
+   "studyLength": "srednio"
+  }
  }
 ]
