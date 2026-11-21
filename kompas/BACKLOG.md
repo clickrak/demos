@@ -898,7 +898,7 @@ fits the focus, take the first "next week" item that does.
 | v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | pushed 21 Nov 2026 as 2.9.0 (Szymon: "next wave"); UJ thresholds moved to v2.11 |
 | v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | pushed 21 Nov 2026 as 2.10.0 |
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | pushed 21 Nov 2026 as 2.11.0 |
-| v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | planned |
+| v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | pushed 21 Nov 2026 as 2.12.0 |
 | v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards | Opus | planned |
 | v3.1–v3.3 | UI/UX, functionality (later) | Strengths as the foundation (10), sources page (7), links in Kierunki (11), travel from the centre (12), points estimate (8), parent summary (9) | Opus + Sonnet | after v3.0 |
 
@@ -1384,6 +1384,16 @@ at the end and paste the table in "Coverage waves". One task = one commit.
 1. **SQ4a (Opus)** activities (cooking and nutrition, animals and plants already a26 and a29: check reach; maps and places), 1 situation,
    pictograms; **SQ4b (Opus)** test kids R, S, T and the reachability test for all cards (now about 43): none unreachable, none always on top.
 2. **SR2.12 (Opus) Review and release v2.12.0.**
+
+**Done in 2.12.0 (21 Nov 2026, evening).** 49 activities, 10 situations, 20 personas.
+- Activities a46 read labels and plan a healthy week of meals (nutrition), a47 help with animals in a shelter, stable or vet (veterinary),
+  a48 read maps and see why a city grows where it does (geography), a49 lead a group on a mountain trail or run a tent camp (tourism, sport);
+  situation e10 "class week on a farm near Kraków" (food, animals, map and trails, evening programme). Pictograms for all.
+- Personas R (nutrition), S (veterinary), T (geography): each has its own card **first**. C ("lubi wszystko") now starts with `zywienie`
+  (same health group as before).
+- Reachability: 32 of 42 cards are in some test kid's top 3; max 5 of 20 per card. **Not in any top 3 yet (for v3.0):** dane-medyczne,
+  energetyka, jezyki, medycyna, obronnosc, pielegniarstwo, psychologia, sluzby, sport, woda. These are older cards without their own test kid,
+  not cards that cannot be reached; v3.0 adds kids for them or explains why not.
 
 **v3.0 – Coverage review (night of 28 Nov)**
 1. **SR3.0 (Opus):** radar at level 3 everywhere (or a written reason), spec doc section "Kompas Studia v3.0.0", declaration helper and star

@@ -2040,5 +2040,403 @@
    },
    "studyLength": "srednio"
   }
+ },
+ {
+  "id": "R",
+  "label": "Persona R: gotowanie, zdrowe jedzenie i ludzie",
+  "expect": {
+   "topClusters": [
+    "zdrowie"
+   ],
+   "notTop": [
+    "atom",
+    "software"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "R",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "chemia"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": 1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": 1,
+    "a17": -1,
+    "a18": -1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": 1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": 1,
+    "a47": -1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 2,
+    "ruch": 0,
+    "konkret": 1,
+    "decyzje": 0,
+    "zmiana": 0,
+    "projekty": 0,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pomaganie",
+    "czas",
+    "pewnosc",
+    "niezaleznosc",
+    "wplyw"
+   ],
+   "strengths": [
+    {
+     "id": "empatia",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "tlumaczenie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "organizowanie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e10": "a"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "S",
+  "label": "Persona S: zwierzęta, konie i gospodarstwo",
+  "expect": {
+   "topClusters": [
+    "przyroda"
+   ],
+   "notTop": [
+    "finanse",
+    "media"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "S",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "biologia",
+    "chemia",
+    "matematyka"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": -1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": 1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": 1,
+    "a48": -1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 0,
+    "ruch": 2,
+    "konkret": 2,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": -1,
+    "wspolpraca": 0
+   },
+   "values": [
+    "pomaganie",
+    "pewnosc",
+    "niezaleznosc",
+    "czas",
+    "trudne"
+   ],
+   "strengths": [
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "spokoj",
+     "proof": "w szkole"
+    },
+    {
+     "id": "kondycja",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e10": "b"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "T",
+  "label": "Persona T: mapy, miasta i klimat",
+  "expect": {
+   "topClusters": [
+    "przyroda",
+    "budowa"
+   ],
+   "notTop": [
+    "sport",
+    "handel"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "T",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "geografia",
+    "matematyka"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": -1,
+    "a5": 1,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": -1,
+    "a15": 1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": -1,
+    "a41": -1,
+    "a42": -1,
+    "a43": -1,
+    "a44": -1,
+    "a45": -1,
+    "a46": -1,
+    "a47": -1,
+    "a48": 1,
+    "a49": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 0,
+    "ruch": 1,
+    "konkret": 0,
+    "decyzje": 0,
+    "zmiana": 1,
+    "projekty": 1,
+    "wspolpraca": 0
+   },
+   "values": [
+    "wplyw",
+    "niezaleznosc",
+    "czas",
+    "pewnosc",
+    "trudne"
+   ],
+   "strengths": [
+    {
+     "id": "orientacja",
+     "proof": "w szkole"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e10": "c"
+   },
+   "studyLength": "srednio"
+  }
  }
 ]

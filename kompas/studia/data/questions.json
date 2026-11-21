@@ -419,6 +419,40 @@
     "spo": 2,
     "sys": 1
    }
+  },
+  {
+   "id": "a46",
+   "text": "Czytać składy produktów w sklepie i ułożyć zdrowy jadłospis na cały tydzień.",
+   "w": {
+    "ana": 1,
+    "spo": 1,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a47",
+   "text": "Pomagać przy zwierzętach w schronisku, w stajni albo u weterynarza.",
+   "w": {
+    "tec": 2,
+    "spo": 1
+   }
+  },
+  {
+   "id": "a48",
+   "text": "Czytać mapy i odkrywać, dlaczego miasto rośnie tu, a nie gdzie indziej.",
+   "w": {
+    "ana": 1,
+    "sys": 2
+   }
+  },
+  {
+   "id": "a49",
+   "text": "Poprowadzić grupę na górski szlak albo zorganizować obóz pod namiotami.",
+   "w": {
+    "prz": 1,
+    "sys": 1,
+    "tec": 1
+   }
   }
  ],
  "neededWhere": [
@@ -864,6 +898,46 @@
       "ana": 1,
       "twr": 1,
       "sys": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "e10",
+   "text": "Klasa jedzie na tydzień na wieś pod Krakowem. Za co chcesz odpowiadać?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Za jedzenie: co gotujemy, żeby było zdrowo i wszystkim smakowało.",
+     "w": {
+      "spo": 1,
+      "ana": 1,
+      "sys": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Za pomoc w gospodarstwie przy koniach, krowach i kurach.",
+     "w": {
+      "tec": 2,
+      "spo": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Za mapę okolicy i trasy wycieczek.",
+     "w": {
+      "ana": 1,
+      "sys": 2
+     }
+    },
+    {
+     "id": "d",
+     "text": "Za gry, ognisko i wieczorny program dla całej grupy.",
+     "w": {
+      "prz": 1,
+      "spo": 1,
+      "twr": 1
      }
     }
    ]
