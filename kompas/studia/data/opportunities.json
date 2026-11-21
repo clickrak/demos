@@ -461,6 +461,11 @@
   "whatYouGet": "Budujesz rzeczy, które ktoś naprawdę nosi albo które ratują życie. Technika z ludzkim celem.",
   "force": "starzenie",
   "whyNeeded": "Starsze społeczeństwo potrzebuje więcej sprzętu: od protez po aparaturę do opieki w domu.",
+  "demand": {
+   "level": "mieszany",
+   "text": "W Krakowie brakuje elektroników, automatyków i robotyków, a operatorzy aparatury medycznej są w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Projekt części w programie do rysunku technicznego.",
    "Test prototypu z fizjoterapeutą albo lekarzem.",
@@ -1750,6 +1755,11 @@
   "whatYouGet": "Tworzysz rzeczy, w które ktoś naprawdę gra albo klika. Praca w zespole z grafikami i programistami, często projekt za projektem. Konkurencja o pierwszą pracę jest duża, liczy się portfolio.",
   "force": "automatyzacja",
   "whyNeeded": "Coraz więcej usług, nauki i rozrywki dzieje się na ekranie. Kraków ma wiele studiów gier i firm IT, które szukają ludzi łączących technikę z wyczuciem.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Graficy komputerowi, administratorzy stron internetowych i specjaliści od reklamy i marketingu są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano krótkie spotkanie zespołu: co działa w nowej wersji gry albo aplikacji, a co nie.",
    "W południe projektowanie poziomu, ekranu albo postaci i szybki test z kolegą.",
@@ -1964,6 +1974,11 @@
   "whatYouGet": "Praca blisko natury, rejsy badawcze, pomiary w terenie i w laboratorium. W Krakowie tego kierunku nie ma: oceanografię studiuje się nad morzem.",
   "force": "energia",
   "whyNeeded": "Klimat się ociepla, a na Bałtyku powstają morskie farmy wiatrowe. Potrzeba ludzi, którzy rozumieją morze.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Marynarze i pracownicy obsługi statków i portów są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano pobieranie próbek wody z pokładu statku badawczego.",
    "W południe sprawdzanie w laboratorium, co żyje w próbkach.",
@@ -2029,6 +2044,11 @@
   "whatYouGet": "Bardzo precyzyjna praca, w której każdy szczegół ma znaczenie, i dużo języka angielskiego. Najbliższa publiczna uczelnia z lotnictwem jest w Rzeszowie.",
   "force": "bezpieczenstwo",
   "whyNeeded": "Rośnie ruch lotniczy, obronność i przemysł dronów oraz satelitów; brakuje inżynierów i mechaników.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Pracownicy obsługi ruchu lotniczego są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano przegląd samolotu albo drona według listy kontrolnej.",
    "W południe projektowanie części w programie i obliczenia wytrzymałości.",
@@ -2093,6 +2113,11 @@
   "whatYouGet": "Ciągle nowe miejsca i ludzie, dużo języków. Praca w sezonie bywa intensywna, a zarobki na starcie są niewysokie.",
   "force": "demografia",
   "whyNeeded": "Kraków to jedno z najczęściej odwiedzanych miast w Polsce, a seniorzy coraz więcej podróżują.",
+  "demand": {
+   "level": "mieszany",
+   "text": "W Krakowie brakuje kucharzy i pomocy kuchennych, a kelnerzy, recepcjoniści i pracownicy biur podróży są w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano odbiór grupy z lotniska i krótkie powitanie po angielsku.",
    "W południe oprowadzanie po Starym Mieście i rozwiązywanie małych problemów.",
@@ -2159,6 +2184,11 @@
   "whatYouGet": "Praca z prawdziwymi dziełami i opowiadanie o nich innym. Etatów w muzeach jest niewiele; pomagają języki i drugi konkret (np. turystyka, media, rynek sztuki).",
   "force": "automatyzacja",
   "whyNeeded": "AI tworzy obrazy bez końca. Rośnie wartość ludzi, którzy umieją sprawdzić, co jest autentyczne, i opowiedzieć historię miejsca.",
+  "demand": {
+   "level": "mieszany",
+   "text": "Archiwiści, muzealnicy i konserwatorzy zabytków są w Krakowie w równowadze, a specjalistów nauk humanistycznych jest za dużo.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano opis nowego obiektu w zbiorach muzeum.",
    "W południe przygotowanie tekstów i układu sali na wystawę.",
@@ -2526,6 +2556,11 @@
   "whatYouGet": "Rozumiesz, dlaczego ludzie myślą i robią to, co robią. Dużo rozmów, ankiet i danych; pensje na starcie są niewysokie, rosną z doświadczeniem.",
   "force": "demografia",
   "whyNeeded": "Starzejące się społeczeństwo, migracje i nierówności: ktoś musi je zbadać i zaproponować dobre rozwiązania.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Pracownicy socjalni i specjaliści od badań społecznych są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano wywiad z mieszkańcami osiedla albo rozmowa z podopiecznym.",
    "W południe analiza ankiety: co wyszło i co z tego wynika.",
@@ -2591,6 +2626,11 @@
   "whatYouGet": "Szukasz odpowiedzi na pytania, na które nikt jeszcze nie zna odpowiedzi. Długa droga (często doktorat), ale bardzo szerokie możliwości pracy poza nauką.",
   "force": "automatyzacja",
   "whyNeeded": "AI, energia i medycyna potrzebują ludzi, którzy rozumieją matematykę i fizykę głębiej niż narzędzia.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Fizycy, matematycy, chemicy i biolodzy są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano czytanie nowego artykułu i pomysł na sprawdzenie hipotezy.",
    "W południe obliczenia, symulacja albo pomiar w laboratorium.",
@@ -2656,6 +2696,11 @@
   "whatYouGet": "Robisz to, co kochasz, przed ludźmi albo dla nich. Na studia dostajesz się przez egzamin wstępny lub przesłuchanie, a praca bywa niestała.",
   "force": "automatyzacja",
   "whyNeeded": "AI tworzy obrazy i muzykę bez końca. Tym bardziej ludzie szukają żywej sztuki i prawdziwych artystów.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Ludzie pracujący przy produkcji filmowej, teatralnej, telewizyjnej i radiowej są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano ćwiczenia: instrument, głos, ruch albo rysunek.",
    "W południe próba z zespołem albo praca w pracowni.",
@@ -2722,6 +2767,11 @@
   "whatYouGet": "Czytasz źródła, odkrywasz zapomniane historie i tłumaczysz je innym. Mało etatów wprost w zawodzie; umiejętność myślenia i pisania przydaje się wszędzie.",
   "force": "automatyzacja",
   "whyNeeded": "W morzu treści z AI rośnie wartość ludzi, którzy sprawdzają źródła i rozumieją kontekst.",
+  "demand": {
+   "level": "mieszany",
+   "text": "Archiwiści i muzealnicy są w Krakowie w równowadze, a specjalistów nauk humanistycznych jest za dużo.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano w archiwum albo na wykopalisku.",
    "W południe opis znalezisk albo dokumentów i porównanie z innymi źródłami.",
@@ -2788,6 +2838,11 @@
   "whatYouGet": "Łączysz biologię i chemię z rozmową z ludźmi. Dużo pracy w poradniach i firmach spożywczych; własny gabinet to częsta droga.",
   "force": "starzenie",
   "whyNeeded": "Coraz więcej osób choruje na cukrzycę i otyłość, a społeczeństwo się starzeje: dobra dieta to tańsze leczenie.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Technolodzy żywności i żywienia są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano rozmowa z pacjentem: co je i jak się czuje.",
    "W południe układasz jadłospis na tydzień i liczysz składniki.",
@@ -2853,6 +2908,11 @@
   "whatYouGet": "Praca z żywymi zwierzętami, często na zewnątrz, w klinice albo w gospodarstwie. Weterynaria to długie i trudne studia (5,5 roku), ale pracy nie brakuje.",
   "force": "bezpieczenstwo",
   "whyNeeded": "Bezpieczna żywność i zdrowe zwierzęta to sprawa całego kraju; brakuje lekarzy weterynarii na wsi.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Weterynarze, rolnicy i hodowcy oraz pracownicy opiekujący się zwierzętami są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano przyjęcia w klinice: szczepienia, badania, opatrunki.",
    "W południe wyjazd do gospodarstwa albo stadniny.",
@@ -2918,6 +2978,11 @@
   "whatYouGet": "Łączysz pracę w terenie z mapami i danymi na komputerze. Umiejętność GIS jest bardzo poszukiwana.",
   "force": "energia",
   "whyNeeded": "Zmiana klimatu, powodzie i rosnące miasta: ktoś musi zaplanować, gdzie budować, a gdzie zostawić zieleń.",
+  "demand": {
+   "level": "równowaga",
+   "text": "Geodeci i kartografowie oraz architekci i urbaniści są w Krakowie w równowadze.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano pomiary w terenie albo wizja lokalna nowego osiedla.",
    "W południe mapa w GIS: gdzie jest ryzyko powodzi.",
