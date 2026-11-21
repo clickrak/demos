@@ -656,8 +656,8 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
    - b) Sonnet (Data): add the confirmed cards with Kraków offers, `requires`, sources; fill `media`, `handel` (offers, demand, pay).
    - c) Opus (Functionality/UI): add the new activity and situation cards (taps only) so each card can be reached; keep the
      scoring balanced (no card unreachable, no card always on top; test with the personas); tests in `tests/run.mjs`.
-2. **Declaration helper before 7 Feb 2027:** which rozszerzenie opens most of his liked directions — Functionality · M · Opus
-3. **Star an offer:** kept in the saved file and listed in the export — Functionality · S · Sonnet
+2. [x] **Declaration helper before 7 Feb 2027:** which rozszerzenie opens most of his liked directions — Functionality · M · Opus — **done in 2.2.0**
+3. [x] **Star an offer:** kept in the saved file and listed in the export — Functionality · S · Sonnet — **done in 2.2.0**
 
 **Next week (from 29 Nov):**
 4. **Compare 2–3 starred offers** side by side (subjects, threshold, length, commute) — UI/UX · M · Opus
@@ -694,6 +694,7 @@ fits the focus, take the first "next week" item that does.
 |---|---|---|---|---|
 | v2.0 | Data | Kraków job demand for the 17 missing areas (D1); 2026 thresholds for UJ, UJ CM and AGH offers; newer GUS pay (D7); URK offer check (D8) | Sonnet + Opus | pushed 19 Nov 2026 as 2.0.0 (some items moved, see below) |
 | v2.1 | UI/UX | Fewer keyboards: minutes from home as chips (U1), tap ideas for the reflection questions (U2), sport as chips (U4), shorter strengths screen on phones (U5) | Sonnet + Opus | pushed 20 Nov 2026 as 2.1.0 |
+| v2.2 | Functionality | Star an offer (v3.0 item 3) and the declaration helper (v3.0 item 2) | Sonnet + Opus | pushed 21 Nov 2026 as 2.2.0 (built in the afternoon, at Szymon's request) |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -805,4 +806,40 @@ URK check) wait for the next Data turn (v2.3). Do them in this order; one commit
 
 **Not in v2.1 (next UI/UX turn):** U3 ("Mogę to zrobić, bo…" chips, two places), U7 (tone read of all texts).
 **Next Data turn (v2.3):** the three v2.0 leftovers above.
+
+### v2.2 tasks (Functionality, planned and built 21 Nov 2026)
+
+Current `appVersion` 2.1.0, pushed and live. The last release was **UI/UX**, so this one is **Functionality**. Szymon asked on
+21 Nov at 13:29 to do today's release right away (after the weekend review), not at 21:45/22:45. From the agreed v3.0 list the
+items that fit Functionality are **3 (star an offer)** and **2 (declaration helper)**. Item 1 is a Data night and waits for
+Szymon to confirm the card list. No new facts, so no new sources; no scoring change.
+
+1. [x] **SF1 (Sonnet) Star an offer.** A ☆ button (44 px) on every offer card (`offerHtml`), so it shows in the story's study
+   detail, the one-page report and the old part screens. `A.stars` holds offer ids; it is in the saved file. Toggled in place
+   (no re-render, open cards stay open). Loading a file drops ids that are no longer in the base and names them in the notice.
+   Export: "## Moje gwiazdki" (name, institution, length, subject fit, requirement note).
+   Where: `studia/app.js`, `studia/v11.css`, `core/export.js`.
+   Done when: star on → `aria-pressed="true"` and ★; the declaration block switches to the stars; export lists them; reload keeps them.
+2. [x] **SF2 (Opus) Declaration helper.** New story section "Deklaracja" (`#s-deklaracja`, also in the story menu and linked from
+   the "Przystanek 1" step) and the same block in the one-page report (menu "Deklaracja").
+   Logic in `core/scoring.js`: `subjectFit(offer, ext)` gives 0 closed (a required extended subject is missing), 1 none of his subjects
+   on the list, 2 part (fewer than `count` from the list, or `main` missing), 3 full, `null` = does not depend on subjects
+   (no matura, exam only, no rule). `declarationHelp()` takes his starred offers, or with no stars the offers of his shown options
+   (best, most, surprise, quick start); private offers he ruled out are left out. For each subject he does not take it counts
+   offers it **opens** (0 → more) or **strengthens**; shows the top 3, "Nie skreślaj" (his subjects that count somewhere), and offers
+   that need two new subjects. Note: `countFrom.count` is used here; `checkOffer` still ignores it (left as is, no scoring change).
+   Export: "## Deklaracja maturalna: podpowiedź".
+   Where: `core/scoring.js`, `core/export.js`, `studia/app.js`, `studia/story.js`, `studia/v11.css`, `tests/run.mjs`.
+   Done when: tests pass (13 new checks: fit scale, persona B → chemia opens farmacja, stars basis, private left out, export round trip).
+3. [x] **SR2.2 (Opus) Review and release v2.2.0.**
+
+**Done in 2.2.0 (21 Nov 2026).**
+- Personas: A (biologia, polski) → + angielski opens Filologia angielska (UKEN) and strengthens 5; B (matematyka, fizyka) → + chemia
+  opens farmacja and analityka; medicine needs two new subjects.
+- Review: three tests pass; click-through with persona B at 375 and 1280 px in three looks (calm, neon, pop): star in the study detail,
+  the block switches from "options" to "stars", report shows the stars; nothing wider than the screen; no JS errors (GoatCounter blocked in
+  the sandbox only). Found and fixed: the first suggestion used class `top`, which is the page header class and hid it; now `dbest`.
+
+**Next (rotation):** v2.3 = **Data**: v3.0 item 1a (map all study directions vs the 26 cards, propose new cards; Szymon confirms) and,
+if time, the v2.0 leftovers (UJ thresholds, GUS 2024 pay). Tonight's 21:45 planner plans v2.3; v2.2 is already pushed.
 
