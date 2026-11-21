@@ -230,7 +230,7 @@ export function storyHtml(ctx) {
     </div>
   </section>
 
-  <section class="band" id="s-deklaracja"><div class="wrap" id="declwrap">${ctx.declHtml()}</div></section>
+  <section class="band" id="s-deklaracja"><div class="wrap"><div id="declwrap">${ctx.declHtml()}</div><div id="cmpwrap">${ctx.cmpHtml()}</div></div></section>
 
   <section class="band alt" id="s-krakow">
     <div class="wrap two">
@@ -252,7 +252,7 @@ export function storyHtml(ctx) {
       <div><span class="kicker">Twój plik</span><h2>Zabierz to ze sobą</h2>
         <p class="lead">W pliku są twoje odpowiedzi, kierunki i plan. Powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku wczytasz go i zobaczysz, co się zmieniło.</p>
         <label class="field" for="cando"><b>Mogę to zrobić, bo…</b> Dokończ jednym zdaniem; trafi na górę pliku.</label>
-        <input id="cando" type="text" data-field="canDo" value="${esc(ctx.A.canDo)}">
+        ${ctx.candoChips()}<input id="cando" type="text" data-field="canDo" value="${esc(ctx.A.canDo)}">
         <div class="sactions"><button class="sbtn" data-export="download">Pobierz plik .md</button><button class="sbtn ghost" data-export="print">Drukuj / PDF</button><button class="sbtn ghost" data-export="copy">Kopiuj</button>
           <label class="sbtn ghost filebtn">Wczytaj starszy plik<input type="file" accept=".md,text/markdown,text/plain" data-load></label></div>
         <p id="msg" class="small muted" role="status"></p>

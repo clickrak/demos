@@ -548,5 +548,117 @@
    },
    "studyLength": "krotko"
   }
+ },
+ {
+  "id": "F",
+  "label": "Persona F: gra i projektuje gry",
+  "expect": {
+   "topClusters": [
+    "media",
+    "analityka",
+    "sztuka"
+   ],
+   "notTop": [
+    "pielegniarstwo",
+    "sluzby"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "F",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "informatyka"
+   ],
+   "sort": {
+    "a1": 0,
+    "a2": 0,
+    "a3": -1,
+    "a4": 1,
+    "a5": 0,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": 1,
+    "a11": -1,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": 0,
+    "a16": -1,
+    "a17": -1,
+    "a18": 1,
+    "a19": -1,
+    "a20": -1,
+    "a21": 1,
+    "a22": -1,
+    "a23": 1,
+    "a24": 1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -3,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 3,
+    "wspolpraca": 1
+   },
+   "values": [
+    "kreatywnosc",
+    "niezaleznosc",
+    "zarobki",
+    "trudne",
+    "czas"
+   ],
+   "strengths": [
+    {
+     "id": "pomyslowosc",
+     "proof": "w hobby"
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "w szkole"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "rysunek",
+     "proof": "w hobby"
+    },
+    {
+     "id": "ciekawosc",
+     "proof": "w hobby"
+    }
+   ],
+   "situations": {
+    "e1": "c",
+    "e2": "b",
+    "e3": "a",
+    "e4": "c"
+   },
+   "studyLength": "srednio"
+  }
  }
 ]

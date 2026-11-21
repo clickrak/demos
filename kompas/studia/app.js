@@ -1,5 +1,5 @@
-// Kompas Studia v2.3.0. Screens, navigation, results, export.
-import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp } from '../core/scoring.js';
+// Kompas Studia v2.4.0. Screens, navigation, results, export.
+import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
@@ -13,7 +13,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const today = () => new Date().toISOString().slice(0, 10);
 const blank = () => ({ name: '', certainty: null, direction: null, rozszerzenia: [], jezyki: { pl: 'bardzo dobry' }, sport: '',
   sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [], scenario: null, neededWhere: null, homePlaces: [],
-  studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '', plan: null, checks: {}, stars: [] });
+  studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '', plan: null, checks: {}, stars: [], compare: [] });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -546,6 +546,30 @@ function vDoubt() {
 // Lists kept as one text joined with ", " (reflection ideas, sport), so old files and the export stay the same.
 const splitList = v => String(v || '').split(',').map(x => x.trim()).filter(Boolean);
 // A tap on an idea: on → take it out; off → replace an empty field or one that holds only ideas, else add after ", ".
+// "Mogę to zrobić, bo…" (v2.4, U3): up to 3 tap ideas built from his own answers. Same rule as the reflection ideas:
+// a tap fills an empty field or one holding only ideas, otherwise it is added after ", "; his own words are never deleted.
+const low1 = t => String(t || '').charAt(0).toLowerCase() + String(t || '').slice(1);
+function candoTexts() {
+  const s0 = provenStrengths(A)[0], v0 = (A.values || [])[0];
+  const v = v0 && data.dimensions.values.find(x => x.id === v0);
+  return [s0 && `bo umiem: ${low1(nameOf(s0.id))}`, v && `bo ważne jest dla mnie: ${low1(v.name)}`,
+    s0 && isWhere(s0.proof) && `bo już to robię ${String(s0.proof).trim()}`].filter(Boolean);
+}
+function candoChips() {
+  const ideas = candoTexts(), parts = splitList(A.canDo);
+  return ideas.length ? `<div class="chips ideas" role="group" aria-label="Pomysły na zdanie">${ideas.map((t, i) => chip(`data-cando="${i}"`, esc(t), parts.includes(t))).join('')}</div>` : '';
+}
+function tapCando(i) {
+  const ideas = candoTexts(), idea = ideas[Number(i)]; if (!idea) return;
+  const cur = String(A.canDo || ''), parts = splitList(cur);
+  if (parts.includes(idea)) A.canDo = parts.filter(x => x !== idea).join(', ');
+  else if (!cur.trim() || parts.every(x => ideas.includes(x))) A.canDo = idea;
+  else A.canDo = cur.replace(/[\s,.;]+$/, '') + ', ' + idea;
+  const now = splitList(A.canDo);
+  document.querySelectorAll('#cando').forEach(el => { el.value = A.canDo; });
+  document.querySelectorAll('[data-cando]').forEach(b => { const on = now.includes(ideas[Number(b.dataset.cando)]); b.setAttribute('aria-pressed', String(on)); b.classList.toggle('on', on); });
+  save();
+}
 function tapIdea(qid, idea) {
   const q = data.questions.reflection.find(x => x.id === qid); if (!q) return;
   const cur = String(A.reflection[qid] || ''), parts = splitList(cur);
@@ -603,6 +627,7 @@ function toggleStar(id) {
   save();
   const w = document.getElementById('declwrap');
   if (w) w.innerHTML = declarationHtml(scoreAll(A, data));
+  refreshCompare();
 }
 function offerHtml(o, chk) {
   const c = campus(o.campus);
@@ -904,7 +929,7 @@ function vPartStrengths() {
     <h2>Co jest dla ciebie ważne</h2><ol class="vals">${vals}</ol>
     <h2>Mogę to zrobić, bo…</h2>
     <label class="field" for="cando">Dokończ jednym zdaniem. Trafi na górę twojego pliku.</label>
-    <input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
+    ${candoChips()}<input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
     ${nextPart('w-mocne')}`;
 }
 
@@ -1012,6 +1037,39 @@ function declarationHtml(r, where = declWhere) {
     </div>`;
 }
 
+// ---- Porównanie: 2–3 starred offers side by side (v2.4). A table on wide screens, swipe cards on phones.
+function compareRows() {
+  const ext = A.rozszerzenia || [];
+  return [
+    ['Uczelnia i miejsce', o => { const c = campus(o.campus); return `${esc(o.institution)}${c ? `<br><span class="small muted">${esc(c.name)}, ${esc(c.address)}</span>` : ''}`; }],
+    ['Długość', o => `${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'} · ${esc(o.level)}`],
+    ['Twoje przedmioty', o => { const f = subjectFit(o, ext); return `<b>${f === null ? (o.requires?.noMatura ? 'matura niewymagana' : o.requires?.exam ? 'decyduje egzamin' : 'nie zależy od rozszerzeń') : FIT_TXT[f]}</b><br><span class="small muted">${esc(o.requires?.note || '')}</span>`; }],
+    ['Próg 2026', o => o.threshold ? `${o.threshold.points} z ${o.threshold.max} pkt${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : '<span class="muted">brak danych</span>'],
+    ['Dojazd', o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
+    ['Uczelnia', o => o.private ? `prywatna, płatna${o.cost ? `<br><span class="small muted">${esc(o.cost)}</span>` : ''}` : 'publiczna'],
+    ['Co dalej', o => esc(o.next || '-')]];
+}
+function compareHtml() {
+  const stars = (A.stars || []).filter(id => data.offers.some(o => o.id === id));
+  const head = '<h2 id="porownanie">Porównaj gwiazdki</h2>';
+  if (stars.length < 2) return `${head}<div class="card cmp"><p class="small muted">${stars.length ? 'Oznacz jeszcze jedną gwiazdkę ☆, żeby porównać studia obok siebie.' : 'Oznacz ☆ 2 albo 3 studia, a tu zobaczysz je obok siebie.'}</p></div>`;
+  const ids = compareIds(A, data), offs = ids.map(id => data.offers.find(o => o.id === id)), rows = compareRows();
+  const pick = stars.length > 2 ? `<p class="small muted">Wybierz 2 albo 3:</p><div class="chips" role="group" aria-label="Które studia porównać">${stars.map(id => { const o = data.offers.find(x => x.id === id), on = ids.includes(id);
+    return `<button class="chip" data-cmp="${esc(id)}" aria-pressed="${on}" ${!on && ids.length >= 3 ? 'disabled' : ''}>${esc(o.name)} <span class="muted">${esc(shortInst(o.institution))}</span></button>`; }).join('')}</div>` : '';
+  const table = `<div class="cmp-table"><table><thead><tr><td></td>${offs.map(o => `<th scope="col">${esc(o.name)}<br><span class="small muted">${esc(shortInst(o.institution))}</span></th>`).join('')}</tr></thead>
+    <tbody>${rows.map(([l, f]) => `<tr><th scope="row">${l}</th>${offs.map(o => `<td>${f(o)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const cards = `<div class="cmp-cards" role="list">${offs.map(o => `<div class="cmp-card" role="listitem"><h3>${esc(o.name)}</h3><p class="small muted">${esc(shortInst(o.institution))}</p>
+    <dl>${rows.map(([l, f]) => `<dt>${l}</dt><dd>${f(o)}</dd>`).join('')}</dl></div>`).join('')}</div>`;
+  return `${head}<div class="card cmp">${pick}${table}${cards}${offs.length > 1 ? '<p class="small muted cmp-hint">Przesuń w bok, żeby zobaczyć następne.</p>' : ''}</div>`;
+}
+function refreshCompare() { const w = document.getElementById('cmpwrap'); if (w) w.innerHTML = compareHtml(); }
+function tapCompare(id) {
+  const cur = compareIds(A, data), i = cur.indexOf(id);
+  if (i >= 0) { if (cur.length <= 2) return; cur.splice(i, 1); } else if (cur.length < 3) cur.push(id);
+  A.compare = cur; save(); refreshCompare();
+  document.querySelector(`#cmpwrap [data-cmp="${CSS.escape(id)}"]`)?.focus({ preventScroll: true });
+}
+
 // ---- Droga przez studia: tram lines, next steps, places
 function vPartPath() {
   if (needResults()) return vResults();
@@ -1106,6 +1164,8 @@ function makeStoryCtx() {
     touch: () => save(),
     studyHtml: id => studyHtml(id),
     declHtml: () => declarationHtml(ctx.r, 'story'),
+    cmpHtml: () => compareHtml(),
+    candoChips: () => candoChips(),
     transportNote: () => data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : '',
     changes: () => changesSince(ctx.r),
     doubtHtml: () => { const d = data.questions.doubts.find(x => x.id === A.doubt);
@@ -1237,6 +1297,7 @@ function vResults() {
     ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
 
     <div id="declwrap">${declarationHtml(r, 'report')}</div>
+    <div id="cmpwrap">${compareHtml()}</div>
     <h2 id="r-linie">Twoje linie w czasie</h2>
     <p class="muted small">Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Wspólne przystanki to przesiadki: do jesieni 2027 wszystkie drogi biegną razem, więc zmiana linii jest normalna. Pomarańczowy przystanek oznacza, że przed 7 lutego coś warto zmienić w deklaracji.</p>
     <div class="card trammap">${tramMapSvg(tramLines(r))}${tramLegend(tramLines(r))}</div>
@@ -1254,7 +1315,7 @@ function vResults() {
 
     <h2>Mogę to zrobić, bo…</h2>
     <label class="field" for="cando">Dokończ jednym zdaniem. Trafi na górę twojego pliku.</label>
-    <input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
+    ${candoChips()}<input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
 
     <h2 id="r-plik">Twój plik</h2>
     <p>Plik powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku możesz do niego wrócić.</p>
@@ -1332,6 +1393,8 @@ document.addEventListener('click', e => {
   if (d.goopt) { kierSel = d.goopt; location.hash = '#/w-kierunki'; return; }
   if (d.kier) { kierSel = d.kier; render(); return; }
   if (d.star) { toggleStar(d.star); return; }
+  if (d.cmp) { tapCompare(d.cmp); return; }
+  if (d.cando !== undefined) { tapCando(d.cando); return; }
   if (d.flip !== undefined) { t.setAttribute('aria-pressed', String(t.getAttribute('aria-pressed') !== 'true')); return; }
   if (d.set) { // startMin is a number and is never cleared (an empty base would make the commute times start at 0)
     if (d.set === 'startMin') { setA('startMin', Number(d.val)); return; }
@@ -1395,14 +1458,19 @@ function loadFile(text) {
   for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
   for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push('sytuacja: ' + k); }
   a.stars = (Array.isArray(a.stars) ? a.stars : []).filter(id => has(data.offers, id) || (missing.push('gwiazdka: ' + id), false));
+  a.compare = (Array.isArray(a.compare) ? a.compare : []).filter(id => a.stars.includes(id));
   if (a.direction && !has(data.opportunities, a.direction)) { missing.push('kierunek: ' + a.direction); a.direction = null; }
   const snap = obj.snapshot || null;
   if (snap) for (const id of [...(snap.best || []), snap.most, snap.surprise].filter(Boolean)) if (!has(data.opportunities, id)) missing.push('opcja: ' + id);
   a.sortPos = Object.keys(a.sort).length >= data.questions.activities.length ? data.questions.activities.length : Object.keys(a.sort).length;
+  // Cards added in a later version (e.g. a24 in 2.4): the file has answers for all older cards, so "Co lubisz robić" asks only the new ones.
+  const newActs = data.questions.activities.filter(x => !(x.id in a.sort)).length;
+  const newNote = newActs && newActs <= 3 && Object.keys(a.sort).length >= data.questions.activities.length - newActs
+    ? ` W „Co lubisz robić” ${newActs === 1 ? 'doszła 1 nowa karta' : `doszły ${newActs} nowe karty`}: możesz ją dodać, kiedy chcesz.` : '';
   a.sitPos = Object.keys(a.situations).length;
   A = a;
   prevFile = { date: obj.date, snapshot: snap, missing };
-  notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '');
+  notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '') + newNote;
   drawOnce = true;
   savedSnap = answersKey();
   const done = provenStrengths(A).length && A.values.length;

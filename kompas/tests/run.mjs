@@ -1,6 +1,6 @@
 // Runs the test personas through the scoring: node kompas/tests/run.mjs
 import { readFileSync } from 'node:fs';
-import { scoreAll, subjectFit, declarationHelp } from '../core/scoring.js';
+import { scoreAll, subjectFit, declarationHelp, compareIds } from '../core/scoring.js';
 import { buildMarkdown, parseSaved } from '../core/export.js';
 
 const j = p => JSON.parse(readFileSync(new URL(p, import.meta.url)));
@@ -92,6 +92,16 @@ ok(Array.isArray(declarationHelp(scoreAll(aE, data), aE, data).gains), 'no exten
 const md = buildMarkdown(aS, scoreAll(aS, data), { ...data, scenarios: j('../studia/data/scenarios.json') }, '2026-11-21');
 ok(md.includes('## Moje gwiazdki') && md.includes('## Deklaracja maturalna: podpowiedź'), 'export lists stars and the declaration hint');
 ok(JSON.stringify(parseSaved(md).answers.stars) === JSON.stringify(aS.stars), 'stars survive save and load');
+// Compare starred offers (v2.4): only starred ids, 2–3 of them, his pick kept, export table one column per offer.
+const sc = { ...data, scenarios: j('../studia/data/scenarios.json') };
+const aC = { ...structuredClone(pB.answers), stars: ['agh-informatyka', 'agh-cyber', 'pk-informatyka', 'uj-informatyka'], compare: ['pk-informatyka', 'uj-informatyka', 'gone'] };
+ok(JSON.stringify(compareIds(aC, data)) === JSON.stringify(['pk-informatyka', 'uj-informatyka']), 'compare keeps his pick of starred offers');
+ok(compareIds({ ...aC, compare: [] }, data).length === 3, 'compare defaults to the first 3 stars');
+ok(compareIds({ ...aC, stars: ['agh-cyber'], compare: [] }, data).length === 0, 'one star: nothing to compare');
+const mdC = buildMarkdown(aC, scoreAll(aC, data), sc, '2026-11-21');
+const head = mdC.split('\n').find(l => l.startsWith('| | '));
+ok(mdC.includes('## Porównanie') && head && head.split('|').length - 3 === 2, 'export compare table has one column per compared offer');
+ok(JSON.stringify(parseSaved(mdC).answers.compare) === JSON.stringify(aC.compare), 'compare pick survives save and load');
 console.log(`\ndeclaration helper: persona B best extra subject ${hB.gains[0]?.subject}, stars basis ${hS.total} offers`);
 
 process.exit(bad ? 1 : 0);

@@ -180,3 +180,18 @@ main:has(.gate) { max-width: 720px; }
 .dlist li { position: relative; display: flex; gap: 6px; align-items: flex-start; padding: 6px 0; border-top: 1px solid var(--line); }
 .dlist li .starbtn { position: static; flex: 0 0 44px; }
 @media print { .starbtn:not([aria-pressed="true"]) { display: none; } .starbtn { position: static; width: auto; height: auto; } }
+
+/* v2.4: compare starred offers */
+.cmp .chips { margin-bottom: 10px; }
+.cmp-table table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .93rem; }
+.cmp-table th, .cmp-table td { text-align: left; vertical-align: top; padding: 8px 10px; border-top: 1px solid var(--line); }
+.cmp-table thead th { border-top: 0; font-size: 1rem; }
+.cmp-table tbody th { width: 150px; font-weight: 600; color: var(--muted); }
+.cmp-cards { display: none; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+.cmp-card { flex: 0 0 82%; scroll-snap-align: start; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--card); }
+.cmp-card h3 { margin: 0; font-size: 1.02rem; } .cmp-card p { margin: 2px 0 8px; }
+.cmp-card dt { font-size: .8rem; color: var(--muted); margin-top: 8px; } .cmp-card dd { margin: 2px 0 0; }
+.cmp-hint { display: none; }
+@media (max-width: 759px) { .cmp-table { display: none; } .cmp-cards { display: flex; } .cmp-hint { display: block; } }
+@media print { .cmp-cards, .cmp-hint, .cmp .chips { display: none !important; } .cmp-table { display: block !important; } }
+.cmp .chip[aria-pressed="true"] .muted { color: inherit; opacity: .85; }

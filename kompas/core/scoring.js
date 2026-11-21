@@ -381,3 +381,12 @@ export function declarationHelp(result, answers, data) {
   const needMore = count(0).filter(o => !opened.has(o.id));
   return { basis, total: offers.length, full: count(3), part: count(2), weak: count(1), closed: count(0), free, gains: gains.slice(0, 3), keep, needMore };
 }
+
+// ---- Compare starred offers (Studia v2.4) -----------------------------------
+// The 2–3 starred offers he compares: his own pick (answers.compare) while they are still starred, else his first 3 stars.
+export function compareIds(answers, data) {
+  const stars = (answers.stars || []).filter(id => data.offers.some(o => o.id === id));
+  let ids = (answers.compare || []).filter(id => stars.includes(id));
+  if (ids.length < 2) ids = [...new Set([...ids, ...stars])];
+  return stars.length >= 2 ? ids.slice(0, 3) : [];
+}

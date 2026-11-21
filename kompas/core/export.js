@@ -1,5 +1,5 @@
 // Builds the markdown export. Everything happens in the browser; nothing is uploaded.
-import { provenStrengths, proofText, pathSteps, planFocus, planItems, declarationHelp, subjectFit } from './scoring.js';
+import { provenStrengths, proofText, pathSteps, planFocus, planItems, declarationHelp, subjectFit, compareIds } from './scoring.js';
 
 const MONTHS = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
 // "GUS, październik 2024" from a source's asOf ("2024-10"), so the words always match the data.
@@ -80,6 +80,25 @@ export function buildMarkdown(answers, result, data, today) {
   if (stars.length) {
     L.push('## Moje gwiazdki');
     for (const o of stars) { const f = subjectFit(o, ext); L.push(`- ${o.name}, ${o.institution} · ${o.durationYears} ${o.durationYears < 5 ? 'lata' : 'lat'} · ${f === null ? 'nie zależy od rozszerzeń' : FIT[f]} · wymagania: ${o.requires?.note || '-'}`); }
+    L.push('');
+  }
+  // Side by side (v2.4): the 2–3 starred offers he compares, one column each.
+  const cmp = compareIds(answers, data).map(id => data.offers.find(o => o.id === id));
+  if (cmp.length >= 2) {
+    const cell = t => String(t ?? '-').replace(/\|/g, '/').replace(/\s*\n\s*/g, ' ');
+    const campOf = o => camp(o.campus);
+    const rows = [
+      ['Uczelnia', o => o.institution],
+      ['Miejsce', o => campOf(o) ? `${campOf(o).name}, ${campOf(o).address}` : '-'],
+      ['Długość', o => `${o.durationYears} ${o.durationYears < 5 ? 'lata' : 'lat'}, ${o.level}`],
+      ['Moje przedmioty', o => { const f = subjectFit(o, ext); return f === null ? 'nie zależy od rozszerzeń' : FIT[f]; }],
+      ['Wymagania', o => o.requires?.note],
+      ['Próg 2026', o => o.threshold ? `${o.threshold.points} z ${o.threshold.max} pkt` : 'brak danych'],
+      ['Uczelnia publiczna?', o => o.private ? 'prywatna, płatna' : 'publiczna'],
+      ['Co dalej', o => o.next]];
+    L.push('## Porównanie');
+    L.push(`| | ${cmp.map(o => cell(o.name)).join(' | ')} |`, `|---|${cmp.map(() => '---').join('|')}|`);
+    for (const [label, f] of rows) L.push(`| ${label} | ${cmp.map(o => cell(f(o))).join(' | ')} |`);
     L.push('');
   }
   if (ext.length) {

@@ -235,6 +235,15 @@
     "twr": 2,
     "tec": 1
    }
+  },
+  {
+   "id": "a24",
+   "text": "Zaprojektować poziom gry albo ekran aplikacji i sprawdzić, czy ktoś się w nim nie gubi.",
+   "w": {
+    "twr": 2,
+    "tec": 1,
+    "spo": 1
+   }
   }
  ],
  "neededWhere": [
