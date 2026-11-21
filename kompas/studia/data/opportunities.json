@@ -1556,7 +1556,7 @@
   ],
   "demand": {
    "level": "deficyt",
-   "text": "W Krakowie brakuje pedagogów i nauczycieli wspierających.",
+   "text": "Logopedów raport nie wymienia; w Krakowie brakuje pedagogów i nauczycieli wspierających, z którymi logopeda pracuje.",
    "sourceId": "krk-orp-2026"
   },
   "pay": {
@@ -2225,6 +2225,11 @@
   "whatYouGet": "Praca głową i słowem: czytasz przepisy, piszesz pisma, bronisz czyjejś racji. Prawo to 5 lat studiów i potem kilka lat aplikacji.",
   "force": "automatyzacja",
   "whyNeeded": "AI i nowe technologie potrzebują nowych przepisów, a ludzie wciąż potrzebują kogoś, kto stanie po ich stronie.",
+  "demand": {
+   "level": "nadwyżka",
+   "text": "Pracowników administracyjnych i biurowych jest w Krakowie więcej niż ofert pracy; prawników raport nie wymienia.",
+   "sourceId": "korp-krk-2025-12"
+  },
   "dayInLife": [
    "Rano czytanie akt sprawy i szukanie przepisu, który pasuje.",
    "W południe rozmowa z klientem: co się stało i czego chce.",
@@ -2249,7 +2254,12 @@
   ],
   "languages": [
    "en"
-  ]
+  ],
+  "pay": {
+   "band": 3,
+   "group": "Specjaliści z dziedziny prawa",
+   "sourceId": "gus-2024"
+  }
  },
  {
   "id": "architektura",
@@ -2291,6 +2301,11 @@
   "whatYouGet": "Widzisz, jak twój projekt staje na ulicy. Dużo odpowiedzialności za bezpieczeństwo i praca w zespole z wieloma branżami.",
   "force": "energia",
   "whyNeeded": "Polska musi docieplić i przebudować miliony budynków, a w Krakowie brakuje mieszkań.",
+  "demand": {
+   "level": "mieszany",
+   "text": "Architekci są w Krakowie w równowadze, a na budowach brakuje wielu fachowców, np. murarzy, monterów instalacji i robotników budowlanych.",
+   "sourceId": "barometr-krk-2026"
+  },
   "dayInLife": [
    "Rano projekt w programie: rzuty, przekroje, obliczenia.",
    "W południe wizyta na budowie i rozmowa z kierownikiem robót.",
@@ -2314,7 +2329,12 @@
   ],
   "languages": [
    "en"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Architekci, geodeci i projektanci",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "mechanika",
@@ -2355,6 +2375,11 @@
   "whatYouGet": "Konkretne rzeczy, które możesz wziąć do ręki: od projektu na ekranie po działającą maszynę. Dużo matematyki i fizyki na studiach.",
   "force": "automatyzacja",
   "whyNeeded": "Fabryki się automatyzują, a ktoś musi zaprojektować, zbudować i naprawić maszyny; w Polsce brakuje inżynierów produkcji.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje specjalistów mechaników i techników mechaników.",
+   "sourceId": "korp-krk-2025-12"
+  },
   "dayInLife": [
    "Rano projekt części w programie 3D.",
    "W południe na hali: dlaczego maszyna się zatrzymuje i co poprawić.",
@@ -2379,7 +2404,12 @@
   "languages": [
    "en",
    "de"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Inżynierowie",
+   "sourceId": "gus-2020"
+  }
  },
  {
   "id": "edukacja",
@@ -2421,6 +2451,11 @@
   "whatYouGet": "Codziennie widzisz, jak ktoś czegoś się nauczył dzięki tobie. Dużo ludzi, energii i cierpliwości; stała praca, wakacje.",
   "force": "demografia",
   "whyNeeded": "W szkołach brakuje nauczycieli, a coraz więcej dzieci potrzebuje wsparcia specjalnego.",
+  "demand": {
+   "level": "deficyt",
+   "text": "W Krakowie brakuje nauczycieli przedszkoli i klas 1–3, nauczycieli przedmiotów ogólnych i zawodowych, nauczycieli szkół specjalnych oraz pedagogów.",
+   "sourceId": "korp-krk-2025-12"
+  },
   "dayInLife": [
    "Rano lekcja: jak ciekawie pokazać nowy temat.",
    "W południe rozmowa z uczniem, któremu jest trudno.",
@@ -2444,6 +2479,11 @@
   ],
   "languages": [
    "en"
-  ]
+  ],
+  "pay": {
+   "band": 2,
+   "group": "Nauczyciele i inni specjaliści nauczania",
+   "sourceId": "gus-2020"
+  }
  }
 ]

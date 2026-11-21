@@ -1276,7 +1276,9 @@ at the end and paste the table in "Coverage waves". One task = one commit.
 - Radar (Studia): Prawo i administracja 1 → 3, Budownictwo i architektura 1 → 3, Pedagogika i edukacja 3 (4 → 6 items),
   Inżynieria 4 (8 → 12). All 9 personas still pass; A and C now see `edukacja` in their top 3.
 - Not done, moved: **CW0** (enrolment per field, GUS) and **SW1c** (Kraków demand and GUS 2024 pay: barometer PDF and GUS tables
-  cannot be opened from the run). `uj-wpia` and the new campuses wait for the weekly transport job.
+  cannot be opened from the run).
+  **SW1c done 21 Nov (after 2.8.0):** demand from `korp-krk-2025-12` (GUP Kraków, Dec 2025, Barometr 2026 lists) and `barometr-krk-2026`;
+  pay: prawo on `gus-2024` (15876,14 zł, band 3); architektura, mechanika, edukacja keep the 2020 group (no 2024 figure readable; redo with D7). `uj-wpia` and the new campuses wait for the weekly transport job.
 
 **v2.8 – Wave 1 Questions and functionality (night of 23 Nov)**
 1. [x] **SQ2a (Opus) Activities and situations for wave 1.** Goal: tap cards reaching the four cards: e.g. "Przeczytać umowę i znaleźć, co jest

@@ -275,7 +275,7 @@
  {
   "id": "gus-2024",
   "url": "https://publikacje.new.stat.gov.pl/en/publications-portal/structure-wages-and-salaries-occupations-october-2024",
-  "title": "GUS: Struktura wynagrodzeń według zawodów za październik 2024 r. (luty 2026); średnio 8944,79 zł, lekarze 17440,10 zł, analitycy systemów i programiści 15629,51 zł, specjaliści ds. baz danych i sieci 13934,67 zł",
+  "title": "GUS: Struktura wynagrodzeń według zawodów za październik 2024 r. (luty 2026); średnio 8944,79 zł, lekarze 17440,10 zł, analitycy systemów i programiści 15629,51 zł, specjaliści ds. baz danych i sieci 13934,67 zł, specjaliści z dziedziny prawa 15876,14 zł",
   "asOf": "2024-10",
   "status": "sourced"
  },
@@ -410,6 +410,13 @@
   "url": "https://new.stat.gov.pl/file/210088/download?token=uxFVbUEw",
   "title": "GUS: Szkolnictwo wyższe w roku akademickim 2025/2026 (informacja sygnalna)",
   "asOf": "2026-06",
+  "status": "sourced"
+ },
+ {
+  "id": "korp-krk-2025-12",
+  "url": "https://gupkrakow.praca.gov.pl/documents/d/gupkrakow/krakowskie-obserwatorium-rynku-pracy-grudzien-2025-roku",
+  "title": "GUP Kraków: Krakowskie Obserwatorium Rynku Pracy, grudzień 2025 (Barometr zawodów 2026 dla Krakowa: zawody deficytowe i nadwyżkowe)",
+  "asOf": "2025-12",
   "status": "sourced"
  }
 ]
