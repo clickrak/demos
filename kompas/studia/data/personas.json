@@ -1022,5 +1022,508 @@
    },
    "studyLength": "srednio"
   }
+ },
+ {
+  "id": "J",
+  "label": "Persona J: przepisy, debaty i sprawiedliwość",
+  "expect": {
+   "topClusters": [
+    "prawo",
+    "jezyki",
+    "organizacja"
+   ],
+   "notTop": [
+    "sport",
+    "atom"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "J",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "WOS",
+    "historia",
+    "polski"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": 0,
+    "a3": -1,
+    "a4": -1,
+    "a5": 0,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": 1,
+    "a11": -1,
+    "a12": -1,
+    "a13": -1,
+    "a14": 1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": -1,
+    "a20": 1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": 1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": 1,
+    "a37": -1,
+    "a38": -1,
+    "a39": -1,
+    "a40": 1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": -2,
+    "konkret": 0,
+    "decyzje": 3,
+    "zmiana": 0,
+    "projekty": 1,
+    "wspolpraca": 0
+   },
+   "values": [
+    "wplyw",
+    "prestiz",
+    "pewnosc",
+    "trudne",
+    "zarobki"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "przekonywanie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "tlumaczenie",
+     "proof": "w szkole"
+    }
+   ],
+   "situations": {
+    "e5": "b",
+    "e8": "a",
+    "e1": "d"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "K",
+  "label": "Persona K: rysuje domy i chodzi po budowach",
+  "expect": {
+   "topClusters": [
+    "budowa",
+    "sztuka"
+   ],
+   "notTop": [
+    "psychologia",
+    "handel"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "K",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "fizyka"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": -1,
+    "a3": -1,
+    "a4": 1,
+    "a5": 0,
+    "a6": -1,
+    "a7": -1,
+    "a8": 1,
+    "a9": -1,
+    "a10": -1,
+    "a11": -1,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": -1,
+    "a19": 1,
+    "a20": -1,
+    "a21": 1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": 1,
+    "a38": 0,
+    "a39": -1,
+    "a40": -1
+   },
+   "sliders": {
+    "zespol": 0,
+    "ludzie": 1,
+    "ruch": 0,
+    "konkret": -3,
+    "decyzje": 1,
+    "zmiana": 1,
+    "projekty": 3,
+    "wspolpraca": 1
+   },
+   "values": [
+    "kreatywnosc",
+    "pewnosc",
+    "zarobki",
+    "trudne",
+    "wplyw"
+   ],
+   "strengths": [
+    {
+     "id": "rysunek",
+     "proof": "w hobby"
+    },
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w szkole"
+    },
+    {
+     "id": "orientacja",
+     "proof": "w hobby"
+    },
+    {
+     "id": "odpowiedzialnosc",
+     "proof": "w domu i rodzinie"
+    }
+   ],
+   "situations": {
+    "e8": "b",
+    "e7": "b",
+    "e4": "b"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "L",
+  "label": "Persona L: maszyny, druk 3D i warsztat",
+  "expect": {
+   "topClusters": [
+    "technika"
+   ],
+   "notTop": [
+    "mowa",
+    "turystyka"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "L",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "matematyka",
+    "fizyka"
+   ],
+   "sort": {
+    "a1": 1,
+    "a2": -1,
+    "a3": -1,
+    "a4": 1,
+    "a5": 0,
+    "a6": -1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": -1,
+    "a11": 0,
+    "a12": -1,
+    "a13": 1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": -1,
+    "a18": 1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": -1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": 1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": 1,
+    "a39": -1,
+    "a40": -1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": -2,
+    "ruch": 1,
+    "konkret": 3,
+    "decyzje": 0,
+    "zmiana": 0,
+    "projekty": 1,
+    "wspolpraca": 1
+   },
+   "values": [
+    "pewnosc",
+    "zarobki",
+    "trudne",
+    "niezaleznosc",
+    "czas"
+   ],
+   "strengths": [
+    {
+     "id": "logika",
+     "proof": "w szkole"
+    },
+    {
+     "id": "pomyslowosc",
+     "proof": "w hobby"
+    },
+    {
+     "id": "dokladnosc",
+     "proof": "w hobby"
+    },
+    {
+     "id": "szybka_nauka",
+     "proof": "w szkole"
+    },
+    {
+     "id": "wytrwalosc",
+     "proof": "w hobby"
+    }
+   ],
+   "situations": {
+    "e8": "c",
+    "e2": "a"
+   },
+   "studyLength": "srednio"
+  }
+ },
+ {
+  "id": "M",
+  "label": "Persona M: uczy młodszych i lubi dzieci",
+  "expect": {
+   "topClusters": [
+    "ludzie"
+   ],
+   "notTop": [
+    "cyber",
+    "atom"
+   ]
+  },
+  "answers": {
+   "jezyki": {
+    "pl": "bardzo dobry",
+    "en": "komunikatywny",
+    "de": "podstawy",
+    "uk": "brak",
+    "fr": "brak"
+   },
+   "direction": null,
+   "sport": "",
+   "scenario": "B",
+   "neededWhere": "moje miasto",
+   "homePlaces": [],
+   "startMin": 30,
+   "doubt": null,
+   "doubtStrong": false,
+   "reflection": {},
+   "privateOk": "tak",
+   "name": "M",
+   "certainty": "troche",
+   "rozszerzenia": [
+    "polski",
+    "biologia"
+   ],
+   "sort": {
+    "a1": -1,
+    "a2": 1,
+    "a3": 0,
+    "a4": -1,
+    "a5": -1,
+    "a6": 1,
+    "a7": -1,
+    "a8": -1,
+    "a9": -1,
+    "a10": 1,
+    "a11": -1,
+    "a12": 1,
+    "a13": -1,
+    "a14": -1,
+    "a15": -1,
+    "a16": -1,
+    "a17": 0,
+    "a18": -1,
+    "a19": -1,
+    "a20": -1,
+    "a21": -1,
+    "a22": -1,
+    "a23": -1,
+    "a24": -1,
+    "a25": -1,
+    "a26": -1,
+    "a27": -1,
+    "a28": -1,
+    "a29": 1,
+    "a30": -1,
+    "a31": -1,
+    "a32": -1,
+    "a33": -1,
+    "a34": -1,
+    "a35": -1,
+    "a36": -1,
+    "a37": -1,
+    "a38": -1,
+    "a39": 1,
+    "a40": -1
+   },
+   "sliders": {
+    "zespol": 1,
+    "ludzie": 3,
+    "ruch": 0,
+    "konkret": 0,
+    "decyzje": 0,
+    "zmiana": 1,
+    "projekty": 0,
+    "wspolpraca": 2
+   },
+   "values": [
+    "pomaganie",
+    "wplyw",
+    "pewnosc",
+    "czas",
+    "kreatywnosc"
+   ],
+   "strengths": [
+    {
+     "id": "tlumaczenie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "empatia",
+     "proof": "w pomaganiu innym"
+    },
+    {
+     "id": "spokoj",
+     "proof": "w pomaganiu innym"
+    },
+    {
+     "id": "organizowanie",
+     "proof": "w szkole"
+    },
+    {
+     "id": "pomyslowosc",
+     "proof": "w hobby"
+    }
+   ],
+   "situations": {
+    "e8": "d",
+    "e5": "c",
+    "e3": "b"
+   },
+   "studyLength": "srednio"
+  }
  }
 ]

@@ -103,6 +103,18 @@ const mdC = buildMarkdown(aC, scoreAll(aC, data), sc, '2026-11-21');
 const head = mdC.split('\n').find(l => l.startsWith('| | '));
 ok(mdC.includes('## Porównanie') && head && head.split('|').length - 3 === 2, 'export compare table has one column per compared offer');
 ok(JSON.stringify(parseSaved(mdC).answers.compare) === JSON.stringify(aC.compare), 'compare pick survives save and load');
+// Coverage waves (v2.8+): each new card is in the top 3 of its own test kid, and no card is in the top 3 of more than half of the kids.
+const OWN = { J: 'prawo', K: 'architektura', L: 'mechanika', M: 'edukacja', G: 'morze', H: 'lotnictwo', I: 'historia-sztuki', F: 'media-cyfrowe' };
+const personas = j('../studia/data/personas.json'), topCount = {};
+for (const p of personas) {
+  const best = scoreAll(p.answers, data).slots.best.map(c => c.card.id);
+  for (const id of best) topCount[id] = (topCount[id] || 0) + 1;
+  if (OWN[p.id]) ok(best.includes(OWN[p.id]), `persona ${p.id} has ${OWN[p.id]} in the top 3`);
+}
+for (const [id, n] of Object.entries(topCount)) ok(n <= personas.length / 2, `card ${id} is top 3 for ${n} of ${personas.length} kids (max half)`);
+for (const id of Object.values(OWN)) ok(data.opportunities.some(c => c.id === id), `card ${id} exists`);
+console.log(`reachability: ${Object.keys(topCount).length} of ${data.opportunities.length} cards reach a top 3; most often: ${Object.entries(topCount).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, v]) => k + ' ' + v).join(', ')}`);
+
 // v2.5: every activity and situation card has its pictogram.
 for (const a of data.questions.activities) ok(PICTO_IDS.act.includes(a.id), `activity ${a.id} has a pictogram`);
 for (const q of data.questions.situations) ok(PICTO_IDS.sit.includes(q.id), `situation ${q.id} has a pictogram`);

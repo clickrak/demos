@@ -337,6 +337,48 @@
     "ana": 1,
     "sys": 1
    }
+  },
+  {
+   "id": "a36",
+   "text": "Przeczytać umowę albo regulamin i znaleźć, co jest w nim nie tak.",
+   "w": {
+    "ana": 1,
+    "sys": 1,
+    "prz": 1
+   }
+  },
+  {
+   "id": "a37",
+   "text": "Narysować plan domu albo osiedla i sprawdzić, czy wszystko się zmieści.",
+   "w": {
+    "tec": 1,
+    "twr": 1,
+    "sys": 1
+   }
+  },
+  {
+   "id": "a38",
+   "text": "Zaprojektować i wydrukować w 3D część, która naprawdę działa.",
+   "w": {
+    "tec": 2,
+    "twr": 1
+   }
+  },
+  {
+   "id": "a39",
+   "text": "Poprowadzić zajęcia albo zabawę dla grupy młodszych dzieci.",
+   "w": {
+    "spo": 2,
+    "prz": 1
+   }
+  },
+  {
+   "id": "a40",
+   "text": "Sprawdzić, jak urząd albo szkoła załatwia jakąś sprawę, i wymyślić prostszy sposób.",
+   "w": {
+    "sys": 2,
+    "spo": 1
+   }
   }
  ],
  "neededWhere": [
@@ -704,6 +746,45 @@
      "w": {
       "tec": 2,
       "sys": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "e8",
+   "text": "Prowadzisz zebranie klubu, który chce zbudować boisko przy szkole. Co bierzesz na siebie?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Sprawdzam przepisy i zgody, które są do tego potrzebne.",
+     "w": {
+      "ana": 1,
+      "sys": 1,
+      "prz": 1
+     }
+    },
+    {
+     "id": "b",
+     "text": "Rysuję plan boiska i liczę, ile trzeba materiału.",
+     "w": {
+      "tec": 2,
+      "twr": 1
+     }
+    },
+    {
+     "id": "c",
+     "text": "Szukam maszyn i ludzi do budowy i pilnuję, żeby wszystko działało.",
+     "w": {
+      "tec": 1,
+      "sys": 2
+     }
+    },
+    {
+     "id": "d",
+     "text": "Zbieram młodszych uczniów do pomocy i tłumaczę im, co mają robić.",
+     "w": {
+      "spo": 2,
+      "prz": 1
      }
     }
    ]

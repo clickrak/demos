@@ -878,7 +878,7 @@ fits the focus, take the first "next week" item that does.
 | v2.6 | Data + questions (top priority, Aleks's feedback) | New cards: sea and oceans, aviation, travel and tourism, art history; 4 offers (UG Gdańsk, PRz Rzeszów, UEK, UJ); 4 activities, 1 situation, 2 strengths; "historia sztuki" as a matura subject; offers outside Kraków | Opus | pushed 21 Nov 2026 as 2.6.0 |
 | v2.5 | UI/UX + questions | Illustrations (pictograms on every activity and situation card, 5 more screen illustrations); question review for a broader range of interests (7 tap cards, 2 situations); fix: road line crossing the "Gdzie się uczyć" caption | Opus | pushed 21 Nov 2026 as 2.5.0 (Szymon replaced the points plan, 21 Nov 13:57) |
 | v2.7 | Data (wave 1) | Cards Prawo i administracja, Architektura i budownictwo, Mechanika/materiały/produkcja, Edukacja i nauczanie with Kraków offers, sources, `url`, demand and GUS pay | Opus + Sonnet | pushed 21 Nov 2026 as 2.7.0 (afternoon, Szymon: "implement") |
-| v2.8 | Questions + functionality (wave 1) | Activity and situation cards, test kids and reachability test for the 4 cards | Opus | planned |
+| v2.8 | Questions + functionality (wave 1) | Activity and situation cards, test kids and reachability test for the 4 cards | Opus | pushed 21 Nov 2026 as 2.8.0 |
 | v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | planned |
 | v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | planned |
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | planned |
@@ -1279,16 +1279,26 @@ at the end and paste the table in "Coverage waves". One task = one commit.
   cannot be opened from the run). `uj-wpia` and the new campuses wait for the weekly transport job.
 
 **v2.8 – Wave 1 Questions and functionality (night of 23 Nov)**
-1. **SQ2a (Opus) Activities and situations for wave 1.** Goal: tap cards reaching the four cards: e.g. "Przeczytać umowę i znaleźć, co jest
+1. [x] **SQ2a (Opus) Activities and situations for wave 1.** Goal: tap cards reaching the four cards: e.g. "Przeczytać umowę i znaleźć, co jest
    nie tak" (law; a27 already touches rules), "Narysować plan domu i pochodzić po budowie", "Rozebrać maszynę i złożyć ją z powrotem",
    "Wytłumaczyć coś młodszemu dziecku tak, żeby zrozumiało"; 4 to 6 new activities, 1 situation (e.g. a club meeting you must
    run), pictograms in `pictos.js`, strengths if one is missing. Weights as before. Check: tests pass.
-2. **SQ2b (Opus) Test kids and reachability.** Goal: personas J, K, L, M, one per new card, each gets "their" card in the top 3; new test
+2. [x] **SQ2b (Opus) Test kids and reachability.** Goal: personas J, K, L, M, one per new card, each gets "their" card in the top 3; new test
    in `tests/run.mjs`: every card is top 3 for at least one persona and no card is top 3 for more than half of them; old personas keep
    their first card. Old saved files: the notice "N nowych kart" lists only the new ones (as in 2.5). Check: tests pass.
-3. **SQ2c (Sonnet) Subjects and declaration helper.** Goal: matura subjects used by the new offers appear in the subject lists
+3. [x] **SQ2c (Sonnet) Subjects and declaration helper.** Goal: matura subjects used by the new offers appear in the subject lists
    (WOS, geografia and others as needed); the declaration helper counts the new offers. Check: tests pass; helper output for persona J.
-4. **SR2.8 (Opus) Review and release v2.8.0** (radar; Liceum W1L1 `studiaCards` can now point to the new cards).
+4. [x] **SR2.8 (Opus) Review and release v2.8.0** (radar; Liceum W1L1 `studiaCards` can now point to the new cards).
+
+**Done in 2.8.0 (21 Nov 2026, afternoon).** 40 activities, 8 situations, 13 personas.
+- Activities a36 contract or rules (law), a37 house or estate plan (architecture), a38 3D-printed working part (mechanics),
+  a39 run activities for younger children (education), a40 make an office or school procedure simpler (administration);
+  situation e8 "club meeting about a school pitch" (one answer per wave 1 card). Pictograms for all.
+- Personas J (law), K (architecture), L (mechanics), M (education): each has its card **first**.
+- New test in `tests/run.mjs`: each own card (F–M) is in its kid's top 3; no card is top 3 for more than half the kids
+  (now max 3 of 13: edukacja, projektowanie, media-cyfrowe); 24 of 35 cards reach some top 3.
+- Subjects: the new offers use only subjects already in the list (WOS, geografia, historia …); the declaration helper counts them.
+- Checked 375 and 1280 px in three looks for J, K, L, M; no errors.
 
 **v2.9 – Wave 2 Data (night of 24 Nov)**
 1. **SW2a (Opus) Four cards.** `spoleczenstwo` "Społeczeństwo, polityka i praca socjalna" (sociology, political science, social work, family
