@@ -448,13 +448,6 @@
   "status": "sourced"
  },
  {
-  "id": "otou-krk-matematyka",
-  "url": "https://www.otouczelnie.pl/miasto_dzial/11124/Matematyka-Krakow/Przedmioty-maturalne",
-  "title": "Matematyka w Krakowie: przedmioty maturalne 2026/2027 (AGH) (otouczelnie)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "otou-krk-aktorstwo",
   "url": "https://www.otouczelnie.pl/miasto_dzial/11083/Aktorstwo-Krakow/Uczelnie-publiczne",
   "title": "Aktorstwo w Krakowie: AST, egzamin wstępny, jednolite 2026/2027 (otouczelnie)",
@@ -511,13 +504,6 @@
   "status": "sourced"
  },
  {
-  "id": "otou-krk-archeologia",
-  "url": "https://www.otouczelnie.pl/miasto_dzial/21216/ARCHEOLOGIA",
-  "title": "Archeologia w Krakowie (UJ): najczęściej punktowane przedmioty 2026/2027 (otouczelnie)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "otou-krk-filozofia",
   "url": "https://www.otouczelnie.pl/miasto_dzial/16840/Filozofia-Krakow/Przedmioty-maturalne",
   "title": "Filozofia w Krakowie: przedmioty maturalne UJ 2026/2027 (otouczelnie)",
@@ -525,23 +511,9 @@
   "status": "sourced"
  },
  {
-  "id": "otou-uj-dietetyka",
-  "url": "https://www.otouczelnie.pl/uczelnia_dzial/1196/Dietetyka",
-  "title": "UJ: Dietetyka, rekrutacja 2026/2027: biologia, chemia; 3 lata (otouczelnie)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "otou-urk-dietetyka",
   "url": "https://www.otouczelnie.pl/uczelnia_dzial/1192/Dietetyka-Uniwersytet-Rolniczy-im-Hugona-Kollataja-w-Krakowie",
   "title": "URK: Dietetyka, rekrutacja 2026/2027, 3,5 roku (otouczelnie)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
-  "id": "otou-urk-przedmioty",
-  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4301/specjalnosci/przedmioty-maturalne",
-  "title": "URK: przedmioty maturalne kierunków (Technologia żywności i żywienie człowieka, Weterynaria …) (otouczelnie)",
   "asOf": "2026-11",
   "status": "sourced"
  },
@@ -581,20 +553,6 @@
   "status": "sourced"
  },
  {
-  "id": "otou-uken-geografia",
-  "url": "https://www.otouczelnie.pl/miasto_dzial/1911/Geografia-Krakow/Przedmioty-maturalne",
-  "title": "Geografia w Krakowie: UKEN, wymagane: geografia i dowolny przedmiot (otouczelnie)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
-  "id": "otou-uj-geologia",
-  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2449/Geologia",
-  "title": "UJ: Geologia, rekrutacja 2026/2027 (otouczelnie)",
-  "asOf": "2026-11",
-  "status": "sourced"
- },
- {
   "id": "otou-awf-przedmioty",
   "url": "https://www.otouczelnie.pl/uczelnia_dzial/4293/studia-podyplomowe/przedmioty-maturalne",
   "title": "AWF Kraków: przedmioty maturalne (Turystyka i rekreacja: dowolny przedmiot, język obcy) (otouczelnie)",
@@ -602,17 +560,73 @@
   "status": "sourced"
  },
  {
-  "id": "otou-awf-zasady-2027",
-  "url": "https://www.otouczelnie.pl/uczelnia_dzial/11477/Zasady-rekrutacji-na-AWF-w-Krakowie-20272028",
-  "title": "AWF Kraków: zasady rekrutacji 2027/2028 (Wydział Turystyki i Rekreacji: 3-letnie studia I stopnia; trener zdrowia i sprawności fizycznej) (otouczelnie)",
+  "id": "uj-politologia",
+  "url": "https://studia.uj.edu.pl/kierunki/wsmip/politologia",
+  "title": "UJ: Politologia, studia I stopnia (Instytut Nauk Politycznych i Stosunków Międzynarodowych, ul. Reymonta 4)",
   "asOf": "2026-11",
   "status": "sourced"
  },
  {
-  "id": "otou-awf-trener",
-  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4293/progi/przedmioty-maturalne",
-  "title": "AWF Kraków: Trener zdrowia i sprawności fizycznej, matura z trzech wybranych przedmiotów (otouczelnie)",
+  "id": "otou-uj-politologia",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2481/Politologia-Uniwersytet-Jagiellonski-w-Krakowie",
+  "title": "UJ: Politologia, przedmioty maturalne, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-04",
+  "status": "sourced"
+ },
+ {
+  "id": "uken-praca-socjalna",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/PSO-SL/?from=field:PRS",
+  "title": "UKEN: Praca socjalna, studia I stopnia, rekrutacja 2026/2027 (język polski, poziom podstawowy albo rozszerzony)",
+  "asOf": "2026-06",
+  "status": "sourced"
+ },
+ {
+  "id": "uken-izss-adres",
+  "url": "https://izss.uken.krakow.pl/sekretariat/",
+  "title": "UKEN: Instytut Zarządzania i Spraw Społecznych, sekretariat (os. Stalowe 17)",
   "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uek-jakosc-1st",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/inzynieria-jakosci-produktu-1-stopien/",
+  "title": "UEK: Inżynieria jakości produktu, I stopień, 7 semestrów, inżynier; przedmioty maturalne",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "agh-warunki-2026",
+  "url": "https://rekrutacja.agh.edu.pl/wp-content/uploads/2025/06/uchwala_76_2025_warunki_rekrutacji_2026_2027.pdf",
+  "title": "AGH: Uchwała 76/2025 Senatu, warunki rekrutacji 2026/2027 (Matematyka: P1 matematyka, P2 fizyka, informatyka albo język obcy)",
+  "asOf": "2025-06",
+  "status": "sourced"
+ },
+ {
+  "id": "uken-geografia-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/GEO-SL/?from=field:GEO",
+  "title": "UKEN: Geografia, studia I stopnia (6 semestrów), rekrutacja 2026/2027: średnia z matury, geografia liczona podwójnie",
+  "asOf": "2026-06",
+  "status": "sourced"
+ },
+ {
+  "id": "akf-zasady-2026",
+  "url": "https://esr.akf.krakow.pl/images/pdf/uchwala-senatu-22-zasady-rekrutacji-na-studia-2026-2027.pdf",
+  "title": "AKF (dawniej AWF) Kraków: Uchwała 22/VI/2025, zasady rekrutacji 2026/2027 (Turystyka przygodowa s. 25, Trener zdrowia s. 11)",
+  "asOf": "2025-06",
+  "status": "sourced"
+ },
+ {
+  "id": "ujcm-wl-2026",
+  "url": "https://misja.uj.edu.pl/documents/25032058/27277428/WLekarski_2026.pdf/88ce80ac-5937-67ac-2a1f-a0995a546cad",
+  "title": "UJ CM, Wydział Lekarski: warunki rekrutacji 2026/2027 (Dietetyka: biologia i chemia na poziomie rozszerzonym)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-urk-wtz",
+  "url": "https://www.otouczelnie.pl/wydzial/184/Wydzial-Technologii-Zywnosci-UR-w-Krakowie/studia",
+  "title": "URK, Wydział Technologii Żywności: kierunki, długość i przedmioty (otouczelnie)",
+  "asOf": "2026-06",
   "status": "sourced"
  }
 ]

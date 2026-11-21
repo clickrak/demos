@@ -259,5 +259,19 @@
   "address": "ul. Gronostajowa 3a",
   "sourceId": "otou-uj-wgg",
   "status": "address"
+ },
+ {
+  "id": "uj-insp",
+  "name": "UJ, Instytut Nauk Politycznych i Stosunków Międzynarodowych",
+  "address": "ul. Reymonta 4",
+  "sourceId": "uj-politologia",
+  "status": "address"
+ },
+ {
+  "id": "uken-izss",
+  "name": "UKEN, Instytut Zarządzania i Spraw Społecznych",
+  "address": "os. Stalowe 17",
+  "sourceId": "uken-izss-adres",
+  "status": "address"
  }
 ]

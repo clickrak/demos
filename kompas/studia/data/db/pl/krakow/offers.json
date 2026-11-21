@@ -1205,9 +1205,9 @@
     "matematyka"
    ],
    "count": 1,
-   "note": "język obcy oraz jeden z: biologia, chemia, fizyka, geografia, matematyka"
+   "note": "język obcy (albo łacina) oraz jeden z: biologia, chemia, fizyka, geografia, matematyka"
   },
-  "status": "check",
+  "status": "sourced",
   "sourceId": "otou-urk-igw",
   "next": "praca przy gospodarce wodnej i ochronie przed powodzią albo magisterskie"
  },
@@ -2406,7 +2406,8 @@
   },
   "status": "sourced",
   "sourceId": "otou-pk-budownictwo",
-  "next": "projektowanie konstrukcji, kierowanie budową, drogi i mosty; uprawnienia budowlane"
+  "next": "projektowanie konstrukcji, kierowanie budową, drogi i mosty; uprawnienia budowlane",
+  "url": "https://rekrutacja.pk.edu.pl/oferta_dydaktyczna/budownictwo/"
  },
  {
   "id": "agh-budownictwo",
@@ -2560,7 +2561,7 @@
   "name": "Inżynieria jakości produktu",
   "institution": "Uniwersytet Ekonomiczny w Krakowie",
   "kind": "programme",
-  "level": "studia",
+  "level": "inżynierskie",
   "durationYears": 3.5,
   "campus": "uek",
   "cards": [
@@ -2574,18 +2575,19 @@
     "biologia",
     "chemia",
     "fizyka",
-    "informatyka",
+    "geografia",
+    "historia",
     "angielski",
     "niemiecki",
     "polski",
     "WOS"
    ],
    "count": 1,
-   "note": "matematyka oraz jeden z: biologia, chemia, fizyka, informatyka, język obcy, polski, WOS"
+   "note": "matematyka oraz jeden z: biologia, chemia, fizyka, geografia, historia, język obcy, polski, WOS"
   },
-  "status": "check",
-  "sourceId": "otou-uek-zasady-2026",
-  "url": "https://studiuj.uek.krakow.pl",
+  "status": "sourced",
+  "sourceId": "uek-jakosc-1st",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/inzynieria-jakosci-produktu-1-stopien/",
   "next": "kontrola jakości w produkcji, laboratoria, certyfikacja"
  },
  {
@@ -2647,14 +2649,21 @@
   "requires": {
    "countFrom": [
     "angielski",
-    "niemiecki"
+    "niemiecki",
+    "geografia",
+    "historia",
+    "historia sztuki",
+    "informatyka",
+    "polski",
+    "matematyka",
+    "WOS"
    ],
-   "count": 1,
-   "note": "język obcy oraz kolejne przedmioty z szerokiej listy; UJ liczy tylko poziom rozszerzony; pełną listę sprawdź na stronie UJ"
+   "count": 2,
+   "note": "język obcy oraz jeden z: filozofia, geografia, historia, historia muzyki, historia sztuki, informatyka, polski, matematyka, WOS; UJ liczy tylko poziom rozszerzony"
   },
-  "status": "check",
+  "status": "sourced",
   "sourceId": "otou-uj-socjologia",
-  "url": "https://phils.uj.edu.pl",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilz/socjologia",
   "next": "badania społeczne i rynku, samorząd, organizacje; albo magisterskie"
  },
  {
@@ -2828,10 +2837,10 @@
     "niemiecki"
    ],
    "count": 1,
-   "note": "matematyka oraz jeden z: fizyka, informatyka, język obcy"
+   "note": "matematyka (rozszerzona) oraz jeden z: fizyka, informatyka, język obcy"
   },
-  "status": "check",
-  "sourceId": "otou-krk-matematyka",
+  "status": "sourced",
+  "sourceId": "agh-warunki-2026",
   "url": "https://rekrutacja.agh.edu.pl",
   "next": "analiza danych, finanse, programowanie, badania; albo magisterskie"
  },
@@ -2944,17 +2953,17 @@
   "field": "HUM",
   "requires": {
    "countFrom": [
-    "historia",
-    "angielski",
-    "niemiecki",
     "geografia",
-    "historia sztuki"
+    "historia",
+    "historia sztuki",
+    "angielski",
+    "niemiecki"
    ],
-   "count": 1,
-   "note": "najczęściej punktowane: historia, język obcy, geografia, historia sztuki, filozofia; dokładną listę sprawdź na stronie UJ"
+   "count": 2,
+   "note": "jeden z: geografia, historia, historia sztuki oraz jeden z: filozofia, język obcy, łacina; UJ liczy tylko poziom rozszerzony"
   },
-  "status": "check",
-  "sourceId": "otou-krk-archeologia",
+  "status": "sourced",
+  "sourceId": "otou-uj-przedmioty",
   "url": "https://www.historyczny.uj.edu.pl",
   "next": "wykopaliska, ochrona zabytków, muzea; albo magisterskie"
  },
@@ -3028,11 +3037,11 @@
  {
   "id": "uj-dietetyka",
   "name": "Dietetyka",
-  "institution": "Uniwersytet Jagielloński, Collegium Medicum",
+  "institution": "Uniwersytet Jagielloński, Collegium Medicum, Wydział Lekarski",
   "kind": "programme",
   "level": "licencjat",
   "durationYears": 3,
-  "campus": "ujcm-zdrowie",
+  "campus": "ujcm-lekarski",
   "cards": [
    "zywienie"
   ],
@@ -3042,10 +3051,10 @@
     "biologia",
     "chemia"
    ],
-   "note": "biologia i chemia; UJ liczy tylko poziom rozszerzony; 60 bezpłatnych miejsc"
+   "note": "biologia i chemia, obie na poziomie rozszerzonym; miejsce zajęć sprawdź na stronie UJ CM"
   },
   "status": "check",
-  "sourceId": "otou-uj-dietetyka",
+  "sourceId": "ujcm-wl-2026",
   "url": "https://rekrutacja.cm-uj.krakow.pl",
   "next": "poradnie, szpitale, sport, edukacja zdrowotna; albo magisterskie"
  },
@@ -3081,7 +3090,7 @@
   "name": "Technologia żywności i żywienie człowieka",
   "institution": "Uniwersytet Rolniczy w Krakowie, Wydział Technologii Żywności",
   "kind": "programme",
-  "level": "inżynier",
+  "level": "inżynierskie",
   "durationYears": 3.5,
   "campus": "ur",
   "cards": [
@@ -3096,10 +3105,10 @@
     "matematyka"
    ],
    "count": 1,
-   "note": "język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, matematyka; długość sprawdź na stronie URK"
+   "note": "język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, matematyka"
   },
-  "status": "check",
-  "sourceId": "otou-urk-przedmioty",
+  "status": "sourced",
+  "sourceId": "otou-urk-wtz",
   "url": "https://rekrutacja.urk.edu.pl",
   "next": "zakłady spożywcze, kontrola jakości, laboratoria żywności"
  },
@@ -3236,11 +3245,11 @@
    "must": [
     "geografia"
    ],
-   "note": "geografia oraz dowolny przedmiot; długość i adres instytutu sprawdź na stronie UKEN"
+   "note": "liczy się średnia ze wszystkich zdanych przedmiotów; geografia waży najwięcej (rozszerzona razy 2)"
   },
-  "status": "check",
-  "sourceId": "otou-uken-geografia",
-  "url": "https://www.uken.krakow.pl",
+  "status": "sourced",
+  "sourceId": "uken-geografia-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/GEO-SL/?from=field:GEO",
   "next": "szkoła (nauczyciel geografii), urzędy, GIS, turystyka; albo magisterskie"
  },
  {
@@ -3265,10 +3274,10 @@
     "matematyka"
    ],
    "count": 1,
-   "note": "jeden z: biologia, chemia, fizyka, geografia, informatyka, matematyka oraz drugi przedmiot (lista ucięta w źródle, sprawdź na stronie UJ)"
+   "note": "jeden z: biologia, chemia, fizyka, geografia, informatyka, matematyka oraz jeden z: język obcy, polski, WOS; UJ liczy tylko poziom rozszerzony"
   },
-  "status": "check",
-  "sourceId": "otou-uj-geologia",
+  "status": "sourced",
+  "sourceId": "otou-uj-przedmioty",
   "url": "https://geo.uj.edu.pl",
   "next": "geologia inżynierska, surowce, ochrona środowiska; albo magisterskie"
  },
@@ -3296,7 +3305,7 @@
  {
   "id": "awf-turystyka-przygodowa",
   "name": "Turystyka przygodowa",
-  "institution": "Akademia Wychowania Fizycznego, Wydział Turystyki i Rekreacji",
+  "institution": "Akademia Kultury Fizycznej (dawniej AWF), Wydział Turystyki i Rekreacji",
   "kind": "programme",
   "level": "licencjat",
   "durationYears": 3,
@@ -3307,17 +3316,17 @@
   ],
   "field": "TUR",
   "requires": {
-   "note": "zasady jak na wydziale turystyki AWF; przedmioty sprawdź na esr.awf.krakow.pl"
+   "note": "dwa różne przedmioty z matury: dowolny oraz język obcy (podstawa albo rozszerzenie)"
   },
-  "status": "check",
-  "sourceId": "otou-awf-zasady-2027",
+  "status": "sourced",
+  "sourceId": "akf-zasady-2026",
   "url": "https://esr.awf.krakow.pl",
   "next": "przewodnik, organizator wypraw, instruktor, turystyka górska"
  },
  {
   "id": "awf-trener",
   "name": "Trener zdrowia i sprawności fizycznej",
-  "institution": "Akademia Wychowania Fizycznego, Wydział Wychowania Fizycznego i Sportu",
+  "institution": "Akademia Kultury Fizycznej (dawniej AWF), Wydział Wychowania Fizycznego i Sportu",
   "kind": "programme",
   "level": "licencjat",
   "durationYears": 3,
@@ -3328,11 +3337,64 @@
   ],
   "field": "SPO",
   "requires": {
-   "note": "matura z trzech wybranych przedmiotów (podstawa albo rozszerzenie), m.in. polski i język obcy; pełną listę sprawdź na esr.awf.krakow.pl"
+   "note": "trzy przedmioty z matury do wyboru z: polski, język obcy, matematyka, fizyka, biologia, chemia, geografia, historia (podstawa albo rozszerzenie)"
   },
-  "status": "check",
-  "sourceId": "otou-awf-trener",
+  "status": "sourced",
+  "sourceId": "akf-zasady-2026",
   "url": "https://esr.awf.krakow.pl",
   "next": "trener personalny, kluby fitness, rekreacja, praca z seniorami"
+ },
+ {
+  "id": "uj-politologia",
+  "name": "Politologia",
+  "institution": "Uniwersytet Jagielloński, Wydział Studiów Międzynarodowych i Politycznych",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-insp",
+  "cards": [
+   "spoleczenstwo"
+  ],
+  "field": "PSY",
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: filozofia, geografia, historia, polski, matematyka, WOS; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-politologia",
+  "url": "https://studia.uj.edu.pl/kierunki/wsmip/politologia",
+  "next": "samorząd, urzędy, organizacje, media, analizy polityczne; albo magisterskie"
+ },
+ {
+  "id": "uken-praca-socjalna",
+  "name": "Praca socjalna",
+  "institution": "Uniwersytet Komisji Edukacji Narodowej, Instytut Zarządzania i Spraw Społecznych",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken-izss",
+  "cards": [
+   "spoleczenstwo"
+  ],
+  "field": "PSY",
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "note": "język polski (poziom podstawowy albo rozszerzony; rozszerzony liczy się razy 1,5)"
+  },
+  "status": "sourced",
+  "sourceId": "uken-praca-socjalna",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/PSO-SL/?from=field:PRS",
+  "next": "ośrodki pomocy społecznej, domy dziecka, organizacje pomagające ludziom; albo magisterskie"
  }
 ]
