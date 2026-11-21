@@ -14,18 +14,18 @@ def put(ids,ax):
     for i in ids.split(): S[i]=ax
 put('ujcm-lekarski ujcm-pielegniarstwo ujcm-ratownictwo ujcm-poloznictwo ujcm-zdrowie-publiczne ujcm-fizjoterapia ujcm-farmacja ujcm-analityka ujcm-elektroradiologia ujcm-lekarsko-dentystyczny awf-fizjoterapia uafm-fizjoterapia uafm-lekarski uafm-pielegniarstwo uafm-ratownictwo ksm-technik-farmaceutyczny ksm-elektroradiolog ksm-dentystyczny ksm-higienistka ksm-asystentka','MED')
 put('uj-psychologia uken-psychologia uj-europeistyka uek-stosunki','PSY')
-put('uj-logopedia uken-logopedia uken-pedagogika uj-polonistyka-nauczycielska','EDU')
+put('uj-logopedia uken-logopedia uken-pedagogika uj-polonistyka-nauczycielska uken-pedagogika-przedszkolna uken-pedagogika-specjalna','EDU')
 put('agh-informatyka agh-cyber agh-iiad pk-informatyka uek-informatyka-stosowana uken-cyber uj-informatyka uj-informatyka-analityczna','INF')
 put('agh-automatyka agh-energetyka agh-elektrotechnika agh-inz-biomed pk-energetyka pk-transport pk-automatyka','ENG')
-put('pk-architektura','BUD')
+put('pk-architektura pk-budownictwo agh-budownictwo uek-gospodarka-przestrzenna','BUD')
 put('agh-fizyka-medyczna agh-fizyka-techniczna','SCI')
 put('ug-oceanografia','BIO')
-put('prz-lotnictwo','ENG')
+put('prz-lotnictwo pk-mibm agh-mibm uek-zip uek-jakosc','ENG')
 put('uek-turystyka','TUR')
 put('uj-historia-sztuki','HUM')
 put('ur-biotechnologia ur-woda pk-inz-srodowiska agh-iios','BIO')
 put('uek-finanse uek-marketing uek-zarzadzanie uek-msg uken-ekonomia uek-gbs uek-przedsiebiorczosc uek-innowacje-biznes agh-ekonometria','ECO')
-put('zse1-administracja','LAW')
+put('zse1-administracja uj-prawo uj-administracja uek-prawo uek-administracja','LAW')
 put('uj-filologia-angielska uj-filologia-germanska uj-filologia-ukrainska uken-filologia-angielska uj-jpks','LNG')
 put('uj-dziennikarstwo ignatianum-dziennikarstwo uken-pr uj-film-nowe-media agh-gry agh-informatyka-spoleczna agh-kulturoznawstwo','MEDIA')
 put('asp-architektura-wnetrz asp-wzornictwo uken-design uken-komunikacja-wizualna','ART')
@@ -34,8 +34,8 @@ put('uken-bezpieczenstwo uj-bezpieczenstwo sapsp-pozarnictwo','SEC')
 miss=[o['id'] for o in off if o['id'] not in S]; assert not miss,miss
 sc=collections.Counter(S[o['id']] for o in off)
 # own Studia cards by axis
-S_card={'MED':['medycyna','pielegniarstwo','rehabilitacja','farmacja'],'PSY':['psychologia','ue','ukraina'],'EDU':['mowa'],'INF':['software','cyber','dane-medyczne'],
-'ENG':['energetyka','atom','automatyka','inz-biomed','lotnictwo'],'BUD':[],'SCI':['laboratorium'],'BIO':['woda','morze'],'ECO':['finanse','handel','logistyka'],'LAW':[],'LNG':['jezyki'],'HUM':['historia-sztuki'],
+S_card={'MED':['medycyna','pielegniarstwo','rehabilitacja','farmacja'],'PSY':['psychologia','ue','ukraina'],'EDU':['mowa','edukacja'],'INF':['software','cyber','dane-medyczne'],
+'ENG':['energetyka','atom','automatyka','inz-biomed','lotnictwo','mechanika'],'BUD':['architektura'],'SCI':['laboratorium'],'BIO':['woda','morze'],'ECO':['finanse','handel','logistyka'],'LAW':['prawo'],'LNG':['jezyki'],'HUM':['historia-sztuki'],
 'MEDIA':['media','media-cyfrowe'],'ART':['projektowanie'],'SPO':['sport'],'SEC':['sluzby','obronnosc'],'TUR':['turystyka']}
 # --- Liceum
 cardax={'biologia':['MED'],'chemia':['SCI'],'fizyka':['SCI'],'dane-ai':['INF','SCI'],'programowanie':['INF'],'cyber':['INF'],'elektronika':['ENG'],'srodowisko':['BIO'],

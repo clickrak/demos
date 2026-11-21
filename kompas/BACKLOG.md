@@ -877,7 +877,7 @@ fits the focus, take the first "next week" item that does.
 | v2.4 | UI/UX | Compare 2–3 starred offers (v3.0 item 4); "Mogę to zrobić, bo…" chips (U3); a games/UX tap card (1c, agreed part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.4.0 (afternoon, at Szymon's request) |
 | v2.6 | Data + questions (top priority, Aleks's feedback) | New cards: sea and oceans, aviation, travel and tourism, art history; 4 offers (UG Gdańsk, PRz Rzeszów, UEK, UJ); 4 activities, 1 situation, 2 strengths; "historia sztuki" as a matura subject; offers outside Kraków | Opus | pushed 21 Nov 2026 as 2.6.0 |
 | v2.5 | UI/UX + questions | Illustrations (pictograms on every activity and situation card, 5 more screen illustrations); question review for a broader range of interests (7 tap cards, 2 situations); fix: road line crossing the "Gdzie się uczyć" caption | Opus | pushed 21 Nov 2026 as 2.5.0 (Szymon replaced the points plan, 21 Nov 13:57) |
-| v2.7 | Data (wave 1) | Cards Prawo i administracja, Architektura i budownictwo, Mechanika/materiały/produkcja, Edukacja i nauczanie with Kraków offers, sources, `url`, demand and GUS pay | Opus + Sonnet | planned for the night of 22 Nov |
+| v2.7 | Data (wave 1) | Cards Prawo i administracja, Architektura i budownictwo, Mechanika/materiały/produkcja, Edukacja i nauczanie with Kraków offers, sources, `url`, demand and GUS pay | Opus + Sonnet | pushed 21 Nov 2026 as 2.7.0 (afternoon, Szymon: "implement") |
 | v2.8 | Questions + functionality (wave 1) | Activity and situation cards, test kids and reachability test for the 4 cards | Opus | planned |
 | v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | planned |
 | v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | planned |
@@ -1250,11 +1250,11 @@ at the end and paste the table in "Coverage waves". One task = one commit.
 **v2.7 – Wave 1 Data (night of 22 Nov)**
 1. **CW0 (Sonnet) Enrolment per field.** Goal: students per field in Poland and in Małopolska (GUS, latest year) written as a table here;
    say if the wave order should change. Files: `BACKLOG.md`, `sources.json` (new source). Check: every number has a source id and a year.
-2. **SW1a (Opus) Four cards.** Goal: `prawo` "Prawo i administracja", `architektura` "Architektura i budownictwo" (split from `projektowanie`,
+2. [x] **SW1a (Opus) Four cards.** Goal: `prawo` "Prawo i administracja", `architektura` "Architektura i budownictwo" (split from `projektowanie`,
    which keeps interiors and design; move `pk-architektura` and set `related`), `mechanika` "Mechanika, materiały i produkcja",
    `edukacja` "Edukacja i nauczanie" (split from `mowa`, which keeps speech therapy; move teacher paths). Interests, workStyle, values,
    strengths per the existing method; no card gets more than 20 points above its neighbours on any interest. Check: tests pass.
-3. **SW1b (Sonnet) Offers, at least 4 per card.** Law and administration: UJ Prawo, UJ Administracja, and other Kraków law or
+3. [x] **SW1b (Sonnet) Offers, at least 4 per card.** Law and administration: UJ Prawo, UJ Administracja, and other Kraków law or
    administration courses the sources confirm (UAFM, UEK, UKEN: only if listed). Architecture and building: PK Architektura (moved),
    PK Budownictwo, geodesy and cartography, spatial planning, as far as Kraków universities offer them. Mechanics: AGH and PK
    mechanical engineering, materials engineering, production management. Education: UKEN and UJ pedagogy and teacher paths
@@ -1262,8 +1262,21 @@ at the end and paste the table in "Coverage waves". One task = one commit.
    mark travel data as pending for the weekly job. Check: tests pass; each card has 4 or more offers with an http(s) `url`.
 4. **SW1c (Sonnet) Demand and pay for the 4 cards** (D1 and D7 method): Kraków job demand with a source, GUS 2024 group and band.
    If no source, leave out and list in the commit message.
-5. **SR2.7 (Opus) Review and release v2.7.0:** version in the four places, 375 and 1280 px in three looks on the road view, spec doc
+5. [x] **SR2.7 (Opus) Review and release v2.7.0:** version in the four places, 375 and 1280 px in three looks on the road view, spec doc
    "Kompas Studia v2.7.0", radar table.
+
+**Done in 2.7.0 (21 Nov 2026, afternoon).** 35 cards, 98 offers.
+- Cards: `prawo` (cluster prawo), `architektura` (cluster budowa; `pk-architektura` moved from `projektowanie`), `mechanika` (technika),
+  `edukacja` (ludzie; `uken-pedagogika` and `uj-polonistyka-nauczycielska` moved from `mowa`, which is now "Logopedia i terapia mowy").
+- Offers (13 new, each with `url` except PK Budownictwo, whose official page was not found in the run): prawo: UJ Prawo, UJ Administracja,
+  UEK Prawo, UEK Administracja (+ ZSE1 administracja); architektura: PK Architektura, PK Budownictwo, AGH Budownictwo, UEK Gospodarka
+  przestrzenna; mechanika: PK and AGH Mechanika i budowa maszyn, UEK Zarządzanie i inżynieria produkcji, UEK Inżynieria jakości produktu
+  (`check`: length not confirmed); edukacja: UKEN Pedagogika, Pedagogika przedszkolna i wczesnoszkolna, Pedagogika specjalna, UJ polonistyka
+  nauczycielska. New campus `uj-wpia` (ul. Gołębia 24). 10 new sources (otouczelnie). `tests/syntax.mjs`: every `url` is http(s).
+- Radar (Studia): Prawo i administracja 1 → 3, Budownictwo i architektura 1 → 3, Pedagogika i edukacja 3 (4 → 6 items),
+  Inżynieria 4 (8 → 12). All 9 personas still pass; A and C now see `edukacja` in their top 3.
+- Not done, moved: **CW0** (enrolment per field, GUS) and **SW1c** (Kraków demand and GUS 2024 pay: barometer PDF and GUS tables
+  cannot be opened from the run). `uj-wpia` and the new campuses wait for the weekly transport job.
 
 **v2.8 – Wave 1 Questions and functionality (night of 23 Nov)**
 1. **SQ2a (Opus) Activities and situations for wave 1.** Goal: tap cards reaching the four cards: e.g. "Przeczytać umowę i znaleźć, co jest

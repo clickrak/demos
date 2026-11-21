@@ -210,5 +210,12 @@
   "city": "Rzeszów",
   "outside": true,
   "status": "outside"
+ },
+ {
+  "id": "uj-wpia",
+  "name": "UJ, Wydział Prawa i Administracji",
+  "address": "ul. Gołębia 24",
+  "sourceId": "otou-uj-wpia",
+  "status": "address"
  }
 ]

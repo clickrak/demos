@@ -34,6 +34,7 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   for (const c of cards) if (!c.force) fail(`studia card "${c.id}" has no force`);
   const offers = json['studia/data/db/pl/krakow/offers.json'] || [];
   refs('studia offer source', offers.map(o => o.sourceId), src);
+  for (const o of offers) if (o.url !== undefined && !/^https?:\/\//.test(o.url)) fail(`studia offer "${o.id}": url must be http(s)`); // v2.7: official page per offer
   for (const o of offers) if (o.threshold) { // ST2: last year's threshold, shown as information only
     const t = o.threshold;
     if (!Number.isInteger(t.year) || t.year < 2020) fail(`studia offer "${o.id}": threshold needs a year`);

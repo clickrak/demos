@@ -1012,7 +1012,7 @@
   "durationYears": 5,
   "campus": "uken",
   "cards": [
-   "mowa"
+   "edukacja"
   ],
   "requires": {
    "must": [
@@ -1526,7 +1526,8 @@
   "durationYears": 3,
   "campus": "uj-centrum",
   "cards": [
-   "mowa"
+   "edukacja",
+   "jezyki"
   ],
   "requires": {
    "must": [
@@ -1924,7 +1925,7 @@
   "durationYears": 4,
   "campus": "pk-wa",
   "cards": [
-   "projektowanie"
+   "architektura"
   ],
   "requires": {
    "must": [
@@ -2262,5 +2263,372 @@
   "status": "sourced",
   "sourceId": "otou-uj-hsz",
   "next": "muzea, galerie, ochrona zabytków, rynek sztuki, turystyka kulturowa; albo magisterskie"
+ },
+ {
+  "id": "uj-prawo",
+  "name": "Prawo",
+  "institution": "Uniwersytet Jagielloński, Wydział Prawa i Administracji",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uj-wpia",
+  "cards": [
+   "prawo"
+  ],
+  "requires": {
+   "countFrom": [
+    "historia",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "dwa z: historia, polski, matematyka, WOS oraz jeszcze jeden przedmiot; UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-prawo",
+  "url": "https://www.wpia.uj.edu.pl",
+  "next": "aplikacja adwokacka, radcowska, sędziowska albo praca w urzędzie i firmie"
+ },
+ {
+  "id": "uj-administracja",
+  "name": "Administracja",
+  "institution": "Uniwersytet Jagielloński, Wydział Prawa i Administracji",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wpia",
+  "cards": [
+   "prawo"
+  ],
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "geografia",
+    "historia",
+    "historia sztuki",
+    "polski",
+    "matematyka",
+    "WOS",
+    "angielski",
+    "niemiecki",
+    "informatyka"
+   ],
+   "count": 1,
+   "note": "jeden przedmiot z bardzo szerokiej listy (m.in. biologia, chemia, geografia, historia); UJ liczy tylko poziom rozszerzony"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-admin",
+  "url": "https://www.wpia.uj.edu.pl",
+  "next": "urzędy, samorząd, firmy; albo magisterskie"
+ },
+ {
+  "id": "uek-prawo",
+  "name": "Prawo",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uek",
+  "cards": [
+   "prawo"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "countFrom": [
+    "historia",
+    "angielski",
+    "niemiecki",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 1,
+   "note": "język polski oraz jeden z: historia, język obcy, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl",
+  "next": "aplikacje prawnicze, prawo gospodarcze w firmach i kancelariach"
+ },
+ {
+  "id": "uek-administracja",
+  "name": "Administracja",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "prawo"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, polski, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl",
+  "next": "urzędy, samorząd, administracja w firmach; albo magisterskie"
+ },
+ {
+  "id": "pk-budownictwo",
+  "name": "Budownictwo",
+  "institution": "Politechnika Krakowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "pk",
+  "cards": [
+   "architektura"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka"
+   ],
+   "count": 1,
+   "note": "matematyka oraz jeden przedmiot z listy, która obejmuje fizykę"
+  },
+  "status": "sourced",
+  "sourceId": "otou-pk-budownictwo",
+  "next": "projektowanie konstrukcji, kierowanie budową, drogi i mosty; uprawnienia budowlane"
+ },
+ {
+  "id": "agh-budownictwo",
+  "name": "Budownictwo",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "architektura"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "chemia",
+    "fizyka",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "matematyka oraz jeden z: chemia, fizyka, informatyka, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-agh-budownictwo",
+  "url": "https://rekrutacja.agh.edu.pl",
+  "next": "budowy, biura projektowe, geotechnika; albo magisterskie"
+ },
+ {
+  "id": "uek-gospodarka-przestrzenna",
+  "name": "Gospodarka przestrzenna",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uek",
+  "cards": [
+   "architektura"
+  ],
+  "requires": {
+   "countFrom": [
+    "angielski",
+    "niemiecki",
+    "geografia",
+    "historia",
+    "polski",
+    "matematyka",
+    "WOS"
+   ],
+   "count": 2,
+   "note": "język obcy oraz jeden z: geografia, historia, polski, matematyka, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl",
+  "next": "planowanie miast, urzędy, firmy deweloperskie; albo magisterskie"
+ },
+ {
+  "id": "pk-mibm",
+  "name": "Mechanika i budowa maszyn",
+  "institution": "Politechnika Krakowska",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "pk-czyzyny",
+  "cards": [
+   "mechanika"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "matematyka oraz jeden z: fizyka, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-krk-mibm",
+  "url": "https://www.mech.pk.edu.pl",
+  "next": "konstruktor, technolog, przemysł motoryzacyjny i maszynowy; albo magisterskie"
+ },
+ {
+  "id": "agh-mibm",
+  "name": "Mechanika i budowa maszyn",
+  "institution": "AGH",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "agh",
+  "cards": [
+   "mechanika"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "fizyka",
+    "informatyka",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 2,
+   "note": "matematyka oraz jeden z: fizyka, informatyka, matematyka i jeden z: fizyka, informatyka, język obcy"
+  },
+  "status": "sourced",
+  "sourceId": "otou-agh-mibm",
+  "url": "https://rekrutacja.agh.edu.pl",
+  "next": "projektowanie i budowa maszyn, energetyka, przemysł; albo magisterskie"
+ },
+ {
+  "id": "uek-zip",
+  "name": "Zarządzanie i inżynieria produkcji",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "inżynierskie",
+  "durationYears": 3.5,
+  "campus": "uek",
+  "cards": [
+   "mechanika"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "chemia",
+    "fizyka",
+    "geografia",
+    "informatyka",
+    "angielski",
+    "niemiecki",
+    "WOS"
+   ],
+   "count": 1,
+   "note": "matematyka oraz jeden z: chemia, fizyka, geografia, informatyka, język obcy, WOS"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uek-zip",
+  "url": "https://studiuj.uek.krakow.pl",
+  "next": "kierownik produkcji, logistyka i jakość w fabrykach; albo magisterskie"
+ },
+ {
+  "id": "uek-jakosc",
+  "name": "Inżynieria jakości produktu",
+  "institution": "Uniwersytet Ekonomiczny w Krakowie",
+  "kind": "programme",
+  "level": "studia",
+  "durationYears": 3.5,
+  "campus": "uek",
+  "cards": [
+   "mechanika"
+  ],
+  "requires": {
+   "must": [
+    "matematyka"
+   ],
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "informatyka",
+    "angielski",
+    "niemiecki",
+    "polski",
+    "WOS"
+   ],
+   "count": 1,
+   "note": "matematyka oraz jeden z: biologia, chemia, fizyka, informatyka, język obcy, polski, WOS"
+  },
+  "status": "check",
+  "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl",
+  "next": "kontrola jakości w produkcji, laboratoria, certyfikacja"
+ },
+ {
+  "id": "uken-pedagogika-przedszkolna",
+  "name": "Pedagogika przedszkolna i wczesnoszkolna",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uken",
+  "cards": [
+   "edukacja"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "note": "język polski i język obcy"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uken-ppw",
+  "url": "https://www.uken.krakow.pl",
+  "next": "nauczyciel w przedszkolu i klasach 1–3"
+ },
+ {
+  "id": "uken-pedagogika-specjalna",
+  "name": "Pedagogika specjalna",
+  "institution": "UKEN",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5,
+  "campus": "uken",
+  "cards": [
+   "edukacja"
+  ],
+  "requires": {
+   "must": [
+    "polski"
+   ],
+   "note": "język polski"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uken-przedmioty",
+  "url": "https://www.uken.krakow.pl",
+  "next": "nauczyciel i terapeuta dzieci z niepełnosprawnościami, szkoły integracyjne i specjalne"
  }
 ]

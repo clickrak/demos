@@ -1496,7 +1496,7 @@
  },
  {
   "id": "mowa",
-  "name": "Edukacja i terapia mowy",
+  "name": "Logopedia i terapia mowy",
   "cluster": "ludzie",
   "interests": {
    "ana": 55,
@@ -1528,7 +1528,7 @@
    "wytrwalosc",
    "dokladnosc"
   ],
-  "roles": "logopeda, nauczyciel, pedagog",
+  "roles": "logopeda, neurologopeda, terapeuta mowy",
   "whoYouHelp": "Dzieci, które nie mówią wyraźnie, i seniorzy, którzy po udarze uczą się mówić od nowa.",
   "whatYouGet": "Widzisz postęp konkretnej osoby z tygodnia na tydzień. Praca z ludźmi, ale spokojna i uważna.",
   "force": "starzenie",
@@ -1551,7 +1551,8 @@
   "experiment": "Umów się na 20 minut rozmowy z logopedą w szkole lub poradni i zapytaj, jak wygląda jej zwykły dzień.",
   "related": [
    "psychologia",
-   "jezyki"
+   "jezyki",
+   "edukacja"
   ],
   "demand": {
    "level": "deficyt",
@@ -1915,7 +1916,8 @@
   "experiment": "Narysuj plan swojego pokoju w skali i zaprojektuj go na nowo w trzech wersjach. Zapytaj kogoś, w której chciałby mieszkać i dlaczego. To pierwsze prace do teczki na egzamin.",
   "related": [
    "media",
-   "handel"
+   "handel",
+   "architektura"
   ],
   "pay": {
    "band": 2,
@@ -2178,6 +2180,267 @@
    "projektowanie",
    "media",
    "turystyka"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "prawo",
+  "name": "Prawo i administracja",
+  "cluster": "prawo",
+  "interests": {
+   "ana": 75,
+   "tec": 15,
+   "spo": 55,
+   "twr": 35,
+   "prz": 75,
+   "sys": 70
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 1,
+   "ruch": -1,
+   "konkret": 0,
+   "decyzje": 2,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "prestiz",
+   "wplyw",
+   "pewnosc",
+   "trudne"
+  ],
+  "strengths": [
+   "logika",
+   "przekonywanie",
+   "dokladnosc",
+   "wytrwalosc",
+   "tlumaczenie"
+  ],
+  "roles": "prawnik, adwokat, radca prawny, sędzia, prokurator, urzędnik, specjalista ds. administracji",
+  "whoYouHelp": "Ludzie i firmy, którzy mają sprawę w sądzie albo w urzędzie, i państwo, które musi działać według jasnych zasad.",
+  "whatYouGet": "Praca głową i słowem: czytasz przepisy, piszesz pisma, bronisz czyjejś racji. Prawo to 5 lat studiów i potem kilka lat aplikacji.",
+  "force": "automatyzacja",
+  "whyNeeded": "AI i nowe technologie potrzebują nowych przepisów, a ludzie wciąż potrzebują kogoś, kto stanie po ich stronie.",
+  "dayInLife": [
+   "Rano czytanie akt sprawy i szukanie przepisu, który pasuje.",
+   "W południe rozmowa z klientem: co się stało i czego chce.",
+   "Po południu pisanie pisma do sądu albo decyzji w urzędzie."
+  ],
+  "growth": [
+   "aplikant albo młodszy urzędnik",
+   "adwokat, radca prawny, specjalista w urzędzie",
+   "partner w kancelarii, sędzia albo dyrektor departamentu"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "robustnessNote": "AI pisze proste pisma; zostają rozmowa z ludźmi, sąd i trudne sprawy.",
+  "experiment": "Pójdź na jawną rozprawę w sądzie rejonowym w Krakowie (wstęp wolny) i zapisz, kto co mówił i dlaczego.",
+  "related": [
+   "ue",
+   "sluzby",
+   "finanse"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "architektura",
+  "name": "Architektura i budownictwo",
+  "cluster": "budowa",
+  "interests": {
+   "ana": 60,
+   "tec": 80,
+   "spo": 30,
+   "twr": 65,
+   "prz": 35,
+   "sys": 65
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -1,
+   "ruch": 1,
+   "konkret": 1,
+   "decyzje": 1,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "kreatywnosc",
+   "zarobki",
+   "pewnosc",
+   "trudne"
+  ],
+  "strengths": [
+   "rysunek",
+   "logika",
+   "dokladnosc",
+   "odpowiedzialnosc",
+   "orientacja"
+  ],
+  "roles": "architekt, inżynier budownictwa, kierownik budowy, projektant konstrukcji, urbanista",
+  "whoYouHelp": "Ludzie, którzy będą mieszkać, pracować i uczyć się w budynkach, i miasta, które planują nowe osiedla, drogi i mosty.",
+  "whatYouGet": "Widzisz, jak twój projekt staje na ulicy. Dużo odpowiedzialności za bezpieczeństwo i praca w zespole z wieloma branżami.",
+  "force": "energia",
+  "whyNeeded": "Polska musi docieplić i przebudować miliony budynków, a w Krakowie brakuje mieszkań.",
+  "dayInLife": [
+   "Rano projekt w programie: rzuty, przekroje, obliczenia.",
+   "W południe wizyta na budowie i rozmowa z kierownikiem robót.",
+   "Po południu uzgodnienia z urzędem i poprawki w projekcie."
+  ],
+  "growth": [
+   "asystent projektanta albo inżynier na budowie",
+   "architekt albo inżynier z uprawnieniami",
+   "własna pracownia, kierownik dużych budów albo główny projektant"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "wysoka"
+  },
+  "experiment": "Narysuj plan swojego pokoju w skali 1:50, potem zaprojektuj, jak go przebudować. Pokaż to komuś, kto zna się na budowie.",
+  "related": [
+   "projektowanie",
+   "energetyka",
+   "woda"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "mechanika",
+  "name": "Mechanika, materiały i produkcja",
+  "cluster": "technika",
+  "interests": {
+   "ana": 60,
+   "tec": 90,
+   "spo": 20,
+   "twr": 40,
+   "prz": 40,
+   "sys": 70
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -2,
+   "ruch": 1,
+   "konkret": 2,
+   "decyzje": 0,
+   "zmiana": 0,
+   "projekty": 1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "zarobki",
+   "trudne"
+  ],
+  "strengths": [
+   "logika",
+   "dokladnosc",
+   "pomyslowosc",
+   "wytrwalosc",
+   "szybka_nauka"
+  ],
+  "roles": "inżynier mechanik, konstruktor maszyn, technolog produkcji, inżynier jakości, kierownik produkcji",
+  "whoYouHelp": "Fabryki, które robią samochody, maszyny i sprzęt medyczny, i ludzie, którzy na tych maszynach pracują.",
+  "whatYouGet": "Konkretne rzeczy, które możesz wziąć do ręki: od projektu na ekranie po działającą maszynę. Dużo matematyki i fizyki na studiach.",
+  "force": "automatyzacja",
+  "whyNeeded": "Fabryki się automatyzują, a ktoś musi zaprojektować, zbudować i naprawić maszyny; w Polsce brakuje inżynierów produkcji.",
+  "dayInLife": [
+   "Rano projekt części w programie 3D.",
+   "W południe na hali: dlaczego maszyna się zatrzymuje i co poprawić.",
+   "Po południu test nowego materiału i raport dla szefa."
+  ],
+  "growth": [
+   "młodszy konstruktor albo technolog",
+   "inżynier mechanik, specjalista ds. jakości",
+   "kierownik produkcji, główny konstruktor albo własna firma"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "experiment": "Rozbierz stary rower, drukarkę albo zabawkę na części, narysuj, jak działa, i złóż z powrotem.",
+  "related": [
+   "automatyka",
+   "energetyka",
+   "lotnictwo"
+  ],
+  "languages": [
+   "en",
+   "de"
+  ]
+ },
+ {
+  "id": "edukacja",
+  "name": "Edukacja i nauczanie",
+  "cluster": "ludzie",
+  "interests": {
+   "ana": 40,
+   "tec": 20,
+   "spo": 90,
+   "twr": 60,
+   "prz": 45,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 1,
+   "ludzie": 2,
+   "ruch": 0,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 1,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pomaganie",
+   "wplyw",
+   "pewnosc",
+   "czas"
+  ],
+  "strengths": [
+   "tlumaczenie",
+   "empatia",
+   "spokoj",
+   "organizowanie",
+   "pomyslowosc"
+  ],
+  "roles": "nauczyciel w przedszkolu i szkole, pedagog, pedagog specjalny, wychowawca, trener edukacji",
+  "whoYouHelp": "Dzieci i młodzież, także te, którym nauka przychodzi trudniej, i ich rodzice.",
+  "whatYouGet": "Codziennie widzisz, jak ktoś czegoś się nauczył dzięki tobie. Dużo ludzi, energii i cierpliwości; stała praca, wakacje.",
+  "force": "demografia",
+  "whyNeeded": "W szkołach brakuje nauczycieli, a coraz więcej dzieci potrzebuje wsparcia specjalnego.",
+  "dayInLife": [
+   "Rano lekcja: jak ciekawie pokazać nowy temat.",
+   "W południe rozmowa z uczniem, któremu jest trudno.",
+   "Po południu przygotowanie zajęć i spotkanie z rodzicami."
+  ],
+  "growth": [
+   "nauczyciel na stażu albo asystent",
+   "nauczyciel mianowany, pedagog specjalny",
+   "dyrektor szkoły, doradca metodyczny albo własne zajęcia"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Przez miesiąc raz w tygodniu pomagaj młodszemu dziecku w lekcjach (rodzeństwo, sąsiad, świetlica). Zapisz, co działało.",
+  "related": [
+   "mowa",
+   "psychologia",
+   "sport"
   ],
   "languages": [
    "en"

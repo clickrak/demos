@@ -336,10 +336,73 @@
   "status": "sourced"
  },
  {
-  "id": "gus-sw-2025-26",
-  "url": "https://new.stat.gov.pl/file/210088/download?token=uxFVbUEw",
-  "title": "GUS: Szkolnictwo wyższe w roku akademickim 2025/2026 (informacja sygnalna)",
-  "asOf": "2026-06",
+  "id": "otou-uj-prawo",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/1320/Prawo",
+  "title": "UJ: Prawo, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-admin",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/997/Administracja-Uniwersytet-Jagiellonski-w-Krakowie",
+  "title": "UJ: Administracja, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-wpia",
+  "url": "https://www.otouczelnie.pl/wydzial/121/Wydzial-Prawa-i-Administracji-UJ",
+  "title": "UJ, Wydział Prawa i Administracji: adres ul. Gołębia 24 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-pk-budownictwo",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1169/Budownictwo-Krakow/Studia-stacjonarne",
+  "title": "Budownictwo w Krakowie: PK i AGH, przedmioty, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-agh-budownictwo",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/1142/Budownictwo",
+  "title": "AGH: Budownictwo, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-krk-mibm",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1175/Mechanika-i-budowa-maszyn-Krakow/Przedmioty-maturalne",
+  "title": "Mechanika i budowa maszyn w Krakowie: przedmioty maturalne 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-agh-mibm",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/1143/Mechanika-i-budowa-maszyn",
+  "title": "AGH: Mechanika i budowa maszyn, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uek-zip",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/3576/Zarzadzanie-i-inzynieria-produkcji",
+  "title": "UEK: Zarządzanie i inżynieria produkcji, 3,5 roku, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uken-przedmioty",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4300/limity/przedmioty-maturalne",
+  "title": "UKEN: przedmioty maturalne dla kierunków, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uken-ppw",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2359/Pedagogika-przedszkolna-i-wczesnoszkolna",
+  "title": "UKEN: Pedagogika przedszkolna i wczesnoszkolna, jednolite 5 lat (otouczelnie)",
+  "asOf": "2026-11",
   "status": "sourced"
  }
 ]

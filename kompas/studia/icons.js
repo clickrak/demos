@@ -18,6 +18,8 @@ const P = {
   starzenie: '<path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9"/>',
   energia: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
   automatyzacja: '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+  prawo: '<path d="M12 3v18M7 21h10"/><path d="M5 7h14M5 7l-2.5 6a3 3 0 0 0 5 0zM19 7l-2.5 6a3 3 0 0 0 5 0z"/>',
+  budowa: '<path d="M3 21h18"/><path d="M5 21V11l7-5 7 5v10"/><path d="M10 21v-5h4v5"/><path d="M14 3h6v4"/>',
   przyroda: '<path d="M2 15c2 0 2-1.5 4-1.5S8 15 10 15s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 19c2 0 2-1.5 4-1.5S8 19 10 19s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M8 11c1-4 4-6 8-6-1 3-3 5-6 6"/>',
   podroze: '<path d="M2 16l20-6-2-3-7 2-6-5-2 1 4 6-5 1.5-2-2-1.5.5z"/><path d="M3 21h18"/>',
   woda: '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
