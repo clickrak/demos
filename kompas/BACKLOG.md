@@ -6,7 +6,85 @@ Three parts:
 2. **Small jobs** (D1–D8, U1–U7) left after the review of 13 Nov 2026. The roadmap points to them by id.
 3. **Kompas Studia roadmap** (started 19 Nov 2026), at the end of this file. One minor release per night, focus by rotation.
 
+**Top priority since 21 Nov 2026, 15:13: the coverage waves (next section). They come before every other task in Part 1 and Part 3, and UI/UX work waits until they are done.**
+
 The Liceum roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)"); the Studia v3.0 goals are in "Kompas Studia roadmap: v3.0 goals (weekend review, 21 Nov)".
+
+## Coverage waves (set 21 Nov 2026, 15:13; top priority for both apps)
+
+**Why.** The coverage radar (`python3 kompas/tools/coverage_radar.py`, added 21 Nov) scores 17 study fields from 0 to 4 for each app.
+Both apps are strong in medicine, IT, economy, engineering and languages, and have holes elsewhere. The worst: a kid who picks the
+humanities in Liceum (79 classes, level 4) lands in Studia with one history offer, and law is missing in both. Szymon: "it must be
+addressed with high priority", in 3 waves per app, split by importance or number of students, covering **offers and discovery
+questions**, UI/UX later.
+
+**Levels.** 0 none · 1 data rows only, no own direction or card · 2 shared or thin card · 3 own card or direction and 3 or more items ·
+4 own card or direction and 8+ programmes (Studia) or 15+ classes (Liceum).
+
+**Baseline (21 Nov 2026, after Studia 2.6.0 and Liceum 2.9.0).**
+
+| Field | Studia items | Studia level | Liceum items | Liceum level |
+|---|---|---|---|---|
+| Medycyna i zdrowie | 20 | 4 | 77 | 4 |
+| Psychologia i nauki społeczne | 4 | 3 | 18 | 4 |
+| Pedagogika i edukacja | 4 | 3 | 19 | 4 |
+| Informatyka, dane, AI | 8 | 4 | 99 | 4 |
+| Inżynieria i technika | 8 | 4 | 54 | 4 |
+| Budownictwo i architektura | 1 | 1 | 6 | 3 |
+| Nauki ścisłe | 2 | 2 | 131 | 4 |
+| Przyroda i środowisko | 5 | 3 | 52 | 4 |
+| Ekonomia i biznes | 9 | 4 | 56 | 4 |
+| Prawo i administracja | 1 | 1 | 3 | 2 |
+| Języki i filologie | 5 | 3 | 52 | 4 |
+| Historia, filozofia, kultura | 1 | 2 | 79 | 4 |
+| Media i komunikacja | 7 | 3 | 2 | 2 |
+| Sztuka i design | 4 | 3 | 3 | 1 |
+| Sport | 2 | 2 | 17 | 4 |
+| Bezpieczeństwo i obronność | 3 | 3 | 9 | 1 |
+| Turystyka i usługi | 1 | 2 | 8 | 1 |
+
+(Liceum counts for "Nauki ścisłe" and "Historia" are inflated by broad cards; a class can count in several fields. Read the levels, not the counts.)
+
+**Rules for the waves.**
+1. **Offer and questions together.** A new Studia card or Liceum direction is done only when (a) it has real offers or classes with a source,
+   and (b) the discovery questions reach it: at least 2 activity cards and, where it fits, a strength, one test kid per new card ends with
+   it in the top 3, and no card is top 3 for most kids (tests in `tests/run.mjs` and `tests/liceum.mjs`).
+2. **UI/UX waits.** Until Studia v3.0 and Liceum v3.0 are released, no UI/UX or look work except bug fixes. Nightly planners skip the
+   "UI/UX" focus and take the next wave task instead (Data → Questions and functionality → Data …).
+3. **Order by importance and student numbers.** Wave 1 = the biggest groups of students and the biggest gaps; wave 3 = small fields.
+   Task **CW0 (Sonnet)** writes the real enrolment per field here (GUS "Szkoły wyższe", latest year; MEN for technika) and may swap
+   a card between waves if the numbers say so; the order below is the first estimate.
+4. **Both apps agree.** A Liceum direction names the Studia cards it leads to (`studiaCards`); do the Studia wave N data release before
+   or in the same week as Liceum wave N. Offers outside Kraków are allowed when a field is not taught in Kraków (Studia 2.6 rule).
+5. **Radar after every release.** Run the script, paste the new table here, and say which fields moved.
+6. **Done when:** every field is at level 3 or more in Studia, and in Liceum for every field that has classes in the data; every card or
+   direction is reachable by the questions. Fields without any programme in Kraków (e.g. oceanography) may stay at 2 with a note.
+
+**Szymon's confirmation (21 Nov 15:13):** all nine proposed Studia cards of SD1 go in (the three waves below); the tap cards are
+approved; the order inside a wave may change after CW0.
+
+### Studia waves (releases v2.7–v2.12, review v3.0)
+
+| Wave | Cards (SD1 numbers) | Why first | Releases |
+|---|---|---|---|
+| 1 | **Prawo i administracja** (1) · **Architektura i budownictwo** (4) · **Mechanika, materiały i produkcja** (5) · **Edukacja i nauczanie** (8) | Largest student groups: law and administration, civil and mechanical engineering, teacher training; all level 1 or shared today | v2.7 Data, v2.8 Questions |
+| 2 | **Społeczeństwo, polityka i praca socjalna** (7) · **Nauka i badania** (6) · **Sztuka, muzyka i scena** (2) · **Historia, kultura i dziedzictwo** (9a) | Mid-size fields, completely missing or only applied; arts need entrance-exam info | v2.9 Data, v2.10 Questions |
+| 3 | **Żywienie i dietetyka** (3a) · **Weterynaria, zwierzęta i rolnictwo** (3b) · **Geografia, przestrzeń i planowanie** (9b) · deepen **Sport**, **Turystyka** | Small fields; also the thin cards that already exist | v2.11 Data, v2.12 Questions |
+| review | Radar at level 3 everywhere; spec doc; Aleks sees the whole compass | | v3.0 |
+
+Details: "Studia v2.7 … v3.0 tasks" at the end of Part 3. UI/UX items of the old v3.0 list move to v3.1–v3.3.
+
+### Liceum waves (releases v2.10–v2.13, review v3.0)
+
+| Wave | Directions | Why | Release |
+|---|---|---|---|
+| 1a | Arts world + profile "Artystyczny" · Health apart from biology · Law and media as two directions | Biggest holes in the questions (Q1a audit); health and law lead to large Studia fields | v2.10 |
+| 1b | Mechanika, pojazdy i produkcja · Transport i logistyka | Technika with many students that sit under "elektronika" and "biznes" today | v2.11 |
+| 2 | Art licea and music schools (entrance exams) · Mundurowe i bezpieczeństwo · Turystyka, hotelarstwo i gastronomia | Classes already in the data (9 uniformed, 8 tourism) but no direction of their own | v2.12 |
+| 3 | Rolnictwo, żywność i przyroda stosowana · even worlds (Q4) · sports data (V1a, V1b) | Small groups; new technikum professions from Sept 2026 | v2.13 |
+| review | Sports track and exact points (V1c); radar check | | v3.0 |
+
+UI/UX moved after v3.0: calm look and exam taps v3.1, profile drawings v3.2, parent page v3.3, Ukrainian v3.4 (see "v3.0 tasks" below).
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
@@ -55,9 +133,19 @@ only when a night run can open the pages.
 
 Activities per world: tech 7, natura 5, ludzie 3, jezyki 3, biznes 3, budowa 3, sport 3, spoleczenstwo 3.
 
-### v3.0 tasks
+### v3.0 tasks (reordered 21 Nov 2026, 15:13: coverage waves first, UI/UX later)
 
-**v2.10 – Fairer questions (night of 22 Nov)**
+**Szymon, 21 Nov 15:13: coverage of study directions is top priority; UI/UX and experience work waits.** The releases below keep the
+task text agreed earlier but move it: questions and directions come first (waves 1–3, see "Coverage waves" at the top of this file),
+then the sports track (v3.0), then the look and screens (v3.1–v3.3), then Ukrainian (v3.4). Old numbering v2.11–v2.15 no longer applies.
+The 19 Nov table above (v2.10 = Ukrainian) is superseded as well.
+
+**v2.10 – Wave 1a: fairer questions and the radar (night of 22 Nov)**
+0. **CW1 (Sonnet) Coverage radar in the repo.** Goal: `kompas/tools/coverage_radar.py` (added 21 Nov) reads a `field` key from every
+   Studia offer and card and every Liceum direction and class instead of its built-in id list; add `field` (one of the 17 field codes
+   in the radar script) to all of them; test in `tests/syntax.mjs` that none is missing; paste the new table into "Coverage waves".
+   Files: `studia/data/opportunities.json`, `studia/data/db/pl/krakow/offers.json`, `liceum/data/opportunities.json`, `tools/coverage_radar.py`,
+   `tests/syntax.mjs`. Check: three tests pass; the script prints the same table as before.
 1. **Q2 (Opus) Arts world and profile.** Goal: a world "Sztuka i projektowanie" (5 activity cards: e.g. drawing, film/photo,
    music, design, stage), a 9th profile "Artystyczny" with directions (plastyka, film i media wizualne, muzyka, design i
    architektura wnętrz) and the strength "rysunek" linked to it; the compass shows 9 points (decide layout; still readable at 375 px).
@@ -70,7 +158,31 @@ Activities per world: tech 7, natura 5, ludzie 3, jezyki 3, biznes 3, budowa 3, 
    Check: three tests pass; P2 (health) sees "Zdrowie i opieka" on the profile screen; P5 still north "Języki".
 3. **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note).
 
-**v2.11 – Art and music schools (night of 23 Nov)**
+2. **Q3 (Opus) Health, law and media.** Goal: direction "Zdrowie i opieka" (ratownictwo, pielęgniarstwo, fizjoterapia, dietetyka)
+   apart from "biologia"; "spoleczenstwo" split into "Prawo i administracja" and "Media i komunikacja", each linked to the
+   right classes (biol-chem, hum, media/dziennikarskie). Files: `opportunities.json`, `profiles.json`, `tests/liceum.mjs`.
+   Check: three tests pass; P2 (health) sees "Zdrowie i opieka" on the profile screen; P5 still north "Języki".
+3. **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note).
+
+4. **CD1 (Opus) Discovery check for wave 1a.** Goal: with Q2 and Q3 in, every new or split direction (arts, health, law, media) is
+   reachable: at least 2 activity cards and 1 strength point to it, one test kid per direction ends with it in the north or NNE/NNW.
+   Run `kompas/tools/questions_audit.py`; write the new table here. Check: three tests pass.
+5. **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note; radar re-run).
+
+**v2.11 – Wave 1b: technika and the big engineering groups (night of 23 Nov)**
+1. **W1L1 (Opus) Directions "Mechanika, pojazdy i produkcja" and "Transport i logistyka".** Goal: two new directions (own card text,
+   `afterSchool`, `studiaCards` pointing to the Studia wave 1 cards, `worlds`), linked to the technika that today sit under
+   "elektronika" or "biznes": mechanik, mechatronik, pojazdów samochodowych, awionik, technologii drewna; logistyk, eksploatacji
+   portów i terminali. Add 3 activity cards each (e.g. take a machine apart and put it back; plan the route of a delivery).
+   Files: `opportunities.json`, `profiles.json` (area lists), `questions.json`, `tests/liceum.mjs`. Check: three tests pass; a test kid
+   with mechanical answers has "Mechanika, pojazdy i produkcja" in the north or NNE/NNW; P1–P8 keep their north profile.
+2. **W1L2 (Sonnet) Remap classes.** Goal: set `cards` on every technikum and liceum class that fits the two new directions in
+   Kraków, Tychy and the GZM data; no class loses its old card unless it was wrong. Files: all `schools.json`. Check: three tests pass;
+   radar shows both new fields at level 3 or more in Liceum.
+3. **CD2 (Opus) Discovery check for wave 1b.** Same as CD1 for the two new directions.
+4. **R2.11 (Opus) Review and release v2.11.0.**
+
+**v2.12 – Wave 2: art and music schools, uniformed classes, tourism (night of 24 Nov)**
 1. **A1 (Opus) Schools with an entrance exam.** Goal: a class can have `entry: {kind: "plastyczny" | "muzyczny", note, sourceId}`
    instead of a threshold; the card shows "egzamin wstępny / przesłuchanie w szkole" (like the bilingual test tag), chances use
    "do sprawdzenia w szkole", never a guessed number. Linked to the "Artystyczny" profile. Files: `liceum/app.js`, `points.js` (only
@@ -82,49 +194,68 @@ Activities per world: tech 7, natura 5, ludzie 3, jezyki 3, biznes 3, budowa 3, 
    Files: `krakow/schools.json`, `sources.json`. Check: three tests pass; P8 sees them under "Artystyczny".
 3. **A3 (Sonnet) Art and music schools, Tychy + GZM towns in the data.** Same as A2 for Tychy, Katowice, Gliwice, Sosnowiec only
    (no new towns). Files: those `schools.json`, `sources.json`. Check: same; none appear in area Kraków.
-4. **R2.11 (Opus) Review and release v2.11.0.**
+4. **W2L1 (Opus) Directions "Mundurowe i bezpieczeństwo" and "Turystyka, hotelarstwo i gastronomia".** Goal: two directions with
+   `afterSchool`, `studiaCards`, 3 activity cards each, linked to the classes that already exist in the data (9 uniformed classes,
+   technik hotelarstwa, organizacji turystyki, żywienia i usług gastronomicznych, turystyczne classes). Tone: no recruiting, only
+   what the class is. Files: `opportunities.json`, `profiles.json`, `questions.json`, `school files` (`cards`), `tests/liceum.mjs`.
+   Check: three tests pass; radar shows both at level 3 or more.
+5. **CD3 (Opus) Discovery check for wave 2** (arts school classes, uniformed, tourism). Same as CD1.
+6. **R2.12 (Opus) Review and release v2.12.0.**
 
-**v2.12 – Even worlds, calm look, taps (night of 24 Nov)**
-1. **Q4 (Opus) Even out the worlds.** Goal: 5 activities in each of the 9 worlds (add 2 each to jezyki, biznes, ludzie,
+**v2.13 – Wave 3: applied nature, even worlds, sports data (night of 25 Nov)**
+1. **W3L1 (Opus) Direction "Rolnictwo, żywność i przyroda stosowana".** Goal: agro-gardening, floristry, landscape architecture and
+   arborist (new technikum professions from 1 Sept 2026, see "News found while planning"), food technology, veterinary and animals;
+   `studiaCards` point to the Studia wave 3 cards; 3 activity cards (plants and animals, cooking, outdoor work). Files:
+   `opportunities.json`, `profiles.json` (area list of "Przyrodniczy"), `questions.json`, `tests/liceum.mjs`. Check: three tests pass.
+2. **W3L2 (Sonnet) Classes for it.** Goal: map the technika (żywienia, ogrodnik, agroogrodnictwa, krajobrazu, weterynaryjny if present)
+   and any liceum class with an animals or plants profile. Files: `schools.json`. Check: radar shows the field at level 3 or more.
+3. **Q4 (Opus) Even out the worlds.** Goal: 5 activities in each of the 9 worlds (add 2 each to jezyki, biznes, ludzie,
    spoleczenstwo, budowa, sport; trim tech from 7 to 5, keep the best two as strengths or directions). Re-run the audit script and
    update the table above. Files: `questions.json`, `kompas/tools/questions_audit.py`, `tests/liceum.mjs`.
    Check: three tests pass; audit shows 5 per world; P1–P8 north profiles listed in the commit message (say if one changed).
-2. **U8 (Sonnet) Calm look by default.** Goal: no `?skin` and no saved choice = calm look; neon and pop stay in the look menu and in
-   the saved file. Files: `liceum/app.js`, `liceum/index.html`. Check: fresh open shows calm; `?skin=neon` still works; 375/1280 px.
-3. **U9 (Sonnet) Exam % by taps.** Goal: the three exam fields (and achievements) become chips or a slider (e.g. ok. 30 / 50 / 70 /
-   90 %, step 5 on the slider); the number stays in the saved file as before. Files: `liceum/app.js`, `liceum/liceum.css`.
-   Check: points result unchanged for P1–P8; no keyboard opens on phone; three tests pass.
-4. **R2.12 (Opus) Review and release v2.12.0.**
-
-**v2.13 – Profile drawings (night of 25 Nov)**
-1. **IL1 (Opus) Style sheet and 3 drawings.** Goal: rules for profile drawings in the `illus.js` line style (viewBox, stroke
-   widths, palette `--l0..--l5`, draw-once animation, off with "spokojniej"), written at the top of `illus.js`; drawings for
-   Ścisły, Artystyczny, Ludzie. Shown on the north card of the compass and on the profile screen. Files: `liceum/illus.js`,
-   `liceum/app.js`, `liceum/liceum.css`. Check: three looks + dark mode readable; nothing wider than 375 px.
-2. **IL2 (Sonnet) The other 6 drawings** following IL1's sheet exactly. Files: `liceum/illus.js`. Check: same.
-3. **R2.13 (Opus) Review and release v2.13.0.**
-
-**v2.14 – Parent page (night of 26 Nov)**
-1. **P2 (Opus) One-page parent summary.** Goal: fits one A4 page when printed: top 3 profiles (with drawing), liked classes with
-   the kid's points next to the 2026 threshold (or "egzamin w szkole"), travel time, dates to May 2027; calm tone, no grading.
-   Files: `liceum/app.js` (vParent), `liceum/liceum.css` (print). Check: print preview at A4 = 1 page for P1, P5 and P8.
-2. **R2.14 (Opus) Review and release v2.14.0.**
-
-**v2.15 – Sports classes, data (night of 27 Nov)**
-1. **V1a (Opus) 2027 rules check.** Goal: read the rules for sports classes (fitness test, extra criteria) and the exact points
+4. **V1a (Opus) 2027 rules check.** Goal: read the rules for sports classes (fitness test, extra criteria) and the exact points
    formula for 2027/28 (kuratorium Kraków and Katowice, MEN rozporządzenie); write the method in this file; add
    `sport: {test, sourceId}` to the class structure and the test. If the 2027/28 act is still not out, use 2026/27 and say so on screen.
    Files: `BACKLOG.md`, `tests/syntax.mjs`, `sources.json`. Check: three tests pass.
-2. **V1b (Sonnet) Mark sports classes.** Goal: every sports / sports-championship class in Kraków and Tychy/GZM data gets `sport`
+5. **V1b (Sonnet) Mark sports classes.** Goal: every sports / sports-championship class in Kraków and Tychy/GZM data gets `sport`
    with a source (e.g. Tychy IV LO 1MS); unconfirmed = "check". Files: school files, `sources.json`. Check: three tests pass.
-3. **R2.15 (Opus) Review and release v2.15.0.**
+6. **CD4 (Opus) Final discovery audit.** Goal: every direction (now about 24) is reachable and none is always on top: one test kid
+   per direction, plus a rule test that no direction is the north profile for more than 3 of the 24 kids. Files: `tests/liceum.mjs`,
+   `tools/questions_audit.py`. Check: three tests pass; table written here.
+7. **R2.13 (Opus) Review and release v2.13.0.**
 
-**v3.0 – Sports track and exact points (night of 28 Nov)**
+**v3.0 – Coverage complete, sports track and exact points (night of 26 Nov)**
 1. **V1c (Opus) Sports track and exact points.** Goal: Sport profile leads to sports classes with "test sprawnościowy w szkole";
    an option "policz dokładnie" (marks per subject by taps, exam %, extras) next to the quick estimate, using `points.js` checked
    against V1a. Files: `liceum/app.js`, `points.js`, `tests/liceum.mjs`. Check: test cases from the official example give the same points.
 2. **R3.0 (Opus) Review and release v3.0.0.** Full click-through of all steps with P1–P8, compass and map first (the screens the boys
    like), 375 and 1280 px, three looks; version 3.0.0 in the four places; "Kompas Liceum v3.0.0" in the spec doc; tell Szymon.
+   (Add to R3.0: run `python3 kompas/tools/coverage_radar.py`; Liceum must show level 3 or more for every field that has classes in the data.)
+
+**v3.1 – Look and taps (UI/UX, paused until v3.0; night of 27 Nov)**
+1. **U8 (Sonnet) Calm look by default.** Goal: no `?skin` and no saved choice = calm look; neon and pop stay in the look menu and in
+   the saved file. Files: `liceum/app.js`, `liceum/index.html`. Check: fresh open shows calm; `?skin=neon` still works; 375/1280 px.
+2. **U9 (Sonnet) Exam % by taps.** Goal: the three exam fields (and achievements) become chips or a slider (e.g. ok. 30 / 50 / 70 /
+   90 %, step 5 on the slider); the number stays in the saved file as before. Files: `liceum/app.js`, `liceum/liceum.css`.
+   Check: points result unchanged for P1–P8; no keyboard opens on phone; three tests pass.
+3. **R3.1 (Opus) Review and release v3.1.0.**
+
+**v3.2 – Profile drawings (UI/UX; night of 28 Nov)**
+1. **IL1 (Opus) Style sheet and 3 drawings.** Goal: rules for profile drawings in the `illus.js` line style (viewBox, stroke
+   widths, palette `--l0..--l5`, draw-once animation, off with "spokojniej"), written at the top of `illus.js`; drawings for
+   Ścisły, Artystyczny, Ludzie. Shown on the north card of the compass and on the profile screen. Files: `liceum/illus.js`,
+   `liceum/app.js`, `liceum/liceum.css`. Check: three looks + dark mode readable; nothing wider than 375 px.
+2. **IL2 (Sonnet) The other 6 drawings** following IL1's sheet exactly. Files: `liceum/illus.js`. Check: same.
+3. **R3.2 (Opus) Review and release v3.2.0.** The drawings now cover all profiles that exist after v3.0 (more than 9): IL2 draws the rest.
+
+**v3.3 – Parent page (UI/UX; night of 29 Nov)**
+1. **P2 (Opus) One-page parent summary.** Goal: fits one A4 page when printed: top 3 profiles (with drawing), liked classes with
+   the kid's points next to the 2026 threshold (or "egzamin w szkole"), travel time, dates to May 2027; calm tone, no grading.
+   Files: `liceum/app.js` (vParent), `liceum/liceum.css` (print). Check: print preview at A4 = 1 page for P1, P5 and P8.
+2. **R3.3 (Opus) Review and release v3.3.0.**
+
+**v3.4 – Ukrainian interface (was v2.10 / v3.1; after v3.3)**
+1. **I1 (Opus)** texts in language files, **I2 (Sonnet)** Ukrainian translation; unchanged task text in "Part 1" above (I1, I2).
 
 ## Minor v2.9 (planned 2026-11-20, released 2026-11-21 as 2.9.0)
 
@@ -352,17 +483,20 @@ the 16 thresholds and IV LO 1MS against school or city pages; sports classes as 
 | v2.7 | Kraków matura ranking on school cards (K2; done 2.7.0) and sources on every card (2.7.1) | Sonnet |
 | v2.8 | Map filter by town, Kraków class check batch 6, links, source dates (2.8.0); new GZM/Kraków schools and Tychy thresholds moved on | Sonnet |
 | v2.9 | Waiting schools (`geoPending`) so new schools can go in without a map point; XVII, XXV LO, Technikum nr 6 Tychy; Kraków class check batch 7; links; audit of questions (first slice of Q1) | Opus + Sonnet |
-| v2.10 | Fairer questions: arts world + 9th profile "Artystyczny", health, law vs media (Q2, Q3) | Opus |
-| v2.11 | Art licea and music schools with entrance exams (A1–A3) | Opus + Sonnet |
-| v2.12 | Even worlds (Q4), calm look by default (U8), exam % by taps (U9) | Opus + Sonnet |
-| v2.13 | Line drawings for the 9 profiles (IL1, IL2) | Opus + Sonnet |
-| v2.14 | One-page parent summary (P2) | Opus |
-| v2.15 | Sports classes: 2027 rules and data (V1a, V1b) | Opus + Sonnet |
-| v3.0 | Sports track and exact points (V1c); release review | Opus |
-| v3.1 | Ukrainian interface (I1, I2; moved from v2.11 on 21 Nov) | Opus + Sonnet |
+| v2.10 | Wave 1a: arts world + 9th profile, health, law vs media (Q2, Q3); radar tool in the repo (CW1); discovery check (CD1) | Opus + Sonnet |
+| v2.11 | Wave 1b: directions Mechanika/pojazdy/produkcja and Transport/logistyka, classes remapped (W1L1, W1L2) | Opus + Sonnet |
+| v2.12 | Wave 2: art licea and music schools with entrance exams (A1–A3); Mundurowe, Turystyka and gastronomia (W2L1) | Opus + Sonnet |
+| v2.13 | Wave 3: Rolnictwo, żywność i przyroda stosowana (W3L1, W3L2); even worlds (Q4); sports rules and data (V1a, V1b); final discovery audit (CD4) | Opus + Sonnet |
+| v3.0 | Sports track and exact points (V1c); coverage review with the radar | Opus |
+| v3.1 | UI/UX: calm look by default (U8), exam % by taps (U9) | Opus + Sonnet |
+| v3.2 | UI/UX: line drawings for all profiles (IL1, IL2) | Opus + Sonnet |
+| v3.3 | UI/UX: one-page parent summary (P2) | Opus |
+| v3.4 | Ukrainian interface (I1, I2) | Opus + Sonnet |
 | later | New areas (Kraków okolice towns, Chorzów, Tarnowskie Góry), G3 schools, Q1 extra situations if Szymon says yes | Opus + Sonnet |
 
-Every v2 release also does **L1**: website links for 5–10 schools. English and French interface come after v3.0.
+Every v2 release also does **L1**: website links for 5–10 schools. English and French interface come after v3.4.
+
+*Release table reordered on 21 Nov 2026, 15:13 (coverage waves). Task texts further down that still say v2.11, v3.1 etc. keep their wording; the order is the one in this table and in "v3.0 tasks".*
 
 ### Tasks
 
@@ -639,12 +773,15 @@ Liceum has its own roadmap (Part 1); do not touch Liceum work here, but reuse sh
 ### Major goals
 
 Set by the weekend review task (it writes this list; planners keep it and plan minors toward the current goal).
-- **Current major goal (agreed with Szymon, weekend review 21 Nov 2026):** v3.0. **A wider compass and a choice before the
+- **Current major goal (changed by Szymon, 21 Nov 2026, 15:13): cover all study directions, in three waves (see "Coverage waves" at the top of this file), then v3.0 as the review.** UI/UX items wait.
+- Previous goal (agreed in the weekend review, 21 Nov 2026), still valid after the waves: v3.0. **A wider compass and a choice before the
   declaration.** The cards cover the whole range of what kids like (also media, digital media, commerce), and by 7 Feb 2027
   Aleks can see which rozszerzenie opens his liked directions, star offers and compare them. Every fact still needs a fresh source.
 - Previous goal (trustworthy Kraków facts) is kept as a rule, not as the main goal: items 5–6 finish it.
 
 #### v3.0 main improvements (agreed 21 Nov 2026, in priority order)
+
+**Reordered 21 Nov 15:13.** Item 1 is now the three coverage waves (v2.7–v2.12). Items 5 (UJ thresholds, in v2.9) and 6 (GUS pay, in each Data release) and the data part of item 11 (`url` per offer; every new offer gets one) run inside the waves. The UI/UX and functionality items move after v3.0: **v3.1 UI/UX** = items 10, 7 and the screen part of 11; **v3.2 Functionality** = items 12 and 8; **v3.3 UI/UX** = item 9. Old "this week / next week" dates no longer apply.
 
 **This week (from 22 Nov):**
 1. [~] **Study directions review + media, digital media, commerce + broader interest cards** (Szymon's idea, top priority; 1a and 1b for media/commerce done in 2.3.0, rest waits for Szymon's pick) — Data + Functionality · L · Opus + Sonnet.
@@ -717,6 +854,14 @@ fits the focus, take the first "next week" item that does.
 | v2.4 | UI/UX | Compare 2–3 starred offers (v3.0 item 4); "Mogę to zrobić, bo…" chips (U3); a games/UX tap card (1c, agreed part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.4.0 (afternoon, at Szymon's request) |
 | v2.6 | Data + questions (top priority, Aleks's feedback) | New cards: sea and oceans, aviation, travel and tourism, art history; 4 offers (UG Gdańsk, PRz Rzeszów, UEK, UJ); 4 activities, 1 situation, 2 strengths; "historia sztuki" as a matura subject; offers outside Kraków | Opus | pushed 21 Nov 2026 as 2.6.0 |
 | v2.5 | UI/UX + questions | Illustrations (pictograms on every activity and situation card, 5 more screen illustrations); question review for a broader range of interests (7 tap cards, 2 situations); fix: road line crossing the "Gdzie się uczyć" caption | Opus | pushed 21 Nov 2026 as 2.5.0 (Szymon replaced the points plan, 21 Nov 13:57) |
+| v2.7 | Data (wave 1) | Cards Prawo i administracja, Architektura i budownictwo, Mechanika/materiały/produkcja, Edukacja i nauczanie with Kraków offers, sources, `url`, demand and GUS pay | Opus + Sonnet | planned for the night of 22 Nov |
+| v2.8 | Questions + functionality (wave 1) | Activity and situation cards, test kids and reachability test for the 4 cards | Opus | planned |
+| v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | planned |
+| v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | planned |
+| v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | planned |
+| v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | planned |
+| v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards | Opus | planned |
+| v3.1–v3.3 | UI/UX, functionality (later) | Strengths as the foundation (10), sources page (7), links in Kierunki (11), travel from the centre (12), points estimate (8), parent summary (9) | Opus + Sonnet | after v3.0 |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -1071,3 +1216,80 @@ add something like art history (a friend is thinking about it); so also more ski
 **Open:** `uj-ihs` has no travel data yet (needs a map point and the weekly transport job); no Kraków demand or GUS pay for the 4 new
 cards; other sea-related Kraków options (e.g. geography, environmental studies at UJ/AGH) could be added as nearer alternatives.
 
+### v2.7–v3.0 tasks: Studia coverage waves (planned 21 Nov 2026, 15:13)
+
+Card shape, sources and tests are the same as in v2.3 and v2.6 (`studia/data/opportunities.json`, `offers.json`, `sources.json`,
+`core/strengths.json`, `tests/run.mjs`). Every new offer: `requires` with subjects, `status`, `sourceId`, official `url` of the course or
+recruitment page (item 11), threshold when an official page shows one (otherwise none, never guessed). Every new card: `field` (radar code),
+Kraków `demand` with source and GUS 2024 `pay` (as D1/D7), `related`, `experiment`, `dayInLife`. Run `python3 kompas/tools/coverage_radar.py`
+at the end and paste the table in "Coverage waves". One task = one commit.
+
+**v2.7 – Wave 1 Data (night of 22 Nov)**
+1. **CW0 (Sonnet) Enrolment per field.** Goal: students per field in Poland and in Małopolska (GUS, latest year) written as a table here;
+   say if the wave order should change. Files: `BACKLOG.md`, `sources.json` (new source). Check: every number has a source id and a year.
+2. **SW1a (Opus) Four cards.** Goal: `prawo` "Prawo i administracja", `architektura` "Architektura i budownictwo" (split from `projektowanie`,
+   which keeps interiors and design; move `pk-architektura` and set `related`), `mechanika` "Mechanika, materiały i produkcja",
+   `edukacja` "Edukacja i nauczanie" (split from `mowa`, which keeps speech therapy; move teacher paths). Interests, workStyle, values,
+   strengths per the existing method; no card gets more than 20 points above its neighbours on any interest. Check: tests pass.
+3. **SW1b (Sonnet) Offers, at least 4 per card.** Law and administration: UJ Prawo, UJ Administracja, and other Kraków law or
+   administration courses the sources confirm (UAFM, UEK, UKEN: only if listed). Architecture and building: PK Architektura (moved),
+   PK Budownictwo, geodesy and cartography, spatial planning, as far as Kraków universities offer them. Mechanics: AGH and PK
+   mechanical engineering, materials engineering, production management. Education: UKEN and UJ pedagogy and teacher paths
+   (early education, special needs), moved from `mowa`. Add `campus` entries with address and map point (`geocode_schools.py` style) and
+   mark travel data as pending for the weekly job. Check: tests pass; each card has 4 or more offers with an http(s) `url`.
+4. **SW1c (Sonnet) Demand and pay for the 4 cards** (D1 and D7 method): Kraków job demand with a source, GUS 2024 group and band.
+   If no source, leave out and list in the commit message.
+5. **SR2.7 (Opus) Review and release v2.7.0:** version in the four places, 375 and 1280 px in three looks on the road view, spec doc
+   "Kompas Studia v2.7.0", radar table.
+
+**v2.8 – Wave 1 Questions and functionality (night of 23 Nov)**
+1. **SQ2a (Opus) Activities and situations for wave 1.** Goal: tap cards reaching the four cards: e.g. "Przeczytać umowę i znaleźć, co jest
+   nie tak" (law; a27 already touches rules), "Narysować plan domu i pochodzić po budowie", "Rozebrać maszynę i złożyć ją z powrotem",
+   "Wytłumaczyć coś młodszemu dziecku tak, żeby zrozumiało"; 4 to 6 new activities, 1 situation (e.g. a club meeting you must
+   run), pictograms in `pictos.js`, strengths if one is missing. Weights as before. Check: tests pass.
+2. **SQ2b (Opus) Test kids and reachability.** Goal: personas J, K, L, M, one per new card, each gets "their" card in the top 3; new test
+   in `tests/run.mjs`: every card is top 3 for at least one persona and no card is top 3 for more than half of them; old personas keep
+   their first card. Old saved files: the notice "N nowych kart" lists only the new ones (as in 2.5). Check: tests pass.
+3. **SQ2c (Sonnet) Subjects and declaration helper.** Goal: matura subjects used by the new offers appear in the subject lists
+   (WOS, geografia and others as needed); the declaration helper counts the new offers. Check: tests pass; helper output for persona J.
+4. **SR2.8 (Opus) Review and release v2.8.0** (radar; Liceum W1L1 `studiaCards` can now point to the new cards).
+
+**v2.9 – Wave 2 Data (night of 24 Nov)**
+1. **SW2a (Opus) Four cards.** `spoleczenstwo` "Społeczeństwo, polityka i praca socjalna" (sociology, political science, social work, family
+   sciences; takes `uj-europeistyka` as `related`, not as home), `nauka` "Nauka i badania" (maths, physics, chemistry, biology, astronomy at
+   UJ as a research path; the applied cards stay), `sztuka-scena` "Sztuka, muzyka i scena" (music academy, acting, fine arts; offers
+   with `exam: true`: entrance exam or audition, no threshold, shown like the bilingual test tag), `historia` "Historia, kultura i
+   dziedzictwo" (history, archaeology, philosophy, ethnology; `historia-sztuki` stays as a neighbour).
+2. **SW2b (Sonnet) Offers, at least 3 per card.** Kraków: UJ Socjologia, Politologia, Praca socjalna (UKEN or other, if confirmed), UJ
+   Matematyka, Fizyka, Chemia, Biologia, Astronomia; Akademia Muzyczna, Akademia Sztuk Teatralnych, ASP (Malarstwo, Grafika, Rzeźba);
+   UJ Historia, Archeologia, Filozofia, Etnologia. Only what the official pages or otouczelnie confirm; audition dates in `next`.
+3. **SW2c (Sonnet) Demand and pay** for the 4 cards (as SW1c).
+4. **SD5 (Opus) UJ and UJ CM 2026 thresholds** from UJ's own results pages (v3.0 item 5): 22 old offers plus the new UJ offers.
+5. **SR2.9 (Opus) Review and release v2.9.0.**
+
+**v2.10 – Wave 2 Questions and functionality (night of 25 Nov)**
+1. **SQ3a (Opus) Activities and situations for wave 2:** e.g. "Zbadać, dlaczego ludzie się dzielą, i napisać o tym raport" (society),
+   "Zrozumieć dowód z matematyki albo prawo fizyki" (science), "Przygotować występ i zagrać go przed ludźmi" (stage, may reuse a25),
+   "Przeczytać stare dokumenty i ułożyć z nich historię" (history); 4 to 6 activities, 1 situation, pictograms, a strength if needed.
+2. **SQ3b (Opus) Test kids and reachability** for the 4 cards (personas N, O, P, Q), same tests as SQ2b; check that personas A–M keep their
+   first card.
+3. **SQ3c (Sonnet) Entrance-exam tag** on offers with `exam: true` (card, road, compare table): "egzamin wstępny albo przesłuchanie",
+   no points gap. Check: 375 and 1280 px.
+4. **SR2.10 (Opus) Review and release v2.10.0.**
+
+**v2.11 – Wave 3 Data (night of 26 Nov)**
+1. **SW3a (Opus) Three cards:** `zywienie` "Żywienie i dietetyka" (dietetics, food technology), `weterynaria` "Weterynaria, zwierzęta i rolnictwo"
+   (UR Kraków: veterinary medicine, agriculture, horticulture, forestry, animal husbandry), `geografia` "Geografia, przestrzeń i planowanie"
+   (geography, spatial planning, geoinformation). Thin cards: add the missing Sport and Turystyka offers (AWF and UEK courses, 3 or more each).
+2. **SW3b (Sonnet) Offers** as above; **SW3c (Sonnet)** demand and pay.
+3. **SR2.11 (Opus) Review and release v2.11.0.**
+
+**v2.12 – Wave 3 Questions and functionality (night of 27 Nov)**
+1. **SQ4a (Opus)** activities (cooking and nutrition, animals and plants already a26 and a29: check reach; maps and places), 1 situation,
+   pictograms; **SQ4b (Opus)** test kids R, S, T and the reachability test for all cards (now about 43): none unreachable, none always on top.
+2. **SR2.12 (Opus) Review and release v2.12.0.**
+
+**v3.0 – Coverage review (night of 28 Nov)**
+1. **SR3.0 (Opus):** radar at level 3 everywhere (or a written reason), spec doc section "Kompas Studia v3.0.0", declaration helper and star
+   comparison checked with the new cards at 375 and 1280 px, "Kompas Studia v3.0.0"; tell Szymon with the radar table. Then the UI/UX items
+   (v3.1–v3.3) in the order given above.
