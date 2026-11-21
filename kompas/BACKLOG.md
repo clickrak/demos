@@ -45,6 +45,29 @@ questions**, UI/UX later.
 
 (Liceum counts for "Nauki ścisłe" and "Historia" are inflated by broad cards; a class can count in several fields. Read the levels, not the counts.)
 
+**CW0 result (21 Nov 2026): students per field, GUS.** GUS publishes field groups only at the broad ISCED-F level (no narrow fields in
+the open signal reports). Students (shares, all of Poland, 31 Dec): 2024/25 business, administration and law 22.6%, social sciences,
+journalism and information 14.2%, health and care 14.0%, engineering, manufacturing and construction 12.3% (`gus-sw-2024-25`);
+2025/26: 22.1%, 14.7% health, 14.4% social, 12.3% engineering (`gus-sw-2025-26`, total 1,322.8 thousand; Małopolska 157,473).
+Graduates in 2024 by all groups (`gus-sw-2024-25`, Tablica 2, total 291,986):
+
+| Group (ISCED-F) | Graduates 2024 | Share | Our fields |
+|---|---|---|---|
+| Biznes, administracja i prawo | 71,882 | 24.6% | ECO, LAW |
+| Zdrowie i opieka społeczna | 41,145 | 14.1% | MED |
+| Technika, przemysł, budownictwo | 38,963 | 13.3% | ENG, BUD |
+| Nauki społeczne, dziennikarstwo i informacja | 33,808 | 11.6% | PSY, MEDIA |
+| Nauki humanistyczne i sztuka | 27,210 | 9.3% | HUM, LNG, ART |
+| Usługi | 23,560 | 8.1% | TUR, SEC, SPO |
+| Kształcenie | 17,656 | 6.0% | EDU |
+| Technologie teleinformacyjne | 16,161 | 5.5% | INF |
+| Nauki przyrodnicze, matematyka i statystyka | 10,307 | 3.5% | SCI, BIO |
+| Rolnictwo | 4,852 | 1.7% | BIO (agri, vet) |
+
+Order check: wave 1 stays (law sits in the biggest group, building and mechanics in the third). Humanities and arts (wave 2) and
+services (wave 3: tourism, security, sport) are bigger groups than education; they keep their waves because education is only shared
+today, while history, arts and security already have a card. No swap.
+
 **Rules for the waves.**
 1. **Offer and questions together.** A new Studia card or Liceum direction is done only when (a) it has real offers or classes with a source,
    and (b) the discovery questions reach it: at least 2 activity cards and, where it fits, a strength, one test kid per new card ends with

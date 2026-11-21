@@ -25,7 +25,9 @@
  "declarationDeadline": "7 lutego 2027",
  "sourceIds": {
   "declarationDeadline": "otou-matura",
-  "ujExtendedOnly": "uj-zasady-2026"
+  "ujExtendedOnly": "uj-zasady-2026",
+  "enrolmentByField2024": "gus-sw-2024-25",
+  "enrolmentByField2025": "gus-sw-2025-26"
  },
  "situationWeight": 0.3,
  "languageBoost": 3,
