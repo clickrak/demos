@@ -523,5 +523,96 @@
   "title": "Filozofia w Krakowie: przedmioty maturalne UJ 2026/2027 (otouczelnie)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "otou-uj-dietetyka",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/1196/Dietetyka",
+  "title": "UJ: Dietetyka, rekrutacja 2026/2027: biologia, chemia; 3 lata (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-urk-dietetyka",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/1192/Dietetyka-Uniwersytet-Rolniczy-im-Hugona-Kollataja-w-Krakowie",
+  "title": "URK: Dietetyka, rekrutacja 2026/2027, 3,5 roku (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-urk-przedmioty",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4301/specjalnosci/przedmioty-maturalne",
+  "title": "URK: przedmioty maturalne kierunków (Technologia żywności i żywienie człowieka, Weterynaria …) (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-krk-weterynaria",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/11109/Weterynaria-Krakow/Uczelnie-uniwersytety",
+  "title": "Weterynaria w Krakowie (URK): jednolite, 5,5 roku (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-urk-zootechnika",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2325/Zootechnika-Uniwersytet-Rolniczy-im-Hugona-Kollataja-w-Krakowie",
+  "title": "URK: Zootechnika, rekrutacja 2026/2027, 3,5 roku (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-urk-rolnictwo",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2318/Rolnictwo",
+  "title": "URK: Rolnictwo, rekrutacja 2026/2027, 3,5 roku (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-ggp",
+  "url": "https://www.otouczelnie.pl/artykul/4834/Geografia-i-gospodarka-przestrzenna/przedmioty-maturalne",
+  "title": "UJ: Geografia i gospodarka przestrzenna, przedmioty maturalne 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-wgg",
+  "url": "https://www.otouczelnie.pl/wydzial/922/Wydzial-Geografii-i-Geologii-UJ",
+  "title": "UJ, Wydział Geografii i Geologii: ul. Gronostajowa 3a; GGP 3 lata, ścieżki m.in. turystyka (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uken-geografia",
+  "url": "https://www.otouczelnie.pl/miasto_dzial/1911/Geografia-Krakow/Przedmioty-maturalne",
+  "title": "Geografia w Krakowie: UKEN, wymagane: geografia i dowolny przedmiot (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-uj-geologia",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/2449/Geologia",
+  "title": "UJ: Geologia, rekrutacja 2026/2027 (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-awf-przedmioty",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4293/studia-podyplomowe/przedmioty-maturalne",
+  "title": "AWF Kraków: przedmioty maturalne (Turystyka i rekreacja: dowolny przedmiot, język obcy) (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-awf-zasady-2027",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/11477/Zasady-rekrutacji-na-AWF-w-Krakowie-20272028",
+  "title": "AWF Kraków: zasady rekrutacji 2027/2028 (Wydział Turystyki i Rekreacji: 3-letnie studia I stopnia; trener zdrowia i sprawności fizycznej) (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-awf-trener",
+  "url": "https://www.otouczelnie.pl/uczelnia_dzial/4293/progi/przedmioty-maturalne",
+  "title": "AWF Kraków: Trener zdrowia i sprawności fizycznej, matura z trzech wybranych przedmiotów (otouczelnie)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

@@ -252,5 +252,12 @@
   "address": "pl. Matejki 13",
   "sourceId": "otou-asp-wm",
   "status": "address"
+ },
+ {
+  "id": "uj-wgg",
+  "name": "UJ, Wydział Geografii i Geologii",
+  "address": "ul. Gronostajowa 3a",
+  "sourceId": "otou-uj-wgg",
+  "status": "address"
  }
 ]

@@ -2747,5 +2747,200 @@
   "languages": [
    "en"
   ]
+ },
+ {
+  "id": "zywienie",
+  "name": "Żywienie i dietetyka",
+  "cluster": "zdrowie",
+  "field": "MED",
+  "interests": {
+   "ana": 60,
+   "tec": 45,
+   "spo": 75,
+   "twr": 35,
+   "prz": 40,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 2,
+   "ruch": 0,
+   "konkret": 1,
+   "decyzje": 0,
+   "zmiana": 0,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pomaganie",
+   "czas",
+   "pewnosc"
+  ],
+  "strengths": [
+   "empatia",
+   "dokladnosc",
+   "tlumaczenie",
+   "ciekawosc",
+   "organizowanie"
+  ],
+  "roles": "dietetyk w szpitalu albo poradni, dietetyk sportowy, technolog żywności, specjalista kontroli jakości, edukator zdrowia",
+  "whoYouHelp": "Ludzie chorzy, sportowcy, dzieci i seniorzy, którym dobre jedzenie pomaga żyć zdrowiej; firmy, które produkują żywność.",
+  "whatYouGet": "Łączysz biologię i chemię z rozmową z ludźmi. Dużo pracy w poradniach i firmach spożywczych; własny gabinet to częsta droga.",
+  "force": "starzenie",
+  "whyNeeded": "Coraz więcej osób choruje na cukrzycę i otyłość, a społeczeństwo się starzeje: dobra dieta to tańsze leczenie.",
+  "dayInLife": [
+   "Rano rozmowa z pacjentem: co je i jak się czuje.",
+   "W południe układasz jadłospis na tydzień i liczysz składniki.",
+   "Po południu warsztat w szkole albo test nowego produktu w laboratorium."
+  ],
+  "growth": [
+   "stażysta w poradni albo w zakładzie spożywczym",
+   "dietetyk albo technolog żywności",
+   "własny gabinet, kierownik jakości albo ekspert żywienia"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "średnia",
+   "C": "średnia"
+  },
+  "experiment": "Przez tydzień zapisuj, co jesz, i porównaj z talerzem zdrowego żywienia (strona NCEZ). Napisz, co byś zmienił.",
+  "related": [
+   "farmacja",
+   "sport",
+   "laboratorium"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "weterynaria",
+  "name": "Weterynaria, zwierzęta i rolnictwo",
+  "cluster": "przyroda",
+  "field": "BIO",
+  "interests": {
+   "ana": 60,
+   "tec": 65,
+   "spo": 50,
+   "twr": 20,
+   "prz": 40,
+   "sys": 50
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 0,
+   "ruch": 2,
+   "konkret": 2,
+   "decyzje": 1,
+   "zmiana": 1,
+   "projekty": -1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "pomaganie",
+   "pewnosc",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "odpowiedzialnosc",
+   "spokoj",
+   "dokladnosc",
+   "kondycja",
+   "ciekawosc"
+  ],
+  "roles": "lekarz weterynarii, zootechnik, specjalista hodowli, doradca rolniczy, inspektor weterynaryjny, rolnik z wykształceniem",
+  "whoYouHelp": "Zwierzęta i ich właściciele, gospodarstwa, które produkują żywność, i wszyscy, którzy chcą jeść zdrowo i bezpiecznie.",
+  "whatYouGet": "Praca z żywymi zwierzętami, często na zewnątrz, w klinice albo w gospodarstwie. Weterynaria to długie i trudne studia (5,5 roku), ale pracy nie brakuje.",
+  "force": "bezpieczenstwo",
+  "whyNeeded": "Bezpieczna żywność i zdrowe zwierzęta to sprawa całego kraju; brakuje lekarzy weterynarii na wsi.",
+  "dayInLife": [
+   "Rano przyjęcia w klinice: szczepienia, badania, opatrunki.",
+   "W południe wyjazd do gospodarstwa albo stadniny.",
+   "Po południu wyniki badań i telefony od właścicieli."
+  ],
+  "growth": [
+   "student na praktykach w klinice i gospodarstwach",
+   "lekarz weterynarii albo zootechnik",
+   "własna klinika, specjalista albo inspektor"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "wysoka"
+  },
+  "experiment": "Zgłoś się na jeden dzień jako wolontariusz do schroniska dla zwierząt (w Krakowie: KTOZ) i zapisz, co cię zaskoczyło.",
+  "related": [
+   "woda",
+   "laboratorium",
+   "morze"
+  ],
+  "languages": [
+   "en"
+  ]
+ },
+ {
+  "id": "geografia",
+  "name": "Geografia, przestrzeń i planowanie",
+  "cluster": "przyroda",
+  "field": "BUD",
+  "interests": {
+   "ana": 70,
+   "tec": 55,
+   "spo": 45,
+   "twr": 40,
+   "prz": 35,
+   "sys": 75
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 0,
+   "ruch": 1,
+   "konkret": 0,
+   "decyzje": 0,
+   "zmiana": 1,
+   "projekty": 1,
+   "wspolpraca": 0
+  },
+  "values": [
+   "wplyw",
+   "niezaleznosc",
+   "czas"
+  ],
+  "strengths": [
+   "orientacja",
+   "logika",
+   "ciekawosc",
+   "dokladnosc",
+   "szybka_nauka"
+  ],
+  "roles": "geograf, specjalista GIS i map cyfrowych, planista w urzędzie miasta, geolog, analityk klimatu, specjalista turystyki",
+  "whoYouHelp": "Miasta i gminy, które planują drogi, osiedla i parki; firmy, które potrzebują map i danych o terenie.",
+  "whatYouGet": "Łączysz pracę w terenie z mapami i danymi na komputerze. Umiejętność GIS jest bardzo poszukiwana.",
+  "force": "energia",
+  "whyNeeded": "Zmiana klimatu, powodzie i rosnące miasta: ktoś musi zaplanować, gdzie budować, a gdzie zostawić zieleń.",
+  "dayInLife": [
+   "Rano pomiary w terenie albo wizja lokalna nowego osiedla.",
+   "W południe mapa w GIS: gdzie jest ryzyko powodzi.",
+   "Po południu spotkanie w urzędzie o planie zagospodarowania."
+  ],
+  "growth": [
+   "stażysta w urzędzie albo firmie GIS",
+   "geograf, analityk GIS, planista",
+   "kierownik planowania, ekspert klimatu albo własna firma"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "experiment": "Otwórz Geoportal (geoportal.gov.pl) i znajdź swoją okolicę na starej i nowej mapie. Opisz, co się zmieniło przez 50 lat.",
+  "related": [
+   "architektura",
+   "woda",
+   "turystyka"
+  ],
+  "languages": [
+   "en"
+  ]
  }
 ]

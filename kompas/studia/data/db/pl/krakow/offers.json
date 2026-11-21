@@ -2446,7 +2446,8 @@
   "durationYears": 3,
   "campus": "uek",
   "cards": [
-   "architektura"
+   "architektura",
+   "geografia"
   ],
   "requires": {
    "countFrom": [
@@ -3023,5 +3024,315 @@
   "sourceId": "otou-krk-filozofia",
   "url": "https://filozofia.uj.edu.pl",
   "next": "etyka AI, media, HR, nauczanie, badania; albo magisterskie"
+ },
+ {
+  "id": "uj-dietetyka",
+  "name": "Dietetyka",
+  "institution": "Uniwersytet Jagielloński, Collegium Medicum",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "ujcm-zdrowie",
+  "cards": [
+   "zywienie"
+  ],
+  "field": "MED",
+  "requires": {
+   "extended": [
+    "biologia",
+    "chemia"
+   ],
+   "note": "biologia i chemia; UJ liczy tylko poziom rozszerzony; 60 bezpłatnych miejsc"
+  },
+  "status": "check",
+  "sourceId": "otou-uj-dietetyka",
+  "url": "https://rekrutacja.cm-uj.krakow.pl",
+  "next": "poradnie, szpitale, sport, edukacja zdrowotna; albo magisterskie"
+ },
+ {
+  "id": "urk-dietetyka",
+  "name": "Dietetyka",
+  "institution": "Uniwersytet Rolniczy w Krakowie, Wydział Technologii Żywności",
+  "kind": "programme",
+  "level": "inżynier",
+  "durationYears": 3.5,
+  "campus": "ur",
+  "cards": [
+   "zywienie"
+  ],
+  "field": "MED",
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-urk-dietetyka",
+  "url": "https://rekrutacja.urk.edu.pl",
+  "next": "poradnie, zakłady żywienia, gastronomia, sport; albo magisterskie"
+ },
+ {
+  "id": "urk-technologia-zywnosci",
+  "name": "Technologia żywności i żywienie człowieka",
+  "institution": "Uniwersytet Rolniczy w Krakowie, Wydział Technologii Żywności",
+  "kind": "programme",
+  "level": "inżynier",
+  "durationYears": 3.5,
+  "campus": "ur",
+  "cards": [
+   "zywienie"
+  ],
+  "field": "MED",
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, matematyka; długość sprawdź na stronie URK"
+  },
+  "status": "check",
+  "sourceId": "otou-urk-przedmioty",
+  "url": "https://rekrutacja.urk.edu.pl",
+  "next": "zakłady spożywcze, kontrola jakości, laboratoria żywności"
+ },
+ {
+  "id": "urk-weterynaria",
+  "name": "Weterynaria",
+  "institution": "Uniwersytet Rolniczy w Krakowie, Uniwersyteckie Centrum Medycyny Weterynaryjnej",
+  "kind": "programme",
+  "level": "jednolite magisterskie",
+  "durationYears": 5.5,
+  "campus": "ur",
+  "cards": [
+   "weterynaria"
+  ],
+  "field": "BIO",
+  "requires": {
+   "must": [
+    "biologia",
+    "chemia",
+    "matematyka"
+   ],
+   "note": "biologia, chemia, matematyka oraz łacina albo język obcy"
+  },
+  "status": "sourced",
+  "sourceId": "otou-krk-weterynaria",
+  "url": "https://rekrutacja.urk.edu.pl",
+  "next": "kliniki dla zwierząt, inspekcja weterynaryjna, hodowla, badania"
+ },
+ {
+  "id": "urk-zootechnika",
+  "name": "Zootechnika",
+  "institution": "Uniwersytet Rolniczy w Krakowie, Wydział Hodowli i Biologii Zwierząt",
+  "kind": "programme",
+  "level": "inżynier",
+  "durationYears": 3.5,
+  "campus": "ur",
+  "cards": [
+   "weterynaria"
+  ],
+  "field": "BIO",
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "geografia",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "język obcy albo łacina oraz jeden z: biologia, chemia, geografia, informatyka, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-urk-zootechnika",
+  "url": "https://rekrutacja.urk.edu.pl",
+  "next": "hodowla zwierząt, żywienie zwierząt, doradztwo; albo magisterskie"
+ },
+ {
+  "id": "urk-rolnictwo",
+  "name": "Rolnictwo",
+  "institution": "Uniwersytet Rolniczy w Krakowie, Wydział Rolniczo-Ekonomiczny",
+  "kind": "programme",
+  "level": "inżynier",
+  "durationYears": 3.5,
+  "campus": "ur",
+  "cards": [
+   "weterynaria"
+  ],
+  "field": "BIO",
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "geografia",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, geografia, matematyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-urk-rolnictwo",
+  "url": "https://rekrutacja.urk.edu.pl",
+  "next": "gospodarstwo, doradztwo rolnicze, przetwórstwo, agencje rolne; albo magisterskie"
+ },
+ {
+  "id": "uj-ggp",
+  "name": "Geografia i gospodarka przestrzenna",
+  "institution": "Uniwersytet Jagielloński, Wydział Geografii i Geologii",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wgg",
+  "cards": [
+   "geografia",
+   "turystyka"
+  ],
+  "field": "BUD",
+  "requires": {
+   "extended": [
+    "geografia"
+   ],
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "historia",
+    "informatyka",
+    "matematyka",
+    "polski",
+    "angielski",
+    "niemiecki"
+   ],
+   "count": 1,
+   "note": "geografia oraz jeden z długiej listy (m.in. biologia, chemia, fizyka, historia, informatyka, języki, matematyka); ścieżki: geografia fizyczna, społeczno-ekonomiczna, gospodarka przestrzenna, turystyka"
+  },
+  "status": "sourced",
+  "sourceId": "otou-uj-ggp",
+  "url": "https://geo.uj.edu.pl",
+  "next": "urzędy, planowanie, GIS, turystyka; albo magisterskie"
+ },
+ {
+  "id": "uken-geografia",
+  "name": "Geografia",
+  "institution": "Uniwersytet Komisji Edukacji Narodowej, Instytut Geografii",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uken",
+  "cards": [
+   "geografia"
+  ],
+  "field": "BUD",
+  "requires": {
+   "must": [
+    "geografia"
+   ],
+   "note": "geografia oraz dowolny przedmiot; długość i adres instytutu sprawdź na stronie UKEN"
+  },
+  "status": "check",
+  "sourceId": "otou-uken-geografia",
+  "url": "https://www.uken.krakow.pl",
+  "next": "szkoła (nauczyciel geografii), urzędy, GIS, turystyka; albo magisterskie"
+ },
+ {
+  "id": "uj-geologia",
+  "name": "Geologia",
+  "institution": "Uniwersytet Jagielloński, Wydział Geografii i Geologii",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wgg",
+  "cards": [
+   "geografia"
+  ],
+  "field": "BUD",
+  "requires": {
+   "countFrom": [
+    "biologia",
+    "chemia",
+    "fizyka",
+    "geografia",
+    "informatyka",
+    "matematyka"
+   ],
+   "count": 1,
+   "note": "jeden z: biologia, chemia, fizyka, geografia, informatyka, matematyka oraz drugi przedmiot (lista ucięta w źródle, sprawdź na stronie UJ)"
+  },
+  "status": "check",
+  "sourceId": "otou-uj-geologia",
+  "url": "https://geo.uj.edu.pl",
+  "next": "geologia inżynierska, surowce, ochrona środowiska; albo magisterskie"
+ },
+ {
+  "id": "awf-turystyka",
+  "name": "Turystyka i rekreacja",
+  "institution": "Akademia Wychowania Fizycznego, Wydział Turystyki i Rekreacji",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "awf",
+  "cards": [
+   "turystyka",
+   "sport"
+  ],
+  "field": "TUR",
+  "requires": {
+   "note": "język obcy oraz dowolny przedmiot; bez rozszerzeń"
+  },
+  "status": "sourced",
+  "sourceId": "otou-awf-przedmioty",
+  "url": "https://esr.awf.krakow.pl",
+  "next": "biura podróży, hotele, animacja czasu wolnego, rekreacja; albo magisterskie"
+ },
+ {
+  "id": "awf-turystyka-przygodowa",
+  "name": "Turystyka przygodowa",
+  "institution": "Akademia Wychowania Fizycznego, Wydział Turystyki i Rekreacji",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "awf",
+  "cards": [
+   "turystyka",
+   "sport"
+  ],
+  "field": "TUR",
+  "requires": {
+   "note": "zasady jak na wydziale turystyki AWF; przedmioty sprawdź na esr.awf.krakow.pl"
+  },
+  "status": "check",
+  "sourceId": "otou-awf-zasady-2027",
+  "url": "https://esr.awf.krakow.pl",
+  "next": "przewodnik, organizator wypraw, instruktor, turystyka górska"
+ },
+ {
+  "id": "awf-trener",
+  "name": "Trener zdrowia i sprawności fizycznej",
+  "institution": "Akademia Wychowania Fizycznego, Wydział Wychowania Fizycznego i Sportu",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "awf",
+  "cards": [
+   "sport",
+   "zywienie"
+  ],
+  "field": "SPO",
+  "requires": {
+   "note": "matura z trzech wybranych przedmiotów (podstawa albo rozszerzenie), m.in. polski i język obcy; pełną listę sprawdź na esr.awf.krakow.pl"
+  },
+  "status": "check",
+  "sourceId": "otou-awf-trener",
+  "url": "https://esr.awf.krakow.pl",
+  "next": "trener personalny, kluby fitness, rekreacja, praca z seniorami"
  }
 ]

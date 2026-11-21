@@ -36,8 +36,8 @@ for o in off:
 miss=[o['id'] for o in off if o['id'] not in S]; assert not miss,miss
 sc=collections.Counter(S[o['id']] for o in off)
 # own Studia cards by axis
-S_card={'MED':['medycyna','pielegniarstwo','rehabilitacja','farmacja'],'PSY':['psychologia','ue','ukraina','spoleczenstwo'],'EDU':['mowa','edukacja'],'INF':['software','cyber','dane-medyczne'],
-'ENG':['energetyka','atom','automatyka','inz-biomed','lotnictwo','mechanika'],'BUD':['architektura'],'SCI':['laboratorium','nauka'],'BIO':['woda','morze'],'ECO':['finanse','handel','logistyka'],'LAW':['prawo'],'LNG':['jezyki'],'HUM':['historia-sztuki','historia'],
+S_card={'MED':['medycyna','pielegniarstwo','rehabilitacja','farmacja','zywienie'],'PSY':['psychologia','ue','ukraina','spoleczenstwo'],'EDU':['mowa','edukacja'],'INF':['software','cyber','dane-medyczne'],
+'ENG':['energetyka','atom','automatyka','inz-biomed','lotnictwo','mechanika'],'BUD':['architektura','geografia'],'SCI':['laboratorium','nauka'],'BIO':['woda','morze','weterynaria'],'ECO':['finanse','handel','logistyka'],'LAW':['prawo'],'LNG':['jezyki'],'HUM':['historia-sztuki','historia'],
 'MEDIA':['media','media-cyfrowe'],'ART':['projektowanie','sztuka-scena'],'SPO':['sport'],'SEC':['sluzby','obronnosc'],'TUR':['turystyka']}
 # --- Liceum
 cardax={'biologia':['MED'],'chemia':['SCI'],'fizyka':['SCI'],'dane-ai':['INF','SCI'],'programowanie':['INF'],'cyber':['INF'],'elektronika':['ENG'],'srodowisko':['BIO'],

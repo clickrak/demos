@@ -897,7 +897,7 @@ fits the focus, take the first "next week" item that does.
 | v2.8 | Questions + functionality (wave 1) | Activity and situation cards, test kids and reachability test for the 4 cards | Opus | pushed 21 Nov 2026 as 2.8.0 |
 | v2.9 | Data (wave 2) | Cards Społeczeństwo/polityka/praca socjalna, Nauka i badania, Sztuka/muzyka/scena, Historia/kultura/dziedzictwo; UJ thresholds (item 5) | Opus + Sonnet | pushed 21 Nov 2026 as 2.9.0 (Szymon: "next wave"); UJ thresholds moved to v2.11 |
 | v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | pushed 21 Nov 2026 as 2.10.0 |
-| v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | planned |
+| v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | pushed 21 Nov 2026 as 2.11.0 |
 | v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | planned |
 | v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards | Opus | planned |
 | v3.1–v3.3 | UI/UX, functionality (later) | Strengths as the foundation (10), sources page (7), links in Kierunki (11), travel from the centre (12), points estimate (8), parent summary (9) | Opus + Sonnet | after v3.0 |
@@ -1369,6 +1369,16 @@ at the end and paste the table in "Coverage waves". One task = one commit.
    (geography, spatial planning, geoinformation). Thin cards: add the missing Sport and Turystyka offers (AWF and UEK courses, 3 or more each).
 2. **SW3b (Sonnet) Offers** as above; **SW3c (Sonnet)** demand and pay.
 3. **SR2.11 (Opus) Review and release v2.11.0.**
+
+**Done in 2.11.0 (21 Nov 2026, evening).** 42 cards, 124 offers.
+- Cards: `zywienie` (MED), `weterynaria` (BIO), `geografia` (BUD; `uek-gospodarka-przestrzenna` also points to it).
+- Offers (12 new, all with `url` and `field`): UJ Dietetyka (`check`: campus), URK Dietetyka, URK Technologia żywności (`check`: length);
+  URK Weterynaria (5,5 roku), Zootechnika, Rolnictwo; UJ Geografia i gospodarka przestrzenna, UKEN Geografia (`check`), UJ Geologia
+  (`check`: second subject cut off); AWF Turystyka i rekreacja, Turystyka przygodowa (`check`), Trener zdrowia i sprawności fizycznej (`check`).
+- New campus `uj-wgg` (ul. Gronostajowa 3a); URK offers use the main URK address for now. 13 sources.
+- Radar (Studia): every field at level 3 or 4 (Sport 2 → 3, Turystyka 2 → 3, Budownictwo 4 → 7 items). Liceum still has
+  Bezpieczeństwo and Turystyka at 1 (Liceum waves, Part 1).
+- Not done: demand and pay for wave 2 and 3 cards; SD5 UJ thresholds (UJ results pages not opened in this run) → v3.0 list.
 
 **v2.12 – Wave 3 Questions and functionality (night of 27 Nov)**
 1. **SQ4a (Opus)** activities (cooking and nutrition, animals and plants already a26 and a29: check reach; maps and places), 1 situation,
