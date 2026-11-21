@@ -109,8 +109,10 @@ for (const o of data.opportunities) {
 const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'], P8: ['artystyczny'], P9: ['przyrodniczy', 'spoleczny'], P10: ['humanistyczny'], P11: ['humanistyczny'], P12: ['inzynierski', 'scisly'], P13: ['ekonomiczny'] };
 // CD1 (v2.10): each new direction is in the top 3 for its test kid, and its compass profile is N, NNE or NNW.
 const DIRKID = { P8: 'sztuka', P9: 'zdrowie', P10: 'prawo', P11: 'media', P12: 'mechanika', P13: 'transport' };
+const northCount = {};
 for (const p of j('../liceum/data/personas.json')) {
   const P = profilesFor(scoreLiceum(p.answers, forKid(p.answers)), forKid(p.answers));
+  northCount[P[0].profile.id] = (northCount[P[0].profile.id] || 0) + 1;
   console.log(`Kompas ${p.id}:`, P.map(x => `${x.compass.pos} ${x.profile.id} ${Math.round(x.fit)}`).join(' · '));
   if (NORTH[p.id] && !NORTH[p.id].includes(P[0].profile.id)) fail('compass north for', p.id, 'is', P[0].profile.id);
   if (!P[0].classes.length) fail('north profile without classes for', p.id);
@@ -120,6 +122,8 @@ for (const p of j('../liceum/data/personas.json')) {
     if (!P.slice(0, 3).some(x => x.profile.areas.includes(d))) fail('CD1: profile of', d, 'not N/NNE/NNW for', p.id);
   }
 }
+// CD2 (v2.11): no compass profile is North for more than a third of the test kids.
+{ const n = j('../liceum/data/personas.json').length; for (const [id, c] of Object.entries(northCount)) if (c > Math.ceil(n / 3)) fail('CD2: profile north for too many kids', id, c, 'of', n); }
 // Every school in every town: a town, an address, a map point inside that town, sources and links that resolve.
 const ids = new Set();
 for (const s of allSchools) {
