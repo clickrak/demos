@@ -227,11 +227,11 @@ Kraków schools without `www` in ranking order); K1-7 (Kraków class check) stil
 
 | Area | Schools in DB / known | Public missing | Missing `www` | Classes "check" | No threshold | No `scored` | No `extended` | Old sources (> 12 months) |
 |---|---|---|---|---|---|---|---|---|
-| Kraków | 51 / 90 (1 waiting: `tm16`) | 10 technika (TPM 20, PGNiG, TEH 5, TG 11, TIŚ 13, TGH 10, TO 18, T 2, TEE 23, TPS 22) + 3 state art/music schools (A2, v2.12) | 31 | 143 of 246 | 38 | 96 | 2 | 0 |
+| Kraków | 51 / 90 | 10 technika (TPM 20, PGNiG, TEH 5, TG 11, TIŚ 13, TGH 10, TO 18, T 2, TEE 23, TPS 22) + 3 state art/music schools (A2, v2.12) | 31 | 143 of 246 | 38 | 96 | 2 | 0 |
 | Tychy | 10 / 13 | 0 | 1 (`ty-t6`) | 42 of 42 | 26 (+16 from licea-progi.pl to confirm) | 33 | 6 | 1 (`ty-informator-2025`) |
 | GZM other towns | 5 / 197 | 158 (G3 and new towns after v3.0) | 0 | 36 of 36 | 13 | 27 | 1 | 0 |
 
-`tm16` waits for the "Geocode schools" Action (map point, Kraków travel times). Radar (Liceum) below level 3: Bezpieczeństwo i obronność (1),
+After the push the "Geocode schools" Action set `tm16`'s map point and Kraków travel times (commit 79d0d1c); 0 waiting. Radar (Liceum) below level 3: Bezpieczeństwo i obronność (1),
 Turystyka i usługi (1) → wave 2 (v2.12). Studia stale sources (`uj-kampus`, `gus-2020`, `gus-2024`, `gus-sw-2024-25` …) belong to Part 3.
 
 ## Major v3.0 – plan (agreed 2026-11-21)
