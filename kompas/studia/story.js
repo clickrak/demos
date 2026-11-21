@@ -163,7 +163,7 @@ export function storyHtml(ctx) {
   <div class="sprog" id="sprog"></div>
   <header class="sbar">
     <button class="pill" data-go="refleksja">← Pytania</button>
-    <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-droga', 'Droga'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plan', 'Plan'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
+    <nav class="snav" aria-label="Części wyników">${[['s-kompas', 'Kompas'], ['s-kierunki', 'Kierunki'], ['s-droga', 'Droga'], ['s-deklaracja', 'Deklaracja'], ['s-krakow', 'Kraków'], ['s-przyszlosc', 'Przyszłość'], ['s-plan', 'Plan'], ['s-plik', 'Plik']].map(([id, t]) => `<a href="#/kompas" data-jump="${id}">${t}</a>`).join('')}</nav>
     <span class="sbar-r"><button class="pill icon" data-skintoggle aria-label="Zmień wygląd"></button><button class="pill icon" data-themetoggle aria-label="Zmień motyw"></button><button class="pill strong" data-export="download">Zapisz plik</button></span>
   </header>
 
@@ -219,7 +219,8 @@ export function storyHtml(ctx) {
         <div class="legend">${lines.map(l => `<span>${badge(l)} ${esc(l.name)}</span>`).join('')}</div>`, true)}
       ${step(1, `<span class="kicker">Przystanek 1 · do 7 lutego 2027</span><h3>Deklaracja maturalna</h3>
         <p>Do tego dnia możesz zmienić przedmioty rozszerzone. Potem już nie.</p>
-        ${warnLines.length ? `<div class="warnbox">${warnLines.map(l => `<p>${badge(l)} <b>${esc(l.name)}</b>: ${esc(l.chk.soft ? 'warto dopisać rozszerzenie: ' + l.chk.soft : l.chk.blocked[0] || 'wymaga zmiany w maturze')}</p>`).join('')}</div>` : '<p class="ok">Twoje linie nie wymagają zmian w deklaracji.</p>'}`)}
+        ${warnLines.length ? `<div class="warnbox">${warnLines.map(l => `<p>${badge(l)} <b>${esc(l.name)}</b>: ${esc(l.chk.soft ? 'warto dopisać rozszerzenie: ' + l.chk.soft : l.chk.blocked[0] || 'wymaga zmiany w maturze')}</p>`).join('')}</div>` : '<p class="ok">Twoje linie nie wymagają zmian w deklaracji.</p>'}
+        <p class="small"><a href="#/kompas" data-jump="s-deklaracja">Które rozszerzenie otwiera najwięcej? ↓</a></p>`)}
       ${step(2, `<span class="kicker">Przystanek 2 · marzec–kwiecień</span><h3>Dni otwarte</h3><p>Zobacz uczelnie na żywo: ${insts.map(esc).join(', ')}. Jedno popołudnie powie więcej niż strona internetowa.</p>
         <p class="small muted">Mini-eksperyment na 30 dni: ${esc(s.best[0].card.experiment)}</p>`)}
       ${step(3, `<span class="kicker">Przystanek 3 · maj 2027</span><h3>Matura</h3><p>To, co liczą uczelnie, to głównie przedmioty rozszerzone. UJ liczy tylko poziom rozszerzony.</p>`)}
@@ -228,6 +229,8 @@ export function storyHtml(ctx) {
       ${step(6, `<span class="kicker">Koniec linii</span><h3>Dyplom i pierwsza praca</h3>${lines.map(l => `<p class="small">${badge(l)} ok. <b>${l.end}</b>${l.o.next ? ': ' + esc(l.o.next) : ''}</p>`).join('')}`)}
     </div>
   </section>
+
+  <section class="band" id="s-deklaracja"><div class="wrap" id="declwrap">${ctx.declHtml()}</div></section>
 
   <section class="band alt" id="s-krakow">
     <div class="wrap two">

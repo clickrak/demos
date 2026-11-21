@@ -1,5 +1,5 @@
 // Builds the markdown export. Everything happens in the browser; nothing is uploaded.
-import { provenStrengths, proofText, pathSteps, planFocus, planItems } from './scoring.js';
+import { provenStrengths, proofText, pathSteps, planFocus, planItems, declarationHelp, subjectFit } from './scoring.js';
 
 const MONTHS = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
 // "GUS, październik 2024" from a source's asOf ("2024-10"), so the words always match the data.
@@ -71,6 +71,27 @@ export function buildMarkdown(answers, result, data, today) {
     for (const it of planItems(focus, data)) L.push(`- [${checks[`plan:${focus.key}:${it.id}`] ? 'x' : ' '}] ${it.when}: ${it.text}`);
     L.push('');
     if (fo) { L.push('## Moja droga w czasie'); pathSteps(fo, camp(fo.campus)?.name).forEach(s => L.push(`- ${s}`)); L.push(''); }
+  }
+
+  // Starred offers (v2.2) and the declaration helper: which one extra extended subject opens most of them.
+  const stars = (answers.stars || []).map(id => data.offers.find(o => o.id === id)).filter(Boolean);
+  const ext = answers.rozszerzenia || [];
+  const FIT = { 3: 'pasuje w pełni', 2: 'pasuje częściowo', 1: 'żaden mój przedmiot nie jest na liście', 0: 'wymaga zmiany w maturze' };
+  if (stars.length) {
+    L.push('## Moje gwiazdki');
+    for (const o of stars) { const f = subjectFit(o, ext); L.push(`- ${o.name}, ${o.institution} · ${o.durationYears} ${o.durationYears < 5 ? 'lata' : 'lat'} · ${f === null ? 'nie zależy od rozszerzeń' : FIT[f]} · wymagania: ${o.requires?.note || '-'}`); }
+    L.push('');
+  }
+  if (ext.length) {
+    const h = declarationHelp(result, answers, data);
+    const name = o => `${o.name} (${o.institution})`;
+    L.push('## Deklaracja maturalna: podpowiedź');
+    L.push(`Liczone dla: ${h.basis === 'stars' ? `moich gwiazdek (${h.total})` : `kierunków z moich opcji (${h.total})`}. Moje rozszerzenia: ${ext.join(', ')}.`);
+    L.push(`Pasują w pełni: ${h.full.length} · częściowo: ${h.part.length} · słabo: ${h.weak.length} · wymagają zmiany: ${h.closed.length} · nie zależą od rozszerzeń: ${h.free.length}`);
+    for (const g of h.gains) L.push(`- + ${g.subject}: ${g.opens.length ? `otwiera ${g.opens.map(name).join('; ')}` : ''}${g.opens.length && g.better.length ? ' · ' : ''}${g.better.length ? `wzmacnia ${g.better.length}` : ''}`);
+    if (!h.gains.length) L.push('- Żadne jedno dodatkowe rozszerzenie nic tu nie zmienia.');
+    if (h.keep.length) L.push(`Nie skreślać: ${h.keep.map(k => `${k.subject} (liczy się w ${k.needed.length})`).join(', ')}`);
+    L.push(`To podpowiedź, nie decyzja. Deklarację można zmienić do ${data.config.declarationDeadline}.`, '');
   }
 
   L.push('## Moje refleksje');

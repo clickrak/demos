@@ -1,6 +1,7 @@
 // Runs the test personas through the scoring: node kompas/tests/run.mjs
 import { readFileSync } from 'node:fs';
-import { scoreAll } from '../core/scoring.js';
+import { scoreAll, subjectFit, declarationHelp } from '../core/scoring.js';
+import { buildMarkdown, parseSaved } from '../core/export.js';
 
 const j = p => JSON.parse(readFileSync(new URL(p, import.meta.url)));
 const data = {
@@ -65,4 +66,32 @@ for (const p of j('../studia/data/personas.json')) {
   console.log('  ' + (okTop && okNot ? 'PASS' : 'FAIL'));
   if (!(okTop && okNot)) bad++;
 }
+// Declaration helper (v2.2): subject fit scale, the best extra subject, stars, private offers, export round trip.
+const ok = (cond, msg) => { if (!cond) { console.log('FAIL declaration:', msg); bad++; } };
+const off = id => data.offers.find(o => o.id === id);
+ok(subjectFit(off('ujcm-lekarski'), ['biologia']) === 0, 'medicine without chemistry is closed');
+ok(subjectFit(off('ujcm-lekarski'), ['biologia', 'chemia', 'fizyka']) === 3, 'medicine with biology, chemistry, physics fits fully');
+ok(subjectFit(off('ujcm-lekarski'), ['biologia', 'chemia']) === 1, 'medicine without maths or physics: none from the list');
+ok(subjectFit(off('uj-psychologia'), ['polski']) === 2, 'psychology counts two from the list: one is part');
+ok(subjectFit(off('uj-psychologia'), ['polski', 'biologia']) === 3, 'psychology with two from the list fits fully');
+ok(subjectFit(off('ksm-higienistka'), []) === null, 'no-matura school does not depend on subjects');
+ok(subjectFit(off('asp-wzornictwo'), ['matematyka']) === null, 'exam-only school does not depend on subjects');
+const pB = j('../studia/data/personas.json').find(p => p.id === 'B');
+const hB = declarationHelp(scoreAll(pB.answers, data), pB.answers, data);
+ok(hB.basis === 'options' && hB.gains[0]?.subject === 'chemia' && hB.gains[0].opens.some(o => o.id === 'ujcm-farmacja'), 'persona B: chemistry opens pharmacy');
+ok(hB.keep[0]?.subject === 'matematyka', 'persona B: keep maths first');
+ok(hB.gains.every(g => !pB.answers.rozszerzenia.includes(g.subject)), 'never suggests a subject he already takes');
+const aS = { ...structuredClone(pB.answers), stars: ['ujcm-lekarski', 'agh-informatyka', 'gone-offer'] };
+const hS = declarationHelp(scoreAll(aS, data), aS, data);
+ok(hS.basis === 'stars' && hS.total === 2, 'stars are the basis and unknown ids are skipped');
+ok(hS.needMore.some(o => o.id === 'ujcm-lekarski'), 'medicine needs two new subjects for maths + physics');
+const aP = { ...structuredClone(pB.answers), privateOk: 'nie', stars: ['uafm-lekarski', 'agh-informatyka'] };
+ok(declarationHelp(scoreAll(aP, data), aP, data).total === 1, 'private offers he ruled out are left out');
+const aE = { ...structuredClone(pB.answers), rozszerzenia: [] };
+ok(Array.isArray(declarationHelp(scoreAll(aE, data), aE, data).gains), 'no extended subjects does not crash');
+const md = buildMarkdown(aS, scoreAll(aS, data), { ...data, scenarios: j('../studia/data/scenarios.json') }, '2026-11-21');
+ok(md.includes('## Moje gwiazdki') && md.includes('## Deklaracja maturalna: podpowiedź'), 'export lists stars and the declaration hint');
+ok(JSON.stringify(parseSaved(md).answers.stars) === JSON.stringify(aS.stars), 'stars survive save and load');
+console.log(`\ndeclaration helper: persona B best extra subject ${hB.gains[0]?.subject}, stars basis ${hS.total} offers`);
+
 process.exit(bad ? 1 : 0);

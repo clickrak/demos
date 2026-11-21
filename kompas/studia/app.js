@@ -1,5 +1,5 @@
-// Kompas Studia v2.1.0. Screens, navigation, results, export.
-import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText } from '../core/scoring.js';
+// Kompas Studia v2.2.0. Screens, navigation, results, export.
+import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
@@ -13,7 +13,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const today = () => new Date().toISOString().slice(0, 10);
 const blank = () => ({ name: '', certainty: null, direction: null, rozszerzenia: [], jezyki: { pl: 'bardzo dobry' }, sport: '',
   sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [], scenario: null, neededWhere: null, homePlaces: [],
-  studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '', plan: null, checks: {} });
+  studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '', plan: null, checks: {}, stars: [] });
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
@@ -586,11 +586,29 @@ function thresholdHtml(o) {
   const src = data.sources.find(x => x.id === t.sourceId);
   return `<div class="small muted">W ${t.year} ostatnia przyjęta osoba: ${t.points} z ${t.max} pkt${t.round ? ` (${esc(t.round)})` : ''}. To informacja, nie wymóg.${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</div>`;
 }
+// Star an offer: kept in his file (A.stars) and listed in the export. Toggled in place, so open cards stay open.
+const starred = id => (A.stars || []).includes(id);
+const starBtn = o => `<button class="starbtn" data-star="${esc(o.id)}" aria-pressed="${starred(o.id)}" aria-label="${starred(o.id) ? 'Usuń gwiazdkę' : 'Oznacz gwiazdką'}: ${esc(o.name)}, ${esc(shortInst(o.institution))}" title="Oznacz gwiazdką">${starred(o.id) ? '★' : '☆'}</button>`;
+function toggleStar(id) {
+  A.stars = A.stars || [];
+  const i = A.stars.indexOf(id);
+  i >= 0 ? A.stars.splice(i, 1) : A.stars.push(id);
+  const on = i < 0, o = data.offers.find(x => x.id === id);
+  document.querySelectorAll(`[data-star="${CSS.escape(id)}"]`).forEach(b => {
+    b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★' : '☆';
+    b.setAttribute('aria-label', `${on ? 'Usuń gwiazdkę' : 'Oznacz gwiazdką'}: ${o ? `${o.name}, ${shortInst(o.institution)}` : id}`);
+    b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+  });
+  document.querySelectorAll('.starcount').forEach(el => { el.textContent = String(A.stars.length); });
+  save();
+  const w = document.getElementById('declwrap');
+  if (w) w.innerHTML = declarationHtml(scoreAll(A, data));
+}
 function offerHtml(o, chk) {
   const c = campus(o.campus);
   const route = routeUrl(c);
   return `<div class="offer">
-    <b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
+    ${starBtn(o)}<b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
     <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">Wymagania: ${esc(o.requires.note || '-')}</div>
@@ -953,6 +971,47 @@ function vRoadSvg(o) {
   return g + '</svg>';
 }
 
+// ---- Deklaracja maturalna: which one extra extended subject opens most of what he cares about (v2.2)
+const FIT_TXT = { 3: 'pasuje w pełni', 2: 'pasuje częściowo', 1: 'żaden twój przedmiot nie jest na liście', 0: 'wymaga zmiany w maturze' };
+const offName = o => `${o.name} (${shortInst(o.institution)})`;
+const nList = (list, max = 4) => esc(list.slice(0, max).map(offName).join(', ') + (list.length > max ? ` i ${list.length - max} więcej` : ''));
+// where: 'story' (the scroll page, link jumps to "Kierunki z bliska") or 'report' (the one-page report, link scrolls to "Opcje").
+let declWhere = 'story';
+function declarationHtml(r, where = declWhere) {
+  declWhere = where;
+  const h = declarationHelp(r, A, data), ext = A.rozszerzenia || [];
+  const n = (A.stars || []).length;
+  const link = where === 'story' ? '<button class="linkbtn" data-jump="s-kierunki">Kierunki z bliska</button> (dotknij studiów na drodze)'
+    : '<button class="linkbtn" data-scroll="r-opcje">Opcje</button>';
+  const basis = h.basis === 'stars'
+    ? `Liczę dla twoich gwiazdek (<span class="starcount">${n}</span>). Dodawaj je znakiem ☆ przy studiach w części ${link}.`
+    : `Nie masz jeszcze gwiazdek, więc liczę dla studiów z twoich opcji (${h.total}). Oznacz ☆ te, które cię ciekawią, w części ${link}, a lista się zawęzi.`;
+  if (!ext.length) return `<h2 id="deklaracja">Deklaracja maturalna</h2><div class="card decl"><p>Nie zaznaczyłeś jeszcze przedmiotów rozszerzonych, więc nie ma czego porównać.</p>
+    <div class="actions"><button class="btn" data-go="matura">Zaznacz rozszerzenia</button></div></div>`;
+  const dep = h.full.length + h.part.length + h.weak.length + h.closed.length;
+  const seg = (k, list, cls) => list.length ? `<span class="dseg ${cls}" style="flex:${list.length}" title="${FIT_TXT[k]}: ${list.length}"></span>` : '';
+  const meter = dep ? `<div class="dmeter" aria-hidden="true">${seg(3, h.full, 'f3')}${seg(2, h.part, 'f2')}${seg(1, h.weak, 'f1')}${seg(0, h.closed, 'f0')}</div>` : '';
+  const sum = [[h.full, 'w pełni'], [h.part, 'częściowo'], [h.weak, 'słabo (żaden twój przedmiot nie jest na liście)'], [h.closed, 'wcale (wymagają zmiany)']].filter(([l]) => l.length).map(([l, t]) => `<b>${l.length}</b> ${t}`).join(' · ');
+  const gains = h.gains.length ? `<ol class="dgains">${h.gains.map((g, i) => `<li${i === 0 ? ' class="dbest"' : ''}><b>+ ${esc(g.subject)}</b>
+      ${g.opens.length ? `<span class="small">otwiera ${g.opens.length}: ${nList(g.opens)}</span>` : ''}
+      ${g.better.length ? `<span class="small muted">wzmacnia ${g.better.length}: ${nList(g.better)}</span>` : ''}</li>`).join('')}</ol>`
+    : `<p class="small">Żadne jedno dodatkowe rozszerzenie nic tu nie zmienia. Twoje przedmioty już pasują${h.needMore.length ? ' tam, gdzie da się to zmienić jednym przedmiotem' : ''}.</p>`;
+  const keep = h.keep.length ? `<p class="small"><b>Nie skreślaj:</b> ${h.keep.map(k => `${esc(k.subject)} (liczy się w ${k.needed.length})`).join(', ')}.</p>` : '';
+  const more = h.needMore.length ? `<p class="small muted">Potrzebują co najmniej dwóch nowych rozszerzeń: ${nList(h.needMore, 3)}.</p>` : '';
+  const rows = [...h.full.map(o => [o, 3]), ...h.part.map(o => [o, 2]), ...h.weak.map(o => [o, 1]), ...h.closed.map(o => [o, 0]), ...h.free.map(o => [o, null])];
+  const list = `<details class="dlist"${h.basis === 'stars' ? ' open' : ''}><summary>${h.basis === 'stars' ? 'Twoje gwiazdki' : 'Każdy kierunek z listy'} (${rows.length})</summary><ul>${rows.map(([o, f]) => `<li>${starBtn(o)}<span><b>${esc(o.name)}</b>, ${esc(shortInst(o.institution))}<br>
+      <span class="small ${f === 3 ? '' : 'muted'}">${f === null ? (o.requires?.noMatura ? 'matura niewymagana' : o.requires?.exam ? 'decyduje egzamin wstępny' : 'nie zależy od rozszerzeń (w bazie)') : FIT_TXT[f]} · ${esc(o.requires?.note || '')}</span></span></li>`).join('')}</ul></details>`;
+  return `<h2 id="deklaracja">Deklaracja maturalna: co otwiera najwięcej</h2>
+    <div class="card decl">
+      <p class="small muted">${basis}</p>
+      <p>Twoje rozszerzenia: <b>${esc(ext.join(', '))}</b>.${dep ? ` Pasują do kierunków: ${sum}.` : ''}${h.free.length ? ` <span class="small muted">Nie zależy od rozszerzeń: ${h.free.length}.</span>` : ''}</p>
+      ${meter}
+      <h3>Jedno rozszerzenie więcej</h3>${gains}${keep}${more}${list}
+      <p class="small muted">To podpowiedź z zasad rekrutacji w bazie (głównie 2026), nie decyzja. Każde rozszerzenie to więcej nauki, a liczy się też wynik. Porozmawiaj z wychowawcą. Deklarację zmienisz do ${esc(data.config.declarationDeadline)}.</p>
+      <div class="actions"><button class="btn ghost" data-go="matura">Zmień rozszerzenia</button></div>
+    </div>`;
+}
+
 // ---- Droga przez studia: tram lines, next steps, places
 function vPartPath() {
   if (needResults()) return vResults();
@@ -971,6 +1030,7 @@ function vPartPath() {
   for (const l of lines) { const cp = campus(l.o.campus); if (cp && !seen.has(cp.id)) { seen.add(cp.id); pins.push({ cp, l }); } }
   return `${partHead(PARTS[2], 'Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Do jesieni 2027 wszystkie linie jadą razem, więc przesiadka jest normalna.')}
     <div class="card trammap">${tramMapSvg(lines)}${tramLegend(lines)}</div>
+    <div id="declwrap">${declarationHtml(r, 'report')}</div>
     <h2>Najbliższe kroki</h2><p class="small muted">Odhacz, co już zrobione. Zapisuje się tylko w tej karcie.</p>
     <ul class="checks">${steps.map(([k, d, t]) => `<li><label><input type="checkbox" data-check="${k}" ${A.checks[k] ? 'checked' : ''}><span><b>${d}</b> ${esc(t)}</span></label></li>`).join('')}</ul>
     <h2>Gdzie to jest</h2>
@@ -1045,6 +1105,7 @@ function makeStoryCtx() {
     planHtml: () => planHtml(ctx.r),
     touch: () => save(),
     studyHtml: id => studyHtml(id),
+    declHtml: () => declarationHtml(ctx.r, 'story'),
     transportNote: () => data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : '',
     changes: () => changesSince(ctx.r),
     doubtHtml: () => { const d = data.questions.doubts.find(x => x.id === A.doubt);
@@ -1154,7 +1215,7 @@ function vResults() {
   return `
     <h1>Cały raport</h1><p class="small muted noprint">Wszystko na jednej stronie, gotowe do druku. <button class="linkbtn" data-go="kompas">Wróć do kompasu</button></p>
     ${changesSince(r)}
-    <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
+    <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['deklaracja', 'Deklaracja'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
     <h2 id="r-mocne">Twoje mocne strony</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
     <section class="print-only cutouts"><p class="small">Wytnij karty i połóż je na stole podczas rozmowy.</p><div class="cut">${provenStrengths(A).map(x => `<div class="cutcard"><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span>${esc(proofText(x.proof))}</span></div>`).join('')}</div></section>
     <h2 id="r-drogi">Twoje drogi</h2>
@@ -1175,6 +1236,7 @@ function vResults() {
     ${s.surprise ? cardHtml('Niespodzianka', s.surprise, false, sc) : ''}
     ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
 
+    <div id="declwrap">${declarationHtml(r, 'report')}</div>
     <h2 id="r-linie">Twoje linie w czasie</h2>
     <p class="muted small">Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Wspólne przystanki to przesiadki: do jesieni 2027 wszystkie drogi biegną razem, więc zmiana linii jest normalna. Pomarańczowy przystanek oznacza, że przed 7 lutego coś warto zmienić w deklaracji.</p>
     <div class="card trammap">${tramMapSvg(tramLines(r))}${tramLegend(tramLines(r))}</div>
@@ -1269,6 +1331,7 @@ document.addEventListener('click', e => {
   if (d.pick !== undefined) { pickDirection(d.pick, Number(t.dataset.ang)); return; }
   if (d.goopt) { kierSel = d.goopt; location.hash = '#/w-kierunki'; return; }
   if (d.kier) { kierSel = d.kier; render(); return; }
+  if (d.star) { toggleStar(d.star); return; }
   if (d.flip !== undefined) { t.setAttribute('aria-pressed', String(t.getAttribute('aria-pressed') !== 'true')); return; }
   if (d.set) { // startMin is a number and is never cleared (an empty base would make the commute times start at 0)
     if (d.set === 'startMin') { setA('startMin', Number(d.val)); return; }
@@ -1331,6 +1394,7 @@ function loadFile(text) {
   a.values = (a.values || []).filter(v => has(data.dimensions.values, v) || (missing.push('wartość: ' + v), false));
   for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
   for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push('sytuacja: ' + k); }
+  a.stars = (Array.isArray(a.stars) ? a.stars : []).filter(id => has(data.offers, id) || (missing.push('gwiazdka: ' + id), false));
   if (a.direction && !has(data.opportunities, a.direction)) { missing.push('kierunek: ' + a.direction); a.direction = null; }
   const snap = obj.snapshot || null;
   if (snap) for (const id of [...(snap.best || []), snap.most, snap.surprise].filter(Boolean)) if (!has(data.opportunities, id)) missing.push('opcja: ' + id);

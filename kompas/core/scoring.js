@@ -323,3 +323,61 @@ export function planItems(focus, data) {
   out.push({ id: 'talk', when: 'kiedy chcesz', text: 'Pokaż ten plan komuś, komu ufasz, i zapytaj, co o nim myśli.' });
   return out;
 }
+
+// ---- Declaration helper (Studia v2.2) ---------------------------------------
+// How well his extended subjects fit one offer's subject rules, on a small scale (information, not a prediction):
+// 0 = closed (an extended subject it requires is missing), 1 = none of his extended subjects is on its list,
+// 2 = fits in part (fewer listed subjects than it counts, or the main subject is missing), 3 = fits fully.
+// null = the offer does not depend on extended subjects (no matura, entrance exam only, or no rule in the data).
+export function subjectFit(offer, ext) {
+  const r = offer.requires || {};
+  const hasRule = (r.extended || []).length || r.main || (r.countFrom || []).length;
+  if (r.noMatura || !hasRule) return null;
+  if ((r.extended || []).some(s => !ext.includes(s))) return 0;
+  let fit = 3;
+  if (r.countFrom?.length) {
+    const hit = r.countFrom.filter(s => ext.includes(s)).length;
+    const need = Math.min(r.count || 1, r.countFrom.length);
+    if (!hit) fit = 1; else if (hit < need) fit = 2;
+  }
+  if (r.main && !ext.includes(r.main)) fit = Math.min(fit, 2);
+  return fit;
+}
+
+// Which one extra extended subject opens or strengthens most of the offers he cares about.
+// Targets: his starred offers; with no stars, the offers of the options he was shown (best, most, surprise, quick start).
+// Private offers he ruled out are left out. Nothing here changes the scoring or the order of the options.
+export function declarationHelp(result, answers, data) {
+  const ext = answers.rozszerzenia || [];
+  const stars = (answers.stars || []).filter(id => data.offers.some(o => o.id === id));
+  const s = result.slots;
+  let basis, offers;
+  if (stars.length) { basis = 'stars'; offers = stars.map(id => data.offers.find(o => o.id === id)); }
+  else {
+    basis = 'options';
+    const cards = [...s.best, s.most, s.surprise].filter(Boolean);
+    offers = [...new Map([...cards.flatMap(c => c.offers.map(x => x.offer)), ...(s.quick ? [s.quick.o.offer] : [])].map(o => [o.id, o])).values()];
+  }
+  offers = offers.filter(o => !(o.private && answers.privateOk === 'nie'));
+  const now = offers.map(o => ({ o, fit: subjectFit(o, ext) }));
+  const free = now.filter(x => x.fit === null).map(x => x.o);
+  const dep = now.filter(x => x.fit !== null);
+  const count = f => dep.filter(x => x.fit === f).map(x => x.o);
+  const gains = (data.questions.subjects || []).filter(sub => !ext.includes(sub)).map(sub => {
+    const plus = [...ext, sub], opens = [], better = [];
+    for (const x of dep) {
+      const f = subjectFit(x.o, plus);
+      if (f > x.fit) (x.fit === 0 ? opens : better).push(x.o);
+    }
+    return { subject: sub, opens, better, score: 3 * opens.length + better.length };
+  }).filter(g => g.score > 0).sort((a, b) => b.score - a.score || b.opens.length - a.opens.length || a.subject.localeCompare(b.subject, 'pl'));
+  // A subject he already takes is "needed" for an offer when dropping it would lower the fit there.
+  const keep = ext.map(sub => {
+    const minus = ext.filter(x => x !== sub);
+    return { subject: sub, needed: dep.filter(x => subjectFit(x.o, minus) < x.fit).map(x => x.o) };
+  }).filter(k => k.needed.length).sort((a, b) => b.needed.length - a.needed.length);
+  // Closed offers no single extra subject opens (for example medicine needs both biology and chemistry).
+  const opened = new Set(gains.flatMap(g => g.opens.map(o => o.id)));
+  const needMore = count(0).filter(o => !opened.has(o.id));
+  return { basis, total: offers.length, full: count(3), part: count(2), weak: count(1), closed: count(0), free, gains: gains.slice(0, 3), keep, needMore };
+}
