@@ -404,5 +404,12 @@
   "title": "UKEN: Pedagogika przedszkolna i wczesnoszkolna, jednolite 5 lat (otouczelnie)",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "gus-sw-2025-26",
+  "url": "https://new.stat.gov.pl/file/210088/download?token=uxFVbUEw",
+  "title": "GUS: Szkolnictwo wyższe w roku akademickim 2025/2026 (informacja sygnalna)",
+  "asOf": "2026-06",
+  "status": "sourced"
  }
 ]
