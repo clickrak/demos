@@ -646,7 +646,7 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
 #### v3.0 main improvements (agreed 21 Nov 2026, in priority order)
 
 **This week (from 22 Nov):**
-1. **Study directions review + media, digital media, commerce + broader interest cards** (Szymon's idea, top priority) — Data + Functionality · L · Opus + Sonnet.
+1. [~] **Study directions review + media, digital media, commerce + broader interest cards** (Szymon's idea, top priority; 1a and 1b for media/commerce done in 2.3.0, rest waits for Szymon's pick) — Data + Functionality · L · Opus + Sonnet.
    Today 26 cards, mostly health, tech and security; "Co lubisz robić" has 23 activities, few for media, commerce, art, business.
    - a) Opus (Data night): map all study directions (Polish fields and disciplines + what Kraków universities really offer),
      table "covered / thin / missing" against the 26 cards. Write it in this file as a proposal of new or split cards
@@ -695,6 +695,7 @@ fits the focus, take the first "next week" item that does.
 | v2.0 | Data | Kraków job demand for the 17 missing areas (D1); 2026 thresholds for UJ, UJ CM and AGH offers; newer GUS pay (D7); URK offer check (D8) | Sonnet + Opus | pushed 19 Nov 2026 as 2.0.0 (some items moved, see below) |
 | v2.1 | UI/UX | Fewer keyboards: minutes from home as chips (U1), tap ideas for the reflection questions (U2), sport as chips (U4), shorter strengths screen on phones (U5) | Sonnet + Opus | pushed 20 Nov 2026 as 2.1.0 |
 | v2.2 | Functionality | Star an offer (v3.0 item 3) and the declaration helper (v3.0 item 2) | Sonnet + Opus | pushed 21 Nov 2026 as 2.2.0 (built in the afternoon, at Szymon's request) |
+| v2.3 | Data | Study directions map + card proposal (1a); digital media card and media/commerce offers (1b, part) | Opus + Sonnet | pushed 21 Nov 2026 as 2.3.0 (afternoon, at Szymon's request) |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -842,4 +843,62 @@ Szymon to confirm the card list. No new facts, so no new sources; no scoring cha
 
 **Next (rotation):** v2.3 = **Data**: v3.0 item 1a (map all study directions vs the 26 cards, propose new cards; Szymon confirms) and,
 if time, the v2.0 leftovers (UJ thresholds, GUS 2024 pay). Tonight's 21:45 planner plans v2.3; v2.2 is already pushed.
+
+### v2.3 tasks (Data, planned and built 21 Nov 2026)
+
+Current `appVersion` 2.2.0, pushed. Last release Functionality, so this is **Data**. Asked by Szymon on 21 Nov, 13:40 ("run 2.3 now").
+From the v3.0 list: **1a** (map of all study directions, proposal of new cards; Szymon confirms) and, as agreed, **1b only for
+media, digital media and commerce** until he confirms the rest.
+
+1. [x] **SD1 (Opus) Study directions map (1a).** Table below; proposal waits for Szymon.
+2. [x] **SD2 (Sonnet) Digital media card + offers (1b).** New card `media-cyfrowe` "Media cyfrowe, gry i UX" (cluster media,
+   force automatyzacja). Offers: AGH Tworzenie przestrzeni wirtualnych i gier, AGH Informatyka społeczna (also media),
+   AGH Kulturoznawstwo (media), UJ Filmoznawstwo i wiedza o nowych mediach (media). Sources `otou-agh-wh`, `otou-uj-film`.
+   No `demand` (the Kraków barometer PDF cannot be opened from the run; national poster lists "Graficy komputerowi", not used for Kraków)
+   and no `pay` (GUS 2024 table still blocked, see ST3). UJ film threshold 84,0 on otouczelnie has no clear year: not entered.
+3. [x] **SD3 (Sonnet) Commerce offers (1b).** UEK Global business services (also jezyki), Przedsiębiorczość i innowacje w gospodarce,
+   Innowacje w biznesie, from the UEK 2026/27 rules table (`otou-uek-zasady-2026`, 33 courses with subjects; reusable for later cards).
+4. [x] **SR2.3 (Opus) Review and release v2.3.0.**
+
+**Done in 2.3.0.** 27 cards, 81 offers (+7), 43 sources (+3). Personas: D (draws, designs) gets `media-cyfrowe` as option 2;
+E keeps `handel` first; A, B, C have it mid or low (no card always on top, none unreachable). Tests pass.
+
+#### SD1: study directions against the cards (1a, for Szymon to confirm)
+
+Base: the official Polish list of fields and disciplines (rozporządzenie MEiN 11.10.2022, Dz.U. 2022 poz. 2202, tekst jednolity
+[Dz.U. 2025 poz. 211](https://api.sejm.gov.pl/eli/acts/DU/2025/211/text.pdf)): 10 fields, about 55 disciplines. "Covered" = a card with Kraków
+offers; "thin" = touched by a card but no real home; "missing" = no card. Theology and canon law are left out on purpose.
+
+| Field | Covered | Thin | Missing |
+|---|---|---|---|
+| Humanities | linguistics, Polish studies (`jezyki`, `mowa`) | literature, culture studies, art studies (`media`) | history, archaeology, philosophy, ethnology |
+| Engineering | automation and electronics, computer engineering, safety, biomedical, environment and energy | architecture (`projektowanie`), transport (`logistyka`) | civil engineering, mechanical, materials, chemical engineering |
+| Medical and health | medicine, pharmacy, health sciences, physical culture, medical biology | | |
+| Family sciences | | (`mowa`, `psychologia`) | family and social work |
+| Agriculture | | | food and nutrition (dietetics), agriculture and horticulture, forestry, animal husbandry |
+| Veterinary | | | veterinary medicine (UR Kraków) |
+| Social sciences | economics and finance, security, media, management, psychology, international relations | politics and administration (`ue`), pedagogy (`mowa`) | law, sociology, geography and spatial planning |
+| Exact and natural | computer science, biotechnology | maths (`finanse`), physics (`atom`), chemistry and biology (`laboratorium`), earth sciences (`woda`) | astronomy, pure research as a path |
+| Arts | | visual arts (`projektowanie`), film (`media-cyfrowe`) | music, theatre and acting |
+
+**Proposed cards (Szymon picks; priority order is a suggestion).**
+1. **Prawo i administracja**: law (UJ, UEK), administration; big and missing. Offers ready from UEK table + UJ.
+2. **Sztuka, muzyka i scena**: Akademia Muzyczna, AST (acting), ASP fine arts; entrance exams (like `exam: true`).
+3. **Żywienie i dietetyka** + **Weterynaria i zwierzęta**: UJ CM / UR dietetics, food technology, UR veterinary medicine (two cards or one "żywność, zwierzęta, natura").
+4. **Architektura i budownictwo**: split from `projektowanie` (which keeps interiors and design); PK architecture, civil engineering.
+5. **Mechanika, materiały i produkcja**: AGH/PK mechanical, materials, production management.
+6. **Nauka i badania**: maths, physics, astronomy, chemistry, biology at UJ as a research path (today only applied cards).
+7. **Społeczeństwo, polityka i praca socjalna**: sociology, political science, social work, family sciences.
+8. **Edukacja i nauczanie**: split teacher paths from `mowa` (which keeps speech therapy).
+9. **Historia, kultura i dziedzictwo** + **Geografia, przestrzeń i turystyka**: history, archaeology, heritage; spatial planning, tourism (UEK).
+
+**Proposed tap cards** (activities; today 23, none for games, music, animals, law, history, food):
+"Zaprojektować poziom gry albo ekran aplikacji i sprawdzić, czy ktoś się w nim nie gubi" (twr, tec) ·
+"Zagrać, zaśpiewać albo zagrać rolę przed publicznością" (twr, spo) · "Zajmować się zwierzętami albo roślinami" (tec, spo) ·
+"Znaleźć dziurę w regulaminie albo bronić czyjejś sprawy" (ana, prz) · "Odkryć historię starego miejsca albo przedmiotu" (ana, twr) ·
+"Ugotować coś dla innych i dobrać, co komu służy" (spo, tec) · "Zrobić ankietę i sprawdzić, co ludzie naprawdę myślą" (ana, spo) ·
+"Rozwiązać zadanie z matematyki, którego nikt w klasie nie umie" (ana).
+Plus 1–2 situations (e.g. a school debate; a class trip to plan with a budget). Scoring check with one test kid per new card (1c).
+
+**Open question for Szymon:** which of cards 1–9 go into v3.0 (and which wait for v4.0), and are the tap cards OK.
 
