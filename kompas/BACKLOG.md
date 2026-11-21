@@ -163,34 +163,50 @@ task text agreed earlier but move it: questions and directions come first (waves
 then the sports track (v3.0), then the look and screens (v3.1–v3.3), then Ukrainian (v3.4). Old numbering v2.11–v2.15 no longer applies.
 The 19 Nov table above (v2.10 = Ukrainian) is superseded as well.
 
-**v2.10 – Wave 1a: fairer questions and the radar (night of 22 Nov)**
-0. **CW1 (Sonnet) Coverage radar in the repo.** Goal: `kompas/tools/coverage_radar.py` (added 21 Nov) reads a `field` key from every
+**v2.10 – Wave 1a: fairer questions and the radar (night of 22 Nov)** — pushed 21 Nov 2026 as Liceum 2.10.0
+0. [x] **CW1 (Sonnet) Coverage radar in the repo.** Goal: `kompas/tools/coverage_radar.py` (added 21 Nov) reads a `field` key from every
    Studia offer and card and every Liceum direction and class instead of its built-in id list; add `field` (one of the 17 field codes
    in the radar script) to all of them; test in `tests/syntax.mjs` that none is missing; paste the new table into "Coverage waves".
    Files: `studia/data/opportunities.json`, `studia/data/db/pl/krakow/offers.json`, `liceum/data/opportunities.json`, `tools/coverage_radar.py`,
    `tests/syntax.mjs`. Check: three tests pass; the script prints the same table as before.
-1. **Q2 (Opus) Arts world and profile.** Goal: a world "Sztuka i projektowanie" (5 activity cards: e.g. drawing, film/photo,
+1. [x] **Q2 (Opus) Arts world and profile.** Goal: a world "Sztuka i projektowanie" (5 activity cards: e.g. drawing, film/photo,
    music, design, stage), a 9th profile "Artystyczny" with directions (plastyka, film i media wizualne, muzyka, design i
    architektura wnętrz) and the strength "rysunek" linked to it; the compass shows 9 points (decide layout; still readable at 375 px).
    Old saved files still load (no arts answers = arts 0). Files: `liceum/data/questions.json`, `profiles.json`, `opportunities.json`,
    `core/scoring.js` only if needed, `liceum/app.js`, `liceum/liceum.css`, `tests/liceum.mjs`.
    Check: three tests pass; a new test kid P8 (arts) gets "Artystyczny" in the north; P1–P7 keep their north profile.
-2. **Q3 (Opus) Health, law and media.** Goal: direction "Zdrowie i opieka" (ratownictwo, pielęgniarstwo, fizjoterapia, dietetyka)
+2. [x] **Q3 (Opus) Health, law and media.** Goal: direction "Zdrowie i opieka" (ratownictwo, pielęgniarstwo, fizjoterapia, dietetyka)
    apart from "biologia"; "spoleczenstwo" split into "Prawo i administracja" and "Media i komunikacja", each linked to the
    right classes (biol-chem, hum, media/dziennikarskie). Files: `opportunities.json`, `profiles.json`, `tests/liceum.mjs`.
    Check: three tests pass; P2 (health) sees "Zdrowie i opieka" on the profile screen; P5 still north "Języki".
-3. **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note).
 
-2. **Q3 (Opus) Health, law and media.** Goal: direction "Zdrowie i opieka" (ratownictwo, pielęgniarstwo, fizjoterapia, dietetyka)
-   apart from "biologia"; "spoleczenstwo" split into "Prawo i administracja" and "Media i komunikacja", each linked to the
-   right classes (biol-chem, hum, media/dziennikarskie). Files: `opportunities.json`, `profiles.json`, `tests/liceum.mjs`.
-   Check: three tests pass; P2 (health) sees "Zdrowie i opieka" on the profile screen; P5 still north "Języki".
-3. **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note).
-
-4. **CD1 (Opus) Discovery check for wave 1a.** Goal: with Q2 and Q3 in, every new or split direction (arts, health, law, media) is
+4. [x] **CD1 (Opus) Discovery check for wave 1a.** Goal: with Q2 and Q3 in, every new or split direction (arts, health, law, media) is
    reachable: at least 2 activity cards and 1 strength point to it, one test kid per direction ends with it in the north or NNE/NNW.
    Run `kompas/tools/questions_audit.py`; write the new table here. Check: three tests pass.
-5. **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note; radar re-run).
+5. [x] **R2.10 (Opus) Review and release v2.10.0** (screenshot of the 9-point compass at 375 px in the release note; radar re-run).
+
+**Result 2.10.0 (21 Nov 2026).**
+- CW1 done for Liceum (directions `field`, classes `fields`, `--fill` helper, syntax test). Studia `field` keys are left to the
+  Studia session (the radar uses them when present); split agreed with Szymon 21 Nov: this session Liceum, the other Studia.
+- 18 directions, 9 profiles, 9 worlds, 51 tap cards. `spoleczenstwo` was kept as "Historia i kultura" (history needs a home for wave 2)
+  next to the new `prawo` and `media`; `biologia` is now "Biologia i laboratorium" next to `zdrowie`.
+- Compass: 9 points, the new one at SE (140°) between E and S; readable at 375 px in all three looks.
+- Test kids: P1–P7 keep their north; P8 arts → N Artystyczny; P9 health → N Przyrodniczy (zdrowie first); P10 law and P11 media →
+  N Humanistyczny (prawo / media first). New tests: CD1 (2+ tap cards and a strength per direction; direction kid top 3) and old files.
+- Radar (Liceum): Prawo i administracja 2 → 4 (30 classes), Media i komunikacja 2 → 4 (33), Sztuka i design 1 → 3 (4 classes:
+  art licea come in wave 2). Still below 3: Bezpieczeństwo, Turystyka (wave 2).
+- CD1 audit (`tools/questions_audit.py`):
+
+| | nauki ścisłe/IT | języki | ekonomia i biznes | socjologia i psychologia | prawo i media | sztuka | sport | opieka i zdrowie | praca rękami | ogólne | razem |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| światy | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 0 | 9 |
+| czynności (wszystkie) | 12 | 3 | 4 | 4 | 7 | 6 | 3 | 4 | 5 | 3 | 51 |
+| czynności: wspólny rdzeń | 2 | 0 | 1 | 1 | 0 | 1 | 0 | 1 | 1 | 3 | 10 |
+| sytuacje | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 3 |
+| mocne strony | 1 | 1 | 2 | 2 | 0 | 2 | 1 | 0 | 1 | 9 | 19 |
+| kierunki | 8 | 1 | 1 | 1 | 3 | 1 | 1 | 1 | 1 | 0 | 18 |
+
+czynności na świat: tech 7, natura 7, ludzie 4, jezyki 3, biznes 3, budowa 3, sport 3, spoleczenstwo 7, sztuka 5
 
 **v2.11 – Wave 1b: technika and the big engineering groups (night of 23 Nov)**
 1. **W1L1 (Opus) Directions "Mechanika, pojazdy i produkcja" and "Transport i logistyka".** Goal: two new directions (own card text,
