@@ -32,7 +32,10 @@
     "scoredSourced": true,
     "sourceId": "otou-gl-t1",
     "status": "check",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1TI",
@@ -56,7 +59,10 @@
     "scoredSourced": true,
     "sourceId": "otou-gl-t1",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1TE",
@@ -80,7 +86,10 @@
     "scoredSourced": true,
     "sourceId": "otou-gl-t1",
     "status": "check",
-    "occupation": "technik elektryk"
+    "occupation": "technik elektryk",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "geo": {

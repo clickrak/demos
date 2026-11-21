@@ -30,7 +30,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo1",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1B",
@@ -51,7 +55,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo1",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1C",
@@ -70,7 +79,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo1",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -89,7 +102,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo1",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -114,7 +131,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo1",
     "status": "sourced",
-    "scoredSourceId": "w2-lo1"
+    "scoredSourceId": "w2-lo1",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "1G",
@@ -140,7 +161,13 @@
     "scoredSourced": true,
     "sourceId": "otou-lo1",
     "status": "sourced",
-    "scoredSourceId": "w2-lo1"
+    "scoredSourceId": "w2-lo1",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1K",
@@ -164,7 +191,10 @@
     "scoredSourced": true,
     "sourceId": "otou-lo1",
     "status": "sourced",
-    "scoredSourceId": "w2-lo1"
+    "scoredSourceId": "w2-lo1",
+    "fields": [
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -208,7 +238,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1B",
@@ -227,7 +262,10 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -246,7 +284,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -266,7 +308,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1F",
@@ -285,7 +333,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1G",
@@ -304,7 +356,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -329,7 +385,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "BUD",
+     "LNG"
+    ]
    },
    {
     "code": "1H",
@@ -352,7 +413,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo2",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -397,7 +461,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1B",
@@ -416,7 +485,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1C",
@@ -436,7 +509,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1D",
@@ -455,7 +534,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo4",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -479,7 +562,10 @@
     "scoredSourced": true,
     "sourceId": "otou-lo4",
     "status": "sourced",
-    "scoredSourceId": "w2-lo4"
+    "scoredSourceId": "w2-lo4",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1F",
@@ -504,7 +590,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo4",
     "status": "sourced",
-    "scoredSourceId": "w2-lo4"
+    "scoredSourceId": "w2-lo4",
+    "fields": [
+     "HUM",
+     "BIO"
+    ]
    },
    {
     "code": "1G2",
@@ -529,7 +619,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo4",
     "status": "sourced",
-    "scoredSourceId": "w2-lo4"
+    "scoredSourceId": "w2-lo4",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "1G1",
@@ -554,7 +648,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo4",
     "status": "sourced",
-    "scoredSourceId": "w2-lo4"
+    "scoredSourceId": "w2-lo4",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -596,7 +694,10 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -617,7 +718,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1E",
@@ -638,7 +744,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1G",
@@ -659,7 +770,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1F",
@@ -678,7 +794,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1H",
@@ -697,7 +817,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1A",
@@ -715,7 +839,10 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1B",
@@ -734,7 +861,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo5",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "BIO"
+    ]
    }
   ],
   "geo": {
@@ -785,7 +916,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo7",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1F",
@@ -809,7 +945,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo7",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1G",
@@ -833,7 +973,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo7",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1A",
@@ -858,7 +1002,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo7",
     "status": "sourced",
-    "scoredSourceId": "w2-lo7"
+    "scoredSourceId": "w2-lo7",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "1B",
@@ -884,7 +1032,14 @@
     "scoredSourced": true,
     "sourceId": "otou-lo7",
     "status": "sourced",
-    "scoredSourceId": "w2-lo7"
+    "scoredSourceId": "w2-lo7",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI",
+     "HUM"
+    ]
    },
    {
     "code": "1D1",
@@ -910,7 +1065,13 @@
     "scoredSourced": true,
     "sourceId": "otou-lo7",
     "status": "sourced",
-    "scoredSourceId": "w2-lo7"
+    "scoredSourceId": "w2-lo7",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1D2",
@@ -936,7 +1097,13 @@
     "scoredSourced": true,
     "sourceId": "otou-lo7",
     "status": "sourced",
-    "scoredSourceId": "w2-lo7"
+    "scoredSourceId": "w2-lo7",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    }
   ],
   "geo": {
@@ -978,7 +1145,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1B",
@@ -997,7 +1168,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -1018,7 +1193,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1D",
@@ -1037,7 +1217,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -1057,7 +1241,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo8",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1F",
@@ -1083,7 +1273,13 @@
     "scoredSourced": true,
     "sourceId": "otou-lo8",
     "status": "sourced",
-    "scoredSourceId": "w2-lo8"
+    "scoredSourceId": "w2-lo8",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1G",
@@ -1107,7 +1303,10 @@
     "scoredSourced": true,
     "sourceId": "otou-lo8",
     "status": "sourced",
-    "scoredSourceId": "w2-lo8"
+    "scoredSourceId": "w2-lo8",
+    "fields": [
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -1148,7 +1347,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo9",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1A",
@@ -1173,7 +1376,13 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo9",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1B",
@@ -1197,7 +1406,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo9",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "1D",
@@ -1220,7 +1434,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo9",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -1263,7 +1480,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tl14",
     "status": "sourced",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1C",
@@ -1280,7 +1500,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tl14",
     "status": "sourced",
-    "occupation": "technik cyberbezpieczeństwa"
+    "occupation": "technik cyberbezpieczeństwa",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1I",
@@ -1298,7 +1521,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tl14",
     "status": "sourced",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1E",
@@ -1316,7 +1542,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tl14",
     "status": "sourced",
-    "occupation": "technik elektronik"
+    "occupation": "technik elektronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1T",
@@ -1335,7 +1564,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tl14",
     "status": "sourced",
-    "occupation": "technik teleinformatyk"
+    "occupation": "technik teleinformatyk",
+    "fields": [
+     "INF"
+    ]
    }
   ],
   "geo": {
@@ -1375,7 +1607,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tee7",
     "status": "check",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1D",
@@ -1393,7 +1628,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tee7",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1A",
@@ -1410,7 +1648,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tee7",
     "status": "check",
-    "occupation": "technik automatyk"
+    "occupation": "technik automatyk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1B",
@@ -1427,7 +1668,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tee7",
     "status": "check",
-    "occupation": "technik elektronik"
+    "occupation": "technik elektronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1F",
@@ -1445,7 +1689,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tee7",
     "status": "check",
-    "occupation": "technik elektryk"
+    "occupation": "technik elektryk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1E",
@@ -1463,7 +1710,10 @@
     "scoredSourced": false,
     "sourceId": "otou-tee7",
     "status": "check",
-    "occupation": "technik OZE"
+    "occupation": "technik OZE",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "geo": {
@@ -1521,7 +1771,11 @@
       156.55
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -1553,7 +1807,11 @@
       156.55
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -1585,7 +1843,12 @@
       156.55
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    }
   ],
   "geo": {
@@ -1627,7 +1890,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo42",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -1646,7 +1913,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo42",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1A",
@@ -1671,7 +1942,13 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo42",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -1694,7 +1971,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo42",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -1736,7 +2016,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -1755,7 +2039,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1B",
@@ -1775,7 +2063,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "BIO",
+     "SPO",
+     "TUR"
+    ]
    },
    {
     "code": "1D",
@@ -1795,7 +2089,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "1E",
@@ -1815,7 +2113,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1F",
@@ -1834,7 +2138,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo11",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "LNG",
+     "EDU"
+    ]
    }
   ],
   "geo": {
@@ -1876,7 +2185,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo28",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "A",
@@ -1909,7 +2222,12 @@
       141.35
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "B",
@@ -1942,7 +2260,11 @@
       141.35
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "ECO",
+     "LNG"
+    ]
    },
    {
     "code": "C",
@@ -1975,7 +2297,11 @@
       141.35
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    }
   ],
   "geo": {
@@ -2024,7 +2350,10 @@
     "scoredSourced": true,
     "sourceId": "zschk-zasady",
     "status": "check",
-    "occupation": "technik analityk"
+    "occupation": "technik analityk",
+    "fields": [
+     "SCI"
+    ]
    },
    {
     "code": "1T",
@@ -2046,7 +2375,10 @@
     "scoredSourced": true,
     "sourceId": "zschk-zasady",
     "status": "check",
-    "occupation": "technik technologii środków kosmetycznych"
+    "occupation": "technik technologii środków kosmetycznych",
+    "fields": [
+     "SCI"
+    ]
    }
   ],
   "geo": {
@@ -2089,7 +2421,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo3",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "1B",
@@ -2107,7 +2444,10 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo3",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1C",
@@ -2125,7 +2465,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo3",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -2144,7 +2488,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo3",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -2164,7 +2512,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo3",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1F",
@@ -2183,7 +2537,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo3",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "SCI",
+     "ENG",
+     "INF"
+    ]
    }
   ],
   "geo": {
@@ -2238,7 +2597,12 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "vilo-jezyki-2026"
-    }
+    },
+    "fields": [
+     "ECO",
+     "BIO",
+     "HUM"
+    ]
    },
    {
     "code": "1B",
@@ -2267,7 +2631,11 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "vilo-jezyki-2026"
-    }
+    },
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -2296,7 +2664,12 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "vilo-jezyki-2026"
-    }
+    },
+    "fields": [
+     "BUD",
+     "HUM",
+     "ART"
+    ]
    },
    {
     "code": "1D",
@@ -2322,7 +2695,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo6",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1E",
@@ -2345,7 +2723,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo6",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1F",
@@ -2364,7 +2745,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "w2-lo6",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1H1",
@@ -2392,7 +2777,11 @@
      "lang": "hiszpański",
      "kind": "wstępna",
      "sourceId": "vilo-jezyki-2026"
-    }
+    },
+    "fields": [
+     "HUM",
+     "BIO"
+    ]
    },
    {
     "code": "1H2",
@@ -2421,7 +2810,13 @@
      "lang": "hiszpański",
      "kind": "wstępna",
      "sourceId": "vilo-jezyki-2026"
-    }
+    },
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1M1",
@@ -2446,7 +2841,11 @@
      "lang": "angielski",
      "kind": "międzynarodowa",
      "sourceId": "vilo-jezyki-2026"
-    }
+    },
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "1M2",
@@ -2471,7 +2870,11 @@
      "lang": "angielski",
      "kind": "międzynarodowa",
      "sourceId": "vilo-jezyki-2026"
-    }
+    },
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -2513,7 +2916,10 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo10",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1B",
@@ -2532,7 +2938,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo10",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "1C",
@@ -2551,7 +2962,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo10",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -2570,7 +2985,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo10",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -2590,7 +3009,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo10",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1F",
@@ -2610,7 +3035,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo10",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "SCI",
+     "ENG",
+     "INF"
+    ]
    },
    {
     "code": "1G",
@@ -2631,7 +3061,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo10",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    }
   ],
   "geo": {
@@ -2679,7 +3114,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo13",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "C",
@@ -2703,7 +3142,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo13",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "SCI",
+     "MED"
+    ]
    },
    {
     "code": "D",
@@ -2728,7 +3171,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo13",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "SCI",
+     "ENG",
+     "INF"
+    ]
    },
    {
     "code": "B",
@@ -2753,7 +3201,13 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo13",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "E",
@@ -2777,7 +3231,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "wazna-lo13",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    }
   ],
   "geo": {
@@ -2819,7 +3278,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo15",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -2839,7 +3302,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo15",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "BIO",
+     "SPO"
+    ]
    },
    {
     "code": "1E",
@@ -2858,7 +3326,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo15",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "A",
@@ -2882,7 +3354,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo15",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "B",
@@ -2916,7 +3392,13 @@
       153.15
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "F",
@@ -2941,7 +3423,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo15",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "G",
@@ -2966,7 +3452,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w2-lo15",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG",
+     "ECO"
+    ]
    }
   ],
   "geo": {
@@ -3013,7 +3504,10 @@
     "scoredSourced": true,
     "sourceId": "wazna-tee9",
     "status": "check",
-    "occupation": "technik elektryk"
+    "occupation": "technik elektryk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1b",
@@ -3037,7 +3531,10 @@
     "scoredSourced": true,
     "sourceId": "wazna-tee9",
     "status": "check",
-    "occupation": "technik cyberbezpieczeństwa"
+    "occupation": "technik cyberbezpieczeństwa",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1c",
@@ -3060,7 +3557,10 @@
     "scoredSourced": true,
     "sourceId": "wazna-tee9",
     "status": "check",
-    "occupation": "technik elektronik"
+    "occupation": "technik elektronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1i",
@@ -3084,7 +3584,10 @@
     "scoredSourced": true,
     "sourceId": "wazna-tee9",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1p",
@@ -3108,7 +3611,10 @@
     "scoredSourced": true,
     "sourceId": "wazna-tee9",
     "status": "check",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    }
   ],
   "geo": {
@@ -3155,7 +3661,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo31",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1BL",
@@ -3179,7 +3689,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo31",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    }
   ],
   "geo": {
@@ -3225,7 +3739,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo12",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "D",
@@ -3249,7 +3767,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo12",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "BIO",
+     "SPO"
+    ]
    },
    {
     "code": "F",
@@ -3272,7 +3795,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo12",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "SCI",
+     "MED"
+    ]
    },
    {
     "code": "B",
@@ -3295,7 +3822,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo12",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "A",
@@ -3317,7 +3849,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo12",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "E",
@@ -3341,7 +3876,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo12",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG",
+     "ECO"
+    ]
    }
   ],
   "geo": {
@@ -3389,7 +3929,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo14",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "B",
@@ -3414,7 +3958,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo14",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "BIO",
+     "SPO"
+    ]
    },
    {
     "code": "D",
@@ -3438,7 +3987,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo14",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "E",
@@ -3457,7 +4011,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "w-lo14",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "C",
@@ -3481,7 +4039,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo14",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    }
   ],
   "geo": {
@@ -3524,7 +4086,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1C",
@@ -3543,7 +4111,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1A",
@@ -3562,7 +4134,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "1E",
@@ -3581,7 +4158,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "LNG",
+     "ECO",
+     "TUR"
+    ]
    },
    {
     "code": "1F",
@@ -3600,7 +4182,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "SPO",
+     "SEC"
+    ]
    },
    {
     "code": "1D",
@@ -3619,7 +4206,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo16",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "LNG",
+     "SEC"
+    ]
    }
   ],
   "geo": {
@@ -3677,7 +4269,13 @@
       158.15
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "b",
@@ -3701,7 +4299,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo18",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "d",
@@ -3725,7 +4327,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo18",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "c",
@@ -3758,7 +4365,11 @@
       158.15
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "e",
@@ -3782,7 +4393,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo18",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "ECO",
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -3830,7 +4445,10 @@
     "scoredSourced": true,
     "sourceId": "otou-lo20",
     "status": "sourced",
-    "scoredSourceId": "w-lo20"
+    "scoredSourceId": "w-lo20",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1B",
@@ -3856,7 +4474,13 @@
     "scoredSourced": true,
     "sourceId": "otou-lo20",
     "status": "sourced",
-    "scoredSourceId": "w-lo20"
+    "scoredSourceId": "w-lo20",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1C",
@@ -3881,7 +4505,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo20",
     "status": "sourced",
-    "scoredSourceId": "w-lo20"
+    "scoredSourceId": "w-lo20",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "1D",
@@ -3907,7 +4535,12 @@
     "scoredSourced": true,
     "sourceId": "otou-lo20",
     "status": "sourced",
-    "scoredSourceId": "w-lo20"
+    "scoredSourceId": "w-lo20",
+    "fields": [
+     "SCI",
+     "ENG",
+     "INF"
+    ]
    },
    {
     "code": "1E",
@@ -3931,7 +4564,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo20",
     "status": "sourced",
-    "scoredSourceId": "w-lo20"
+    "scoredSourceId": "w-lo20",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1F",
@@ -3956,7 +4593,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo20",
     "status": "sourced",
-    "scoredSourceId": "w-lo20"
+    "scoredSourceId": "w-lo20",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -4013,7 +4654,13 @@
       154.95
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "B",
@@ -4038,7 +4685,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo23",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "BIO",
+     "SPO"
+    ]
    },
    {
     "code": "C",
@@ -4062,7 +4714,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo23",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    }
   ],
   "geo": {
@@ -4119,7 +4775,11 @@
       154.35
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "E",
@@ -4144,7 +4804,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo24",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "BIO",
+     "SPO"
+    ]
    },
    {
     "code": "F",
@@ -4167,7 +4832,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo24",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "A",
@@ -4191,7 +4860,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo24",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "B",
@@ -4213,7 +4887,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo24",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "C",
@@ -4237,7 +4914,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo24",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    }
   ],
   "geo": {
@@ -4285,7 +4966,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "D",
@@ -4309,7 +4994,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "E",
@@ -4332,7 +5021,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED"
+    ]
    },
    {
     "code": "F",
@@ -4357,7 +5049,13 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "B",
@@ -4382,7 +5080,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "BIO",
+     "SPO"
+    ]
    },
    {
     "code": "C",
@@ -4406,7 +5109,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "A",
@@ -4430,7 +5138,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo27",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    }
   ],
   "geo": {
@@ -4478,7 +5190,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo30",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1M",
@@ -4502,7 +5218,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo30",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -4526,7 +5246,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo30",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "1C",
@@ -4550,7 +5275,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo30",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "1G",
@@ -4574,7 +5303,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo30",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "LNG",
+     "ECO",
+     "TUR"
+    ]
    }
   ],
   "geo": {
@@ -4630,7 +5364,11 @@
       160.6
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1B",
@@ -4664,7 +5402,13 @@
       160.6
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    },
    {
     "code": "1A",
@@ -4697,7 +5441,12 @@
       160.6
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "1D1",
@@ -4729,7 +5478,11 @@
       160.6
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "1D2",
@@ -4752,7 +5505,11 @@
     ],
     "scoredSourced": false,
     "sourceId": "otou-lo41",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -4804,7 +5561,11 @@
       152.55
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "b",
@@ -4832,7 +5593,12 @@
       152.55
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "c",
@@ -4851,7 +5617,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "w-lo43",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "d",
@@ -4871,7 +5641,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "w-lo43",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG",
+     "ECO"
+    ]
    }
   ],
   "geo": {
@@ -4928,7 +5703,12 @@
     "scoredSourced": true,
     "sourceId": "otou-lo44",
     "status": "sourced",
-    "scoredSourceId": "w-lo44"
+    "scoredSourceId": "w-lo44",
+    "fields": [
+     "SCI",
+     "ENG",
+     "INF"
+    ]
    },
    {
     "code": "1B",
@@ -4953,7 +5733,11 @@
     "scoredSourced": true,
     "sourceId": "otou-lo44",
     "status": "sourced",
-    "scoredSourceId": "w-lo44"
+    "scoredSourceId": "w-lo44",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -4978,7 +5762,12 @@
     "scoredSourced": true,
     "sourceId": "otou-lo44",
     "status": "sourced",
-    "scoredSourceId": "w-lo44"
+    "scoredSourceId": "w-lo44",
+    "fields": [
+     "LNG",
+     "HUM",
+     "LAW"
+    ]
    },
    {
     "code": "1D",
@@ -5004,7 +5793,13 @@
     "scoredSourced": true,
     "sourceId": "otou-lo44",
     "status": "sourced",
-    "scoredSourceId": "w-lo44"
+    "scoredSourceId": "w-lo44",
+    "fields": [
+     "BIO",
+     "INF",
+     "SCI",
+     "ECO"
+    ]
    }
   ],
   "geo": {
@@ -5051,7 +5846,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo45",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -5075,7 +5874,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo45",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    },
    {
     "code": "1B",
@@ -5099,7 +5903,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo45",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    }
   ],
   "geo": {
@@ -5146,7 +5954,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo46",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1A",
@@ -5170,7 +5982,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo46",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "BIO"
+    ]
    },
    {
     "code": "1B",
@@ -5193,7 +6009,10 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo46",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM"
+    ]
    }
   ],
   "note": "Próg klasy C z waszaedukacja jest dużo wyższy niż zakres szkoły w otouczelnie. Sprawdź w szkole.",
@@ -5240,7 +6059,10 @@
     "scoredSourced": true,
     "sourceId": "w-tk25",
     "status": "check",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "CB",
@@ -5263,7 +6085,10 @@
     "scoredSourced": true,
     "sourceId": "w-tk25",
     "status": "check",
-    "occupation": "technik cyberbezpieczeństwa"
+    "occupation": "technik cyberbezpieczeństwa",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "IA",
@@ -5286,7 +6111,10 @@
     "scoredSourced": true,
     "sourceId": "w-tk25",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "EL",
@@ -5308,7 +6136,10 @@
     "scoredSourced": true,
     "sourceId": "w-tk25",
     "status": "check",
-    "occupation": "technik elektronik"
+    "occupation": "technik elektronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "ME",
@@ -5331,7 +6162,10 @@
     "scoredSourced": true,
     "sourceId": "w-tk25",
     "status": "check",
-    "occupation": "technik mechatronik"
+    "occupation": "technik mechatronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "LA",
@@ -5353,7 +6187,10 @@
     "scoredSourced": true,
     "sourceId": "w-tk25",
     "status": "check",
-    "occupation": "technik logistyk"
+    "occupation": "technik logistyk",
+    "fields": [
+     "ECO"
+    ]
    }
   ],
   "geo": {
@@ -5400,7 +6237,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm17",
     "status": "check",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1Tc",
@@ -5424,7 +6264,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm17",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1Ta",
@@ -5448,7 +6291,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm17",
     "status": "check",
-    "occupation": "technik mechatronik"
+    "occupation": "technik mechatronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1Tr",
@@ -5467,7 +6313,10 @@
     "scoredSourced": false,
     "sourceId": "w-tm17",
     "status": "check",
-    "occupation": "technik robotyk"
+    "occupation": "technik robotyk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1Tl",
@@ -5486,7 +6335,10 @@
     "scoredSourced": false,
     "sourceId": "w-tm17",
     "status": "check",
-    "occupation": "technik awionik"
+    "occupation": "technik awionik",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "note": "Progi są niskie, bo szkoła ma dużo miejsc. To bezpieczna opcja, ale sprawdź atmosferę i poziom na dniu otwartym.",
@@ -5534,7 +6386,10 @@
     "scoredSourced": true,
     "sourceId": "w-tks24",
     "status": "check",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "Ic",
@@ -5558,7 +6413,10 @@
     "scoredSourced": true,
     "sourceId": "w-tks24",
     "status": "check",
-    "occupation": "technik cyberbezpieczeństwa"
+    "occupation": "technik cyberbezpieczeństwa",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "Ii",
@@ -5582,7 +6440,10 @@
     "scoredSourced": true,
     "sourceId": "w-tks24",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "Io",
@@ -5605,7 +6466,10 @@
     "scoredSourced": true,
     "sourceId": "w-tks24",
     "status": "check",
-    "occupation": "technik ochrony środowiska"
+    "occupation": "technik ochrony środowiska",
+    "fields": [
+     "BIO"
+    ]
    },
    {
     "code": "Ig",
@@ -5629,7 +6493,10 @@
     "scoredSourced": true,
     "sourceId": "w-tks24",
     "status": "check",
-    "occupation": "technik geolog"
+    "occupation": "technik geolog",
+    "fields": [
+     "BIO"
+    ]
    }
   ],
   "geo": {
@@ -5677,7 +6544,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "w-lo21",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    }
   ],
   "geo": {
@@ -5733,7 +6605,12 @@
       56.25
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    }
   ],
   "note": "Jedna klasa licealna w zespole szkół. Niski próg oznacza dużo wolnych miejsc. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
@@ -5790,7 +6667,12 @@
       84.35
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "PSY",
+     "EDU",
+     "MED"
+    ]
    }
   ],
   "note": "Klasa integracyjna (uczą się razem uczniowie z orzeczeniami i bez). Próg z waszaedukacja jest wyższy niż w otouczelnie. Próg klasy z jednego serwisu nie mieści się w zakresie szkoły z drugiego (ten sam rok 2026/27), więc go pomijamy i pokazujemy zakres szkoły.",
@@ -5838,7 +6720,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-lo47",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -5870,7 +6756,11 @@
       70.0
      ],
      "rangeSourceId": "otou-progi-licea-2026"
-    }
+    },
+    "fields": [
+     "INF",
+     "MEDIA"
+    ]
    },
    {
     "code": "1AH",
@@ -5889,7 +6779,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo47",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG",
+     "ART"
+    ]
    },
    {
     "code": "1EI",
@@ -5909,7 +6804,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo47",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "ECO",
+     "BIO",
+     "INF",
+     "SCI"
+    ]
    }
   ],
   "geo": {
@@ -5957,7 +6858,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm15",
     "status": "check",
-    "occupation": "technik mechatronik"
+    "occupation": "technik mechatronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1Tau",
@@ -5981,7 +6885,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm15",
     "status": "check",
-    "occupation": "technik automatyk"
+    "occupation": "technik automatyk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1Tro",
@@ -6005,7 +6912,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm15",
     "status": "check",
-    "occupation": "technik robotyk"
+    "occupation": "technik robotyk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1Tem",
@@ -6029,7 +6939,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm15",
     "status": "check",
-    "occupation": "technik elektromobilności"
+    "occupation": "technik elektromobilności",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "geo": {
@@ -6075,7 +6988,10 @@
     "scoredSourced": true,
     "sourceId": "w-tm30",
     "status": "check",
-    "occupation": "technik awionik"
+    "occupation": "technik awionik",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "geo": {
@@ -6122,7 +7038,10 @@
     "scoredSourced": true,
     "sourceId": "w-te8",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "A",
@@ -6140,7 +7059,10 @@
     "scoredSourced": false,
     "sourceId": "w-te8",
     "status": "check",
-    "occupation": "technik elektronik"
+    "occupation": "technik elektronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "M",
@@ -6159,7 +7081,10 @@
     "scoredSourced": false,
     "sourceId": "w-te8",
     "status": "check",
-    "occupation": "technik mechatronik"
+    "occupation": "technik mechatronik",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "note": "Szkoła punktuje też ocenę z techniki, której Kompas nie pyta. Szansę liczymy orientacyjnie z zakresu progów.",
@@ -6208,7 +7133,10 @@
     "scoredSourced": true,
     "sourceId": "w-tg12",
     "status": "check",
-    "occupation": "technik geodeta"
+    "occupation": "technik geodeta",
+    "fields": [
+     "BUD"
+    ]
    },
    {
     "code": "O",
@@ -6231,7 +7159,10 @@
     "scoredSourced": true,
     "sourceId": "w-tg12",
     "status": "check",
-    "occupation": "technik ochrony środowiska"
+    "occupation": "technik ochrony środowiska",
+    "fields": [
+     "BIO"
+    ]
    },
    {
     "code": "L",
@@ -6254,7 +7185,10 @@
     "scoredSourced": true,
     "sourceId": "w-tg12",
     "status": "check",
-    "occupation": "technik logistyk"
+    "occupation": "technik logistyk",
+    "fields": [
+     "ECO"
+    ]
    }
   ],
   "geo": {
@@ -6301,7 +7235,10 @@
     "scoredSourced": true,
     "sourceId": "w-teh4",
     "status": "check",
-    "occupation": "technik ekonomista"
+    "occupation": "technik ekonomista",
+    "fields": [
+     "ECO"
+    ]
    },
    {
     "code": "1b",
@@ -6324,7 +7261,10 @@
     "scoredSourced": true,
     "sourceId": "w-teh4",
     "status": "check",
-    "occupation": "technik rachunkowości"
+    "occupation": "technik rachunkowości",
+    "fields": [
+     "ECO"
+    ]
    },
    {
     "code": "1c",
@@ -6348,7 +7288,10 @@
     "scoredSourced": true,
     "sourceId": "w-teh4",
     "status": "check",
-    "occupation": "technik hotelarstwa"
+    "occupation": "technik hotelarstwa",
+    "fields": [
+     "TUR"
+    ]
    }
   ],
   "geo": {
@@ -6393,7 +7336,10 @@
     "scoredSourced": true,
     "sourceId": "w-tb1",
     "status": "check",
-    "occupation": "technik budownictwa"
+    "occupation": "technik budownictwa",
+    "fields": [
+     "BUD"
+    ]
    },
    {
     "code": "A",
@@ -6415,7 +7361,10 @@
     "scoredSourced": true,
     "sourceId": "w-tb1",
     "status": "check",
-    "occupation": "technik aranżacji wnętrz"
+    "occupation": "technik aranżacji wnętrz",
+    "fields": [
+     "ART"
+    ]
    },
    {
     "code": "O",
@@ -6439,7 +7388,10 @@
     "scoredSourced": true,
     "sourceId": "w-tb1",
     "status": "check",
-    "occupation": "technik urządzeń i systemów energetyki odnawialnej"
+    "occupation": "technik urządzeń i systemów energetyki odnawialnej",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "R",
@@ -6462,7 +7414,10 @@
     "scoredSourced": true,
     "sourceId": "w-tb1",
     "status": "check",
-    "occupation": "technik renowacji elementów architektury"
+    "occupation": "technik renowacji elementów architektury",
+    "fields": [
+     "BUD"
+    ]
    },
    {
     "code": "N",
@@ -6485,7 +7440,10 @@
     "scoredSourced": true,
     "sourceId": "w-tb1",
     "status": "check",
-    "occupation": "technik gospodarki nieruchomościami"
+    "occupation": "technik gospodarki nieruchomościami",
+    "fields": [
+     "ECO"
+    ]
    },
    {
     "code": "D",
@@ -6507,7 +7465,10 @@
     "scoredSourced": true,
     "sourceId": "w-tb1",
     "status": "check",
-    "occupation": "technik technologii drewna"
+    "occupation": "technik technologii drewna",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "geo": {
@@ -6554,7 +7515,12 @@
      "lang": "francuski",
      "kind": "wstępna",
      "sourceId": "otou-lo17"
-    }
+    },
+    "fields": [
+     "MED",
+     "BIO",
+     "LNG"
+    ]
    },
    {
     "code": "1A",
@@ -6572,7 +7538,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo17",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "BIO"
+    ]
    },
    {
     "code": "1B",
@@ -6591,7 +7561,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo17",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "1C",
@@ -6611,7 +7585,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo17",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "LNG",
+     "ECO",
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -6653,7 +7632,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo25",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "SPO",
+     "SEC"
+    ]
    },
    {
     "code": "1B",
@@ -6671,7 +7655,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo25",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "SPO",
+     "SEC"
+    ]
    },
    {
     "code": "1C",
@@ -6690,7 +7679,13 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo25",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "SPO",
+     "LNG",
+     "SEC"
+    ]
    },
    {
     "code": "1D",
@@ -6708,7 +7703,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo25",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "SPO",
+     "SEC"
+    ]
    },
    {
     "code": "1E",
@@ -6726,7 +7726,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo25",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "SPO",
+     "SEC"
+    ]
    },
    {
     "code": "1F",
@@ -6744,7 +7749,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "otou-lo25",
-    "status": "sourced"
+    "status": "sourced",
+    "fields": [
+     "HUM",
+     "SPO",
+     "SEC"
+    ]
    }
   ],
   "geo": {

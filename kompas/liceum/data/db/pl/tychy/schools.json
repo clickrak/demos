@@ -26,7 +26,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo1",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D1",
@@ -44,7 +48,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo1",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "1D2",
@@ -62,7 +70,12 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo1",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -80,7 +93,11 @@
     "scored": null,
     "scoredSourced": false,
     "sourceId": "we-ty-lo1",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1M",
@@ -103,7 +120,11 @@
      "lang": "angielski",
      "kind": "międzynarodowa",
      "sourceId": "we-ty-lo1"
-    }
+    },
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    }
   ],
   "geo": {
@@ -148,7 +169,12 @@
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo2"
+    "thresholdSourceId": "lp-ty-lo2",
+    "fields": [
+     "SCI",
+     "ENG",
+     "INF"
+    ]
    },
    {
     "code": "1A2",
@@ -172,7 +198,10 @@
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo2"
+    "thresholdSourceId": "lp-ty-lo2",
+    "fields": [
+     "MED"
+    ]
    },
    {
     "code": "1B",
@@ -198,7 +227,13 @@
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo2"
+    "thresholdSourceId": "lp-ty-lo2",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1C",
@@ -218,7 +253,11 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo2",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo2"
+    "thresholdSourceId": "lp-ty-lo2",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1E",
@@ -243,7 +282,11 @@
     "scoredSourced": true,
     "sourceId": "we-ty-lo2",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo2"
+    "thresholdSourceId": "lp-ty-lo2",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "1D",
@@ -273,7 +316,11 @@
      "kind": "dwujęzyczna",
      "sourceId": "we-ty-lo2"
     },
-    "thresholdSourceId": "lp-ty-lo2"
+    "thresholdSourceId": "lp-ty-lo2",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    }
   ],
   "geo": {
@@ -311,7 +358,11 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo3"
+    "thresholdSourceId": "lp-ty-lo3",
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    },
    {
     "code": "1LB",
@@ -330,7 +381,11 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo3"
+    "thresholdSourceId": "lp-ty-lo3",
+    "fields": [
+     "HUM",
+     "LNG"
+    ]
    },
    {
     "code": "1M",
@@ -350,7 +405,11 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo3"
+    "thresholdSourceId": "lp-ty-lo3",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1T",
@@ -371,7 +430,13 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo3",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo3"
+    "thresholdSourceId": "lp-ty-lo3",
+    "fields": [
+     "ECO",
+     "LNG",
+     "BIO",
+     "TUR"
+    ]
    }
   ],
   "geo": {
@@ -412,7 +477,13 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo4"
+    "thresholdSourceId": "lp-ty-lo4",
+    "fields": [
+     "MED",
+     "SPO",
+     "PSY",
+     "EDU"
+    ]
    },
    {
     "code": "1B",
@@ -431,7 +502,11 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo4"
+    "thresholdSourceId": "lp-ty-lo4",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1D",
@@ -450,7 +525,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo4"
+    "thresholdSourceId": "lp-ty-lo4",
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1P",
@@ -470,7 +548,12 @@
     "scoredSourced": false,
     "sourceId": "we-ty-lo4",
     "status": "check",
-    "thresholdSourceId": "lp-ty-lo4"
+    "thresholdSourceId": "lp-ty-lo4",
+    "fields": [
+     "HUM",
+     "SPO",
+     "SEC"
+    ]
    },
    {
     "code": "1C",
@@ -495,7 +578,13 @@
      "kind": "dwujęzyczna",
      "sourceId": "we-ty-lo4"
     },
-    "thresholdSourceId": "lp-ty-lo4"
+    "thresholdSourceId": "lp-ty-lo4",
+    "fields": [
+     "BIO",
+     "ECO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1MS",
@@ -516,7 +605,11 @@
     "scoredSourced": false,
     "sourceId": "lp-ty-lo4",
     "status": "check",
-    "note": "Klasa sportowa, dopisana z licea-progi.pl: w rekrutacji jest test sprawności. Profil i przedmioty do potwierdzenia w szkole."
+    "note": "Klasa sportowa, dopisana z licea-progi.pl: w rekrutacji jest test sprawności. Profil i przedmioty do potwierdzenia w szkole.",
+    "fields": [
+     "HUM",
+     "SPO"
+    ]
    }
   ],
   "geo": {
@@ -552,7 +645,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t2",
     "status": "check",
-    "occupation": "technik ekonomista"
+    "occupation": "technik ekonomista",
+    "fields": [
+     "ECO"
+    ]
    },
    {
     "code": "1H",
@@ -569,7 +665,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t2",
     "status": "check",
-    "occupation": "technik handlowiec"
+    "occupation": "technik handlowiec",
+    "fields": [
+     "ECO"
+    ]
    },
    {
     "code": "1K",
@@ -586,7 +685,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t2",
     "status": "check",
-    "occupation": "technik rachunkowości"
+    "occupation": "technik rachunkowości",
+    "fields": [
+     "ECO"
+    ]
    },
    {
     "code": "1R",
@@ -604,7 +706,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t2",
     "status": "check",
-    "occupation": "technik reklamy"
+    "occupation": "technik reklamy",
+    "fields": [
+     "MEDIA"
+    ]
    },
    {
     "code": "1T",
@@ -622,7 +727,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t2",
     "status": "check",
-    "occupation": "technik organizacji turystyki"
+    "occupation": "technik organizacji turystyki",
+    "fields": [
+     "TUR"
+    ]
    }
   ],
   "geo": {
@@ -658,7 +766,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t3",
     "status": "check",
-    "occupation": "technik automatyk"
+    "occupation": "technik automatyk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1D",
@@ -675,7 +786,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t3",
     "status": "check",
-    "occupation": "technik elektronik"
+    "occupation": "technik elektronik",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1E",
@@ -693,7 +807,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t3",
     "status": "check",
-    "occupation": "technik elektryk"
+    "occupation": "technik elektryk",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "1F",
@@ -711,7 +828,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t3",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "1P",
@@ -728,7 +848,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t3",
     "status": "check",
-    "occupation": "technik programista"
+    "occupation": "technik programista",
+    "fields": [
+     "INF"
+    ]
    }
   ],
   "geo": {
@@ -769,7 +892,10 @@
     "scoredSourced": true,
     "sourceId": "we-ty-t4",
     "status": "check",
-    "occupation": "technik architektury krajobrazu"
+    "occupation": "technik architektury krajobrazu",
+    "fields": [
+     "BIO"
+    ]
    },
    {
     "code": "1B",
@@ -789,7 +915,10 @@
     "scoredSourced": true,
     "sourceId": "we-ty-t4",
     "status": "check",
-    "occupation": "technik budownictwa"
+    "occupation": "technik budownictwa",
+    "fields": [
+     "BUD"
+    ]
    },
    {
     "code": "1M",
@@ -810,7 +939,10 @@
     "scoredSourced": true,
     "sourceId": "we-ty-t4",
     "status": "check",
-    "occupation": "technik mechanik"
+    "occupation": "technik mechanik",
+    "fields": [
+     "ENG"
+    ]
    }
   ],
   "geo": {
@@ -847,7 +979,10 @@
     "scoredSourced": false,
     "sourceId": "ty-informator-2025",
     "status": "check",
-    "occupation": "technik analityk"
+    "occupation": "technik analityk",
+    "fields": [
+     "SCI"
+    ]
    },
    {
     "code": "TOS",
@@ -864,7 +999,10 @@
     "scoredSourced": false,
     "sourceId": "ty-informator-2025",
     "status": "check",
-    "occupation": "technik ochrony środowiska"
+    "occupation": "technik ochrony środowiska",
+    "fields": [
+     "BIO"
+    ]
    }
   ],
   "geo": {
@@ -906,7 +1044,10 @@
     "scoredSourced": true,
     "sourceId": "zs6-ty-rekrutacja",
     "status": "check",
-    "occupation": "technik pojazdów samochodowych"
+    "occupation": "technik pojazdów samochodowych",
+    "fields": [
+     "ENG"
+    ]
    },
    {
     "code": "TI",
@@ -922,7 +1063,10 @@
     "scoredSourced": false,
     "sourceId": "zs6-ty-rekrutacja",
     "status": "check",
-    "occupation": "technik informatyk"
+    "occupation": "technik informatyk",
+    "fields": [
+     "INF"
+    ]
    },
    {
     "code": "TL",
@@ -937,7 +1081,10 @@
     "scoredSourced": false,
     "sourceId": "zs6-ty-rekrutacja",
     "status": "check",
-    "occupation": "technik logistyk"
+    "occupation": "technik logistyk",
+    "fields": [
+     "ECO"
+    ]
    },
    {
     "code": "TEP",
@@ -953,7 +1100,10 @@
     "scoredSourced": false,
     "sourceId": "zs6-ty-rekrutacja",
     "status": "check",
-    "occupation": "technik eksploatacji portów i terminali"
+    "occupation": "technik eksploatacji portów i terminali",
+    "fields": [
+     "ECO"
+    ]
    }
   ],
   "geo": {
@@ -988,7 +1138,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t6",
     "status": "check",
-    "occupation": "technik hotelarstwa"
+    "occupation": "technik hotelarstwa",
+    "fields": [
+     "TUR"
+    ]
    },
    {
     "code": "1Ż",
@@ -1006,7 +1159,10 @@
     "scoredSourced": false,
     "sourceId": "we-ty-t6",
     "status": "check",
-    "occupation": "technik żywienia i usług gastronomicznych"
+    "occupation": "technik żywienia i usług gastronomicznych",
+    "fields": [
+     "TUR"
+    ]
    }
   ],
   "geo": {

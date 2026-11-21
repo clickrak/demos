@@ -34,7 +34,12 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-so-lo4",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1A2",
@@ -58,7 +63,11 @@
     ],
     "scoredSourced": true,
     "sourceId": "otou-so-lo4",
-    "status": "check"
+    "status": "check",
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1B1",
@@ -89,7 +98,12 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "otou-so-lo4"
-    }
+    },
+    "fields": [
+     "INF",
+     "SCI",
+     "ENG"
+    ]
    },
    {
     "code": "1B2",
@@ -117,7 +131,11 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "otou-so-lo4"
-    }
+    },
+    "fields": [
+     "MED",
+     "SCI"
+    ]
    },
    {
     "code": "1C1",
@@ -147,7 +165,13 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "otou-so-lo4"
-    }
+    },
+    "fields": [
+     "ECO",
+     "BIO",
+     "INF",
+     "SCI"
+    ]
    },
    {
     "code": "1C2",
@@ -175,7 +199,10 @@
      "lang": "angielski",
      "kind": "dwujęzyczna",
      "sourceId": "otou-so-lo4"
-    }
+    },
+    "fields": [
+     "HUM"
+    ]
    },
    {
     "code": "1D",
@@ -195,7 +222,11 @@
      "lang": "angielski",
      "kind": "międzynarodowa",
      "sourceId": "otou-so-lo4"
-    }
+    },
+    "fields": [
+     "LNG",
+     "HUM"
+    ]
    }
   ],
   "geo": {

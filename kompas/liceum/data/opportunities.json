@@ -59,6 +59,9 @@
   "icon": "analityka",
   "worlds": [
    "tech"
+  ],
+  "field": [
+   "INF"
   ]
  },
  {
@@ -122,6 +125,9 @@
   "icon": "bezpieczenstwo",
   "worlds": [
    "tech"
+  ],
+  "field": [
+   "INF"
   ]
  },
  {
@@ -186,6 +192,10 @@
   "worlds": [
    "tech",
    "biznes"
+  ],
+  "field": [
+   "INF",
+   "SCI"
   ]
  },
  {
@@ -250,6 +260,9 @@
   "worlds": [
    "tech",
    "budowa"
+  ],
+  "field": [
+   "ENG"
   ]
  },
  {
@@ -315,6 +328,9 @@
   "worlds": [
    "tech",
    "natura"
+  ],
+  "field": [
+   "SCI"
   ]
  },
  {
@@ -381,6 +397,9 @@
   "worlds": [
    "natura",
    "ludzie"
+  ],
+  "field": [
+   "MED"
   ]
  },
  {
@@ -445,6 +464,9 @@
   "icon": "technika",
   "worlds": [
    "natura"
+  ],
+  "field": [
+   "SCI"
   ]
  },
  {
@@ -508,6 +530,9 @@
   "icon": "woda",
   "worlds": [
    "natura"
+  ],
+  "field": [
+   "BIO"
   ]
  },
  {
@@ -572,6 +597,9 @@
   "icon": "jezyki",
   "worlds": [
    "jezyki"
+  ],
+  "field": [
+   "LNG"
   ]
  },
  {
@@ -637,6 +665,9 @@
   "icon": "biznes",
   "worlds": [
    "biznes"
+  ],
+  "field": [
+   "ECO"
   ]
  },
  {
@@ -700,6 +731,9 @@
   "icon": "technika",
   "worlds": [
    "budowa"
+  ],
+  "field": [
+   "BUD"
   ]
  },
  {
@@ -763,6 +797,9 @@
   "icon": "ruch",
   "worlds": [
    "sport"
+  ],
+  "field": [
+   "SPO"
   ]
  },
  {
@@ -826,6 +863,10 @@
   "icon": "ludzie",
   "worlds": [
    "ludzie"
+  ],
+  "field": [
+   "PSY",
+   "EDU"
   ]
  },
  {
@@ -891,6 +932,11 @@
   "icon": "media",
   "worlds": [
    "spoleczenstwo"
+  ],
+  "field": [
+   "HUM",
+   "LAW",
+   "MEDIA"
   ]
  }
 ]

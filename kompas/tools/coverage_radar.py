@@ -31,6 +31,8 @@ put('uj-dziennikarstwo ignatianum-dziennikarstwo uken-pr uj-film-nowe-media agh-
 put('asp-architektura-wnetrz asp-wzornictwo uken-design uken-komunikacja-wizualna','ART')
 put('awf-wf awf-sport','SPO')
 put('uken-bezpieczenstwo uj-bezpieczenstwo sapsp-pozarnictwo','SEC')
+for o in off:
+    if o.get('field'): S[o['id']]=o['field']
 miss=[o['id'] for o in off if o['id'] not in S]; assert not miss,miss
 sc=collections.Counter(S[o['id']] for o in off)
 # own Studia cards by axis
@@ -46,24 +48,41 @@ techmap=[('analityk','SCI'),('aran','ART'),('krajobraz','BIO'),('automatyk','ENG
 ('drewna','ENG'),('kosmet','SCI'),('teleinf','INF'),('odnawialnej','ENG'),('żywienia','TUR')]
 extra=[('mundur|wojsk|policj|bezpiecze','SEC'),('turystycz|hotel','TUR'),('artystycz|architekt|wnętrz','ART'),('medialn','MEDIA'),('prawn|prawo','LAW'),('lingwistyczn|medialn','MEDIA') if False else ('medialn','MEDIA'),('pedagog|psycholog','EDU'),
 ('humanistycz|hist-|pol-hist|hist-pol|łac','HUM'),('medycz|prozdrowot|promocja zdrowia','MED'),('game dev','INF')]
-L=collections.Counter(); Lcls=0; Ltech=0; seen=collections.defaultdict(set)
-for f in glob.glob(R+'liceum/data/db/pl/*/schools.json'):
-    for s in json.load(open(f)):
+# Liceum (CW1, v2.10): every direction has `field` (list of codes, first = main field) and every class has `fields`.
+# `python3 kompas/tools/coverage_radar.py --fill` writes `fields` for classes that have none, from the rules below.
+LOPP=json.load(open(R+'liceum/data/opportunities.json'))
+dirfield={o['id']:o.get('field') or cardax.get(o['id'],[]) for o in LOPP}
+def class_fields(s,c):
+    axs=[]
+    def add(a):
+        if a not in axs: axs.append(a)
+    if s['type']=='technikum':
+        lab=c['label'].lower(); m=[a for k,a in techmap if k in lab]; assert m,lab; add(m[0])
+    else:
+        for k in c['cards']:
+            for a in cardax.get(k,dirfield.get(k,[])[:1]): add(a)
+        for pat,a in extra:
+            if re.search(pat,c['label'],re.I): add(a)
+    return axs
+FILL='--fill' in sys.argv
+L=collections.Counter(); Lcls=0; Ltech=0; seen=collections.defaultdict(set); nofield=[]
+for f in sorted(glob.glob(R+'liceum/data/db/pl/*/schools.json')):
+    sch=json.load(open(f)); changed=False
+    for s in sch:
         for c in s['classes']:
             Lcls+=1
-            axs=set()
-            if s['type']=='technikum':
-                Ltech+=1
-                lab=c['label'].lower(); m=[a for k,a in techmap if k in lab]; assert m,lab; axs.add(m[0])
-            else:
-                for k in c['cards']: axs.update(cardax[k])
-                for pat,a in extra:
-                    if re.search(pat,c['label'],re.I): axs.add(a)
+            if s['type']=='technikum': Ltech+=1
+            if 'fields' not in c:
+                if FILL: c['fields']=class_fields(s,c); changed=True
+                else: nofield.append(s['id']+' '+c['code'])
+            axs=set(c.get('fields') or class_fields(s,c))
             for a in axs: L[a]+=1; seen[a].add(s['id'])
-L_card={'MED':['biologia'],'PSY':['ludzie'],'EDU':['ludzie'],'INF':['programowanie','cyber','dane-ai'],'ENG':['elektronika'],'BUD':['budowa'],'SCI':['fizyka','chemia','dane-ai'],'BIO':['srodowisko'],
-'ECO':['biznes'],'LAW':['spoleczenstwo'],'LNG':['jezyki'],'HUM':['spoleczenstwo'],'MEDIA':['spoleczenstwo'],'ART':[],'SPO':['sport'],'SEC':[],'TUR':[]}
+    if changed: open(f,'w').write(json.dumps(sch,ensure_ascii=False,indent=1)+'\n')
+if nofield: print('classes without `fields` (run with --fill):',len(nofield))
+L_card={k:[o for o,fs in dirfield.items() if k in fs] for k,_ in AX}
 # 'shared' card (one card covers several axes) counts as partial
-shared={'LAW','MEDIA'}
+# a field is 'shared' when every direction that has it serves 3+ fields and has another main field
+shared={k for k,_ in AX if L_card[k] and all(len(dirfield[o])>=3 and dirfield[o][0]!=k for o in L_card[k])}
 sharedS={'SCI'}
 def level(n,cards,hi,is_shared=False):
     if n==0 and not cards: return 0

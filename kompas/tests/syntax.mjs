@@ -51,6 +51,10 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   const schools = Object.entries(json).filter(([f]) => /^liceum\/data\/db\/pl\/[^/]+\/schools\.json$/.test(f)).flatMap(([, d]) => d || []);
   for (const s of schools) if (s.geoPending != null && (s.geoPending !== true || !/^\d{4}-\d{2}-\d{2}$/.test(s.geoPendingSince || ''))) fail(`liceum school "${s.id}": geoPending must be true and come with geoPendingSince YYYY-MM-DD`);
   for (const s of schools) if (s.www != null && !/^https?:\/\/\S+$/.test(s.www)) fail(`liceum school "${s.id}": www must start with https:// or http://`);
+  // CW1 (v2.10): coverage radar field codes on every Liceum direction (`field`) and class (`fields`); see tools/coverage_radar.py.
+  const FIELDS = new Set(['MED', 'PSY', 'EDU', 'INF', 'ENG', 'BUD', 'SCI', 'BIO', 'ECO', 'LAW', 'LNG', 'HUM', 'MEDIA', 'ART', 'SPO', 'SEC', 'TUR']);
+  for (const c of cards) if (!Array.isArray(c.field) || !c.field.length || c.field.some(f => !FIELDS.has(f))) fail(`liceum direction "${c.id}": field must be a list of radar codes`);
+  for (const s of schools) for (const c of s.classes) if (!Array.isArray(c.fields) || !c.fields.length || c.fields.some(f => !FIELDS.has(f))) fail(`liceum class "${s.id} ${c.code}": fields missing or unknown (run tools/coverage_radar.py --fill)`);
   refs('liceum profile area', (json['liceum/data/profiles.json'] || []).flatMap(p => p.areas || []), ids(cards));
   refs('liceum class card', schools.flatMap(s => s.classes.flatMap(c => c.cards || [])), ids(cards));
   refs('liceum class source', schools.flatMap(s => s.classes.map(c => c.sourceId)), src);
