@@ -1720,6 +1720,114 @@
      ]
     ]
    }
+  },
+  "uj-insp": {
+   "address": "ul. Reymonta 4",
+   "lat": 50.06358,
+   "lon": 19.92012,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "AGH / UR",
+     "m": 230,
+     "tram": [],
+     "bus": [
+      "124",
+      "144",
+      "164",
+      "169",
+      "173",
+      "179"
+     ]
+    },
+    {
+     "name": "Czarnowiejska",
+     "m": 350,
+     "tram": [],
+     "bus": [
+      "139",
+      "144",
+      "164",
+      "173",
+      "194",
+      "199"
+     ]
+    },
+    {
+     "name": "Park Jordana",
+     "m": 390,
+     "tram": [
+      "14"
+     ],
+     "bus": []
+    }
+   ],
+   "fromHub": {
+    "min": 15,
+    "median": 16,
+    "via": [
+     [
+      "bus",
+      "179"
+     ]
+    ]
+   }
+  },
+  "uken-izss": {
+   "address": "os. Stalowe 17",
+   "lat": 50.07356,
+   "lon": 20.05167,
+   "geo": "osm",
+   "geoVersion": 2,
+   "handGeo": null,
+   "stops": [
+    {
+     "name": "Orkana",
+     "m": 110,
+     "tram": [],
+     "bus": [
+      "123"
+     ]
+    },
+    {
+     "name": "Os. Willowe",
+     "m": 150,
+     "tram": [],
+     "bus": [
+      "123",
+      "163",
+      "174"
+     ]
+    },
+    {
+     "name": "Zalew Nowohucki",
+     "m": 200,
+     "tram": [
+      "16",
+      "22"
+     ],
+     "bus": [
+      "163",
+      "174"
+     ]
+    }
+   ],
+   "fromHub": {
+    "min": 31,
+    "median": 36,
+    "via": [
+     [
+      "tram",
+      "16"
+     ],
+     [
+      "tram",
+      "70"
+     ]
+    ]
+   }
   }
  }
 }
