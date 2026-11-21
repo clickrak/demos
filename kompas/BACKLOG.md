@@ -519,6 +519,25 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
 - **Current major goal (until the weekend review sets one):** v3.0. Trustworthy Kraków facts behind every result
   (every offer, demand line and pay band with a fresh source), so Aleks can act on the results for matura 2027 choices.
 
+#### v3.0 main improvements — PROPOSAL, NOT YET AGREED (weekend review 21 Nov 2026)
+
+Szymon has not answered yet. Planners: keep planning toward the current goal above; you may pick items 1–2 (they serve it).
+Do not treat the order below as agreed until this heading says "agreed".
+
+1. UJ + UJ CM 2026 thresholds from UJ's own results pages (22 offers; v2.0 ST2 rest) — Data · M · Opus
+2. GUS 2024 pay for the last 22 cards, then delete `gus-2020` (v2.0 ST3 rest) — Data · S · Sonnet
+3. Declaration helper before 7 Feb 2027: which rozszerzenie opens most of his liked directions — Functionality · M · Opus
+4. Star an offer: kept in the saved file and listed in the export — Functionality · S · Sonnet
+5. Sources page (all sources with `asOf`, like Liceum v2.7.1) + "Mogę to zrobić, bo…" chips (U3) — UI/UX · S · Sonnet
+6. Points estimate: tap expected matura % → his points per offer next to the 2026 threshold — Functionality · L · Opus
+7. Compare 2–3 offers side by side (subjects, threshold, length, commute) — UI/UX · M · Opus
+8. Parent summary: one printable page for the family table — UI/UX · M · Opus
+9. Open days 2027 for Kraków universities, a dated data file shown in the plan — Data · S · Sonnet
+10. More Kraków offers (fuller PK, UEK, UKEN; art, media, commerce) — Data · L · Sonnet + Opus review
+
+- Proposed this week: 1+2, 3, 4, 5. Proposed next week: 6, 7, 8, 9.
+- Proposed for v4.0: 10, other cities (Katowice, Warsaw; Munich/Augsburg phase 2), U7 tone read, URK check if still open.
+
 ### Release rules
 
 - **One release at a time, in order.** Every version is committed, pushed and live on GitHub Pages before the next one is planned.
