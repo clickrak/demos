@@ -1024,7 +1024,8 @@ fits the focus, take the first "next week" item that does.
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | pushed 21 Nov 2026 as 2.11.0 |
 | v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | pushed 21 Nov 2026 as 2.12.0 |
 | v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards; every card in a top 3 (10 test kids), demand and pay gaps, open offers (Politologia, Praca socjalna, 11 `check`), UJ thresholds if reachable | Opus + Sonnet | pushed 21 Nov 2026 as 3.0.0 (SD5 UJ thresholds moved to v3.2; pay for 12 cards moved to v3.1) |
-| v3.1–v3.3 | UI/UX, functionality (later) | Strengths as the foundation (10), sources page (7), links in Kierunki (11), travel from the centre (12), points estimate (8), parent summary (9) | Opus + Sonnet | after v3.0 |
+| v3.1 | UI/UX (+ data for item 11) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7); GUS 2024 pay if the table opens (6 rest) | Opus + Sonnet | planned 22 Nov 2026 (see "v3.1 tasks") |
+| v3.2–v3.3 | Functionality, UI/UX (later) | Travel from the centre (12), points estimate (8) with SD5 UJ thresholds, parent summary (9) | Opus + Sonnet | after v3.1 |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -1589,3 +1590,58 @@ One task = one commit; `git pull --rebase` before each push (Liceum may push the
 
 **Not in v3.0 (moves to v3.1, decided by the planner unless Szymon says otherwise):** official `url` for the 86 older offers that have none
 (item 11 data, done with its screen part in v3.1, Sonnet); GUS 2024 pay for the old cards still on `gus-2020` (item 6 rest, v3.1 Sonnet).
+
+### v3.1 tasks (UI/UX + data for item 11, planned 22 Nov 2026, night run; coded by the 22:45 task)
+
+**Why this release.** The coverage waves are done: 3.0.0 is pushed, the radar has every Studia field at level 3 or 4, and
+`tests/run.mjs` says 42 of 42 cards reach a top 3 (re-checked 22 Nov: tests, syntax and Liceum tests pass). The wave rule "no UI/UX
+until v3.0" no longer holds, so this release follows "Major goals": **v3.1 UI/UX = items 10, 7 and the screen part of 11**, plus the
+data carried over from v3.0 (`url` for the older offers, GUS 2024 pay). No new cards, activities, situations or test kids in this
+release (coverage is done), so the wave checks only need to stay green: 42 of 42 cards, no card top 3 for more than half the kids,
+A–AD keep their first card, radar unchanged.
+
+**State before (22 Nov 2026).** 3.0.0; 42 cards, 126 offers in `studia/data/db/pl/krakow/offers.json`, **85 offers without `url`**
+(uj 14, agh 14, ujcm 10, uek 10, uken 10, pk 6, ksm 5, uafm 4, awf 3, ur 2, asp 2, and one each zse1, sapsp, ignatianum, ug, prz).
+`tests/syntax.mjs` checks `url` only when it is there.
+
+**Order (one session, about 2 hours).** ST1 → ST2 → ST3 → ST4 → ST5 (time box) → SR3.1. If time runs out, ST4 and ST5 move to v3.2;
+ST1–ST3 and SR3.1 must be in. One task = one commit; `git pull --rebase` before each push (Liceum may push the same night).
+
+1. **ST1 (Sonnet) Official `url` for the 85 offers (item 11, data).** For each offer without `url`, find the official course or
+   recruitment page of the university (for example rekrutacja.uj.edu.pl, rekrutacja.agh.edu.pl, uek.krakow.pl, uken.krakow.pl,
+   pk.edu.pl; for ug and prz their own sites), **not** otouczelnie or other lists. Put it in `url` next to `sourceId`. Work in batches by
+   university (UJ + UJ CM, AGH, UEK, UKEN, PK, the rest); one commit per batch is fine ("Kompas Studia v3.1 ST1: url for N UJ offers").
+   If no official page is found for an offer, leave `url` out and list the offer id in the commit message and here.
+   Do not change `requires`, thresholds or `status` in this task (if a page shows something different, write it here as a note for later).
+   When every offer has a `url`, make `tests/syntax.mjs` strict: every studia offer must have an http(s) `url`. If some are missing,
+   keep the test as it is and add a printed count ("studia offers without url: N").
+   Check: `node kompas/tests/syntax.mjs` passes; the count of offers without `url` is written here.
+2. **ST2 (Opus) "strona kierunku ↗" right in the Kierunki view (item 11, screen).** In the Kierunki road (`app.js`, section
+   "Kierunki: one option at a time as a vertical road", about line 944) and its side panel, show under each study the university name and
+   a visible link "strona kierunku ↗" (`target="_blank" rel="noopener"`), without opening the detail first. Offers without `url` show the
+   university name only (no dead link). Same link in the one-page report and in the compare table (one row "strona"). Tap target at least
+   44 px high on phones; the link must not open the study detail (stop the click from reaching the road item).
+   Check: 375 and 1280 px in three looks (default, pop, neon): no line wider than the screen, link opens in a new tab, no script errors.
+3. **ST3 (Opus) Strengths as the foundation of the compass (item 10, Szymon's text above).** In `studia/story.js`, `sceneSvg` draws the
+   strength pills at `sy = 664`, close under the circle, and roads go from each pill into the compass. Move the strengths lower and apart:
+   a plinth (a flat base shape, theme colours from CSS variables) with the strengths as stones on it, and thin lines rising from each stone
+   to the compass (keep the `in in-<id>` path classes, so the scroll highlight still works). Grow the SVG `viewBox` height as needed;
+   with 1 to 5 strengths the stones stay centred; long names wrap (the existing `wrap` helper). Safest reading if Szymon does not answer:
+   **one plinth with stones**, not separate pillars.
+   Check: scroll steps still highlight the inputs; 375 and 1280 px in three looks; personas with 1 and with 5 strengths look right.
+4. **ST4 (Sonnet) Sources page (item 7; U3 chips were already done in 2.4.0).** A page "Źródła danych" like Liceum's (`liceum/app.js`,
+   about line 665: list of all sources with name, link, `asOf`, and how many marked "do sprawdzenia"), reached from a small link in the
+   Studia footer or menu (one link, no new tab in the bottom bar). Reuse the Liceum text and markup where it fits; share a helper in
+   `kompas/core` only if it stays simple, and keep `node kompas/tests/liceum.mjs` passing.
+   Check: every source in `studia/data/sources.json` is listed once; links open in a new tab; 375 and 1280 px.
+5. **ST5 (Sonnet, time box 15 min) GUS 2024 pay for cards still without pay (item 6 rest).** Cards without `pay`: media-cyfrowe, morze,
+   lotnictwo, turystyka, historia-sztuki, spoleczenstwo, nauka, sztuka-scena, historia, zywienie, weterynaria, geografia; and the old cards
+   on `gus-2020`. Same method as D7/SW1c: GUS 2024 table (`gus-2024`) when a figure for the group can be read, band from the existing scale;
+   never a guessed band. If the GUS table (Tablica 5, xlsx) still cannot be opened, stop at the time box, change nothing and write that here.
+6. **SR3.1 (Opus) Review and release 3.1.0.** Review the Sonnet work (ST1 links: open 5 at random and check they are the right course;
+   ST4 page). `node kompas/tests/run.mjs` (still 42 of 42 cards, A–AD first cards unchanged), `syntax.mjs`, `liceum.mjs`; radar re-run
+   (should not move; paste only if it does). Version 3.1.0 in the four places (`config.json`, two in `index.html`, line 1 of `app.js`;
+   search for "3.0.0" in `kompas/studia`). Release table row v3.1 → pushed; spec doc section "Kompas Studia v3.1.0" (Claude Docs).
+   Push to main.
+
+**Not in v3.1:** travel from the centre (12) and points estimate (8, with SD5 UJ thresholds) → v3.2; parent summary (9) → v3.3.
