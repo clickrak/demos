@@ -1135,7 +1135,7 @@ fits the focus, take the first "next week" item that does.
 | v3.2 | Ukrainian 1b: main UI | Ukrainian interface texts, glossary page, layout check, review sheet for a native reader | Sonnet + Opus | **done 24 Nov 2026 (3.2.0)** |
 | v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | **done 24 Nov 2026 (3.3.0)** |
 | v3.4 | English (set by Szymon 24 Nov 2026, 17:19) | Interface, questions, strengths, dimensions, scenarios and the glossary in English (`?lang=en`, third chip EN); cards, offers and universities stay Polish | Sonnet + Opus | **done 24 Nov 2026** |
-| v3.5 | Ukrainian 3a: directions | 42 cards (all texts); university names stay Polish in every language (Szymon, 24 Nov evening) | Sonnet + Opus | planned 24 Nov 2026; concrete plan (V0–V5) written 24 Nov evening, see "v3.5 concrete plan" in "Ukrainian version" |
+| v3.5 | Ukrainian 3a: directions | 42 cards (all texts); university names stay Polish in every language (Szymon, 24 Nov evening) | Sonnet + Opus | **done 24 Nov 2026 (3.5.0)** |
 | v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | planned 24 Nov 2026 |
 | v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
 | v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
@@ -1813,7 +1813,11 @@ Original task list for v3.3 (all done):
    Check: strict test "every card and institution has a Ukrainian entry"; no overlay id missing in the base data (rename safety);
    Polish snapshot unchanged. Release 3.4.0.
 
-**v3.5 concrete plan (planner, 24 Nov 2026 evening; this is the "v3.4 – UK-3a" list above, renumbered). Set `3.5.0`.**
+**v3.5 – UK-3a Directions (cards) in Ukrainian: DONE 24 Nov 2026 (3.5.0).** `studia/i18n/ua/opportunities.json` (42 cards: name, roles, whoYouHelp, whatYouGet, whyNeeded, demand text, dayInLife, growth, experiment, robustnessNote, GUS group as "Ukrainian (Polish)") written by three Sonnet helpers (14 cards each) and reviewed by Opus (fixes: "ШІ" instead of "AI" as in the footer, "Служби і рятувальна справа", "Програмування і ШІ", two wordings). Loaded **only for `?lang=ua`** (`applyDataLang()` lays it over `dataPl.opportunities`); English and Polish keep the Polish cards (English UI text checked identical to 3.4.0 on 54 screens). University names untouched (test). New strict test in `tests/syntax.mjs`: every card has every text field, list lengths and numbers equal, no Polish letters outside brackets and university names, no text left identical to Polish, no ids/codes in the overlay, no university name changed, card names not too long, no `en/opportunities.json`. `tests/snapshot.mjs` (V0) and `tests/ui_text.py` now ignore the version number, so a version bump no longer breaks them. Small fix: the strength line on the "mocne" screen showed the stored Polish place ("w językach") in Ukrainian; it now goes through `whereLabel` (Polish unchanged). Layout: `?lang=ua` at 375 and 1280 px in three looks, cards, compass, results: nothing wider than the screen, no script errors. Radar unchanged. `review-ua.md` now lists 862 data texts (cards included).
+Open wording for the reader (cards): «парамедик» for «ratownik medyczny»; «медбрат» for «pielęgniarz»; «мундирні служби»; «у рівновазі» for demand «w równowadze»; «радник-юрист (radca prawny)»; «призначений вчитель (nauczyciel mianowany)»; «громада» for «gmina»; «група продовженого дня» for «świetlica».
+Still Polish in `?lang=ua` (v3.6): offer names and notes, `requires` text, next steps; university names stay Polish for good.
+
+**v3.5 concrete plan (planner, 24 Nov 2026 evening; this is the "v3.4 – UK-3a" list above, renumbered). Set `3.5.0`. All tasks done (V0 [x], V1 [x], V2 dropped, V3 [x], V4 [x], V5 [x]).**
 State before: 3.4.0 pushed (English). Tests on 24 Nov: `syntax.mjs`, `run.mjs` (42 of 42 cards in a top 3), `liceum.mjs` and
 `ui_text.py` (54 screens unchanged) pass; radar unchanged. **`snapshot.mjs` fails (30 kids, `md` only)**: the only difference is the
 version line (`Wersja: v3.4.0`, `"version": "3.4.0"`), because the hashed export contains `appVersion` and 3.4.0 did not refresh the
@@ -1822,11 +1826,11 @@ Size: one session, about 1.5 h, light (the 22/23 Nov runs hit the usage limit). 
 Scope of this release: card texts in Ukrainian; university names stay Polish. Not here: offer names, `requires.note`, `next` (v3.6), campus
 names and addresses (stay Polish, UK-B), source titles (never translated).
 
-- **V0 (Opus, 10 min) Snapshot without the version.** In `tests/snapshot.mjs` hash the export with the version line and the
+- [x] **V0 (Opus, 10 min) Snapshot without the version.** In `tests/snapshot.mjs` hash the export with the version line and the
   `"version"` field replaced by a fixed text (so every version bump does not break it), then `--update` once and check that the
   `result` and `decl` hashes did not move. Commit "Kompas Studia v3.5 V0: Polish snapshot ignores the version number".
   Check: `node kompas/tests/snapshot.mjs` says "Polish snapshot unchanged (30 kids)".
-- **V1 (Sonnet x3, in parallel; Opus reviews) `studia/i18n/ua/opportunities.json`.** Same shape as `studia/data/opportunities.json`,
+- [x] **V1 (Sonnet x3, in parallel; Opus reviews) `studia/i18n/ua/opportunities.json`.** Same shape as `studia/data/opportunities.json`,
   items matched by `id`, only text fields: `name`, `roles`, `whoYouHelp`, `whatYouGet`, `whyNeeded`, `demand.text`, `dayInLife` (3),
   `growth` (3), `experiment`, `robustnessNote` (16 cards), `pay.group` (30 cards). Not: `id`, `cluster`, `force`, `values`, `strengths`,
   `related`, `languages`, `field`, `demand.level`, `robustness`, any `sourceId` (ids and codes stay as they are).
@@ -1837,7 +1841,7 @@ names and addresses (stay Polish, UK-B), source titles (never translated).
   Card names must stay short (they sit on the compass, the road and chips): at most about 1.3 x the Polish length.
   Check: list lengths equal; numbers equal (reuse the force-number check idea); no Polish letters outside brackets.
 - **V2 dropped (Szymon, 24 Nov 2026 evening): university names stay in Polish in every language, not translated (also not in English).** No `institutions.json`; `institution` and `shortInst()` stay as they are. Test in V3: the Ukrainian card overlay must not change any university name that appears in a card text.
-- **V3 (Opus) Wiring.** In `studia/app.js` the startup loader asks for `opportunities` **only for `ua`** (no 404 for
+- [x] **V3 (Opus) Wiring.** In `studia/app.js` the startup loader asks for `opportunities` **only for `ua`** (no 404 for
   `en`); `applyDataLang()` lays `ua/opportunities.json` over `dataPl.opportunities` with `overlay()`. Offers and university names are
   not touched (they stay Polish). Polish and English get `dataPl` unchanged. Check that card names in the compass (`story.js` `sceneSvg`, `wrap` helper), Kierunki road
   (text is cut at 46 characters: check it does not cut inside the bracket badly), compare table, report and the markdown export show
@@ -1847,10 +1851,10 @@ names and addresses (stay Polish, UK-B), source titles (never translated).
   Tests in `tests/syntax.mjs` (strict, same pattern as lines 120–146): every card has a Ukrainian entry with all the text fields above;
   no overlay id that is not in the Polish data (rename safety); no Polish letters outside brackets and outside university names
   (allow-list: the `institution` strings of `offers.json`). `tools/i18n_review.py`: add the card texts to `review-ua.md`.
-- **V4 (Opus, 15 min) Layout check.** `?lang=ua` at 375 and 1280 px, three looks (none, `?skin=pop`, `?skin=neon`): compass with the
+- [x] **V4 (Opus, 15 min) Layout check.** `?lang=ua` at 375 and 1280 px, three looks (none, `?skin=pop`, `?skin=neon`): compass with the
   longest Ukrainian card names, a card detail, the Kierunki road and panel, compare table, report. No line wider than the screen, no
   script errors. Also open `?lang=en` once: cards still Polish, no errors.
-- **V5 (Opus) Review and release 3.5.0.** Read the Sonnet text against the glossary (terms the same in all three batches, for example
+- [x] **V5 (Opus) Review and release 3.5.0.** Read the Sonnet text against the glossary (terms the same in all three batches, for example
   the card names that also appear in the questions); run `snapshot.mjs`, `syntax.mjs`, `run.mjs`, `liceum.mjs`, `ui_text.py` (Polish 54
   screens unchanged) and also `UI_LANG=en python3 kompas/tests/ui_text.py` against 3.4.0 if easy (English must not change); radar re-run
   (should not move). Version 3.5.0 in the four places (search "3.4.0" in `kompas/studia`), then `node kompas/tests/snapshot.mjs`

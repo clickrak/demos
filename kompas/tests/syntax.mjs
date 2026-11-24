@@ -145,6 +145,33 @@ for (const lg of ['ua', 'en']) { // Overlays of the data texts (v3.3, English v3
     const nums = v => (String(v).match(/\d+/g) || []).join(',');
     for (const f of sc.forces || []) { const o = (osc.forces || []).find(x => x.id === f.id); if (o && nums(f.text) !== nums(o.text)) fail(`overlay: force "${f.id}" numbers differ: ${nums(f.text)} vs ${nums(o.text)}`); }
   }
+  // Cards (v3.5): Ukrainian only; English keeps the Polish cards. University names stay Polish and are allowed as they are.
+  const opp = json['studia/data/opportunities.json'] || [], oo = json[`studia/i18n/${lg}/opportunities.json`];
+  if (lg === 'en' && oo) fail('overlay: studia/i18n/en/opportunities.json must not exist (cards stay Polish in English)');
+  if (lg === 'ua') {
+    if (!oo) fail('overlay: studia/i18n/ua/opportunities.json must exist');
+    else {
+      const insts = [...new Set((json['studia/data/db/pl/krakow/offers.json'] || []).map(o => o.institution).filter(Boolean))].sort((a, b) => b.length - a.length);
+      const strip = v => insts.reduce((x, n) => x.split(n).join(''), String(v));
+      const textF = ['name', 'roles', 'whoYouHelp', 'whatYouGet', 'whyNeeded', 'dayInLife', 'growth', 'experiment'];
+      const m = new Map(oo.map(x => [x.id, x])), nums = v => (String(v).match(/\d+/g) || []).sort().join(',');
+      for (const c of opp) {
+        const o = m.get(c.id); if (!o) { fail(`overlay: ua card "${c.id}" is missing`); continue; }
+        const pairs = [...textF.filter(f => c[f] !== undefined).map(f => [f, c[f], o[f]]), ...(c.robustnessNote ? [['robustnessNote', c.robustnessNote, o.robustnessNote]] : []),
+          ['demand.text', c.demand?.text, o.demand?.text], ...(c.pay?.group ? [['pay.group', c.pay.group, o.pay?.group]] : [])];
+        for (const [f, pv, uv] of pairs) {
+          if (Array.isArray(pv)) { if (!Array.isArray(uv) || uv.length !== pv.length) { fail(`overlay: card "${c.id}".${f} list length differs`); continue; } uv.forEach(x => bad(`card "${c.id}".${f}`, strip(x))); }
+          else bad(`card "${c.id}".${f}`, typeof uv === 'string' ? strip(uv) || uv : uv);
+          if ([].concat(uv || []).some((x, i) => x === [].concat(pv)[i] && /[a-z]{4}/i.test(x))) fail(`overlay: card "${c.id}".${f} is still the Polish text`);
+          if (nums([].concat(pv)) !== nums([].concat(uv || []))) fail(`overlay: card "${c.id}".${f} numbers differ`);
+        }
+        for (const n of insts) if ([].concat(...pairs.map(p => p[1])).join(' ').includes(n) && ![].concat(...pairs.map(p => p[2] || [])).join(' ').includes(n)) fail(`overlay: card "${c.id}" changed the university name "${n}"`);
+        for (const k of ['cluster', 'force', 'values', 'strengths', 'related', 'languages', 'field', 'robustness', 'interests', 'workStyle']) if (k in o) fail(`overlay: ua card "${c.id}" must not hold "${k}" (ids and codes stay Polish)`);
+        if (o.name && o.name.length > Math.max(20, 1.4 * c.name.length)) fail(`overlay: ua card "${c.id}" name too long for the compass`);
+      }
+      for (const o of oo) if (!opp.some(c => c.id === o.id)) fail(`overlay: ua card "${o.id}" is not in the Polish data`);
+    }
+  }
 }
 console.log(bad ? `${bad} problem(s)` : `OK: ${files.filter(f => f.endsWith('.js')).length} scripts parse, ${Object.keys(json).length} data files valid, cross-references resolve, every source used`);
 process.exit(bad ? 1 : 0);

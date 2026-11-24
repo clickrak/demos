@@ -3,7 +3,7 @@
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.
 
-Interface keys: 853, translated: 853. Data texts: 270.
+Interface keys: 853, translated: 853. Data texts: 862.
 
 | key | Polski | Українська | correction |
 |---|---|---|---|
@@ -1130,3 +1130,595 @@ Interface keys: 853, translated: 853. Data texts: 270.
 | `scenarios.sectors[logistyka].name` | logistyka i infrastruktura | логістика та інфраструктура |  |
 | `scenarios.sectors[woda].name` | woda i klimat | вода і клімат |  |
 | `scenarios.shrinking` | Kurczyć się mogą: węgiel, rutynowa praca biurowa, nowe budownictwo poza dużymi miastami. | Скорочуватися можуть: вугілля, рутинна офісна робота, нове будівництво поза великими містами. |  |
+| `opportunities[medycyna].name` | Medycyna kliniczna | Клінічна медицина |  |
+| `opportunities[medycyna].roles` | lekarz, ratownik medyczny | лікар, парамедик |  |
+| `opportunities[medycyna].whoYouHelp` | Chorzy i ich rodziny, często w najtrudniejszym dniu ich życia. | Хворі та їхні родини, часто в найважчий день їхнього життя. |  |
+| `opportunities[medycyna].whatYouGet` | Praca, która ma znaczenie od pierwszego dnia, i wiedza, która się nie starzeje. Dużo odpowiedzialności i długa nauka. | Робота, яка має значення від першого дня, і знання, які не старіють. Багато відповідальності та довге навчання. |  |
+| `opportunities[medycyna].whyNeeded` | Społeczeństwo się starzeje, a lekarzy brakuje już dziś. | Суспільство старіє, а лікарів бракує вже сьогодні. |  |
+| `opportunities[medycyna].dayInLife[0]` | Obchód: rozmowa z pacjentami i decyzja o dalszym leczeniu. | Обхід: розмова з пацієнтами та рішення про подальше лікування. |  |
+| `opportunities[medycyna].dayInLife[1]` | Izba przyjęć: szybka ocena, kto potrzebuje pomocy najpierw. | Приймальне відділення: швидко оцінити, кому допомога потрібна першому. |  |
+| `opportunities[medycyna].dayInLife[2]` | Dokumentacja i rozmowa z zespołem o trudnym przypadku. | Документація та розмова з командою про складний випадок. |  |
+| `opportunities[medycyna].growth[0]` | lekarz na stażu, potem rezydent | лікар-стажист, потім ординатор |  |
+| `opportunities[medycyna].growth[1]` | specjalista w wybranej dziedzinie | спеціаліст у обраній галузі |  |
+| `opportunities[medycyna].growth[2]` | ordynator, nauczyciel akademicki albo własna praktyka | завідувач відділення, викладач вишу або власна практика |  |
+| `opportunities[medycyna].experiment` | Zrób kurs pierwszej pomocy i porozmawiaj 20 minut z lekarzem albo ratownikiem o jego zwykłym dyżurze. | Пройди курс першої допомоги та поговори 20 хвилин з лікарем або парамедиком про його звичайне чергування. |  |
+| `opportunities[medycyna].demand.text` | W Krakowie brakuje lekarzy i ratowników medycznych. | У Кракові бракує лікарів і парамедиків. |  |
+| `opportunities[medycyna].pay.group` | Lekarze | Лікарі (Lekarze) |  |
+| `opportunities[pielegniarstwo].name` | Pielęgniarstwo i opieka | Медсестринство і догляд |  |
+| `opportunities[pielegniarstwo].roles` | pielęgniarz, opiekun medyczny, opieka nad seniorami | медбрат, медичний опікун, догляд за літніми людьми |  |
+| `opportunities[pielegniarstwo].whoYouHelp` | Starsi i przewlekle chorzy, którzy potrzebują kogoś blisko na co dzień. | Літні та хронічно хворі люди, яким щодня потрібен хтось поруч. |  |
+| `opportunities[pielegniarstwo].whatYouGet` | Pewna praca w każdym mieście. Dyplom pielęgniarza jest uznawany automatycznie w całej Unii Europejskiej. | Надійна робота в будь-якому місті. Диплом медсестри автоматично визнають у всьому Європейському Союзі. |  |
+| `opportunities[pielegniarstwo].whyNeeded` | Seniorów będzie coraz więcej, a pielęgniarek i opiekunów brakuje już dziś. | Літніх людей буде дедалі більше, а медсестер і опікунів бракує вже сьогодні. |  |
+| `opportunities[pielegniarstwo].dayInLife[0]` | Przekazanie dyżuru: kto jak się czuje, co się zmieniło w nocy. | Передача зміни: хто як почувається, що змінилося вночі. |  |
+| `opportunities[pielegniarstwo].dayInLife[1]` | Leki, opatrunki, pomiary i rozmowy z pacjentami. | Ліки, пов'язки, вимірювання та розмови з пацієнтами. |  |
+| `opportunities[pielegniarstwo].dayInLife[2]` | Pokazanie rodzinie, jak opiekować się chorym w domu. | Показати родині, як доглядати хворого вдома. |  |
+| `opportunities[pielegniarstwo].growth[0]` | pielęgniarz na oddziale | медбрат у відділенні |  |
+| `opportunities[pielegniarstwo].growth[1]` | specjalizacja, np. anestezjologia albo opieka długoterminowa | спеціалізація, наприклад анестезіологія або тривалий догляд |  |
+| `opportunities[pielegniarstwo].growth[2]` | pielęgniarka oddziałowa, koordynator albo praca naukowa | старша медсестра, координатор або наукова робота |  |
+| `opportunities[pielegniarstwo].experiment` | Spędź jedno popołudnie jako wolontariusz w domu opieki albo w hospicjum. | Проведи один день після уроків як волонтер у будинку для літніх людей або в хоспісі. |  |
+| `opportunities[pielegniarstwo].demand.text` | W Krakowie brakuje pielęgniarek, położnych i opiekunów osób starszych. | У Кракові бракує медсестер, акушерок і опікунів літніх людей. |  |
+| `opportunities[pielegniarstwo].pay.group` | Pielęgniarki | Медсестри (Pielęgniarki) |  |
+| `opportunities[rehabilitacja].name` | Rehabilitacja i ruch | Реабілітація і рух |  |
+| `opportunities[rehabilitacja].roles` | fizjoterapeuta, terapeuta zajęciowy | фізичний терапевт, ерготерапевт |  |
+| `opportunities[rehabilitacja].whoYouHelp` | Osoby po urazach i operacjach, sportowcy, seniorzy, którzy chcą zostać samodzielni. | Люди після травм і операцій, спортсмени, літні люди, які хочуть залишатися самостійними. |  |
+| `opportunities[rehabilitacja].whatYouGet` | Praca w ruchu, a efekt widać u konkretnego człowieka. | Робота в русі, а результат видно в конкретної людини. |  |
+| `opportunities[rehabilitacja].whyNeeded` | Coraz więcej starszych osób będzie potrzebować rehabilitacji. To praca, po której widać efekt u konkretnego człowieka. | Дедалі більше літніх людей потребуватиме реабілітації. Це робота, після якої видно результат у конкретної людини. |  |
+| `opportunities[rehabilitacja].dayInLife[0]` | Rano pacjent po operacji kolana: ćwiczenia krok po kroku. | Зранку пацієнт після операції на коліні: вправи крок за кроком. |  |
+| `opportunities[rehabilitacja].dayInLife[1]` | W południe senior uczący się znowu chodzić po schodach. | Опівдні літня людина знову вчиться ходити сходами. |  |
+| `opportunities[rehabilitacja].dayInLife[2]` | Po południu zawodnik po kontuzji wraca do treningów. | Після обіду спортсмен після травми повертається до тренувань. |  |
+| `opportunities[rehabilitacja].growth[0]` | fizjoterapeuta w szpitalu lub przychodni | фізичний терапевт у лікарні або поліклініці |  |
+| `opportunities[rehabilitacja].growth[1]` | specjalizacja: sport, neurologia, dzieci | спеціалізація: спорт, неврологія, діти |  |
+| `opportunities[rehabilitacja].growth[2]` | własny gabinet albo kierowanie zespołem | власний кабінет або керування командою |  |
+| `opportunities[rehabilitacja].experiment` | Poproś fizjoterapeutę z siłowni lub klubu o rozmowę albo pół dnia obserwacji. | Попроси фізичного терапевта із спортзалу чи клубу про розмову або півдня спостережень. |  |
+| `opportunities[rehabilitacja].demand.text` | Fizjoterapeuci i masażyści są w Krakowie w równowadze: praca jest, ale bez dużego niedoboru. | Фізичні терапевти і масажисти в Кракові в рівновазі: робота є, але великого дефіциту немає. |  |
+| `opportunities[rehabilitacja].pay.group` | Inni specjaliści ochrony zdrowia (m.in. fizjoterapeuci) | Інші спеціалісти охорони здоров'я, зокрема фізичні терапевти (Inni specjaliści ochrony zdrowia, m.in. fizjoterapeuci) |  |
+| `opportunities[psychologia].name` | Psychologia i zdrowie psychiczne | Психологія і психічне здоров'я |  |
+| `opportunities[psychologia].roles` | psycholog, psychoterapeuta, psycholog szkolny | психолог, психотерапевт, шкільний психолог |  |
+| `opportunities[psychologia].whoYouHelp` | Osoby w kryzysie i młodzież, która nie ma z kim pogadać. | Люди в кризі та підлітки, яким немає з ким поговорити. |  |
+| `opportunities[psychologia].whatYouGet` | Głęboka rozmowa, zrozumienie ludzi, praca, w której liczy się uważność. | Глибока розмова, розуміння людей, робота, де важлива уважність. |  |
+| `opportunities[psychologia].whyNeeded` | Na pomoc psychologiczną, zwłaszcza dla młodych, czeka się dziś miesiącami. | На психологічну допомогу, особливо для молоді, сьогодні чекають місяцями. |  |
+| `opportunities[psychologia].dayInLife[0]` | Rano dwie konsultacje w poradni. | Зранку дві консультації в центрі. |  |
+| `opportunities[psychologia].dayInLife[1]` | W południe spotkanie zespołu: omówienie trudnego przypadku. | Опівдні зустріч команди: обговорення складного випадку. |  |
+| `opportunities[psychologia].dayInLife[2]` | Po południu badanie testem i pisanie opinii. | Після обіду дослідження за допомогою тесту та написання висновку. |  |
+| `opportunities[psychologia].growth[0]` | psycholog w szkole, poradni lub firmie | психолог у школі, центрі або фірмі |  |
+| `opportunities[psychologia].growth[1]` | szkoła psychoterapii albo specjalizacja kliniczna | школа психотерапії або клінічна спеціалізація |  |
+| `opportunities[psychologia].growth[2]` | własna praktyka, superwizja, badania | власна практика, супервізія, дослідження |  |
+| `opportunities[psychologia].experiment` | Zapytaj psychologa w swojej szkole o 15 minut rozmowy o tym, czym się zajmuje na co dzień. | Запитай шкільного психолога про 15 хвилин розмови про те, чим він займається щодня. |  |
+| `opportunities[psychologia].demand.text` | Psycholodzy i psychoterapeuci są w Krakowie w równowadze: praca jest, ale bez dużego niedoboru. | Психологи і психотерапевти в Кракові в рівновазі: робота є, але великого дефіциту немає. |  |
+| `opportunities[psychologia].pay.group` | Specjaliści z dziedzin społecznych (m.in. psycholodzy) | Спеціалісти із суспільних галузей, зокрема психологи (Specjaliści z dziedzin społecznych, m.in. psycholodzy) |  |
+| `opportunities[farmacja].name` | Farmacja i biotechnologia | Фармація і біотехнології |  |
+| `opportunities[farmacja].roles` | farmaceuta, technik farmaceutyczny, analityk laboratoryjny | фармацевт, фармацевтичний технік, лаборант-аналітик |  |
+| `opportunities[farmacja].whoYouHelp` | Pacjenci, którzy nie wiedzą, jak brać leki, i lekarze, którzy potrzebują rady. | Пацієнти, які не знають, як приймати ліки, і лікарі, яким потрібна порада. |  |
+| `opportunities[farmacja].whatYouGet` | Połączenie wiedzy i rozmowy z ludźmi, pewna praca w każdym mieście. | Поєднання знань і спілкування з людьми, надійна робота в будь-якому місті. |  |
+| `opportunities[farmacja].whyNeeded` | Starsze osoby biorą coraz więcej leków naraz i potrzebują kogoś, kto to ogarnie. | Літні люди п'ють дедалі більше ліків одночасно, і їм потрібен хтось, хто в цьому розбереться. |  |
+| `opportunities[farmacja].dayInLife[0]` | Rano przyjęcie dostawy i sprawdzenie leków. | Зранку прийняти поставку і перевірити ліки. |  |
+| `opportunities[farmacja].dayInLife[1]` | W ciągu dnia rozmowy z pacjentami przy okienku. | Протягом дня розмови з пацієнтами біля віконця. |  |
+| `opportunities[farmacja].dayInLife[2]` | Wieczorem przygotowanie leków robionych na miejscu. | Увечері приготування ліків, які виготовляють на місці. |  |
+| `opportunities[farmacja].growth[0]` | technik farmaceutyczny w aptece | фармацевтичний технік в аптеці |  |
+| `opportunities[farmacja].growth[1]` | farmaceuta po studiach | фармацевт після навчання у виші |  |
+| `opportunities[farmacja].growth[2]` | kierownik apteki albo praca w firmie farmaceutycznej | завідувач аптеки або робота у фармацевтичній компанії |  |
+| `opportunities[farmacja].experiment` | Zapytaj w pobliskiej aptece, czy możesz porozmawiać z technikiem farmaceutycznym o jego pracy. | Запитай у найближчій аптеці, чи можна поговорити з фармацевтичним техніком про його роботу. |  |
+| `opportunities[farmacja].demand.text` | Farmaceuci oraz biolodzy i biotechnolodzy są w Krakowie w równowadze. | Фармацевти, біологи та біотехнологи в Кракові в рівновазі. |  |
+| `opportunities[farmacja].pay.group` | Farmaceuci | Фармацевти (Farmaceuci) |  |
+| `opportunities[dane-medyczne].name` | Dane medyczne i bioinformatyka | Медичні дані і біоінформатика |  |
+| `opportunities[dane-medyczne].roles` | analityk danych medycznych, bioinformatyk | аналітик медичних даних, біоінформатик |  |
+| `opportunities[dane-medyczne].whoYouHelp` | Lekarze i badacze, którzy dzięki danym szybciej znajdują, co pomaga pacjentom. | Лікарі та дослідники, які завдяки даним швидше знаходять те, що допомагає пацієнтам. |  |
+| `opportunities[dane-medyczne].whatYouGet` | Łączysz liczby z sensem: jedna analiza może zmienić sposób leczenia wielu osób. | Ти поєднуєш цифри зі змістом: один аналіз може змінити спосіб лікування багатьох людей. |  |
+| `opportunities[dane-medyczne].whyNeeded` | Szpitale i firmy zbierają coraz więcej danych, a mało kto rozumie jednocześnie dane i biologię. | Лікарні та компанії збирають дедалі більше даних, а мало хто розуміє одночасно дані й біологію. |  |
+| `opportunities[dane-medyczne].dayInLife[0]` | Porządkowanie danych z badania klinicznego. | Упорядкування даних клінічного дослідження. |  |
+| `opportunities[dane-medyczne].dayInLife[1]` | Spotkanie z lekarzami: jakie pytanie chcą zadać danym? | Зустріч з лікарями: яке питання вони хочуть поставити даним? |  |
+| `opportunities[dane-medyczne].dayInLife[2]` | Wykres i krótki raport, który da się zrozumieć bez statystyki. | Графік і короткий звіт, який можна зрозуміти без статистики. |  |
+| `opportunities[dane-medyczne].growth[0]` | młodszy analityk | молодший аналітик |  |
+| `opportunities[dane-medyczne].growth[1]` | specjalista od jednego obszaru, np. genetyki | спеціаліст з однієї галузі, наприклад генетики |  |
+| `opportunities[dane-medyczne].growth[2]` | lider zespołu danych albo badacz | керівник команди даних або дослідник |  |
+| `opportunities[dane-medyczne].experiment` | Zrób darmowy kurs wstępu do analizy danych i przeanalizuj jeden publiczny zbiór danych o zdrowiu. | Пройди безкоштовний вступний курс з аналізу даних і проаналізуй один відкритий набір даних про здоров'я. |  |
+| `opportunities[dane-medyczne].demand.text` | Programiści i specjaliści od analizy danych są w Krakowie w równowadze. | Програмісти та спеціалісти з аналізу даних у Кракові в рівновазі. |  |
+| `opportunities[dane-medyczne].pay.group` | Analitycy systemów komputerowych i programiści | Аналітики комп'ютерних систем і програмісти (Analitycy systemów komputerowych i programiści) |  |
+| `opportunities[inz-biomed].name` | Inżynieria biomedyczna | Біомедична інженерія |  |
+| `opportunities[inz-biomed].roles` | konstruktor urządzeń medycznych, inżynier sprzętu szpitalnego | конструктор медичних пристроїв, інженер лікарняного обладнання |  |
+| `opportunities[inz-biomed].whoYouHelp` | Pacjenci i personel medyczny, którzy korzystają z protez, aparatury i czujników. | Пацієнти й медичний персонал, які користуються протезами, апаратурою та датчиками. |  |
+| `opportunities[inz-biomed].whatYouGet` | Budujesz rzeczy, które ktoś naprawdę nosi albo które ratują życie. Technika z ludzkim celem. | Ти створюєш речі, які хтось справді носить або які рятують життя. Техніка з людською метою. |  |
+| `opportunities[inz-biomed].whyNeeded` | Starsze społeczeństwo potrzebuje więcej sprzętu: od protez po aparaturę do opieki w domu. | Старіше суспільство потребує більше обладнання: від протезів до апаратури для догляду вдома. |  |
+| `opportunities[inz-biomed].dayInLife[0]` | Projekt części w programie do rysunku technicznego. | Проєктування деталі в програмі для технічного креслення. |  |
+| `opportunities[inz-biomed].dayInLife[1]` | Test prototypu z fizjoterapeutą albo lekarzem. | Тест прототипу з фізичним терапевтом або лікарем. |  |
+| `opportunities[inz-biomed].dayInLife[2]` | Poprawki i dokumenty, żeby urządzenie przeszło certyfikację. | Правки та документи, щоб пристрій пройшов сертифікацію. |  |
+| `opportunities[inz-biomed].growth[0]` | inżynier w zespole projektowym | інженер у проєктній команді |  |
+| `opportunities[inz-biomed].growth[1]` | specjalista od jednego typu urządzeń | спеціаліст з одного типу пристроїв |  |
+| `opportunities[inz-biomed].growth[2]` | kierownik projektów albo własna firma | керівник проєктів або власна фірма |  |
+| `opportunities[inz-biomed].experiment` | Wybierz się na dzień otwarty AGH i zapisz jedno urządzenie z laboratorium, które cię zaciekawiło. | Приходь на день відкритих дверей AGH і запиши один пристрій з лабораторії, який тебе зацікавив. |  |
+| `opportunities[inz-biomed].demand.text` | W Krakowie brakuje elektroników, automatyków i robotyków, a operatorzy aparatury medycznej są w równowadze. | У Кракові бракує електронників, автоматиків і робототехніків, а оператори медичної апаратури в рівновазі. |  |
+| `opportunities[inz-biomed].pay.group` | Inżynierowie | Інженери (Inżynierowie) |  |
+| `opportunities[sport].name` | Sport, ruch i zdrowie | Спорт, рух і здоров'я |  |
+| `opportunities[sport].roles` | trener przygotowania motorycznego, instruktor, analityk sportowy | тренер з рухової підготовки, інструктор, спортивний аналітик |  |
+| `opportunities[sport].whoYouHelp` | Sportowcy, dzieci, które dopiero zaczynają się ruszać, i seniorzy, którzy chcą zostać sprawni. | Спортсмени, діти, які тільки починають рухатися, і літні люди, які хочуть залишатися в формі. |  |
+| `opportunities[sport].whatYouGet` | Praca w ruchu i z ludźmi, z widocznym efektem. Twoje własne treningi to już doświadczenie. | Робота в русі та з людьми, з видимим результатом. Твої власні тренування — це вже досвід. |  |
+| `opportunities[sport].whyNeeded` | Dzieci ruszają się mniej, seniorów jest więcej: rośnie praca przy zapobieganiu, nie tylko przy leczeniu. | Діти рухаються менше, літніх людей більше: зростає робота із запобігання, а не лише з лікування. |  |
+| `opportunities[sport].dayInLife[0]` | Rano trening z grupą zawodników. | Зранку тренування з групою спортсменів. |  |
+| `opportunities[sport].dayInLife[1]` | Analiza nagrania i danych z zegarków. | Аналіз запису та даних з годинників. |  |
+| `opportunities[sport].dayInLife[2]` | Wieczorem zajęcia dla seniorów albo dzieci. | Ввечері заняття для літніх людей або дітей. |  |
+| `opportunities[sport].growth[0]` | instruktor albo trener | інструктор або тренер |  |
+| `opportunities[sport].growth[1]` | specjalista, np. przygotowanie motoryczne | спеціаліст, наприклад з рухової підготовки |  |
+| `opportunities[sport].growth[2]` | trener kadry, własny klub albo szkolenie trenerów | тренер збірної, власний клуб або навчання тренерів |  |
+| `opportunities[sport].experiment` | Poprowadź jedną rozgrzewkę dla młodszych na siłowni albo w klubie i zapytaj ich, co było najlepsze. | Проведи одну розминку для молодших у спортзалі чи клубі та запитай їх, що було найкраще. |  |
+| `opportunities[sport].robustnessNote` | Część pracy zależy od tego, ile ludzie wydają na sport. | Частина роботи залежить від того, скільки люди витрачають на спорт. |  |
+| `opportunities[sport].demand.text` | Instruktorzy rekreacji i sportu są w Krakowie w równowadze. | Інструктори з рекреації та спорту в Кракові в рівновазі. |  |
+| `opportunities[sport].pay.group` | Sportowcy, trenerzy i pokrewni | Спортсмени, тренери та споріднені професії (Sportowcy, trenerzy i pokrewni) |  |
+| `opportunities[sluzby].name` | Służby i ratownictwo | Служби і рятувальна справа |  |
+| `opportunities[sluzby].roles` | ratownik medyczny, strażak, żołnierz | парамедик, пожежник, військовий |  |
+| `opportunities[sluzby].whoYouHelp` | Ludzie w zagrożeniu: po wypadku, w pożarze, w powodzi. | Люди в небезпеці: після аварії, у пожежі, під час повені. |  |
+| `opportunities[sluzby].whatYouGet` | Zespół, na którym możesz polegać, i praca, w której liczy się każda minuta. Stały etat. | Команда, на яку можна покластися, і робота, де важлива кожна хвилина. Постійна посада. |  |
+| `opportunities[sluzby].whyNeeded` | Polska zostaje krajem frontowym NATO, a ratowników brakuje już dziś. | Польща стає прифронтовою країною НАТО, а рятувальників бракує вже сьогодні. |  |
+| `opportunities[sluzby].dayInLife[0]` | Odprawa i sprawdzenie sprzętu. | Інструктаж і перевірка спорядження. |  |
+| `opportunities[sluzby].dayInLife[1]` | Wyjazd do zdarzenia: szybka ocena i działanie w zespole. | Виїзд на подію: швидка оцінка та дії в команді. |  |
+| `opportunities[sluzby].dayInLife[2]` | Trening i ćwiczenia, gdy nie ma wezwań. | Тренування та вправи, коли немає викликів. |  |
+| `opportunities[sluzby].growth[0]` | ratownik albo strażak w jednostce | рятувальник або пожежник у підрозділі |  |
+| `opportunities[sluzby].growth[1]` | dowódca zmiany albo instruktor | командир зміни або інструктор |  |
+| `opportunities[sluzby].growth[2]` | kierowanie akcjami albo szkolenie innych | керування операціями або навчання інших |  |
+| `opportunities[sluzby].experiment` | Zrób kurs pierwszej pomocy albo przyjdź na próbę do ochotniczej straży pożarnej w swojej okolicy. | Пройди курс першої допомоги або приходь на пробне заняття до добровільної пожежної охорони у своєму районі. |  |
+| `opportunities[sluzby].demand.text` | W Krakowie brakuje ratowników medycznych. | У Кракові бракує парамедиків. |  |
+| `opportunities[sluzby].pay.group` | Specjaliści ds. ratownictwa medycznego | Спеціалісти з медичного рятування (Specjaliści ds. ratownictwa medycznego) |  |
+| `opportunities[energetyka].name` | Energetyka i sieci | Енергетика і мережі |  |
+| `opportunities[energetyka].roles` | inżynier sieci, operator systemu, projektant instalacji OZE | інженер мереж, оператор системи, проєктувальник відновлюваних установок |  |
+| `opportunities[energetyka].whoYouHelp` | Każdy dom i każda firma: prąd ma być zawsze i ma być coraz czystszy. | Кожен дім і кожна фірма: струм має бути завжди й дедалі чистіший. |  |
+| `opportunities[energetyka].whatYouGet` | Praca na dekady, konkretne projekty w terenie i przy komputerze. | Робота на десятиліття, конкретні проєкти в полі й за комп'ютером. |  |
+| `opportunities[energetyka].whyNeeded` | Sieci i odnawialne źródła trzeba budować przez dekady. | Мережі та відновлювані джерела треба будувати десятиліттями. |  |
+| `opportunities[energetyka].dayInLife[0]` | Przegląd planu nowej linii albo farmy fotowoltaicznej. | Перегляд плану нової лінії або фотовольтаїчної ферми. |  |
+| `opportunities[energetyka].dayInLife[1]` | Wyjazd na stację: pomiary i rozmowa z monterami. | Виїзд на станцію: вимірювання та розмова з монтажниками. |  |
+| `opportunities[energetyka].dayInLife[2]` | Symulacja: czy sieć wytrzyma zimowy szczyt? | Симуляція: чи витримає мережа зимовий пік? |  |
+| `opportunities[energetyka].growth[0]` | inżynier projektu | інженер проєкту |  |
+| `opportunities[energetyka].growth[1]` | specjalista, np. od magazynów energii | спеціаліст, наприклад зі сховищ енергії |  |
+| `opportunities[energetyka].growth[2]` | kierownik budowy, dyspozytor systemu albo ekspert | керівник будівництва, диспетчер системи або експерт |  |
+| `opportunities[energetyka].experiment` | Poproś kogoś z fotowoltaiką na dachu o dane z aplikacji i policz, ile energii dała w miesiącu. | Попроси когось із фотовольтаїкою на даху показати дані із застосунку й порахуй, скільки енергії вона дала за місяць. |  |
+| `opportunities[energetyka].demand.text` | W Krakowie brakuje inżynierów elektryków i energetyków. | У Кракові бракує інженерів-електриків та енергетиків. |  |
+| `opportunities[energetyka].pay.group` | Inżynierowie elektrotechnologii | Інженери електротехнологій (Inżynierowie elektrotechnologii) |  |
+| `opportunities[atom].name` | Energetyka jądrowa | Атомна енергетика |  |
+| `opportunities[atom].roles` | inżynier ds. bezpieczeństwa jądrowego, fizyk | інженер з ядерної безпеки, фізик |  |
+| `opportunities[atom].whoYouHelp` | Cały system energetyczny kraju i ludzie, którzy potrzebują stabilnego prądu. | Уся енергосистема країни та люди, яким потрібен стабільний струм. |  |
+| `opportunities[atom].whatYouGet` | Najtrudniejsza inżynieria, ścisłe procedury i projekt na całą karierę. | Найскладніша інженерія, суворі процедури та проєкт на всю кар'єру. |  |
+| `opportunities[atom].whyNeeded` | Pierwszy blok jądrowy planowany jest na 2036 r., kiedy będziesz już po studiach. | Перший ядерний блок планують на 2036 рік, коли ти вже закінчиш навчання у виші. |  |
+| `opportunities[atom].dayInLife[0]` | Analiza procedury bezpieczeństwa linijka po linijce. | Аналіз процедури безпеки рядок за рядком. |  |
+| `opportunities[atom].dayInLife[1]` | Spotkanie z zespołem z innego kraju, po angielsku. | Зустріч з командою з іншої країни, англійською. |  |
+| `opportunities[atom].dayInLife[2]` | Szkolenie na symulatorze. | Навчання на симуляторі. |  |
+| `opportunities[atom].growth[0]` | młodszy inżynier | молодший інженер |  |
+| `opportunities[atom].growth[1]` | specjalista ds. bezpieczeństwa albo paliwa | спеціаліст з безпеки або палива |  |
+| `opportunities[atom].growth[2]` | ekspert albo inspektor dozoru jądrowego | експерт або інспектор ядерного нагляду |  |
+| `opportunities[atom].experiment` | Przeczytaj, jak wygląda plan pierwszej elektrowni jądrowej w Polsce, i wypisz trzy zawody, które będą tam potrzebne. | Прочитай, як виглядає план першої атомної електростанції в Польщі, і випиши три професії, які там будуть потрібні. |  |
+| `opportunities[atom].robustnessNote` | Termin budowy może się przesuwać. | Термін будівництва може зсуватися. |  |
+| `opportunities[atom].demand.text` | W Krakowie brakuje inżynierów elektryków i energetyków. O energetyce jądrowej barometr nie mówi osobno. | У Кракові бракує інженерів-електриків та енергетиків. Про атомну енергетику барометр окремо не говорить. |  |
+| `opportunities[atom].pay.group` | Inżynierowie elektrotechnologii | Інженери електротехнологій (Inżynierowie elektrotechnologii) |  |
+| `opportunities[software].name` | Oprogramowanie i AI | Програмування і ШІ |  |
+| `opportunities[software].roles` | programista, tester, inżynier ML | програміст, тестувальник, інженер ML |  |
+| `opportunities[software].whoYouHelp` | Firmy i urzędy, którym brakuje rąk do pracy. | Фірми та установи, яким бракує рук для роботи. |  |
+| `opportunities[software].whatYouGet` | Zagadki do rozwiązania codziennie, praca zdalna, szybki rozwój. | Щодня головоломки для розв'язання, віддалена робота, швидкий розвиток. |  |
+| `opportunities[software].whyNeeded` | Mniej ludzi do pracy oznacza, że więcej trzeba zautomatyzować. | Менше людей для роботи означає, що більше треба автоматизувати. |  |
+| `opportunities[software].dayInLife[0]` | Rano krótkie spotkanie zespołu. | Зранку коротка зустріч команди. |  |
+| `opportunities[software].dayInLife[1]` | Większość dnia: pisanie i poprawianie kodu. | Більшу частину дня: написання та виправлення коду. |  |
+| `opportunities[software].dayInLife[2]` | Po południu przegląd kodu kolegi. | Після обіду перегляд коду колеги. |  |
+| `opportunities[software].growth[0]` | junior developer albo tester | junior developer або тестувальник |  |
+| `opportunities[software].growth[1]` | specjalista w jednej dziedzinie | спеціаліст в одній галузі |  |
+| `opportunities[software].growth[2]` | architekt albo lider zespołu | архітектор або керівник команди |  |
+| `opportunities[software].experiment` | Zrób darmowy kurs wprowadzający (np. Python) przez 30 dni po 20 minut i zobacz, czy wciąga. | Пройди безкоштовний вступний курс (наприклад Python) протягом 30 днів по 20 хвилин і подивись, чи затягує. |  |
+| `opportunities[software].demand.text` | Techników informatyków jest w Krakowie za dużo; inżynierowie z mocną specjalizacją nadal znajdują pracę. | ІТ-техніків у Кракові забагато; інженери з сильною спеціалізацією й надалі знаходять роботу. |  |
+| `opportunities[software].pay.group` | Analitycy systemów komputerowych i programiści | Аналітики комп'ютерних систем і програмісти (Analitycy systemów komputerowych i programiści) |  |
+| `opportunities[cyber].name` | Cyberbezpieczeństwo | Кібербезпека |  |
+| `opportunities[cyber].roles` | analityk bezpieczeństwa, pentester | аналітик безпеки, пентестер |  |
+| `opportunities[cyber].whoYouHelp` | Banki, szpitale i urzędy, które muszą działać mimo ataków. | Банки, лікарні та установи, які мають працювати попри атаки. |  |
+| `opportunities[cyber].whatYouGet` | Ciągła zagadka: myślisz jak atakujący, żeby obronić innych. | Постійна головоломка: ти думаєш як нападник, щоб захистити інших. |  |
+| `opportunities[cyber].whyNeeded` | Polska jest częstym celem cyberataków, a każda większa instytucja potrzebuje kogoś, kto je wykryje. | Польща часто стає ціллю кібератак, а кожній більшій установі потрібен хтось, хто їх виявить. |  |
+| `opportunities[cyber].dayInLife[0]` | Przegląd alarmów z nocy. | Перегляд нічних тривог. |  |
+| `opportunities[cyber].dayInLife[1]` | Analiza podejrzanego pliku albo maila. | Аналіз підозрілого файлу або листа. |  |
+| `opportunities[cyber].dayInLife[2]` | Raport i zalecenie: co poprawić. | Звіт і рекомендація: що виправити. |  |
+| `opportunities[cyber].growth[0]` | analityk w zespole bezpieczeństwa | аналітик у команді безпеки |  |
+| `opportunities[cyber].growth[1]` | specjalista, np. testy penetracyjne | спеціаліст, наприклад з тестів на проникнення |  |
+| `opportunities[cyber].growth[2]` | lider zespołu bezpieczeństwa | керівник команди безпеки |  |
+| `opportunities[cyber].experiment` | Spróbuj darmowych zadań picoCTF dla początkujących i rozwiąż trzy. | Спробуй безкоштовні завдання picoCTF для початківців і розв'яжи три. |  |
+| `opportunities[cyber].demand.text` | Specjaliści od sieci i baz danych są w Krakowie w równowadze, a techników informatyków jest za dużo. | Спеціалісти з мереж і баз даних у Кракові в рівновазі, а ІТ-техніків забагато. |  |
+| `opportunities[cyber].pay.group` | Specjaliści ds. baz danych i sieci komputerowych | Спеціалісти з баз даних і комп'ютерних мереж (Specjaliści ds. baz danych i sieci komputerowych) |  |
+| `opportunities[automatyka].name` | Automatyka i robotyka | Автоматика і робототехніка |  |
+| `opportunities[automatyka].roles` | inżynier automatyk, programista robotów | інженер-автоматик, програміст роботів |  |
+| `opportunities[automatyka].whoYouHelp` | Fabryki, w których brakuje ludzi, i pracownicy, którzy nie muszą już dźwigać. | Фабрики, де бракує людей, і працівники, яким більше не треба носити важке. |  |
+| `opportunities[automatyka].whatYouGet` | Programujesz rzeczy, które się ruszają. Efekt widzisz od razu. | Ти програмуєш речі, які рухаються. Результат бачиш одразу. |  |
+| `opportunities[automatyka].whyNeeded` | Mniej rąk do pracy oznacza więcej robotów, a ktoś musi je zaprojektować i naprawić. | Менше рук для роботи означає більше роботів, а хтось має їх спроєктувати й полагодити. |  |
+| `opportunities[automatyka].dayInLife[0]` | Program dla robota na linii produkcyjnej. | Програма для робота на виробничій лінії. |  |
+| `opportunities[automatyka].dayInLife[1]` | Na hali: test i szukanie, dlaczego robot staje. | У цеху: тест і пошук, чому робот зупиняється. |  |
+| `opportunities[automatyka].dayInLife[2]` | Rozmowa z operatorami: co ich męczy w pracy? | Розмова з операторами: що їх втомлює в роботі? |  |
+| `opportunities[automatyka].growth[0]` | automatyk na produkcji | автоматик на виробництві |  |
+| `opportunities[automatyka].growth[1]` | integrator systemów | інтегратор систем |  |
+| `opportunities[automatyka].growth[2]` | kierownik utrzymania ruchu albo projektant | керівник служби обслуговування обладнання або проєктувальник |  |
+| `opportunities[automatyka].experiment` | Zbuduj prosty projekt na Arduino albo w darmowym symulatorze i zaprogramuj jedną rzecz, która się rusza. | Зроби простий проєкт на Arduino або в безкоштовному симуляторі й запрограмуй одну річ, яка рухається. |  |
+| `opportunities[automatyka].demand.text` | W Krakowie brakuje elektroników, automatyków i robotyków oraz specjalistów mechaników. | У Кракові бракує електронників, автоматиків і робототехніків та спеціалістів-механіків. |  |
+| `opportunities[automatyka].pay.group` | Inżynierowie elektrotechnologii | Інженери електротехнологій (Inżynierowie elektrotechnologii) |  |
+| `opportunities[obronnosc].name` | Obronność i technologie wojskowe | Оборона і військові технології |  |
+| `opportunities[obronnosc].roles` | inżynier systemów, oficer, analityk | системний інженер, офіцер, аналітик |  |
+| `opportunities[obronnosc].whoYouHelp` | Bezpieczeństwo kraju i ludzi, którzy w nim żyją. | Безпека країни та людей, які в ній живуть. |  |
+| `opportunities[obronnosc].whatYouGet` | Duże projekty, jasna struktura i poczucie, że robisz coś ważnego. | Великі проєкти, чітка структура і відчуття, що ти робиш щось важливе. |  |
+| `opportunities[obronnosc].whyNeeded` | Polska mocno zwiększa wydatki na obronność, więc rośnie przemysł i potrzeba inżynierów. | Польща значно збільшує витрати на оборону, тому зростає промисловість і потрібно більше інженерів. |  |
+| `opportunities[obronnosc].dayInLife[0]` | Testy systemu łączności na poligonie. | Тестування системи зв'язку на полігоні. |  |
+| `opportunities[obronnosc].dayInLife[1]` | Dokumentacja i procedury. | Документація та процедури. |  |
+| `opportunities[obronnosc].dayInLife[2]` | Praca w zespole wojskowych i cywilów. | Робота в команді з військових і цивільних. |  |
+| `opportunities[obronnosc].growth[0]` | inżynier albo podchorąży | інженер або курсант |  |
+| `opportunities[obronnosc].growth[1]` | specjalista od jednego systemu | фахівець з однієї системи |  |
+| `opportunities[obronnosc].growth[2]` | kierownik programu albo dowódca | керівник програми або командир |  |
+| `opportunities[obronnosc].experiment` | Sprawdź program Legia Akademicka dla studentów i porozmawiaj z kimś, kto przez niego przeszedł. | Дізнайся про програму для студентів Легія Академічна (Legia Akademicka) і поговори з кимось, хто її пройшов. |  |
+| `opportunities[obronnosc].robustnessNote` | Mniejsze napięcie to mniej zamówień, ale nie zero. | Менша напруга — це менше замовлень, але не нуль. |  |
+| `opportunities[obronnosc].demand.text` | W Krakowie brakuje pracowników służb mundurowych. | У Кракові бракує працівників мундирних служб. |  |
+| `opportunities[obronnosc].pay.group` | Inżynierowie | Інженери (Inżynierowie) |  |
+| `opportunities[ukraina].name` | Odbudowa Ukrainy i współpraca | Відбудова України і співпраця |  |
+| `opportunities[ukraina].roles` | koordynator projektów, tłumacz specjalistyczny, inżynier na budowie | координатор проєктів, спеціалізований перекладач, інженер на будівництві |  |
+| `opportunities[ukraina].whoYouHelp` | Miasta i ludzie w Ukrainie, którzy odbudowują domy, szkoły i szpitale. | Міста і люди в Україні, які відбудовують будинки, школи та лікарні. |  |
+| `opportunities[ukraina].whatYouGet` | Praca, w której ukraiński i angielski są narzędziem, nie dodatkiem. Dużo ruchu i zmian. | Робота, де українська та англійська — інструмент, а не додаток. Багато руху і змін. |  |
+| `opportunities[ukraina].whyNeeded` | Polska będzie naturalnym zapleczem odbudowy Ukrainy, gdy tylko pozwoli na to pokój. | Польща буде природним тилом відбудови України, щойно це дозволить мир. |  |
+| `opportunities[ukraina].dayInLife[0]` | Spotkanie online z partnerami w Ukrainie, po ukraińsku i angielsku. | Онлайн-зустріч з партнерами в Україні українською та англійською. |  |
+| `opportunities[ukraina].dayInLife[1]` | Harmonogram dostaw materiałów. | Графік поставок матеріалів. |  |
+| `opportunities[ukraina].dayInLife[2]` | Raport dla instytucji, która daje pieniądze. | Звіт для установи, яка дає гроші. |  |
+| `opportunities[ukraina].growth[0]` | asystent projektu | асистент проєкту |  |
+| `opportunities[ukraina].growth[1]` | koordynator projektu | координатор проєкту |  |
+| `opportunities[ukraina].growth[2]` | kierownik programu albo własna firma | керівник програми або власна фірма |  |
+| `opportunities[ukraina].experiment` | Porozmawiaj z kimś z organizacji pomocowej w Krakowie o tym, kogo szukają do projektów w Ukrainie. | Поговори з кимось із допомогової організації в Кракові про те, кого вони шукають для проєктів в Україні. |  |
+| `opportunities[ukraina].robustnessNote` | Zależy od pokoju i pieniędzy na odbudowę. | Залежить від миру і грошей на відбудову. |  |
+| `opportunities[ukraina].demand.text` | Specjaliści do spraw administracji są w Krakowie w równowadze, a pracowników biurowych jest za dużo. | Фахівців з адміністрації у Кракові в рівновазі, а офісних працівників забагато. |  |
+| `opportunities[ukraina].pay.group` | Specjaliści ds. administracji i zarządzania | Фахівці з адміністрації та управління (Specjaliści ds. administracji i zarządzania) |  |
+| `opportunities[ue].name` | Instytucje międzynarodowe i UE | Міжнародні інституції та ЄС |  |
+| `opportunities[ue].roles` | analityk, ekspert ds. polityk publicznych, koordynator projektów | аналітик, експерт з публічної політики, координатор проєктів |  |
+| `opportunities[ue].whoYouHelp` | Obywatele wielu krajów, miasta odbudowujące się w Ukrainie. | Громадяни багатьох країн, міста, що відбудовуються в Україні. |  |
+| `opportunities[ue].whatYouGet` | Wielojęzyczne zespoły, sprawy, które dotyczą milionów ludzi. | Багатомовні команди, справи, які стосуються мільйонів людей. |  |
+| `opportunities[ue].whyNeeded` | Odbudowa Ukrainy i bezpieczeństwo Europy to praca na dekady. | Відбудова України та безпека Європи — це робота на десятиліття. |  |
+| `opportunities[ue].dayInLife[0]` | Rano czytanie raportów i dokumentów. | Зранку читання звітів і документів. |  |
+| `opportunities[ue].dayInLife[1]` | W południe spotkanie online z partnerami z trzech krajów. | Опівдні онлайн-зустріч з партнерами з трьох країн. |  |
+| `opportunities[ue].dayInLife[2]` | Po południu pisanie notatki z rekomendacjami. | Після обіду написання записки з рекомендаціями. |  |
+| `opportunities[ue].growth[0]` | staż w instytucji lub organizacji | стажування в установі або організації |  |
+| `opportunities[ue].growth[1]` | analityk albo koordynator projektu | аналітик або координатор проєкту |  |
+| `opportunities[ue].growth[2]` | ekspert, dyplomata, szef programu | експерт, дипломат, керівник програми |  |
+| `opportunities[ue].experiment` | Zgłoś się do Europejskiego Parlamentu Młodzieży albo na symulację obrad ONZ (MUN) w Krakowie. | Подайся до Європейського парламенту молоді (Europejski Parlament Młodzieży) або на симуляцію засідань ООН (MUN) у Кракові. |  |
+| `opportunities[ue].demand.text` | Specjaliści do spraw administracji są w Krakowie w równowadze, a pracowników biurowych jest za dużo. | Фахівців з адміністрації у Кракові в рівновазі, а офісних працівників забагато. |  |
+| `opportunities[ue].pay.group` | Specjaliści ds. administracji i zarządzania | Фахівці з адміністрації та управління (Specjaliści ds. administracji i zarządzania) |  |
+| `opportunities[logistyka].name` | Logistyka i infrastruktura | Логістика та інфраструктура |  |
+| `opportunities[logistyka].roles` | planista, spedytor, inżynier transportu | планувальник, експедитор, інженер з транспорту |  |
+| `opportunities[logistyka].whoYouHelp` | Firmy, szpitale, wojsko i ludzie, którzy czekają na dostawę na czas. | Фірми, лікарні, армія і люди, які чекають на доставку вчасно. |  |
+| `opportunities[logistyka].whatYouGet` | Szybkie decyzje i układanie skomplikowanej układanki. Efekt widać każdego dnia. | Швидкі рішення і складання складного пазла. Результат видно щодня. |  |
+| `opportunities[logistyka].whyNeeded` | Polska jest węzłem transportowym NATO i zapleczem dla Ukrainy. | Польща — транспортний вузол НАТО і тил для України. |  |
+| `opportunities[logistyka].dayInLife[0]` | Rano: co dojechało, co utknęło. | Зранку: що доїхало, що застрягло. |  |
+| `opportunities[logistyka].dayInLife[1]` | Nowy plan tras po zamknięciu drogi. | Новий план маршрутів після закриття дороги. |  |
+| `opportunities[logistyka].dayInLife[2]` | Rozmowa z kierowcami i klientem. | Розмова з водіями та клієнтом. |  |
+| `opportunities[logistyka].growth[0]` | młodszy planista | молодший планувальник |  |
+| `opportunities[logistyka].growth[1]` | spedytor albo specjalista łańcucha dostaw | експедитор або фахівець з ланцюга постачання |  |
+| `opportunities[logistyka].growth[2]` | kierownik logistyki | керівник логістики |  |
+| `opportunities[logistyka].experiment` | Zaplanuj w szczegółach jeden wyjazd: trasy, koszty, plan B. Potem sprawdź, co poszło inaczej. | Детально сплануй одну поїздку: маршрути, витрати, план Б. Потім перевір, що пішло інакше. |  |
+| `opportunities[logistyka].demand.text` | Spedytorzy i logistycy są w Krakowie w równowadze, a magazynierów i kierowców brakuje. | Експедиторів і логістів у Кракові в рівновазі, а складських працівників і водіїв бракує. |  |
+| `opportunities[logistyka].pay.group` | Inżynierowie | Інженери (Inżynierowie) |  |
+| `opportunities[woda].name` | Woda i klimat | Вода і клімат |  |
+| `opportunities[woda].roles` | hydrolog, inżynier środowiska | гідролог, інженер з довкілля |  |
+| `opportunities[woda].whoYouHelp` | Gminy i rolnicy w czasie suszy i powodzi, mieszkańcy, którzy chcą czystej wody. | Громади та фермери під час посухи й повені, мешканці, які хочуть чистої води. |  |
+| `opportunities[woda].whatYouGet` | Praca w terenie i przy danych, z wpływem na miejsce, w którym żyjesz. | Робота в полі та з даними, з впливом на місце, де ти живеш. |  |
+| `opportunities[woda].whyNeeded` | Susze i powodzie zdarzają się częściej, a gminy muszą się do nich przygotować. | Посухи й повені трапляються частіше, а громади мають до них готуватися. |  |
+| `opportunities[woda].dayInLife[0]` | Pomiary w rzece albo w oczyszczalni. | Виміри в річці або на очисній станції. |  |
+| `opportunities[woda].dayInLife[1]` | Model: gdzie zaleje przy dużej ulewie? | Модель: де затопить при сильній зливі? |  |
+| `opportunities[woda].dayInLife[2]` | Spotkanie w urzędzie gminy. | Зустріч в управлінні громади. |  |
+| `opportunities[woda].growth[0]` | inżynier w biurze projektów | інженер у проєктному бюро |  |
+| `opportunities[woda].growth[1]` | specjalista, np. od zatrzymywania wody | фахівець, наприклад із затримання води |  |
+| `opportunities[woda].growth[2]` | kierownik projektów albo ekspert | керівник проєктів або експерт |  |
+| `opportunities[woda].experiment` | Sprawdź, jak twoja gmina przygotowuje się na powódź albo suszę, i zapytaj, kto to zaprojektował. | Дізнайся, як твоя громада готується до повені чи посухи, і запитай, хто це спроєктував. |  |
+| `opportunities[woda].demand.text` | Inżynierowie inżynierii środowiska są w Krakowie w równowadze. | Інженерів довкілля у Кракові в рівновазі. |  |
+| `opportunities[woda].pay.group` | Inżynierowie | Інженери (Inżynierowie) |  |
+| `opportunities[finanse].name` | Finanse i ryzyko | Фінанси та ризик |  |
+| `opportunities[finanse].roles` | analityk ryzyka, aktuariusz, księgowy | аналітик ризиків, актуарій, бухгалтер |  |
+| `opportunities[finanse].whoYouHelp` | Firmy i rodziny, które chcą wiedzieć, na co je stać i czego się bać. | Фірми та родини, які хочуть знати, що вони можуть собі дозволити і чого їм боятися. |  |
+| `opportunities[finanse].whatYouGet` | Liczby z konsekwencjami, dobre zarobki i praca w wielu branżach. | Цифри з наслідками, добрі заробітки і робота в багатьох галузях. |  |
+| `opportunities[finanse].whyNeeded` | Starsze społeczeństwo to więcej pytań o emerytury, oszczędności i ubezpieczenia. | Старіше суспільство — це більше питань про пенсії, заощадження та страхування. |  |
+| `opportunities[finanse].dayInLife[0]` | Model: co się stanie, jeśli wzrosną stopy procentowe? | Модель: що буде, якщо зростуть відсоткові ставки? |  |
+| `opportunities[finanse].dayInLife[1]` | Rozmowa z działem sprzedaży o ryzyku klienta. | Розмова з відділом продажів про ризик клієнта. |  |
+| `opportunities[finanse].dayInLife[2]` | Raport dla zarządu. | Звіт для правління. |  |
+| `opportunities[finanse].growth[0]` | młodszy analityk | молодший аналітик |  |
+| `opportunities[finanse].growth[1]` | specjalista albo aktuariusz po egzaminach | фахівець або актуарій після іспитів |  |
+| `opportunities[finanse].growth[2]` | dyrektor ds. ryzyka | директор з ризиків |  |
+| `opportunities[finanse].experiment` | Przez miesiąc zapisuj swoje wydatki w arkuszu i zrób z nich jeden wykres. | Протягом місяця записуй свої витрати в таблицю і зроби з них один графік. |  |
+| `opportunities[finanse].robustnessNote` | Rutynową część pracy przejmie AI; zostaje ocena ryzyka. | Рутинну частину роботи перейме ШІ; залишається оцінка ризику. |  |
+| `opportunities[finanse].demand.text` | W Krakowie brakuje samodzielnych księgowych, a techników ekonomistów jest za dużo. | У Кракові бракує самостійних бухгалтерів, а техніків-економістів забагато. |  |
+| `opportunities[finanse].pay.group` | Specjaliści ds. finansowych | Фінансові фахівці (Specjaliści ds. finansowych) |  |
+| `opportunities[jezyki].name` | Języki, przekład i komunikacja | Мови, переклад і комунікація |  |
+| `opportunities[jezyki].roles` | tłumacz specjalistyczny, asystent międzykulturowy w szkole, specjalista ds. komunikacji | спеціалізований перекладач, міжкультурний асистент у школі, фахівець з комунікації |  |
+| `opportunities[jezyki].whoYouHelp` | Uczniowie i rodziny z innych krajów, firmy i urzędy, które muszą się dogadać. | Учні та родини з інших країн, фірми й установи, які мають порозумітися. |  |
+| `opportunities[jezyki].whatYouGet` | Różnorodność tematów, kontakt z innymi kulturami, często elastyczny czas pracy. | Різноманітність тем, контакт з іншими культурами, часто гнучкий робочий час. |  |
+| `opportunities[jezyki].whyNeeded` | Polska współpracuje z Ukrainą i resztą Europy coraz ściślej; potrzebni są ludzie, którzy łączą języki z wiedzą z jakiejś dziedziny. | Польща співпрацює з Україною та рештою Європи дедалі тісніше; потрібні люди, які поєднують мови зі знаннями з якоїсь галузі. |  |
+| `opportunities[jezyki].dayInLife[0]` | Rano tłumaczenie dokumentów dla firmy. | Зранку переклад документів для фірми. |  |
+| `opportunities[jezyki].dayInLife[1]` | W południe rozmowa z rodzicem ucznia z Ukrainy w szkole. | Опівдні розмова в школі з батьками учня з України. |  |
+| `opportunities[jezyki].dayInLife[2]` | Po południu redakcja tekstu na stronę. | Після обіду редагування тексту для сайту. |  |
+| `opportunities[jezyki].growth[0]` | tłumacz lub asystent w szkole | перекладач або асистент у школі |  |
+| `opportunities[jezyki].growth[1]` | specjalizacja: medycyna, prawo, technika | спеціалізація: медицина, право, техніка |  |
+| `opportunities[jezyki].growth[2]` | tłumacz przysięgły albo kierownik zespołu komunikacji | присяжний перекладач або керівник команди комунікації |  |
+| `opportunities[jezyki].experiment` | Praca wakacyjna albo wolontariat, gdzie używasz języka na co dzień, np. w Niemczech (Augsburg, Monachium), żeby przy okazji podciągnąć niemiecki. | Літня робота або волонтерство, де ти щодня користуєшся мовою, наприклад у Німеччині (Аугсбург, Мюнхен), щоб заодно підтягнути німецьку. |  |
+| `opportunities[jezyki].robustnessNote` | AI zmienia przekład; zostają ludzie, rozmowa i specjalizacja. | ШІ змінює переклад; залишаються люди, розмова і спеціалізація. |  |
+| `opportunities[jezyki].demand.text` | W Krakowie brakuje nauczycieli języków obcych, a specjalistów nauk humanistycznych jest za dużo: liczy się specjalizacja. | У Кракові бракує вчителів іноземних мов, а фахівців з гуманітарних наук забагато: має значення спеціалізація. |  |
+| `opportunities[jezyki].pay.group` | Literaci, dziennikarze i filolodzy | Літератори, журналісти та філологи (Literaci, dziennikarze i filolodzy) |  |
+| `opportunities[mowa].name` | Logopedia i terapia mowy | Логопедія і терапія мовлення |  |
+| `opportunities[mowa].roles` | logopeda, neurologopeda, terapeuta mowy | логопед, нейрологопед, терапевт мовлення |  |
+| `opportunities[mowa].whoYouHelp` | Dzieci, które nie mówią wyraźnie, i seniorzy, którzy po udarze uczą się mówić od nowa. | Діти, які нечітко говорять, і літні люди, які після інсульту вчаться говорити заново. |  |
+| `opportunities[mowa].whatYouGet` | Widzisz postęp konkretnej osoby z tygodnia na tydzień. Praca z ludźmi, ale spokojna i uważna. | Ти бачиш прогрес конкретної людини з тижня в тиждень. Робота з людьми, але спокійна й уважна. |  |
+| `opportunities[mowa].whyNeeded` | Coraz więcej seniorów po udarach i coraz większa uwaga na rozwój mowy u dzieci. | Дедалі більше літніх людей після інсультів і дедалі більша увага до розвитку мовлення в дітей. |  |
+| `opportunities[mowa].dayInLife[0]` | Rano dwoje dzieci w przedszkolu: ćwiczenia głosek przez zabawę. | Зранку двоє дітей у дитсадку: вправи на звуки через гру. |  |
+| `opportunities[mowa].dayInLife[1]` | Po południu pacjent po udarze w poradni. | Після обіду пацієнт після інсульту в консультаційному центрі. |  |
+| `opportunities[mowa].dayInLife[2]` | Na koniec notatki i plan ćwiczeń do domu. | Наприкінці нотатки і план вправ додому. |  |
+| `opportunities[mowa].growth[0]` | logopeda w przedszkolu lub poradni | логопед у дитсадку або консультаційному центрі |  |
+| `opportunities[mowa].growth[1]` | własny gabinet albo specjalizacja (np. neurologopedia) | власний кабінет або спеціалізація (наприклад, нейрологопедія) |  |
+| `opportunities[mowa].growth[2]` | superwizor, szkolenia dla innych | супервізор, тренінги для інших |  |
+| `opportunities[mowa].experiment` | Umów się na 20 minut rozmowy z logopedą w szkole lub poradni i zapytaj, jak wygląda jej zwykły dzień. | Домовся про 20 хвилин розмови з логопедом у школі або консультаційному центрі й запитай, як виглядає її звичайний день. |  |
+| `opportunities[mowa].demand.text` | Logopedów raport nie wymienia; w Krakowie brakuje pedagogów i nauczycieli wspierających, z którymi logopeda pracuje. | Логопедів звіт не згадує; у Кракові бракує педагогів і вчителів підтримки, з якими працює логопед. |  |
+| `opportunities[mowa].pay.group` | Nauczyciele i inni specjaliści nauczania | Вчителі та інші фахівці з навчання (Nauczyciele i inni specjaliści nauczania) |  |
+| `opportunities[laboratorium].name` | Laboratorium i analityka | Лабораторія й аналітика |  |
+| `opportunities[laboratorium].roles` | technik analityk, diagnosta laboratoryjny, analityk jakości | технік-аналітик, лабораторний діагност, аналітик якості |  |
+| `opportunities[laboratorium].whoYouHelp` | Pacjenci czekający na wynik badania, fabryki, ochrona środowiska. | Пацієнти, які чекають на результат обстеження, фабрики, захист довкілля. |  |
+| `opportunities[laboratorium].whatYouGet` | Spokojna, skupiona praca, w której dokładność naprawdę się liczy. | Спокійна, зосереджена робота, в якій точність справді важлива. |  |
+| `opportunities[laboratorium].whyNeeded` | Więcej badań w starzejącym się społeczeństwie i ostrzejsze normy jakości w przemyśle. | Більше обстежень у суспільстві, що старіє, і суворіші норми якості в промисловості. |  |
+| `opportunities[laboratorium].dayInLife[0]` | Rano przygotowanie próbek i sprzętu. | Зранку підготовка зразків і обладнання. |  |
+| `opportunities[laboratorium].dayInLife[1]` | W południe pomiary i kontrola wyników. | Опівдні вимірювання і контроль результатів. |  |
+| `opportunities[laboratorium].dayInLife[2]` | Po południu raport i sprawdzenie, czy wszystko się zgadza. | Після обіду звіт і перевірка, чи все сходиться. |  |
+| `opportunities[laboratorium].growth[0]` | technik w laboratorium | технік у лабораторії |  |
+| `opportunities[laboratorium].growth[1]` | diagnosta albo specjalista ds. jakości | діагност або фахівець з якості |  |
+| `opportunities[laboratorium].growth[2]` | kierownik laboratorium | керівник лабораторії |  |
+| `opportunities[laboratorium].experiment` | Zapytaj w swojej szkole (profil chemiczny) o dzień w pracowni albo o kontakt do laboratorium, które przyjmuje praktykantów. | Запитай у своїй школі (хімічний профіль) про день у лабораторії або про контакт лабораторії, яка приймає практикантів. |  |
+| `opportunities[laboratorium].demand.text` | Diagności laboratoryjni i chemicy są w Krakowie w równowadze. | Лабораторних діагностів і хіміків у Кракові в рівновазі. |  |
+| `opportunities[laboratorium].pay.group` | Diagności laboratoryjni | Лабораторні діагности (Diagności laboratoryjni) |  |
+| `opportunities[media].name` | Media i komunikacja | Медіа і комунікація |  |
+| `opportunities[media].roles` | dziennikarz, redaktor, specjalista PR, twórca materiałów wideo | журналіст, редактор, фахівець з PR, автор відеоматеріалів |  |
+| `opportunities[media].whoYouHelp` | Ludzie, którzy chcą wiedzieć, co się dzieje, i instytucje, które muszą coś jasno powiedzieć. | Люди, які хочуть знати, що відбувається, і установи, які мусять щось чітко сказати. |  |
+| `opportunities[media].whatYouGet` | Szybkie tempo, nowe tematy co tydzień i praca, którą ludzie naprawdę czytają albo oglądają. Pewność zatrudnienia jest mniejsza niż w wielu zawodach. | Швидкий темп, нові теми щотижня і робота, яку люди справді читають або дивляться. Впевненості в працевлаштуванні менше, ніж у багатьох професіях. |  |
+| `opportunities[media].whyNeeded` | AI zalewa sieć tekstami i obrazami. Rośnie potrzeba ludzi, którzy sprawdzają fakty i mówią jasno. | ШІ заливає мережу текстами й зображеннями. Зростає потреба в людях, які перевіряють факти й говорять ясно. |  |
+| `opportunities[media].dayInLife[0]` | Rano spotkanie redakcji: które tematy robimy dziś. | Зранку нарада редакції: які теми робимо сьогодні. |  |
+| `opportunities[media].dayInLife[1]` | W południe rozmowa z rozmówcą i sprawdzenie, czy liczby się zgadzają. | Опівдні розмова зі співрозмовником і перевірка, чи сходяться цифри. |  |
+| `opportunities[media].dayInLife[2]` | Po południu montaż krótkiego filmu i tekst na stronę. | Після обіду монтаж короткого відео і текст для сайту. |  |
+| `opportunities[media].growth[0]` | stażysta w redakcji albo w dziale komunikacji | стажист у редакції або у відділі комунікації |  |
+| `opportunities[media].growth[1]` | reporter, redaktor albo specjalista PR | репортер, редактор або фахівець з PR |  |
+| `opportunities[media].growth[2]` | wydawca, szef działu albo własny kanał lub agencja | видавець, керівник відділу або власний канал чи агентство |  |
+| `opportunities[media].experiment` | Przez miesiąc zrób co tydzień jedną krótką rzecz: tekst, podcast albo film o czymś ze szkoły lub okolicy. Pokaż komuś i zapytaj, co zrozumiał. | Протягом місяця щотижня роби одну коротку річ: текст, подкаст або відео про щось зі школи чи околиці. Покажи комусь і запитай, що він зрозумів. |  |
+| `opportunities[media].robustnessNote` | AI pisze proste teksty; zostają reportaż, sprawdzanie faktów, wideo i specjalizacja. | ШІ пише прості тексти; залишаються репортаж, перевірка фактів, відео і спеціалізація. |  |
+| `opportunities[media].demand.text` | Dziennikarze, redaktorzy i specjaliści od PR są w Krakowie w równowadze. | Журналістів, редакторів і фахівців з PR у Кракові в рівновазі. |  |
+| `opportunities[media].pay.group` | Literaci, dziennikarze i filolodzy | Літератори, журналісти та філологи (Literaci, dziennikarze i filolodzy) |  |
+| `opportunities[media-cyfrowe].name` | Media cyfrowe, gry i UX | Цифрові медіа, ігри та UX |  |
+| `opportunities[media-cyfrowe].roles` | projektant gier, projektant UX/UI, grafik 3D, twórca treści cyfrowych, tester gier | геймдизайнер, дизайнер UX/UI, 3D-художник, автор цифрового контенту, тестувальник ігор |  |
+| `opportunities[media-cyfrowe].whoYouHelp` | Gracze, użytkownicy aplikacji i stron: ludzie, którzy chcą, żeby coś było ciekawe i łatwe w użyciu. | Гравці, користувачі застосунків і сайтів: люди, які хочуть, щоб щось було цікавим і зручним. |  |
+| `opportunities[media-cyfrowe].whatYouGet` | Tworzysz rzeczy, w które ktoś naprawdę gra albo klika. Praca w zespole z grafikami i programistami, często projekt za projektem. Konkurencja o pierwszą pracę jest duża, liczy się portfolio. | Ти створюєш речі, в які хтось справді грає або клікає. Робота в команді з графіками й програмістами, часто проєкт за проєктом. Конкуренція за першу роботу велика, важливе портфоліо. |  |
+| `opportunities[media-cyfrowe].whyNeeded` | Coraz więcej usług, nauki i rozrywki dzieje się na ekranie. Kraków ma wiele studiów gier i firm IT, które szukają ludzi łączących technikę z wyczuciem. | Дедалі більше послуг, навчання і розваг відбувається на екрані. У Кракові багато студій ігор і IT-фірм, які шукають людей, що поєднують техніку з чуттям. |  |
+| `opportunities[media-cyfrowe].dayInLife[0]` | Rano krótkie spotkanie zespołu: co działa w nowej wersji gry albo aplikacji, a co nie. | Зранку коротка нарада команди: що працює в новій версії гри чи застосунку, а що ні. |  |
+| `opportunities[media-cyfrowe].dayInLife[1]` | W południe projektowanie poziomu, ekranu albo postaci i szybki test z kolegą. | Опівдні проєктування рівня, екрана чи персонажа і швидкий тест з колегою. |  |
+| `opportunities[media-cyfrowe].dayInLife[2]` | Po południu obserwujesz, jak gracze albo użytkownicy z niego korzystają, i poprawiasz. | Після обіду ти спостерігаєш, як гравці чи користувачі з цим працюють, і виправляєш. |  |
+| `opportunities[media-cyfrowe].growth[0]` | stażysta albo młodszy projektant, tester, grafik | стажист або молодший дизайнер, тестувальник, художник |  |
+| `opportunities[media-cyfrowe].growth[1]` | projektant gier, UX albo grafik 3D | геймдизайнер, UX-дизайнер або 3D-художник |  |
+| `opportunities[media-cyfrowe].growth[2]` | lead designer, dyrektor kreatywny albo własne studio | lead designer, креативний директор або власна студія |  |
+| `opportunities[media-cyfrowe].experiment` | Zrób w miesiąc małą grę albo makietę aplikacji (np. w Scratch, Godot albo Figma) i daj ją przetestować trzem osobom. Zapisz, gdzie się zgubili. | За місяць зроби маленьку гру або макет застосунку (наприклад, у Scratch, Godot або Figma) і дай протестувати трьом людям. Запиши, де вони загубилися. |  |
+| `opportunities[media-cyfrowe].robustnessNote` | AI robi szybkie grafiki i proste projekty; zostają pomysł, wyczucie użytkownika i praca z zespołem. | ШІ робить швидку графіку і прості проєкти; залишаються ідея, чуття користувача і робота з командою. |  |
+| `opportunities[media-cyfrowe].demand.text` | Graficy komputerowi, administratorzy stron internetowych i specjaliści od reklamy i marketingu są w Krakowie w równowadze. | Комп'ютерних графіків, адміністраторів вебсайтів і фахівців з реклами та маркетингу у Кракові в рівновазі. |  |
+| `opportunities[handel].name` | Handel, marketing i e-commerce | Торгівля, маркетинг і e-commerce |  |
+| `opportunities[handel].roles` | specjalista e-commerce, marketingowiec, opiekun klienta w firmie, kupiec | фахівець з e-commerce, маркетолог, менеджер з клієнтів у фірмі, закупник |  |
+| `opportunities[handel].whoYouHelp` | Klienci, którzy szukają dobrej rzeczy w dobrej cenie, i małe firmy, które chcą dotrzeć do ludzi. | Клієнти, які шукають хорошу річ за хорошою ціною, і малі фірми, які хочуть дотягнутися до людей. |  |
+| `opportunities[handel].whatYouGet` | Szybko widać efekty: sprzedaż, liczby, zadowolonych klientów. Dużo kontaktu z ludźmi i jasna droga awansu, czasem presja wyników. | Швидко видно результати: продаж, цифри, задоволених клієнтів. Багато контакту з людьми і зрозумілий шлях до підвищення, іноді тиск результатів. |  |
+| `opportunities[handel].whyNeeded` | Coraz więcej zakupów odbywa się w sieci, także między krajami. Firmy szukają ludzi, którzy łączą liczby, języki i kontakt z klientem. | Дедалі більше покупок відбувається в інтернеті, також між країнами. Фірми шукають людей, які поєднують цифри, мови і контакт з клієнтом. |  |
+| `opportunities[handel].dayInLife[0]` | Rano sprawdzenie, co sprzedało się wczoraj w sklepie internetowym. | Зранку перевірка, що продалося вчора в інтернет-магазині. |  |
+| `opportunities[handel].dayInLife[1]` | W południe rozmowa z dostawcą o cenie i terminie. | Опівдні розмова з постачальником про ціну і термін. |  |
+| `opportunities[handel].dayInLife[2]` | Po południu plan kampanii dla nowego produktu. | Після обіду план кампанії для нового продукту. |  |
+| `opportunities[handel].growth[0]` | asystent w dziale sprzedaży albo marketingu | асистент у відділі продажів або маркетингу |  |
+| `opportunities[handel].growth[1]` | specjalista albo opiekun ważnych klientów | фахівець або менеджер важливих клієнтів |  |
+| `opportunities[handel].growth[2]` | kierownik sprzedaży albo własna firma | керівник продажів або власна фірма |  |
+| `opportunities[handel].experiment` | Sprzedaj w sieci kilka rzeczy, których już nie używasz. Zapisz, co zadziałało: zdjęcie, opis, cena, rozmowa z kupującym. | Продай в інтернеті кілька речей, якими ти вже не користуєшся. Запиши, що спрацювало: фото, опис, ціна, розмова з покупцем. |  |
+| `opportunities[handel].robustnessNote` | Prostą obsługę przejmą automaty; zostają relacja z klientem, analiza i handel z zagranicą. | Просте обслуговування перейме автоматика; залишаються стосунки з клієнтом, аналіз і торгівля із закордоном. |  |
+| `opportunities[handel].demand.text` | Specjaliści od marketingu i sprzedaży oraz przedstawiciele handlowi są w Krakowie w równowadze. | Фахівців з маркетингу та продажів і торгових представників у Кракові в рівновазі. |  |
+| `opportunities[handel].pay.group` | Specjaliści do spraw sprzedaży, marketingu i public relations | Фахівці з продажів, маркетингу та PR (Specjaliści do spraw sprzedaży, marketingu i public relations) |  |
+| `opportunities[projektowanie].name` | Projektowanie wnętrz i przestrzeni | Дизайн інтер'єрів і простору |  |
+| `opportunities[projektowanie].roles` | architekt wnętrz, architekt, projektant produktu, grafik | дизайнер інтер'єрів, архітектор, продуктовий дизайнер, графік |  |
+| `opportunities[projektowanie].whoYouHelp` | Ludzie, którzy chcą dobrze mieszkać i pracować: rodziny, seniorzy, szkoły, firmy. | Люди, які хочуть добре жити і працювати: родини, літні люди, школи, фірми. |  |
+| `opportunities[projektowanie].whatYouGet` | Twój pomysł staje się prawdziwym miejscem albo przedmiotem. Dużo rysowania, ale też liczenia, przepisów i rozmów z klientem. | Твоя ідея стає справжнім місцем або предметом. Багато малювання, але також розрахунків, правил і розмов з клієнтом. |  |
+| `opportunities[projektowanie].whyNeeded` | Starzejące się społeczeństwo potrzebuje mieszkań i miejsc bez barier, a stare budynki trzeba przebudować tak, żeby zużywały mniej energii. | Суспільство, що старіє, потребує житла і місць без бар'єрів, а старі будівлі треба перебудувати так, щоб вони споживали менше енергії. |  |
+| `opportunities[projektowanie].dayInLife[0]` | Rano pomiar mieszkania i rozmowa z rodziną o tym, czego potrzebuje. | Зранку обміри квартири і розмова з родиною про те, що їй потрібно. |  |
+| `opportunities[projektowanie].dayInLife[1]` | W południe szkic i model 3D w programie. | Опівдні ескіз і 3D-модель у програмі. |  |
+| `opportunities[projektowanie].dayInLife[2]` | Po południu dobór materiałów i rozmowa z wykonawcą o budżecie. | Після обіду підбір матеріалів і розмова з підрядником про бюджет. |  |
+| `opportunities[projektowanie].growth[0]` | asystent w pracowni projektowej | асистент у проєктній майстерні |  |
+| `opportunities[projektowanie].growth[1]` | samodzielny projektant | самостійний дизайнер |  |
+| `opportunities[projektowanie].growth[2]` | własna pracownia albo uprawnienia architekta | власна майстерня або ліцензія архітектора |  |
+| `opportunities[projektowanie].experiment` | Narysuj plan swojego pokoju w skali i zaprojektuj go na nowo w trzech wersjach. Zapytaj kogoś, w której chciałby mieszkać i dlaczego. To pierwsze prace do teczki na egzamin. | Намалюй план своєї кімнати в масштабі й спроєктуй її заново в трьох варіантах. Запитай когось, у якій він хотів би жити і чому. Це перші роботи до портфоліо на іспит. |  |
+| `opportunities[projektowanie].robustnessNote` | Gdy nowych budów jest mniej, zostają remonty i przebudowy. AI pomaga w wizualizacjach, ale nie zastępuje rozmowy z klientem. | Коли нових будов менше, залишаються ремонти і перебудови. ШІ допомагає у візуалізаціях, але не замінює розмову з клієнтом. |  |
+| `opportunities[projektowanie].demand.text` | Architekci, dekoratorzy wnętrz i graficy komputerowi są w Krakowie w równowadze. | Архітекторів, декораторів інтер'єрів і комп'ютерних графіків у Кракові в рівновазі. |  |
+| `opportunities[projektowanie].pay.group` | Architekci, geodeci i projektanci | Архітектори, геодезисти та проєктувальники (Architekci, geodeci i projektanci) |  |
+| `opportunities[morze].name` | Morze, oceany i klimat | Море, океани і клімат |  |
+| `opportunities[morze].roles` | oceanograf, biolog morski, specjalista od klimatu, pracownik farm wiatrowych na morzu, badacz na statku | океанограф, морський біолог, фахівець з клімату, працівник морських вітрових ферм, дослідник на кораблі |  |
+| `opportunities[morze].whoYouHelp` | Ludzie nad morzem i wszyscy, którzy zależą od klimatu, ryb i czystej wody; firmy budujące farmy wiatrowe na Bałtyku. | Люди біля моря і всі, хто залежить від клімату, риби й чистої води; фірми, що будують вітрові ферми на Балтиці. |  |
+| `opportunities[morze].whatYouGet` | Praca blisko natury, rejsy badawcze, pomiary w terenie i w laboratorium. W Krakowie tego kierunku nie ma: oceanografię studiuje się nad morzem. | Робота поруч із природою, дослідницькі рейси, виміри в полі й у лабораторії. У Кракові цього напряму навчання немає: океанографію вивчають біля моря. |  |
+| `opportunities[morze].whyNeeded` | Klimat się ociepla, a na Bałtyku powstają morskie farmy wiatrowe. Potrzeba ludzi, którzy rozumieją morze. | Клімат теплішає, а на Балтиці з'являються морські вітрові ферми. Потрібні люди, які розуміють море. |  |
+| `opportunities[morze].dayInLife[0]` | Rano pobieranie próbek wody z pokładu statku badawczego. | Зранку відбір проб води з палуби дослідницького судна. |  |
+| `opportunities[morze].dayInLife[1]` | W południe sprawdzanie w laboratorium, co żyje w próbkach. | Опівдні перевірка в лабораторії, що живе в пробах. |  |
+| `opportunities[morze].dayInLife[2]` | Po południu analiza danych z czujników i mapa zmian temperatury morza. | Після обіду аналіз даних із датчиків і карта змін температури моря. |  |
+| `opportunities[morze].growth[0]` | asystent w instytucie albo na statku badawczym | асистент в інституті або на дослідницькому судні |  |
+| `opportunities[morze].growth[1]` | oceanograf, specjalista ds. środowiska morskiego | океанограф, фахівець з морського довкілля |  |
+| `opportunities[morze].growth[2]` | kierownik projektów badawczych albo ekspert w firmie offshore | керівник дослідницьких проєктів або експерт у фірмі offshore |  |
+| `opportunities[morze].experiment` | Obejrzyj na żywo dane z boi na Bałtyku (np. na stronie IMGW albo w aplikacji z mapą fal) przez tydzień i zapisz, co się zmienia. | Протягом тижня дивись наживо дані з буя на Балтиці (наприклад, на сайті IMGW або в застосунку з картою хвиль) і записуй, що змінюється. |  |
+| `opportunities[morze].robustnessNote` | Rośnie z energetyką na morzu i klimatem; mało miejsc pracy w Krakowie. | Зростає разом з енергетикою на морі й кліматом; мало робочих місць у Кракові. |  |
+| `opportunities[morze].demand.text` | Marynarze i pracownicy obsługi statków i portów są w Krakowie w równowadze. | Моряків і працівників обслуговування суден і портів у Кракові в рівновазі. |  |
+| `opportunities[lotnictwo].name` | Lotnictwo, drony i kosmos | Авіація, дрони і космос |  |
+| `opportunities[lotnictwo].roles` | inżynier lotniczy, mechanik i technik lotniczy, operator dronów, kontroler ruchu lotniczego, pilot | авіаційний інженер, авіамеханік і авіатехнік, оператор дронів, авіадиспетчер, пілот |  |
+| `opportunities[lotnictwo].whoYouHelp` | Pasażerowie, którzy chcą bezpiecznie dolecieć, linie lotnicze, wojsko i firmy budujące satelity. | Пасажири, які хочуть безпечно долетіти, авіакомпанії, армія і фірми, що будують супутники. |  |
+| `opportunities[lotnictwo].whatYouGet` | Bardzo precyzyjna praca, w której każdy szczegół ma znaczenie, i dużo języka angielskiego. Najbliższa publiczna uczelnia z lotnictwem jest w Rzeszowie. | Дуже точна робота, де важлива кожна дрібниця, і багато англійської. Найближчий державний виш з авіацією є в Жешуві. |  |
+| `opportunities[lotnictwo].whyNeeded` | Rośnie ruch lotniczy, obronność i przemysł dronów oraz satelitów; brakuje inżynierów i mechaników. | Зростають авіаперевезення, оборона та виробництво дронів і супутників; бракує інженерів і механіків. |  |
+| `opportunities[lotnictwo].dayInLife[0]` | Rano przegląd samolotu albo drona według listy kontrolnej. | Вранці огляд літака або дрона за контрольним списком. |  |
+| `opportunities[lotnictwo].dayInLife[1]` | W południe projektowanie części w programie i obliczenia wytrzymałości. | Вдень проєктування деталей у програмі та розрахунки на міцність. |  |
+| `opportunities[lotnictwo].dayInLife[2]` | Po południu test w tunelu aerodynamicznym albo próbny lot. | Після обіду випробування в аеродинамічній трубі або пробний політ. |  |
+| `opportunities[lotnictwo].growth[0]` | technik albo młodszy inżynier | технік або молодший інженер |  |
+| `opportunities[lotnictwo].growth[1]` | inżynier konstruktor albo specjalista ds. obsługi | інженер-конструктор або спеціаліст з обслуговування |  |
+| `opportunities[lotnictwo].growth[2]` | główny inżynier, pilot albo kontroler ruchu | головний інженер, пілот або диспетчер руху |  |
+| `opportunities[lotnictwo].experiment` | Zbuduj i oblataj prosty model szybowca albo zrób kurs operatora drona (A1/A3 jest online i bezpłatny w ULC). | Збудуй і запусти просту модель планера або пройди курс оператора дрона (A1/A3 є онлайн і безплатно в ULC). |  |
+| `opportunities[lotnictwo].demand.text` | Pracownicy obsługi ruchu lotniczego są w Krakowie w równowadze. | Працівників з обслуговування повітряного руху в Кракові стільки, скільки потрібно: попит і пропозиція в рівновазі. |  |
+| `opportunities[turystyka].name` | Turystyka i podróże | Туризм і подорожі |  |
+| `opportunities[turystyka].roles` | organizator wyjazdów, pilot wycieczek, przewodnik, pracownik hotelu, linii lotniczej albo biura podróży | організатор поїздок, гід-супровідник груп, екскурсовод, працівник готелю, авіакомпанії або туристичної агенції |  |
+| `opportunities[turystyka].whoYouHelp` | Turyści, którzy chcą dobrze przeżyć wyjazd, i miasta oraz regiony, które żyją z turystyki. | Туристи, які хочуть добре провести поїздку, і міста та регіони, що живуть з туризму. |  |
+| `opportunities[turystyka].whatYouGet` | Ciągle nowe miejsca i ludzie, dużo języków. Praca w sezonie bywa intensywna, a zarobki na starcie są niewysokie. | Постійно нові місця й люди, багато мов. Робота в сезон буває напруженою, а зарплата на старті невисока. |  |
+| `opportunities[turystyka].whyNeeded` | Kraków to jedno z najczęściej odwiedzanych miast w Polsce, a seniorzy coraz więcej podróżują. | Краків — одне з найпопулярніших міст Польщі для туристів, а люди похилого віку дедалі більше подорожують. |  |
+| `opportunities[turystyka].dayInLife[0]` | Rano odbiór grupy z lotniska i krótkie powitanie po angielsku. | Вранці зустріч групи в аеропорту і коротке привітання англійською. |  |
+| `opportunities[turystyka].dayInLife[1]` | W południe oprowadzanie po Starym Mieście i rozwiązywanie małych problemów. | Вдень екскурсія Старим містом і розв'язування дрібних проблем. |  |
+| `opportunities[turystyka].dayInLife[2]` | Wieczorem plan na jutro i potwierdzenie rezerwacji. | Ввечері план на завтра і підтвердження бронювань. |  |
+| `opportunities[turystyka].growth[0]` | rezydent, pilot wycieczek albo recepcjonista | представник туроператора на місці, гід-супровідник груп або адміністратор на рецепції |  |
+| `opportunities[turystyka].growth[1]` | organizator wyjazdów, kierownik zmiany w hotelu | організатор поїздок, керівник зміни в готелі |  |
+| `opportunities[turystyka].growth[2]` | szef biura podróży albo własna firma turystyczna | керівник туристичної агенції або власна туристична фірма |  |
+| `opportunities[turystyka].experiment` | Zaplanuj od zera weekendowy wyjazd dla rodziny: trasa, budżet, noclegi, plan B na deszcz. Potem zapytaj, co by zmienili. | Сплануй з нуля вікенд-поїздку для родини: маршрут, бюджет, нічліг, план Б на дощ. Потім запитай, що б вони змінили. |  |
+| `opportunities[turystyka].robustnessNote` | Zależy od gospodarki i bezpieczeństwa; języki i organizacja się przenoszą. | Залежить від економіки та безпеки; мови й уміння організовувати можна застосувати деінде. |  |
+| `opportunities[turystyka].demand.text` | W Krakowie brakuje kucharzy i pomocy kuchennych, a kelnerzy, recepcjoniści i pracownicy biur podróży są w równowadze. | У Кракові бракує кухарів і помічників на кухню, а офіціанти, адміністратори на рецепції та працівники туристичних агенцій у рівновазі. |  |
+| `opportunities[historia-sztuki].name` | Historia sztuki, muzea i zabytki | Історія мистецтва, музеї і пам'ятки |  |
+| `opportunities[historia-sztuki].roles` | historyk sztuki, kurator wystaw, pracownik muzeum, specjalista ds. ochrony zabytków, przewodnik, pracownik domu aukcyjnego | історик мистецтва, куратор виставок, працівник музею, спеціаліст з охорони пам'яток, екскурсовод, працівник аукціонного дому |  |
+| `opportunities[historia-sztuki].whoYouHelp` | Odwiedzający muzea, miasta, które dbają o zabytki, i ludzie, którzy chcą zrozumieć, na co patrzą. | Відвідувачі музеїв, міста, які дбають про пам'ятки, і люди, що хочуть зрозуміти, на що дивляться. |  |
+| `opportunities[historia-sztuki].whatYouGet` | Praca z prawdziwymi dziełami i opowiadanie o nich innym. Etatów w muzeach jest niewiele; pomagają języki i drugi konkret (np. turystyka, media, rynek sztuki). | Робота зі справжніми творами і розповіді про них іншим. Штатних місць у музеях мало; допомагають мови й ще одна конкретна спеціальність (наприклад, туризм, медіа, ринок мистецтва). |  |
+| `opportunities[historia-sztuki].whyNeeded` | AI tworzy obrazy bez końca. Rośnie wartość ludzi, którzy umieją sprawdzić, co jest autentyczne, i opowiedzieć historię miejsca. | ШІ створює картини без кінця. Зростає цінність людей, які вміють перевірити, що справжнє, і розповісти історію місця. |  |
+| `opportunities[historia-sztuki].dayInLife[0]` | Rano opis nowego obiektu w zbiorach muzeum. | Вранці опис нового предмета в музейній колекції. |  |
+| `opportunities[historia-sztuki].dayInLife[1]` | W południe przygotowanie tekstów i układu sali na wystawę. | Вдень підготовка текстів і розкладки залу для виставки. |  |
+| `opportunities[historia-sztuki].dayInLife[2]` | Po południu oprowadzanie grupy albo spotkanie z konserwatorem zabytku. | Після обіду екскурсія для групи або зустріч з реставратором пам'ятки. |  |
+| `opportunities[historia-sztuki].growth[0]` | asystent w muzeum, galerii albo urzędzie konserwatorskim | асистент у музеї, галереї або в управлінні охорони пам'яток |  |
+| `opportunities[historia-sztuki].growth[1]` | kurator, specjalista ds. zabytków albo przewodnik | куратор, спеціаліст з пам'яток або екскурсовод |  |
+| `opportunities[historia-sztuki].growth[2]` | kierownik działu, dyrektor galerii albo własna działalność na rynku sztuki | керівник відділу, директор галереї або власна справа на ринку мистецтва |  |
+| `opportunities[historia-sztuki].experiment` | Wybierz jeden kościół albo kamienicę w Krakowie, dowiedz się, z jakiej epoki jest i po czym to poznać. Oprowadź po nim kogoś z rodziny. | Вибери одну церкву або кам'яницю в Кракові, дізнайся, з якої вона епохи і як це впізнати. Проведи екскурсію нею для когось із родини. |  |
+| `opportunities[historia-sztuki].robustnessNote` | Mało etatów, ale Kraków to miasto zabytków, muzeów i turystów. | Штатних місць мало, але Краків — місто пам'яток, музеїв і туристів. |  |
+| `opportunities[historia-sztuki].demand.text` | Archiwiści, muzealnicy i konserwatorzy zabytków są w Krakowie w równowadze, a specjalistów nauk humanistycznych jest za dużo. | Архівісти, музейники і реставратори пам'яток у Кракові в рівновазі, а фахівців із гуманітарних наук забагато. |  |
+| `opportunities[prawo].name` | Prawo i administracja | Право й адміністрація |  |
+| `opportunities[prawo].roles` | prawnik, adwokat, radca prawny, sędzia, prokurator, urzędnik, specjalista ds. administracji | юрист, адвокат, радник-юрист (radca prawny), суддя, прокурор, чиновник, спеціаліст з адміністрування |  |
+| `opportunities[prawo].whoYouHelp` | Ludzie i firmy, którzy mają sprawę w sądzie albo w urzędzie, i państwo, które musi działać według jasnych zasad. | Люди і фірми, які мають справу в суді чи в установі, і держава, яка має діяти за чіткими правилами. |  |
+| `opportunities[prawo].whatYouGet` | Praca głową i słowem: czytasz przepisy, piszesz pisma, bronisz czyjejś racji. Prawo to 5 lat studiów i potem kilka lat aplikacji. | Робота головою і словом: читаєш закони, пишеш документи, відстоюєш чиюсь правоту. Право — це 5 років навчання, а потім кілька років юридичної практики (aplikacja). |  |
+| `opportunities[prawo].whyNeeded` | AI i nowe technologie potrzebują nowych przepisów, a ludzie wciąż potrzebują kogoś, kto stanie po ich stronie. | ШІ та нові технології потребують нових законів, а людям досі потрібен хтось, хто стане на їхній бік. |  |
+| `opportunities[prawo].dayInLife[0]` | Rano czytanie akt sprawy i szukanie przepisu, który pasuje. | Вранці читання матеріалів справи і пошук потрібної норми. |  |
+| `opportunities[prawo].dayInLife[1]` | W południe rozmowa z klientem: co się stało i czego chce. | Вдень розмова з клієнтом: що сталося і чого він хоче. |  |
+| `opportunities[prawo].dayInLife[2]` | Po południu pisanie pisma do sądu albo decyzji w urzędzie. | Після обіду складання позову до суду або рішення в установі. |  |
+| `opportunities[prawo].growth[0]` | aplikant albo młodszy urzędnik | практикант-юрист (aplikant) або молодший чиновник |  |
+| `opportunities[prawo].growth[1]` | adwokat, radca prawny, specjalista w urzędzie | адвокат, радник-юрист, спеціаліст в установі |  |
+| `opportunities[prawo].growth[2]` | partner w kancelarii, sędzia albo dyrektor departamentu | партнер у юридичній фірмі, суддя або директор департаменту |  |
+| `opportunities[prawo].experiment` | Pójdź na jawną rozprawę w sądzie rejonowym w Krakowie (wstęp wolny) i zapisz, kto co mówił i dlaczego. | Іди на відкрите судове засідання в районному суді в Кракові (вхід вільний) і запиши, хто що казав і чому. |  |
+| `opportunities[prawo].robustnessNote` | AI pisze proste pisma; zostają rozmowa z ludźmi, sąd i trudne sprawy. | ШІ пише прості документи; залишаються розмови з людьми, суд і складні справи. |  |
+| `opportunities[prawo].demand.text` | Pracowników administracyjnych i biurowych jest w Krakowie więcej niż ofert pracy; prawników raport nie wymienia. | Адміністративних і офісних працівників у Кракові більше, ніж вакансій; юристів звіт не згадує. |  |
+| `opportunities[prawo].pay.group` | Specjaliści z dziedziny prawa | Фахівці в галузі права (Specjaliści z dziedziny prawa) |  |
+| `opportunities[architektura].name` | Architektura i budownictwo | Архітектура і будівництво |  |
+| `opportunities[architektura].roles` | architekt, inżynier budownictwa, kierownik budowy, projektant konstrukcji, urbanista | архітектор, інженер-будівельник, керівник будівництва, проєктувальник конструкцій, урбаніст |  |
+| `opportunities[architektura].whoYouHelp` | Ludzie, którzy będą mieszkać, pracować i uczyć się w budynkach, i miasta, które planują nowe osiedla, drogi i mosty. | Люди, які житимуть, працюватимуть і вчитимуться в будівлях, і міста, що планують нові райони, дороги й мости. |  |
+| `opportunities[architektura].whatYouGet` | Widzisz, jak twój projekt staje na ulicy. Dużo odpowiedzialności za bezpieczeństwo i praca w zespole z wieloma branżami. | Ти бачиш, як твій проєкт постає на вулиці. Багато відповідальності за безпеку і робота в команді з багатьма галузями. |  |
+| `opportunities[architektura].whyNeeded` | Polska musi docieplić i przebudować miliony budynków, a w Krakowie brakuje mieszkań. | Польща має утеплити й перебудувати мільйони будівель, а в Кракові бракує житла. |  |
+| `opportunities[architektura].dayInLife[0]` | Rano projekt w programie: rzuty, przekroje, obliczenia. | Вранці проєкт у програмі: плани, розрізи, розрахунки. |  |
+| `opportunities[architektura].dayInLife[1]` | W południe wizyta na budowie i rozmowa z kierownikiem robót. | Вдень візит на будівництво і розмова з керівником робіт. |  |
+| `opportunities[architektura].dayInLife[2]` | Po południu uzgodnienia z urzędem i poprawki w projekcie. | Після обіду погодження з установою і правки в проєкті. |  |
+| `opportunities[architektura].growth[0]` | asystent projektanta albo inżynier na budowie | асистент проєктувальника або інженер на будівництві |  |
+| `opportunities[architektura].growth[1]` | architekt albo inżynier z uprawnieniami | архітектор або інженер з ліцензією |  |
+| `opportunities[architektura].growth[2]` | własna pracownia, kierownik dużych budów albo główny projektant | власне бюро, керівник великих будов або головний проєктувальник |  |
+| `opportunities[architektura].experiment` | Narysuj plan swojego pokoju w skali 1:50, potem zaprojektuj, jak go przebudować. Pokaż to komuś, kto zna się na budowie. | Накресли план своєї кімнати в масштабі 1:50, потім спроєктуй, як її перебудувати. Покажи це комусь, хто розбирається в будівництві. |  |
+| `opportunities[architektura].demand.text` | Architekci są w Krakowie w równowadze, a na budowach brakuje wielu fachowców, np. murarzy, monterów instalacji i robotników budowlanych. | Архітектори в Кракові в рівновазі, а на будовах бракує багатьох фахівців, наприклад мулярів, монтажників інженерних систем і будівельних робітників. |  |
+| `opportunities[architektura].pay.group` | Architekci, geodeci i projektanci | Архітектори, геодезисти й проєктувальники (Architekci, geodeci i projektanci) |  |
+| `opportunities[mechanika].name` | Mechanika, materiały i produkcja | Механіка, матеріали і виробництво |  |
+| `opportunities[mechanika].roles` | inżynier mechanik, konstruktor maszyn, technolog produkcji, inżynier jakości, kierownik produkcji | інженер-механік, конструктор машин, технолог виробництва, інженер з якості, керівник виробництва |  |
+| `opportunities[mechanika].whoYouHelp` | Fabryki, które robią samochody, maszyny i sprzęt medyczny, i ludzie, którzy na tych maszynach pracują. | Фабрики, які роблять автомобілі, машини та медичне обладнання, і люди, що працюють на цих машинах. |  |
+| `opportunities[mechanika].whatYouGet` | Konkretne rzeczy, które możesz wziąć do ręki: od projektu na ekranie po działającą maszynę. Dużo matematyki i fizyki na studiach. | Конкретні речі, які можна взяти в руки: від проєкту на екрані до працюючої машини. Багато математики й фізики на навчанні. |  |
+| `opportunities[mechanika].whyNeeded` | Fabryki się automatyzują, a ktoś musi zaprojektować, zbudować i naprawić maszyny; w Polsce brakuje inżynierów produkcji. | Фабрики автоматизуються, а хтось має спроєктувати, зробити і полагодити машини; у Польщі бракує інженерів виробництва. |  |
+| `opportunities[mechanika].dayInLife[0]` | Rano projekt części w programie 3D. | Вранці проєкт деталі в 3D-програмі. |  |
+| `opportunities[mechanika].dayInLife[1]` | W południe na hali: dlaczego maszyna się zatrzymuje i co poprawić. | Вдень у цеху: чому машина зупиняється і що виправити. |  |
+| `opportunities[mechanika].dayInLife[2]` | Po południu test nowego materiału i raport dla szefa. | Після обіду випробування нового матеріалу і звіт для керівника. |  |
+| `opportunities[mechanika].growth[0]` | młodszy konstruktor albo technolog | молодший конструктор або технолог |  |
+| `opportunities[mechanika].growth[1]` | inżynier mechanik, specjalista ds. jakości | інженер-механік, спеціаліст з якості |  |
+| `opportunities[mechanika].growth[2]` | kierownik produkcji, główny konstruktor albo własna firma | керівник виробництва, головний конструктор або власна фірма |  |
+| `opportunities[mechanika].experiment` | Rozbierz stary rower, drukarkę albo zabawkę na części, narysuj, jak działa, i złóż z powrotem. | Розбери старий велосипед, принтер або іграшку на частини, намалюй, як це працює, і збери назад. |  |
+| `opportunities[mechanika].demand.text` | W Krakowie brakuje specjalistów mechaników i techników mechaników. | У Кракові бракує спеціалістів-механіків і техніків-механіків. |  |
+| `opportunities[mechanika].pay.group` | Inżynierowie | Інженери (Inżynierowie) |  |
+| `opportunities[edukacja].name` | Edukacja i nauczanie | Освіта і викладання |  |
+| `opportunities[edukacja].roles` | nauczyciel w przedszkolu i szkole, pedagog, pedagog specjalny, wychowawca, trener edukacji | вихователь у садку і вчитель у школі, педагог, спеціальний педагог, класний керівник, тренер з освіти |  |
+| `opportunities[edukacja].whoYouHelp` | Dzieci i młodzież, także te, którym nauka przychodzi trudniej, i ich rodzice. | Діти й підлітки, зокрема ті, кому навчання дається важче, та їхні батьки. |  |
+| `opportunities[edukacja].whatYouGet` | Codziennie widzisz, jak ktoś czegoś się nauczył dzięki tobie. Dużo ludzi, energii i cierpliwości; stała praca, wakacje. | Щодня бачиш, як хтось чогось навчився завдяки тобі. Багато людей, енергії й терпіння; стабільна робота, канікули. |  |
+| `opportunities[edukacja].whyNeeded` | W szkołach brakuje nauczycieli, a coraz więcej dzieci potrzebuje wsparcia specjalnego. | У школах бракує вчителів, а дедалі більше дітей потребує особливої підтримки. |  |
+| `opportunities[edukacja].dayInLife[0]` | Rano lekcja: jak ciekawie pokazać nowy temat. | Вранці урок: як цікаво показати нову тему. |  |
+| `opportunities[edukacja].dayInLife[1]` | W południe rozmowa z uczniem, któremu jest trudno. | Вдень розмова з учнем, якому важко. |  |
+| `opportunities[edukacja].dayInLife[2]` | Po południu przygotowanie zajęć i spotkanie z rodzicami. | Після обіду підготовка занять і зустріч з батьками. |  |
+| `opportunities[edukacja].growth[0]` | nauczyciel na stażu albo asystent | вчитель на стажуванні або асистент |  |
+| `opportunities[edukacja].growth[1]` | nauczyciel mianowany, pedagog specjalny | призначений вчитель (nauczyciel mianowany), спеціальний педагог |  |
+| `opportunities[edukacja].growth[2]` | dyrektor szkoły, doradca metodyczny albo własne zajęcia | директор школи, методичний радник або власні заняття |  |
+| `opportunities[edukacja].experiment` | Przez miesiąc raz w tygodniu pomagaj młodszemu dziecku w lekcjach (rodzeństwo, sąsiad, świetlica). Zapisz, co działało. | Протягом місяця раз на тиждень допомагай молодшій дитині з уроками (брат чи сестра, сусід, група продовженого дня). Запиши, що спрацювало. |  |
+| `opportunities[edukacja].demand.text` | W Krakowie brakuje nauczycieli przedszkoli i klas 1–3, nauczycieli przedmiotów ogólnych i zawodowych, nauczycieli szkół specjalnych oraz pedagogów. | У Кракові бракує вихователів у садках і вчителів 1–3 класів, вчителів загальних і професійних предметів, вчителів спеціальних шкіл та педагогів. |  |
+| `opportunities[edukacja].pay.group` | Nauczyciele i inni specjaliści nauczania | Вчителі та інші фахівці з навчання (Nauczyciele i inni specjaliści nauczania) |  |
+| `opportunities[spoleczenstwo].name` | Społeczeństwo, polityka i praca socjalna | Суспільство, політика і соціальна робота |  |
+| `opportunities[spoleczenstwo].roles` | socjolog, badacz opinii, analityk polityk publicznych, pracownik socjalny, specjalista w samorządzie albo organizacji pozarządowej | соціолог, дослідник громадської думки, аналітик публічної політики, соціальний працівник, спеціаліст у самоврядуванні або громадській організації |  |
+| `opportunities[spoleczenstwo].whoYouHelp` | Ludzie, którym jest trudniej, i miasta oraz państwo, które chcą wiedzieć, czego naprawdę potrzebują mieszkańcy. | Люди, яким важче, і міста та держава, які хочуть знати, чого насправді потребують мешканці. |  |
+| `opportunities[spoleczenstwo].whatYouGet` | Rozumiesz, dlaczego ludzie myślą i robią to, co robią. Dużo rozmów, ankiet i danych; pensje na starcie są niewysokie, rosną z doświadczeniem. | Ти розумієш, чому люди думають і роблять так, як роблять. Багато розмов, опитувань і даних; зарплати на старті невисокі, з досвідом зростають. |  |
+| `opportunities[spoleczenstwo].whyNeeded` | Starzejące się społeczeństwo, migracje i nierówności: ktoś musi je zbadać i zaproponować dobre rozwiązania. | Суспільство старіє, є міграції та нерівність: хтось має це дослідити і запропонувати добрі рішення. |  |
+| `opportunities[spoleczenstwo].dayInLife[0]` | Rano wywiad z mieszkańcami osiedla albo rozmowa z podopiecznym. | Вранці інтерв'ю з мешканцями району або розмова з підопічним. |  |
+| `opportunities[spoleczenstwo].dayInLife[1]` | W południe analiza ankiety: co wyszło i co z tego wynika. | Вдень аналіз опитування: що вийшло і що з цього випливає. |  |
+| `opportunities[spoleczenstwo].dayInLife[2]` | Po południu raport albo spotkanie w urzędzie o nowym programie. | Після обіду звіт або зустріч в установі про нову програму. |  |
+| `opportunities[spoleczenstwo].growth[0]` | asystent badacza, pracownik socjalny albo stażysta w urzędzie | асистент дослідника, соціальний працівник або стажист в установі |  |
+| `opportunities[spoleczenstwo].growth[1]` | socjolog, analityk, koordynator programów | соціолог, аналітик, координатор програм |  |
+| `opportunities[spoleczenstwo].growth[2]` | kierownik badań, dyrektor ośrodka albo ekspert polityk publicznych | керівник досліджень, директор центру або експерт з публічної політики |  |
+| `opportunities[spoleczenstwo].experiment` | Zrób w klasie krótką anonimową ankietę o jednym problemie szkoły (5 pytań) i napisz na pół strony, co z niej wynika. | Зроби в класі коротке анонімне опитування про одну проблему школи (5 запитань) і напиши на пів сторінки, що з нього випливає. |  |
+| `opportunities[spoleczenstwo].demand.text` | Pracownicy socjalni i specjaliści od badań społecznych są w Krakowie w równowadze. | Соціальні працівники та спеціалісти із соціальних досліджень у Кракові в рівновазі. |  |
+| `opportunities[nauka].name` | Nauka i badania | Наука і дослідження |  |
+| `opportunities[nauka].roles` | fizyk, matematyk, chemik, astronom, badacz w instytucie, analityk danych, nauczyciel akademicki | фізик, математик, хімік, астроном, дослідник в інституті, аналітик даних, викладач вишу |  |
+| `opportunities[nauka].whoYouHelp` | Wszyscy, którzy korzystają z odkryć: od leków i komputerów po satelity. Firmy, które potrzebują ludzi umiejących myśleć od podstaw. | Усі, хто користується відкриттями: від ліків і комп'ютерів до супутників. Фірми, яким потрібні люди, що вміють думати з нуля. |  |
+| `opportunities[nauka].whatYouGet` | Szukasz odpowiedzi na pytania, na które nikt jeszcze nie zna odpowiedzi. Długa droga (często doktorat), ale bardzo szerokie możliwości pracy poza nauką. | Шукаєш відповіді на питання, на які ще ніхто не знає відповіді. Довгий шлях (часто докторат), але дуже широкі можливості роботи поза наукою. |  |
+| `opportunities[nauka].whyNeeded` | AI, energia i medycyna potrzebują ludzi, którzy rozumieją matematykę i fizykę głębiej niż narzędzia. | ШІ, енергетика і медицина потребують людей, які розуміють математику й фізику глибше, ніж інструменти. |  |
+| `opportunities[nauka].dayInLife[0]` | Rano czytanie nowego artykułu i pomysł na sprawdzenie hipotezy. | Вранці читання нової статті і ідея, як перевірити гіпотезу. |  |
+| `opportunities[nauka].dayInLife[1]` | W południe obliczenia, symulacja albo pomiar w laboratorium. | Вдень розрахунки, симуляція або вимірювання в лабораторії. |  |
+| `opportunities[nauka].dayInLife[2]` | Po południu seminarium: tłumaczysz wyniki innym i słuchasz krytyki. | Після обіду семінар: пояснюєш результати іншим і слухаєш критику. |  |
+| `opportunities[nauka].growth[0]` | student w kole naukowym, potem doktorant | студент у науковому гуртку, потім аспірант |  |
+| `opportunities[nauka].growth[1]` | badacz albo analityk w firmie | дослідник або аналітик у фірмі |  |
+| `opportunities[nauka].growth[2]` | profesor, kierownik zespołu albo ekspert w przemyśle | професор, керівник команди або експерт у промисловості |  |
+| `opportunities[nauka].experiment` | Przez tydzień rozwiązuj codziennie jedno zadanie z olimpiady (matematyka, fizyka albo chemia, zadania są online). Zapisz, które cię wciągnęło. | Протягом тижня розв'язуй щодня одну задачу з олімпіади (математика, фізика або хімія, задачі є онлайн). Запиши, яка тебе захопила. |  |
+| `opportunities[nauka].demand.text` | Fizycy, matematycy, chemicy i biolodzy są w Krakowie w równowadze. | Фізики, математики, хіміки й біологи в Кракові в рівновазі. |  |
+| `opportunities[sztuka-scena].name` | Sztuka, muzyka i scena | Мистецтво, музика і сцена |  |
+| `opportunities[sztuka-scena].roles` | aktor, muzyk, wokalista, malarz, scenograf, artysta, pedagog sztuki | актор, музикант, вокаліст, художник, сценограф, артист, викладач мистецтва |  |
+| `opportunities[sztuka-scena].whoYouHelp` | Widzowie i słuchacze, którzy przychodzą przeżyć coś ważnego; szkoły i domy kultury, które uczą sztuki. | Глядачі й слухачі, які приходять пережити щось важливе; школи і будинки культури, що вчать мистецтва. |  |
+| `opportunities[sztuka-scena].whatYouGet` | Robisz to, co kochasz, przed ludźmi albo dla nich. Na studia dostajesz się przez egzamin wstępny lub przesłuchanie, a praca bywa niestała. | Робиш те, що любиш, перед людьми або для них. На навчання вступаєш через вступний іспит або прослуховування, а робота буває нестабільною. |  |
+| `opportunities[sztuka-scena].whyNeeded` | AI tworzy obrazy i muzykę bez końca. Tym bardziej ludzie szukają żywej sztuki i prawdziwych artystów. | ШІ створює картини і музику без кінця. Тим більше люди шукають живе мистецтво і справжніх митців. |  |
+| `opportunities[sztuka-scena].dayInLife[0]` | Rano ćwiczenia: instrument, głos, ruch albo rysunek. | Вранці вправи: інструмент, голос, рух або малювання. |  |
+| `opportunities[sztuka-scena].dayInLife[1]` | W południe próba z zespołem albo praca w pracowni. | Вдень репетиція з колективом або робота в майстерні. |  |
+| `opportunities[sztuka-scena].dayInLife[2]` | Wieczorem występ, wystawa albo zajęcia z dziećmi w domu kultury. | Ввечері виступ, виставка або заняття з дітьми в будинку культури. |  |
+| `opportunities[sztuka-scena].growth[0]` | student, występy i wystawy studenckie | студент, студентські виступи і виставки |  |
+| `opportunities[sztuka-scena].growth[1]` | artysta, muzyk w orkiestrze albo aktor w teatrze | митець, музикант в оркестрі або актор у театрі |  |
+| `opportunities[sztuka-scena].growth[2]` | solista, artysta z własnym nazwiskiem albo pedagog uczelni | соліст, митець з власним іменем або викладач вишу |  |
+| `opportunities[sztuka-scena].experiment` | Przygotuj w miesiąc jeden krótki występ albo pracę (utwór, monolog, obraz) i pokaż go przynajmniej 5 osobom. | Підготуй за місяць один короткий виступ або роботу (твір, монолог, картину) і покажи її щонайменше 5 людям. |  |
+| `opportunities[sztuka-scena].robustnessNote` | Mało etatów, dużo konkurencji; pomaga drugi zawód, np. uczenie albo media. | Штатних місць мало, конкуренція велика; допомагає друга професія, наприклад викладання або медіа. |  |
+| `opportunities[sztuka-scena].demand.text` | Ludzie pracujący przy produkcji filmowej, teatralnej, telewizyjnej i radiowej są w Krakowie w równowadze. | Люди, які працюють над кіно-, театральними, телевізійними та радіопродукціями, у Кракові в рівновазі. |  |
+| `opportunities[historia].name` | Historia, kultura i dziedzictwo | Історія, культура і спадщина |  |
+| `opportunities[historia].roles` | historyk, archeolog, filozof, etnolog, archiwista, pracownik muzeum, nauczyciel historii, redaktor | історик, археолог, філософ, етнолог, архівіст, працівник музею, вчитель історії, редактор |  |
+| `opportunities[historia].whoYouHelp` | Ludzie, którzy chcą zrozumieć, skąd przyszli; muzea, szkoły, wydawnictwa i miasta, które dbają o pamięć. | Люди, які хочуть зрозуміти, звідки вони родом; музеї, школи, видавництва і міста, що дбають про пам'ять. |  |
+| `opportunities[historia].whatYouGet` | Czytasz źródła, odkrywasz zapomniane historie i tłumaczysz je innym. Mało etatów wprost w zawodzie; umiejętność myślenia i pisania przydaje się wszędzie. | Читаєш джерела, відкриваєш забуті історії і пояснюєш їх іншим. Штатних місць прямо за фахом мало; уміння думати й писати стане в пригоді всюди. |  |
+| `opportunities[historia].whyNeeded` | W morzu treści z AI rośnie wartość ludzi, którzy sprawdzają źródła i rozumieją kontekst. | У морі контенту від ШІ зростає цінність людей, які перевіряють джерела і розуміють контекст. |  |
+| `opportunities[historia].dayInLife[0]` | Rano w archiwum albo na wykopalisku. | Вранці в архіві або на розкопках. |  |
+| `opportunities[historia].dayInLife[1]` | W południe opis znalezisk albo dokumentów i porównanie z innymi źródłami. | Вдень опис знахідок чи документів і порівняння з іншими джерелами. |  |
+| `opportunities[historia].dayInLife[2]` | Po południu tekst do książki, wystawy albo lekcja w szkole. | Після обіду текст для книжки, виставки або урок у школі. |  |
+| `opportunities[historia].growth[0]` | student na praktykach w muzeum, archiwum, wykopaliskach | студент на практиці в музеї, архіві, на розкопках |  |
+| `opportunities[historia].growth[1]` | historyk, archeolog, nauczyciel albo redaktor | історик, археолог, вчитель або редактор |  |
+| `opportunities[historia].growth[2]` | kurator, profesor albo autor książek | куратор, професор або автор книжок |  |
+| `opportunities[historia].experiment` | Odszukaj w archiwum rodzinnym albo w internecie (Polona, szukajwarchiwach.gov.pl) jeden stary dokument o swojej okolicy i opisz, co z niego wynika. | Знайди в родинному архіві або в інтернеті (Polona, szukajwarchiwach.gov.pl) один старий документ про свою місцевість і опиши, що з нього випливає. |  |
+| `opportunities[historia].robustnessNote` | Mało etatów w zawodzie, ale umiejętności przenoszą się do mediów, urzędów i edukacji. | Штатних місць за фахом мало, але ці навички можна застосувати в медіа, установах і освіті. |  |
+| `opportunities[historia].demand.text` | Archiwiści i muzealnicy są w Krakowie w równowadze, a specjalistów nauk humanistycznych jest za dużo. | Архівісти й музейники в Кракові в рівновазі, а фахівців із гуманітарних наук забагато. |  |
+| `opportunities[zywienie].name` | Żywienie i dietetyka | Харчування і дієтологія |  |
+| `opportunities[zywienie].roles` | dietetyk w szpitalu albo poradni, dietetyk sportowy, technolog żywności, specjalista kontroli jakości, edukator zdrowia | дієтолог у лікарні або консультації, спортивний дієтолог, технолог харчових продуктів, спеціаліст з контролю якості, освітянин зі здоров'я |  |
+| `opportunities[zywienie].whoYouHelp` | Ludzie chorzy, sportowcy, dzieci i seniorzy, którym dobre jedzenie pomaga żyć zdrowiej; firmy, które produkują żywność. | Хворі люди, спортсмени, діти й літні люди, яким добра їжа допомагає жити здоровіше; фірми, що виробляють їжу. |  |
+| `opportunities[zywienie].whatYouGet` | Łączysz biologię i chemię z rozmową z ludźmi. Dużo pracy w poradniach i firmach spożywczych; własny gabinet to częsta droga. | Поєднуєш біологію і хімію з розмовами з людьми. Багато роботи в консультаціях і харчових фірмах; власний кабінет — часта дорога. |  |
+| `opportunities[zywienie].whyNeeded` | Coraz więcej osób choruje na cukrzycę i otyłość, a społeczeństwo się starzeje: dobra dieta to tańsze leczenie. | Дедалі більше людей хворіє на діабет і ожиріння, а суспільство старіє: добра дієта — це дешевше лікування. |  |
+| `opportunities[zywienie].dayInLife[0]` | Rano rozmowa z pacjentem: co je i jak się czuje. | Вранці розмова з пацієнтом: що їсть і як почувається. |  |
+| `opportunities[zywienie].dayInLife[1]` | W południe układasz jadłospis na tydzień i liczysz składniki. | Вдень складаєш меню на тиждень і рахуєш інгредієнти. |  |
+| `opportunities[zywienie].dayInLife[2]` | Po południu warsztat w szkole albo test nowego produktu w laboratorium. | Після обіду майстер-клас у школі або випробування нового продукту в лабораторії. |  |
+| `opportunities[zywienie].growth[0]` | stażysta w poradni albo w zakładzie spożywczym | стажист у консультації або на харчовому підприємстві |  |
+| `opportunities[zywienie].growth[1]` | dietetyk albo technolog żywności | дієтолог або технолог харчових продуктів |  |
+| `opportunities[zywienie].growth[2]` | własny gabinet, kierownik jakości albo ekspert żywienia | власний кабінет, керівник з якості або експерт з харчування |  |
+| `opportunities[zywienie].experiment` | Przez tydzień zapisuj, co jesz, i porównaj z talerzem zdrowego żywienia (strona NCEZ). Napisz, co byś zmienił. | Протягом тижня записуй, що ти їси, і порівняй із тарілкою здорового харчування (сайт NCEZ). Напиши, що б ти змінив. |  |
+| `opportunities[zywienie].demand.text` | Technolodzy żywności i żywienia są w Krakowie w równowadze. | Технологи харчових продуктів і харчування в Кракові в рівновазі. |  |
+| `opportunities[weterynaria].name` | Weterynaria, zwierzęta i rolnictwo | Ветеринарія, тварини і фермерство |  |
+| `opportunities[weterynaria].roles` | lekarz weterynarii, zootechnik, specjalista hodowli, doradca rolniczy, inspektor weterynaryjny, rolnik z wykształceniem | лікар-ветеринар, зоотехнік, спеціаліст з розведення тварин, радник для фермерів, ветеринарний інспектор, фермер з освітою |  |
+| `opportunities[weterynaria].whoYouHelp` | Zwierzęta i ich właściciele, gospodarstwa, które produkują żywność, i wszyscy, którzy chcą jeść zdrowo i bezpiecznie. | Тварини та їхні власники, господарства, що виробляють їжу, і всі, хто хоче їсти здорово й безпечно. |  |
+| `opportunities[weterynaria].whatYouGet` | Praca z żywymi zwierzętami, często na zewnątrz, w klinice albo w gospodarstwie. Weterynaria to długie i trudne studia (5,5 roku), ale pracy nie brakuje. | Робота з живими тваринами, часто просто неба, в клініці або в господарстві. Ветеринарія — це довге й важке навчання (5,5 року), але роботи вистачає. |  |
+| `opportunities[weterynaria].whyNeeded` | Bezpieczna żywność i zdrowe zwierzęta to sprawa całego kraju; brakuje lekarzy weterynarii na wsi. | Безпечна їжа і здорові тварини — справа всієї країни; на селі бракує лікарів-ветеринарів. |  |
+| `opportunities[weterynaria].dayInLife[0]` | Rano przyjęcia w klinice: szczepienia, badania, opatrunki. | Вранці прийом у клініці: щеплення, обстеження, перев'язки. |  |
+| `opportunities[weterynaria].dayInLife[1]` | W południe wyjazd do gospodarstwa albo stadniny. | Вдень виїзд до господарства або на стайню. |  |
+| `opportunities[weterynaria].dayInLife[2]` | Po południu wyniki badań i telefony od właścicieli. | Після обіду результати аналізів і дзвінки від власників. |  |
+| `opportunities[weterynaria].growth[0]` | student na praktykach w klinice i gospodarstwach | студент на практиці в клініці й господарствах |  |
+| `opportunities[weterynaria].growth[1]` | lekarz weterynarii albo zootechnik | лікар-ветеринар або зоотехнік |  |
+| `opportunities[weterynaria].growth[2]` | własna klinika, specjalista albo inspektor | власна клініка, спеціаліст або інспектор |  |
+| `opportunities[weterynaria].experiment` | Zgłoś się na jeden dzień jako wolontariusz do schroniska dla zwierząt (w Krakowie: KTOZ) i zapisz, co cię zaskoczyło. | Запишись на один день волонтером до притулку для тварин (у Кракові: KTOZ) і запиши, що тебе здивувало. |  |
+| `opportunities[weterynaria].demand.text` | Weterynarze, rolnicy i hodowcy oraz pracownicy opiekujący się zwierzętami są w Krakowie w równowadze. | Ветеринари, фермери й заводчики та працівники, що доглядають за тваринами, у Кракові в рівновазі. |  |
+| `opportunities[geografia].name` | Geografia, przestrzeń i planowanie | Географія, простір і планування |  |
+| `opportunities[geografia].roles` | geograf, specjalista GIS i map cyfrowych, planista w urzędzie miasta, geolog, analityk klimatu, specjalista turystyki | географ, спеціаліст з GIS і цифрових карт, планувальник у міській раді, геолог, аналітик клімату, спеціаліст з туризму |  |
+| `opportunities[geografia].whoYouHelp` | Miasta i gminy, które planują drogi, osiedla i parki; firmy, które potrzebują map i danych o terenie. | Міста й громади, що планують дороги, райони та парки; фірми, яким потрібні карти і дані про місцевість. |  |
+| `opportunities[geografia].whatYouGet` | Łączysz pracę w terenie z mapami i danymi na komputerze. Umiejętność GIS jest bardzo poszukiwana. | Поєднуєш роботу в полі з картами й даними на комп'ютері. Уміння працювати з GIS дуже затребуване. |  |
+| `opportunities[geografia].whyNeeded` | Zmiana klimatu, powodzie i rosnące miasta: ktoś musi zaplanować, gdzie budować, a gdzie zostawić zieleń. | Зміна клімату, повені й зростаючі міста: хтось має спланувати, де будувати, а де лишити зелень. |  |
+| `opportunities[geografia].dayInLife[0]` | Rano pomiary w terenie albo wizja lokalna nowego osiedla. | Вранці вимірювання в полі або огляд місця нового району. |  |
+| `opportunities[geografia].dayInLife[1]` | W południe mapa w GIS: gdzie jest ryzyko powodzi. | Вдень карта в GIS: де є ризик повені. |  |
+| `opportunities[geografia].dayInLife[2]` | Po południu spotkanie w urzędzie o planie zagospodarowania. | Після обіду зустріч в установі про план забудови. |  |
+| `opportunities[geografia].growth[0]` | stażysta w urzędzie albo firmie GIS | стажист в установі або у фірмі GIS |  |
+| `opportunities[geografia].growth[1]` | geograf, analityk GIS, planista | географ, аналітик GIS, планувальник |  |
+| `opportunities[geografia].growth[2]` | kierownik planowania, ekspert klimatu albo własna firma | керівник планування, експерт з клімату або власна фірма |  |
+| `opportunities[geografia].experiment` | Otwórz Geoportal (geoportal.gov.pl) i znajdź swoją okolicę na starej i nowej mapie. Opisz, co się zmieniło przez 50 lat. | Відкрий Geoportal (geoportal.gov.pl) і знайди свою місцевість на старій і новій карті. Опиши, що змінилося за 50 років. |  |
+| `opportunities[geografia].demand.text` | Geodeci i kartografowie oraz architekci i urbaniści są w Krakowie w równowadze. | Геодезисти й картографи та архітектори й урбаністи в Кракові в рівновазі. |  |

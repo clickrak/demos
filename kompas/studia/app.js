@@ -1,4 +1,4 @@
-// Kompas Studia v3.4.0. Screens, navigation, results, export.
+// Kompas Studia v3.5.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -26,8 +26,9 @@ async function load() {
   ].map(get));
   data = { dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas };
   // Stops, lines and times computed from the Kraków GTFS timetables (kompas/tools/transport.py); optional.
-  dataPl = { questions, strengths, dimensions, scenarios }; // Polish originals; Ukrainian overlays (studia/i18n/ua/*.json) are laid over them
-  for (const l of ['ua', 'en']) dataOv[l] = Object.fromEntries(await Promise.all(['questions', 'strengths', 'dimensions', 'scenarios'].map(async k => [k, await fetch(`i18n/${l}/${k}.json`).then(r => (r.ok ? r.json() : null)).catch(() => null)])));
+  dataPl = { questions, strengths, dimensions, scenarios, opportunities }; // Polish originals; Ukrainian overlays (studia/i18n/ua/*.json) are laid over them
+  const OV = { ua: ['questions', 'strengths', 'dimensions', 'scenarios', 'opportunities'], en: ['questions', 'strengths', 'dimensions', 'scenarios'] }; // cards: Ukrainian only (v3.5), English keeps Polish cards
+  for (const l of ['ua', 'en']) dataOv[l] = Object.fromEntries(await Promise.all(OV[l].map(async k => [k, await fetch(`i18n/${l}/${k}.json`).then(r => (r.ok ? r.json() : null)).catch(() => null)])));
   data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
   for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
   // Interface texts: Polish is the base, Ukrainian overlays it (core/i18n.js). ?lang=ua (or uk) picks Ukrainian.
@@ -92,10 +93,10 @@ function applyStatic() {
   if (lang === 'pl') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
   history.replaceState(null, '', u);
 }
-// Question, strength, dimension and scenario texts: Polish, or the Ukrainian overlay laid over it (missing texts stay Polish).
+// Question, strength, dimension, scenario and card texts: Polish, or the Ukrainian overlay laid over it (missing texts stay Polish).
 function applyDataLang() {
   const ov = dataOv[getLang()]; // undefined for Polish
-  for (const k of ['questions', 'strengths', 'dimensions', 'scenarios']) data[k] = ov?.[k] ? overlay(dataPl[k], ov[k]) : dataPl[k];
+  for (const k of ['questions', 'strengths', 'dimensions', 'scenarios', 'opportunities']) data[k] = ov?.[k] ? overlay(dataPl[k], ov[k]) : dataPl[k];
   setNames('subject', ov ? data.questions.subjectNames : null); setNames('place', ov ? data.questions.placeNames : null);
 }
 function switchLang(l) {
@@ -431,7 +432,7 @@ function vStrengths() {
   const list = A.strengths.map(s => { const st = data.strengths.find(x => x.id === s.id);
     const own = !!s.proof.trim() && !isWhere(s.proof);
     const name = esc(st.name.charAt(0).toUpperCase() + st.name.slice(1));
-    if (s.proof.trim()) { const p = s.proof.trim(), short = p.length > 40 ? p.slice(0, 39).trimEnd() + '…' : p;
+    if (s.proof.trim()) { const p = isWhere(s.proof) ? whereLabel(s.proof.trim()) : s.proof.trim(), short = p.length > 40 ? p.slice(0, 39).trimEnd() + '…' : p;
       return `<div class="strength done"><p class="sline"><b>${name}</b> · <span>${esc(short)}</span></p>
         <button class="btn ghost small-btn" data-reproof="${s.id}" aria-label="${t('app.strengths.reproof_aria', { name: esc(st.name) })}">${t('app.strengths.change')}</button></div>`; }
     return `<div class="strength"><p class="field" id="pl-${s.id}">${t('app.strengths.where_q', { name: esc(st.name.charAt(0).toUpperCase() + st.name.slice(1)) })}</p>

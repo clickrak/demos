@@ -2,6 +2,7 @@
 Loads three test kids into the app through the real "Wczytaj plik" input, visits every screen and hashes the visible text
 (header, main, footer). While texts move to i18n files the Polish app must read exactly the same (tests/snapshots/pl-ui.json).
 Needs: playwright, node. Starts its own static server."""
+import re
 import json, hashlib, subprocess, sys, os, threading, http.server, functools, socketserver
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -33,7 +34,7 @@ with sync_playwright() as p:
             pg.evaluate(f"location.hash='#/{r}'"); pg.wait_for_timeout(350)
             t = pg.evaluate("(()=>{const hid=[...document.querySelectorAll('[data-onlylang][hidden]')].map(e=>[e,e.parentNode,e.nextSibling]);hid.forEach(([e])=>e.remove());const out=[...document.querySelectorAll('header.top, main, footer.foot')].map(e=>e.innerText).join('\\n');hid.forEach(([e,p,n])=>p.insertBefore(e,n));return out})()")
             t = '\n'.join(l.strip() for l in t.split('\n') if l.strip())  # ignore blank lines and indentation
-            out[f'{ki}/{r}'] = h(t); texts[f'{ki}/{r}'] = t
+            out[f'{ki}/{r}'] = h(re.sub(r'v\d+\.\d+\.\d+', 'vX.Y.Z', t)); texts[f'{ki}/{r}'] = t  # the version number does not count (v3.5)
         if errs: print('JS errors', ki, errs[:2])
     b.close()
 if lang: json.dump(texts, open('/tmp/ui_texts_%s.json' % lang, 'w'), ensure_ascii=False); print('texts dumped to /tmp/ui_texts_%s.json' % lang); sys.exit(0)
