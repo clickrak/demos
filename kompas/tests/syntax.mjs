@@ -78,5 +78,23 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
     for (const id of known) if (!used.has(id)) fail(`${app}: source "${id}" is not used anywhere (attach it or delete it)`);
   }
 }
+{ // Studia interface texts (v3.1): pl.json is the base, ua.json must have exactly the same keys once it has any (rule UK-G).
+  const pl = json['studia/i18n/pl.json'] || {}, ua = json['studia/i18n/ua.json'] || {};
+  const plKeys = new Set(Object.keys(pl)), uaKeys = Object.keys(ua);
+  const code = files.filter(f => /studia\/[^/]+\.(js|html)$/.test(f) || f.endsWith('core/scoring.js') || f.endsWith('core/export.js')).map(f => readFileSync(f, 'utf8')).join('\n');
+  const used = new Set(), bases = new Set();
+  for (const m of code.matchAll(/\bt\(\s*'([\w.]+)'/g)) used.add(m[1]);
+  for (const m of code.matchAll(/\bplural\([^,]+,\s*'([\w.]+)'/g)) bases.add(m[1]);
+  for (const m of code.matchAll(/data-i18n="([\w.]+)"/g)) used.add(m[1]);
+  for (const m of code.matchAll(/data-i18n-attr="([^"]+)"/g)) for (const pair of m[1].split(',')) used.add(pair.split(':')[1]);
+  const dynamic = ['skin.']; // keys built at run time: 't("skin." + name)'
+  for (const k of used) if (!plKeys.has(k) && !k.endsWith('.')) fail(`i18n: t('${k}') is not in pl.json`);
+  for (const b of bases) for (const f of ['one', 'few', 'many']) if (!plKeys.has(`${b}.${f}`)) fail(`i18n: plural '${b}' lacks ${b}.${f} in pl.json`);
+  for (const k of plKeys) if (!used.has(k) && !dynamic.some(d => k.startsWith(d)) && ![...bases].some(b => k.startsWith(b + '.'))) fail(`i18n: key "${k}" in pl.json is not used in the code`);
+  for (const k of uaKeys) if (!plKeys.has(k)) fail(`i18n: ua.json has a key pl.json does not: ${k}`);
+  if (uaKeys.length) { for (const k of plKeys) if (!(k in ua)) fail(`i18n: ua.json misses "${k}"`); }
+  else console.log('note: ua.json is still a stub (Ukrainian text arrives in v3.2)');
+  for (const [k, v] of Object.entries(pl)) if (typeof v !== 'string') fail(`i18n: pl.json "${k}" is not a string`);
+}
 console.log(bad ? `${bad} problem(s)` : `OK: ${files.filter(f => f.endsWith('.js')).length} scripts parse, ${Object.keys(json).length} data files valid, cross-references resolve, every source used`);
 process.exit(bad ? 1 : 0);
