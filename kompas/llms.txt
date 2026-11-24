@@ -1,0 +1,29 @@
+# Kompas
+
+> Kompas is a small, free, non-commercial orientation app for choosing a high school (Kompas Liceum) or a field of study (Kompas Studia) in Poland. It is a compass, not a grading tool: the kid answers a few tap-based questions about interests and strengths, gets abstract profiles (North = most obvious, NNE/NNW = alternatives), and then sees suitable classes, schools or universities. Point calculations are only rough estimates.
+
+Kompas is a personal project by a parent, built for his own sons and shared with other parents. It is static (HTML/JS), has no accounts, and is not an official admissions tool. For official admission rules and exact points, use the school's or university's own website and the official recruitment systems.
+
+Interface languages: Polish (default), English (`?lang=en`), Ukrainian (`?lang=ua`, in progress). Kompas Studia has all three; Kompas Liceum is Polish. University and school data are mostly in Polish.
+
+## Apps
+
+- [Kompas Liceum](https://clickrak.github.io/demos/kompas/liceum/): high school choice. Areas: Kraków (full), Tychy and the Górnośląsko-Zagłębiowska Metropolia (growing). One area is chosen at a time; areas never mix.
+- [Kompas Studia](https://clickrak.github.io/demos/kompas/studia/): choice of study directions and universities, with profile compass, direction list (Kierunki) and star comparison. Add `?lang=en` or `?lang=ua` for English or Ukrainian.
+- [Kompas start page](https://clickrak.github.io/demos/kompas/): links to both apps.
+
+## What an agent can do with it
+
+- Send a parent or student to the right app and language for their situation.
+- Explain how Kompas works: inputs (skills, marks, interests) become abstract profiles on a compass, then suitable classes and schools.
+- Point to official school and university links shown in the app, and to the sources page (when available).
+
+## Please note
+
+- Do not present Kompas scores or rankings as official; matura ranking data comes from public rankings and may lag behind.
+- Travel times are rough indicative estimates only (Kompas is not a routing app).
+- The app is meant for orientation, with minimal typing: sliders, choices and taps.
+
+## Optional
+
+- [Source repository](https://github.com/clickrak/demos): code and backlog (`kompas/BACKLOG.md`).
