@@ -14,12 +14,14 @@ const data = {
   offers: j('../studia/data/db/pl/krakow/offers.json'), campuses: j('../studia/data/db/pl/krakow/campuses.json'),
   sources: j('../studia/data/sources.json'), scenarios: j('../studia/data/scenarios.json')
 };
+// The version numbers are replaced by fixed text, so a version bump does not break the snapshot (v3.5 V0).
+const dataFixed = { ...data, config: { ...data.config, appVersion: '0.0.0', dataVersion: '0000-00-00' } };
 const h = s => createHash('sha1').update(s).digest('hex').slice(0, 12);
 const out = {};
 for (const p of j('../studia/data/personas.json')) {
   const r = scoreAll(p.answers, data);
   out[p.label || p.id] = {
-    md: h(buildMarkdown(p.answers, r, data, '2026-11-21')),
+    md: h(buildMarkdown(p.answers, r, dataFixed, '2026-11-21')),
     result: h(JSON.stringify(r)),
     decl: h(JSON.stringify(declarationHelp(r, p.answers, data)))
   };
