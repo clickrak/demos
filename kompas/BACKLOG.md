@@ -1135,7 +1135,7 @@ fits the focus, take the first "next week" item that does.
 | v3.2 | Ukrainian 1b: main UI | Ukrainian interface texts, glossary page, layout check, review sheet for a native reader | Sonnet + Opus | **done 24 Nov 2026 (3.2.0)** |
 | v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | **done 24 Nov 2026 (3.3.0)** |
 | v3.4 | English (set by Szymon 24 Nov 2026, 17:19) | Interface, questions, strengths, dimensions, scenarios and the glossary in English (`?lang=en`, third chip EN); cards, offers and universities stay Polish | Sonnet + Opus | **done 24 Nov 2026** |
-| v3.5 | Ukrainian 3a: directions | 42 cards (all texts), institution names with the Polish original | Sonnet + Opus | planned 24 Nov 2026; concrete plan (V0–V5) written 24 Nov evening, see "v3.5 concrete plan" in "Ukrainian version" |
+| v3.5 | Ukrainian 3a: directions | 42 cards (all texts); university names stay Polish in every language (Szymon, 24 Nov evening) | Sonnet + Opus | planned 24 Nov 2026; concrete plan (V0–V5) written 24 Nov evening, see "v3.5 concrete plan" in "Ukrainian version" |
 | v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | planned 24 Nov 2026 |
 | v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
 | v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
@@ -1721,7 +1721,7 @@ Liceum is not part of this track (its own Ukrainian task I1/I2 stays in Part 1 a
   truth for facts. Ukrainian is an **overlay**: UI texts in `studia/i18n/pl.json` and `ua.json` (key → text); data texts in
   `studia/i18n/ua/*.json` keyed by the same ids as the Polish data (only the text fields). A missing Ukrainian text falls back to Polish
   (never to an empty field), and a test prints how many are missing.
-- **UK-B Polish names stay visible.** Universities, studies, exam and recruitment terms are written in Ukrainian with the official Polish
+- **UK-B Polish names stay visible.** **University names stay in Polish, not translated, in every language (UA and EN; Szymon, 24 Nov 2026 evening).** Studies, exam and recruitment terms are written in Ukrainian with the official Polish
   name in brackets, for example "Ягеллонський університет (Uniwersytet Jagielloński)", because every recruitment page is in Polish.
   Addresses, links and source titles are not translated.
 - **UK-C The language lives in the saved file** (`lang`); an old file without `lang` opens in Polish; the exported file and the report
@@ -1807,7 +1807,7 @@ Original task list for v3.3 (all done):
 1. **UK4a (Sonnet, 3 batches of 14 cards) `studia/i18n/ua/opportunities.json`** keyed by card id: name, roles, whoYouHelp, whatYouGet, whyNeeded,
    dayInLife (3), growth (3), experiment, robustnessNote, demand text. The numbers and labels (demand level, force names, robustness
    A/B/C) use the glossary or `ua.json`.
-2. **UK4b (Sonnet) `studia/i18n/ua/institutions.json`:** about 25 universities and schools: Ukrainian name + official Polish name (rule UK-B),
+2. ~~**UK4b**~~ **Dropped by Szymon (24 Nov 2026 evening): university names stay Polish in every language.** Old text: **UK4b (Sonnet) `studia/i18n/ua/institutions.json`:** about 25 universities and schools: Ukrainian name + official Polish name (rule UK-B),
    short forms used on the road (`shortInst` in `app.js`).
 3. **UK4c (Opus) Wiring and review** (as UK3c); card names in the report, the compass, Kierunki and the compare table.
    Check: strict test "every card and institution has a Ukrainian entry"; no overlay id missing in the base data (rename safety);
@@ -1818,10 +1818,8 @@ State before: 3.4.0 pushed (English). Tests on 24 Nov: `syntax.mjs`, `run.mjs` (
 `ui_text.py` (54 screens unchanged) pass; radar unchanged. **`snapshot.mjs` fails (30 kids, `md` only)**: the only difference is the
 version line (`Wersja: v3.4.0`, `"version": "3.4.0"`), because the hashed export contains `appVersion` and 3.4.0 did not refresh the
 snapshot. Not a real Polish change (checked with a diff of kid A against 3.3.0).
-Size: one session, about 1.5 h, light (the 22/23 Nov runs hit the usage limit). Order: V0 → V1 (three Sonnet helpers in parallel) and
-V2 (one Sonnet helper) → V3 → V4 → V5. Must be in: V0, V1, V3, V5. If time runs short, V2 (institutions) moves to v3.6 together with the
-offers; say so in the release table. Cards, offers and universities stay **Polish in English** (`?lang=en` must not change).
-Scope of this release: card texts and institution names in Ukrainian. Not here: offer names, `requires.note`, `next` (v3.6), campus
+Size: one session, about 1.5 h, light (the 22/23 Nov runs hit the usage limit). Order: V0 → V1 (three Sonnet helpers in parallel) → V3 → V4 → V5 (V2 dropped). All must be in. Cards, offers and universities stay **Polish in English** (`?lang=en` must not change).
+Scope of this release: card texts in Ukrainian; university names stay Polish. Not here: offer names, `requires.note`, `next` (v3.6), campus
 names and addresses (stay Polish, UK-B), source titles (never translated).
 
 - **V0 (Opus, 10 min) Snapshot without the version.** In `tests/snapshot.mjs` hash the export with the version line and the
@@ -1835,28 +1833,20 @@ names and addresses (stay Polish, UK-B), source titles (never translated).
   Batches by position in the file: cards 1–14, 15–28, 29–42; each helper writes its own part file in the scratch folder and Opus joins
   them into one file (no fragment files in the repo, `syntax.mjs` forbids them). Brief for each helper: the Polish original of its
   14 cards, `studia/i18n/glossary.json`, the rules UK-B/UK-E/UK-F, "simple words for a 14–18-year-old, no grading tone, keep every
-  number and the word Kraków, list lengths stay the same, Polish institution and exam names in brackets the first time".
+  number and the word Kraków, list lengths stay the same, university names stay exactly as in Polish (never translated), exam terms as in the glossary".
   Card names must stay short (they sit on the compass, the road and chips): at most about 1.3 x the Polish length.
   Check: list lengths equal; numbers equal (reuse the force-number check idea); no Polish letters outside brackets.
-- **V2 (Sonnet x1; Opus reviews) Institution names.** New file `studia/i18n/ua/institutions.json`: an object keyed by the exact Polish
-  `institution` string from `offers.json` (about 45 strings, including faculty forms like "Uniwersytet Jagielloński, Wydział Chemii"),
-  value = Ukrainian name with the official Polish name in brackets (UK-B), for example
-  "Ягеллонський університет (Uniwersytet Jagielloński)". Short forms on the road (`shortInst`: UJ, UJ CM, AGH, UEK, UKEN …) **stay the
-  Polish abbreviations** (they are what the recruitment pages use), so no short Ukrainian forms are needed (safest reading).
-  Brief: the list of strings (print it with a one-line python), the glossary, UK-B.
-- **V3 (Opus) Wiring.** In `studia/app.js` the startup loader asks for `opportunities` and `institutions` **only for `ua`** (no 404 for
-  `en`); `applyDataLang()` lays `ua/opportunities.json` over `dataPl.opportunities` with `overlay()`; institutions: a copy of the offers
-  with `institution` replaced by the Ukrainian name and the Polish one kept in a new field (for example `institutionPl`) so
-  `shortInst()` still works on the Polish name (make `shortInst` use `o.institutionPl || o.institution`, or pass the offer).
-  Polish and English get `dataPl` unchanged. Check that card names in the compass (`story.js` `sceneSvg`, `wrap` helper), Kierunki road
+- **V2 dropped (Szymon, 24 Nov 2026 evening): university names stay in Polish in every language, not translated (also not in English).** No `institutions.json`; `institution` and `shortInst()` stay as they are. Test in V3: the Ukrainian card overlay must not change any university name that appears in a card text.
+- **V3 (Opus) Wiring.** In `studia/app.js` the startup loader asks for `opportunities` **only for `ua`** (no 404 for
+  `en`); `applyDataLang()` lays `ua/opportunities.json` over `dataPl.opportunities` with `overlay()`. Offers and university names are
+  not touched (they stay Polish). Polish and English get `dataPl` unchanged. Check that card names in the compass (`story.js` `sceneSvg`, `wrap` helper), Kierunki road
   (text is cut at 46 characters: check it does not cut inside the bracket badly), compare table, report and the markdown export show
   Ukrainian. Scoring uses ids only; if anything in `core/scoring.js` compares card or institution names, stop and keep Polish there.
   New user-facing text (if any, for example a hint "назви університетів також польською") goes through `t()` with a string in
   `pl.json`, `ua.json` **and** `en.json` (rule UK-G).
   Tests in `tests/syntax.mjs` (strict, same pattern as lines 120–146): every card has a Ukrainian entry with all the text fields above;
-  no overlay id that is not in the Polish data (rename safety); every `institution` string in `offers.json` has a key in
-  `institutions.json` and every key is used; the value contains the Polish name in brackets; no Polish letters outside brackets.
-  `tools/i18n_review.py`: add the card and institution texts to `review-ua.md`.
+  no overlay id that is not in the Polish data (rename safety); no Polish letters outside brackets and outside university names
+  (allow-list: the `institution` strings of `offers.json`). `tools/i18n_review.py`: add the card texts to `review-ua.md`.
 - **V4 (Opus, 15 min) Layout check.** `?lang=ua` at 375 and 1280 px, three looks (none, `?skin=pop`, `?skin=neon`): compass with the
   longest Ukrainian card names, a card detail, the Kierunki road and panel, compare table, report. No line wider than the screen, no
   script errors. Also open `?lang=en` once: cards still Polish, no errors.
@@ -1864,10 +1854,10 @@ names and addresses (stay Polish, UK-B), source titles (never translated).
   the card names that also appear in the questions); run `snapshot.mjs`, `syntax.mjs`, `run.mjs`, `liceum.mjs`, `ui_text.py` (Polish 54
   screens unchanged) and also `UI_LANG=en python3 kompas/tests/ui_text.py` against 3.4.0 if easy (English must not change); radar re-run
   (should not move). Version 3.5.0 in the four places (search "3.4.0" in `kompas/studia`), then `node kompas/tests/snapshot.mjs`
-  again (after V0 it must still pass). `REVIEWED.md`: one line "cards and institutions, written by AI, not yet read". Release table row
+  again (after V0 it must still pass). `REVIEWED.md`: one line "cards, written by AI, not yet read". Release table row
   v3.5 → done; short "Kompas Studia v3.5.0" section in the spec doc (Claude Docs). One task = one commit; `git pull --rebase` before
   pushing.
-Open for Szymon (safest reading used if no answer): short university names on the road stay Polish (UJ, AGH …) in Ukrainian.
+Decided by Szymon (24 Nov 2026 evening): university names, full and short, stay in Polish in every language.
 
 **v3.5 – UK-3b Studies (offers) in Ukrainian.**
 1. **UK5a (Sonnet, 3 batches of about 42 offers) `studia/i18n/ua/offers.json`** keyed by offer id: study name (rule UK-B: Ukrainian with the
