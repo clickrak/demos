@@ -1345,5 +1345,141 @@
   "field": [
    "ART"
   ]
+ },
+ {
+  "id": "mundurowe",
+  "name": "Mundurowe i bezpieczeństwo",
+  "cluster": "sport",
+  "interests": {
+   "ana": 30,
+   "tec": 75,
+   "spo": 65,
+   "twr": 15,
+   "prz": 60,
+   "sys": 80
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -1,
+   "ruch": -3,
+   "konkret": -2,
+   "decyzje": -2,
+   "zmiana": -1,
+   "projekty": -1,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "pomaganie",
+   "wplyw",
+   "trudne"
+  ],
+  "strengths": [
+   "dyscyplina",
+   "kondycja",
+   "odpowiedzialnosc",
+   "spokoj",
+   "orientacja",
+   "zespol"
+  ],
+  "roles": "policjant, żołnierz, strażak, strażnik graniczny, ratownik, specjalista od zarządzania kryzysowego",
+  "whoYouHelp": "Ludzie w kłopocie: po wypadku, w pożarze, w powodzi albo gdy ktoś łamie prawo.",
+  "whatYouGet": "Jasne zasady, praca w zespole i dużo ruchu. Do służb przyjmują po osobnych testach, m.in. sprawności; klasa mundurowa ich nie zastępuje, tylko pomaga się przygotować.",
+  "dayInLife": [
+   "Rano: zbiórka i odprawa, kto co dziś robi.",
+   "Potem: ćwiczenia albo patrol, czasem wezwanie do zdarzenia.",
+   "Po południu: krótki raport z dnia i trening."
+  ],
+  "experiment": "Zrób z kimś dorosłym kurs pierwszej pomocy. Potem porozmawiaj z kimś, kto pracuje w policji, straży albo wojsku: co lubi w tej pracy, a co jest trudne.",
+  "related": [
+   "sport",
+   "prawo",
+   "zdrowie"
+  ],
+  "afterSchool": "Bezpieczeństwo narodowe na UJ i UKEN, ratownictwo medyczne na UJ Collegium Medicum, Szkoła Aspirantów PSP w Krakowie. Do policji, wojska i straży przyjmują po osobnych testach. W liceum: klasy mundurowe, zwykle z WOS i geografią.",
+  "studiaCards": [
+   "sluzby",
+   "obronnosc"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "icon": "bezpieczenstwo",
+  "worlds": [
+   "sport"
+  ],
+  "field": [
+   "SEC"
+  ]
+ },
+ {
+  "id": "turystyka",
+  "name": "Turystyka, hotelarstwo i gastronomia",
+  "cluster": "jezyki",
+  "interests": {
+   "ana": 25,
+   "tec": 45,
+   "spo": 85,
+   "twr": 45,
+   "prz": 70,
+   "sys": 55
+  },
+  "workStyle": {
+   "zespol": 2,
+   "ludzie": -3,
+   "ruch": -2,
+   "konkret": -2,
+   "decyzje": -1,
+   "zmiana": 2,
+   "projekty": -2,
+   "wspolpraca": 2
+  },
+  "values": [
+   "zagranica",
+   "pomaganie",
+   "kreatywnosc",
+   "niezaleznosc"
+  ],
+  "strengths": [
+   "jezyki",
+   "organizowanie",
+   "empatia",
+   "spokoj",
+   "przekonywanie",
+   "odpowiedzialnosc"
+  ],
+  "roles": "technik hotelarstwa, organizator turystyki, pilot wycieczek, kucharz, technik żywienia, kierownik restauracji",
+  "whoYouHelp": "Goście i turyści, którzy chcą dobrze zjeść, wygodnie spać i coś ciekawego zobaczyć.",
+  "whatYouGet": "Praca z ludźmi, często po angielsku. Dużo ruchu i zmian; praca bywa też w weekendy i w sezonie.",
+  "dayInLife": [
+   "Rano: witasz gości i odpowiadasz na pytania w dwóch językach.",
+   "Potem: układasz plan wycieczki albo menu na wieczór.",
+   "Po południu: coś nie gra z rezerwacją, więc szybko szukasz wyjścia."
+  ],
+  "experiment": "Zaplanuj jednodniową wycieczkę dla rodziny: trasa, bilety, obiad i budżet. Albo ugotuj dla nich obiad według przepisu z innego kraju.",
+  "related": [
+   "jezyki",
+   "biznes",
+   "sport"
+  ],
+  "afterSchool": "Turystyka i rekreacja na UEK i AKF (dawniej AWF) w Krakowie, dietetyka i technologia żywności na Uniwersytecie Rolniczym. Technikum hotelarskie, turystyczne albo gastronomiczne daje zawód technika po 4 latach i zostawia otwartą maturę.",
+  "studiaCards": [
+   "turystyka",
+   "zywienie"
+  ],
+  "robustness": {
+   "A": "średnia",
+   "B": "średnia",
+   "C": "wysoka"
+  },
+  "icon": "jezyki",
+  "worlds": [
+   "jezyki"
+  ],
+  "field": [
+   "TUR"
+  ]
  }
 ]

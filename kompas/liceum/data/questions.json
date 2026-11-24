@@ -602,6 +602,73 @@
    "worlds": [
     "biznes"
    ]
+  },
+  {
+   "id": "u1",
+   "text": "Ćwiczyć w grupie według jasnych zasad i komend, np. w harcerstwie albo na obozie.",
+   "w": {
+    "sys": 2,
+    "tec": 1
+   },
+   "worlds": [
+    "sport"
+   ]
+  },
+  {
+   "id": "u2",
+   "text": "Wiedzieć, co zrobić, gdy coś się dzieje: wypadek, pożar albo zgubione dziecko.",
+   "w": {
+    "prz": 2,
+    "spo": 1
+   },
+   "worlds": [
+    "sport"
+   ]
+  },
+  {
+   "id": "u3",
+   "text": "Iść w teren z mapą i kompasem, także w deszczu i po ciemku.",
+   "w": {
+    "tec": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "sport"
+   ]
+  },
+  {
+   "id": "g1",
+   "text": "Pokazać gościom z innego miasta albo kraju najciekawsze miejsca w okolicy.",
+   "w": {
+    "spo": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "jezyki"
+   ]
+  },
+  {
+   "id": "g2",
+   "text": "Ugotować obiad dla rodziny albo upiec ciasto na czyjeś urodziny.",
+   "w": {
+    "tec": 1,
+    "twr": 1,
+    "spo": 1
+   },
+   "worlds": [
+    "jezyki"
+   ]
+  },
+  {
+   "id": "g3",
+   "text": "Zaplanować wyjazd: noclegi, bilety i plan każdego dnia.",
+   "w": {
+    "sys": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "jezyki"
+   ]
   }
  ],
  "situations": [
@@ -763,8 +830,8 @@
   },
   {
    "id": "jezyki",
-   "name": "Języki i świat",
-   "hint": "rozmowy, podróże, tłumaczenie",
+   "name": "Języki, podróże i goście",
+   "hint": "kraje, hotele, kuchnia",
    "icon": "jezyki"
   },
   {
@@ -781,8 +848,8 @@
   },
   {
    "id": "sport",
-   "name": "Sport i ruch",
-   "hint": "trening, zdrowie, zawody",
+   "name": "Sport, ruch i służby",
+   "hint": "trening, ratowanie, mundur",
    "icon": "ruch"
   },
   {
