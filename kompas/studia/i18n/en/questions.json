@@ -1,0 +1,580 @@
+{
+ "activities": [
+  {
+   "id": "a1",
+   "text": "Find a bug in a program or a spreadsheet."
+  },
+  {
+   "id": "a2",
+   "text": "Explain a hard topic to a friend so that they understand it."
+  },
+  {
+   "id": "a3",
+   "text": "Look after someone who has an injury."
+  },
+  {
+   "id": "a4",
+   "text": "Build something physical: a model, a piece of furniture, an electronic circuit."
+  },
+  {
+   "id": "a5",
+   "text": "Analyse data and find a pattern in it."
+  },
+  {
+   "id": "a6",
+   "text": "Talk to someone with a problem and help them find a way out."
+  },
+  {
+   "id": "a7",
+   "text": "Translate a text or a conversation so that nothing gets lost."
+  },
+  {
+   "id": "a8",
+   "text": "Plan a trip or an event and take care of the details."
+  },
+  {
+   "id": "a9",
+   "text": "Do an experiment in a lab and write down the results."
+  },
+  {
+   "id": "a10",
+   "text": "Write a text that moves or convinces someone."
+  },
+  {
+   "id": "a11",
+   "text": "Train regularly and track your progress."
+  },
+  {
+   "id": "a12",
+   "text": "Lead a training session or a warm-up for younger kids."
+  },
+  {
+   "id": "a13",
+   "text": "Take a device apart to understand how it works."
+  },
+  {
+   "id": "a14",
+   "text": "Convince a group of your idea."
+  },
+  {
+   "id": "a15",
+   "text": "Organise notes, files or photos so that everything is easy to find."
+  },
+  {
+   "id": "a16",
+   "text": "Find out how the human body or brain works."
+  },
+  {
+   "id": "a17",
+   "text": "Help someone from another country sort something out at an office or at the doctor's."
+  },
+  {
+   "id": "a18",
+   "text": "Write a simple program that saves someone time."
+  },
+  {
+   "id": "a19",
+   "text": "Work outside, in the field, in any weather."
+  },
+  {
+   "id": "a20",
+   "text": "Follow world news and understand why things happen."
+  },
+  {
+   "id": "a21",
+   "text": "Draw how something could look: a room, a poster or an object."
+  },
+  {
+   "id": "a22",
+   "text": "Sell something or negotiate a good price."
+  },
+  {
+   "id": "a23",
+   "text": "Film and edit a short video, or take photos that tell a story."
+  },
+  {
+   "id": "a24",
+   "text": "Design a game level or an app screen and check that nobody gets lost in it."
+  },
+  {
+   "id": "a25",
+   "text": "Play, sing or act in front of an audience."
+  },
+  {
+   "id": "a26",
+   "text": "Look after animals or plants, every day and properly."
+  },
+  {
+   "id": "a27",
+   "text": "Find a loophole in the rules or stand up for someone's cause."
+  },
+  {
+   "id": "a28",
+   "text": "Discover the history of an old place, building or object."
+  },
+  {
+   "id": "a29",
+   "text": "Cook something for others and work out what suits each person."
+  },
+  {
+   "id": "a30",
+   "text": "Do a survey and find out what people really think."
+  },
+  {
+   "id": "a31",
+   "text": "Solve a maths problem that nobody in the class can do."
+  },
+  {
+   "id": "a32",
+   "text": "Swim, sail or dive and find out what lives in the water."
+  },
+  {
+   "id": "a33",
+   "text": "Follow planes or rockets and understand how it all flies."
+  },
+  {
+   "id": "a34",
+   "text": "Discover new countries, people and food when you travel."
+  },
+  {
+   "id": "a35",
+   "text": "Go round museums and tell which period a painting or a building is from."
+  },
+  {
+   "id": "a36",
+   "text": "Read a contract or a set of rules and find what is wrong with it."
+  },
+  {
+   "id": "a37",
+   "text": "Draw a plan of a house or a housing estate and check that everything fits."
+  },
+  {
+   "id": "a38",
+   "text": "Design and 3D print a part that really works."
+  },
+  {
+   "id": "a39",
+   "text": "Run a class or a game for a group of younger children."
+  },
+  {
+   "id": "a40",
+   "text": "Check how an office or a school deals with something, and think of a simpler way."
+  },
+  {
+   "id": "a41",
+   "text": "Talk to people from different backgrounds and understand where inequality comes from."
+  },
+  {
+   "id": "a42",
+   "text": "Understand why something works in nature, from atoms to stars, until it all fits together."
+  },
+  {
+   "id": "a43",
+   "text": "Practise every day on an instrument, your voice or movement, so you can perform on stage."
+  },
+  {
+   "id": "a44",
+   "text": "Search an archive for old documents and check what really happened back then."
+  },
+  {
+   "id": "a45",
+   "text": "Help someone in a hard situation find the office or organisation that can help them."
+  },
+  {
+   "id": "a46",
+   "text": "Read the ingredients on products in a shop and plan a healthy menu for a whole week."
+  },
+  {
+   "id": "a47",
+   "text": "Help with animals at a shelter, in a stable or at a vet's."
+  },
+  {
+   "id": "a48",
+   "text": "Read maps and find out why a city grows here and not somewhere else."
+  },
+  {
+   "id": "a49",
+   "text": "Lead a group on a mountain trail or organise a camp in tents."
+  }
+ ],
+ "situations": [
+  {
+   "id": "e1",
+   "text": "Your group has to hand in a project tomorrow. The results do not add up, and one person is stressed and wants to give up. What do you do first?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "I sit down with the data and look for the mistake."
+    },
+    {
+     "id": "b",
+     "text": "I talk to that person and share out the tasks again."
+    },
+    {
+     "id": "c",
+     "text": "I suggest a different way of solving the whole problem."
+    },
+    {
+     "id": "d",
+     "text": "I write to the teacher and ask for a later deadline."
+    }
+   ]
+  },
+  {
+   "id": "e2",
+   "text": "You have a free week and some money for a project of your own. What do you choose?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "A course or a book about something I finally want to understand."
+    },
+    {
+     "id": "b",
+     "text": "I build or fix something with my own hands."
+    },
+    {
+     "id": "c",
+     "text": "I organise a trip or an event for my friends."
+    },
+    {
+     "id": "d",
+     "text": "I write, record or translate something of my own."
+    },
+    {
+     "id": "e",
+     "text": "I volunteer where extra hands are needed."
+    }
+   ]
+  },
+  {
+   "id": "e3",
+   "text": "A friend twists their ankle at training. What do you do first?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "I look at the leg, raise it and put something cold on it."
+    },
+    {
+     "id": "b",
+     "text": "I calm them down and stay with them."
+    },
+    {
+     "id": "c",
+     "text": "I call for help and arrange how they get home."
+    },
+    {
+     "id": "d",
+     "text": "I check what you should do for a sprain and tell the others."
+    }
+   ]
+  },
+  {
+   "id": "e4",
+   "text": "Your class is doing a joint project about your city. Which role do you take?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "Numbers, the survey and the charts."
+    },
+    {
+     "id": "b",
+     "text": "Texts and the story."
+    },
+    {
+     "id": "c",
+     "text": "Talking to the people who live there."
+    },
+    {
+     "id": "d",
+     "text": "The plan, the deadlines and making sure it all comes together."
+    },
+    {
+     "id": "e",
+     "text": "The technical side: photos, map, editing."
+    }
+   ]
+  },
+  {
+   "id": "e5",
+   "text": "There is a debate at school: should phones be banned during breaks? Which role do you take?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "I collect data and studies, so that the arguments have something to stand on."
+    },
+    {
+     "id": "b",
+     "text": "I step forward and convince the room."
+    },
+    {
+     "id": "c",
+     "text": "I listen to both sides and look for a solution that everyone accepts."
+    },
+    {
+     "id": "d",
+     "text": "I make a poster or a short film that shows the problem."
+    }
+   ]
+  },
+  {
+   "id": "e6",
+   "text": "Your class has 3000 zloty for a trip, and you have to organise it. Where do you start?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "I work out the costs and compare offers in a table."
+    },
+    {
+     "id": "b",
+     "text": "I ask everyone what they want and look for a compromise."
+    },
+    {
+     "id": "c",
+     "text": "I call the transport company and negotiate a better price."
+    },
+    {
+     "id": "d",
+     "text": "I check the route, the equipment and what could go wrong on the way."
+    }
+   ]
+  },
+  {
+   "id": "e7",
+   "text": "You get a week and a ticket to anywhere. Where do you go?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "To the sea: sailing, diving and finding out what lives under the water."
+    },
+    {
+     "id": "b",
+     "text": "To a city full of museums, old churches and castles."
+    },
+    {
+     "id": "c",
+     "text": "By plane as far as possible, to meet people and a different culture."
+    },
+    {
+     "id": "d",
+     "text": "To the mountains, with a map and a tent, far from people."
+    }
+   ]
+  },
+  {
+   "id": "e8",
+   "text": "You lead a meeting of a club that wants to build a sports pitch next to the school. What do you take on?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "I check the rules and the permits we need."
+    },
+    {
+     "id": "b",
+     "text": "I draw a plan of the pitch and work out how much material we need."
+    },
+    {
+     "id": "c",
+     "text": "I look for machines and people to build it and make sure everything works."
+    },
+    {
+     "id": "d",
+     "text": "I gather younger students to help and explain what they have to do."
+    }
+   ]
+  },
+  {
+   "id": "e9",
+   "text": "Your school is celebrating its 100th anniversary with an open day. What do you prepare?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "A survey of former students: what the school gave them and what they would change."
+    },
+    {
+     "id": "b",
+     "text": "A show of physics and chemistry experiments, explaining what is happening."
+    },
+    {
+     "id": "c",
+     "text": "A concert or a short scene to open the day, on stage in front of everyone."
+    },
+    {
+     "id": "d",
+     "text": "An exhibition of old photos and documents from the school archive."
+    }
+   ]
+  },
+  {
+   "id": "e10",
+   "text": "Your class goes to a village near Kraków for a week. What do you want to be responsible for?",
+   "answers": [
+    {
+     "id": "a",
+     "text": "The food: what we cook so that it is healthy and everyone likes it."
+    },
+    {
+     "id": "b",
+     "text": "Helping on the farm with the horses, cows and hens."
+    },
+    {
+     "id": "c",
+     "text": "The map of the area and the routes for the trips."
+    },
+    {
+     "id": "d",
+     "text": "The games, the campfire and the evening programme for the whole group."
+    }
+   ]
+  }
+ ],
+ "certainty": [
+  {
+   "id": "pewny",
+   "label": "I know what I want to study"
+  },
+  {
+   "id": "troche",
+   "label": "I have an idea, but I am not sure"
+  },
+  {
+   "id": "niepewny",
+   "label": "I do not know yet"
+  }
+ ],
+ "languages": [
+  {
+   "id": "pl",
+   "name": "Polish"
+  },
+  {
+   "id": "en",
+   "name": "English"
+  },
+  {
+   "id": "de",
+   "name": "German"
+  },
+  {
+   "id": "uk",
+   "name": "Ukrainian"
+  },
+  {
+   "id": "fr",
+   "name": "French"
+  }
+ ],
+ "studyLength": [
+  {
+   "id": "krotko",
+   "label": "I want to start working soon (up to 3 years)"
+  },
+  {
+   "id": "srednio",
+   "label": "I can study for 3–5 years"
+  },
+  {
+   "id": "dlugo",
+   "label": "I do not mind long studies"
+  }
+ ],
+ "doubts": [
+  {
+   "id": "nie_wiem",
+   "label": "I do not know what I like",
+   "card": "That is normal. Look at what your answers already show: the strengths at the top of your results are yours, not made up."
+  },
+  {
+   "id": "zle",
+   "label": "I am afraid I will choose wrong",
+   "card": "Your first choice is not a life sentence. You can change programme, and skills carry over between fields."
+  },
+  {
+   "id": "nie_dosc",
+   "label": "I am not good enough at one of the subjects",
+   "card": "For every option you can see what it really needs and what you can do if something is missing. Not having an extended-level exam is something you can sort out, not a closed door."
+  },
+  {
+   "id": "inni",
+   "label": "Other people know what they want",
+   "card": "Other people are often less sure than they look. What counts is the next step, not the whole plan."
+  },
+  {
+   "id": "studia",
+   "label": "I do not know if I can cope at university",
+   "card": "The first year is mostly a new rhythm: more studying on your own and less checking up on you. Study groups, office hours with lecturers and student support offices (every big university has one) all help."
+  }
+ ],
+ "reflection": [
+  {
+   "id": "f1",
+   "text": "When did you last lose track of time? What were you doing?",
+   "ideas": [
+    "playing a game",
+    "with music",
+    "doing sport",
+    "drawing or making things",
+    "learning something new",
+    "helping someone"
+   ]
+  },
+  {
+   "id": "f2",
+   "text": "What do you definitely not want to be doing in 10 years?",
+   "ideas": [
+    "sitting at a desk all day",
+    "doing the same thing all the time",
+    "working alone",
+    "working in noise and crowds",
+    "working at night",
+    "always being in a hurry"
+   ]
+  },
+  {
+   "id": "f3",
+   "text": "What do other people praise you for, even if it feels easy to you?",
+   "ideas": [
+    "for helping others",
+    "for explaining hard things",
+    "for staying calm",
+    "for my sense of humour",
+    "for fixing things",
+    "for being well organised"
+   ]
+  }
+ ],
+ "privateOk": [
+  {
+   "id": "tak",
+   "label": "Yes, if it is worth it"
+  },
+  {
+   "id": "nie",
+   "label": "Only public, free ones"
+  }
+ ],
+ "subjectNames": {
+  "polski": "Polish language (polski)",
+  "matematyka": "Mathematics (matematyka)",
+  "angielski": "English (angielski)",
+  "biologia": "Biology (biologia)",
+  "chemia": "Chemistry (chemia)",
+  "fizyka": "Physics (fizyka)",
+  "geografia": "Geography (geografia)",
+  "historia": "History (historia)",
+  "historia sztuki": "History of art (historia sztuki)",
+  "WOS": "Civics (WOS)",
+  "informatyka": "Computer science (informatyka)",
+  "niemiecki": "German (niemiecki)"
+ },
+ "placeNames": {
+  "moje miasto": "my city",
+  "cała Polska": "all of Poland",
+  "Ukraina": "Ukraine",
+  "Europa i świat": "Europe and the world",
+  "Kraków": "Kraków",
+  "Małopolska": "Lesser Poland (Małopolska)",
+  "Polska": "Poland",
+  "Europa": "Europe",
+  "trudno powiedzieć": "hard to say"
+ }
+}

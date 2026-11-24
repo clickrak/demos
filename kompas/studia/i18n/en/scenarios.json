@@ -1,0 +1,78 @@
+{
+ "scenarios": [
+  {
+   "id": "A",
+   "name": "Independent Europe",
+   "text": "Peace in Ukraine, cheap clean energy, Poland as a hub for rebuilding Ukraine."
+  },
+  {
+   "id": "B",
+   "name": "Balancing",
+   "text": "A weak but dangerous Russia, changing energy prices, nuclear power 2–4 years late."
+  },
+  {
+   "id": "C",
+   "name": "Under pressure",
+   "text": "The USA pulls back from Europe, high defence spending, a faster fall in population."
+  }
+ ],
+ "forces": [
+  {
+   "id": "demografia",
+   "name": "Demographics",
+   "text": "In 2025 about 238 thousand children were born and about 406 thousand people died. Every year there are fewer people of working age.",
+   "line": "Every pair of hands will be needed more, and machines will take over some of the work."
+  },
+  {
+   "id": "starzenie",
+   "name": "Ageing",
+   "text": "The median age will pass 50 by 2060. More people will need care and rehabilitation.",
+   "line": "More and more people will need treatment, rehabilitation and care."
+  },
+  {
+   "id": "energia",
+   "name": "Energy",
+   "text": "The first nuclear unit is planned for 2036; grids and renewables will be built over decades.",
+   "line": "New power plants and grids built over decades."
+  },
+  {
+   "id": "bezpieczenstwo",
+   "name": "Security",
+   "text": "Poland becomes a NATO frontline country.",
+   "line": "Poland becomes a NATO frontline country."
+  },
+  {
+   "id": "automatyzacja",
+   "name": "Automation and AI",
+   "text": "Fewer people to work means more machines and software.",
+   "line": "Less routine work, more work with people and with data."
+  }
+ ],
+ "sectors": [
+  {
+   "id": "zdrowie",
+   "name": "healthcare and senior care"
+  },
+  {
+   "id": "energetyka",
+   "name": "energy and power grids"
+  },
+  {
+   "id": "obronnosc",
+   "name": "defence and cybersecurity"
+  },
+  {
+   "id": "automatyzacja",
+   "name": "automation, robotics, AI"
+  },
+  {
+   "id": "logistyka",
+   "name": "logistics and infrastructure"
+  },
+  {
+   "id": "woda",
+   "name": "water and climate"
+  }
+ ],
+ "shrinking": "These may shrink: coal, routine office work, new building outside big cities."
+}

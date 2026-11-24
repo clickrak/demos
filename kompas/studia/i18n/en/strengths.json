@@ -1,0 +1,97 @@
+[
+ {
+  "id": "wytrwalosc",
+  "name": "perseverance",
+  "example": "I kept going back to a hard climbing route until I finally did it."
+ },
+ {
+  "id": "spokoj",
+  "name": "calm under pressure",
+  "example": "In a test, while everyone else panicked, I made a plan and went through it step by step."
+ },
+ {
+  "id": "logika",
+  "name": "logical thinking",
+  "example": "I found a mistake in a task that nobody else in the group could see."
+ },
+ {
+  "id": "tlumaczenie",
+  "name": "explaining to others",
+  "example": "I explained a topic to a friend before a quiz and they passed."
+ },
+ {
+  "id": "empatia",
+  "name": "empathy",
+  "example": "I noticed someone was having a bad day and started a conversation."
+ },
+ {
+  "id": "dokladnosc",
+  "name": "accuracy",
+  "example": "I check a text twice before I hand it in."
+ },
+ {
+  "id": "ciekawosc",
+  "name": "curiosity about the world",
+  "example": "I read about something late into the night because I want to know how it works."
+ },
+ {
+  "id": "zespol",
+  "name": "teamwork",
+  "example": "In a group project I made sure everyone had their own task."
+ },
+ {
+  "id": "dyscyplina",
+  "name": "discipline and routine",
+  "example": "I go to the gym regularly, even when I do not feel like it."
+ },
+ {
+  "id": "kondycja",
+  "name": "fitness",
+  "example": "I train several times a week and I can see my progress."
+ },
+ {
+  "id": "jezyki",
+  "name": "languages",
+  "example": "I get by in English without stress, and I can talk in Ukrainian."
+ },
+ {
+  "id": "szybka_nauka",
+  "name": "learning fast",
+  "example": "I figured out a new program in one evening."
+ },
+ {
+  "id": "organizowanie",
+  "name": "organising",
+  "example": "I planned a trip with friends: tickets, a place to stay, a plan for each day."
+ },
+ {
+  "id": "pomyslowosc",
+  "name": "inventiveness",
+  "example": "I thought of a different way to do a task and it worked."
+ },
+ {
+  "id": "odpowiedzialnosc",
+  "name": "responsibility for others",
+  "example": "I looked after my younger brother when my parents went away."
+ },
+ {
+  "id": "rysunek",
+  "name": "drawing and spatial imagination",
+  "example": "I drew a plan of my room to scale and moved the furniture so that a desk fitted in."
+ },
+ {
+  "id": "przekonywanie",
+  "name": "convincing others",
+  "example": "I sold my old bike for a better price than I expected."
+ },
+ {
+  "id": "orientacja",
+  "name": "finding your way on a map and outdoors",
+  "example": "I led my family along a mountain trail with a map and nobody got lost."
+ },
+ {
+  "id": "oko",
+  "name": "an eye for art and detail",
+  "example": "On a trip I noticed that two churches have the same vaulted ceiling."
+ }
+]

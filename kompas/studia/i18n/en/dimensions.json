@@ -1,0 +1,118 @@
+{
+ "interests": [
+  {
+   "id": "ana",
+   "name": "Analytical",
+   "desc": "finding patterns, understanding how things work"
+  },
+  {
+   "id": "tec",
+   "name": "Technical",
+   "desc": "working with your hands, devices, the body in motion"
+  },
+  {
+   "id": "spo",
+   "name": "Social",
+   "desc": "caring, helping, talking to people"
+  },
+  {
+   "id": "twr",
+   "name": "Creative",
+   "desc": "words, pictures, ideas, self-expression"
+  },
+  {
+   "id": "prz",
+   "name": "Enterprising",
+   "desc": "organising, convincing, leading"
+  },
+  {
+   "id": "sys",
+   "name": "Systematic",
+   "desc": "order, accuracy, procedures"
+  }
+ ],
+ "workStyle": [
+  {
+   "id": "zespol",
+   "left": "alone",
+   "right": "in a team"
+  },
+  {
+   "id": "ludzie",
+   "left": "with people",
+   "right": "with data and things"
+  },
+  {
+   "id": "ruch",
+   "left": "on the move",
+   "right": "at a desk"
+  },
+  {
+   "id": "konkret",
+   "left": "practical",
+   "right": "theory"
+  },
+  {
+   "id": "decyzje",
+   "left": "quick decisions",
+   "right": "careful analysis"
+  },
+  {
+   "id": "zmiana",
+   "left": "stability",
+   "right": "change"
+  },
+  {
+   "id": "projekty",
+   "left": "short tasks",
+   "right": "long projects"
+  },
+  {
+   "id": "wspolpraca",
+   "left": "competition",
+   "right": "cooperation"
+  }
+ ],
+ "values": [
+  {
+   "id": "pomaganie",
+   "name": "helping people"
+  },
+  {
+   "id": "zarobki",
+   "name": "earning well"
+  },
+  {
+   "id": "pewnosc",
+   "name": "job security"
+  },
+  {
+   "id": "prestiz",
+   "name": "prestige"
+  },
+  {
+   "id": "kreatywnosc",
+   "name": "creativity"
+  },
+  {
+   "id": "wplyw",
+   "name": "influence on the world"
+  },
+  {
+   "id": "zagranica",
+   "name": "working abroad"
+  },
+  {
+   "id": "czas",
+   "name": "free time"
+  },
+  {
+   "id": "niezaleznosc",
+   "name": "independence"
+  },
+  {
+   "id": "trudne",
+   "name": "solving hard problems"
+  }
+ ]
+}

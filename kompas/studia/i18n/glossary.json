@@ -3,150 +3,200 @@
   "id": "matura",
   "pl": "matura",
   "ua": "матура",
-  "expl": "Польський випускний іспит після ліцею. Від його результатів залежить вступ до вишу"
+  "expl": "Польський випускний іспит після ліцею. Від його результатів залежить вступ до вишу",
+  "en": "matura",
+  "expl_en": "The Polish exam at the end of liceum. Your results decide where you can study."
  },
  {
   "id": "rozszerzenie",
   "pl": "rozszerzenie",
   "ua": "розширений рівень",
-  "expl": "Предмет матури, який ти складаєш на вищому рівні. Саме розширені предмети рахують виші"
+  "expl": "Предмет матури, який ти складаєш на вищому рівні. Саме розширені предмети рахують виші",
+  "en": "extended level (rozszerzenie)",
+  "expl_en": "A matura subject taken at the higher level. Universities mostly count these, and some count only this level."
  },
  {
   "id": "podstawa",
   "pl": "poziom podstawowy",
   "ua": "базовий рівень",
-  "expl": "Простіший рівень предмета на матурі. Виші зазвичай рахують його менше або зовсім не рахують"
+  "expl": "Простіший рівень предмета на матурі. Виші зазвичай рахують його менше або зовсім не рахують",
+  "en": "basic level (poziom podstawowy)",
+  "expl_en": "The easier level of a matura subject. Universities count it less, or not at all."
  },
  {
   "id": "deklaracja",
   "pl": "deklaracja maturalna",
   "ua": "декларація про матуру",
-  "expl": "Заява зі списком предметів, які ти будеш складати. Її подають до 7 лютого, потім предмети вже не змінити"
+  "expl": "Заява зі списком предметів, які ти будеш складати. Її подають до 7 лютого, потім предмети вже не змінити",
+  "en": "matura declaration (deklaracja maturalna)",
+  "expl_en": "The form where you list the subjects you will take. It is due by 7 February, and after that you cannot change them."
  },
  {
   "id": "prog",
   "pl": "próg punktowy",
   "ua": "прохідний бал",
-  "expl": "Скільки балів треба набрати, щоб вступити на напрям. Щороку він трохи інший"
+  "expl": "Скільки балів треба набрати, щоб вступити на напрям. Щороку він трохи інший",
+  "en": "points threshold (próg punktowy)",
+  "expl_en": "How many points you need to get into a programme. It is a little different every year."
  },
  {
   "id": "rekrutacja",
   "pl": "rekrutacja",
   "ua": "вступна кампанія",
-  "expl": "Час, коли виші приймають заяви і зараховують студентів. Зазвичай це червень, липень і серпень"
+  "expl": "Час, коли виші приймають заяви і зараховують студентів. Зазвичай це червень, липень і серпень",
+  "en": "admissions (rekrutacja)",
+  "expl_en": "The time when universities take applications and decide who gets in. Usually June, July and August."
  },
  {
   "id": "irk",
   "pl": "IRK",
   "ua": "електронна реєстрація (IRK)",
-  "expl": "Сайт вишу, де ти подаєш заяву на вступ онлайн"
+  "expl": "Сайт вишу, де ти подаєш заяву на вступ онлайн",
+  "en": "online application (IRK)",
+  "expl_en": "The university website where you apply online."
  },
  {
   "id": "kierunek",
   "pl": "kierunek",
   "ua": "напрям навчання",
-  "expl": "Конкретна програма в виші, наприклад «Інформатика» або «Психологія»"
+  "expl": "Конкретна програма в виші, наприклад «Інформатика» або «Психологія»",
+  "en": "programme (kierunek)",
+  "expl_en": "A specific course at a university, for example Computer Science or Psychology."
  },
  {
   "id": "licencjat",
   "pl": "licencjat",
   "ua": "ліценціат",
-  "expl": "Перший ступінь, 3 роки. Схожий на бакалавра. Після нього можна вступати на магістратуру"
+  "expl": "Перший ступінь, 3 роки. Схожий на бакалавра. Після нього можна вступати на магістратуру",
+  "en": "bachelor's (licencjat)",
+  "expl_en": "The first degree, 3 years. After it you can apply for a master's."
  },
  {
   "id": "inzynier",
   "pl": "inżynier",
   "ua": "інженерний ступінь",
-  "expl": "Перший ступінь на технічних напрямах, 3,5 року. Теж можна продовжити на магістратурі"
+  "expl": "Перший ступінь на технічних напрямах, 3,5 року. Теж можна продовжити на магістратурі",
+  "en": "engineering degree (inżynier)",
+  "expl_en": "The first degree in technical subjects, 3.5 years. You can continue to a master's too."
  },
  {
   "id": "magister",
   "pl": "studia magisterskie",
   "ua": "магістратура",
-  "expl": "Другий ступінь, 1,5–2 роки після ліценціата чи інженера. Закінчується ступенем магістра"
+  "expl": "Другий ступінь, 1,5–2 роки після ліценціата чи інженера. Закінчується ступенем магістра",
+  "en": "master's (studia magisterskie)",
+  "expl_en": "The second degree, 1.5 to 2 years after a bachelor's or engineering degree."
  },
  {
   "id": "jednolite",
   "pl": "jednolite studia magisterskie",
   "ua": "єдина магістратура",
-  "expl": "5–6 років одним блоком, без окремого першого ступеня. Так навчаються, наприклад, медики і юристи"
+  "expl": "5–6 років одним блоком, без окремого першого ступеня. Так навчаються, наприклад, медики і юристи",
+  "en": "long master's (jednolite studia magisterskie)",
+  "expl_en": "5 to 6 years in one block, with no separate first degree. For example medicine and law."
  },
  {
   "id": "stacjonarne",
   "pl": "studia stacjonarne",
   "ua": "денна форма",
-  "expl": "Заняття відбуваються у виші, зазвичай у будні"
+  "expl": "Заняття відбуваються у виші, зазвичай у будні",
+  "en": "full-time studies (studia stacjonarne)",
+  "expl_en": "Classes at the university, usually on weekdays."
  },
  {
   "id": "niestacjonarne",
   "pl": "studia niestacjonarne",
   "ua": "заочна форма",
-  "expl": "Заняття раз на кілька тижнів, найчастіше у вихідні. Підходить, якщо ти вже працюєш"
+  "expl": "Заняття раз на кілька тижнів, найчастіше у вихідні. Підходить, якщо ти вже працюєш",
+  "en": "part-time studies (studia niestacjonarne)",
+  "expl_en": "Classes every few weeks, mostly at weekends. Good if you already work."
  },
  {
   "id": "uczelnia",
   "pl": "uczelnia",
   "ua": "виш",
-  "expl": "Університет або інший вищий навчальний заклад"
+  "expl": "Університет або інший вищий навчальний заклад",
+  "en": "university (uczelnia)",
+  "expl_en": "A university or another higher education school."
  },
  {
   "id": "dniotwarte",
   "pl": "dni otwarte",
   "ua": "дні відкритих дверей",
-  "expl": "Час, коли виші запрошують усіх охочих подивитися на навчання на місці. Зазвичай у березні й квітні"
+  "expl": "Час, коли виші запрошують усіх охочих подивитися на навчання на місці. Зазвичай у березні й квітні",
+  "en": "open days (dni otwarte)",
+  "expl_en": "Days when universities invite anyone to look around. Usually in March and April."
  },
  {
   "id": "swiadectwo",
   "pl": "świadectwo dojrzałości",
   "ua": "атестат зрілості",
-  "expl": "Документ про матуру. Його видають після складання іспитів"
+  "expl": "Документ про матуру. Його видають після складання іспитів",
+  "en": "matura certificate (świadectwo dojrzałości)",
+  "expl_en": "The document you get after passing the matura exams."
  },
  {
   "id": "przelicznik",
   "pl": "przelicznik punktów",
   "ua": "перерахунок балів",
-  "expl": "Правило, за яким виш переводить твої результати матури у вступні бали"
+  "expl": "Правило, за яким виш переводить твої результати матури у вступні бали",
+  "en": "points conversion (przelicznik punktów)",
+  "expl_en": "The rule a university uses to turn your matura results into admission points."
  },
  {
   "id": "limit",
   "pl": "limit miejsc",
   "ua": "ліміт місць",
-  "expl": "Скільки студентів виш може прийняти на цей напрям"
+  "expl": "Скільки студентів виш може прийняти на цей напрям",
+  "en": "number of places (limit miejsc)",
+  "expl_en": "How many students the university can take on this programme."
  },
  {
   "id": "dworzec",
   "pl": "Dworzec Główny",
   "ua": "Головний вокзал (Dworzec Główny)",
-  "expl": "Залізничний вокзал у Кракові. Від нього ми рахуємо час дороги до вишів"
+  "expl": "Залізничний вокзал у Кракові. Від нього ми рахуємо час дороги до вишів",
+  "en": "Kraków Główny station (Dworzec Główny)",
+  "expl_en": "The main railway station in Kraków. We measure travel time to universities from here."
  },
  {
   "id": "liceum",
   "pl": "liceum",
   "ua": "ліцей",
-  "expl": "Польська школа після 8 класу, 4 роки, закінчується матурою"
+  "expl": "Польська школа після 8 класу, 4 роки, закінчується матурою",
+  "en": "liceum (general secondary school)",
+  "expl_en": "A Polish school after primary school, 4 years, ending with the matura."
  },
  {
   "id": "technikum",
   "pl": "technikum",
   "ua": "технікум",
-  "expl": "Школа з професією, 5 років. Теж закінчується матурою"
+  "expl": "Школа з професією, 5 років. Теж закінчується матурою",
+  "en": "technikum (technical school)",
+  "expl_en": "A school with a profession, 5 years. It also ends with the matura."
  },
  {
   "id": "kompas",
   "pl": "kompas",
   "ua": "компас",
-  "expl": "Назва цієї програми: вона показує напрями, а не ставить оцінки"
+  "expl": "Назва цієї програми: вона показує напрями, а не ставить оцінки",
+  "en": "compass",
+  "expl_en": "The name of this app: it shows directions, it does not grade you."
  },
  {
   "id": "mocne",
   "pl": "mocne strony",
   "ua": "сильні сторони",
-  "expl": "Те, що в тебе добре виходить і що ти вже довів на ділі"
+  "expl": "Те, що в тебе добре виходить і що ти вже довів на ділі",
+  "en": "strengths",
+  "expl_en": "What you are good at and have already shown in real life."
  },
  {
   "id": "plik",
   "pl": "plik z odpowiedziami",
   "ua": "файл з відповідями",
-  "expl": "Файл, який зберігається у тебе на пристрої. З ним можна повернутися пізніше. Нікуди не надсилається"
+  "expl": "Файл, який зберігається у тебе на пристрої. З ним можна повернутися пізніше. Нікуди не надсилається",
+  "en": "answers file",
+  "expl_en": "A file saved on your own device so you can come back later. It is never sent anywhere."
  }
 ]

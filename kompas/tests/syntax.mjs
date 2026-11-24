@@ -78,10 +78,10 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
     for (const id of known) if (!used.has(id)) fail(`${app}: source "${id}" is not used anywhere (attach it or delete it)`);
   }
 }
-{ // Studia interface texts (v3.1): pl.json is the base, ua.json must have exactly the same keys once it has any (rule UK-G).
-  const pl = { ...json['core/i18n/pl.json'], ...json['studia/i18n/pl.json'] }, ua = { ...json['core/i18n/ua.json'], ...json['studia/i18n/ua.json'] };
+{ // Studia interface texts: pl.json is the base; ua.json and en.json need exactly the same keys once they have any (rule UK-G).
+  const pl = { ...json['core/i18n/pl.json'], ...json['studia/i18n/pl.json'] };
   for (const f of Object.keys(json)) if (/i18n\/frag-/.test(f)) fail(`i18n: fragment file ${f} must be merged into pl.json`);
-  const plKeys = new Set(Object.keys(pl)), uaKeys = Object.keys(ua);
+  const plKeys = new Set(Object.keys(pl));
   const code = files.filter(f => /studia\/[^/]+\.(js|html)$/.test(f) || f.endsWith('core/scoring.js') || f.endsWith('core/export.js')).map(f => readFileSync(f, 'utf8')).join('\n');
   const used = new Set(), bases = new Set();
   for (const m of code.matchAll(/\bt\(\s*'([\w.]+)'/g)) used.add(m[1]);
@@ -96,32 +96,38 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   for (const k of used) if (!plKeys.has(k) && !k.endsWith('.')) fail(`i18n: t('${k}') is not in pl.json`);
   for (const b of bases) for (const f of ['one', 'few', 'many']) if (!plKeys.has(`${b}.${f}`)) fail(`i18n: plural '${b}' lacks ${b}.${f} in pl.json`);
   for (const k of plKeys) if (!used.has(k) && !['\'', '"', '`'].some(q => code.includes(q + k + q)) && ![...dynamic].some(d => k.startsWith(d)) && ![...bases].some(b => k.startsWith(b + '.'))) fail(`i18n: key "${k}" in pl.json is not used in the code`);
-  for (const k of uaKeys) if (!plKeys.has(k) && !(k.endsWith('.other') && plKeys.has(k.replace(/\.other$/, '.one')))) fail(`i18n: ua.json has a key pl.json does not: ${k}`);
-  if (uaKeys.length) {
-    for (const k of plKeys) if (!(k in ua)) fail(`i18n: ua.json misses "${k}"`);
-    const ph = v => (String(v).match(/\{\w+\}/g) || []).sort().join(','), tags = v => (String(v).match(/<\/?[a-z][^>]*>/gi) || []).join('');
-    for (const k of uaKeys) if (k in pl) {
-      if (typeof ua[k] !== 'string' || !ua[k].trim()) { fail(`i18n: ua "${k}" is empty or not a string`); continue; }
-      if (ph(ua[k]) !== ph(pl[k])) fail(`i18n: ua "${k}" placeholders differ: ${ph(pl[k])} vs ${ph(ua[k])}`);
-      if (tags(ua[k]) !== tags(pl[k])) fail(`i18n: ua "${k}" HTML tags differ from Polish`);
-      if (/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(ua[k].replace(/\([^)]*\)/g, '').replace(/<[^>]*>/g, ''))) fail(`i18n: ua "${k}" has Polish letters outside brackets: ${ua[k].slice(0, 60)}`);
+  for (const [k, v] of Object.entries(pl)) if (typeof v !== 'string') fail(`i18n: pl.json "${k}" is not a string`);
+  const ph = v => (String(v).match(/\{\w+\}/g) || []).sort().join(','), tags = v => (String(v).match(/<\/?[a-z][^>]*>/gi) || []).join('');
+  const PROPER = /Kraków|KRAKÓW|Główny|Małopolska|Łódź|Wisła/g, POL = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/, CYR = /[Ѐ-ӿ]/;
+  for (const lg of ['ua', 'en']) {
+    const tr = { ...json[`core/i18n/${lg}.json`], ...json[`studia/i18n/${lg}.json`] }, keys = Object.keys(tr);
+    for (const k of keys) if (!plKeys.has(k) && !(k.endsWith('.other') && plKeys.has(k.replace(/\.other$/, '.one')))) fail(`i18n: ${lg}.json has a key pl.json does not: ${k}`);
+    if (!keys.length) { console.log(`note: ${lg}.json is still a stub`); continue; }
+    for (const k of plKeys) if (!(k in tr)) fail(`i18n: ${lg}.json misses "${k}"`);
+    for (const k of keys) if (k in pl) {
+      const v = tr[k];
+      if (typeof v !== 'string' || !v.trim()) { fail(`i18n: ${lg} "${k}" is empty or not a string`); continue; }
+      if (ph(v) !== ph(pl[k])) fail(`i18n: ${lg} "${k}" placeholders differ: ${ph(pl[k])} vs ${ph(v)}`);
+      if (tags(v) !== tags(pl[k])) fail(`i18n: ${lg} "${k}" HTML tags differ from Polish`);
+      const text = v.replace(/\([^)]*\)/g, '').replace(/<[^>]*>/g, '').replace(lg === 'en' ? PROPER : /$^/, '');
+      if (POL.test(text)) fail(`i18n: ${lg} "${k}" has Polish letters outside brackets: ${v.slice(0, 60)}`);
+      if (lg === 'en' && CYR.test(v)) fail(`i18n: en "${k}" has Cyrillic letters`);
+      if (lg === 'en' && k.endsWith('.few') && v !== tr[k.replace(/\.few$/, '.many')]) fail(`i18n: en "${k}" must equal the .many form`);
     }
   }
-  else console.log('note: ua.json is still a stub (Ukrainian text arrives in v3.2)');
-  for (const [k, v] of Object.entries(pl)) if (typeof v !== 'string') fail(`i18n: pl.json "${k}" is not a string`);
 }
-{ // Ukrainian overlays of the data texts (v3.3): every text field of every item must have a Ukrainian text (strict).
+for (const lg of ['ua', 'en']) { // Overlays of the data texts (v3.3, English v3.4): every text field of every item must have a translation (strict).
   const q = json['studia/data/questions.json'] || {}, sc = json['studia/data/scenarios.json'] || {}, str = json['core/strengths.json'] || [], dim = json['core/dimensions.json'] || {};
-  const oq = json['studia/i18n/ua/questions.json'], os = json['studia/i18n/ua/strengths.json'], od = json['studia/i18n/ua/dimensions.json'], osc = json['studia/i18n/ua/scenarios.json'];
-  const PL = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/, clean = v => String(v).replace(/\([^)]*\)/g, '');
-  const bad = (what, v) => (typeof v !== 'string' || !v.trim()) ? fail(`overlay: ${what} has no Ukrainian text`) : PL.test(clean(v)) ? fail(`overlay: ${what} has Polish letters: ${v.slice(0, 50)}`) : 0;
+  const oq = json[`studia/i18n/${lg}/questions.json`], os = json[`studia/i18n/${lg}/strengths.json`], od = json[`studia/i18n/${lg}/dimensions.json`], osc = json[`studia/i18n/${lg}/scenarios.json`];
+  const PL = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/, CY = /[\u0400-\u04FF]/, clean = v => String(v).replace(/\([^)]*\)/g, '');
+  const bad = (what, v) => (typeof v !== 'string' || !v.trim()) ? fail(`overlay: ${what} has no ${lg} text`) : PL.test(clean(v).replace(lg === 'en' ? /Kraków|KRAKÓW|Główny|Małopolska|Łódź|Wisła/g : /$^/, '')) ? fail(`overlay: ${lg} ${what} has Polish letters: ${v.slice(0, 50)}`) : (lg === 'en' && CY.test(v)) ? fail(`overlay: en ${what} has Cyrillic letters`) : 0;
   const cover = (what, base, ov, fields) => {
     const m = new Map((ov || []).map(x => [x.id, x]));
-    for (const b of base || []) { const o = m.get(b.id); if (!o) { fail(`overlay: ${what} "${b.id}" is missing`); continue; }
+    for (const b of base || []) { const o = m.get(b.id); if (!o) { fail(`overlay: ${lg} ${what} "${b.id}" is missing`); continue; }
       for (const f of fields) { if (Array.isArray(b[f])) { if (!Array.isArray(o[f]) || o[f].length !== b[f].length) fail(`overlay: ${what} "${b.id}".${f} list length differs`); else o[f].forEach(x => bad(`${what} "${b.id}".${f}`, x)); } else bad(`${what} "${b.id}".${f}`, o[f]); } }
     for (const o of ov || []) if (!(base || []).some(b => b.id === o.id)) fail(`overlay: ${what} "${o.id}" is not in the Polish data`);
   };
-  if (!oq || !os || !od || !osc) fail('overlay: studia/i18n/ua/{questions,strengths,dimensions,scenarios}.json must exist');
+  if (!oq || !os || !od || !osc) fail(`overlay: studia/i18n/${lg}/{questions,strengths,dimensions,scenarios}.json must exist`);
   else {
     cover('activity', q.activities, oq.activities, ['text']);
     cover('situation', q.situations, oq.situations, ['text']);

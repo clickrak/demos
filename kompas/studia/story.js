@@ -1,7 +1,7 @@
 // Kompas Studia results as a scroll story, in the style of the ion-trap demo:
 // a sticky graphic on the left changes state as step cards scroll by on the right.
 // Pure rendering + a small init; all data comes from app.js through ctx.
-import { t } from '../core/i18n.js';
+import { t, num } from '../core/i18n.js';
 
 const ANG = { n: 0, nne: 22.5, nnw: -22.5, e: 90, w: -90, s: 135 };
 const rad = d => (d - 90) * Math.PI / 180;
@@ -192,7 +192,7 @@ export function storyHtml(ctx) {
       ${step(5, `<span class="kicker">${t('story.ews.kicker')}</span><h3>${t('story.ews.title')}</h3>
         ${most ? `<div class="mini">${badge(most)}<div><b>${t('story.most.name', { name: esc(most.c.card.name) })}</b><span class="small">${t('story.most.text')}</span></div></div>` : ''}
         ${sur ? `<div class="mini">${badge(sur)}<div><b>${t('story.surprise.name', { name: esc(sur.c.card.name) })}</b><span class="small">${t('story.surprise.text')}</span></div></div>` : ''}
-        ${quick ? `<div class="mini">${badge(quick)}<div><b>${t('story.quick.name', { name: esc(quick.quick.offer.name) })}</b><span class="small">${t('story.quick.text', { years: String(quick.quick.offer.durationYears).replace('.', ',') })}</span></div></div>` : ''}`)}
+        ${quick ? `<div class="mini">${badge(quick)}<div><b>${t('story.quick.name', { name: esc(quick.quick.offer.name) })}</b><span class="small">${t('story.quick.text', { years: num(quick.quick.offer.durationYears) })}</span></div></div>` : ''}`)}
       ${step(6, `<span class="kicker">${t('story.next.kicker')}</span><h3>${t('story.next.title')}</h3>
         <p>${t('story.next.text')}</p>
         <button class="sbtn" data-jump="s-kierunki">${t('story.next.button')}</button>

@@ -1133,12 +1133,13 @@ fits the focus, take the first "next week" item that does.
 | v3.1 | Ukrainian 1a: foundation | `core/i18n.js`, texts out of the code into `pl.json` (Polish unchanged), language switch, `lang` in the file, Cyrillic fonts | Opus | **done 24 Nov 2026 (3.1.0)** |
 | v3.2 | Ukrainian 1b: main UI | Ukrainian interface texts, glossary page, layout check, review sheet for a native reader | Sonnet + Opus | **done 24 Nov 2026 (3.2.0)** |
 | v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | **done 24 Nov 2026 (3.3.0)** |
-| v3.4 | Ukrainian 3a: directions | 42 cards (all texts), institution names with the Polish original | Sonnet + Opus | planned 24 Nov 2026 |
-| v3.5 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | planned 24 Nov 2026 |
-| v3.6 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
-| v3.7 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
-| v3.8 | Functionality (was v3.2) | Travel time from Rynek or Dworzec (12) | Opus | after v3.7 |
-| v3.9 | UI/UX (was v3.3) | Parent summary (9) | Opus | after v3.8 |
+| v3.4 | English (set by Szymon 24 Nov 2026, 17:19) | Interface, questions, strengths, dimensions, scenarios and the glossary in English (`?lang=en`, third chip EN); cards, offers and universities stay Polish | Sonnet + Opus | **done 24 Nov 2026** |
+| v3.5 | Ukrainian 3a: directions | 42 cards (all texts), institution names with the Polish original | Sonnet + Opus | planned 24 Nov 2026 |
+| v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | planned 24 Nov 2026 |
+| v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
+| v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
+| v3.9 | Functionality (was v3.2) | Travel time from Rynek or Dworzec (12) | Opus | after v3.7 |
+| v3.10 | UI/UX (was v3.3) | Parent summary (9) | Opus | after v3.8 |
 | v4.0 | Major | Exact thresholds (UJ and UJ CM, SD5), GUS 2024 pay (6, ST5), points estimate (8) | Opus + Sonnet | Szymon 24 Nov 2026: "can wait for 4.0" |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
@@ -1706,6 +1707,8 @@ One task = one commit; `git pull --rebase` before each push (Liceum may push the
 (item 11 data, done with its screen part in v3.1, Sonnet); GUS 2024 pay for the old cards still on `gus-2020` (item 6 rest, v3.1 Sonnet).
 
 ### Ukrainian version (set by Szymon 24 Nov 2026, 15:45; top priority, releases v3.1–v3.6)
+
+> **Renumbered 24 Nov 2026 (17:19), English added.** v3.4 is now **English** (done, `?lang=en`). Wherever the Ukrainian section below says v3.4 read **v3.5** (cards in Ukrainian), v3.5 = **v3.6** (offers), v3.6 = **v3.7** (Ukraine data stream); the UI/UX plan v3.7/v3.8/v3.9 is now **v3.8/v3.9/v3.10**. Cards, offers and universities stay Polish in every language until their own release (Szymon: "by default polish ... for now").
 
 **Goal.** A Ukrainian-speaking teenager can do the whole Studia flow (taps, story, Kierunki, report, file) in Ukrainian, and can see which
 Kraków studies connect to Ukraine. Szymon's order: **(1) the main UI, (2) the questions, (3) courses and university descriptions,

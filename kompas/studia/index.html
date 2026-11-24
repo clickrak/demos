@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title data-i18n="meta.title">Kompas Studia</title>
-  <meta name="description" content="Od tego, w czym jesteś dobry, do konkretnych kierunków w Krakowie. Wersja 3.3.0.">
+  <meta name="description" content="Od tego, w czym jesteś dobry, do konkretnych kierunków w Krakowie. Wersja 3.4.0.">
   <!-- site-head -->
 <link rel="canonical" href="https://clickrak.github.io/demos/kompas/studia/">
 <!-- Link preview for LinkedIn, Facebook, Slack, Teams, X. Addresses must be absolute. -->
@@ -42,7 +42,7 @@
       <button data-go="pewnosc" data-ch="ja" data-i18n="nav.ja">Ja</button><button data-go="sily" data-ch="swiat" data-i18n="nav.swiat">Świat</button><button data-go="dlugosc" data-ch="droga" data-i18n="nav.droga">Droga</button><button data-go="kompas" data-ch="wyniki" data-i18n="nav.wyniki">Wyniki</button>
     </nav>
     <button class="savebtn" data-export="download" title="Pobierz plik z odpowiedziami, żeby wrócić później" data-i18n-attr="title:head.save.title"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg><span data-i18n="head.save">Zapisz</span></button>
-    <div class="langsw" role="group" aria-label="Język" data-i18n-attr="aria-label:head.lang"><button data-uilang="pl" aria-pressed="true">PL</button><button data-uilang="ua" aria-pressed="false">UA</button></div>
+    <div class="langsw" role="group" aria-label="Język" data-i18n-attr="aria-label:head.lang"><button data-uilang="pl" aria-pressed="true">PL</button><button data-uilang="ua" aria-pressed="false">UA</button><button data-uilang="en" aria-pressed="false">EN</button></div>
     <button class="iconbtn" data-skintoggle aria-label="Zmień wygląd" aria-pressed="false" data-i18n-attr="aria-label:head.skin"></button>
     <button class="iconbtn" data-themetoggle aria-label="Zmień motyw" data-i18n-attr="aria-label:head.theme"></button>
   </header>
@@ -50,10 +50,10 @@
   <footer class="foot noprint">
     <p data-i18n="foot.privacy">Odpowiedzi są tylko w tej karcie przeglądarki. Zapisujesz je w pliku, który zostaje u ciebie.</p>
     <p><button class="linkbtn" data-export="download" data-i18n="foot.save">Zapisz postęp do pliku</button> · <label class="linkbtn"><span data-i18n="foot.load">Wczytaj plik</span><input type="file" accept=".md,text/markdown,text/plain" data-load></label><span class="themelink"> · <button class="linkbtn" data-themetoggle></button></span></p>
-    <p data-onlylang="ua" hidden><a class="linkbtn" href="#/slownik" data-i18n="foot.gloss">Słowniczek</a></p>
+    <p data-onlylang="ua en" hidden><a class="linkbtn" href="#/slownik" data-i18n="foot.gloss">Słowniczek</a></p>
     <p id="fmsg" role="status"></p>
-    <p class="ainote" data-onlylang="ua" hidden data-i18n="foot.ai">Tłumaczenie zrobiła sztuczna inteligencja i nie przeczytał go jeszcze nikt, kto zna ukraiński jak ojczysty.</p>
-    <p class="ver"><span>Kompas Studia v3.3.0</span> · <span data-i18n="foot.month">listopad 2026</span></p>
+    <p class="ainote" data-onlylang="ua en" hidden data-i18n="foot.ai">Tłumaczenie zrobiła sztuczna inteligencja i nie przeczytał go jeszcze nikt, kto zna ukraiński jak ojczysty.</p>
+    <p class="ver"><span>Kompas Studia v3.4.0</span> · <span data-i18n="foot.month">listopad 2026</span></p>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script type="module" src="app.js"></script>

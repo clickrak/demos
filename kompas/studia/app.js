@@ -1,16 +1,16 @@
-// Kompas Studia v3.3.0. Screens, navigation, results, export.
+// Kompas Studia v3.4.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
 import { ILLUS } from './illus.js';
 import { actPicto, sitPicto } from './pictos.js';
-import { t, plural, setLang, getLang, loadDict, normLang, setNames, nm, HTML_LANG } from '../core/i18n.js';
+import { t, plural, setLang, getLang, loadDict, normLang, setNames, nm, num, LOCALE, HTML_LANG } from '../core/i18n.js';
 import { overlay } from '../core/overlay.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
-let data, A, glossary = [], dataPl = null, dataUa = null;
+let data, A, glossary = [], dataPl = null, dataOv = {}; // dataOv[lang][kind] = overlay file
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
@@ -27,12 +27,12 @@ async function load() {
   data = { dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas };
   // Stops, lines and times computed from the Kraków GTFS timetables (kompas/tools/transport.py); optional.
   dataPl = { questions, strengths, dimensions, scenarios }; // Polish originals; Ukrainian overlays (studia/i18n/ua/*.json) are laid over them
-  dataUa = Object.fromEntries(await Promise.all(['questions', 'strengths', 'dimensions', 'scenarios'].map(async k => [k, await fetch(`i18n/ua/${k}.json`).then(r => (r.ok ? r.json() : null)).catch(() => null)])));
+  for (const l of ['ua', 'en']) dataOv[l] = Object.fromEntries(await Promise.all(['questions', 'strengths', 'dimensions', 'scenarios'].map(async k => [k, await fetch(`i18n/${l}/${k}.json`).then(r => (r.ok ? r.json() : null)).catch(() => null)])));
   data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
   for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
   // Interface texts: Polish is the base, Ukrainian overlays it (core/i18n.js). ?lang=ua (or uk) picks Ukrainian.
-  const [pl, ua, cpl, cua] = await Promise.all(['i18n/pl.json', 'i18n/ua.json', '../core/i18n/pl.json', '../core/i18n/ua.json'].map(f => fetch(f).then(r => (r.ok ? r.json() : {})).catch(() => ({}))));
-  loadDict('pl', { ...cpl, ...pl }); loadDict('ua', { ...cua, ...ua });
+  const [pl, ua, cpl, cua, en, cen] = await Promise.all(['i18n/pl.json', 'i18n/ua.json', '../core/i18n/pl.json', '../core/i18n/ua.json', 'i18n/en.json', '../core/i18n/en.json'].map(f => fetch(f).then(r => (r.ok ? r.json() : {})).catch(() => ({}))));
+  loadDict('pl', { ...cpl, ...pl }); loadDict('ua', { ...cua, ...ua }); loadDict('en', { ...cen, ...en });
   glossary = await fetch('i18n/glossary.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
   setLang(new URLSearchParams(location.search).get('lang'));
   A = blank();
@@ -87,16 +87,16 @@ function applyStatic() {
   document.title = t('meta.title');
   document.querySelector('meta[name="description"]')?.setAttribute('content', t('meta.desc', { v: data?.config?.appVersion || '' }));
   document.querySelectorAll('[data-uilang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.uilang === lang)));
-  document.querySelectorAll('[data-onlylang]').forEach(el => { el.hidden = el.dataset.onlylang !== lang; }); // glossary link and the AI notice show in Ukrainian only
+  document.querySelectorAll('[data-onlylang]').forEach(el => { el.hidden = !el.dataset.onlylang.split(' ').includes(lang); }); // glossary link and the AI notice show in the translated interfaces only
   const u = new URL(location.href);
   if (lang === 'pl') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
   history.replaceState(null, '', u);
 }
 // Question, strength, dimension and scenario texts: Polish, or the Ukrainian overlay laid over it (missing texts stay Polish).
 function applyDataLang() {
-  const ua = getLang() === 'ua' && dataUa;
-  for (const k of ['questions', 'strengths', 'dimensions', 'scenarios']) data[k] = ua && dataUa[k] ? overlay(dataPl[k], dataUa[k]) : dataPl[k];
-  setNames('subject', ua ? data.questions.subjectNames : null); setNames('place', ua ? data.questions.placeNames : null);
+  const ov = dataOv[getLang()]; // undefined for Polish
+  for (const k of ['questions', 'strengths', 'dimensions', 'scenarios']) data[k] = ov?.[k] ? overlay(dataPl[k], ov[k]) : dataPl[k];
+  setNames('subject', ov ? data.questions.subjectNames : null); setNames('place', ov ? data.questions.placeNames : null);
 }
 function switchLang(l) {
   setLang(l); if (A) A.lang = getLang();
@@ -269,7 +269,8 @@ const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="
 
 // Glossary of Polish school and recruitment terms (Ukrainian interface): glossary.json, one wording per term (rule UK-F).
 function vGlossary() {
-  const items = glossary.map(g => `<div class="glossitem"><dt><b>${esc(g.ua)}</b> <span class="glosspl">${t('gloss.pl_label')}: ${esc(g.pl)}</span></dt><dd>${esc(g.expl)}</dd></div>`).join('');
+  const en = getLang() === 'en';
+  const items = glossary.map(g => `<div class="glossitem"><dt><b>${esc(en ? g.en : g.ua)}</b> <span class="glosspl">${t('gloss.pl_label')}: ${esc(g.pl)}</span></dt><dd>${esc(en ? g.expl_en : g.expl)}</dd></div>`).join('');
   return `<span class="kicker2">${t('gloss.kicker')}</span><h1>${t('gloss.title')}</h1><p class="lead">${t('gloss.lead')}</p>
     <dl class="gloss">${items}</dl>
     <div class="nav"><button class="btn ghost" data-go="start">${t('gloss.back')}</button></div>`;
@@ -698,7 +699,7 @@ function offerHtml(o, chk) {
   const route = routeUrl(c);
   return `<div class="offer">
     ${starBtn(o)}<b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
-    <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${plural(o.durationYears, 'app.years', { n: String(o.durationYears).replace('.', ',') })}</span><br>
+    <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${plural(o.durationYears, 'app.years', { n: num(o.durationYears) })}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">${t('app.offer.requires', { note: esc(o.requires.note || '-') })}</div>
     ${thresholdHtml(o)}
@@ -890,7 +891,7 @@ function tramLegend(lines) {
     const camp = campus(l.o.campus);
     const fix = !l.chk.reachable ? `<span class="badge warn">${t('app.tram.first', { what: esc(l.chk.blocked[0] || t('app.path.matura_change')) })}</span>` : l.chk.soft ? `<span class="badge warn">${t('app.tram.add_ext', { what: esc(l.chk.soft) })}</span>` : '';
     return `<li><span class="tno-b" style="background:${l.color}">${l.quick ? 'S' : i + 1}</span><div><b>${esc(l.name)}</b>${l.quick ? ` <span class="muted small">(${esc(l.c.card.name)})</span>` : ''}<br>
-      <span class="small">${esc(l.o.name)}, ${esc(l.o.institution)} · ${plural(l.o.durationYears, 'app.years', { n: String(l.o.durationYears).replace('.', ',') })} · ${t('app.tram.end_ok', { y: l.end })}${l.o.next ? ` · ${t('app.tram.then', { next: esc(l.o.next) })}` : ''}</span> ${fix}
+      <span class="small">${esc(l.o.name)}, ${esc(l.o.institution)} · ${plural(l.o.durationYears, 'app.years', { n: num(l.o.durationYears) })} · ${t('app.tram.end_ok', { y: l.end })}${l.o.next ? ` · ${t('app.tram.then', { next: esc(l.o.next) })}` : ''}</span> ${fix}
       <details class="small steps"><summary>${t('app.tram.steps')}</summary><ul>${pathSteps(l.o, camp?.name).map(t => `<li>${esc(t)}</li>`).join('')}</ul></details></div></li>`;
   }).join('')}</ol>`;
 }
@@ -938,9 +939,9 @@ function previewHtml(r, key) {
   return `<div class="prevcard rise" style="--c:${o.color}">
     <div class="prevhead"><span class="tno-b" style="background:${o.color}">${o.no}</span><div><span class="ctag">${esc(o.slot)}</span>
       <h3>${esc(o.quick ? first.name : c.card.name)}</h3>${o.quick ? '' : `<span class="small muted">${esc(c.band)}</span>`}</div></div>
-    <p class="small">${esc(o.quick ? t('app.preview.quick', { years: String(first.durationYears).replace('.', ','), area: c.card.name }) : c.card.whoYouHelp)}</p>
+    <p class="small">${esc(o.quick ? t('app.preview.quick', { years: num(first.durationYears), area: c.card.name }) : c.card.whoYouHelp)}</p>
     ${used.length ? `<p class="small muted">${t('app.preview.strengths')}</p><div class="tags">${used.map(u => `<span class="tag-s on">${esc(u)}</span>`).join('')}</div>` : ''}
-    ${first ? `<p class="small">${icon('school', 'ico sm')} ${esc(first.name)}, ${esc(shortInst(first.institution))} · ${plural(first.durationYears, 'app.years', { n: String(first.durationYears).replace('.', ',') })}</p>` : ''}
+    ${first ? `<p class="small">${icon('school', 'ico sm')} ${esc(first.name)}, ${esc(shortInst(first.institution))} · ${plural(first.durationYears, 'app.years', { n: num(first.durationYears) })}</p>` : ''}
     <div class="actions"><button class="btn" data-goopt="${esc(key)}">${t('app.preview.show_road')}</button><button class="btn ghost" data-pick="">${t('app.preview.close')}</button></div></div>`;
 }
 
@@ -1053,7 +1054,7 @@ function vRoadSvg(o) {
       <rect x="${trunkX + 20}" y="${y}" width="${W - trunkX - 32}" height="${SH}" rx="12" class="${warn ? 'warnbox' : ''}"/>
       <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 30 ? st.offer.name.slice(0, 29) + '…' : st.offer.name)}</text>
       <text x="${W - 26}" y="${y + 30}" text-anchor="end" class="vmore">›</text>
-      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc((t => t.length > 46 ? t.slice(0, 45) + '…' : t)(`${shortInst(st.offer.institution)} · ${plural(st.offer.durationYears, 'app.years', { n: String(st.offer.durationYears).replace('.', ',') })}${!ok ? ' · ' + t('app.road.needs_change') : st.check.soft ? ' · ' + t('app.road.add_ext') : ''}`))}</text></g>`; });
+      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc((t => t.length > 46 ? t.slice(0, 45) + '…' : t)(`${shortInst(st.offer.institution)} · ${plural(st.offer.durationYears, 'app.years', { n: num(st.offer.durationYears) })}${!ok ? ' · ' + t('app.road.needs_change') : st.check.soft ? ' · ' + t('app.road.add_ext') : ''}`))}</text></g>`; });
   if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">${t('app.card.no_study')}</text>`;
   g += `<path class="vl" style="--d:1.3s" pathLength="1" d="M${trunkX},${yJobs - 10} C${trunkX},${yJobs + 4} ${W / 2},${yJobs - 4} ${W / 2},${yJobs + 6}" stroke="${col}"/>`;
   g += `<text x="12" y="${yJobs - 18}" class="vcap" text-anchor="start" dx="${trunkX + 10}">${o.quick ? t('app.road.first_job') : t('app.road.jobs')}</text>`;
@@ -1107,7 +1108,7 @@ function compareRows() {
   const ext = A.rozszerzenia || [];
   return [
     [t('app.compare.row_inst'), o => { const c = campus(o.campus); return `${esc(o.institution)}${c ? `<br><span class="small muted">${esc(c.name)}, ${esc(c.address)}</span>` : ''}`; }],
-    [t('app.compare.row_length'), o => `${plural(o.durationYears, 'app.years', { n: String(o.durationYears).replace('.', ',') })} · ${esc(o.level)}`],
+    [t('app.compare.row_length'), o => `${plural(o.durationYears, 'app.years', { n: num(o.durationYears) })} · ${esc(o.level)}`],
     [t('app.compare.row_subjects'), o => { const f = subjectFit(o, ext); return `<b>${f === null ? (o.requires?.noMatura ? t('app.decl.no_matura') : o.requires?.exam ? t('app.compare.exam') : t('app.compare.indep')) : t(FIT_TXT[f])}</b><br><span class="small muted">${esc(o.requires?.note || '')}</span>`; }],
     [t('app.compare.row_threshold'), o => o.threshold ? `${t('app.compare.points', { p: o.threshold.points, m: o.threshold.max })}${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : o.requires?.exam ? '<span class="badge warn">' + t('app.compare.exam_audition') + '</span>' : '<span class="muted">' + t('app.compare.no_data') + '</span>'],
     [t('app.compare.row_commute'), o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
@@ -1215,7 +1216,7 @@ function vPartFile() {
 function makeStoryCtx() {
   const ctx = {
     data, A, esc, icon, scenArt, FORCE_ICON, wrap, tspans, shortInst, campus, transit, commute, routeUrl, confLine,
-    today: new Date().toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }),
+    today: new Date().toLocaleDateString(LOCALE[getLang()], { day: 'numeric', month: 'long', year: 'numeric' }),
     rescore: () => scoreAll(A, data),
     proven: () => provenStrengths(A),
     options: r => shownOptions(r),
@@ -1272,7 +1273,7 @@ function planHtml(r) {
         <div class="plan-opts" role="radiogroup" aria-label="${t('app.plan.pick_aria')}">${opts.map(o => `<button role="radio" class="eitem" data-planfocus="${esc(o.key)}" aria-checked="${o.key === focus.key}" style="--c:${o.color}"><span class="nb" style="background:${o.color}">${o.no}</span><span><b>${esc(o.quick ? t('app.slot.quick') : o.c.card.name)}</b><span class="small muted">${esc(o.quick ? o.quick.offer.name : o.slot)}</span></span></button>`).join('')}</div>
         <p class="small muted">${t('app.plan.not_decision')}</p></div>
       <div class="plan-list" style="--c:${cur.color}"><span class="kicker" style="color:${cur.color}">${t('app.plan.first')}</span><h3>${esc(focus.quick ? f.name : focus.c.card.name)}</h3>
-        ${f ? `<p class="small muted">${icon('school', 'ico sm')} ${esc(f.name)}, ${esc(shortInst(f.institution))} · ${plural(f.durationYears, 'app.years', { n: String(f.durationYears).replace('.', ',') })}</p>` : ''}
+        ${f ? `<p class="small muted">${icon('school', 'ico sm')} ${esc(f.name)}, ${esc(shortInst(f.institution))} · ${plural(f.durationYears, 'app.years', { n: num(f.durationYears) })}</p>` : ''}
         <ul class="plan-items">${items.map(it => `<li class="${it.warn ? 'warn' : ''}"><label><input type="checkbox" data-check="${esc(key(it))}" ${A.checks?.[key(it)] ? 'checked' : ''}><span><span class="when">${esc(it.when)}</span>${esc(it.text)}${it.url ? ` <a href="${esc(it.url)}" target="_blank" rel="noopener">${t('app.plan.open')}</a>` : ''}</span></label></li>`).join('')}</ul>
         <p class="small muted plan-n" aria-live="polite">${t('app.plan.done', { n: done, m: items.length })}</p></div>
     </div>`;
@@ -1292,7 +1293,7 @@ function panelHtml(o) {
   if (o.quick) {
     const f = o.quick.offer;
     return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}<div class="studydetail" aria-live="polite"></div></div><div class="pinfo"><span class="kicker" style="color:${o.color}">${t('app.slot.quick')}</span><h3>${esc(f.name)}</h3>
-      <p>${esc(f.institution)}. ${t('app.panel.first_job', { years: String(f.durationYears).replace('.', ',') })}${f.next ? ' ' + t('app.panel.then', { next: esc(f.next) }) : ''}</p>
+      <p>${esc(f.institution)}. ${t('app.panel.first_job', { years: num(f.durationYears) })}${f.next ? ' ' + t('app.panel.then', { next: esc(f.next) }) : ''}</p>
       <p class="small muted">${t('app.panel.links', { name: esc(k.name) })}</p>${studyHint()}</div></div>`;
   }
   const reach = c.offers.filter(x => x.check.reachable), blocked = c.offers.filter(x => !x.check.reachable && !x.check.hidden);
@@ -1321,7 +1322,7 @@ function vResults() {
   const proven = provenStrengths(A).map(x => `<li><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span class="proof">${esc(proofText(x.proof))}</span></li>`).join('');
   const quick = s.quick ? (() => { const o = s.quick.o.offer;
     return `<div class="card opt" data-card="quick"><span class="badge slot">${t('app.slot.quick')}</span><h3>${esc(o.name)}</h3>
-      <p>${esc(o.institution)}. ${t('app.panel.first_job', { years: String(o.durationYears).replace('.', ',') })}${o.next ? ' ' + esc(o.next) + '.' : ''}</p>
+      <p>${esc(o.institution)}. ${t('app.panel.first_job', { years: num(o.durationYears) })}${o.next ? ' ' + esc(o.next) + '.' : ''}</p>
       ${offerHtml(o, s.quick.o.check)}<p class="small muted">${t('app.results.linked', { name: esc(s.quick.c.card.name) })}</p></div>`; })() : '';
 
   // Map pins: the campuses of reachable offers in the shown slots.

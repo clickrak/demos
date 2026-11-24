@@ -1,9 +1,10 @@
 // Kompas i18n (Studia v3.1). Two languages: 'pl' (default) and 'ua' (Ukrainian).
 // Texts live in JSON files (key -> string with {name} placeholders). A missing key in the active language falls back to Polish,
 // a key missing everywhere returns the key itself so the gap is visible. No network call here: the app fetches the files like other data.
-export const LANGS = ['pl', 'ua'];
-export const HTML_LANG = { pl: 'pl', ua: 'uk' }; // value for <html lang>
-const dict = { pl: {}, ua: {} };
+export const LANGS = ['pl', 'ua', 'en'];
+export const HTML_LANG = { pl: 'pl', ua: 'uk', en: 'en' }; // value for <html lang>
+export const LOCALE = { pl: 'pl-PL', ua: 'uk-UA', en: 'en-GB' }; // for dates and number formats
+const dict = { pl: {}, ua: {}, en: {} };
 let lang = 'pl';
 
 export const normLang = l => { l = String(l || '').toLowerCase(); return l === 'uk' ? 'ua' : LANGS.includes(l) ? l : 'pl'; };
@@ -18,11 +19,13 @@ export function t(key, params) {
 }
 export const has = (key, l = lang) => dict[l][key] !== undefined;
 
+// English: 1 -> one, everything else -> many (few holds the same text as many, so the key set matches the other languages).
 // Plural form of a whole number. Polish: 1 -> one; 2-4 (not 12-14) -> few; the rest -> many.
 // Ukrainian: 1, 21, 31 (not 11) -> one; 2-4, 22-24 (not 12-14) -> few; the rest -> many.
 export function pluralForm(n) {
   n = Math.abs(Math.trunc(Number(n) || 0));
   const m10 = n % 10, m100 = n % 100;
+  if (lang === 'en') return n === 1 ? 'one' : 'many';
   if (lang === 'ua' ? (m10 === 1 && m100 !== 11) : n === 1) return 'one';
   if (m10 >= 2 && m10 <= 4 && !(m100 >= 12 && m100 <= 14)) return 'few';
   return 'many';
@@ -39,3 +42,6 @@ export function plural(n, key, params) {
 const names = {};
 export const setNames = (kind, map) => { names[kind] = map || {}; };
 export const nm = (kind, id) => names[kind]?.[id] || id;
+
+// A decimal number as text: Polish and Ukrainian write a comma (2,5), English a dot (2.5).
+export const num = x => (lang === 'en' ? String(x) : String(x).replace('.', ','));

@@ -1,4 +1,4 @@
-# Kompas Studia: Ukrainian text for review
+# Kompas Studia: Українська text for review
 
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.

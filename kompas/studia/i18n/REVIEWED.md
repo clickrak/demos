@@ -6,3 +6,5 @@ When someone has read a part (use `review-ua.md`, made by `python3 kompas/tools/
 `YYYY-MM-DD, name or tool, part (for example "app.start, app.sort"), result (ok / corrections applied)`
 
 When the whole interface has been read, remove the AI notice (`foot.ai`) in the next release.
+
+2026-11-24, Sonnet 5.5 + Opus (AI), English interface and data texts, written; not yet read by a native speaker (`review-en.md` is ready)
