@@ -31,7 +31,8 @@ with sync_playwright() as p:
         pg.set_input_files('[data-load]', '/tmp/kid.md'); pg.wait_for_timeout(500)
         for r in ROUTES:
             pg.evaluate(f"location.hash='#/{r}'"); pg.wait_for_timeout(350)
-            t = pg.evaluate("[...document.querySelectorAll('header.top, main, footer.foot')].map(e=>e.innerText).join('\\n')")
+            t = pg.evaluate("(()=>{const hid=[...document.querySelectorAll('[data-onlylang][hidden]')].map(e=>[e,e.parentNode,e.nextSibling]);hid.forEach(([e])=>e.remove());const out=[...document.querySelectorAll('header.top, main, footer.foot')].map(e=>e.innerText).join('\\n');hid.forEach(([e,p,n])=>p.insertBefore(e,n));return out})()")
+            t = '\n'.join(l.strip() for l in t.split('\n') if l.strip())  # ignore blank lines and indentation
             out[f'{ki}/{r}'] = h(t); texts[f'{ki}/{r}'] = t
         if errs: print('JS errors', ki, errs[:2])
     b.close()

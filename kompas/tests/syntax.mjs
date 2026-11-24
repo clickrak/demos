@@ -96,8 +96,17 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   for (const k of used) if (!plKeys.has(k) && !k.endsWith('.')) fail(`i18n: t('${k}') is not in pl.json`);
   for (const b of bases) for (const f of ['one', 'few', 'many']) if (!plKeys.has(`${b}.${f}`)) fail(`i18n: plural '${b}' lacks ${b}.${f} in pl.json`);
   for (const k of plKeys) if (!used.has(k) && !['\'', '"', '`'].some(q => code.includes(q + k + q)) && ![...dynamic].some(d => k.startsWith(d)) && ![...bases].some(b => k.startsWith(b + '.'))) fail(`i18n: key "${k}" in pl.json is not used in the code`);
-  for (const k of uaKeys) if (!plKeys.has(k)) fail(`i18n: ua.json has a key pl.json does not: ${k}`);
-  if (uaKeys.length) { for (const k of plKeys) if (!(k in ua)) fail(`i18n: ua.json misses "${k}"`); }
+  for (const k of uaKeys) if (!plKeys.has(k) && !(k.endsWith('.other') && plKeys.has(k.replace(/\.other$/, '.one')))) fail(`i18n: ua.json has a key pl.json does not: ${k}`);
+  if (uaKeys.length) {
+    for (const k of plKeys) if (!(k in ua)) fail(`i18n: ua.json misses "${k}"`);
+    const ph = v => (String(v).match(/\{\w+\}/g) || []).sort().join(','), tags = v => (String(v).match(/<\/?[a-z][^>]*>/gi) || []).join('');
+    for (const k of uaKeys) if (k in pl) {
+      if (typeof ua[k] !== 'string' || !ua[k].trim()) { fail(`i18n: ua "${k}" is empty or not a string`); continue; }
+      if (ph(ua[k]) !== ph(pl[k])) fail(`i18n: ua "${k}" placeholders differ: ${ph(pl[k])} vs ${ph(ua[k])}`);
+      if (tags(ua[k]) !== tags(pl[k])) fail(`i18n: ua "${k}" HTML tags differ from Polish`);
+      if (/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(ua[k].replace(/\([^)]*\)/g, '').replace(/<[^>]*>/g, ''))) fail(`i18n: ua "${k}" has Polish letters outside brackets: ${ua[k].slice(0, 60)}`);
+    }
+  }
   else console.log('note: ua.json is still a stub (Ukrainian text arrives in v3.2)');
   for (const [k, v] of Object.entries(pl)) if (typeof v !== 'string') fail(`i18n: pl.json "${k}" is not a string`);
 }

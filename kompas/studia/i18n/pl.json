@@ -680,5 +680,12 @@
  "app.file.saved": "Plik zapisany.",
  "app.file.saved_toast": "<b>Zapisano:</b> {name}<br><span>Plik jest w folderze Pobrane. Żeby wrócić, wczytaj go na ekranie startowym.</span>",
  "app.file.copied": "Skopiowane.",
- "app.file.copy_failed": "Nie udało się skopiować. Użyj „Pobierz plik”."
+ "app.file.copy_failed": "Nie udało się skopiować. Użyj „Pobierz plik”.",
+ "foot.gloss": "Słowniczek",
+ "foot.ai": "Tłumaczenie zrobiła sztuczna inteligencja i nie przeczytał go jeszcze nikt, kto zna ukraiński jak ojczysty.",
+ "gloss.kicker": "Polskie słowa",
+ "gloss.title": "Słowniczek",
+ "gloss.lead": "Polskie słowa, które spotkasz w szkole i na stronach uczelni. Przy każdym krótkie wyjaśnienie.",
+ "gloss.back": "← Wróć",
+ "gloss.pl_label": "po polsku"
 }

@@ -1,4 +1,4 @@
-// Kompas Studia v3.1.0. Screens, navigation, results, export.
+// Kompas Studia v3.2.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -9,7 +9,7 @@ import { t, plural, setLang, getLang, loadDict, normLang, HTML_LANG } from '../c
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
-let data, A;
+let data, A, glossary = [];
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
@@ -30,6 +30,7 @@ async function load() {
   // Interface texts: Polish is the base, Ukrainian overlays it (core/i18n.js). ?lang=ua (or uk) picks Ukrainian.
   const [pl, ua, cpl, cua] = await Promise.all(['i18n/pl.json', 'i18n/ua.json', '../core/i18n/pl.json', '../core/i18n/ua.json'].map(f => fetch(f).then(r => (r.ok ? r.json() : {})).catch(() => ({}))));
   loadDict('pl', { ...cpl, ...pl }); loadDict('ua', { ...cua, ...ua });
+  glossary = await fetch('i18n/glossary.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
   setLang(new URLSearchParams(location.search).get('lang'));
   A = blank();
   applyStatic();
@@ -82,6 +83,7 @@ function applyStatic() {
   document.title = t('meta.title');
   document.querySelector('meta[name="description"]')?.setAttribute('content', t('meta.desc', { v: data?.config?.appVersion || '' }));
   document.querySelectorAll('[data-uilang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.uilang === lang)));
+  document.querySelectorAll('[data-onlylang]').forEach(el => { el.hidden = el.dataset.onlylang !== lang; }); // glossary link and the AI notice show in Ukrainian only
   const u = new URL(location.href);
   if (lang === 'pl') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
   history.replaceState(null, '', u);
@@ -175,8 +177,11 @@ function railHtml(s) {
     <p class="rail-t">${t('app.rail.time_left', { n: minsLeft(i) })}</p></aside>`;
 }
 
+// The glossary page (Ukrainian interface) is not a step of the flow, so it stays out of `screens`.
+const glossaryScreen = { id: 'slownik', ch: null, view: vGlossary };
 function current() {
   const id = (location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start';
+  if (id === 'slownik') return glossaryScreen;
   return screens.find(s => s.id === id) || screens[0];
 }
 
@@ -251,6 +256,14 @@ const term = (key, label) => `<span class="term"><button class="termq" data-term
 const levelTerm = lvl => /policealna/.test(lvl) ? term('policealna', t('app.term.post_secondary')) : /licencjat|I stopnia/.test(lvl) ? term('licencjat', t('app.term.bachelor')) : /inżynier/.test(lvl) ? term('inzynier', t('app.term.engineer')) : /jednolite/.test(lvl) ? term('jednolite', t('app.term.long_master')) : '';
 
 const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
+
+// Glossary of Polish school and recruitment terms (Ukrainian interface): glossary.json, one wording per term (rule UK-F).
+function vGlossary() {
+  const items = glossary.map(g => `<div class="glossitem"><dt><b>${esc(g.ua)}</b> <span class="glosspl">${t('gloss.pl_label')}: ${esc(g.pl)}</span></dt><dd>${esc(g.expl)}</dd></div>`).join('');
+  return `<span class="kicker2">${t('gloss.kicker')}</span><h1>${t('gloss.title')}</h1><p class="lead">${t('gloss.lead')}</p>
+    <dl class="gloss">${items}</dl>
+    <div class="nav"><button class="btn ghost" data-go="start">${t('gloss.back')}</button></div>`;
+}
 
 function vStart() {
   const started = hasAnswers();
