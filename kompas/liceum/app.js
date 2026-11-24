@@ -1,6 +1,7 @@
 // Kompas Liceum v2.11.0. Screens, soft school self-assessment, results and export. One area at a time (Kraków or Tychy); travel time from the kid's district.
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
+import { loadDict } from '../core/i18n.js';
 import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
 import { icon } from '../studia/icons.js';
 import { LILLUS } from './illus.js';
@@ -19,6 +20,8 @@ const blank = () => ({ name: '', sort: {}, sortPos: 0, situations: {}, sitPos: 0
 
 async function load() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
+  // Texts produced by the shared core code (Polish only here; the Ukrainian Liceum comes later).
+  loadDict('pl', await fetch('../core/i18n/pl.json').then(r => (r.ok ? r.json() : {})).catch(() => ({})));
   const [dimensions, strengths, config, questions, opportunities, schools, sources, personas, profiles] = await Promise.all([
     '../core/dimensions.json', '../core/strengths.json', 'data/config.json', 'data/questions.json', 'data/opportunities.json',
     'data/db/pl/krakow/schools.json', 'data/sources.json', 'data/personas.json', 'data/profiles.json'].map(get));

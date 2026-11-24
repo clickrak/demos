@@ -1,5 +1,6 @@
 // Kompas core: profile, fit, reasons, requirement checks and slots.
 // Pure functions, no DOM: used by the apps and by tests/run.mjs in Node.
+import { t } from './i18n.js';
 
 const ROBUST = { wysoka: 3, 'średnia': 2, niska: 1 };
 
@@ -51,12 +52,12 @@ export function computeProfile(answers, data) {
 export function confidence(answers, data) {
   const acts = data.questions.activities.length;
   const blocks = [
-    { id: 'zajecia', label: 'co lubisz robić', ok: Object.keys(answers.sort || {}).length >= Math.ceil(acts * 0.6) },
-    { id: 'sytuacje', label: 'sytuacje', ok: Object.keys(answers.situations || {}).length >= Math.min(3, (data.questions.situations || []).length) },
-    { id: 'styl', label: 'styl pracy', ok: Object.values(answers.sliders || {}).some(v => v !== 0) },
-    { id: 'wartosci', label: 'wartości', ok: (answers.values || []).length >= 3 },
-    { id: 'mocne', label: 'mocne strony z przykładem', ok: provenStrengths(answers).length >= 3 },
-    { id: 'matura', label: 'przedmioty rozszerzone', ok: (answers.rozszerzenia || []).length > 0 }
+    { id: 'zajecia', label: t('core.confidence.sort'), ok: Object.keys(answers.sort || {}).length >= Math.ceil(acts * 0.6) },
+    { id: 'sytuacje', label: t('core.confidence.situations'), ok: Object.keys(answers.situations || {}).length >= Math.min(3, (data.questions.situations || []).length) },
+    { id: 'styl', label: t('core.confidence.style'), ok: Object.values(answers.sliders || {}).some(v => v !== 0) },
+    { id: 'wartosci', label: t('core.confidence.values'), ok: (answers.values || []).length >= 3 },
+    { id: 'mocne', label: t('core.confidence.strengths'), ok: provenStrengths(answers).length >= 3 },
+    { id: 'matura', label: t('core.confidence.matura'), ok: (answers.rozszerzenia || []).length > 0 }
   ];
   const missing = blocks.filter(b => !b.ok);
   const level = missing.length === 0 ? 'wysoka' : missing.length <= 2 ? 'średnia' : 'niska';
@@ -64,7 +65,10 @@ export function confidence(answers, data) {
 }
 
 const LEVEL = { brak: 0, podstawy: 1, komunikatywny: 2, 'bardzo dobry': 3 };
-export const LANG_NAMES = { en: 'angielski', de: 'niemiecki', uk: 'ukraiński', fr: 'francuski' };
+// Language codes are identifiers; the shown names come from the dictionary (getters, so the export keeps its shape).
+export const LANG_NAMES = {};
+for (const code of ['en', 'de', 'uk', 'fr']) Object.defineProperty(LANG_NAMES, code, { get: () => t('core.lang.' + code), enumerable: true });
+export const langName = code => LANG_NAMES[code];
 // Languages at a working level (komunikatywny or better) that this card can use.
 export function workingLanguages(card, answers) {
   return (card.languages || []).filter(l => (LEVEL[(answers.jezyki || {})[l]] || 0) >= 2);
@@ -72,10 +76,13 @@ export function workingLanguages(card, answers) {
 
 // Where a strength shows. Tapped instead of typed (kids do not want to write); a typed sentence is still welcome.
 export const WHERE = ['w szkole', 'w sporcie', 'w domu i rodzinie', 'w językach', 'w pomaganiu innym', 'w hobby'];
-const TAPPED = new Set([...WHERE, 'w domu', 'z przyjaciółmi', 'w grach i internecie']); // plus the Liceum list
+const TAPPED_LIST = [...WHERE, 'w domu', 'z przyjaciółmi', 'w grach i internecie']; // plus the Liceum list
+const TAPPED = new Set(TAPPED_LIST);
+// Shown text of a tapped place; the stored value (identifier) stays Polish.
+export const whereLabel = p => t('core.where.' + TAPPED_LIST.indexOf(String(p || '').trim()));
 export const isWhere = p => TAPPED.has(String(p || '').trim());
 // How a proof reads in a sentence: "widać to w sporcie" for a tapped place, the quoted sentence for a typed one.
-export const proofText = p => (isWhere(p) ? `widać to ${String(p).trim()}` : `„${String(p || '').trim()}”`);
+export const proofText = p => (isWhere(p) ? t('core.proof.seen', { where: whereLabel(p) }) : t('core.proof.typed', { text: String(p || '').trim() }));
 
 export function provenStrengths(answers) {
   return (answers.strengths || []).filter(s => s.proof && s.proof.trim().length > 0);
@@ -131,12 +138,12 @@ export function pathsTo(card, profile, answers, data) {
       paths.push({ kind: 'strength', id: s.id, label: st ? st.name : s.id });
     }
   }
-  for (const l of workingLanguages(card, answers)) paths.push({ kind: 'language', id: 'lang-' + l, label: 'język: ' + LANG_NAMES[l] });
+  for (const l of workingLanguages(card, answers)) paths.push({ kind: 'language', id: 'lang-' + l, label: t('core.path.language', { lang: String(LANG_NAMES[l]) }) });
   const cardTop = Object.keys(card.interests).sort((a, b) => card.interests[b] - card.interests[a]).slice(0, 2);
   for (const d of profile.top.slice(0, 2)) {
     if (cardTop.includes(d)) {
       const dim = data.dimensions.interests.find(x => x.id === d);
-      paths.push({ kind: 'dimension', id: d, label: 'zainteresowanie: ' + dim.name.toLowerCase() });
+      paths.push({ kind: 'dimension', id: d, label: t('core.path.interest', { name: dim.name.toLowerCase() }) });
     }
   }
   return paths;
@@ -150,17 +157,17 @@ export function reasonsFor(card, profile, answers, data) {
     .filter(x => x.s > 0)
     .sort((x, y) => y.s - x.s)
     .slice(0, 2)
-    .map(x => `bo zaznaczyłeś: „${x.a.text.replace(/\.$/, '')}”`);
+    .map(x => t('core.reason.liked', { text: x.a.text.replace(/\.$/, '') }));
   const sitPick = (data.questions.situations || [])
     .map(q => q.answers.find(a => a.id === (answers.situations || {})[q.id]))
     .filter(Boolean)
     .map(a => ({ a, s: Object.entries(a.w).reduce((t, [d, w]) => t + w * cc[d], 0) }))
     .filter(x => x.s > 0).sort((x, y) => y.s - x.s)[0];
-  if (sitPick && liked.length < 2) liked.push(`bo w sytuacji wybrałeś: „${sitPick.a.text.replace(/\.$/, '')}”`);
+  if (sitPick && liked.length < 2) liked.push(t('core.reason.situation', { text: sitPick.a.text.replace(/\.$/, '') }));
   const v = (answers.values || []).find(id => card.values.includes(id));
-  if (v) liked.push(`bo ważne jest dla ciebie: ${data.dimensions.values.find(x => x.id === v).name}`);
+  if (v) liked.push(t('core.reason.value', { name: data.dimensions.values.find(x => x.id === v).name }));
   const l = workingLanguages(card, answers)[0];
-  if (l) liked.push(`bo mówisz po ${{ en: 'angielsku', de: 'niemiecku', uk: 'ukraińsku', fr: 'francusku' }[l]}`);
+  if (l) liked.push(t('core.reason.language', { lang: t('core.lang_adv.' + l) }));
   return liked.slice(0, 3);
 }
 
@@ -169,39 +176,39 @@ export function checkOffer(offer, answers, config) {
   const ext = answers.rozszerzenia || [];
   const r = offer.requires || {};
   const out = { ok: [], blocked: [], flags: [], fix: null };
-  if (r.noMatura) out.ok.push('matura niewymagana');
+  if (r.noMatura) out.ok.push(t('core.check.no_matura'));
   // Art, music and drama schools: an entrance exam or audition decides (portfolio, playing, acting); subjects count little or not at all.
-  if (r.exam) out.flags.push('egzamin wstępny albo przesłuchanie: przygotowanie zajmuje kilka miesięcy');
+  if (r.exam) out.flags.push(t('core.check.exam'));
   for (const s of r.extended || []) {
-    if (ext.includes(s)) out.ok.push(`masz rozszerzenie: ${s}`);
-    else out.blocked.push(`wymaga rozszerzonej: ${s}, której nie zdajesz`);
+    if (ext.includes(s)) out.ok.push(t('core.check.has_ext', { subject: s }));
+    else out.blocked.push(t('core.check.missing_ext', { subject: s }));
   }
   if (r.must) {
-    for (const s of r.must) if (ext.includes(s)) out.ok.push(`masz rozszerzenie: ${s}`);
+    for (const s of r.must) if (ext.includes(s)) out.ok.push(t('core.check.has_ext', { subject: s }));
   }
   if (r.main) {
-    if (ext.includes(r.main)) out.ok.push(`masz rozszerzenie: ${r.main}, które liczy się tu najmocniej`);
-    else { out.flags.push(`najmocniej liczy się rozszerzony ${r.main}, którego nie zdajesz`); out.soft = r.main; }
+    if (ext.includes(r.main)) out.ok.push(t('core.check.has_main', { subject: r.main }));
+    else { out.flags.push(t('core.check.missing_main', { subject: r.main })); out.soft = r.main; }
   }
   if (r.countFrom) {
     const hit = r.countFrom.filter(s => ext.includes(s));
-    if (hit.length) out.ok.push(`z listy masz rozszerzenie: ${hit.join(', ')}`);
-    else out.flags.push('żaden z twoich przedmiotów rozszerzonych nie jest na liście; sprawdź, jak uczelnia liczy poziom podstawowy');
+    if (hit.length) out.ok.push(t('core.check.from_list', { subjects: hit.join(', ') }));
+    else out.flags.push(t('core.check.none_on_list'));
   }
   if (!out.blocked.length && out.soft) {
-    out.fix = `Szanse rosną, jeśli dopiszesz rozszerzenie: ${out.soft}, w deklaracji do ${config.declarationDeadline}.`;
+    out.fix = t('core.check.fix_soft', { subject: out.soft, deadline: config.declarationDeadline });
   }
   if (out.blocked.length) {
-    out.fix = `Możesz dopisać rozszerzenie w deklaracji do ${config.declarationDeadline} albo zdać je jako absolwent w maju 2028 (matura dla absolwentów jest dostępna przez 5 lat).`;
+    out.fix = t('core.check.fix_blocked', { deadline: config.declarationDeadline });
   }
   const len = answers.studyLength;
-  if (len === 'krotko' && offer.durationYears > config.quickStartMaxYears) out.flags.push('dłuższa droga, niż chcesz teraz');
-  if (len === 'srednio' && offer.durationYears > 5) out.flags.push('trochę dłużej niż 5 lat');
+  if (len === 'krotko' && offer.durationYears > config.quickStartMaxYears) out.flags.push(t('core.check.longer_quick'));
+  if (len === 'srednio' && offer.durationYears > 5) out.flags.push(t('core.check.longer_five'));
   if (offer.private) {
-    if (answers.privateOk === 'nie') { out.hidden = true; out.flags.push('uczelnia prywatna, płatna: wybrałeś tylko publiczne'); }
-    else out.flags.push('uczelnia prywatna: studia są płatne');
+    if (answers.privateOk === 'nie') { out.hidden = true; out.flags.push(t('core.check.private_hidden')); }
+    else out.flags.push(t('core.check.private_paid'));
   }
-  if (offer.status !== 'sourced') out.flags.push('dane do sprawdzenia na stronie rekrutacji 2027');
+  if (offer.status !== 'sourced') out.flags.push(t('core.check.unsourced'));
   out.reachable = out.blocked.length === 0 && !out.hidden;
   return out;
 }
@@ -273,19 +280,19 @@ export function makeSlots(cards, profile, answers, data) {
 export function pathSteps(offer, campusName) {
   const steps = [];
   if (offer.kind === 'policealna') {
-    steps.push('maj 2027: matura (szkoła policealna jej nie wymaga, ale zostawia otwarte studia)');
-    steps.push('lipiec–sierpień 2027: zapis do szkoły policealnej');
-    steps.push('wrzesień 2027: start nauki' + (campusName ? `, ${campusName}` : ''));
+    steps.push(t('core.step.pol_matura'));
+    steps.push(t('core.step.pol_signup'));
+    steps.push(campusName ? t('core.step.pol_start_campus', { campus: campusName }) : t('core.step.pol_start'));
     const end = 2027 + Math.ceil(offer.durationYears);
-    steps.push(`ok. ${end}: dyplom technika i pierwsza praca`);
-    if (offer.next) steps.push(`potem: ${offer.next}`);
+    steps.push(t('core.step.pol_end', { year: end }));
+    if (offer.next) steps.push(t('core.step.pol_next', { next: offer.next }));
   } else {
-    steps.push('do 7 lutego 2027: sprawdź deklarację maturalną pod ten kierunek');
-    steps.push('marzec–kwiecień 2027: dzień otwarty: ' + offer.institution);
-    steps.push('maj 2027: matura; lipiec 2027: rekrutacja');
-    steps.push('październik 2027: start studiów');
+    steps.push(t('core.step.uni_declaration'));
+    steps.push(t('core.step.uni_open_day', { institution: offer.institution }));
+    steps.push(t('core.step.uni_matura'));
+    steps.push(t('core.step.uni_start'));
     const end = 2027 + Math.ceil(offer.durationYears);
-    steps.push(`ok. ${end}: dyplom i pierwsza praca` + (offer.next ? ` (albo: ${offer.next})` : ''));
+    steps.push(offer.next ? t('core.step.uni_end_next', { year: end, next: offer.next }) : t('core.step.uni_end', { year: end }));
   }
   return steps.slice(0, 5);
 }
@@ -305,22 +312,22 @@ export function planFocus(slots, answers) {
 export function planItems(focus, data) {
   if (!focus) return [];
   const { c, o } = focus, f = o && o.offer, chk = o && o.check, cfg = data.config, out = [];
-  out.push({ id: 'exp', when: 'w ciągu 30 dni', text: c.card.experiment });
+  out.push({ id: 'exp', when: t('core.plan.exp_when'), text: c.card.experiment });
   if (f && f.requires.exam) {
-    out.push({ id: 'teczka', when: 'od teraz do maja 2027', text: `Zacznij przygotowanie do egzaminu wstępnego (teczka prac, przesłuchanie albo występ): ${f.requires.note}. Zapisy są zwykle w maju, egzaminy w czerwcu.` });
+    out.push({ id: 'teczka', when: t('core.plan.exam_when'), text: t('core.plan.exam_text', { note: f.requires.note }) });
   } else if (f && f.kind !== 'policealna') {
     const fix = chk && (chk.blocked.length || chk.soft) ? chk.fix : null;
-    out.push({ id: 'dek', when: `do ${cfg.declarationDeadline}`, warn: !!fix,
-      text: fix || `Sprawdź, czy twoja deklaracja maturalna pasuje do kierunku ${f.name} (${f.institution}). Liczy się: ${f.requires.note || 'sprawdź na stronie rekrutacji'}.` });
+    out.push({ id: 'dek', when: t('core.plan.declaration_when', { deadline: cfg.declarationDeadline }), warn: !!fix,
+      text: fix || t('core.plan.declaration_text', { name: f.name, institution: f.institution, note: f.requires.note || t('core.plan.declaration_note_default') }) });
   }
   if (f) {
     const src = data.sources.find(s => s.id === f.sourceId);
-    out.push({ id: 'www', when: 'w tym tygodniu', text: `Otwórz zasady rekrutacji: ${f.name}, ${f.institution}. Zapisz jedno pytanie, na które nie znalazłeś odpowiedzi.`, url: src ? src.url : null });
+    out.push({ id: 'www', when: t('core.plan.web_when'), text: t('core.plan.web_text', { name: f.name, institution: f.institution }), url: src ? src.url : null });
     out.push(f.kind === 'policealna'
-      ? { id: 'dni', when: 'wiosna 2027', text: `Zadzwoń albo zajrzyj do szkoły: ${f.institution}. Zapytaj, jak wygląda tydzień nauki i praktyki.` }
-      : { id: 'dni', when: 'marzec–kwiecień 2027', text: `Idź na dzień otwarty: ${f.institution}. Porozmawiaj z jednym studentem tego kierunku.` });
+      ? { id: 'dni', when: t('core.plan.school_when'), text: t('core.plan.school_text', { institution: f.institution }) }
+      : { id: 'dni', when: t('core.plan.open_day_when'), text: t('core.plan.open_day_text', { institution: f.institution }) });
   }
-  out.push({ id: 'talk', when: 'kiedy chcesz', text: 'Pokaż ten plan komuś, komu ufasz, i zapytaj, co o nim myśli.' });
+  out.push({ id: 'talk', when: t('core.plan.talk_when'), text: t('core.plan.talk_text') });
   return out;
 }
 

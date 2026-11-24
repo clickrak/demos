@@ -1,6 +1,7 @@
 // Polish output safety net (Studia v3.1): node kompas/tests/snapshot.mjs [--update]
 // Builds the markdown export and the scoring result for every test kid and compares hashes with tests/snapshots/pl-export.json.
 // While texts move into i18n files, the Polish output must stay identical.
+import './_i18n.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { scoreAll, declarationHelp } from '../core/scoring.js';

@@ -1,4 +1,5 @@
 // Kompas Liceum: data integrity, points arithmetic and test personas. Run: node kompas/tests/liceum.mjs
+import './_i18n.mjs';
 import { readFileSync } from 'node:fs';
 import { scoreLiceum, examPoints, certificatePoints, checkClass, scoredSubjects, shortlist, effectivePoints, profilesFor } from '../liceum/points.js';
 

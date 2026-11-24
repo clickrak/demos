@@ -79,7 +79,8 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   }
 }
 { // Studia interface texts (v3.1): pl.json is the base, ua.json must have exactly the same keys once it has any (rule UK-G).
-  const pl = json['studia/i18n/pl.json'] || {}, ua = json['studia/i18n/ua.json'] || {};
+  const pl = { ...json['core/i18n/pl.json'], ...json['studia/i18n/pl.json'] }, ua = { ...json['core/i18n/ua.json'], ...json['studia/i18n/ua.json'] };
+  for (const f of Object.keys(json)) if (/i18n\/frag-/.test(f)) fail(`i18n: fragment file ${f} must be merged into pl.json`);
   const plKeys = new Set(Object.keys(pl)), uaKeys = Object.keys(ua);
   const code = files.filter(f => /studia\/[^/]+\.(js|html)$/.test(f) || f.endsWith('core/scoring.js') || f.endsWith('core/export.js')).map(f => readFileSync(f, 'utf8')).join('\n');
   const used = new Set(), bases = new Set();
@@ -87,10 +88,14 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   for (const m of code.matchAll(/\bplural\([^,]+,\s*'([\w.]+)'/g)) bases.add(m[1]);
   for (const m of code.matchAll(/data-i18n="([\w.]+)"/g)) used.add(m[1]);
   for (const m of code.matchAll(/data-i18n-attr="([^"]+)"/g)) for (const pair of m[1].split(',')) used.add(pair.split(':')[1]);
-  const dynamic = ['skin.']; // keys built at run time: 't("skin." + name)'
+  // Keys built at run time: t('skin.' + name) or t(`core.lang.${code}`) count as using every key with that prefix.
+  const dynamic = new Set();
+  for (const m of code.matchAll(/\bt\(\s*'([\w.]+\.)'\s*\+/g)) dynamic.add(m[1]);
+  for (const m of code.matchAll(/\bt\(\s*`([\w.]+\.)\$\{/g)) dynamic.add(m[1]);
+  for (const m of code.matchAll(/'((?:app|core|story|illus)\.[\w.]*\.)'\s*\+/g)) dynamic.add(m[1]);
   for (const k of used) if (!plKeys.has(k) && !k.endsWith('.')) fail(`i18n: t('${k}') is not in pl.json`);
   for (const b of bases) for (const f of ['one', 'few', 'many']) if (!plKeys.has(`${b}.${f}`)) fail(`i18n: plural '${b}' lacks ${b}.${f} in pl.json`);
-  for (const k of plKeys) if (!used.has(k) && !dynamic.some(d => k.startsWith(d)) && ![...bases].some(b => k.startsWith(b + '.'))) fail(`i18n: key "${k}" in pl.json is not used in the code`);
+  for (const k of plKeys) if (!used.has(k) && !['\'', '"', '`'].some(q => code.includes(q + k + q)) && ![...dynamic].some(d => k.startsWith(d)) && ![...bases].some(b => k.startsWith(b + '.'))) fail(`i18n: key "${k}" in pl.json is not used in the code`);
   for (const k of uaKeys) if (!plKeys.has(k)) fail(`i18n: ua.json has a key pl.json does not: ${k}`);
   if (uaKeys.length) { for (const k of plKeys) if (!(k in ua)) fail(`i18n: ua.json misses "${k}"`); }
   else console.log('note: ua.json is still a stub (Ukrainian text arrives in v3.2)');

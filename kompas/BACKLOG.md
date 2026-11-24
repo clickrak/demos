@@ -1130,7 +1130,7 @@ fits the focus, take the first "next week" item that does.
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | pushed 21 Nov 2026 as 2.11.0 |
 | v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | pushed 21 Nov 2026 as 2.12.0 |
 | v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards; every card in a top 3 (10 test kids), demand and pay gaps, open offers (Politologia, Praca socjalna, 11 `check`), UJ thresholds if reachable | Opus + Sonnet | pushed 21 Nov 2026 as 3.0.0 (SD5 UJ thresholds and pay for 12 cards moved to v4.0 on 24 Nov) |
-| v3.1 | Ukrainian 1a: foundation | `core/i18n.js`, texts out of the code into `pl.json` (Polish unchanged), language switch, `lang` in the file, Cyrillic fonts | Opus | planned 24 Nov 2026 (top priority, Szymon) |
+| v3.1 | Ukrainian 1a: foundation | `core/i18n.js`, texts out of the code into `pl.json` (Polish unchanged), language switch, `lang` in the file, Cyrillic fonts | Opus | **done 24 Nov 2026 (3.1.0)** |
 | v3.2 | Ukrainian 1b: main UI | Ukrainian interface texts, glossary page, layout check, review sheet for a native reader | Sonnet + Opus | planned 24 Nov 2026 |
 | v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | planned 24 Nov 2026 |
 | v3.4 | Ukrainian 3a: directions | 42 cards (all texts), institution names with the Polish original | Sonnet + Opus | planned 24 Nov 2026 |
@@ -1713,9 +1713,9 @@ Kraków studies connect to Ukraine. Szymon's order: **(1) the main UI, (2) the q
 Liceum is not part of this track (its own Ukrainian task I1/I2 stays in Part 1 and reuses what v3.1 builds).
 
 **Decisions taken by the planner (safest reading; Szymon can change any of them, tell the planner in the plan message):**
-- **UK-A One app, two languages.** A switch PL | UK in the header and a link `?lang=uk`; no second app. Polish stays the single source of
-  truth for facts. Ukrainian is an **overlay**: UI texts in `studia/i18n/pl.json` and `uk.json` (key → text); data texts in
-  `studia/i18n/uk/*.json` keyed by the same ids as the Polish data (only the text fields). A missing Ukrainian text falls back to Polish
+- **UK-A One app, two languages.** A switch PL | UA in the header and a link `?lang=ua`; no second app. Polish stays the single source of
+  truth for facts. Ukrainian is an **overlay**: UI texts in `studia/i18n/pl.json` and `ua.json` (key → text); data texts in
+  `studia/i18n/ua/*.json` keyed by the same ids as the Polish data (only the text fields). A missing Ukrainian text falls back to Polish
   (never to an empty field), and a test prints how many are missing.
 - **UK-B Polish names stay visible.** Universities, studies, exam and recruitment terms are written in Ukrainian with the official Polish
   name in brackets, for example "Ягеллонський університет (Uniwersytet Jagielloński)", because every recruitment page is in Polish.
@@ -1747,7 +1747,10 @@ Liceum is not part of this track (its own Ukrainian task I1/I2 stays in Part 1 a
 - Existing Ukraine links: card `ukraina` ("Odbudowa Ukrainy i współpraca", languages `uk`, `en`) with two offers (`uj-filologia-ukrainska`,
   `uj-europeistyka`); the scenario "Pokój w Ukrainie…"; language code `uk` on cards.
 
-**v3.1 – UK-1a Foundation (Opus; the Polish app must look exactly as before).**
+**v3.1 – UK-1a Foundation: DONE 24 Nov 2026 (3.1.0).** The language code is **`ua`** (Szymon, 24 Nov 2026): file names `ua.json`, `studia/i18n/ua/`, `?lang=ua` (`?lang=uk` is accepted and turns into `ua`), the switch reads PL | UA; only `<html lang>` says `uk`. The card data language code `uk` is unchanged.
+What shipped: `core/i18n.js` (t, plural, setLang, getLang, loadDict); all Polish text of `studia/app.js`, `story.js`, `illus.js`, `index.html` (`data-i18n`, `data-i18n-attr`) in `studia/i18n/pl.json` (682 keys) and of `core/scoring.js` and `core/export.js` in `core/i18n/pl.json` (164 keys; Liceum loads that file too, its behaviour is unchanged); switch with `?lang=ua`, `<html lang>`, title and meta description, `lang` saved in the file and restored on load; Cyrillic fonts (Inter 400/600, JetBrains Mono 500, Source Serif 4 as the Cyrillic heading face of Fraunces, OFL, all local); tests: `tests/snapshot.mjs` (Polish export and result hashes for 30 kids), `tests/ui_text.py` (Polish text of 18 screens x 3 kids; proved byte-identical to 3.0.0 before the version bump), i18n key checks in `tests/syntax.mjs` (every `t()` key exists, no unused key, ua keys subset of pl, strict parity once `ua.json` has keys; fragment files not allowed), `tests/_i18n.mjs` loads the dictionaries for node tests.
+Notes for v3.2: `ua.json` is an empty stub, so `?lang=ua` still shows Polish text everywhere except the switch (fallback works, no errors). New helpers `langName(code)` and `whereLabel(value)` in `core/scoring.js`; `LANG_NAMES` values are getters. Places that show stored Polish identifiers (language levels, sports, WHERE places, robustness levels `wysoka`/`średnia`/`niska`) go through lookup keys: check them on every screen when translating. Plural rule (`plural()`) equals the Polish and Ukrainian rule; two known edge cases where the old Polish ternaries and the rule differ (0 areas, 22-24 areas) do not occur in the data. Compare `tests/ui_text.py` output with `UI_LANG=ua python3 kompas/tests/ui_text.py` (dumps to /tmp) to find Polish text left on a Ukrainian screen. The "Wczytano plik" notice sits under the sticky bar on the results page (older issue, not from this release).
+Original task list for v3.1 (all done):
 1. **UK1a (Opus) `kompas/core/i18n.js`.** `t(key, params)` with `{name}` placeholders, `setLang`, `getLang`, `plural(n, {one, few, many})` with
    the Polish and the Ukrainian rule, fallback to Polish. No network call (the files are fetched like the other data files). Used by
    Studia now and by Liceum later.
@@ -1756,19 +1759,19 @@ Liceum is not part of this track (its own Ukrainian task I1/I2 stays in Part 1 a
    `t`; Liceum's two imports must keep working and `node kompas/tests/liceum.mjs` must pass). Do it screen by screen, one commit per file.
    **Safety net first:** before touching anything, add a test that builds the markdown export and the declaration helper text for kids A–AD
    and compares with a stored snapshot (`tests/snapshots/pl-export.json`); after the refactor the Polish output must be identical.
-3. **UK1c (Opus) Switch and file.** PL | UK switch in the header (two chips, 44 px high), `?lang=uk`, `<html lang>` set, `lang` in the saved file
+3. **UK1c (Opus) Switch and file.** PL | UA switch in the header (two chips, 44 px high), `?lang=ua`, `<html lang>` set, `lang` in the saved file
    (`blank()`, `parseSaved`), loading keeps the language, document title translated.
 4. **UK1d (Opus) Cyrillic fonts.** Add Cyrillic files next to the others (from the `@fontsource` packages on npm: Inter 400/600 and
    JetBrains Mono 500 cyrillic; one serif with Cyrillic and an open licence for headings in the pop look, for example Source Serif 4 or
    Literata), `@font-face` with `unicode-range`, licence files in `studia/fonts`, files stay local (no runtime network).
    Check headings in the default, pop and neon looks with a Ukrainian test string.
-5. **UK1e (Opus) Keys for tests.** `tests/syntax.mjs`: `pl.json` and `uk.json` have the same keys (uk may be a stub in this release), no key is
+5. **UK1e (Opus) Keys for tests.** `tests/syntax.mjs`: `pl.json` and `ua.json` have the same keys (uk may be a stub in this release), no key is
    unused, every `t('…')` in the code exists in `pl.json`.
-   Check: tests pass; Polish export snapshot unchanged; `?lang=uk` opens without errors (Polish text shows where Ukrainian is missing);
+   Check: tests pass; Polish export snapshot unchanged; `?lang=ua` opens without errors (Polish text shows where Ukrainian is missing);
    click-through at 375 and 1280 px in three looks; Liceum tests pass. Version 3.1.0 in the four places and `dataVersion`.
 
 **v3.2 – UK-1b Main UI in Ukrainian.**
-1. **UK2a (Sonnet, brief with glossary) `uk.json`** for all keys of `pl.json` (about 440 lines): story page, parts, buttons, notices, report,
+1. **UK2a (Sonnet, brief with glossary) `ua.json`** for all keys of `pl.json` (about 440 lines): story page, parts, buttons, notices, report,
    errors, file messages, plural forms, footer line (UK-E). Simple words; terms as in the glossary; no word-for-word Polish.
 2. **UK2b (Opus) Glossary page** "Словничок" (footer link, same pattern as the sources page): matura, rozszerzenie, próg, rekrutacja, IRK,
    deklaracja maturalna, kierunek, licencjat, magister… each with the Polish term in brackets and one short explanation.
@@ -1776,33 +1779,33 @@ Liceum is not part of this track (its own Ukrainian task I1/I2 stays in Part 1 a
    (the SVG text uses the `wrap` helper by number of characters: test with the longest Ukrainian strengths), the neon capitals.
 4. **UK2d (Sonnet) `tools/i18n_review.py`** writes `i18n/review-uk.md`: a table with key, Polish, Ukrainian for a native reader; and
    `i18n/REVIEWED.md` (empty list of what was read).
-   Check: key parity strict; no Polish letters (ą ć ę ł ń ó ś ź ż) in `uk.json` values except inside brackets or in the glossary
-   (test with a short allow-list); `?lang=uk` shows no Polish UI text on the 12 screens; export and report in Ukrainian;
+   Check: key parity strict; no Polish letters (ą ć ę ł ń ó ś ź ż) in `ua.json` values except inside brackets or in the glossary
+   (test with a short allow-list); `?lang=ua` shows no Polish UI text on the 12 screens; export and report in Ukrainian;
    375/1280 px, three looks, no script errors. Release 3.2.0.
 
 **v3.3 – UK-2 Questions in Ukrainian.**
-1. **UK3a (Sonnet) `studia/i18n/uk/questions.json`:** 49 activities, 10 situations with all answers, certainty, subjects (matura subjects with
+1. **UK3a (Sonnet) `studia/i18n/ua/questions.json`:** 49 activities, 10 situations with all answers, certainty, subjects (matura subjects with
    Polish name in brackets), languages and levels, doubts, reflection prompts, neededWhere, homePlaces, studyLength, privateOk.
 2. **UK3b (Sonnet) Strengths and dimensions:** `core/strengths.json` (19 names and examples) and `core/dimensions.json` as overlay files
-   (`studia/i18n/uk/strengths.json`, `dimensions.json`); `scenarios.json` (scenarios, forces, sectors, shrinking) as `uk/scenarios.json`.
+   (`studia/i18n/ua/strengths.json`, `dimensions.json`); `scenarios.json` (scenarios, forces, sectors, shrinking) as `uk/scenarios.json`.
 3. **UK3c (Opus) Wiring and review.** The app reads the overlay when `lang=uk` (a small `tr(kind, id, field)` helper next to `t()`, falling
    back to Polish); review all Sonnet text against the glossary; the text inside `illus.js` illustrations goes through `t()` (UK1b).
    Check: test "every activity, situation, strength, dimension and scenario has a Ukrainian text" (strict in this release); personas results
-   unchanged (scoring does not use text); `?lang=uk` through the whole question flow at 375 px; the long answers do not break the tap cards.
+   unchanged (scoring does not use text); `?lang=ua` through the whole question flow at 375 px; the long answers do not break the tap cards.
    Release 3.3.0.
 
 **v3.4 – UK-3a Directions (cards) in Ukrainian.**
-1. **UK4a (Sonnet, 3 batches of 14 cards) `studia/i18n/uk/opportunities.json`** keyed by card id: name, roles, whoYouHelp, whatYouGet, whyNeeded,
+1. **UK4a (Sonnet, 3 batches of 14 cards) `studia/i18n/ua/opportunities.json`** keyed by card id: name, roles, whoYouHelp, whatYouGet, whyNeeded,
    dayInLife (3), growth (3), experiment, robustnessNote, demand text. The numbers and labels (demand level, force names, robustness
-   A/B/C) use the glossary or `uk.json`.
-2. **UK4b (Sonnet) `studia/i18n/uk/institutions.json`:** about 25 universities and schools: Ukrainian name + official Polish name (rule UK-B),
+   A/B/C) use the glossary or `ua.json`.
+2. **UK4b (Sonnet) `studia/i18n/ua/institutions.json`:** about 25 universities and schools: Ukrainian name + official Polish name (rule UK-B),
    short forms used on the road (`shortInst` in `app.js`).
 3. **UK4c (Opus) Wiring and review** (as UK3c); card names in the report, the compass, Kierunki and the compare table.
    Check: strict test "every card and institution has a Ukrainian entry"; no overlay id missing in the base data (rename safety);
    Polish snapshot unchanged. Release 3.4.0.
 
 **v3.5 – UK-3b Studies (offers) in Ukrainian.**
-1. **UK5a (Sonnet, 3 batches of about 42 offers) `studia/i18n/uk/offers.json`** keyed by offer id: study name (rule UK-B: Ukrainian with the
+1. **UK5a (Sonnet, 3 batches of about 42 offers) `studia/i18n/ua/offers.json`** keyed by offer id: study name (rule UK-B: Ukrainian with the
    Polish name in brackets in the detail view), `requires.note`, `next`, any other note shown to the kid. Source titles and links stay as they are.
 2. **UK5b (Opus) Subject names everywhere:** the declaration helper, compare table, `requires` text, plan steps and export use the Ukrainian
    subject names (matura subjects from UK3a); the "exam or audition" wording of arts offers; status labels ("do sprawdzenia").

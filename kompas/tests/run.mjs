@@ -1,4 +1,5 @@
 // Runs the test personas through the scoring: node kompas/tests/run.mjs
+import './_i18n.mjs';
 import { readFileSync } from 'node:fs';
 import { scoreAll, subjectFit, declarationHelp, compareIds } from '../core/scoring.js';
 import { buildMarkdown, parseSaved } from '../core/export.js';

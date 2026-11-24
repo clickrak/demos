@@ -1,11 +1,11 @@
-// Kompas Studia v3.0.0. Screens, navigation, results, export.
+// Kompas Studia v3.1.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
 import { ILLUS } from './illus.js';
 import { actPicto, sitPicto } from './pictos.js';
-import { t, setLang, getLang, loadDict, normLang, HTML_LANG } from '../core/i18n.js';
+import { t, plural, setLang, getLang, loadDict, normLang, HTML_LANG } from '../core/i18n.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
@@ -28,8 +28,8 @@ async function load() {
   data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
   for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
   // Interface texts: Polish is the base, Ukrainian overlays it (core/i18n.js). ?lang=ua (or uk) picks Ukrainian.
-  const [pl, ua] = await Promise.all(['i18n/pl.json', 'i18n/ua.json'].map(f => fetch(f).then(r => (r.ok ? r.json() : {})).catch(() => ({}))));
-  loadDict('pl', pl); loadDict('ua', ua);
+  const [pl, ua, cpl, cua] = await Promise.all(['i18n/pl.json', 'i18n/ua.json', '../core/i18n/pl.json', '../core/i18n/ua.json'].map(f => fetch(f).then(r => (r.ok ? r.json() : {})).catch(() => ({}))));
+  loadDict('pl', { ...cpl, ...pl }); loadDict('ua', { ...cua, ...ua });
   setLang(new URLSearchParams(location.search).get('lang'));
   A = blank();
   applyStatic();
@@ -123,19 +123,19 @@ const setA = (k, v) => { A[k] = v; save(); render(); };
 // ---- screens ----------------------------------------------------------------
 const screens = [
   { id: 'start', ch: null, view: vStart },
-  { id: 'pewnosc', ch: 'ja', view: vCertainty, ok: () => A.certainty, hint: () => 'Wybierz jedną odpowiedź' },
+  { id: 'pewnosc', ch: 'ja', view: vCertainty, ok: () => A.certainty, hint: () => t('app.hint.certainty') },
   { id: 'matura', ch: 'ja', view: vMatura },
   { id: 'jezyki', ch: 'ja', view: vLanguages },
-  { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length, hint: () => `Zostało kart: ${data.questions.activities.length - A.sortPos}` },
+  { id: 'zajecia', ch: 'ja', view: vSort, ok: () => A.sortPos >= data.questions.activities.length, hint: () => t('app.hint.cards_left', { n: data.questions.activities.length - A.sortPos }) },
   { id: 'sytuacje', ch: 'ja', view: vSituations },
   { id: 'styl', ch: 'ja', view: vStyle },
-  { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 5, hint: () => `Wybierz jeszcze ${5 - A.values.length}` },
-  { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5, hint: () => A.strengths.length < 5 ? `Wybierz jeszcze ${5 - A.strengths.length}`
-    : `Zaznacz, gdzie to widać: ${A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ')}` },
+  { id: 'wartosci', ch: 'ja', view: vValues, ok: () => A.values.length === 5, hint: () => t('app.hint.pick_more', { n: 5 - A.values.length }) },
+  { id: 'mocne', ch: 'ja', view: vStrengths, ok: () => provenStrengths(A).length === 5, hint: () => A.strengths.length < 5 ? t('app.hint.pick_more', { n: 5 - A.strengths.length })
+    : t('app.hint.strengths_where', { list: A.strengths.filter(x => !x.proof.trim()).map(x => nameOf(x.id)).join(', ') }) },
   { id: 'odbicie', ch: 'ja', view: vReveal },
   { id: 'sily', ch: 'swiat', view: vForces },
   { id: 'karty', ch: 'swiat', view: vCardsPreview },
-  { id: 'dlugosc', ch: 'droga', view: vLength, ok: () => A.studyLength, hint: () => 'Wybierz, ile chcesz się uczyć' },
+  { id: 'dlugosc', ch: 'droga', view: vLength, ok: () => A.studyLength, hint: () => t('app.hint.length') },
   { id: 'zasieg', ch: 'droga', view: vReach },
   { id: 'niepokoj', ch: 'droga', view: vDoubt },
   { id: 'refleksja', ch: 'droga', view: vReflection },
@@ -144,15 +144,15 @@ const screens = [
 ];
 // Short name and rough minutes per question screen: the side rail and the "time left" line use them.
 const META = {
-  pewnosc: ['Pewność', .5], matura: ['Matura', .5], jezyki: ['Języki i sport', 1], zajecia: ['Co lubisz robić', 4], sytuacje: ['Co robisz, gdy…', 2],
-  styl: ['Styl pracy', 1.5], wartosci: ['Co jest ważne', 1], mocne: ['Mocne strony', 4], odbicie: ['To już widać', .5],
-  sily: ['Świat za 10 lat', 2], karty: ['Gdzie możesz się przydać', 1.5],
-  dlugosc: ['Ile nauki', 1], zasieg: ['Gdzie', .5], niepokoj: ['Co cię niepokoi', 1], refleksja: ['Chwila dla siebie', 2]
+  pewnosc: ['app.meta.certainty', .5], matura: ['app.meta.matura', .5], jezyki: ['app.meta.languages', 1], zajecia: ['app.meta.sort', 4], sytuacje: ['app.meta.situations', 2],
+  styl: ['app.meta.style', 1.5], wartosci: ['app.meta.values', 1], mocne: ['app.meta.strengths', 4], odbicie: ['app.meta.reveal', .5],
+  sily: ['app.meta.forces', 2], karty: ['app.meta.cards', 1.5],
+  dlugosc: ['app.meta.length', 1], zasieg: ['app.meta.reach', .5], niepokoj: ['app.meta.doubt', 1], refleksja: ['app.meta.reflection', 2]
 };
 const CHAPTERS = [
-  { id: 'ja', name: 'Ja', sub: 'co lubisz i co ci wychodzi' },
-  { id: 'swiat', name: 'Świat', sub: 'gdzie to będzie potrzebne' },
-  { id: 'droga', name: 'Droga', sub: 'ile nauki i co cię niepokoi' }
+  { id: 'ja', name: 'app.chapter.ja', sub: 'app.chapter.ja_sub' },
+  { id: 'swiat', name: 'app.chapter.world', sub: 'app.chapter.world_sub' },
+  { id: 'droga', name: 'app.chapter.road', sub: 'app.chapter.road_sub' }
 ];
 const TICK = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 let furthest = 0;       // the furthest screen he has reached; earlier screens count as visited
@@ -162,17 +162,17 @@ const minsLeft = i => Math.max(1, Math.round(screens.slice(i).reduce((t, x) => t
 // Side rail (desktop): the three chapters, the steps of the current one, and the time left.
 function railHtml(s) {
   const i = screens.indexOf(s);
-  const head = (c, k, all) => `<span class="rno">${all ? TICK : k + 1}</span><span class="rch-t"><b>${c.name}</b><span>${c.sub}</span></span>`;
+  const head = (c, k, all) => `<span class="rno">${all ? TICK : k + 1}</span><span class="rch-t"><b>${t(c.name)}</b><span>${t(c.sub)}</span></span>`;
   const chs = CHAPTERS.map((c, k) => {
     const list = screens.filter(x => x.ch === c.id), all = list.every(stepDone);
     if (c.id !== s.ch) return `<li class="rch${all ? ' done' : ''}"><button data-go="${list[0].id}">${head(c, k, all)}</button></li>`;
     return `<li class="rch on"><div class="rch-h">${head(c, k, false)}</div>
       <ol class="rsteps">${list.map(x => { const gap = x !== s && screens.indexOf(x) < furthest && x.ok && !x.ok();
-        return `<li><button data-go="${x.id}" class="${x === s ? 'now' : stepDone(x) ? 'done' : gap ? 'gap' : 'todo'}" ${x === s ? 'aria-current="step"' : ''}>${META[x.id][0]}${gap ? '<span class="sr"> (do uzupełnienia)</span>' : ''}</button></li>`; }).join('')}</ol></li>`;
+        return `<li><button data-go="${x.id}" class="${x === s ? 'now' : stepDone(x) ? 'done' : gap ? 'gap' : 'todo'}" ${x === s ? 'aria-current="step"' : ''}>${t(META[x.id][0])}${gap ? '<span class="sr"> ' + t('app.rail.gap') + '</span>' : ''}</button></li>`; }).join('')}</ol></li>`;
   }).join('');
-  return `<aside class="rail noprint" aria-label="Gdzie jesteś"><ol class="rchs">${chs}
-    <li class="rch res"><button data-go="kompas"><span class="rno">${icon('compass', 'ico sm')}</span><span class="rch-t"><b>Wyniki</b><span>twój kompas i plan</span></span></button></li></ol>
-    <p class="rail-t">Do wyników ok. ${minsLeft(i)} min</p></aside>`;
+  return `<aside class="rail noprint" aria-label="${t('app.rail.label')}"><ol class="rchs">${chs}
+    <li class="rch res"><button data-go="kompas"><span class="rno">${icon('compass', 'ico sm')}</span><span class="rch-t"><b>${t('app.chapter.results')}</b><span>${t('app.rail.results_sub')}</span></span></button></li></ol>
+    <p class="rail-t">${t('app.rail.time_left', { n: minsLeft(i) })}</p></aside>`;
 }
 
 function current() {
@@ -190,9 +190,9 @@ function render() {
   const blocked = !!(s.ok && !s.ok());
   const nav = !inQ ? '' : `
     <div class="nav">
-      <button class="btn ghost" data-go="${screens[i - 1].id}">Wstecz</button>
+      <button class="btn ghost" data-go="${screens[i - 1].id}">${t('app.nav.back')}</button>
       <p class="navhint" id="navhint" role="status">${blocked && s.hint ? esc(s.hint()) : ''}</p>
-      <button class="btn" data-go="${screens[i + 1].id}" ${blocked ? 'disabled' : ''} aria-describedby="navhint">${s.id === 'refleksja' ? 'Pokaż wyniki' : 'Dalej'}</button>
+      <button class="btn" data-go="${screens[i + 1].id}" ${blocked ? 'disabled' : ''} aria-describedby="navhint">${s.id === 'refleksja' ? t('app.nav.show_results') : t('app.nav.next')}</button>
     </div>`;
   const keep = document.activeElement && document.activeElement.id;
   const changed = $app.dataset.screen !== s.id;
@@ -203,7 +203,7 @@ function render() {
   const progFrom = lastProg.ch === s.ch ? lastProg.w : 0;
   lastProg = { ch: s.ch, w: progW };
   const prog = inCh.length ? `<div class="prog" aria-hidden="true"><i style="width:${progFrom}%" data-to="${progW}"></i></div>` : '';
-  const crumb = inQ ? `<p class="crumb"><b>${CHAPTERS.find(c => c.id === s.ch).name}</b> · krok ${inCh.indexOf(s) + 1} z ${inCh.length} · do wyników ok. ${minsLeft(i)} min</p>` : '';
+  const crumb = inQ ? `<p class="crumb">${t('app.nav.crumb', { ch: t(CHAPTERS.find(c => c.id === s.ch).name), k: inCh.indexOf(s) + 1, n: inCh.length, m: minsLeft(i) })}</p>` : '';
   const note = notice ? `<p class="notice" role="status">${notice}</p>` : '';
   notice = '';
   if (s.id !== 'start') A.lastScreen = s.id;
@@ -236,19 +236,19 @@ function render() {
 
 // Small "?" explanations for terms he may not know; plain details/summary, so it works with a keyboard too.
 const GLOSS = {
-  rozszerzenie: 'Przedmiot na maturze zdawany na wyższym poziomie. Uczelnie liczą go zwykle mocniej, a niektóre (np. UJ) liczą tylko ten poziom.',
-  deklaracja: 'Lista przedmiotów i poziomów, które zdajesz na maturze. Można ją zmienić do 7 lutego 2027, potem już nie.',
-  licencjat: 'Studia pierwszego stopnia, zwykle 3 lata. Po nich możesz pracować albo iść na 2-letnie magisterskie.',
-  inzynier: 'Studia pierwszego stopnia na kierunku technicznym, zwykle 3,5 roku. Potem praca albo magisterskie.',
-  jednolite: 'Studia magisterskie bez podziału na stopnie, 5–6 lat (np. psychologia, fizjoterapia, kierunek lekarski).',
-  policealna: 'Bezpłatna szkoła publiczna po szkole średniej, 1–2,5 roku. Kończy się dyplomem technika i daje szybki start w pracy.',
-  most: 'Opcja, która łączy twoje dwie główne orientacje, np. pracę z ludźmi i pracę z danymi.',
-  szybki: 'Droga do pierwszej pracy w 3 lata albo krócej, która zostawia otwarte dalsze studia.',
-  niespodzianka: 'Opcja spoza twoich głównych obszarów, która i tak dobrze pasuje. Warto ją sprawdzić, nawet jeśli na pierwszy rzut oka nie jest twoja.'
+  rozszerzenie: 'app.gloss.extended',
+  deklaracja: 'app.gloss.declaration',
+  licencjat: 'app.gloss.bachelor',
+  inzynier: 'app.gloss.engineer',
+  jednolite: 'app.gloss.long_master',
+  policealna: 'app.gloss.post_secondary',
+  most: 'app.gloss.bridge',
+  szybki: 'app.gloss.quick',
+  niespodzianka: 'app.gloss.surprise'
 };
 // A button plus a hidden span (both phrasing content), so it can sit inside a heading or a sentence.
-const term = (key, label) => `<span class="term"><button class="termq" data-term aria-expanded="false" aria-label="Co to znaczy: ${esc(label || key)}">?</button><span class="termtxt" hidden>${esc(GLOSS[key])}</span></span>`;
-const levelTerm = lvl => /policealna/.test(lvl) ? term('policealna', 'szkoła policealna') : /licencjat|I stopnia/.test(lvl) ? term('licencjat', 'licencjat') : /inżynier/.test(lvl) ? term('inzynier', 'studia inżynierskie') : /jednolite/.test(lvl) ? term('jednolite', 'jednolite magisterskie') : '';
+const term = (key, label) => `<span class="term"><button class="termq" data-term aria-expanded="false" aria-label="${t('app.term.what', { label: esc(label || key) })}">?</button><span class="termtxt" hidden>${esc(t(GLOSS[key]))}</span></span>`;
+const levelTerm = lvl => /policealna/.test(lvl) ? term('policealna', t('app.term.post_secondary')) : /licencjat|I stopnia/.test(lvl) ? term('licencjat', t('app.term.bachelor')) : /inżynier/.test(lvl) ? term('inzynier', t('app.term.engineer')) : /jednolite/.test(lvl) ? term('jednolite', t('app.term.long_master')) : '';
 
 const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
 
@@ -258,28 +258,28 @@ function vStart() {
   const cur = screens.find(x => x.id === resume);
   const mins = id => Math.round(screens.filter(x => x.ch === id).reduce((t, x) => t + META[x.id][1], 0));
   const done = id => started && screens.filter(x => x.ch === id).every(stepDone);
-  const steps = CHAPTERS.map((c, k) => `<li class="${done(c.id) ? 'done' : ''}"><span class="rno">${done(c.id) ? TICK : k + 1}</span><div><b>${c.name}</b><span>${c.sub}</span></div><span class="cmin">ok. ${mins(c.id)} min</span></li>`).join('')
-    + `<li class="res"><span class="rno">${icon('compass', 'ico sm')}</span><div><b>Wyniki</b><span>kompas z kierunkami w Krakowie i plan pierwszych kroków</span></div></li>`;
-  const where = cur?.ch && cur.ch !== 'wyniki' ? `${CHAPTERS.find(c => c.id === cur.ch).name} · ${META[cur.id][0]}` : 'wyniki';
+  const steps = CHAPTERS.map((c, k) => `<li class="${done(c.id) ? 'done' : ''}"><span class="rno">${done(c.id) ? TICK : k + 1}</span><div><b>${t(c.name)}</b><span>${t(c.sub)}</span></div><span class="cmin">${t('app.start.chapter_min', { n: mins(c.id) })}</span></li>`).join('')
+    + `<li class="res"><span class="rno">${icon('compass', 'ico sm')}</span><div><b>${t('app.chapter.results')}</b><span>${t('app.start.results_sub')}</span></div></li>`;
+  const where = cur?.ch && cur.ch !== 'wyniki' ? `${t(CHAPTERS.find(c => c.id === cur.ch).name)} · ${t(META[cur.id][0])}` : t('app.start.where_results');
   return `
     <div class="hero">${ILLUS.start}<div>
-    <span class="kicker2">Kompas Studia · Kraków 2027</span>
-    <h1>Co już umiesz i gdzie się przydasz</h1>
-    <p class="lead">Około 20 minut pytań o to, co lubisz i co ci wychodzi. Na końcu zobaczysz kilka kierunków w Krakowie, które do ciebie pasują, i plan pierwszych małych kroków.</p>
+    <span class="kicker2">${t('app.start.kicker')}</span>
+    <h1>${t('app.start.title')}</h1>
+    <p class="lead">${t('app.start.lead')}</p>
     <ol class="chsteps">${steps}</ol>
-    ${started ? `<p class="resume-l"><b>Masz już odpowiedzi.</b> Skończyłeś na: ${esc(where)}.</p>` : ''}
-    <div class="startrow"><div><label class="field" for="name">Imię <span class="muted">(opcjonalnie, tylko do nazwy pliku)</span></label>
+    ${started ? `<p class="resume-l">${t('app.start.resume', { where: esc(where) })}</p>` : ''}
+    <div class="startrow"><div><label class="field" for="name">${t('app.start.name_label')}</label>
       <input id="name" type="text" data-field="name" value="${esc(A.name)}" autocomplete="off"></div>
-      <button class="btn big" data-go="${started ? resume : 'pewnosc'}">${started ? 'Wróć tam, gdzie skończyłem' : 'Zaczynamy'}</button></div>
-    ${started && !needResults() && resume !== 'kompas' ? '<div class="actions"><button class="btn ghost" data-go="kompas">Moje wyniki</button></div>' : ''}
-    <p class="muted small">Nie ma złych odpowiedzi. Jest wiele dobrych dróg, a wybór można korygować: to punkt wyjścia do rozmowy, nie test i nie wyrok.</p>
-    <div class="savehelp">${ICON.save}<div><p><b>Możesz przerwać w każdej chwili.</b> Przycisk <b>Zapisz</b> u góry pobiera plik z odpowiedziami. Nic nie jest nigdzie wysyłane. Żeby wrócić, wczytaj ten plik: zaczniesz tam, gdzie skończyłeś.</p>
-      <label class="btn ghost filebtn small-btn">Wczytaj plik .md<input type="file" accept=".md,text/markdown,text/plain" data-load></label></div></div>
-    <div class="skinpick" role="group" aria-label="Wygląd aplikacji">
-      <span class="small muted">Wygląd:</span>
-      <button class="chip" data-skinpick="" aria-pressed="${!skin}">Spokojny</button>
-      <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">Neon</button>
-      <button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">Pop art</button>
+      <button class="btn big" data-go="${started ? resume : 'pewnosc'}">${started ? t('app.start.resume_btn') : t('app.start.begin')}</button></div>
+    ${started && !needResults() && resume !== 'kompas' ? '<div class="actions"><button class="btn ghost" data-go="kompas">' + t('app.start.my_results') + '</button></div>' : ''}
+    <p class="muted small">${t('app.start.note')}</p>
+    <div class="savehelp">${ICON.save}<div><p>${t('app.start.save_help')}</p>
+      <label class="btn ghost filebtn small-btn">${t('app.file.load_md')}<input type="file" accept=".md,text/markdown,text/plain" data-load></label></div></div>
+    <div class="skinpick" role="group" aria-label="${t('app.start.skin_label')}">
+      <span class="small muted">${t('app.start.skin_prefix')}</span>
+      <button class="chip" data-skinpick="" aria-pressed="${!skin}">${t('skin.calm')}</button>
+      <button class="chip" data-skinpick="neon" aria-pressed="${skin === 'neon'}">${t('skin.neon')}</button>
+      <button class="chip" data-skinpick="pop" aria-pressed="${skin === 'pop'}">${t('skin.pop')}</button>
     </div></div></div>
     ${TEST ? `<details class="card noprint"><summary>Tryb testowy</summary>
       <p class="small muted">Wczytaj gotowe odpowiedzi, żeby obejrzeć wyniki bez wypełniania.</p>
@@ -289,20 +289,29 @@ function vStart() {
 
 function vCertainty() {
   const dir = A.certainty === 'pewny' ? `
-    <p>Który kierunek masz w głowie? Pokażemy go pierwszy, a obok dwa sąsiednie.</p>
+    <p>${t('app.certainty.direction_q')}</p>
     <div class="chips">${data.opportunities.map(c => chip(`data-set="direction" data-val="${c.id}"`, esc(c.name), A.direction === c.id)).join('')}</div>` : '';
-  return `${ILLUS.pewnosc}<h1>Jak pewny jesteś swojego kierunku?</h1>
+  return `${ILLUS.pewnosc}<h1>${t('app.certainty.title')}</h1>
     <div class="chips stack">${data.questions.certainty.map(c => chip(`data-set="certainty" data-val="${c.id}"`, c.label, A.certainty === c.id)).join('')}</div>${dir}`;
 }
 
 function vMatura() {
-  return `${ILLUS.matura}<h1>Jakie przedmioty zdajesz na poziomie rozszerzonym?</h1>
-    <p class="explain">Rozszerzenie to przedmiot na maturze zdawany na wyższym poziomie. Od niego zależy, na które kierunki możesz się dostać. Uczelnie liczą go zwykle mocniej, a UJ liczy tylko ten poziom.</p>
+  return `${ILLUS.matura}<h1>${t('app.matura.title')}</h1>
+    <p class="explain">${t('app.matura.explain')}</p>
     <div class="chips">${data.questions.subjects.map(s => chip(`data-toggle="rozszerzenia" data-val="${s}"`, s, A.rozszerzenia.includes(s))).join('')}</div>
-    <p class="small muted">Deklarację ${term('deklaracja', 'deklaracja maturalna')} można zmienić do ${data.config.declarationDeadline}. Potem już nie.</p>`;
+    <p class="small muted">${t('app.matura.deadline', { term: term('deklaracja', t('app.term.declaration')), date: data.config.declarationDeadline })}</p>`;
 }
 
 const SPORTS = ['siłownia', 'bieganie', 'piłka', 'pływanie', 'wspinaczka', 'rower', 'sztuki walki', 'taniec', 'inne', 'nie trenuję'];
+// The Polish texts above and the levels / places below are saved in the file, so they stay as identifiers; these maps give the displayed text.
+const SPORT_KEY = { 'siłownia': 'app.sport.gym', 'bieganie': 'app.sport.running', 'piłka': 'app.sport.ball', 'pływanie': 'app.sport.swimming', 'wspinaczka': 'app.sport.climbing',
+  'rower': 'app.sport.bike', 'sztuki walki': 'app.sport.martial', 'taniec': 'app.sport.dance', 'inne': 'app.sport.other', 'nie trenuję': 'app.sport.none' };
+const sportLabel = v => SPORT_KEY[v] ? t(SPORT_KEY[v]) : v;
+const LEVEL_KEY = { 'brak': 'app.level.none', 'podstawy': 'app.level.basic', 'komunikatywny': 'app.level.conversational', 'bardzo dobry': 'app.level.very_good' };
+const levelLabel = v => LEVEL_KEY[v] ? t(LEVEL_KEY[v]) : v;
+const WHERE_KEY = { 'w szkole': 'app.where.school', 'w sporcie': 'app.where.sport', 'w domu i rodzinie': 'app.where.family', 'w językach': 'app.where.languages', 'w pomaganiu innym': 'app.where.helping',
+  'w hobby': 'app.where.hobby', 'w domu': 'app.where.home', 'z przyjaciółmi': 'app.where.friends', 'w grach i internecie': 'app.where.games' };
+const whereLabel = w => WHERE_KEY[w] ? t(WHERE_KEY[w]) : w;
 // A.sport stays one text: chosen chips first, then his own words. Parts that are not chips go back into the text field.
 function sportParts() {
   const parts = splitList(A.sport);
@@ -318,15 +327,15 @@ function tapSport(v) {
 function vLanguages() {
   const rows = data.questions.languages.map((l, i) => { const lv = A.jezyki[l.id] || 'brak';
     return `<fieldset class="card langcard" style="border:1px solid var(--line)"><legend class="sr">${l.name}</legend>
-      <h3>${i + 1}. ${l.name[0].toUpperCase() + l.name.slice(1)}</h3><p class="small muted">Twój poziom: <b>${lv}</b></p>
-      <div class="chips" role="radiogroup" aria-label="Poziom: ${l.name}">${data.questions.languageLevels.map(v => chip(`data-lang="${l.id}" data-val="${v}"`, v, lv === v)).join('')}</div></fieldset>`; }).join('');
-  return `${ILLUS.jezyki}<h1>Języki i sport</h1>
-    <p>Jak dogadujesz się w każdym z tych języków? Wybierz poziom w każdym bloku. Języki otwierają drzwi, nigdy ich nie zamykają.</p>${rows}
-    <p class="field" id="sportq">Jaki sport uprawiasz albo uprawiałeś? Możesz wybrać kilka.</p>
-    <div class="chips" role="group" aria-labelledby="sportq">${SPORTS.map(v => chip(`data-sport="${v}"`, v, sportParts().on.includes(v))).join('')}</div>
-    <label class="small muted" for="sport">Od kiedy, jak często? <span>(opcjonalnie)</span></label>
-    <input id="sport" type="text" data-sportx value="${esc(sportParts().rest)}" placeholder="np. od roku, 3 razy w tygodniu">
-    <p class="small muted">Sport to dobre źródło dowodów na mocne strony, np. regularność albo wytrwałość.</p>`;
+      <h3>${i + 1}. ${l.name[0].toUpperCase() + l.name.slice(1)}</h3><p class="small muted">${t('app.languages.level', { lv: levelLabel(lv) })}</p>
+      <div class="chips" role="radiogroup" aria-label="${t('app.languages.level_aria', { name: l.name })}">${data.questions.languageLevels.map(v => chip(`data-lang="${l.id}" data-val="${v}"`, levelLabel(v), lv === v)).join('')}</div></fieldset>`; }).join('');
+  return `${ILLUS.jezyki}<h1>${t('app.languages.title')}</h1>
+    <p>${t('app.languages.intro')}</p>${rows}
+    <p class="field" id="sportq">${t('app.languages.sport_q')}</p>
+    <div class="chips" role="group" aria-labelledby="sportq">${SPORTS.map(v => chip(`data-sport="${v}"`, sportLabel(v), sportParts().on.includes(v))).join('')}</div>
+    <label class="small muted" for="sport">${t('app.languages.sport_when')}</label>
+    <input id="sport" type="text" data-sportx value="${esc(sportParts().rest)}" placeholder="${t('app.languages.sport_ph')}">
+    <p class="small muted">${t('app.languages.sport_note')}</p>`;
 }
 
 function vSort() {
@@ -334,19 +343,19 @@ function vSort() {
   const dots = `<div class="dots" aria-hidden="true">${acts.map((_, i) => `<i class="${i < pos ? 'done' : ''}"></i>`).join('')}</div>`;
   if (pos >= n) {
     const liked = acts.filter(a => A.sort[a.id] === 1).map(a => `<li>${esc(a.text)}</li>`).join('');
-    return `<h1>Co lubisz robić</h1><div class="card"><p>Lubisz:</p><ul>${liked || '<li class="muted">nic nie zaznaczyłeś, to też jest odpowiedź</li>'}</ul>
-      <button class="btn ghost" data-sortreset>Przejdź jeszcze raz</button></div>${dots}`;
+    return `<h1>${t('app.sort.title')}</h1><div class="card"><p>${t('app.sort.you_like')}</p><ul>${liked || '<li class="muted">' + t('app.sort.none') + '</li>'}</ul>
+      <button class="btn ghost" data-sortreset>${t('app.nav.again')}</button></div>${dots}`;
   }
   const a = acts[pos];
-  return `${A.sortPos === 0 ? ILLUS.zajecia : ''}<h1>Co lubisz robić</h1><p class="muted">Bez zastanawiania się. Chodzi o samą czynność, nie o zawód. Kartę możesz też przesunąć w prawo (lubię) albo w lewo (nie lubię).</p>
-    <div class="card sort"><p class="sortcount">${pos + 1} z ${n}</p>${actPicto(a)}<div class="q">${esc(a.text)}</div>
+  return `${A.sortPos === 0 ? ILLUS.zajecia : ''}<h1>${t('app.sort.title')}</h1><p class="muted">${t('app.sort.intro')}</p>
+    <div class="card sort"><p class="sortcount">${t('app.nav.n_of_m', { n: pos + 1, m: n })}</p>${actPicto(a)}<div class="q">${esc(a.text)}</div>
       <div class="row">
-        <button class="btn ghost" data-sortans="-1">nie lubię</button>
-        <button class="btn" data-sortans="1">lubię</button>
+        <button class="btn ghost" data-sortans="-1">${t('app.sort.dislike')}</button>
+        <button class="btn" data-sortans="1">${t('app.sort.like')}</button>
       </div>
-      <button class="chip" data-sortans="0" style="margin-top:12px">obojętne, pomiń</button>
-      ${pos > 0 ? '<button class="chip" data-sortback style="margin-top:12px">cofnij</button>' : ''}
-      <p class="keys" aria-hidden="true"><kbd>←</kbd> nie lubię · <kbd>→</kbd> lubię · <kbd>↓</kbd> pomiń</p>
+      <button class="chip" data-sortans="0" style="margin-top:12px">${t('app.sort.skip')}</button>
+      ${pos > 0 ? '<button class="chip" data-sortback style="margin-top:12px">' + t('app.nav.undo') + '</button>' : ''}
+      <p class="keys" aria-hidden="true">${t('app.sort.keys')}</p>
     </div>${dots}`;
 }
 
@@ -355,14 +364,14 @@ function vSituations() {
   const dots = `<div class="dots" aria-hidden="true">${qs.map((_, i) => `<i class="${i < pos ? 'done' : ''}"></i>`).join('')}</div>`;
   if (pos >= n) {
     const picked = qs.map(q => { const a = q.answers.find(x => x.id === A.situations[q.id]); return a ? `<li>${esc(a.text)}</li>` : ''; }).join('');
-    return `<h1>Co robisz, gdy…</h1><div class="card"><p>Twoje wybory:</p><ul>${picked || '<li class="muted">wszystko pominięte, to też jest odpowiedź</li>'}</ul>
-      <button class="btn ghost" data-sitreset>Przejdź jeszcze raz</button></div>${dots}`;
+    return `<h1>${t('app.situations.title')}</h1><div class="card"><p>${t('app.situations.picks')}</p><ul>${picked || '<li class="muted">' + t('app.situations.none') + '</li>'}</ul>
+      <button class="btn ghost" data-sitreset>${t('app.nav.again')}</button></div>${dots}`;
   }
   const q = qs[pos];
-  return `${A.sitPos === 0 ? ILLUS.sytuacje : ''}<h1>Co robisz, gdy…</h1><p class="muted">Wybierz to, co zrobiłbyś naprawdę, nie to, co wypada.</p>
-    <div class="card"><p class="sortcount">${pos + 1} z ${n}</p>${sitPicto(q)}<p class="q-s">${esc(q.text)}</p>
+  return `${A.sitPos === 0 ? ILLUS.sytuacje : ''}<h1>${t('app.situations.title')}</h1><p class="muted">${t('app.situations.intro')}</p>
+    <div class="card"><p class="sortcount">${t('app.nav.n_of_m', { n: pos + 1, m: n })}</p>${sitPicto(q)}<p class="q-s">${esc(q.text)}</p>
       <div class="chips stack">${q.answers.map(a => chip(`data-sitans="${a.id}"`, esc(a.text), A.situations[q.id] === a.id)).join('')}</div>
-      <div class="row-s"><button class="chip" data-sitans="">pomiń</button>${pos > 0 ? '<button class="chip" data-sitback>cofnij</button>' : ''}</div>
+      <div class="row-s"><button class="chip" data-sitans="">${t('app.situations.skip')}</button>${pos > 0 ? '<button class="chip" data-sitback>' + t('app.nav.undo') + '</button>' : ''}</div>
     </div>${dots}`;
 }
 
@@ -380,13 +389,13 @@ document.addEventListener('pointerup', e => { if (!swipe) return; const dx = e.c
 document.addEventListener('pointercancel', () => { if (swipe) { swipe.c.style.transform = ''; swipe = null; } });
 
 function vStyle() {
-  return `${ILLUS.styl}<h1>Jak lubisz pracować?</h1><p class="muted">Przesuń w stronę, która bardziej do ciebie pasuje. Środek też jest w porządku.</p>
+  return `${ILLUS.styl}<h1>${t('app.style.title')}</h1><p class="muted">${t('app.style.intro')}</p>
     ${data.dimensions.workStyle.map(w => `<div class="slider"><div class="ends"><span>${w.left}</span><span>${w.right}</span></div>
-      <input type="range" min="-3" max="3" step="1" id="sl-${w.id}" data-slider="${w.id}" value="${A.sliders[w.id] ?? 0}" aria-label="${w.left} albo ${w.right}"></div>`).join('')}`;
+      <input type="range" min="-3" max="3" step="1" id="sl-${w.id}" data-slider="${w.id}" value="${A.sliders[w.id] ?? 0}" aria-label="${t('app.style.either', { a: w.left, b: w.right })}"></div>`).join('')}`;
 }
 
 function vValues() {
-  return `${ILLUS.wartosci}<h1>Co jest dla ciebie ważne w pracy?</h1><p>Wybierz pięć, w kolejności: najpierw najważniejsze. <span class="pickn">${A.values.length} z 5</span></p>
+  return `${ILLUS.wartosci}<h1>${t('app.values.title')}</h1><p>${t('app.values.intro', { n: A.values.length })}</p>
     <div class="chips">${data.dimensions.values.map(v => { const i = A.values.indexOf(v.id);
       return chip(`data-value="${v.id}"`, `${i >= 0 ? `<span class="n">${i + 1}.</span> ` : ''}${v.name}`, i >= 0); }).join('')}</div>`;
 }
@@ -400,16 +409,16 @@ function vStrengths() {
     const name = esc(st.name.charAt(0).toUpperCase() + st.name.slice(1));
     if (s.proof.trim()) { const p = s.proof.trim(), short = p.length > 40 ? p.slice(0, 39).trimEnd() + '…' : p;
       return `<div class="strength done"><p class="sline"><b>${name}</b> · <span>${esc(short)}</span></p>
-        <button class="btn ghost small-btn" data-reproof="${s.id}" aria-label="Zmień, gdzie widać: ${esc(st.name)}">zmień</button></div>`; }
-    return `<div class="strength"><p class="field" id="pl-${s.id}">${esc(st.name.charAt(0).toUpperCase() + st.name.slice(1))}: gdzie to widać?</p>
-      <div class="chips" role="group" aria-labelledby="pl-${s.id}">${WHERE.map(w => chip(`data-where="${s.id}|${w}"`, w, s.proof === w)).join('')}</div>
-      <details class="ownproof"${own ? ' open' : ''}><summary>albo opisz to jednym zdaniem</summary>
-        <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${own ? esc(s.proof) : ''}" placeholder="${esc(st.example)}" aria-label="${esc(st.name)}: własny przykład, jedno zdanie"></details></div>`; }).join('');
-  return `<h1>Twoje mocne strony</h1>
-    <p>Wybierz 5 rzeczy, które ci wychodzą, i dotknij, gdzie to widać. Nie musisz nic pisać. <span class="pickn">${A.strengths.length} z 5</span></p>
+        <button class="btn ghost small-btn" data-reproof="${s.id}" aria-label="${t('app.strengths.reproof_aria', { name: esc(st.name) })}">${t('app.strengths.change')}</button></div>`; }
+    return `<div class="strength"><p class="field" id="pl-${s.id}">${t('app.strengths.where_q', { name: esc(st.name.charAt(0).toUpperCase() + st.name.slice(1)) })}</p>
+      <div class="chips" role="group" aria-labelledby="pl-${s.id}">${WHERE.map(w => chip(`data-where="${s.id}|${w}"`, whereLabel(w), s.proof === w)).join('')}</div>
+      <details class="ownproof"${own ? ' open' : ''}><summary>${t('app.strengths.own')}</summary>
+        <input id="pr-${s.id}" type="text" data-proof="${s.id}" value="${own ? esc(s.proof) : ''}" placeholder="${esc(st.example)}" aria-label="${t('app.strengths.own_aria', { name: esc(st.name) })}"></details></div>`; }).join('');
+  return `<h1>${t('app.strengths.title')}</h1>
+    <p>${t('app.strengths.intro', { n: A.strengths.length })}</p>
     <div class="chips">${data.strengths.map(s => chip(`data-strength="${s.id}"`, s.name, picked.includes(s.id))).join('')}</div>
     ${list ? `<div class="card slist">${list}</div>` : ''}
-    <p class="small muted">Mocna strona liczy się, kiedy wiesz, gdzie ją widać. To nie musi być nic wielkiego.</p>`;
+    <p class="small muted">${t('app.strengths.note')}</p>`;
 }
 
 function possibleStrengths(r) {
@@ -420,33 +429,33 @@ function possibleStrengths(r) {
 
 // "Kompas rośnie": a small compass on the last screen of each chapter, one more arc lit per chapter.
 function growCompass(stage) {
-  const names = ['Ja', 'Świat', 'Droga'];
+  const names = CHAPTERS.map(c => t(c.name));
   const arc = (k, on) => { const a0 = (-90 + k * 120 + 6) * Math.PI / 180, a1 = (-90 + (k + 1) * 120 - 6) * Math.PI / 180, r = 34;
     return `<path d="M${(40 + r * Math.cos(a0)).toFixed(1)},${(40 + r * Math.sin(a0)).toFixed(1)} A${r},${r} 0 0 1 ${(40 + r * Math.cos(a1)).toFixed(1)},${(40 + r * Math.sin(a1)).toFixed(1)}" class="garc${on ? ' on' : ''}${k === stage - 1 ? ' now' : ''}" pathLength="1"/>`; };
   return `<div class="grow"><svg viewBox="0 0 80 80" aria-hidden="true">${[0, 1, 2].map(k => arc(k, k < stage)).join('')}<polygon points="40,14 45,40 40,44 35,40" class="gneedle"/><circle cx="40" cy="40" r="3"/></svg>
-    <p><b>Kompas rośnie.</b> ${stage < 3 ? `Rozdział ${names[stage - 1]} za tobą, przed tobą: ${names[stage]}` : 'To ostatnie pytania, potem wyniki'}. Dobry moment, żeby zapisać postęp.</p>
-    <button class="btn ghost savebtn small-btn" data-export="download">${ICON.save} Zapisz</button></div>`;
+    <p>${stage < 3 ? t('app.grow.mid', { prev: names[stage - 1], next: names[stage] }) : t('app.grow.last')}</p>
+    <button class="btn ghost savebtn small-btn" data-export="download">${ICON.save} ${t('app.grow.save')}</button></div>`;
 }
 
 function vReveal() {
   const r = scoreAll(A, data);
   const proven = provenStrengths(A).map(s => { const st = data.strengths.find(x => x.id === s.id);
-    return `<li><b>${esc(st.name)}</b><span class="proof">${isWhere(s.proof) ? 'Widać to ' + esc(s.proof.trim()) : 'Widać to po tym, że: ' + esc(s.proof)}</span></li>`; }).join('');
-  const maybe = possibleStrengths(r).map(s => `<li>${esc(s.name)} <span class="badge">możliwa mocna strona</span></li>`).join('');
-  return `<span class="kicker2">Koniec rozdziału Ja</span><h1>To już widać</h1><p class="lead">Twoje mocne strony i to, gdzie je widać:</p>
+    return `<li><b>${esc(st.name)}</b><span class="proof">${isWhere(s.proof) ? t('app.reveal.seen_where', { where: esc(whereLabel(s.proof.trim())) }) : t('app.reveal.seen_because', { proof: esc(s.proof) })}</span></li>`; }).join('');
+  const maybe = possibleStrengths(r).map(s => `<li>${esc(s.name)} <span class="badge">${t('app.reveal.maybe_badge')}</span></li>`).join('');
+  return `<span class="kicker2">${t('app.reveal.kicker')}</span><h1>${t('app.reveal.title')}</h1><p class="lead">${t('app.reveal.lead')}</p>
     <div class="card reveal"><ul>${proven}</ul></div>
-    ${maybe ? `<p>Twoje odpowiedzi podpowiadają jeszcze:</p><div class="card"><ul>${maybe}</ul><p class="small muted">Jeśli widzisz je u siebie, wróć i zamień jedną z kart.</p></div>` : ''}
-    <p>Teraz zobaczmy, gdzie te mocne strony będą potrzebne.</p>${growCompass(1)}`;
+    ${maybe ? `<p>${t('app.reveal.maybe_intro')}</p><div class="card"><ul>${maybe}</ul><p class="small muted">${t('app.reveal.maybe_note')}</p></div>` : ''}
+    <p>${t('app.reveal.next')}</p>${growCompass(1)}`;
 }
 
 function vScenarios() {
   const sc = data.scenarios.scenarios;
-  return `<h1>Świat za 10 lat</h1>
-    <p>Nikt nie wie, jak będzie. Oto trzy możliwe scenariusze, wszystkie równie poważne. Który wydaje ci się najbardziej prawdopodobny?</p>
+  return `<h1>${t('app.scenarios.title')}</h1>
+    <p>${t('app.scenarios.intro')}</p>
     <div class="scen">${sc.map((x, i) => `<button class="scencard rise" style="--i:${i}" data-set="scenario" data-val="${x.id}" aria-pressed="${A.scenario === x.id}">
-      ${scenArt(x.id)}<b>${esc(x.name)}</b><span class="small">${esc(x.text)}</span>${A.scenario === x.id ? '<span class="badge">mój główny scenariusz</span>' : ''}</button>`).join('')}</div>
-    <div class="chips">${chip('data-set="scenario" data-val="?"', 'nie wiem, każdy jest możliwy', A.scenario === '?')}</div>
-    <p class="small muted">To scenariusz, nie prognoza. Twój wybór nie zmienia dopasowania; pokazuje tylko, która przyszła potrzeba jest ważna dla ciebie, i trafia do twojego pliku.</p>`;
+      ${scenArt(x.id)}<b>${esc(x.name)}</b><span class="small">${esc(x.text)}</span>${A.scenario === x.id ? '<span class="badge">' + t('app.scenarios.main_badge') + '</span>' : ''}</button>`).join('')}</div>
+    <div class="chips">${chip('data-set="scenario" data-val="?"', t('app.scenarios.unknown'), A.scenario === '?')}</div>
+    <p class="small muted">${t('app.scenarios.note')}</p>`;
 }
 
 let sectorSel = null; // sector highlighted on the Świat screen
@@ -454,29 +463,29 @@ const sec = id => data.scenarios.sectors.find(x => x.id === id);
 function vForces() {
   const src = id => data.sources.find(s => s.id === id);
   const mine = null; // the main scenario is picked at the end, in "Przyszłość"
-  return `<span class="kicker2">Rozdział Świat</span><h1>Świat za 10 lat</h1>
-    <p class="lead">Uczysz się teraz, żeby być gotowym na świat, który za 10 lat będzie wyglądał tak. Na to się przygotowujesz:</p>
+  return `<span class="kicker2">${t('app.forces.kicker')}</span><h1>${t('app.forces.title')}</h1>
+    <p class="lead">${t('app.forces.lead')}</p>
     <div class="forces">${data.scenarios.forces.map((f, i) => { const s = src(f.sourceId), hot = sectorSel && f.sectors.includes(sectorSel);
       return `<div class="force rise${hot ? ' hot' : ''}${sectorSel && !hot ? ' dim' : ''}" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3><p class="small">${esc(f.text)}</p>
         ${f.line && f.line !== f.text ? `<p class="small fline">${esc(f.line)}</p>` : ''}
-        <p class="tags-l">${icon('route', 'ico sm')} Tu rośnie praca. <b>Dotknij</b>, żeby zobaczyć:</p>
-        <div class="tags" aria-label="Gdzie rośnie praca">${f.sectors.map(id => { const x = sec(id); return `<button class="tag-s sbtn-s${sectorSel === id ? ' on' : ''}" data-sector="${id}" data-from="force" aria-pressed="${sectorSel === id}" aria-controls="sec-${id}">${esc(x.name)} <span class="chev" aria-hidden="true">›</span></button>`; }).join('')}</div>
-        <p class="small muted">${s ? `<a href="${s.url}" target="_blank" rel="noopener">źródło</a>, ` : ''}stan na ${esc(f.asOf)}</p></div></div>`; }).join('')}</div>
-    <h2>Gdzie rośnie praca</h2>
-    <p class="small">${icon('route', 'ico sm')} <b>Dotknij sektora</b>: zobaczysz, jakie konkretne prace w nim rosną i dlaczego.</p>
+        <p class="tags-l">${icon('route', 'ico sm')} ${t('app.forces.tap_hint')}</p>
+        <div class="tags" aria-label="${t('app.forces.where_grows')}">${f.sectors.map(id => { const x = sec(id); return `<button class="tag-s sbtn-s${sectorSel === id ? ' on' : ''}" data-sector="${id}" data-from="force" aria-pressed="${sectorSel === id}" aria-controls="sec-${id}">${esc(x.name)} <span class="chev" aria-hidden="true">›</span></button>`; }).join('')}</div>
+        <p class="small muted">${s ? `<a href="${s.url}" target="_blank" rel="noopener">${t('app.common.source')}</a>, ` : ''}${t('app.forces.as_of', { date: esc(f.asOf) })}</p></div></div>`; }).join('')}</div>
+    <h2>${t('app.forces.where_grows')}</h2>
+    <p class="small">${icon('route', 'ico sm')} ${t('app.forces.tap_sector')}</p>
     <div class="sectors">${data.scenarios.sectors.map((x, i) => { const why = data.scenarios.forces.filter(f => f.sectors.includes(x.id));
       const cards = x.cards.map(id => data.opportunities.find(c => c.id === id)).filter(Boolean), on = sectorSel === x.id;
       return `<div class="sectorw${on ? ' on' : ''}" id="sec-${x.id}"><button class="sector rise${on ? ' on' : ''}${sectorSel && !on ? ' dim' : ''}" style="--i:${i}" data-sector="${x.id}" aria-expanded="${on}">
-        <span class="sec-h"><b>${esc(x.name)}</b><span class="sec-go">${on ? 'Zwiń' : 'Zobacz'} <span class="chev" aria-hidden="true">${on ? '⌃' : '›'}</span></span></span>
-        <span class="small">Dlaczego rośnie: ${why.map(f => esc(f.name.toLowerCase())).join(', ')}</span>
-        ${on ? '' : `<span class="small muted">${cards.length} ${cards.length === 1 ? 'obszar' : cards.length < 5 ? 'obszary' : 'obszarów'}: ${cards.slice(0, 3).map(c => esc(c.name)).join(', ')}${cards.length > 3 ? '…' : ''}</span>`}</button>
+        <span class="sec-h"><b>${esc(x.name)}</b><span class="sec-go">${on ? t('app.forces.collapse') : t('app.forces.see')} <span class="chev" aria-hidden="true">${on ? '⌃' : '›'}</span></span></span>
+        <span class="small">${t('app.forces.why', { list: why.map(f => esc(f.name.toLowerCase())).join(', ') })}</span>
+        ${on ? '' : `<span class="small muted">${plural(cards.length, 'app.forces.areas')}: ${cards.slice(0, 3).map(c => esc(c.name)).join(', ')}${cards.length > 3 ? '…' : ''}</span>`}</button>
         ${on ? `<div class="sec-more rise">${cards.map((c, k) => `<div class="area" style="--i:${k}"><span class="area-ico">${icon(c.cluster)}</span><div><h3>${esc(c.name)}</h3><p class="small">${esc(c.whoYouHelp)}</p>
           <p class="small muted">${esc(c.whyNeeded)}</p></div></div>`).join('')}
-          <p class="small muted">Czy któryś z nich pasuje do ciebie, pokaże kompas na końcu.</p></div>` : ''}</div>`; }).join('')}</div>
+          <p class="small muted">${t('app.forces.match')}</p></div>` : ''}</div>`; }).join('')}</div>
     ${(() => { const inSector = new Set(data.scenarios.sectors.flatMap(x => x.cards)), rest = data.opportunities.filter(c => !inSector.has(c.id));
-      return rest.length ? `<p class="small">Nie wszystko mieści się w sześciu sektorach. Te obszary też rosną dzięki tym samym siłom, tylko w wielu branżach naraz: ${rest.map(c => `<b>${esc(c.name)}</b>`).join(' · ')}.</p>` : ''; })()}
+      return rest.length ? `<p class="small">${t('app.forces.rest', { list: rest.map(c => `<b>${esc(c.name)}</b>`).join(' · ') })}</p>` : ''; })()}
     <p class="small muted">${esc(data.scenarios.shrinking)}</p>
-    <p class="lead">Mniej ludzi do pracy oznacza, że każdy będzie bardziej potrzebny. Zobaczmy, gdzie przydadzą się twoje mocne strony.</p>`;
+    <p class="lead">${t('app.forces.closing')}</p>`;
 }
 
 // "Gdzie można się przydać": the 6 areas that fit his Ja answers so far, filterable by his orientations and strengths.
@@ -485,20 +494,20 @@ function vCardsPreview() {
   const r = scoreAll(A, data), proven = provenStrengths(A);
   const dims = r.profile.top.slice(0, 2).map(d => data.dimensions.interests.find(x => x.id === d));
   const topOf = c => Object.keys(c.card.interests).sort((a, b) => c.card.interests[b] - c.card.interests[a]).slice(0, 2);
-  let list = r.cards, label = 'Pasują do twoich odpowiedzi z rozdziału Ja';
-  if (areaFilter?.startsWith('d:')) { const d = areaFilter.slice(2); list = r.cards.filter(c => topOf(c).includes(d)); label = `Orientacja: ${dims.find(x => x.id === d)?.name.toLowerCase()}`; }
-  if (areaFilter?.startsWith('s:')) { const sid = areaFilter.slice(2); list = r.cards.filter(c => c.card.strengths.includes(sid)); label = `Gdzie przyda się: ${data.strengths.find(x => x.id === sid)?.name}`; }
+  let list = r.cards, label = t('app.cards.label_default');
+  if (areaFilter?.startsWith('d:')) { const d = areaFilter.slice(2); list = r.cards.filter(c => topOf(c).includes(d)); label = t('app.cards.label_orientation', { name: dims.find(x => x.id === d)?.name.toLowerCase() }); }
+  if (areaFilter?.startsWith('s:')) { const sid = areaFilter.slice(2); list = r.cards.filter(c => c.card.strengths.includes(sid)); label = t('app.cards.label_strength', { name: data.strengths.find(x => x.id === sid)?.name }); }
   const shown = list.slice(0, 6);
   const fchip = (key, text) => chip(`data-area="${key}"`, text, areaFilter === key);
   const answered = proven.length || Object.keys(A.sort).length;
-  return `<h1>Gdzie możesz się przydać</h1>
-    <p>${answered ? `Z ${data.opportunities.length} obszarów pokazujemy sześć, które najlepiej pasują do tego, co już o sobie powiedziałeś. Dotknij orientacji albo mocnej strony, żeby zobaczyć inne.` : 'Odpowiedz najpierw na pytania z rozdziału Ja, a pokażemy obszary dopasowane do ciebie.'}</p>
-    <div class="chips filt" role="group" aria-label="Filtruj obszary">${fchip('', 'najlepiej pasujące')}${dims.map(d => fchip('d:' + d.id, d.name.toLowerCase())).join('')}${proven.map(p => fchip('s:' + p.id, data.strengths.find(x => x.id === p.id).name)).join('')}</div>
+  return `<h1>${t('app.cards.title')}</h1>
+    <p>${answered ? t('app.cards.intro', { n: data.opportunities.length }) : t('app.cards.intro_empty')}</p>
+    <div class="chips filt" role="group" aria-label="${t('app.cards.filter')}">${fchip('', t('app.cards.best'))}${dims.map(d => fchip('d:' + d.id, d.name.toLowerCase())).join('')}${proven.map(p => fchip('s:' + p.id, data.strengths.find(x => x.id === p.id).name)).join('')}</div>
     <p class="small muted" aria-live="polite">${esc(label)}</p>
     <div class="areas">${shown.map((c, i) => { const used = proven.filter(p => c.card.strengths.includes(p.id)).map(p => data.strengths.find(x => x.id === p.id).name);
       return `<div class="area rise" style="--i:${i}"><span class="area-ico">${icon(c.card.cluster)}</span><div><h3>${esc(c.card.name)}</h3><p class="small">${esc(c.card.whoYouHelp)}</p>
         ${used.length ? `<div class="tags">${used.map(u => `<span class="tag-s on">${esc(u)}</span>`).join('')}</div>` : ''}</div></div>`; }).join('')}</div>
-    <details class="card"><summary>Pokaż wszystkie obszary (${data.opportunities.length})</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>${growCompass(2)}`;
+    <details class="card"><summary>${t('app.cards.show_all', { n: data.opportunities.length })}</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>${growCompass(2)}`;
 }
 
 const shortInst = n => n.replace(/^Uniwersytet Gdański.*$/, 'UG, Gdańsk').replace(/^Politechnika Rzeszowska$/, 'Politechnika Rzeszowska, Rzeszów').replace(/^Uniwersytet Jagielloński.*$/, 'UJ').replace(/^UJ Collegium Medicum$/, 'UJ CM').replace(/^Krakowska Medyczna Szkoła Policealna nr 1$/, 'Medyczna Szkoła Policealna nr 1')
@@ -525,7 +534,7 @@ function vCompass() {
   for (let t = 0; t < 32; t++) { const deg = t * 11.25, long = t % 8 === 0, mid = t % 4 === 0, [x1, y1] = pt(deg, R - (long ? 16 : mid ? 11 : 6)), [x2, y2] = pt(deg, R - 1);
     rose += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="tick${long ? ' long' : ''}"/>`; }
   const L = (deg, t) => { const [x, y] = pt(deg, R - 32); return `<text x="${x.toFixed(1)}" y="${(y + 6).toFixed(1)}" text-anchor="middle" class="cardinal">${t}</text>`; };
-  const svg = `<svg class="bigcompass" viewBox="0 0 360 360" role="img" aria-label="Kompas wskazuje północ: ${esc(b1.card.name)}; obok: ${esc(b2?.card.name || '')} i ${esc(b3?.card.name || '')}.">
+  const svg = `<svg class="bigcompass" viewBox="0 0 360 360" role="img" aria-label="${t('app.compass.aria', { a: esc(b1.card.name), b: esc(b2?.card.name || ''), c: esc(b3?.card.name || '') })}">
     ${mark(0, 'main', [180, 0])}${b2 ? mark(22.5, 'main', [300, 0]) : ''}${b3 ? mark(-22.5, 'main', [60, 0]) : ''}
     ${s.surprise ? mark(-90, 'side', [60, 360]) : ''}${s.quick ? mark(180, 'side', [180, 360]) : ''}${s.most ? mark(90, 'side', [300, 360]) : ''}
     <circle cx="${C}" cy="${C}" r="${R}" class="ring"/><circle cx="${C}" cy="${C}" r="${R - 24}" class="ring2"/>${rose}
@@ -533,44 +542,44 @@ function vCompass() {
     <g class="needle-big${compassSel ? ' fixed' : ''}" ${compassSel ? `style="transform:rotate(${selAngle(s)}deg)"` : ''}><polygon points="${C},${C - R + 30} ${C + 11},${C} ${C},${C + 8} ${C - 11},${C}" class="n-head"/><polygon points="${C},${C + R - 38} ${C + 9},${C} ${C},${C - 6} ${C - 9},${C}" class="n-tail"/></g>
     <circle cx="${C}" cy="${C}" r="6" class="hub"/></svg>`;
   return `<section class="compass-screen">
-    <p class="ctitle">Twój kompas</p>
+    <p class="ctitle">${t('app.compass.title')}</p>
     <div class="cgrid ctop">${item(b3, '3 · NNW', 'nnw')}${item(b1, '1 · N', 'n')}${item(b2, '2 · NNE', 'nne')}</div>
     ${svg}
-    <div class="cgrid cbot">${item(s.surprise, 'W · Niespodzianka', 'w')}${s.quick ? item(s.quick.c, 'S · Szybki start', 's', true) : '<div class="cdir s empty"></div>'}${item(s.most, 'E · Most', 'e')}</div>
-    <div id="cprev" class="cprev" aria-live="polite">${compassSel ? previewHtml(r, compassSel) : '<p class="clead">Trzy dobre drogi, nie jedna. Dotknij kierunku, a kompas pokaże, dokąd prowadzi.</p>'}</div>
+    <div class="cgrid cbot">${item(s.surprise, t('app.compass.tag_surprise'), 'w')}${s.quick ? item(s.quick.c, t('app.compass.tag_quick'), 's', true) : '<div class="cdir s empty"></div>'}${item(s.most, t('app.compass.tag_bridge'), 'e')}</div>
+    <div id="cprev" class="cprev" aria-live="polite">${compassSel ? previewHtml(r, compassSel) : '<p class="clead">' + t('app.compass.lead') + '</p>'}</div>
     ${prevFile?.snapshot ? `<div class="cprev">${changesSince(r)}</div>` : ''}
     ${tilesHtml()}
   </section>`;
 }
 
 function vReach() {
-  return `<h1>Gdzie chcesz być potrzebny?</h1>
-    <p>Gdzie chciałbyś być potrzebny za 10 lat?</p>
+  return `<h1>${t('app.reach.title')}</h1>
+    <p>${t('app.reach.q1')}</p>
     <div class="chips">${data.questions.neededWhere.map(v => chip(`data-set="neededWhere" data-val="${v}"`, v, A.neededWhere === v)).join('')}</div>
-    <p>Gdzie czujesz się u siebie? <span class="muted small">(opcjonalnie, możesz wybrać kilka; nie wpływa na wyniki)</span></p>
+    <p>${t('app.reach.home')}</p>
     <div class="chips">${data.questions.homePlaces.map(v => chip(`data-toggle="homePlaces" data-val="${v}"`, v, A.homePlaces.includes(v))).join('')}</div>
-    <p class="small muted">W tej wersji pokazujemy uczelnie w Krakowie. Inne miejsca pojawią się później.</p>`;
+    <p class="small muted">${t('app.reach.note')}</p>`;
 }
 
 const START_MIN = [10, 20, 30, 45, 60, 90];
 function vLength() {
-  return `${ILLUS.dlugosc}<h1>Ile chcesz się uczyć?</h1>
+  return `${ILLUS.dlugosc}<h1>${t('app.length.title')}</h1>
     <div class="chips stack">${data.questions.studyLength.map(o => chip(`data-set="studyLength" data-val="${o.id}"`, o.label, A.studyLength === o.id)).join('')}</div>
-    <p class="explain">Krótka droga, np. szkoła policealna (1–2,5 roku, bezpłatna, bez matury) albo 3-letni licencjat, to pełnoprawna opcja. Zostawia otwarte dalsze studia.</p>
-    <p>Czy bierzesz pod uwagę uczelnie prywatne? Są płatne.</p>
+    <p class="explain">${t('app.length.explain')}</p>
+    <p>${t('app.length.private_q')}</p>
     <div class="chips">${data.questions.privateOk.map(o => chip(`data-set="privateOk" data-val="${o.id}"`, o.label, A.privateOk === o.id)).join('')}</div>
-    <p class="field" id="startq">Ile minut jedziesz z domu na Dworzec Główny?</p>
-    <div class="chips" role="radiogroup" aria-labelledby="startq">${START_MIN.map(m => chip(`data-set="startMin" data-val="${m}"`, `${m} min`, Number(A.startMin) === m)).join('')}</div>
-    ${START_MIN.includes(Number(A.startMin)) ? '' : `<p class="small muted">Z twojego pliku: ${esc(A.startMin)} min. Dotknij, żeby zmienić.</p>`}
-    <p class="small muted">Liczymy z tego czas dojazdu na uczelnię. Zostaje na tym urządzeniu.</p>`;
+    <p class="field" id="startq">${t('app.length.start_q')}</p>
+    <div class="chips" role="radiogroup" aria-labelledby="startq">${START_MIN.map(m => chip(`data-set="startMin" data-val="${m}"`, t('app.length.min', { n: m }), Number(A.startMin) === m)).join('')}</div>
+    ${START_MIN.includes(Number(A.startMin)) ? '' : `<p class="small muted">${t('app.length.from_file', { n: esc(A.startMin) })}</p>`}
+    <p class="small muted">${t('app.length.note')}</p>`;
 }
 
 function vDoubt() {
   const d = data.questions.doubts.find(x => x.id === A.doubt);
-  return `${ILLUS.niepokoj}<h1>Co cię najbardziej niepokoi w tym wyborze?</h1><p class="muted">Opcjonalnie. Możesz to pominąć.</p>
+  return `${ILLUS.niepokoj}<h1>${t('app.doubt.title')}</h1><p class="muted">${t('app.doubt.optional')}</p>
     <div class="chips stack">${data.questions.doubts.map(x => chip(`data-set="doubt" data-val="${x.id}"`, x.label, A.doubt === x.id)).join('')}</div>
     ${d ? `<div class="card fade"><p>${d.card}</p></div>
-      <p>Jak mocno to cię męczy?</p><div class="chips">${chip('data-strong="0"', 'trochę', !A.doubtStrong)}${chip('data-strong="1"', 'bardzo', A.doubtStrong)}</div>` : ''}`;
+      <p>${t('app.doubt.how_much')}</p><div class="chips">${chip('data-strong="0"', t('app.doubt.little'), !A.doubtStrong)}${chip('data-strong="1"', t('app.doubt.very'), A.doubtStrong)}</div>` : ''}`;
 }
 
 // Lists kept as one text joined with ", " (reflection ideas, sport), so old files and the export stay the same.
@@ -582,12 +591,12 @@ const low1 = t => String(t || '').charAt(0).toLowerCase() + String(t || '').slic
 function candoTexts() {
   const s0 = provenStrengths(A)[0], v0 = (A.values || [])[0];
   const v = v0 && data.dimensions.values.find(x => x.id === v0);
-  return [s0 && `bo umiem: ${low1(nameOf(s0.id))}`, v && `bo ważne jest dla mnie: ${low1(v.name)}`,
-    s0 && isWhere(s0.proof) && `bo już to robię ${String(s0.proof).trim()}`].filter(Boolean);
+  return [s0 && t('app.cando.can', { skill: low1(nameOf(s0.id)) }), v && t('app.cando.important', { value: low1(v.name) }),
+    s0 && isWhere(s0.proof) && t('app.cando.already', { where: whereLabel(String(s0.proof).trim()) })].filter(Boolean);
 }
 function candoChips() {
   const ideas = candoTexts(), parts = splitList(A.canDo);
-  return ideas.length ? `<div class="chips ideas" role="group" aria-label="Pomysły na zdanie">${ideas.map((t, i) => chip(`data-cando="${i}"`, esc(t), parts.includes(t))).join('')}</div>` : '';
+  return ideas.length ? `<div class="chips ideas" role="group" aria-label="${t('app.cando.chips_aria')}">${ideas.map((t, i) => chip(`data-cando="${i}"`, esc(t), parts.includes(t))).join('')}</div>` : '';
 }
 function tapCando(i) {
   const ideas = candoTexts(), idea = ideas[Number(i)]; if (!idea) return;
@@ -609,42 +618,42 @@ function tapIdea(qid, idea) {
   save(); render();
 }
 function vReflection() {
-  return `${ILLUS.refleksja}<h1>Chwila dla siebie</h1><p class="muted">Opcjonalnie. Te odpowiedzi nie są oceniane, trafiają tylko do twojego pliku.</p>
+  return `${ILLUS.refleksja}<h1>${t('app.reflection.title')}</h1><p class="muted">${t('app.reflection.intro')}</p>
     ${data.questions.reflection.map(q => { const parts = splitList(A.reflection[q.id]);
       return `<label class="field" for="rf-${q.id}">${q.text}</label>
-      ${q.ideas?.length ? `<div class="chips ideas" role="group" aria-label="Pomysły na odpowiedź">${q.ideas.map(v => chip(`data-idea="${q.id}" data-val="${esc(v)}"`, esc(v), parts.includes(v))).join('')}</div>` : ''}
-      <textarea id="rf-${q.id}" data-refl="${q.id}" placeholder="albo napisz po swojemu">${esc(A.reflection[q.id] || '')}</textarea>`; }).join('')}${growCompass(3)}`;
+      ${q.ideas?.length ? `<div class="chips ideas" role="group" aria-label="${t('app.reflection.ideas_aria')}">${q.ideas.map(v => chip(`data-idea="${q.id}" data-val="${esc(v)}"`, esc(v), parts.includes(v))).join('')}</div>` : ''}
+      <textarea id="rf-${q.id}" data-refl="${q.id}" placeholder="${t('app.reflection.placeholder')}">${esc(A.reflection[q.id] || '')}</textarea>`; }).join('')}${growCompass(3)}`;
 }
 
 // ---- results ----------------------------------------------------------------
 const campus = id => data.campuses.find(c => c.id === id);
 
 function commute(c) {
-  if (c.outside) return `poza Krakowem: ${c.city}, trzeba się przeprowadzić`;
+  if (c.outside) return t('app.commute.outside', { city: c.city });
   const h = c.tr?.fromHub;
-  if (!h) return 'czas dojazdu: brak danych';
+  if (!h) return t('app.commute.none');
   const base = Number(A.startMin) || 0;
   const lo = base + h.min, hi = base + Math.max(h.median, h.min + 5);
-  return `z domu ok. ${lo}–${hi} min`;
+  return t('app.commute.range', { lo: lo, hi: hi });
 }
-const lineText = st => [st.tram.length ? `tramwaje ${st.tram.join(', ')}` : '', st.bus.length ? `autobusy ${st.bus.join(', ')}` : ''].filter(Boolean).join('; ');
+const lineText = st => [st.tram.length ? t('app.transit.tram', { list: st.tram.join(', ') }) : '', st.bus.length ? t('app.transit.bus', { list: st.bus.join(', ') }) : ''].filter(Boolean).join('; ');
 function transit(c) {
   if (c.outside) return '';
   const sts = (c.tr?.stops || []).filter(st => st.tram.length || st.bus.length).slice(0, 2);
-  return sts.length ? sts.map(st => `przystanek ${esc(st.name)} (${st.m} m): ${esc(lineText(st))}`).join('; ') : 'linie: brak danych';
+  return sts.length ? sts.map(st => t('app.transit.stop', { name: esc(st.name), m: st.m, lines: esc(lineText(st)) })).join('; ') : t('app.transit.none');
 }
 const routeUrl = c => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.outside ? c.name + ', ' + c.city : c.address + ', Kraków')}&travelmode=transit`;
 
 // Last year's threshold: the points of the last person admitted. Information only, not a requirement; not used in scoring.
 function thresholdHtml(o) {
-  const t = o.threshold;
-  if (!t) return '';
-  const src = data.sources.find(x => x.id === t.sourceId);
-  return `<div class="small muted">W ${t.year} ostatnia przyjęta osoba: ${t.points} z ${t.max} pkt${t.round ? ` (${esc(t.round)})` : ''}. To informacja, nie wymóg.${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</div>`;
+  const th = o.threshold;
+  if (!th) return '';
+  const src = data.sources.find(x => x.id === th.sourceId);
+  return `<div class="small muted">${t('app.threshold.text', { year: th.year, points: th.points, max: th.max, round: th.round ? ` (${esc(th.round)})` : '' })}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">${t('app.common.source')}</a>` : ''}</div>`;
 }
 // Star an offer: kept in his file (A.stars) and listed in the export. Toggled in place, so open cards stay open.
 const starred = id => (A.stars || []).includes(id);
-const starBtn = o => `<button class="starbtn" data-star="${esc(o.id)}" aria-pressed="${starred(o.id)}" aria-label="${starred(o.id) ? 'Usuń gwiazdkę' : 'Oznacz gwiazdką'}: ${esc(o.name)}, ${esc(shortInst(o.institution))}" title="Oznacz gwiazdką">${starred(o.id) ? '★' : '☆'}</button>`;
+const starBtn = o => `<button class="starbtn" data-star="${esc(o.id)}" aria-pressed="${starred(o.id)}" aria-label="${starred(o.id) ? t('app.star.remove', { item: `${esc(o.name)}, ${esc(shortInst(o.institution))}` }) : t('app.star.add', { item: `${esc(o.name)}, ${esc(shortInst(o.institution))}` })}" title="${t('app.star.title')}">${starred(o.id) ? '★' : '☆'}</button>`;
 function toggleStar(id) {
   A.stars = A.stars || [];
   const i = A.stars.indexOf(id);
@@ -652,7 +661,7 @@ function toggleStar(id) {
   const on = i < 0, o = data.offers.find(x => x.id === id);
   document.querySelectorAll(`[data-star="${CSS.escape(id)}"]`).forEach(b => {
     b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★' : '☆';
-    b.setAttribute('aria-label', `${on ? 'Usuń gwiazdkę' : 'Oznacz gwiazdką'}: ${o ? `${o.name}, ${shortInst(o.institution)}` : id}`);
+    b.setAttribute('aria-label', on ? t('app.star.remove', { item: o ? `${o.name}, ${shortInst(o.institution)}` : id }) : t('app.star.add', { item: o ? `${o.name}, ${shortInst(o.institution)}` : id }));
     b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
   });
   document.querySelectorAll('.starcount').forEach(el => { el.textContent = String(A.stars.length); });
@@ -666,54 +675,54 @@ function offerHtml(o, chk) {
   const route = routeUrl(c);
   return `<div class="offer">
     ${starBtn(o)}<b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
-    <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'}</span><br>
+    <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${plural(o.durationYears, 'app.years', { n: String(o.durationYears).replace('.', ',') })}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
-    <div class="small">Wymagania: ${esc(o.requires.note || '-')}</div>
+    <div class="small">${t('app.offer.requires', { note: esc(o.requires.note || '-') })}</div>
     ${thresholdHtml(o)}
-    ${chk.fix ? `<div class="small fix">Co możesz zrobić: ${esc(chk.fix)}</div>` : ''}
-    <div class="small">${[`${esc(c.name)}${c.outside ? '' : `, ${esc(c.address)}`}`, transit(c), commute(c), `<a href="${route}" target="_blank" rel="noopener">${c.outside ? 'Pokaż na mapie' : 'Zaplanuj dojazd'}</a>`].filter(Boolean).join(' · ')}</div>
+    ${chk.fix ? `<div class="small fix">${t('app.offer.fix', { fix: esc(chk.fix) })}</div>` : ''}
+    <div class="small">${[`${esc(c.name)}${c.outside ? '' : `, ${esc(c.address)}`}`, transit(c), commute(c), `<a href="${route}" target="_blank" rel="noopener">${c.outside ? t('app.common.route_map') : t('app.common.route_plan')}</a>`].filter(Boolean).join(' · ')}</div>
   </div>`;
 }
 
 // Pay band per card: $ / $$ / $$$ relative to other jobs, from a dated GUS ranking. For reflection only.
-const PAY_TXT = { 1: 'niższe niż w wielu zawodach', 2: 'blisko środka', 3: 'wyższe niż w większości zawodów' };
+const PAY_TXT = { 1: 'app.pay.low', 2: 'app.pay.mid', 3: 'app.pay.high' };
 function payHtml(k) {
   if (!k.pay) return '';
   const src = data.sources.find(x => x.id === k.pay.sourceId);
   const b = k.pay.band;
-  return `<span class="pay" aria-label="poziom zarobków ${b} z 3"><b>${'$'.repeat(b)}</b><i>${'$'.repeat(3 - b)}</i></span> ${PAY_TXT[b]}
-    <span class="small muted">Typowa pensja na etacie w grupie „${esc(k.pay.group)}”, w porównaniu z innymi zawodami (${src ? `<a href="${src.url}" target="_blank" rel="noopener">${payLabel(src)}</a>` : 'GUS'}). Liczy się też to, co lubisz robić.</span>`;
+  return `<span class="pay" aria-label="${t('app.pay.level_aria', { b: b })}"><b>${'$'.repeat(b)}</b><i>${'$'.repeat(3 - b)}</i></span> ${t(PAY_TXT[b])}
+    <span class="small muted">${t('app.pay.note', { group: esc(k.pay.group), src: src ? `<a href="${src.url}" target="_blank" rel="noopener">${payLabel(src)}</a>` : 'GUS' })}</span>`;
 }
 function cardHtml(slot, c, open, scenario) {
   const k = c.card;
   const force = data.scenarios.forces.find(f => f.id === k.force);
-  const conv = c.paths.length >= 2 ? `<p class="converge">Dotarłeś tu ${c.paths.length} drogami: ${c.paths.map(p => esc(p.label)).join(', ')}.</p>` : '';
+  const conv = c.paths.length >= 2 ? `<p class="converge">${t('app.card.converge', { n: c.paths.length, list: c.paths.map(p => esc(p.label)).join(', ') })}</p>` : '';
   const reach = c.offers.filter(o => o.check.reachable), blocked = c.offers.filter(o => !o.check.reachable && !o.check.hidden), hidden = c.offers.filter(o => o.check.hidden);
   const first = reach[0]?.offer;
   const my = data.scenarios.scenarios.find(x => x.id === A.scenario);
-  const need = my ? `w twoim scenariuszu („${esc(my.name)}”): <b>${esc(k.robustness[my.id])}</b>; w pozostałych: ${data.scenarios.scenarios.filter(x => x !== my).map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ')}`
+  const need = my ? t('app.card.need_mine', { name: esc(my.name), value: esc(k.robustness[my.id]), others: data.scenarios.scenarios.filter(x => x !== my).map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ') })
     : data.scenarios.scenarios.map(x => `${esc(x.name)}: ${esc(k.robustness[x.id])}`).join(' · ');
   const demand = k.demand ? (() => { const src = data.sources.find(x => x.id === k.demand.sourceId);
-    return `<p class="small muted">Kraków 2026: ${esc(k.demand.text)}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</p>`; })() : '';
+    return `<p class="small muted">${t('app.card.demand', { text: esc(k.demand.text) })}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">${t('app.common.source')}</a>` : ''}</p>`; })() : '';
   const body = `
     <p class="small muted">${c.reasons.map(esc).join(' · ')}</p>${conv}
-    <section class="grp"><h4>Ty i ta praca</h4><dl>
-      <dt>Komu pomagasz</dt><dd>${esc(k.whoYouHelp)}</dd>
-      <dt>Co to daje tobie</dt><dd>${esc(k.whatYouGet)}</dd>
-      ${k.pay ? `<dt>Zarobki, orientacyjnie</dt><dd>${payHtml(k)}</dd>` : ''}
-      ${c.strengthsUsed.length ? `<dt>Twoje mocne strony, które tu pracują</dt><dd><div class="tags">${c.strengthsUsed.map(p => `<span class="tag-s on">${esc(p.label)}</span>`).join('')}</div></dd>` : ''}
-      <dt>Jak wygląda dzień pracy</dt><dd><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul></dd>
-      <dt>Jak tu rośniesz</dt><dd><ol class="growth">${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol></dd>
-      <dt>Przykładowe role</dt><dd>${esc(k.roles)}</dd></dl></section>
-    <section class="grp"><h4>Przyszłość</h4><dl>
-      <dt>Dlaczego będzie potrzebne</dt><dd>${esc(k.whyNeeded)}${force ? ` <span class="muted small">(${force.name.toLowerCase()})</span>` : ''}${demand}</dd>
-      <dt>Przyszła potrzeba</dt><dd>${need}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">(ocena orientacyjna)</span></dd></dl></section>
-    <section class="grp"><h4>W Krakowie</h4>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">Wymagają zmiany w maturze:</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${hidden.length ? `<details class="small"><summary>Uczelnie prywatne (${hidden.length}), wybrałeś tylko publiczne</summary>${hidden.map(o => offerHtml(o.offer, o.check)).join('')}</details>` : ''}${!c.offers.length ? '<span class="muted">brak kierunku w Krakowie w bazie</span>' : ''}</section>
-    <section class="grp"><h4>Twoja droga</h4>${first ? `<ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
-      <p><b>Mini-eksperyment na 30 dni:</b> ${esc(k.experiment)}</p></section>
+    <section class="grp"><h4>${t('app.card.you_and_job')}</h4><dl>
+      <dt>${t('app.card.who')}</dt><dd>${esc(k.whoYouHelp)}</dd>
+      <dt>${t('app.card.gives')}</dt><dd>${esc(k.whatYouGet)}</dd>
+      ${k.pay ? `<dt>${t('app.card.pay')}</dt><dd>${payHtml(k)}</dd>` : ''}
+      ${c.strengthsUsed.length ? `<dt>${t('app.card.strengths')}</dt><dd><div class="tags">${c.strengthsUsed.map(p => `<span class="tag-s on">${esc(p.label)}</span>`).join('')}</div></dd>` : ''}
+      <dt>${t('app.card.day')}</dt><dd><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul></dd>
+      <dt>${t('app.card.growth')}</dt><dd><ol class="growth">${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol></dd>
+      <dt>${t('app.card.roles')}</dt><dd>${esc(k.roles)}</dd></dl></section>
+    <section class="grp"><h4>${t('app.card.future')}</h4><dl>
+      <dt>${t('app.card.why')}</dt><dd>${esc(k.whyNeeded)}${force ? ` <span class="muted small">(${force.name.toLowerCase()})</span>` : ''}${demand}</dd>
+      <dt>${t('app.card.need')}</dt><dd>${need}${k.robustnessNote ? ` <span class="muted small">${esc(k.robustnessNote)}</span>` : ''} <span class="muted small">${t('app.card.need_note')}</span></dd></dl></section>
+    <section class="grp"><h4>${t('app.card.in_krakow')}</h4>${reach.map(o => offerHtml(o.offer, o.check)).join('')}${blocked.length ? `<p class="small muted">${t('app.card.blocked')}</p>${blocked.map(o => offerHtml(o.offer, o.check)).join('')}` : ''}${hidden.length ? `<details class="small"><summary>${t('app.card.private', { n: hidden.length })}</summary>${hidden.map(o => offerHtml(o.offer, o.check)).join('')}</details>` : ''}${!c.offers.length ? '<span class="muted">' + t('app.card.no_study') + '</span>' : ''}</section>
+    <section class="grp"><h4>${t('app.card.path')}</h4>${first ? `<ul>${pathSteps(first, campus(first.campus).name).map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+      <p><b>${t('app.card.experiment')}</b> ${esc(k.experiment)}</p></section>
     ${TEST ? `<p class="testv">fit ${c.fit.toFixed(1)} · int ${c.parts.interests.toFixed(2)} · styl ${c.parts.workStyle.toFixed(2)} · wart ${c.parts.values.toFixed(2)}</p>` : ''}`;
   return `<details class="card opt" data-card="${k.id}" ${open ? 'open' : ''}>
-    <summary class="optsum"><span class="area-ico">${icon(k.cluster)}</span><span class="opthead"><span class="small muted">${slot} · ${esc(c.band)}${c.pinned ? ' · twój kierunek' : ''}</span><h3>${esc(k.name)}</h3><span class="small teaser">${esc(k.whoYouHelp)}</span></span></summary>${body}</details>`;
+    <summary class="optsum"><span class="area-ico">${icon(k.cluster)}</span><span class="opthead"><span class="small muted">${slot} · ${esc(c.band)}${c.pinned ? ' · ' + t('app.card.pinned') : ''}</span><h3>${esc(k.name)}</h3><span class="small teaser">${esc(k.whoYouHelp)}</span></span></summary>${body}</details>`;
 }
 
 // Path map, left to right: his strengths (roots) → options → Kraków studies.
@@ -737,7 +746,7 @@ function pathMapSvg(r) {
   const topDims = r.profile.top.slice(0, 2).map(d => data.dimensions.interests.find(x => x.id === d).name.toLowerCase());
   const langs = [];
   for (const row of rows) for (const p of row.c.paths) if (p.kind === 'language' && !langs.find(l => l.id === p.id)) langs.push({ id: p.id, name: p.label });
-  const roots = [...proven, ...langs, { id: '_int', name: 'zainteresowania: ' + topDims.join(', ') }];
+  const roots = [...proven, ...langs, { id: '_int', name: t('app.map.interests', { dims: topDims.join(', ') }) }];
 
   // Studies column: up to 2 reachable offers per option, plus the quick start.
   const offers = [];
@@ -758,8 +767,8 @@ function pathMapSvg(r) {
   // Which rows (options) touch each root and each offer: used to fade what is not on the selected road.
   const rootRows = roots.map(() => new Set()), offerRows = offers.map(() => new Set());
   const cls = set => [...set].map(i => 'r' + i).join(' ');
-  let svg = `<svg class="${drawOnce ? 'draw' : ''}" viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Mapa dróg: od twoich mocnych stron, przez opcje, do kierunków w Krakowie. Wybierz opcję, żeby podświetlić jej drogi.">`;
-  svg += `<text x="20" y="28" class="col">TWOJE MOCNE STRONY</text><text x="${X2 - 90}" y="28" class="col">GDZIE SIĘ PRZYDASZ</text><text x="${X3 + 18}" y="28" class="col">STUDIA W KRAKOWIE</text>`;
+  let svg = `<svg class="${drawOnce ? 'draw' : ''}" viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="${t('app.map.aria')}">`;
+  svg += `<text x="20" y="28" class="col">${t('app.map.col_strengths')}</text><text x="${X2 - 90}" y="28" class="col">${t('app.map.col_options')}</text><text x="${X3 + 18}" y="28" class="col">${t('app.map.col_studies')}</text>`;
 
   rows.forEach((row, i) => {
     const ids = row.c.paths.filter(p => p.kind === 'strength' || p.kind === 'language').map(p => p.id);
@@ -788,8 +797,8 @@ function pathMapSvg(r) {
     svg += `<circle cx="${X1}" cy="${yR[j]}" r="8" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/></g>`;
   });
   rows.forEach((row, i) => {
-    const y = yC[i], label = row.slot === 'most' ? 'Most' : row.slot === 'niespodzianka' ? 'Niespodzianka' : row.c.band;
-    svg += `<g class="node stop r${i}" style="--d:${(0.4 + i * 0.18).toFixed(2)}s" data-maprow="${i}" data-color="${row.color}" role="button" tabindex="0" aria-label="Podświetl drogi: ${esc(row.c.card.name)}">`;
+    const y = yC[i], label = row.slot === 'most' ? t('app.slot.bridge') : row.slot === 'niespodzianka' ? t('app.slot.surprise') : row.c.band;
+    svg += `<g class="node stop r${i}" style="--d:${(0.4 + i * 0.18).toFixed(2)}s" data-maprow="${i}" data-color="${row.color}" role="button" tabindex="0" aria-label="${t('app.map.highlight', { name: esc(row.c.card.name) })}">`;
     svg += `<rect x="${X2 - 120}" y="${y - 58}" width="240" height="100" fill="transparent"/>`;
     svg += `<rect x="${X2 - 13}" y="${y - 13}" width="26" height="26" rx="13" fill="${row.color}" stroke="var(--card)" stroke-width="3"/>`;
     svg += `<text text-anchor="middle" class="stn" style="fill:${row.color}">${tspans(wrap(row.c.card.name, 26), X2, y - 32, 15)}</text>`;
@@ -798,7 +807,7 @@ function pathMapSvg(r) {
   offers.forEach((o, k) => {
     const quick = s.quick && s.quick.o.offer.id === o.id;
     svg += `<g class="node study ${cls(offerRows[k])}" style="--d:${(1.1 + k * 0.08).toFixed(2)}s"><circle cx="${X3}" cy="${yO[k]}" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>`;
-    svg += `<text class="lbl">${tspans([o.name, o.institution + (quick ? ' · szybki start' : '')].flatMap(t => wrap(t, 30)).slice(0, 3), X3 + 16, yO[k] + 4)}</text></g>`;
+    svg += `<text class="lbl">${tspans([o.name, o.institution + (quick ? ' · ' + t('app.map.quick_start') : '')].flatMap(t => wrap(t, 30)).slice(0, 3), X3 + 16, yO[k] + 4)}</text></g>`;
   });
 
   return svg + '</svg>';
@@ -814,26 +823,26 @@ function tramLines(r) {
     if (o) lines.push({ c, o: o.offer, chk: o.check, color: LINE_COLORS[shown.indexOf(c) % LINE_COLORS.length], name: c.card.name });
   }
   if (s.quick && !lines.some(l => l.o.id === s.quick.o.offer.id))
-    lines.push({ c: s.quick.c, o: s.quick.o.offer, chk: s.quick.o.check, color: 'var(--muted)', name: 'Szybki start', quick: true });
+    lines.push({ c: s.quick.c, o: s.quick.o.offer, chk: s.quick.o.check, color: 'var(--muted)', name: t('app.slot.quick'), quick: true });
   for (const l of lines) l.end = 2027 + Math.ceil(l.o.durationYears);
   return lines;
 }
 
 const SHARED = [
-  { key: 'dek', date: 'do 7 lutego 2027', sub: 'deklaracja maturalna' },
-  { key: 'dni', date: 'marzec–kwiecień', sub: 'dni otwarte' },
-  { key: 'mat', date: 'maj 2027', sub: 'matura' },
-  { key: 'rek', date: 'lipiec–sierpień', sub: 'rekrutacja i zapisy' },
-  { key: 'start', date: 'jesień 2027', sub: 'start nauki' }
+  { key: 'dek', date: 'app.date.declaration', sub: 'app.tram.declaration' },
+  { key: 'dni', date: 'app.date.open_days', sub: 'app.tram.open_days' },
+  { key: 'mat', date: 'app.date.matura', sub: 'app.tram.matura' },
+  { key: 'rek', date: 'app.date.recruitment', sub: 'app.tram.recruitment' },
+  { key: 'start', date: 'app.date.start', sub: 'app.tram.start' }
 ];
 
 function tramMapSvg(lines) {
   const ends = [...new Set(lines.map(l => l.end))].sort();
-  const rows = [...SHARED, ...ends.map(y => ({ key: 'e' + y, date: String(y), sub: 'dyplom, pierwsza praca' }))];
+  const rows = [...SHARED.map(x => ({ key: x.key, date: t(x.date), sub: t(x.sub) })), ...ends.map(y => ({ key: 'e' + y, date: String(y), sub: t('app.tram.end') }))];
   const W = 360, X0 = 182, n = lines.length, DX = n > 1 ? Math.min(38, (W - 20 - X0) / (n - 1)) : 0, TOP = 58, RH = 50;
   const x = i => X0 + i * DX, y = k => TOP + rows.findIndex(r => r.key === k) * RH;
   const H = TOP + rows.length * RH;
-  let svg = `<svg class="${drawOnce ? 'draw' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Linie w czasie: kroki od dziś do pierwszej pracy dla każdej opcji. Ten sam opis jest pod mapą jako tekst.">`;
+  let svg = `<svg class="${drawOnce ? 'draw' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('app.tram.aria')}">`;
   lines.forEach((l, i) => {
     svg += `<g style="--d:${(i * 0.2).toFixed(1)}s"><circle cx="${x(i)}" cy="22" r="13" fill="${l.color}"/><text x="${x(i)}" y="27" text-anchor="middle" class="tno">${l.quick ? 'S' : i + 1}</text></g>`;
     svg += `<path class="tl solid" style="--d:${(0.2 + i * 0.2).toFixed(1)}s" pathLength="1" d="M${x(i)},${TOP - 14} L${x(i)},${y('e' + l.end)}" stroke="${l.color}" stroke-width="6" stroke-linecap="round" fill="none" ${l.quick ? 'stroke-dasharray="0.02 0.03"' : ''}/>`;
@@ -856,10 +865,10 @@ function tramMapSvg(lines) {
 function tramLegend(lines) {
   return `<ol class="tramleg">${lines.map((l, i) => {
     const camp = campus(l.o.campus);
-    const fix = !l.chk.reachable ? `<span class="badge warn">najpierw: ${esc(l.chk.blocked[0] || 'zmiana w maturze')}</span>` : l.chk.soft ? `<span class="badge warn">warto dopisać rozszerzenie: ${esc(l.chk.soft)}</span>` : '';
+    const fix = !l.chk.reachable ? `<span class="badge warn">${t('app.tram.first', { what: esc(l.chk.blocked[0] || t('app.path.matura_change')) })}</span>` : l.chk.soft ? `<span class="badge warn">${t('app.tram.add_ext', { what: esc(l.chk.soft) })}</span>` : '';
     return `<li><span class="tno-b" style="background:${l.color}">${l.quick ? 'S' : i + 1}</span><div><b>${esc(l.name)}</b>${l.quick ? ` <span class="muted small">(${esc(l.c.card.name)})</span>` : ''}<br>
-      <span class="small">${esc(l.o.name)}, ${esc(l.o.institution)} · ${String(l.o.durationYears).replace('.', ',')} ${l.o.durationYears < 5 ? 'lata' : 'lat'} · koniec ok. ${l.end}${l.o.next ? ` · potem: ${esc(l.o.next)}` : ''}</span> ${fix}
-      <details class="small steps"><summary>Kroki</summary><ul>${pathSteps(l.o, camp?.name).map(t => `<li>${esc(t)}</li>`).join('')}</ul></details></div></li>`;
+      <span class="small">${esc(l.o.name)}, ${esc(l.o.institution)} · ${plural(l.o.durationYears, 'app.years', { n: String(l.o.durationYears).replace('.', ',') })} · ${t('app.tram.end_ok', { y: l.end })}${l.o.next ? ` · ${t('app.tram.then', { next: esc(l.o.next) })}` : ''}</span> ${fix}
+      <details class="small steps"><summary>${t('app.tram.steps')}</summary><ul>${pathSteps(l.o, camp?.name).map(t => `<li>${esc(t)}</li>`).join('')}</ul></details></div></li>`;
   }).join('')}</ol>`;
 }
 
@@ -869,12 +878,12 @@ function changesSince(r) {
   const now = [...s.best, s.most, s.surprise].filter(Boolean).map(c => c.card.id);
   const old = [...(prevFile.snapshot.best || []), prevFile.snapshot.most, prevFile.snapshot.surprise].filter(Boolean);
   const added = now.filter(id => !old.includes(id)), gone = old.filter(id => !now.includes(id)), kept = now.filter(id => old.includes(id));
-  return `<div class="card compare"><h3>Co się zmieniło od ${esc(prevFile.date || 'poprzedniego pliku')}</h3><ul>
-    ${kept.length ? `<li>Zostało: ${kept.map(name).map(esc).join(', ')}</li>` : ''}
-    ${added.length ? `<li>Nowe: ${added.map(name).map(esc).join(', ')}</li>` : ''}
-    ${gone.length ? `<li>Tym razem nie ma: ${gone.map(name).map(esc).join(', ')}</li>` : ''}
-    ${!added.length && !gone.length ? '<li>Te same opcje co poprzednio. To też coś mówi.</li>' : ''}</ul>
-    <p class="small muted">Pytanie do siebie: co zmieniło się u ciebie przez ten czas?</p></div>`;
+  return `<div class="card compare"><h3>${t('app.compare.changed', { date: esc(prevFile.date || t('app.compare.prev_file')) })}</h3><ul>
+    ${kept.length ? `<li>${t('app.compare.kept', { list: kept.map(name).map(esc).join(', ') })}</li>` : ''}
+    ${added.length ? `<li>${t('app.compare.added', { list: added.map(name).map(esc).join(', ') })}</li>` : ''}
+    ${gone.length ? `<li>${t('app.compare.gone', { list: gone.map(name).map(esc).join(', ') })}</li>` : ''}
+    ${!added.length && !gone.length ? '<li>' + t('app.compare.same') + '</li>' : ''}</ul>
+    <p class="small muted">${t('app.compare.question')}</p></div>`;
 }
 
 // Angle of the picked direction, so the needle stays where he pointed it after a re-render.
@@ -890,10 +899,10 @@ function selAngle(s) {
 // The options shown in the results, in the same order and colours everywhere (compass, roads, tram lines).
 function shownOptions(r) {
   const s = r.slots, out = [];
-  s.best.forEach((c, i) => out.push({ c, key: c.card.id, no: String(i + 1), slot: 'Najlepsze dopasowanie', color: LINE_COLORS[i] }));
-  if (s.most) out.push({ c: s.most, key: s.most.card.id, no: 'M', slot: 'Most', color: LINE_COLORS[3] });
-  if (s.surprise) out.push({ c: s.surprise, key: s.surprise.card.id, no: 'N', slot: 'Niespodzianka', color: LINE_COLORS[4] });
-  if (s.quick) out.push({ c: s.quick.c, key: 'quick', no: 'S', slot: 'Szybki start', color: 'var(--muted)', quick: s.quick.o });
+  s.best.forEach((c, i) => out.push({ c, key: c.card.id, no: String(i + 1), slot: t('app.slot.best'), color: LINE_COLORS[i] }));
+  if (s.most) out.push({ c: s.most, key: s.most.card.id, no: 'M', slot: t('app.slot.bridge'), color: LINE_COLORS[3] });
+  if (s.surprise) out.push({ c: s.surprise, key: s.surprise.card.id, no: 'N', slot: t('app.slot.surprise'), color: LINE_COLORS[4] });
+  if (s.quick) out.push({ c: s.quick.c, key: 'quick', no: 'S', slot: t('app.slot.quick'), color: 'var(--muted)', quick: s.quick.o });
   return out;
 }
 const nameOf = id => data.strengths.find(x => x.id === id)?.name || id;
@@ -906,40 +915,40 @@ function previewHtml(r, key) {
   return `<div class="prevcard rise" style="--c:${o.color}">
     <div class="prevhead"><span class="tno-b" style="background:${o.color}">${o.no}</span><div><span class="ctag">${esc(o.slot)}</span>
       <h3>${esc(o.quick ? first.name : c.card.name)}</h3>${o.quick ? '' : `<span class="small muted">${esc(c.band)}</span>`}</div></div>
-    <p class="small">${esc(o.quick ? `Pierwsza praca po ${String(first.durationYears).replace('.', ',')} latach, dalsze studia zostają otwarte. Łączy się z obszarem: ${c.card.name}.` : c.card.whoYouHelp)}</p>
-    ${used.length ? `<p class="small muted">Prowadzą tu twoje mocne strony:</p><div class="tags">${used.map(u => `<span class="tag-s on">${esc(u)}</span>`).join('')}</div>` : ''}
-    ${first ? `<p class="small">${icon('school', 'ico sm')} ${esc(first.name)}, ${esc(shortInst(first.institution))} · ${String(first.durationYears).replace('.', ',')} ${first.durationYears < 5 ? 'lata' : 'lat'}</p>` : ''}
-    <div class="actions"><button class="btn" data-goopt="${esc(key)}">Pokaż drogę</button><button class="btn ghost" data-pick="">Zamknij</button></div></div>`;
+    <p class="small">${esc(o.quick ? t('app.preview.quick', { years: String(first.durationYears).replace('.', ','), area: c.card.name }) : c.card.whoYouHelp)}</p>
+    ${used.length ? `<p class="small muted">${t('app.preview.strengths')}</p><div class="tags">${used.map(u => `<span class="tag-s on">${esc(u)}</span>`).join('')}</div>` : ''}
+    ${first ? `<p class="small">${icon('school', 'ico sm')} ${esc(first.name)}, ${esc(shortInst(first.institution))} · ${plural(first.durationYears, 'app.years', { n: String(first.durationYears).replace('.', ',') })}</p>` : ''}
+    <div class="actions"><button class="btn" data-goopt="${esc(key)}">${t('app.preview.show_road')}</button><button class="btn ghost" data-pick="">${t('app.preview.close')}</button></div></div>`;
 }
 
 const PARTS = [
-  { id: 'w-mocne', title: 'Twoje mocne strony', sub: 'karty z twoimi dowodami', ico: 'star', col: 'var(--l0)' },
-  { id: 'w-kierunki', title: 'Twoje kierunki', sub: 'drogi od mocnych stron do zawodów', ico: 'route', col: 'var(--l2)' },
-  { id: 'w-droga', title: 'Twoja droga przez studia', sub: 'kroki z datami i dojazd', ico: 'tram', col: 'var(--l1)' },
-  { id: 'w-przyszlosc', title: 'Przyszłość', sub: 'twoje opcje w trzech scenariuszach', ico: 'future', col: 'var(--l4)' },
-  { id: 'w-plik', title: 'Twój plik', sub: 'zapisz, wydrukuj, wróć za pół roku', ico: 'file', col: 'var(--l3)' }
+  { id: 'w-mocne', title: 'app.part.strengths', sub: 'app.part.strengths_sub', ico: 'star', col: 'var(--l0)' },
+  { id: 'w-kierunki', title: 'app.part.directions', sub: 'app.part.directions_sub', ico: 'route', col: 'var(--l2)' },
+  { id: 'w-droga', title: 'app.part.path', sub: 'app.part.path_sub', ico: 'tram', col: 'var(--l1)' },
+  { id: 'w-przyszlosc', title: 'app.part.future', sub: 'app.part.future_sub', ico: 'future', col: 'var(--l4)' },
+  { id: 'w-plik', title: 'app.part.file', sub: 'app.part.file_sub', ico: 'file', col: 'var(--l3)' }
 ];
 
 function tilesHtml() {
   const n = PARTS.filter(p => seenParts.has(p.id)).length;
-  return `<div class="tiles-h"><h2>Co chcesz zobaczyć?</h2><span class="small muted">odkryto ${n} z ${PARTS.length}</span></div>
+  return `<div class="tiles-h"><h2>${t('app.tiles.title')}</h2><span class="small muted">${t('app.tiles.found', { n: n, total: PARTS.length })}</span></div>
     <div class="tiles">${PARTS.map((p, i) => `<button class="tile rise" style="--i:${i};--c:${p.col}" data-go="${p.id}">
-      <span class="tile-ico">${icon(p.ico)}</span><span class="tile-t"><b>${p.title}</b><span class="small">${p.sub}</span></span>
-      ${seenParts.has(p.id) ? `<span class="tile-ok" aria-label="obejrzane">${icon('check')}</span>` : i === 0 && !n ? '<span class="tile-start">zacznij tutaj</span>' : ''}</button>`).join('')}</div>`;
+      <span class="tile-ico">${icon(p.ico)}</span><span class="tile-t"><b>${t(p.title)}</b><span class="small">${t(p.sub)}</span></span>
+      ${seenParts.has(p.id) ? `<span class="tile-ok" aria-label="${t('app.tiles.seen')}">${icon('check')}</span>` : i === 0 && !n ? '<span class="tile-start">' + t('app.tiles.start') + '</span>' : ''}</button>`).join('')}</div>`;
 }
 
 function tabBar(id) {
-  const t = [['kompas', 'Kompas', 'compass'], ['w-mocne', 'Mocne', 'star'], ['w-kierunki', 'Kierunki', 'route'], ['w-droga', 'Droga', 'tram'], ['w-przyszlosc', 'Przyszłość', 'future']];
-  return `<nav class="tabbar noprint" aria-label="Części wyników">${t.map(([k, l, ic]) => `<button data-go="${k}" ${k === id || (id === 'w-plik' && k === 'kompas') ? 'aria-current="page"' : ''}>${icon(ic)}<span>${l}</span></button>`).join('')}</nav>`;
+  const tabs = [['kompas', t('app.tab.compass'), 'compass'], ['w-mocne', t('app.tab.strengths'), 'star'], ['w-kierunki', t('app.tab.directions'), 'route'], ['w-droga', t('app.tab.path'), 'tram'], ['w-przyszlosc', t('app.tab.future'), 'future']];
+  return `<nav class="tabbar noprint" aria-label="${t('app.tabs.label')}">${tabs.map(([k, l, ic]) => `<button data-go="${k}" ${k === id || (id === 'w-plik' && k === 'kompas') ? 'aria-current="page"' : ''}>${icon(ic)}<span>${l}</span></button>`).join('')}</nav>`;
 }
 
 // Bottom of each part: the next part in the suggested order, so the journey has a direction.
 function nextPart(id) {
   const i = PARTS.findIndex(p => p.id === id), n = PARTS[i + 1];
-  return `<div class="nextpart noprint">${n ? `<button class="btn" data-go="${n.id}">Dalej: ${n.title} →</button>` : ''}<button class="btn ghost" data-go="kompas">${icon('compass', 'ico sm')} Kompas</button></div>`;
+  return `<div class="nextpart noprint">${n ? `<button class="btn" data-go="${n.id}">${t('app.part.next', { title: t(n.title) })}</button>` : ''}<button class="btn ghost" data-go="kompas">${icon('compass', 'ico sm')} ${t('app.tab.compass')}</button></div>`;
 }
 const needResults = () => provenStrengths(A).length < 1 || !A.values.length;
-const partHead = (p, lead) => `<div class="parthead" style="--c:${p.col}"><span class="tile-ico">${icon(p.ico)}</span><div><h1>${p.title}</h1><p class="small">${lead}</p></div></div>`;
+const partHead = (p, lead) => `<div class="parthead" style="--c:${p.col}"><span class="tile-ico">${icon(p.ico)}</span><div><h1>${t(p.title)}</h1><p class="small">${lead}</p></div></div>`;
 
 // ---- Mocne strony: flip cards, profile bars, values, "Mogę to zrobić, bo…"
 function vPartStrengths() {
@@ -947,20 +956,20 @@ function vPartStrengths() {
   const r = scoreAll(A, data), opts = shownOptions(r).filter(o => !o.quick);
   const cards = provenStrengths(A).map((x, i) => {
     const leads = opts.filter(o => o.c.strengthsUsed.some(p => p.id === x.id));
-    return `<button class="flip rise" style="--i:${i}" data-flip aria-pressed="false" aria-label="${esc(nameOf(x.id))}: odwróć kartę">
-      <span class="face front"><span class="star">${icon('star')}</span><b>${esc(nameOf(x.id))}</b><span class="small muted">dotknij, żeby odwrócić</span></span>
-      <span class="face back"><span class="small">${esc(proofText(x.proof))}</span>${leads.length ? `<span class="leads">${leads.map(o => `<span class="tno-b sm" style="background:${o.color}" title="${esc(o.c.card.name)}">${o.no}</span>`).join('')}<span class="small muted">prowadzi do ${leads.length === 1 ? 'opcji' : 'opcji'} ${leads.map(o => o.no).join(', ')}</span></span>` : ''}</span></button>`;
+    return `<button class="flip rise" style="--i:${i}" data-flip aria-pressed="false" aria-label="${t('app.pstrengths.flip_aria', { name: esc(nameOf(x.id)) })}">
+      <span class="face front"><span class="star">${icon('star')}</span><b>${esc(nameOf(x.id))}</b><span class="small muted">${t('app.pstrengths.flip_hint')}</span></span>
+      <span class="face back"><span class="small">${esc(proofText(x.proof))}</span>${leads.length ? `<span class="leads">${leads.map(o => `<span class="tno-b sm" style="background:${o.color}" title="${esc(o.c.card.name)}">${o.no}</span>`).join('')}<span class="small muted">${t('app.pstrengths.leads', { list: leads.map(o => o.no).join(', ') })}</span></span>` : ''}</span></button>`;
   }).join('');
   const dims = r.profile.top.map((d, i) => { const dim = data.dimensions.interests.find(x => x.id === d), v = Math.round(r.profile.score[d]);
     return `<div class="bar${i < 2 ? ' main' : ''}"><span class="bl">${esc(dim.name)}</span><span class="bt"><i style="width:${v}%;--i:${i}"></i></span><span class="bd small muted">${esc(dim.desc)}</span></div>`; }).join('');
   const vals = (A.values || []).map((v, i) => `<li><span class="vn">${i + 1}</span>${esc(data.dimensions.values.find(x => x.id === v).name)}</li>`).join('');
-  return `${partHead(PARTS[0], 'To nie są wyniki testu, tylko twoje własne przykłady. Dotknij karty, żeby zobaczyć dowód i dokąd prowadzi.')}
+  return `${partHead(PARTS[0], t('app.pstrengths.lead'))}
     <div class="flips">${cards}</div>
-    <h2>Twój profil</h2><p class="small muted">Im dłuższy pasek, tym częściej wybierałeś takie czynności i sytuacje. Dwa pierwsze to twoje główne orientacje.</p>
+    <h2>${t('app.pstrengths.profile')}</h2><p class="small muted">${t('app.pstrengths.profile_note')}</p>
     <div class="card bars">${dims}</div>
-    <h2>Co jest dla ciebie ważne</h2><ol class="vals">${vals}</ol>
-    <h2>Mogę to zrobić, bo…</h2>
-    <label class="field" for="cando">Dokończ jednym zdaniem. Trafi na górę twojego pliku.</label>
+    <h2>${t('app.pstrengths.values')}</h2><ol class="vals">${vals}</ol>
+    <h2>${t('app.cando.title')}</h2>
+    <label class="field" for="cando">${t('app.cando.label')}</label>
     ${candoChips()}<input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
     ${nextPart('w-mocne')}`;
 }
@@ -970,15 +979,15 @@ function vPartDirections() {
   if (needResults()) return vResults();
   const r = scoreAll(A, data), opts = shownOptions(r);
   const sel = opts.find(o => o.key === kierSel) || opts[0];
-  const card = sel.quick ? `<div class="card opt"><span class="ctag">Szybki start</span><h3>${esc(sel.quick.offer.name)}</h3>
+  const card = sel.quick ? `<div class="card opt"><span class="ctag">${t('app.slot.quick')}</span><h3>${esc(sel.quick.offer.name)}</h3>
       <p>${esc(sel.quick.offer.institution)}. ${sel.quick.offer.next ? esc(sel.quick.offer.next) + '.' : ''}</p>${offerHtml(sel.quick.offer, sel.quick.check)}</div>`
     : cardHtml(sel.slot, sel.c, true, A.scenario);
-  return `${partHead(PARTS[1], 'Wybierz opcję. Czytaj z góry na dół: twoje mocne strony prowadzą do obszaru, obszar do studiów w Krakowie, a studia do przykładowych zawodów.')}
-    <div class="optpick" role="group" aria-label="Wybierz opcję">${opts.map(o => `<button class="optchip" data-kier="${esc(o.key)}" aria-pressed="${o === sel}" style="--c:${o.color}"><span class="tno-b sm" style="background:${o.color}">${o.no}</span><span>${esc(o.quick ? 'Szybki start' : o.c.card.name)}</span></button>`).join('')}</div>
+  return `${partHead(PARTS[1], t('app.directions.lead'))}
+    <div class="optpick" role="group" aria-label="${t('app.directions.pick_aria')}">${opts.map(o => `<button class="optchip" data-kier="${esc(o.key)}" aria-pressed="${o === sel}" style="--c:${o.color}"><span class="tno-b sm" style="background:${o.color}">${o.no}</span><span>${esc(o.quick ? t('app.slot.quick') : o.c.card.name)}</span></button>`).join('')}</div>
     ${confLine(r.profile.confidence)}
     <div class="card vroad">${vRoadSvg(sel)}</div>
     ${card}
-    ${r.slots.rest.length ? `<details class="card"><summary>Pozostałe obszary (${r.slots.rest.length})</summary>${r.slots.rest.map(c => cardHtml('Inna opcja', c, false, A.scenario)).join('')}</details>` : ''}
+    ${r.slots.rest.length ? `<details class="card"><summary>${t('app.directions.rest', { n: r.slots.rest.length })}</summary>${r.slots.rest.map(c => cardHtml(t('app.slot.other'), c, false, A.scenario)).join('')}</details>` : ''}
     ${nextPart('w-kierunki')}`;
 }
 
@@ -986,7 +995,7 @@ function vPartDirections() {
 function vRoadSvg(o) {
   const c = o.c, W = 360, col = o.color;
   const roots = c.paths.filter(p => p.kind !== 'dimension').map(p => p.label.replace(/^język: /, 'język: '));
-  if (!roots.length || c.paths.some(p => p.kind === 'dimension')) roots.push('twoje zainteresowania');
+  if (!roots.length || c.paths.some(p => p.kind === 'dimension')) roots.push(t('app.path.own_interests'));
   const studies = o.quick ? [{ offer: o.quick.offer, check: o.quick.check }] : [...c.offers.filter(x => x.check.reachable), ...c.offers.filter(x => !x.check.reachable && !x.check.hidden)].slice(0, 3);
   const jobs = (o.quick ? [o.quick.offer.next || o.quick.offer.name] : c.card.roles.split(',')).map(t => t.trim()).filter(Boolean).slice(0, 4);
   // Lay pills out in centred rows.
@@ -999,15 +1008,15 @@ function vRoadSvg(o) {
       for (const p of rw) { placed.push({ ...p, x, y: y0 + k * rh }); x += p.w + gap; } });
     return { placed, h: out.length * rh }; };
   const top = rows(roots, 48);
-  const yS = 48 + top.h + 44, label = wrap(o.quick ? 'Szybki start' : c.card.name, 26);
+  const yS = 48 + top.h + 44, label = wrap(o.quick ? t('app.slot.quick') : c.card.name, 26);
   const yStud0 = yS + 100 + label.length * 17; // room for the curve to reach the trunk above the caption (2.5 fix)
   const SH = 50, studY = studies.map((_, i) => yStud0 + i * (SH + 10));
   const yJobs = yStud0 + studies.length * (SH + 10) + 44;
   const jb = rows(jobs, yJobs + 22);
   const H = yJobs + 22 + jb.h + 14;
   const curve = (x1, y1, x2, y2) => { const m = (y1 + y2) / 2; return `M${x1.toFixed(1)},${y1} C${x1.toFixed(1)},${m} ${x2.toFixed(1)},${m} ${x2.toFixed(1)},${y2}`; };
-  let g = `<svg class="vdraw" viewBox="0 0 ${W} ${H}" role="img" aria-label="Droga: ${esc(roots.join(', '))} prowadzą do: ${esc(c.card.name)}; studia: ${esc(studies.map(x => x.offer.name).join(', '))}; zawody: ${esc(jobs.join(', '))}.">`;
-  g += `<text x="12" y="16" class="vcap">TWOJE MOCNE STRONY</text>`;
+  let g = `<svg class="vdraw" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('app.road.aria', { roots: esc(roots.join(', ')), area: esc(c.card.name), studies: esc(studies.map(x => x.offer.name).join(', ')), jobs: esc(jobs.join(', ')) })}">`;
+  g += `<text x="12" y="16" class="vcap">${t('app.map.col_strengths')}</text>`;
   top.placed.forEach((p, k) => { g += `<path class="vl" style="--d:${(k * 0.08).toFixed(2)}s" pathLength="1" d="${curve(p.x + p.w / 2, p.y + 15, W / 2, yS - 18)}" stroke="${col}"/>`; });
   top.placed.forEach(p => { g += `<g class="vpill"><rect x="${p.x}" y="${p.y - 15}" width="${p.w}" height="30" rx="15"/><text x="${p.x + p.w / 2}" y="${p.y + 5}" text-anchor="middle">${esc(p.t)}</text></g>`; });
   g += `<g class="vstation" style="--d:.5s"><circle cx="${W / 2}" cy="${yS}" r="18" fill="${col}"/><text x="${W / 2}" y="${yS + 6}" text-anchor="middle" class="vno">${o.no}</text>
@@ -1015,58 +1024,58 @@ function vRoadSvg(o) {
   const trunkX = 30, yName = yS + 30 + label.length * 17, yTurn = yStud0 - 34;
   // The curve reaches the trunk above the caption, and the caption sits right of the trunk, so the line never crosses text.
   g += `<path class="vl" style="--d:.7s" pathLength="1" d="M${W / 2},${yName} C${W / 2},${yTurn - 6} ${trunkX},${yName + 4} ${trunkX},${yTurn} L${trunkX},${yJobs - 10}" stroke="${col}"/>`;
-  g += `<text x="${trunkX + 18}" y="${yStud0 - 12}" class="vcap">GDZIE SIĘ UCZYĆ W KRAKOWIE</text>`;
+  g += `<text x="${trunkX + 18}" y="${yStud0 - 12}" class="vcap">${t('app.road.where')}</text>`;
   studies.forEach((st, i) => { const y = studY[i], ok = st.check.reachable, warn = !ok || st.check.soft;
-    g += `<g class="vstudy" style="--d:${(0.9 + i * 0.15).toFixed(2)}s" data-study="${esc(st.offer.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${esc(st.offer.name)}, ${esc(st.offer.institution)}: pokaż szczegóły"><path d="M${trunkX},${y + SH / 2} H${trunkX + 20}" stroke="${col}" class="vtick"/><circle cx="${trunkX}" cy="${y + SH / 2}" r="6" fill="var(--card)" stroke="${col}" stroke-width="3"/>
+    g += `<g class="vstudy" style="--d:${(0.9 + i * 0.15).toFixed(2)}s" data-study="${esc(st.offer.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${t('app.road.study_aria', { name: esc(st.offer.name), inst: esc(st.offer.institution) })}"><path d="M${trunkX},${y + SH / 2} H${trunkX + 20}" stroke="${col}" class="vtick"/><circle cx="${trunkX}" cy="${y + SH / 2}" r="6" fill="var(--card)" stroke="${col}" stroke-width="3"/>
       <rect x="${trunkX + 20}" y="${y}" width="${W - trunkX - 32}" height="${SH}" rx="12" class="${warn ? 'warnbox' : ''}"/>
       <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 30 ? st.offer.name.slice(0, 29) + '…' : st.offer.name)}</text>
       <text x="${W - 26}" y="${y + 30}" text-anchor="end" class="vmore">›</text>
-      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc((t => t.length > 46 ? t.slice(0, 45) + '…' : t)(`${shortInst(st.offer.institution)} · ${String(st.offer.durationYears).replace('.', ',')} ${st.offer.durationYears < 5 ? 'lata' : 'lat'}${!ok ? ' · wymaga zmiany w maturze' : st.check.soft ? ' · warto dopisać rozszerzenie' : ''}`))}</text></g>`; });
-  if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">brak kierunku w Krakowie w bazie</text>`;
+      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc((t => t.length > 46 ? t.slice(0, 45) + '…' : t)(`${shortInst(st.offer.institution)} · ${plural(st.offer.durationYears, 'app.years', { n: String(st.offer.durationYears).replace('.', ',') })}${!ok ? ' · ' + t('app.road.needs_change') : st.check.soft ? ' · ' + t('app.road.add_ext') : ''}`))}</text></g>`; });
+  if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">${t('app.card.no_study')}</text>`;
   g += `<path class="vl" style="--d:1.3s" pathLength="1" d="M${trunkX},${yJobs - 10} C${trunkX},${yJobs + 4} ${W / 2},${yJobs - 4} ${W / 2},${yJobs + 6}" stroke="${col}"/>`;
-  g += `<text x="12" y="${yJobs - 18}" class="vcap" text-anchor="start" dx="${trunkX + 10}">${o.quick ? 'PIERWSZA PRACA' : 'PRZYKŁADOWE ZAWODY'}</text>`;
+  g += `<text x="12" y="${yJobs - 18}" class="vcap" text-anchor="start" dx="${trunkX + 10}">${o.quick ? t('app.road.first_job') : t('app.road.jobs')}</text>`;
   jb.placed.forEach((p, k) => { g += `<g class="vjob" style="--d:${(1.5 + k * 0.1).toFixed(2)}s"><rect x="${p.x}" y="${p.y - 15}" width="${p.w}" height="30" rx="8" style="stroke:${col}"/><text x="${p.x + p.w / 2}" y="${p.y + 5}" text-anchor="middle">${esc(p.t)}</text></g>`; });
   return g + '</svg>';
 }
 
 // ---- Deklaracja maturalna: which one extra extended subject opens most of what he cares about (v2.2)
-const FIT_TXT = { 3: 'pasuje w pełni', 2: 'pasuje częściowo', 1: 'żaden twój przedmiot nie jest na liście', 0: 'wymaga zmiany w maturze' };
+const FIT_TXT = { 3: 'app.fit.full', 2: 'app.fit.part', 1: 'app.fit.weak', 0: 'app.fit.none' };
 const offName = o => `${o.name} (${shortInst(o.institution)})`;
-const nList = (list, max = 4) => esc(list.slice(0, max).map(offName).join(', ') + (list.length > max ? ` i ${list.length - max} więcej` : ''));
+const nList = (list, max = 4) => esc(list.slice(0, max).map(offName).join(', ') + (list.length > max ? ` ${t('app.decl.and_more', { n: list.length - max })}` : ''));
 // where: 'story' (the scroll page, link jumps to "Kierunki z bliska") or 'report' (the one-page report, link scrolls to "Opcje").
 let declWhere = 'story';
 function declarationHtml(r, where = declWhere) {
   declWhere = where;
   const h = declarationHelp(r, A, data), ext = A.rozszerzenia || [];
   const n = (A.stars || []).length;
-  const link = where === 'story' ? '<button class="linkbtn" data-jump="s-kierunki">Kierunki z bliska</button> (dotknij studiów na drodze)'
-    : '<button class="linkbtn" data-scroll="r-opcje">Opcje</button>';
+  const link = where === 'story' ? '<button class="linkbtn" data-jump="s-kierunki">' + t('app.decl.link_close') + '</button> ' + t('app.decl.link_tap')
+    : '<button class="linkbtn" data-scroll="r-opcje">' + t('app.decl.link_options') + '</button>';
   const basis = h.basis === 'stars'
-    ? `Liczę dla twoich gwiazdek (<span class="starcount">${n}</span>). Dodawaj je znakiem ☆ przy studiach w części ${link}.`
-    : `Nie masz jeszcze gwiazdek, więc liczę dla studiów z twoich opcji (${h.total}). Oznacz ☆ te, które cię ciekawią, w części ${link}, a lista się zawęzi.`;
-  if (!ext.length) return `<h2 id="deklaracja">Deklaracja maturalna</h2><div class="card decl"><p>Nie zaznaczyłeś jeszcze przedmiotów rozszerzonych, więc nie ma czego porównać.</p>
-    <div class="actions"><button class="btn" data-go="matura">Zaznacz rozszerzenia</button></div></div>`;
+    ? t('app.decl.basis_stars', { n: n, link: link })
+    : t('app.decl.basis_nostars', { total: h.total, link: link });
+  if (!ext.length) return `<h2 id="deklaracja">${t('app.decl.title_short')}</h2><div class="card decl"><p>${t('app.decl.no_ext')}</p>
+    <div class="actions"><button class="btn" data-go="matura">${t('app.decl.mark_ext')}</button></div></div>`;
   const dep = h.full.length + h.part.length + h.weak.length + h.closed.length;
-  const seg = (k, list, cls) => list.length ? `<span class="dseg ${cls}" style="flex:${list.length}" title="${FIT_TXT[k]}: ${list.length}"></span>` : '';
+  const seg = (k, list, cls) => list.length ? `<span class="dseg ${cls}" style="flex:${list.length}" title="${t(FIT_TXT[k])}: ${list.length}"></span>` : '';
   const meter = dep ? `<div class="dmeter" aria-hidden="true">${seg(3, h.full, 'f3')}${seg(2, h.part, 'f2')}${seg(1, h.weak, 'f1')}${seg(0, h.closed, 'f0')}</div>` : '';
-  const sum = [[h.full, 'w pełni'], [h.part, 'częściowo'], [h.weak, 'słabo (żaden twój przedmiot nie jest na liście)'], [h.closed, 'wcale (wymagają zmiany)']].filter(([l]) => l.length).map(([l, t]) => `<b>${l.length}</b> ${t}`).join(' · ');
+  const sum = [[h.full, t('app.decl.sum_full')], [h.part, t('app.decl.sum_part')], [h.weak, t('app.decl.sum_weak')], [h.closed, t('app.decl.sum_closed')]].filter(([l]) => l.length).map(([l, t]) => `<b>${l.length}</b> ${t}`).join(' · ');
   const gains = h.gains.length ? `<ol class="dgains">${h.gains.map((g, i) => `<li${i === 0 ? ' class="dbest"' : ''}><b>+ ${esc(g.subject)}</b>
-      ${g.opens.length ? `<span class="small">otwiera ${g.opens.length}: ${nList(g.opens)}</span>` : ''}
-      ${g.better.length ? `<span class="small muted">wzmacnia ${g.better.length}: ${nList(g.better)}</span>` : ''}</li>`).join('')}</ol>`
-    : `<p class="small">Żadne jedno dodatkowe rozszerzenie nic tu nie zmienia. Twoje przedmioty już pasują${h.needMore.length ? ' tam, gdzie da się to zmienić jednym przedmiotem' : ''}.</p>`;
-  const keep = h.keep.length ? `<p class="small"><b>Nie skreślaj:</b> ${h.keep.map(k => `${esc(k.subject)} (liczy się w ${k.needed.length})`).join(', ')}.</p>` : '';
-  const more = h.needMore.length ? `<p class="small muted">Potrzebują co najmniej dwóch nowych rozszerzeń: ${nList(h.needMore, 3)}.</p>` : '';
+      ${g.opens.length ? `<span class="small">${t('app.decl.opens', { n: g.opens.length, list: nList(g.opens) })}</span>` : ''}
+      ${g.better.length ? `<span class="small muted">${t('app.decl.better', { n: g.better.length, list: nList(g.better) })}</span>` : ''}</li>`).join('')}</ol>`
+    : `<p class="small">${h.needMore.length ? t('app.decl.none_more') : t('app.decl.none')}</p>`;
+  const keep = h.keep.length ? `<p class="small"><b>${t('app.decl.keep')}</b> ${h.keep.map(k => t('app.decl.counts_in', { subject: esc(k.subject), n: k.needed.length })).join(', ')}.</p>` : '';
+  const more = h.needMore.length ? `<p class="small muted">${t('app.decl.more', { list: nList(h.needMore, 3) })}</p>` : '';
   const rows = [...h.full.map(o => [o, 3]), ...h.part.map(o => [o, 2]), ...h.weak.map(o => [o, 1]), ...h.closed.map(o => [o, 0]), ...h.free.map(o => [o, null])];
-  const list = `<details class="dlist"${h.basis === 'stars' ? ' open' : ''}><summary>${h.basis === 'stars' ? 'Twoje gwiazdki' : 'Każdy kierunek z listy'} (${rows.length})</summary><ul>${rows.map(([o, f]) => `<li>${starBtn(o)}<span><b>${esc(o.name)}</b>, ${esc(shortInst(o.institution))}<br>
-      <span class="small ${f === 3 ? '' : 'muted'}">${f === null ? (o.requires?.noMatura ? 'matura niewymagana' : o.requires?.exam ? 'decyduje egzamin wstępny' : 'nie zależy od rozszerzeń (w bazie)') : FIT_TXT[f]} · ${esc(o.requires?.note || '')}</span></span></li>`).join('')}</ul></details>`;
-  return `<h2 id="deklaracja">Deklaracja maturalna: co otwiera najwięcej</h2>
+  const list = `<details class="dlist"${h.basis === 'stars' ? ' open' : ''}><summary>${h.basis === 'stars' ? t('app.decl.list_stars') : t('app.decl.list_all')} (${rows.length})</summary><ul>${rows.map(([o, f]) => `<li>${starBtn(o)}<span><b>${esc(o.name)}</b>, ${esc(shortInst(o.institution))}<br>
+      <span class="small ${f === 3 ? '' : 'muted'}">${f === null ? (o.requires?.noMatura ? t('app.decl.no_matura') : o.requires?.exam ? t('app.decl.exam') : t('app.decl.indep_db')) : t(FIT_TXT[f])} · ${esc(o.requires?.note || '')}</span></span></li>`).join('')}</ul></details>`;
+  return `<h2 id="deklaracja">${t('app.decl.title')}</h2>
     <div class="card decl">
       <p class="small muted">${basis}</p>
-      <p>Twoje rozszerzenia: <b>${esc(ext.join(', '))}</b>.${dep ? ` Pasują do kierunków: ${sum}.` : ''}${h.free.length ? ` <span class="small muted">Nie zależy od rozszerzeń: ${h.free.length}.</span>` : ''}</p>
+      <p>${t('app.decl.mine', { list: esc(ext.join(', ')) })}${dep ? ` ${t('app.decl.fits', { sum: sum })}` : ''}${h.free.length ? ` <span class="small muted">${t('app.decl.free', { n: h.free.length })}</span>` : ''}</p>
       ${meter}
-      <h3>Jedno rozszerzenie więcej</h3>${gains}${keep}${more}${list}
-      <p class="small muted">To podpowiedź z zasad rekrutacji w bazie (głównie 2026), nie decyzja. Każde rozszerzenie to więcej nauki, a liczy się też wynik. Porozmawiaj z wychowawcą. Deklarację zmienisz do ${esc(data.config.declarationDeadline)}.</p>
-      <div class="actions"><button class="btn ghost" data-go="matura">Zmień rozszerzenia</button></div>
+      <h3>${t('app.decl.one_more')}</h3>${gains}${keep}${more}${list}
+      <p class="small muted">${t('app.decl.note', { date: esc(data.config.declarationDeadline) })}</p>
+      <div class="actions"><button class="btn ghost" data-go="matura">${t('app.decl.change_ext')}</button></div>
     </div>`;
 }
 
@@ -1074,26 +1083,26 @@ function declarationHtml(r, where = declWhere) {
 function compareRows() {
   const ext = A.rozszerzenia || [];
   return [
-    ['Uczelnia i miejsce', o => { const c = campus(o.campus); return `${esc(o.institution)}${c ? `<br><span class="small muted">${esc(c.name)}, ${esc(c.address)}</span>` : ''}`; }],
-    ['Długość', o => `${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'lata' : 'lat'} · ${esc(o.level)}`],
-    ['Twoje przedmioty', o => { const f = subjectFit(o, ext); return `<b>${f === null ? (o.requires?.noMatura ? 'matura niewymagana' : o.requires?.exam ? 'decyduje egzamin' : 'nie zależy od rozszerzeń') : FIT_TXT[f]}</b><br><span class="small muted">${esc(o.requires?.note || '')}</span>`; }],
-    ['Próg 2026', o => o.threshold ? `${o.threshold.points} z ${o.threshold.max} pkt${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : o.requires?.exam ? '<span class="badge warn">egzamin wstępny albo przesłuchanie</span>' : '<span class="muted">brak danych</span>'],
-    ['Dojazd', o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
-    ['Uczelnia', o => o.private ? `prywatna, płatna${o.cost ? `<br><span class="small muted">${esc(o.cost)}</span>` : ''}` : 'publiczna'],
-    ['Co dalej', o => esc(o.next || '-')]];
+    [t('app.compare.row_inst'), o => { const c = campus(o.campus); return `${esc(o.institution)}${c ? `<br><span class="small muted">${esc(c.name)}, ${esc(c.address)}</span>` : ''}`; }],
+    [t('app.compare.row_length'), o => `${plural(o.durationYears, 'app.years', { n: String(o.durationYears).replace('.', ',') })} · ${esc(o.level)}`],
+    [t('app.compare.row_subjects'), o => { const f = subjectFit(o, ext); return `<b>${f === null ? (o.requires?.noMatura ? t('app.decl.no_matura') : o.requires?.exam ? t('app.compare.exam') : t('app.compare.indep')) : t(FIT_TXT[f])}</b><br><span class="small muted">${esc(o.requires?.note || '')}</span>`; }],
+    [t('app.compare.row_threshold'), o => o.threshold ? `${t('app.compare.points', { p: o.threshold.points, m: o.threshold.max })}${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : o.requires?.exam ? '<span class="badge warn">' + t('app.compare.exam_audition') + '</span>' : '<span class="muted">' + t('app.compare.no_data') + '</span>'],
+    [t('app.compare.row_commute'), o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
+    [t('app.compare.row_type'), o => o.private ? `${t('app.compare.private')}${o.cost ? `<br><span class="small muted">${esc(o.cost)}</span>` : ''}` : t('app.compare.public')],
+    [t('app.compare.row_next'), o => esc(o.next || '-')]];
 }
 function compareHtml() {
   const stars = (A.stars || []).filter(id => data.offers.some(o => o.id === id));
-  const head = '<h2 id="porownanie">Porównaj gwiazdki</h2>';
-  if (stars.length < 2) return `${head}<div class="card cmp"><p class="small muted">${stars.length ? 'Oznacz jeszcze jedną gwiazdkę ☆ (w „Kierunkach” powyżej dotknij studiów na drodze), żeby porównać je obok siebie.' : 'W „Kierunkach” powyżej dotknij studiów na drodze i oznacz ☆ 2 albo 3. Tu zobaczysz je obok siebie.'}</p></div>`;
+  const head = '<h2 id="porownanie">' + t('app.compare.title') + '</h2>';
+  if (stars.length < 2) return `${head}<div class="card cmp"><p class="small muted">${stars.length ? t('app.compare.one_more') : t('app.compare.none')}</p></div>`;
   const ids = compareIds(A, data), offs = ids.map(id => data.offers.find(o => o.id === id)), rows = compareRows();
-  const pick = stars.length > 2 ? `<p class="small muted">Wybierz 2 albo 3:</p><div class="chips" role="group" aria-label="Które studia porównać">${stars.map(id => { const o = data.offers.find(x => x.id === id), on = ids.includes(id);
+  const pick = stars.length > 2 ? `<p class="small muted">${t('app.compare.pick')}</p><div class="chips" role="group" aria-label="${t('app.compare.pick_aria')}">${stars.map(id => { const o = data.offers.find(x => x.id === id), on = ids.includes(id);
     return `<button class="chip" data-cmp="${esc(id)}" aria-pressed="${on}" ${!on && ids.length >= 3 ? 'disabled' : ''}>${esc(o.name)} <span class="muted">${esc(shortInst(o.institution))}</span></button>`; }).join('')}</div>` : '';
   const table = `<div class="cmp-table"><table><thead><tr><td></td>${offs.map(o => `<th scope="col">${esc(o.name)}<br><span class="small muted">${esc(shortInst(o.institution))}</span></th>`).join('')}</tr></thead>
     <tbody>${rows.map(([l, f]) => `<tr><th scope="row">${l}</th>${offs.map(o => `<td>${f(o)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
   const cards = `<div class="cmp-cards" role="list">${offs.map(o => `<div class="cmp-card" role="listitem"><h3>${esc(o.name)}</h3><p class="small muted">${esc(shortInst(o.institution))}</p>
     <dl>${rows.map(([l, f]) => `<dt>${l}</dt><dd>${f(o)}</dd>`).join('')}</dl></div>`).join('')}</div>`;
-  return `${head}<div class="card cmp">${pick}${table}${cards}${offs.length > 1 ? '<p class="small muted cmp-hint">Przesuń w bok, żeby zobaczyć następne.</p>' : ''}</div>`;
+  return `${head}<div class="card cmp">${pick}${table}${cards}${offs.length > 1 ? '<p class="small muted cmp-hint">' + t('app.compare.hint') + '</p>' : ''}</div>`;
 }
 function refreshCompare() { const w = document.getElementById('cmpwrap'); if (w) w.innerHTML = compareHtml(); }
 function tapCompare(id) {
@@ -1110,26 +1119,26 @@ function vPartPath() {
   const warn = lines.filter(l => !l.chk.reachable || l.chk.soft);
   const insts = [...new Set(lines.map(l => shortInst(l.o.institution)))].join(', ');
   const steps = [
-    ['dek', 'do 7 lutego 2027', warn.length ? `Sprawdź deklarację maturalną: ${warn.map(l => `${l.quick ? 'S' : lines.indexOf(l) + 1} (${l.chk.soft ? 'dopisz rozszerzenie: ' + l.chk.soft : l.chk.blocked[0] || 'zmiana w maturze'})`).join('; ')}.` : 'Sprawdź deklarację maturalną: twoje linie nie wymagają zmian.'],
-    ['dni', 'marzec–kwiecień', `Dni otwarte: ${insts}.`],
-    ['exp', 'w ciągu 30 dni', `Mini-eksperyment: ${s.best[0].card.experiment}`],
-    ['mat', 'maj 2027', 'Matura.'],
-    ['rek', 'czerwiec–lipiec', 'Rekrutacja na studia (rejestracja na stronach uczelni) albo zapisy do szkoły policealnej.']
+    ['dek', t('app.date.declaration'), warn.length ? t('app.path.check_decl', { list: warn.map(l => `${l.quick ? 'S' : lines.indexOf(l) + 1} (${l.chk.soft ? t('app.path.add_ext', { w: l.chk.soft }) : l.chk.blocked[0] || t('app.path.matura_change')})`).join('; ') }) : t('app.path.check_decl_ok')],
+    ['dni', t('app.date.open_days'), t('app.path.open_days', { insts: insts })],
+    ['exp', t('app.path.date_exp'), t('app.path.exp', { text: s.best[0].card.experiment })],
+    ['mat', t('app.date.matura'), t('app.path.matura')],
+    ['rek', t('app.path.date_rec'), t('app.path.recruit')]
   ];
   A.checks = A.checks || {};
   const pins = [], seen = new Set();
   for (const l of lines) { const cp = campus(l.o.campus); if (cp && !seen.has(cp.id)) { seen.add(cp.id); pins.push({ cp, l }); } }
-  return `${partHead(PARTS[2], 'Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Do jesieni 2027 wszystkie linie jadą razem, więc przesiadka jest normalna.')}
+  return `${partHead(PARTS[2], t('app.path.lead'))}
     <div class="card trammap">${tramMapSvg(lines)}${tramLegend(lines)}</div>
     <div id="declwrap">${declarationHtml(r, 'report')}</div>
-    <h2>Najbliższe kroki</h2><p class="small muted">Odhacz, co już zrobione. Zapisuje się tylko w tej karcie.</p>
+    <h2>${t('app.path.next_steps')}</h2><p class="small muted">${t('app.path.next_note')}</p>
     <ul class="checks">${steps.map(([k, d, t]) => `<li><label><input type="checkbox" data-check="${k}" ${A.checks[k] ? 'checked' : ''}><span><b>${d}</b> ${esc(t)}</span></label></li>`).join('')}</ul>
-    <h2>Gdzie to jest</h2>
+    <h2>${t('app.path.where')}</h2>
     <div class="places2">${pins.map(({ cp, l }) => `<div class="place"><span class="tno-b sm" style="background:${l.color}">${l.quick ? 'S' : lines.indexOf(l) + 1}</span><div><b>${esc(cp.name)}</b><br>
-      <span class="small">${esc(cp.address)}</span><br><span class="small">${icon('tram', 'ico sm')} ${transit(cp)}</span><br><span class="small">${commute(cp)} · <a href="${routeUrl(cp)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></div></div>`).join('')}</div>
-    <p class="small muted">${data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : ''}</p>
-    <details class="card"><summary>Wszystkie miejsca w bazie (${data.campuses.length})</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b><br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul></details>
-    <div class="card"><h3>Niemcy i dalej</h3><p class="small">Polska matura daje bezpośredni wstęp na niemieckie uczelnie. Większość licencjatów jest po niemiecku (C1), wiele magisterskich po angielsku. Obywatele UE nie płacą czesnego na publicznych uczelniach w Bawarii, tylko opłatę semestralną. Jedna z dróg: licencjat w Krakowie, magisterka w Monachium.</p></div>
+      <span class="small">${esc(cp.address)}</span><br><span class="small">${icon('tram', 'ico sm')} ${transit(cp)}</span><br><span class="small">${commute(cp)} · <a href="${routeUrl(cp)}" target="_blank" rel="noopener">${t('app.common.route_plan')}</a></span></div></div>`).join('')}</div>
+    <p class="small muted">${data.transport ? t('app.path.transport', { asof: esc(data.transport.asOf), method: esc(data.transport.method) }) : ''}</p>
+    <details class="card"><summary>${t('app.path.all_places', { n: data.campuses.length })}</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b><br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">${t('app.common.route_plan')}</a></span></li>`).join('')}</ul></details>
+    <div class="card"><h3>${t('app.path.germany_title')}</h3><p class="small">${t('app.path.germany')}</p></div>
     ${nextPart('w-droga')}`;
 }
 
@@ -1139,22 +1148,22 @@ function vPartFuture() {
   if (needResults()) return vResults();
   const r = scoreAll(A, data), sc = data.scenarios.scenarios, my = sc.find(x => x.id === A.scenario);
   const opts = shownOptions(r).filter(o => !o.quick);
-  let body = '<p class="lead center">Wybierz scenariusz, który wydaje ci się najbardziej prawdopodobny.</p>';
+  let body = '<p class="lead center">' + t('app.future.lead') + '</p>';
   if (my) {
     const forces = data.scenarios.forces.filter(f => my.emphasis.includes(f.id));
     const ranked = [...opts].sort((a, b) => (NEED[b.c.card.robustness[my.id]] || 0) - (NEED[a.c.card.robustness[my.id]] || 0));
     const shownIds = new Set(opts.map(o => o.c.card.id));
     const extra = r.cards.filter(c => !shownIds.has(c.card.id) && c.card.robustness[my.id] === 'wysoka' && forces.some(f => f.id === c.card.force) && c.fit >= 55).slice(0, 3);
-    const meter = v => `<span class="meter m${NEED[v] || 0}" aria-label="potrzeba: ${esc(v)}"><i></i><i></i><i></i></span>`;
-    body = `<h2>Co w tym scenariuszu waży najwięcej</h2>
+    const meter = v => `<span class="meter m${NEED[v] || 0}" aria-label="${t('app.future.need_aria', { v: esc(v) })}"><i></i><i></i><i></i></span>`;
+    body = `<h2>${t('app.future.weighs')}</h2>
       <div class="forces">${forces.map((f, i) => `<div class="force hot rise" style="--i:${i}">${icon(FORCE_ICON[f.id], 'ico big')}<div><h3>${esc(f.name)}</h3><p class="small">${esc(f.text)}</p></div></div>`).join('')}</div>
-      <h2>Twoje opcje w scenariuszu „${esc(my.name)}”</h2><p class="small muted">Od najbardziej potrzebnych. Dopasowanie do ciebie się nie zmienia; to tylko inne światło.</p>
+      <h2>${t('app.future.your_options', { name: esc(my.name) })}</h2><p class="small muted">${t('app.future.options_note')}</p>
       <div class="needlist">${ranked.map((o, i) => `<div class="needrow rise" style="--i:${i}"><span class="tno-b sm" style="background:${o.color}">${o.no}</span><span class="nn">${esc(o.c.card.name)}${o.c.card.robustnessNote ? `<span class="small muted">${esc(o.c.card.robustnessNote)}</span>` : ''}</span>${meter(o.c.card.robustness[my.id])}</div>`).join('')}</div>
-      ${extra.length ? `<h2>Bardzo potrzebne w tym scenariuszu i pasujące do ciebie</h2><div class="areas">${extra.map((c, i) => `<div class="area rise" style="--i:${i}"><span class="area-ico">${icon(c.card.cluster)}</span><div><h3>${esc(c.card.name)}</h3><p class="small">${esc(c.card.whoYouHelp)}</p><span class="small muted">${esc(c.band)}</span></div></div>`).join('')}</div>` : ''}`;
+      ${extra.length ? `<h2>${t('app.future.extra')}</h2><div class="areas">${extra.map((c, i) => `<div class="area rise" style="--i:${i}"><span class="area-ico">${icon(c.card.cluster)}</span><div><h3>${esc(c.card.name)}</h3><p class="small">${esc(c.card.whoYouHelp)}</p><span class="small muted">${esc(c.band)}</span></div></div>`).join('')}</div>` : ''}`;
   }
-  return `${partHead(PARTS[3], 'Na koniec zabawa w przyszłość. Wybierz scenariusz: zobaczysz tylko to, co w nim najważniejsze, i swoje opcje w tym świetle.')}
+  return `${partHead(PARTS[3], t('app.future.lead_part'))}
     <div class="scen">${sc.map((x, i) => `<button class="scencard rise" style="--i:${i}" data-set="scenario" data-val="${x.id}" aria-pressed="${A.scenario === x.id}">
-      ${scenArt(x.id)}<b>${esc(x.name)}</b><span class="small">${esc(x.text)}</span>${A.scenario === x.id ? '<span class="badge">mój główny scenariusz</span>' : ''}</button>`).join('')}</div>
+      ${scenArt(x.id)}<b>${esc(x.name)}</b><span class="small">${esc(x.text)}</span>${A.scenario === x.id ? '<span class="badge">' + t('app.scenarios.main_badge') + '</span>' : ''}</button>`).join('')}</div>
     ${body}
     ${nextPart('w-przyszlosc')}`;
 }
@@ -1163,19 +1172,19 @@ function vPartFuture() {
 function vPartFile() {
   if (needResults()) return vResults();
   const r = scoreAll(A, data), doubt = data.questions.doubts.find(d => d.id === A.doubt);
-  return `${partHead(PARTS[4], 'Plik powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku wczytasz go i zobaczysz, co się zmieniło.')}
+  return `${partHead(PARTS[4], t('app.file.lead'))}
     ${changesSince(r)}
-    <div class="actions"><button class="btn" data-export="download">Pobierz plik .md</button><button class="btn ghost" data-export="copy">Kopiuj do schowka</button>
-      <button class="btn ghost" data-export="print">Drukuj / PDF</button><button class="btn ghost" data-go="wyniki">Cały raport na jednej stronie</button></div>
+    <div class="actions"><button class="btn" data-export="download">${t('app.file.download')}</button><button class="btn ghost" data-export="copy">${t('app.file.copy')}</button>
+      <button class="btn ghost" data-export="print">${t('app.file.print')}</button><button class="btn ghost" data-go="wyniki">${t('app.file.full_report')}</button></div>
     <p id="msg" class="small muted" role="status"></p>
-    <div class="card loadcard"><h3>Masz starszy plik?</h3><label class="btn ghost filebtn">Wczytaj plik .md<input type="file" accept=".md,text/markdown,text/plain" data-load></label></div>
-    ${doubt ? `<div class="card"><h3>To, co cię niepokoi</h3><p>${doubt.card}</p>${A.doubtStrong ? '<p class="notice">Jeśli ten niepokój zostaje z tobą na dłużej, porozmawiaj z doradcą zawodowym w szkole albo w bezpłatnej poradni psychologiczno-pedagogicznej.</p>' : ''}</div>` : ''}
-    <details class="card"><summary>Dla rodzica</summary><ul>
-      <li>Pytaj, nie mów: „Co cię tu zaskoczyło?” działa lepiej niż „Widzisz, mówiłem”.</li>
-      <li>Reaguj na dowody, nie na opcję: dowody są jego, opcja może się zmienić.</li>
-      <li>Bez porównań między braćmi; każdy plik należy do właściciela.</li>
-      <li>Umówcie się na jeden mały krok w tym miesiącu, nie na ostateczny wybór.</li></ul></details>
-    <div class="actions"><button class="btn ghost" data-go="pewnosc">Zmień odpowiedzi</button></div>
+    <div class="card loadcard"><h3>${t('app.file.older')}</h3><label class="btn ghost filebtn">${t('app.file.load_md')}<input type="file" accept=".md,text/markdown,text/plain" data-load></label></div>
+    ${doubt ? `<div class="card"><h3>${t('app.doubt.worry')}</h3><p>${doubt.card}</p>${A.doubtStrong ? '<p class="notice">' + t('app.doubt.help') + '</p>' : ''}</div>` : ''}
+    <details class="card"><summary>${t('app.parent.title')}</summary><ul>
+      <li>${t('app.parent.ask')}</li>
+      <li>${t('app.parent.evidence')}</li>
+      <li>${t('app.parent.siblings')}</li>
+      <li>${t('app.parent.step')}</li></ul></details>
+    <div class="actions"><button class="btn ghost" data-go="pewnosc">${t('app.file.change_answers')}</button></div>
     ${nextPart('w-plik')}`;
 }
 
@@ -1199,10 +1208,10 @@ function makeStoryCtx() {
     declHtml: () => declarationHtml(ctx.r, 'story'),
     cmpHtml: () => compareHtml(),
     candoChips: () => candoChips(),
-    transportNote: () => data.transport ? `Przystanki, linie i czasy z oficjalnego rozkładu jazdy Krakowa (rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Przed wyjazdem sprawdź trasę.` : '',
+    transportNote: () => data.transport ? t('app.path.transport', { asof: esc(data.transport.asOf), method: esc(data.transport.method) }) : '',
     changes: () => changesSince(ctx.r),
     doubtHtml: () => { const d = data.questions.doubts.find(x => x.id === A.doubt);
-      return d ? `<div class="pcard"><h3>To, co cię niepokoi</h3><p>${d.card}</p>${A.doubtStrong ? '<p class="small">Jeśli ten niepokój zostaje z tobą na dłużej, porozmawiaj z doradcą zawodowym w szkole albo w bezpłatnej poradni psychologiczno-pedagogicznej.</p>' : ''}</div>` : ''; }
+      return d ? `<div class="pcard"><h3>${t('app.doubt.worry')}</h3><p>${d.card}</p>${A.doubtStrong ? '<p class="small">' + t('app.doubt.help') + '</p>' : ''}</div>` : ''; }
   };
   ctx.r = scoreAll(A, data);
   return ctx;
@@ -1210,15 +1219,15 @@ function makeStoryCtx() {
 // Shown instead of the results while the two things the compass needs are still missing.
 function vGate() {
   const rows = [
-    ['mocne', 'Mocne strony: co najmniej jedna z przykładem', provenStrengths(A).length >= 1, true],
-    ['wartosci', 'Co jest dla ciebie ważne w pracy', A.values.length > 0, true],
-    ['zajecia', 'Co lubisz robić', Object.keys(A.sort).length >= 12, false],
-    ['sytuacje', 'Co robisz, gdy…', Object.keys(A.situations).length >= 3, false],
-    ['matura', 'Przedmioty rozszerzone', A.rozszerzenia.length > 0, false]];
-  return `<div class="gate"><span class="kicker2">Wyniki</span><h1>Jeszcze dwie rzeczy</h1>
-    <p class="lead">Kompas potrzebuje twoich mocnych stron i tego, co jest dla ciebie ważne. Reszta go wyostrza, ale nie jest konieczna.</p>
-    <ul class="gatelist">${rows.map(([go, t, ok, must]) => `<li class="${ok ? 'ok' : must ? 'must' : ''}"><span class="rno">${ok ? TICK : ''}</span><span>${t}${must ? '' : ' <span class="muted small">(opcjonalnie)</span>'}</span>${ok ? '' : `<button class="btn ${must ? '' : 'ghost'} small-btn" data-go="${go}">${must ? 'Uzupełnij' : 'Dodaj'}</button>`}</li>`).join('')}</ul>
-    <div class="actions"><button class="btn ghost" data-go="${A.certainty ? 'mocne' : 'pewnosc'}">Wracam do pytań</button></div></div>`;
+    ['mocne', t('app.gate.strengths'), provenStrengths(A).length >= 1, true],
+    ['wartosci', t('app.gate.values'), A.values.length > 0, true],
+    ['zajecia', t('app.gate.sort'), Object.keys(A.sort).length >= 12, false],
+    ['sytuacje', t('app.gate.situations'), Object.keys(A.situations).length >= 3, false],
+    ['matura', t('app.gate.matura'), A.rozszerzenia.length > 0, false]];
+  return `<div class="gate"><span class="kicker2">${t('app.gate.kicker')}</span><h1>${t('app.gate.title')}</h1>
+    <p class="lead">${t('app.gate.lead')}</p>
+    <ul class="gatelist">${rows.map(([go, label, ok, must]) => `<li class="${ok ? 'ok' : must ? 'must' : ''}"><span class="rno">${ok ? TICK : ''}</span><span>${label}${must ? '' : ' <span class="muted small">' + t('app.gate.optional') + '</span>'}</span>${ok ? '' : `<button class="btn ${must ? '' : 'ghost'} small-btn" data-go="${go}">${must ? t('app.gate.complete') : t('app.gate.add')}</button>`}</li>`).join('')}</ul>
+    <div class="actions"><button class="btn ghost" data-go="${A.certainty ? 'mocne' : 'pewnosc'}">${t('app.gate.back')}</button></div></div>`;
 }
 function vStory() {
   if (needResults()) return vGate();
@@ -1233,25 +1242,25 @@ function planHtml(r) {
   const cur = opts.find(o => o.key === focus.key) || opts[0], f = focus.o?.offer;
   const items = planItems(focus, data), key = it => `plan:${focus.key}:${it.id}`;
   const done = items.filter(it => A.checks?.[key(it)]).length;
-  return `<span class="kicker">Twój plan</span><h2>Nie wybór. Kilka małych kroków.</h2>
-    <p class="lead">Nie musisz dziś decydować. Wybierz jeden kierunek, który sprawdzisz najpierw, i zrób kilka małych rzeczy. Potem wróć i zobacz, co się zmieniło.</p>
+  return `<span class="kicker">${t('app.plan.kicker')}</span><h2>${t('app.plan.title')}</h2>
+    <p class="lead">${t('app.plan.lead')}</p>
     <div class="plan">
-      <div class="plan-pick"><h3>Który kierunek sprawdzasz najpierw?</h3>
-        <div class="plan-opts" role="radiogroup" aria-label="Kierunek do sprawdzenia">${opts.map(o => `<button role="radio" class="eitem" data-planfocus="${esc(o.key)}" aria-checked="${o.key === focus.key}" style="--c:${o.color}"><span class="nb" style="background:${o.color}">${o.no}</span><span><b>${esc(o.quick ? 'Szybki start' : o.c.card.name)}</b><span class="small muted">${esc(o.quick ? o.quick.offer.name : o.slot)}</span></span></button>`).join('')}</div>
-        <p class="small muted">To nie jest decyzja. Za miesiąc możesz sprawdzić następny.</p></div>
-      <div class="plan-list" style="--c:${cur.color}"><span class="kicker" style="color:${cur.color}">Sprawdzam najpierw</span><h3>${esc(focus.quick ? f.name : focus.c.card.name)}</h3>
-        ${f ? `<p class="small muted">${icon('school', 'ico sm')} ${esc(f.name)}, ${esc(shortInst(f.institution))} · ${String(f.durationYears).replace('.', ',')} ${f.durationYears < 5 ? 'lata' : 'lat'}</p>` : ''}
-        <ul class="plan-items">${items.map(it => `<li class="${it.warn ? 'warn' : ''}"><label><input type="checkbox" data-check="${esc(key(it))}" ${A.checks?.[key(it)] ? 'checked' : ''}><span><span class="when">${esc(it.when)}</span>${esc(it.text)}${it.url ? ` <a href="${esc(it.url)}" target="_blank" rel="noopener">Otwórz stronę</a>` : ''}</span></label></li>`).join('')}</ul>
-        <p class="small muted plan-n" aria-live="polite">Zrobione: ${done} z ${items.length}. Plan zapisuje się w twoim pliku.</p></div>
+      <div class="plan-pick"><h3>${t('app.plan.pick')}</h3>
+        <div class="plan-opts" role="radiogroup" aria-label="${t('app.plan.pick_aria')}">${opts.map(o => `<button role="radio" class="eitem" data-planfocus="${esc(o.key)}" aria-checked="${o.key === focus.key}" style="--c:${o.color}"><span class="nb" style="background:${o.color}">${o.no}</span><span><b>${esc(o.quick ? t('app.slot.quick') : o.c.card.name)}</b><span class="small muted">${esc(o.quick ? o.quick.offer.name : o.slot)}</span></span></button>`).join('')}</div>
+        <p class="small muted">${t('app.plan.not_decision')}</p></div>
+      <div class="plan-list" style="--c:${cur.color}"><span class="kicker" style="color:${cur.color}">${t('app.plan.first')}</span><h3>${esc(focus.quick ? f.name : focus.c.card.name)}</h3>
+        ${f ? `<p class="small muted">${icon('school', 'ico sm')} ${esc(f.name)}, ${esc(shortInst(f.institution))} · ${plural(f.durationYears, 'app.years', { n: String(f.durationYears).replace('.', ',') })}</p>` : ''}
+        <ul class="plan-items">${items.map(it => `<li class="${it.warn ? 'warn' : ''}"><label><input type="checkbox" data-check="${esc(key(it))}" ${A.checks?.[key(it)] ? 'checked' : ''}><span><span class="when">${esc(it.when)}</span>${esc(it.text)}${it.url ? ` <a href="${esc(it.url)}" target="_blank" rel="noopener">${t('app.plan.open')}</a>` : ''}</span></label></li>`).join('')}</ul>
+        <p class="small muted plan-n" aria-live="polite">${t('app.plan.done', { n: done, m: items.length })}</p></div>
     </div>`;
 }
 
-const STUDY_HINT = '<h4>W Krakowie</h4><p class="small muted">Kliknij uczelnię w części „Gdzie się uczyć w Krakowie”, a pod drogą pojawią się szczegóły: wymagania, dojazd i co możesz zrobić, jeśli czegoś brakuje.</p>';
+const studyHint = () => `<h4>${t('app.card.in_krakow')}</h4><p class="small muted">${t('app.panel.study_hint')}</p>`;
 // Details of one study, shown under the road only after he clicks it.
 function studyHtml(id) {
   const r = storyCtx.r, q = r.slots.quick;
   const hit = q && q.o.offer.id === id ? q.o : r.cards.flatMap(c => c.offers).find(x => x.offer.id === id);
-  return hit ? `<div class="sdet"><button class="sdet-x" data-study="${esc(id)}" aria-label="Zamknij szczegóły">×</button>${offerHtml(hit.offer, hit.check)}</div>` : '';
+  return hit ? `<div class="sdet"><button class="sdet-x" data-study="${esc(id)}" aria-label="${t('app.study.close')}">×</button>${offerHtml(hit.offer, hit.check)}</div>` : '';
 }
 
 // One option in the explorer: its vertical road on the left, what it means on the right.
@@ -1259,9 +1268,9 @@ function panelHtml(o) {
   const c = o.c, k = c.card;
   if (o.quick) {
     const f = o.quick.offer;
-    return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}<div class="studydetail" aria-live="polite"></div></div><div class="pinfo"><span class="kicker" style="color:${o.color}">Szybki start</span><h3>${esc(f.name)}</h3>
-      <p>${esc(f.institution)}. Pierwsza praca po ${String(f.durationYears).replace('.', ',')} latach, a dalsze studia zostają otwarte.${f.next ? ' Potem: ' + esc(f.next) + '.' : ''}</p>
-      <p class="small muted">Łączy się z obszarem: ${esc(k.name)}.</p>${STUDY_HINT}</div></div>`;
+    return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}<div class="studydetail" aria-live="polite"></div></div><div class="pinfo"><span class="kicker" style="color:${o.color}">${t('app.slot.quick')}</span><h3>${esc(f.name)}</h3>
+      <p>${esc(f.institution)}. ${t('app.panel.first_job', { years: String(f.durationYears).replace('.', ',') })}${f.next ? ' ' + t('app.panel.then', { next: esc(f.next) }) : ''}</p>
+      <p class="small muted">${t('app.panel.links', { name: esc(k.name) })}</p>${studyHint()}</div></div>`;
   }
   const reach = c.offers.filter(x => x.check.reachable), blocked = c.offers.filter(x => !x.check.reachable && !x.check.hidden);
   const src = k.demand && data.sources.find(x => x.id === k.demand.sourceId);
@@ -1269,18 +1278,18 @@ function panelHtml(o) {
   return `<div class="pgrid"><div class="proad vroad">${vRoadSvg(o)}<div class="studydetail" aria-live="polite"></div></div><div class="pinfo">
     <span class="kicker" style="color:${o.color}">${esc(o.slot)} · ${esc(c.band)}</span><h3>${esc(k.name)}</h3>
     <p>${esc(k.whoYouHelp)}</p><p class="small muted">${c.reasons.map(esc).join(' · ')}</p>
-    <h4>Co to daje tobie</h4><p>${esc(k.whatYouGet)}</p>
-    ${k.pay ? `<h4>Zarobki, orientacyjnie</h4><p>${payHtml(k)}</p>` : ''}
-    <h4>Jak wygląda dzień pracy</h4><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
-    <h4>Jak tu rośniesz</h4><ol>${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol>
-    <h4>Dlaczego będzie potrzebne</h4><p>${esc(k.whyNeeded)}</p>${k.demand ? `<p class="small muted">Kraków 2026: ${esc(k.demand.text)}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">źródło</a>` : ''}</p>` : ''}
-    <p class="small">Przyszła potrzeba${my ? ` w scenariuszu „${esc(my.name)}”: <b>${esc(k.robustness[my.id])}</b>` : `: ${data.scenarios.scenarios.map(x => `${esc(x.name)} ${esc(k.robustness[x.id])}`).join(' · ')}`}</p>
-    ${c.offers.length ? STUDY_HINT : '<h4>W Krakowie</h4><p class="muted">brak kierunku w Krakowie w bazie</p>'}
-    <h4>Mini-eksperyment na 30 dni</h4><p>${esc(k.experiment)}</p></div></div>`;
+    <h4>${t('app.card.gives')}</h4><p>${esc(k.whatYouGet)}</p>
+    ${k.pay ? `<h4>${t('app.card.pay')}</h4><p>${payHtml(k)}</p>` : ''}
+    <h4>${t('app.card.day')}</h4><ul>${k.dayInLife.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
+    <h4>${t('app.card.growth')}</h4><ol>${k.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ol>
+    <h4>${t('app.card.why')}</h4><p>${esc(k.whyNeeded)}</p>${k.demand ? `<p class="small muted">${t('app.card.demand', { text: esc(k.demand.text) })}${src ? ` <a href="${src.url}" target="_blank" rel="noopener">${t('app.common.source')}</a>` : ''}</p>` : ''}
+    <p class="small">${my ? t('app.panel.need_mine', { name: esc(my.name), value: esc(k.robustness[my.id]) }) : t('app.panel.need_all', { list: data.scenarios.scenarios.map(x => `${esc(x.name)} ${esc(k.robustness[x.id])}`).join(' · ') })}</p>
+    ${c.offers.length ? studyHint() : '<h4>' + t('app.card.in_krakow') + '</h4><p class="muted">' + t('app.card.no_study') + '</p>'}
+    <h4>${t('app.panel.experiment')}</h4><p>${esc(k.experiment)}</p></div></div>`;
 }
 
 function confLine(c) {
-  return `<p class="conf small"><b>Pewność wyników: ${c.level}.</b> ${c.missing.length ? `Niższa, bo pominąłeś: ${c.missing.map(esc).join(', ')}. Możesz wrócić i uzupełnić.` : 'Odpowiedziałeś na wszystkie bloki.'}</p>`;
+  return `<p class="conf small">${t('app.conf.head', { level: c.level })} ${c.missing.length ? t('app.conf.low', { list: c.missing.map(esc).join(', ') }) : t('app.conf.full')}</p>`;
 }
 
 function vResults() {
@@ -1288,9 +1297,9 @@ function vResults() {
   const r = scoreAll(A, data), s = r.slots, sc = A.scenario || 'B';
   const proven = provenStrengths(A).map(x => `<li><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span class="proof">${esc(proofText(x.proof))}</span></li>`).join('');
   const quick = s.quick ? (() => { const o = s.quick.o.offer;
-    return `<div class="card opt" data-card="quick"><span class="badge slot">Szybki start</span><h3>${esc(o.name)}</h3>
-      <p>${esc(o.institution)}. Pierwsza praca po ${String(o.durationYears).replace('.', ',')} ${o.durationYears < 5 ? 'latach' : 'latach'}, a dalsze studia zostają otwarte.${o.next ? ' ' + esc(o.next) + '.' : ''}</p>
-      ${offerHtml(o, s.quick.o.check)}<p class="small muted">Łączy się z kartą: ${esc(s.quick.c.card.name)}.</p></div>`; })() : '';
+    return `<div class="card opt" data-card="quick"><span class="badge slot">${t('app.slot.quick')}</span><h3>${esc(o.name)}</h3>
+      <p>${esc(o.institution)}. ${t('app.panel.first_job', { years: String(o.durationYears).replace('.', ',') })}${o.next ? ' ' + esc(o.next) + '.' : ''}</p>
+      ${offerHtml(o, s.quick.o.check)}<p class="small muted">${t('app.results.linked', { name: esc(s.quick.c.card.name) })}</p></div>`; })() : '';
 
   // Map pins: the campuses of reachable offers in the shown slots.
   const shown = [...s.best, s.most, s.surprise].filter(Boolean);
@@ -1303,69 +1312,69 @@ function vResults() {
   if (s.quick && !seen.has(s.quick.o.offer.campus)) pins.push({ c: campus(s.quick.o.offer.campus), color: 'var(--good)' });
 
   const doubt = data.questions.doubts.find(d => d.id === A.doubt);
-  const twin = [...s.best, s.most, s.surprise].filter(Boolean).map(c => `<li>${c.paths.length ? c.paths.map(p => esc(p.label)).join(' + ') : 'twoje zainteresowania'} → <b>${esc(c.card.name)}</b> → ${c.offers.filter(o => o.check.reachable).slice(0, 2).map(o => esc(o.offer.name + ', ' + o.offer.institution)).join('; ') || 'brak kierunku bez zmian w maturze'}</li>`).join('');
+  const twin = [...s.best, s.most, s.surprise].filter(Boolean).map(c => `<li>${c.paths.length ? c.paths.map(p => esc(p.label)).join(' + ') : t('app.path.own_interests')} → <b>${esc(c.card.name)}</b> → ${c.offers.filter(o => o.check.reachable).slice(0, 2).map(o => esc(o.offer.name + ', ' + o.offer.institution)).join('; ') || t('app.results.no_study')}</li>`).join('');
 
   return `
-    <h1>Cały raport</h1><p class="small muted noprint">Wszystko na jednej stronie, gotowe do druku. <button class="linkbtn" data-go="kompas">Wróć do kompasu</button></p>
+    <h1>${t('app.results.title')}</h1><p class="small muted noprint">${t('app.results.intro')}</p>
     ${changesSince(r)}
-    <nav class="rmenu noprint" aria-label="Części wyników"><button data-go="kompas">Kompas</button>${[['r-mocne', 'Mocne strony'], ['r-drogi', 'Drogi'], ['r-opcje', 'Opcje'], ['porownanie', 'Porównaj'], ['deklaracja', 'Deklaracja'], ['r-linie', 'Linie'], ['r-miejsca', 'Miejsca'], ['r-plik', 'Plik']].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
-    <h2 id="r-mocne">Twoje mocne strony</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
-    <section class="print-only cutouts"><p class="small">Wytnij karty i połóż je na stole podczas rozmowy.</p><div class="cut">${provenStrengths(A).map(x => `<div class="cutcard"><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span>${esc(proofText(x.proof))}</span></div>`).join('')}</div></section>
-    <h2 id="r-drogi">Twoje drogi</h2>
-    <p class="muted small">Od lewej: twoje mocne strony, w środku opcje, po prawej konkretne studia. Każda opcja to osobna linia. Grubsza linia to najlepsze dopasowanie, przerywana to droga przez twoje zainteresowania.</p>
-    <p class="small noprint">Wybierz, gdzie się przydasz, żeby podświetlić drogi:</p>
+    <nav class="rmenu noprint" aria-label="${t('app.tabs.label')}"><button data-go="kompas">${t('app.tab.compass')}</button>${[['r-mocne', t('app.rmenu.strengths')], ['r-drogi', t('app.rmenu.roads')], ['r-opcje', t('app.rmenu.options')], ['porownanie', t('app.rmenu.compare')], ['deklaracja', t('app.rmenu.declaration')], ['r-linie', t('app.rmenu.lines')], ['r-miejsca', t('app.rmenu.places')], ['r-plik', t('app.rmenu.file')]].map(([id, t]) => `<button data-scroll="${id}">${t}</button>`).join('')}</nav>
+    <h2 id="r-mocne">${t('app.results.strengths')}</h2><div class="card reveal screen-only"><ul>${proven}</ul></div>
+    <section class="print-only cutouts"><p class="small">${t('app.results.cutouts')}</p><div class="cut">${provenStrengths(A).map(x => `<div class="cutcard"><b>${esc(data.strengths.find(y => y.id === x.id).name)}</b><span>${esc(proofText(x.proof))}</span></div>`).join('')}</div></section>
+    <h2 id="r-drogi">${t('app.results.roads')}</h2>
+    <p class="muted small">${t('app.results.roads_note')}</p>
+    <p class="small noprint">${t('app.results.pick_map')}</p>
     <div class="chips maprows noprint">${[...s.best, s.most, s.surprise].filter(Boolean).map((c, i) => `<button class="chip" data-maprow="${i}" aria-pressed="false">${esc(c.card.name)}</button>`).join('')}</div>
-    <div class="card pathmap"><div class="scroll" tabindex="0" aria-label="Mapa dróg, przewiń w bok">${pathMapSvg(r)}</div>
-      <p class="small muted hint">Przesuń palcem w bok, żeby zobaczyć całą mapę.</p>
+    <div class="card pathmap"><div class="scroll" tabindex="0" aria-label="${t('app.results.map_aria')}">${pathMapSvg(r)}</div>
+      <p class="small muted hint">${t('app.results.map_hint')}</p>
       <div class="studies small" aria-live="polite"></div>
-      <details class="twin noprint"><summary>Ta sama mapa jako tekst</summary><ul>${twin}</ul></details></div>
+      <details class="twin noprint"><summary>${t('app.results.map_text')}</summary><ul>${twin}</ul></details></div>
 
-    <h2 class="pb" id="r-opcje">Gdzie się przydasz</h2>
-    <p class="muted small">Bez liczb: każda opcja pokazuje, dlaczego się pojawiła. Najpierw trzy najlepsze dopasowania, potem Most ${term('most', 'Most')}, Szybki start ${term('szybki', 'Szybki start')} i Niespodzianka ${term('niespodzianka', 'Niespodzianka')}.</p>
+    <h2 class="pb" id="r-opcje">${t('app.results.options')}</h2>
+    <p class="muted small">${t('app.results.options_note', { most: term('most', t('app.term.bridge')), quick: term('szybki', t('app.term.quick')), surprise: term('niespodzianka', t('app.term.surprise')) })}</p>
     ${confLine(r.profile.confidence)}
-    ${s.best.map((c, i) => cardHtml('Najlepsze dopasowanie', c, i === 0, sc)).join('')}
-    ${s.most ? cardHtml('Most', s.most, false, sc) : ''}
+    ${s.best.map((c, i) => cardHtml(t('app.slot.best'), c, i === 0, sc)).join('')}
+    ${s.most ? cardHtml(t('app.slot.bridge'), s.most, false, sc) : ''}
     ${quick}
-    ${s.surprise ? cardHtml('Niespodzianka', s.surprise, false, sc) : ''}
-    ${s.rest.length ? `<details class="card"><summary>Pokaż więcej (${s.rest.length})</summary>${s.rest.map(c => cardHtml('Inna opcja', c, false, sc)).join('')}</details>` : ''}
+    ${s.surprise ? cardHtml(t('app.slot.surprise'), s.surprise, false, sc) : ''}
+    ${s.rest.length ? `<details class="card"><summary>${t('app.results.more', { n: s.rest.length })}</summary>${s.rest.map(c => cardHtml(t('app.slot.other'), c, false, sc)).join('')}</details>` : ''}
 
     <div id="cmpwrap">${compareHtml()}</div>
     <div id="declwrap">${declarationHtml(r, 'report')}</div>
-    <h2 id="r-linie">Twoje linie w czasie</h2>
-    <p class="muted small">Każda opcja to linia tramwajowa, a jej przystanki to kroki z datami. Wspólne przystanki to przesiadki: do jesieni 2027 wszystkie drogi biegną razem, więc zmiana linii jest normalna. Pomarańczowy przystanek oznacza, że przed 7 lutego coś warto zmienić w deklaracji.</p>
+    <h2 id="r-linie">${t('app.results.lines')}</h2>
+    <p class="muted small">${t('app.results.lines_note')}</p>
     <div class="card trammap">${tramMapSvg(tramLines(r))}${tramLegend(tramLines(r))}</div>
 
-    <h2 id="r-miejsca">Gdzie to jest</h2>
-    <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${transit(p.c)} · ${commute(p.c)} · <a href="${routeUrl(p.c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul>
-      <p class="small muted">${data.transport ? `Przystanki, linie i czasy policzone z oficjalnego rozkładu jazdy Krakowa (GTFS, rozkład na ${esc(data.transport.asOf)}): ${esc(data.transport.method)}, plus twój dojazd na Dworzec Główny. Linie i objazdy się zmieniają, więc przed wyjazdem sprawdź trasę.` : 'Czasy dojazdu są jeszcze liczone.'}</p></div>
-    <details class="card allplaces"><summary>Wszystkie miejsca w bazie (${data.campuses.length})</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b>${c.status === 'do sprawdzenia' ? ' <span class="badge warn">adres do sprawdzenia</span>' : ''}<br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">Zaplanuj dojazd</a></span></li>`).join('')}</ul></details>
+    <h2 id="r-miejsca">${t('app.path.where')}</h2>
+    <div class="card"><ul class="places">${pins.map(p => `<li><b>${esc(p.c.name)}</b><br><span class="small">${esc(p.c.address)} · ${transit(p.c)} · ${commute(p.c)} · <a href="${routeUrl(p.c)}" target="_blank" rel="noopener">${t('app.common.route_plan')}</a></span></li>`).join('')}</ul>
+      <p class="small muted">${data.transport ? t('app.results.transport', { asof: esc(data.transport.asOf), method: esc(data.transport.method) }) : t('app.results.no_times')}</p></div>
+    <details class="card allplaces"><summary>${t('app.path.all_places', { n: data.campuses.length })}</summary><ul class="places">${[...data.campuses].sort((a, b) => a.name.localeCompare(b.name, 'pl')).map(c => `<li><b>${esc(c.name)}</b>${c.status === 'do sprawdzenia' ? ' <span class="badge warn">' + t('app.results.addr_check') + '</span>' : ''}<br><span class="small">${esc(c.address)} · ${transit(c)} · ${commute(c)} · <a href="${routeUrl(c)}" target="_blank" rel="noopener">${t('app.common.route_plan')}</a></span></li>`).join('')}</ul></details>
 
-    <div class="card"><h3>Niemcy i dalej</h3>
-      <p>Polska matura daje bezpośredni wstęp na niemieckie uczelnie. Większość studiów licencjackich jest po niemiecku (poziom C1), wiele magisterskich po angielsku. Obywatele UE nie płacą czesnego na uczelniach publicznych w Bawarii, tylko opłatę semestralną. Jedna z dróg: licencjat w Krakowie, magisterka w Monachium. Szczegóły pojawią się w kolejnej wersji.</p></div>
+    <div class="card"><h3>${t('app.path.germany_title')}</h3>
+      <p>${t('app.results.germany')}</p></div>
 
-    ${doubt ? `<div class="card"><h3>To, co cię niepokoi</h3><p>${doubt.card}</p>
-      ${A.doubtStrong ? '<p class="notice">Jeśli ten niepokój zostaje z tobą na dłużej, porozmawiaj z doradcą zawodowym w szkole albo w bezpłatnej poradni psychologiczno-pedagogicznej. To normalne, że przy takim wyborze pomaga człowiek, a nie aplikacja.</p>' : ''}</div>` : ''}
+    ${doubt ? `<div class="card"><h3>${t('app.doubt.worry')}</h3><p>${doubt.card}</p>
+      ${A.doubtStrong ? '<p class="notice">' + t('app.doubt.help_long') + '</p>' : ''}</div>` : ''}
 
-    <h2>Mogę to zrobić, bo…</h2>
-    <label class="field" for="cando">Dokończ jednym zdaniem. Trafi na górę twojego pliku.</label>
+    <h2>${t('app.cando.title')}</h2>
+    <label class="field" for="cando">${t('app.cando.label')}</label>
     ${candoChips()}<input id="cando" type="text" data-field="canDo" value="${esc(A.canDo)}">
 
-    <h2 id="r-plik">Twój plik</h2>
-    <p>Plik powstaje na tym urządzeniu i nigdzie nie jest wysyłany. Za pół roku możesz do niego wrócić.</p>
+    <h2 id="r-plik">${t('app.results.file')}</h2>
+    <p>${t('app.results.file_note')}</p>
     <div class="actions">
-      <button class="btn" data-export="download">Pobierz plik .md</button>
-      <button class="btn ghost" data-export="copy">Kopiuj do schowka</button>
-      <button class="btn ghost" data-export="print">Drukuj / PDF</button>
+      <button class="btn" data-export="download">${t('app.file.download')}</button>
+      <button class="btn ghost" data-export="copy">${t('app.file.copy')}</button>
+      <button class="btn ghost" data-export="print">${t('app.file.print')}</button>
     </div>
     <p id="msg" class="small muted" role="status"></p>
 
-    <details class="card"><summary>Dla rodzica</summary><ul>
-      <li>Pytaj, nie mów: „Co cię tu zaskoczyło?” działa lepiej niż „Widzisz, mówiłem”.</li>
-      <li>Reaguj na dowody, nie na opcję: dowody są jego, opcja może się zmienić.</li>
-      <li>Bez porównań między braćmi; każdy plik należy do właściciela.</li>
-      <li>Umówcie się na jeden mały krok w tym miesiącu, nie na ostateczny wybór.</li>
-      <li>Jeśli niepokój jest silny, doradca zawodowy w szkole albo bezpłatna poradnia psychologiczno-pedagogiczna.</li></ul></details>
-    <div class="actions noprint"><button class="btn ghost" data-go="pewnosc">Zmień odpowiedzi</button></div>`;
+    <details class="card"><summary>${t('app.parent.title')}</summary><ul>
+      <li>${t('app.parent.ask')}</li>
+      <li>${t('app.parent.evidence')}</li>
+      <li>${t('app.parent.siblings')}</li>
+      <li>${t('app.parent.step')}</li>
+      <li>${t('app.parent.if_strong')}</li></ul></details>
+    <div class="actions noprint"><button class="btn ghost" data-go="pewnosc">${t('app.file.change_answers')}</button></div>`;
 }
 
 // ---- events -----------------------------------------------------------------
@@ -1386,7 +1395,7 @@ function selectRow(i) {
   const list = $app.querySelector('.pathmap .studies');
   if (list) {
     const names = mapSel === null ? [] : [...svg.querySelectorAll('.study.on .lbl')].map(t => [...t.querySelectorAll('tspan')].map(x => x.textContent).join(', '));
-    list.innerHTML = names.length ? `<b>Studia na tej drodze:</b><ul>${names.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : '';
+    list.innerHTML = names.length ? `<b>${t('app.map.studies')}</b><ul>${names.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : '';
   }
 }
 document.addEventListener('keydown', e => {
@@ -1458,7 +1467,7 @@ document.addEventListener('change', e => {
   if (!e.target.matches('[data-check]')) return;
   A.checks = A.checks || {}; A.checks[e.target.dataset.check] = e.target.checked; save();
   const list = e.target.closest('.plan-list'), n = list?.querySelector('.plan-n');
-  if (n) n.textContent = `Zrobione: ${list.querySelectorAll('input:checked').length} z ${list.querySelectorAll('input[data-check]').length}. Plan zapisuje się w twoim pliku.`;
+  if (n) n.textContent = t('app.plan.done', { n: list.querySelectorAll('input:checked').length, m: list.querySelectorAll('input[data-check]').length });
 });
 
 // Compass: turn the needle to the picked direction and show a preview below; the compass itself stays.
@@ -1470,7 +1479,7 @@ function pickDirection(key, ang) {
   needle.classList.toggle('fixed', !!compassSel);
   needle.style.transform = compassSel ? `rotate(${isNaN(ang) ? selAngle(r.slots) : ang}deg)` : '';
   $app.querySelectorAll('.cdir').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.pick === compassSel)));
-  prev.innerHTML = compassSel ? previewHtml(r, compassSel) : '<p class="clead">Trzy dobre drogi, nie jedna. Dotknij kierunku, a kompas pokaże, dokąd prowadzi.</p>';
+  prev.innerHTML = compassSel ? previewHtml(r, compassSel) : '<p class="clead">' + t('app.compass.lead') + '</p>';
   if (compassSel) setTimeout(() => prev.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' }), 60);
 }
 
@@ -1485,38 +1494,37 @@ document.addEventListener('change', async e => {
 function loadFile(text) {
   const obj = parseSaved(text);
   if (!obj || !obj.answers || !String(obj.app || '').startsWith('kompas-studia')) {
-    notice = 'To nie wygląda na plik z Kompasu Studia. Wybierz plik pobrany z tej aplikacji.'; render(); return;
+    notice = t('app.file.not_kompas'); render(); return;
   }
   const a = Object.assign(blank(), obj.answers), missing = [];
   if (obj.answers.lang) { setLang(obj.answers.lang); a.lang = getLang(); applyStatic(); applyTheme(); applySkin(); } // loading keeps the saved language
   else a.lang = getLang();
   const has = (list, id) => list.some(x => x.id === id);
-  a.strengths = (a.strengths || []).filter(x => has(data.strengths, x.id) || (missing.push('mocna strona: ' + x.id), false));
-  a.values = (a.values || []).filter(v => has(data.dimensions.values, v) || (missing.push('wartość: ' + v), false));
-  for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push('czynność: ' + k); }
-  for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push('sytuacja: ' + k); }
-  a.stars = (Array.isArray(a.stars) ? a.stars : []).filter(id => has(data.offers, id) || (missing.push('gwiazdka: ' + id), false));
+  a.strengths = (a.strengths || []).filter(x => has(data.strengths, x.id) || (missing.push(t('app.file.missing_strength', { id: x.id })), false));
+  a.values = (a.values || []).filter(v => has(data.dimensions.values, v) || (missing.push(t('app.file.missing_value', { id: v })), false));
+  for (const k of Object.keys(a.sort || {})) if (!has(data.questions.activities, k)) { delete a.sort[k]; missing.push(t('app.file.missing_activity', { id: k })); }
+  for (const k of Object.keys(a.situations || {})) if (!has(data.questions.situations, k)) { delete a.situations[k]; missing.push(t('app.file.missing_situation', { id: k })); }
+  a.stars = (Array.isArray(a.stars) ? a.stars : []).filter(id => has(data.offers, id) || (missing.push(t('app.file.missing_star', { id: id })), false));
   a.compare = (Array.isArray(a.compare) ? a.compare : []).filter(id => a.stars.includes(id));
-  if (a.direction && !has(data.opportunities, a.direction)) { missing.push('kierunek: ' + a.direction); a.direction = null; }
+  if (a.direction && !has(data.opportunities, a.direction)) { missing.push(t('app.file.missing_direction', { id: a.direction })); a.direction = null; }
   const snap = obj.snapshot || null;
-  if (snap) for (const id of [...(snap.best || []), snap.most, snap.surprise].filter(Boolean)) if (!has(data.opportunities, id)) missing.push('opcja: ' + id);
+  if (snap) for (const id of [...(snap.best || []), snap.most, snap.surprise].filter(Boolean)) if (!has(data.opportunities, id)) missing.push(t('app.file.missing_option', { id: id }));
   a.sortPos = Object.keys(a.sort).length >= data.questions.activities.length ? data.questions.activities.length : Object.keys(a.sort).length;
   // Cards added in a later version (e.g. a24 in 2.4): the file has answers for all older cards, so "Co lubisz robić" asks only the new ones.
   const newActs = data.questions.activities.filter(x => !(x.id in a.sort)).length;
   const newSits = (data.questions.situations || []).filter(x => !(x.id in (a.situations || {}))).length;
-  const plural = (n, one, few, many) => n === 1 ? one : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? few : many;
   const oldFile = Object.keys(a.sort).length >= 20; // a finished file from an older version, not a half-done one
-  const newNote = oldFile && (newActs || newSits) ? ` Od twojej wersji ${[newActs && `${newActs} ${plural(newActs, 'nowa karta', 'nowe karty', 'nowych kart')} w „Co lubisz robić”`, newSits && `${newSits} ${plural(newSits, 'nowa sytuacja', 'nowe sytuacje', 'nowych sytuacji')} w „Co robisz, gdy…”`].filter(Boolean).join(' i ')}: możesz je dodać, kiedy chcesz.` : '';
+  const newNote = oldFile && (newActs || newSits) ? ` ${t('app.file.new_since', { list: [newActs && plural(newActs, 'app.file.new_cards'), newSits && plural(newSits, 'app.file.new_sits')].filter(Boolean).join(` ${t('app.file.and')} `) })}` : '';
   a.sitPos = Object.keys(a.situations).length;
   A = a;
   prevFile = { date: obj.date, snapshot: snap, missing };
-  notice = `Wczytano plik z dnia ${esc(obj.date || '?')}.` + (missing.length ? ` Tych rzeczy nie ma już w bazie, więc je pominięto: ${missing.map(esc).join(', ')}.` : '') + newNote;
+  notice = t('app.file.loaded', { date: esc(obj.date || '?') }) + (missing.length ? ` ${t('app.file.missing', { list: missing.map(esc).join(', ') })}` : '') + newNote;
   drawOnce = true;
   savedSnap = answersKey();
   const done = provenStrengths(A).length && A.values.length;
   const target = '#/' + (screens.some(x => x.id === A.lastScreen) ? A.lastScreen : done ? 'kompas' : 'pewnosc');
   furthest = done ? screens.length : screens.findIndex(x => '#/' + x.id === target);
-  notice += ` Wracasz tam, gdzie skończyłeś.`;
+  notice += ` ${t('app.file.back_to')}`;
   if (location.hash === target) render(); else location.hash = target;
 }
 
@@ -1540,11 +1548,11 @@ async function doExport(kind) {
     const name = fileName(A, stamp());
     const a = Object.assign(document.createElement('a'), { href: url, download: name });
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-    if (msg) msg.textContent = 'Plik zapisany.';
+    if (msg) msg.textContent = t('app.file.saved');
     savedSnap = answersKey(); updateSaveState();
-    toast(`<b>Zapisano:</b> ${esc(name)}<br><span>Plik jest w folderze Pobrane. Żeby wrócić, wczytaj go na ekranie startowym.</span>`);
+    toast(t('app.file.saved_toast', { name: esc(name) }));
   } else if (kind === 'copy') {
-    try { await navigator.clipboard.writeText(md); msg.textContent = 'Skopiowane.'; } catch { msg.textContent = 'Nie udało się skopiować. Użyj „Pobierz plik”.'; }
+    try { await navigator.clipboard.writeText(md); msg.textContent = t('app.file.copied'); } catch { msg.textContent = t('app.file.copy_failed'); }
   } else {
     if (current().id !== 'wyniki') { location.hash = '#/wyniki'; setTimeout(() => doExport('print'), 500); return; }
     const closed = [...document.querySelectorAll('details:not([open])')];
