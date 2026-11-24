@@ -12,6 +12,9 @@ The Liceum roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)")
 
 ## Coverage waves (set 21 Nov 2026, 15:13; top priority for both apps)
 
+> **Studia: waves done (3.0.0). Since 24 Nov 2026 the top priority for Studia is the Ukrainian version** (Part 3, section
+> "Ukrainian version", releases v3.1–v3.6). Liceum waves continue unchanged in Part 1.
+
 **Why.** The coverage radar (`python3 kompas/tools/coverage_radar.py`, added 21 Nov) scores 17 study fields from 0 to 4 for each app.
 Both apps are strong in medicine, IT, economy, engineering and languages, and have holes elsewhere. The worst: a kid who picks the
 humanities in Liceum (79 classes, level 4) lands in Studia with one history offer, and law is missing in both. Szymon: "it must be
@@ -838,6 +841,7 @@ direction (only a12 and the strength "rysunek"), although Kraków has artistic a
 
 **v3.1 (was v2.11)**
 - **I1 (Opus) Texts in language files.** All interface texts in one file per language; a language switch in the header.
+  **Note (24 Nov 2026):** Studia builds the shared `kompas/core/i18n.js` (`t`, `plural`, fallback) in its v3.1 (Ukrainian track, Part 3). When this task comes, reuse it; do not write a second one.
 - **I2 (Sonnet) Ukrainian translation.** Simple words for a 14-year-old; mark it for one read by a Ukrainian speaker.
 
 **v3.0**
@@ -1028,7 +1032,12 @@ Liceum has its own roadmap (Part 1); do not touch Liceum work here, but reuse sh
 ### Major goals
 
 Set by the weekend review task (it writes this list; planners keep it and plan minors toward the current goal).
-- **Studia waves done (3.0.0, 21 Nov 2026):** every field at level 3 or more, every card in a test kid's top 3. **Next: v3.1 UI/UX** (items 10, 7 and the screen part of 11), then v3.2 and v3.3 as listed below. Liceum waves continue in Part 1.
+- **Current goal (Szymon, 24 Nov 2026, 15:45): the Ukrainian version of Studia, top priority.** Order he gave: (1) the main UI, (2) the questions,
+  (3) courses (directions) and university descriptions, (4) a data stream that finds universities with a Ukraine-related education or a
+  dedicated diploma. Releases v3.1–v3.6, see "Ukrainian version" below. The UI/UX items 10, 7, 11 move behind it (v3.7), travel from the
+  centre is v3.8, the parent summary v3.9. **Exact thresholds, GUS pay and the points estimate wait for v4.0** (Szymon, 24 Nov).
+  The card test is done: 3.0.0 has 42 of 42 cards in some test kid's top 3 (kids A–AD).
+- Previous goal, done: **Studia waves (3.0.0, 21 Nov 2026):** every field at level 3 or more, every card in a test kid's top 3. Liceum waves continue in Part 1.
 - Previous goal (changed by Szymon, 21 Nov 2026, 15:13): cover all study directions, in three waves (see "Coverage waves" at the top of this file), then v3.0 as the review.
 - Previous goal (agreed in the weekend review, 21 Nov 2026), still valid after the waves: v3.0. **A wider compass and a choice before the
   declaration.** The cards cover the whole range of what kids like (also media, digital media, commerce), and by 7 Feb 2027
@@ -1036,6 +1045,8 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
 - Previous goal (trustworthy Kraków facts) is kept as a rule, not as the main goal: items 5–6 finish it.
 
 #### v3.0 main improvements (agreed 21 Nov 2026, in priority order)
+
+**Reordered again 24 Nov 2026:** Ukrainian version first (v3.1–v3.6); items 10, 7, 11 (screen) = v3.7; item 12 = v3.8; item 9 = v3.9; items 5, 6, 8 = **v4.0**.
 
 **Reordered 21 Nov 15:13.** Item 1 is now the three coverage waves (v2.7–v2.12). Items 5 (UJ thresholds, in v2.9) and 6 (GUS pay, in each Data release) and the data part of item 11 (`url` per offer; every new offer gets one) run inside the waves. The UI/UX and functionality items move after v3.0: **v3.1 UI/UX** = items 10, 7 and the screen part of 11; **v3.2 Functionality** = items 12 and 8; **v3.3 UI/UX** = item 9. Old "this week / next week" dates no longer apply.
 
@@ -1078,7 +1089,8 @@ Set by the weekend review task (it writes this list; planners keep it and plan m
     `fromRynek` next to `fromHub` with `kompas/tools/transport.py` from the stored Kraków GTFS (same method, stop "Rynek Główny" /
     nearest stops). Also in the compare table, "Kraków" map section and export.
 
-**For v4.0 (not now):** open days 2027 (dropped from v3.0 by Szymon); more Kraków offers beyond item 1; other cities
+**For v4.0 (set by Szymon 24 Nov 2026):** exact thresholds (item 5, SD5 UJ and UJ CM), GUS 2024 pay (item 6 and ST5), the points estimate (item 8).
+Also later: open days 2027 (dropped from v3.0 by Szymon); more Kraków offers beyond item 1; other cities
 (Katowice, Warsaw; Munich/Augsburg phase 2); U7 tone read; URK check if still open.
 
 Planners: pick the next item of this list that fits tonight's focus (Data → UI/UX → Functionality). If nothing in "this week"
@@ -1094,6 +1106,7 @@ fits the focus, take the first "next week" item that does.
   **Opus** = new structure in code or data, scoring, design choices, research where the method must be decided.
   At the end of each release an Opus agent reviews the Sonnet work (tests, click-through at 375 px and 1280 px in three looks) before the push.
 - **Focus by rotation:** Data → UI/UX → Functionality → Data … Skip a focus only when nothing useful is left in it (say why in the plan).
+  **Suspended 24 Nov 2026:** the order of releases v3.1–v3.9 is fixed by the release table below (Ukrainian track first); the rotation applies again after v4.0.
 - **Spec doc.** After each release add a short "Kompas Studia vX.Y.0" section to the spec doc ("Kompas – study & school choice app (spec)").
 - The rules for every task (Part 2) apply: no personal data, no new network calls, a source for every fact, one task = one commit.
 - **Liceum work may run the same night** (it also edits `kompas/studia/data/sources.json` in D9). `git pull --rebase` before
@@ -1116,9 +1129,17 @@ fits the focus, take the first "next week" item that does.
 | v2.10 | Questions + functionality (wave 2) | Same for the 4 wave 2 cards; entrance exam tag for arts | Opus | pushed 21 Nov 2026 as 2.10.0 |
 | v2.11 | Data (wave 3) | Cards Żywienie i dietetyka, Weterynaria/zwierzęta/rolnictwo, Geografia/przestrzeń/planowanie; deeper Sport and Turystyka | Opus + Sonnet | pushed 21 Nov 2026 as 2.11.0 |
 | v2.12 | Questions + functionality (wave 3) | Same for the wave 3 cards | Opus | pushed 21 Nov 2026 as 2.12.0 |
-| v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards; every card in a top 3 (10 test kids), demand and pay gaps, open offers (Politologia, Praca socjalna, 11 `check`), UJ thresholds if reachable | Opus + Sonnet | pushed 21 Nov 2026 as 3.0.0 (SD5 UJ thresholds moved to v3.2; pay for 12 cards moved to v3.1) |
-| v3.1 | UI/UX (+ data for item 11) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7); GUS 2024 pay if the table opens (6 rest) | Opus + Sonnet | planned 22 Nov 2026 (see "v3.1 tasks") |
-| v3.2–v3.3 | Functionality, UI/UX (later) | Travel from the centre (12), points estimate (8) with SD5 UJ thresholds, parent summary (9) | Opus + Sonnet | after v3.1 |
+| v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards; every card in a top 3 (10 test kids), demand and pay gaps, open offers (Politologia, Praca socjalna, 11 `check`), UJ thresholds if reachable | Opus + Sonnet | pushed 21 Nov 2026 as 3.0.0 (SD5 UJ thresholds and pay for 12 cards moved to v4.0 on 24 Nov) |
+| v3.1 | Ukrainian 1a: foundation | `core/i18n.js`, texts out of the code into `pl.json` (Polish unchanged), language switch, `lang` in the file, Cyrillic fonts | Opus | planned 24 Nov 2026 (top priority, Szymon) |
+| v3.2 | Ukrainian 1b: main UI | Ukrainian interface texts, glossary page, layout check, review sheet for a native reader | Sonnet + Opus | planned 24 Nov 2026 |
+| v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | planned 24 Nov 2026 |
+| v3.4 | Ukrainian 3a: directions | 42 cards (all texts), institution names with the Polish original | Sonnet + Opus | planned 24 Nov 2026 |
+| v3.5 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | planned 24 Nov 2026 |
+| v3.6 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
+| v3.7 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
+| v3.8 | Functionality (was v3.2) | Travel time from Rynek or Dworzec (12) | Opus | after v3.7 |
+| v3.9 | UI/UX (was v3.3) | Parent summary (9) | Opus | after v3.8 |
+| v4.0 | Major | Exact thresholds (UJ and UJ CM, SD5), GUS 2024 pay (6, ST5), points estimate (8) | Opus + Sonnet | Szymon 24 Nov 2026: "can wait for 4.0" |
 
 ### v2.0 tasks (Data, planned 19 Nov 2026)
 
@@ -1684,7 +1705,155 @@ One task = one commit; `git pull --rebase` before each push (Liceum may push the
 **Not in v3.0 (moves to v3.1, decided by the planner unless Szymon says otherwise):** official `url` for the 86 older offers that have none
 (item 11 data, done with its screen part in v3.1, Sonnet); GUS 2024 pay for the old cards still on `gus-2020` (item 6 rest, v3.1 Sonnet).
 
-### v3.1 tasks (UI/UX + data for item 11, planned 22 Nov 2026, night run; coded by the 22:45 task)
+### Ukrainian version (set by Szymon 24 Nov 2026, 15:45; top priority, releases v3.1–v3.6)
+
+**Goal.** A Ukrainian-speaking teenager can do the whole Studia flow (taps, story, Kierunki, report, file) in Ukrainian, and can see which
+Kraków studies connect to Ukraine. Szymon's order: **(1) the main UI, (2) the questions, (3) courses and university descriptions,
+(4) a data stream** that finds universities with an education or a dedicated diploma related to Ukraine. Thresholds and pay wait for v4.0.
+Liceum is not part of this track (its own Ukrainian task I1/I2 stays in Part 1 and reuses what v3.1 builds).
+
+**Decisions taken by the planner (safest reading; Szymon can change any of them, tell the planner in the plan message):**
+- **UK-A One app, two languages.** A switch PL | UK in the header and a link `?lang=uk`; no second app. Polish stays the single source of
+  truth for facts. Ukrainian is an **overlay**: UI texts in `studia/i18n/pl.json` and `uk.json` (key → text); data texts in
+  `studia/i18n/uk/*.json` keyed by the same ids as the Polish data (only the text fields). A missing Ukrainian text falls back to Polish
+  (never to an empty field), and a test prints how many are missing.
+- **UK-B Polish names stay visible.** Universities, studies, exam and recruitment terms are written in Ukrainian with the official Polish
+  name in brackets, for example "Ягеллонський університет (Uniwersytet Jagielloński)", because every recruitment page is in Polish.
+  Addresses, links and source titles are not translated.
+- **UK-C The language lives in the saved file** (`lang`); an old file without `lang` opens in Polish; the exported file and the report
+  use the chosen language; loading never changes the answers (they are ids).
+- **UK-D Reader.** A Ukrainian-speaking teenager who goes through the Polish school system, so the matura route stays as it is. The route of a
+  newcomer with a Ukrainian school certificate (recognition, Polish language level) is a separate information page in v3.6 (UK-D3),
+  **not** part of the scoring.
+- **UK-E Who wrote the Ukrainian.** Claude, not a native speaker. Simple words for a 14–18-year-old (as Liceum I2). The footer says so
+  ("Переклад зроблено за допомогою ШІ і ще не перевірений носієм мови") until a native speaker has read it; `tools/i18n_review.py`
+  makes a two-column sheet (Polish | Ukrainian) for that reader, and `i18n/REVIEWED.md` lists what has been read and by when.
+- **UK-F Fixed terms.** One glossary file (`studia/i18n/glossary.json`: matura, rozszerzenie, próg punktowy, rekrutacja, IRK, deklaracja,
+  kierunek, licencjat …, each with one Ukrainian wording and one short explanation). Every translation uses it; the glossary page (v3.2)
+  shows it.
+- **UK-G New text rule (from v3.1 on).** Every new user-facing text goes through `t()` and has a Ukrainian string in the same release;
+  the key-parity test fails otherwise. Plural forms use the shared helper (Polish and Ukrainian both have three forms, with different rules).
+- **UK-H Agents.** Translation tasks are for **Sonnet** subagents (cheap, good at Ukrainian), always given the glossary and the Polish
+  original; Opus reviews and fixes. (The 22/23 Nov night runs failed with "usage limit reached"; a lighter plan per night helps.)
+
+**Facts found on 24 Nov 2026 (so the planner does not rediscover them).**
+- `studia/fonts` has only **latin and latin-ext** files of Inter, Fraunces and JetBrains Mono: Ukrainian text would silently fall back to
+  system fonts. Inter and JetBrains Mono have Cyrillic; **Fraunces has none**. The pop look uses Fraunces for headings
+  (`skin-pop.css` line 30, `v11.css` line 53); neon uses Inter and the mono font in capitals.
+- Polish text in code: `app.js` 306 lines, `story.js` 53, `index.html` 13, `illus.js` 6 (text inside the SVG illustrations),
+  `core/scoring.js` 41 and `core/export.js` 29 (shared with Liceum: Liceum imports only `provenStrengths` and `parseSaved`).
+- Data text: `opportunities.json` 79 KB (42 cards), `offers.json` 81 KB (126 offers), `questions.json` 17 KB, `scenarios.json` 3 KB,
+  `core/strengths.json` 3 KB, `core/dimensions.json` 1 KB. Test kids (`personas.json`) are not translated.
+- Existing Ukraine links: card `ukraina` ("Odbudowa Ukrainy i współpraca", languages `uk`, `en`) with two offers (`uj-filologia-ukrainska`,
+  `uj-europeistyka`); the scenario "Pokój w Ukrainie…"; language code `uk` on cards.
+
+**v3.1 – UK-1a Foundation (Opus; the Polish app must look exactly as before).**
+1. **UK1a (Opus) `kompas/core/i18n.js`.** `t(key, params)` with `{name}` placeholders, `setLang`, `getLang`, `plural(n, {one, few, many})` with
+   the Polish and the Ukrainian rule, fallback to Polish. No network call (the files are fetched like the other data files). Used by
+   Studia now and by Liceum later.
+2. **UK1b (Opus) Texts out of the code.** Move every user-facing text of `studia/app.js`, `story.js`, `index.html`, `illus.js` and the Polish
+   sentences produced in `core/scoring.js` and `core/export.js` into `studia/i18n/pl.json` (core functions return a key and params, or get
+   `t`; Liceum's two imports must keep working and `node kompas/tests/liceum.mjs` must pass). Do it screen by screen, one commit per file.
+   **Safety net first:** before touching anything, add a test that builds the markdown export and the declaration helper text for kids A–AD
+   and compares with a stored snapshot (`tests/snapshots/pl-export.json`); after the refactor the Polish output must be identical.
+3. **UK1c (Opus) Switch and file.** PL | UK switch in the header (two chips, 44 px high), `?lang=uk`, `<html lang>` set, `lang` in the saved file
+   (`blank()`, `parseSaved`), loading keeps the language, document title translated.
+4. **UK1d (Opus) Cyrillic fonts.** Add Cyrillic files next to the others (from the `@fontsource` packages on npm: Inter 400/600 and
+   JetBrains Mono 500 cyrillic; one serif with Cyrillic and an open licence for headings in the pop look, for example Source Serif 4 or
+   Literata), `@font-face` with `unicode-range`, licence files in `studia/fonts`, files stay local (no runtime network).
+   Check headings in the default, pop and neon looks with a Ukrainian test string.
+5. **UK1e (Opus) Keys for tests.** `tests/syntax.mjs`: `pl.json` and `uk.json` have the same keys (uk may be a stub in this release), no key is
+   unused, every `t('…')` in the code exists in `pl.json`.
+   Check: tests pass; Polish export snapshot unchanged; `?lang=uk` opens without errors (Polish text shows where Ukrainian is missing);
+   click-through at 375 and 1280 px in three looks; Liceum tests pass. Version 3.1.0 in the four places and `dataVersion`.
+
+**v3.2 – UK-1b Main UI in Ukrainian.**
+1. **UK2a (Sonnet, brief with glossary) `uk.json`** for all keys of `pl.json` (about 440 lines): story page, parts, buttons, notices, report,
+   errors, file messages, plural forms, footer line (UK-E). Simple words; terms as in the glossary; no word-for-word Polish.
+2. **UK2b (Opus) Glossary page** "Словничок" (footer link, same pattern as the sources page): matura, rozszerzenie, próg, rekrutacja, IRK,
+   deklaracja maturalna, kierunek, licencjat, magister… each with the Polish term in brackets and one short explanation.
+3. **UK2c (Opus) Layout.** Ukrainian words are about 10–15 % longer. Check 375 px, three looks: buttons, chips, the road, tables, the compass
+   (the SVG text uses the `wrap` helper by number of characters: test with the longest Ukrainian strengths), the neon capitals.
+4. **UK2d (Sonnet) `tools/i18n_review.py`** writes `i18n/review-uk.md`: a table with key, Polish, Ukrainian for a native reader; and
+   `i18n/REVIEWED.md` (empty list of what was read).
+   Check: key parity strict; no Polish letters (ą ć ę ł ń ó ś ź ż) in `uk.json` values except inside brackets or in the glossary
+   (test with a short allow-list); `?lang=uk` shows no Polish UI text on the 12 screens; export and report in Ukrainian;
+   375/1280 px, three looks, no script errors. Release 3.2.0.
+
+**v3.3 – UK-2 Questions in Ukrainian.**
+1. **UK3a (Sonnet) `studia/i18n/uk/questions.json`:** 49 activities, 10 situations with all answers, certainty, subjects (matura subjects with
+   Polish name in brackets), languages and levels, doubts, reflection prompts, neededWhere, homePlaces, studyLength, privateOk.
+2. **UK3b (Sonnet) Strengths and dimensions:** `core/strengths.json` (19 names and examples) and `core/dimensions.json` as overlay files
+   (`studia/i18n/uk/strengths.json`, `dimensions.json`); `scenarios.json` (scenarios, forces, sectors, shrinking) as `uk/scenarios.json`.
+3. **UK3c (Opus) Wiring and review.** The app reads the overlay when `lang=uk` (a small `tr(kind, id, field)` helper next to `t()`, falling
+   back to Polish); review all Sonnet text against the glossary; the text inside `illus.js` illustrations goes through `t()` (UK1b).
+   Check: test "every activity, situation, strength, dimension and scenario has a Ukrainian text" (strict in this release); personas results
+   unchanged (scoring does not use text); `?lang=uk` through the whole question flow at 375 px; the long answers do not break the tap cards.
+   Release 3.3.0.
+
+**v3.4 – UK-3a Directions (cards) in Ukrainian.**
+1. **UK4a (Sonnet, 3 batches of 14 cards) `studia/i18n/uk/opportunities.json`** keyed by card id: name, roles, whoYouHelp, whatYouGet, whyNeeded,
+   dayInLife (3), growth (3), experiment, robustnessNote, demand text. The numbers and labels (demand level, force names, robustness
+   A/B/C) use the glossary or `uk.json`.
+2. **UK4b (Sonnet) `studia/i18n/uk/institutions.json`:** about 25 universities and schools: Ukrainian name + official Polish name (rule UK-B),
+   short forms used on the road (`shortInst` in `app.js`).
+3. **UK4c (Opus) Wiring and review** (as UK3c); card names in the report, the compass, Kierunki and the compare table.
+   Check: strict test "every card and institution has a Ukrainian entry"; no overlay id missing in the base data (rename safety);
+   Polish snapshot unchanged. Release 3.4.0.
+
+**v3.5 – UK-3b Studies (offers) in Ukrainian.**
+1. **UK5a (Sonnet, 3 batches of about 42 offers) `studia/i18n/uk/offers.json`** keyed by offer id: study name (rule UK-B: Ukrainian with the
+   Polish name in brackets in the detail view), `requires.note`, `next`, any other note shown to the kid. Source titles and links stay as they are.
+2. **UK5b (Opus) Subject names everywhere:** the declaration helper, compare table, `requires` text, plan steps and export use the Ukrainian
+   subject names (matura subjects from UK3a); the "exam or audition" wording of arts offers; status labels ("do sprawdzenia").
+3. **UK5c (Opus) Review** (as UK3c) and the review sheet updated (`tools/i18n_review.py` includes data text).
+   Check: strict test "every offer has a Ukrainian entry"; star, compare and declaration helper in Ukrainian for 3 kids at 375 and 1280 px,
+   three looks; Polish snapshot unchanged. Release 3.5.0.
+
+**v3.6 – UK-4 Ukraine data stream (Opus research, Sonnet data entry; time-boxed per university).**
+**Rules:** official pages only (university recruitment or international pages, faculty pages, official programme descriptions; otouczelnie only
+as a pointer); every row has `sourceId`, `asOf`, `url`; **never from memory, never a guessed fact**; if a page cannot be opened, the row
+stays out and is listed here. Kraków universities first (UJ, UJ CM, AGH, UEK, UKEN, PK, URK, AKF, ASP, AMUZ, AST, Ignatianum, KSM and the
+rest in `campuses.json`); a programme outside Kraków only when it is not taught here (`outside: true`, `city`), in its own list.
+1. **UK6a (Opus) Research table** written in this file ("Ukraine-linked education in Kraków, 2026/27") with columns: university, programme or
+   offer, type, what exactly is Ukraine-related, language of teaching, source, status. Types:
+   - **A** Ukrainian philology and Ukrainian or East-Slavic studies (UJ Filologia ukraińska is already in the data; check UKEN and the others);
+   - **B** double or joint diplomas and exchange programmes with Ukrainian universities (partner, which diploma, since when);
+   - **C** studies or courses taught in Ukrainian or in English for Ukrainian students; preparatory year and Polish-language courses
+     (the language certificate level asked);
+   - **D** admission route for a holder of a Ukrainian school certificate (recognition of the certificate, language level, special rules for
+     Ukrainian citizens): per university or one general page, with sources, **not in the scoring**;
+   - **E** scholarships and support aimed at Ukrainians (national and university; deadlines);
+   - **F** studies linked to reconstruction and cooperation (the card `ukraina` and others, for example construction, energy, medicine with a
+     Ukraine focus), only where an official page says so.
+   Also check which language options for the matura exist for Ukrainian speakers (as a foreign language or a minority language) and write
+   what the official source says.
+2. **UK6b (Sonnet) Data.** New field on offers: `ukraine: { type: "A"|"B"|"C"|"E"|"F", partner?, note, sourceId, url }` (D is a page, not an
+   offer field); new offers for programmes that are not yet in `offers.json` (the usual fields, `requires`, `url`, no threshold unless an
+   official page shows one); new sources with `asOf`. Opus decides after UK6a whether a second card is needed (for example "Ukrainistyka
+   i studia wschodnie"); a new card needs a test kid, an activity or situation to reach it, and the radar mapping.
+3. **UK6c (Opus) Screen.** A tap chip "Пов'язано з Україною / Związane z Ukrainą" in Kierunki (filter), a small badge with the type on
+   each tagged offer, a section in the report ("Україна: що є в Кракові"), one row in the compare table, and the information page for
+   route D reachable from the footer (both languages; Polish text too). Ukrainian text from the start (rule UK-G), Polish original kept.
+   Check: every `ukraine` entry has a `sourceId` that resolves and an http(s) `url` (test); types in the allowed list; radar re-run; the
+   42 cards still reach a top 3 (+ the new card if any); tests pass; 375/1280 px, three looks, both languages. Release 3.6.0.
+
+**After v3.6:** v3.7 (links in Kierunki, strengths as the foundation, sources page), v3.8 (travel from Rynek or Dworzec), v3.9 (parent summary),
+then **v4.0** (exact thresholds, GUS pay, points estimate). The weekend review asks Szymon only about what is new.
+
+**Open questions for Szymon (the plan runs with the safest reading above if he does not answer):**
+1. Who will read the Ukrainian once for correctness (a friend, a teacher)? Until then the footer notice stays.
+2. Is the reader a teenager in the Polish school system (assumed) or also a newcomer with a Ukrainian certificate? The second changes
+   route D from one information page into a bigger stream.
+3. Should "ukraiński" also appear as a language skill and a card interest for Polish speakers who want to study Ukrainian (assumed yes:
+   type A and F offers work for both languages)?
+
+### v3.7 tasks (was v3.1: UI/UX + data for item 11, planned 22 Nov 2026; moved behind the Ukrainian track on 24 Nov 2026)
+
+> **Renumbered 24 Nov 2026.** This is now **v3.7** (set `3.7.0`). Wherever the text below says "v3.1" read "v3.7"; "v3.2" = v3.8, "v3.3" = v3.9.
+> **ST5 (GUS pay) moved to v4.0 and is skipped here.** New rule from v3.1 on: every new user-facing text goes through `t()` and comes with a
+> Ukrainian string in the same release (the key-parity test fails otherwise), so ST2 and ST4 add their texts to `pl.json` and `uk.json`.
+> Not yet coded: the 22/23 Nov night runs failed with "usage limit reached".
 
 **Why this release.** The coverage waves are done: 3.0.0 is pushed, the radar has every Studia field at level 3 or 4, and
 `tests/run.mjs` says 42 of 42 cards reach a top 3 (re-checked 22 Nov: tests, syntax and Liceum tests pass). The wave rule "no UI/UX
