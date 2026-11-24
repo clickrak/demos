@@ -1,15 +1,16 @@
-// Kompas Studia v3.2.0. Screens, navigation, results, export.
+// Kompas Studia v3.3.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
 import { ILLUS } from './illus.js';
 import { actPicto, sitPicto } from './pictos.js';
-import { t, plural, setLang, getLang, loadDict, normLang, HTML_LANG } from '../core/i18n.js';
+import { t, plural, setLang, getLang, loadDict, normLang, setNames, nm, HTML_LANG } from '../core/i18n.js';
+import { overlay } from '../core/overlay.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
-let data, A, glossary = [];
+let data, A, glossary = [], dataPl = null, dataUa = null;
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
@@ -25,6 +26,8 @@ async function load() {
   ].map(get));
   data = { dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas };
   // Stops, lines and times computed from the Kraków GTFS timetables (kompas/tools/transport.py); optional.
+  dataPl = { questions, strengths, dimensions, scenarios }; // Polish originals; Ukrainian overlays (studia/i18n/ua/*.json) are laid over them
+  dataUa = Object.fromEntries(await Promise.all(['questions', 'strengths', 'dimensions', 'scenarios'].map(async k => [k, await fetch(`i18n/ua/${k}.json`).then(r => (r.ok ? r.json() : null)).catch(() => null)])));
   data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
   for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
   // Interface texts: Polish is the base, Ukrainian overlays it (core/i18n.js). ?lang=ua (or uk) picks Ukrainian.
@@ -33,6 +36,7 @@ async function load() {
   glossary = await fetch('i18n/glossary.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
   setLang(new URLSearchParams(location.search).get('lang'));
   A = blank();
+  applyDataLang();
   applyStatic();
   applyTheme(); applySkin();
   matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);
@@ -88,9 +92,15 @@ function applyStatic() {
   if (lang === 'pl') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
   history.replaceState(null, '', u);
 }
+// Question, strength, dimension and scenario texts: Polish, or the Ukrainian overlay laid over it (missing texts stay Polish).
+function applyDataLang() {
+  const ua = getLang() === 'ua' && dataUa;
+  for (const k of ['questions', 'strengths', 'dimensions', 'scenarios']) data[k] = ua && dataUa[k] ? overlay(dataPl[k], dataUa[k]) : dataPl[k];
+  setNames('subject', ua ? data.questions.subjectNames : null); setNames('place', ua ? data.questions.placeNames : null);
+}
 function switchLang(l) {
   setLang(l); if (A) A.lang = getLang();
-  applyStatic(); applyTheme(); applySkin(); render();
+  applyDataLang(); applyStatic(); applyTheme(); applySkin(); render();
 }
 
 function applyTheme() {
@@ -311,7 +321,7 @@ function vCertainty() {
 function vMatura() {
   return `${ILLUS.matura}<h1>${t('app.matura.title')}</h1>
     <p class="explain">${t('app.matura.explain')}</p>
-    <div class="chips">${data.questions.subjects.map(s => chip(`data-toggle="rozszerzenia" data-val="${s}"`, s, A.rozszerzenia.includes(s))).join('')}</div>
+    <div class="chips">${data.questions.subjects.map(s => chip(`data-toggle="rozszerzenia" data-val="${s}"`, nm('subject', s), A.rozszerzenia.includes(s))).join('')}</div>
     <p class="small muted">${t('app.matura.deadline', { term: term('deklaracja', t('app.term.declaration')), date: data.config.declarationDeadline })}</p>`;
 }
 
@@ -568,9 +578,9 @@ function vCompass() {
 function vReach() {
   return `<h1>${t('app.reach.title')}</h1>
     <p>${t('app.reach.q1')}</p>
-    <div class="chips">${data.questions.neededWhere.map(v => chip(`data-set="neededWhere" data-val="${v}"`, v, A.neededWhere === v)).join('')}</div>
+    <div class="chips">${data.questions.neededWhere.map(v => chip(`data-set="neededWhere" data-val="${v}"`, nm('place', v), A.neededWhere === v)).join('')}</div>
     <p>${t('app.reach.home')}</p>
-    <div class="chips">${data.questions.homePlaces.map(v => chip(`data-toggle="homePlaces" data-val="${v}"`, v, A.homePlaces.includes(v))).join('')}</div>
+    <div class="chips">${data.questions.homePlaces.map(v => chip(`data-toggle="homePlaces" data-val="${v}"`, nm('place', v), A.homePlaces.includes(v))).join('')}</div>
     <p class="small muted">${t('app.reach.note')}</p>`;
 }
 
@@ -1072,11 +1082,11 @@ function declarationHtml(r, where = declWhere) {
   const seg = (k, list, cls) => list.length ? `<span class="dseg ${cls}" style="flex:${list.length}" title="${t(FIT_TXT[k])}: ${list.length}"></span>` : '';
   const meter = dep ? `<div class="dmeter" aria-hidden="true">${seg(3, h.full, 'f3')}${seg(2, h.part, 'f2')}${seg(1, h.weak, 'f1')}${seg(0, h.closed, 'f0')}</div>` : '';
   const sum = [[h.full, t('app.decl.sum_full')], [h.part, t('app.decl.sum_part')], [h.weak, t('app.decl.sum_weak')], [h.closed, t('app.decl.sum_closed')]].filter(([l]) => l.length).map(([l, t]) => `<b>${l.length}</b> ${t}`).join(' · ');
-  const gains = h.gains.length ? `<ol class="dgains">${h.gains.map((g, i) => `<li${i === 0 ? ' class="dbest"' : ''}><b>+ ${esc(g.subject)}</b>
+  const gains = h.gains.length ? `<ol class="dgains">${h.gains.map((g, i) => `<li${i === 0 ? ' class="dbest"' : ''}><b>+ ${esc(nm('subject', g.subject))}</b>
       ${g.opens.length ? `<span class="small">${t('app.decl.opens', { n: g.opens.length, list: nList(g.opens) })}</span>` : ''}
       ${g.better.length ? `<span class="small muted">${t('app.decl.better', { n: g.better.length, list: nList(g.better) })}</span>` : ''}</li>`).join('')}</ol>`
     : `<p class="small">${h.needMore.length ? t('app.decl.none_more') : t('app.decl.none')}</p>`;
-  const keep = h.keep.length ? `<p class="small"><b>${t('app.decl.keep')}</b> ${h.keep.map(k => t('app.decl.counts_in', { subject: esc(k.subject), n: k.needed.length })).join(', ')}.</p>` : '';
+  const keep = h.keep.length ? `<p class="small"><b>${t('app.decl.keep')}</b> ${h.keep.map(k => t('app.decl.counts_in', { subject: esc(nm('subject', k.subject)), n: k.needed.length })).join(', ')}.</p>` : '';
   const more = h.needMore.length ? `<p class="small muted">${t('app.decl.more', { list: nList(h.needMore, 3) })}</p>` : '';
   const rows = [...h.full.map(o => [o, 3]), ...h.part.map(o => [o, 2]), ...h.weak.map(o => [o, 1]), ...h.closed.map(o => [o, 0]), ...h.free.map(o => [o, null])];
   const list = `<details class="dlist"${h.basis === 'stars' ? ' open' : ''}><summary>${h.basis === 'stars' ? t('app.decl.list_stars') : t('app.decl.list_all')} (${rows.length})</summary><ul>${rows.map(([o, f]) => `<li>${starBtn(o)}<span><b>${esc(o.name)}</b>, ${esc(shortInst(o.institution))}<br>
@@ -1510,7 +1520,7 @@ function loadFile(text) {
     notice = t('app.file.not_kompas'); render(); return;
   }
   const a = Object.assign(blank(), obj.answers), missing = [];
-  if (obj.answers.lang) { setLang(obj.answers.lang); a.lang = getLang(); applyStatic(); applyTheme(); applySkin(); } // loading keeps the saved language
+  if (obj.answers.lang) { setLang(obj.answers.lang); a.lang = getLang(); applyDataLang(); applyStatic(); applyTheme(); applySkin(); } // loading keeps the saved language
   else a.lang = getLang();
   const has = (list, id) => list.some(x => x.id === id);
   a.strengths = (a.strengths || []).filter(x => has(data.strengths, x.id) || (missing.push(t('app.file.missing_strength', { id: x.id })), false));

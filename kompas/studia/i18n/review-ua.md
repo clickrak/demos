@@ -3,7 +3,7 @@
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.
 
-Keys: 853, translated: 853.
+Interface keys: 853, translated: 853. Data texts: 270.
 
 | key | Polski | Українська | correction |
 |---|---|---|---|
@@ -860,3 +860,273 @@ Keys: 853, translated: 853.
 | `gloss.lead` | Polskie słowa, które spotkasz w szkole i na stronach uczelni. Przy każdym krótkie wyjaśnienie. | Польські слова, які ти зустрінеш у школі та на сайтах вишів. Біля кожного коротке пояснення. |  |
 | `gloss.back` | ← Wróć | ← Назад |  |
 | `gloss.pl_label` | po polsku | польською |  |
+| `questions.activities[a1].text` | Znaleźć błąd w programie albo w arkuszu kalkulacyjnym. | Знайти помилку в програмі чи в електронній таблиці. |  |
+| `questions.activities[a2].text` | Wytłumaczyć koledze trudny temat tak, żeby zrozumiał. | Пояснити другові складну тему так, щоб він зрозумів. |  |
+| `questions.activities[a3].text` | Zaopiekować się kimś po kontuzji. | Доглянути когось після травми. |  |
+| `questions.activities[a4].text` | Zbudować coś fizycznego: model, mebel, układ elektroniczny. | Змайструвати щось фізичне: макет, меблі, електронну схему. |  |
+| `questions.activities[a5].text` | Przeanalizować dane i znaleźć w nich wzór. | Проаналізувати дані й знайти закономірність. |  |
+| `questions.activities[a6].text` | Rozmawiać z kimś, kto ma problem, i pomóc mu znaleźć wyjście. | Поговорити з тим, у кого проблема, і допомогти знайти вихід. |  |
+| `questions.activities[a7].text` | Przetłumaczyć tekst albo rozmowę tak, żeby nic nie zginęło. | Перекласти текст або розмову так, щоб нічого не загубилося. |  |
+| `questions.activities[a8].text` | Zaplanować wyjazd albo wydarzenie i dopilnować szczegółów. | Спланувати поїздку чи подію й простежити за всіма деталями. |  |
+| `questions.activities[a9].text` | Prowadzić doświadczenie w laboratorium i notować wyniki. | Проводити дослід у лабораторії та записувати результати. |  |
+| `questions.activities[a10].text` | Napisać tekst, który kogoś poruszy albo przekona. | Написати текст, який когось зворушить або переконає. |  |
+| `questions.activities[a11].text` | Trenować regularnie i śledzić swoje postępy. | Тренуватися регулярно й стежити за прогресом. |  |
+| `questions.activities[a12].text` | Poprowadzić trening albo rozgrzewkę dla młodszych. | Провести тренування або розминку для молодших. |  |
+| `questions.activities[a13].text` | Rozłożyć urządzenie na części, żeby zrozumieć, jak działa. | Розібрати пристрій на частини, щоб зрозуміти, як він працює. |  |
+| `questions.activities[a14].text` | Przekonać grupę do swojego pomysłu. | Переконати групу у своїй ідеї. |  |
+| `questions.activities[a15].text` | Uporządkować notatki, pliki albo zdjęcia tak, żeby wszystko łatwo znaleźć. | Впорядкувати нотатки, файли чи фото так, щоб усе легко знаходилось. |  |
+| `questions.activities[a16].text` | Dowiedzieć się, jak działa ludzkie ciało albo mózg. | Дізнатися, як працює людське тіло чи мозок. |  |
+| `questions.activities[a17].text` | Pomóc komuś z innego kraju załatwić sprawę w urzędzie albo u lekarza. | Допомогти комусь з іншої країни владнати справу в установі чи в лікаря. |  |
+| `questions.activities[a18].text` | Napisać prosty program, który oszczędzi komuś czas. | Написати просту програму, яка заощадить комусь час. |  |
+| `questions.activities[a19].text` | Pracować na zewnątrz, w terenie, przy każdej pogodzie. | Працювати просто неба, в полі, за будь-якої погоди. |  |
+| `questions.activities[a20].text` | Śledzić wiadomości ze świata i rozumieć, dlaczego coś się dzieje. | Стежити за новинами зі світу й розуміти, чому щось відбувається. |  |
+| `questions.activities[a21].text` | Narysować, jak coś mogłoby wyglądać: pokój, plakat albo przedmiot. | Намалювати, як щось могло б виглядати: кімнату, плакат чи річ. |  |
+| `questions.activities[a22].text` | Sprzedać coś albo wynegocjować dobrą cenę. | Продати щось або виторгувати добру ціну. |  |
+| `questions.activities[a23].text` | Nagrać i zmontować krótki film albo zrobić zdjęcia, które coś opowiadają. | Зняти й змонтувати коротке відео або зробити фото, що щось розповідають. |  |
+| `questions.activities[a24].text` | Zaprojektować poziom gry albo ekran aplikacji i sprawdzić, czy ktoś się w nim nie gubi. | Спроєктувати рівень гри чи екран застосунку й перевірити, чи ніхто в ньому не губиться. |  |
+| `questions.activities[a25].text` | Zagrać, zaśpiewać albo odegrać rolę przed publicznością. | Зіграти, заспівати або відіграти роль перед публікою. |  |
+| `questions.activities[a26].text` | Zajmować się zwierzętami albo roślinami, codziennie i porządnie. | Доглядати за тваринами чи рослинами щодня й сумлінно. |  |
+| `questions.activities[a27].text` | Znaleźć lukę w regulaminie albo stanąć w obronie czyjejś sprawy. | Знайти лазівку в правилах або заступитися за чиюсь справу. |  |
+| `questions.activities[a28].text` | Odkryć historię starego miejsca, budynku albo przedmiotu. | Розкрити історію старого місця, будівлі чи речі. |  |
+| `questions.activities[a29].text` | Ugotować coś dla innych i dobrać, co komu służy. | Приготувати щось для інших з огляду на те, що кому корисно. |  |
+| `questions.activities[a30].text` | Zrobić ankietę i sprawdzić, co ludzie naprawdę myślą. | Зробити опитування й перевірити, що люди насправді думають. |  |
+| `questions.activities[a31].text` | Rozwiązać zadanie z matematyki, którego nikt w klasie nie umie. | Розв’язати задачу з математики, яку ніхто в класі не вміє. |  |
+| `questions.activities[a32].text` | Pływać, żeglować albo nurkować i poznawać, co żyje w wodzie. | Плавати, ходити під вітрилом чи пірнати й вивчати, що живе у воді. |  |
+| `questions.activities[a33].text` | Śledzić samoloty albo rakiety i rozumieć, jak to wszystko lata. | Стежити за літаками чи ракетами й розуміти, як це все літає. |  |
+| `questions.activities[a34].text` | Poznawać w podróży nowe kraje, ludzi i jedzenie. | Відкривати в подорожі нові країни, людей і їжу. |  |
+| `questions.activities[a35].text` | Chodzić po muzeach i rozpoznawać, z jakiej epoki jest obraz albo budynek. | Ходити по музеях і впізнавати, з якої епохи картина чи будівля. |  |
+| `questions.activities[a36].text` | Przeczytać umowę albo regulamin i znaleźć, co jest w nim nie tak. | Прочитати договір чи правила й знайти, що в них не так. |  |
+| `questions.activities[a37].text` | Narysować plan domu albo osiedla i sprawdzić, czy wszystko się zmieści. | Накреслити план будинку чи мікрорайону й перевірити, чи все вміститься. |  |
+| `questions.activities[a38].text` | Zaprojektować i wydrukować w 3D część, która naprawdę działa. | Спроєктувати й надрукувати на 3D-принтері деталь, яка справді працює. |  |
+| `questions.activities[a39].text` | Poprowadzić zajęcia albo zabawę dla grupy młodszych dzieci. | Провести заняття чи гру для групи менших дітей. |  |
+| `questions.activities[a40].text` | Sprawdzić, jak urząd albo szkoła załatwia jakąś sprawę, i wymyślić prostszy sposób. | Перевірити, як установа чи школа вирішує якусь справу, і придумати простіший спосіб. |  |
+| `questions.activities[a41].text` | Porozmawiać z ludźmi z różnych środowisk i zrozumieć, skąd biorą się nierówności. | Поговорити з людьми з різних середовищ і зрозуміти, звідки береться нерівність. |  |
+| `questions.activities[a42].text` | Zrozumieć, dlaczego coś działa w przyrodzie, od atomu po gwiazdy, aż wszystko się zgadza. | Зрозуміти, чому щось так діє в природі, від атома до зірок, аж доки все зійдеться. |  |
+| `questions.activities[a43].text` | Ćwiczyć codziennie na instrumencie, głos albo ruch, żeby wystąpić na scenie. | Щодня тренувати гру на інструменті, голос чи рух, щоб вийти на сцену. |  |
+| `questions.activities[a44].text` | Szukać w archiwum starych dokumentów i sprawdzać, co naprawdę się wtedy wydarzyło. | Шукати в архіві старі документи й перевіряти, що насправді тоді сталося. |  |
+| `questions.activities[a45].text` | Pomóc komuś w trudnej sytuacji znaleźć urząd albo organizację, która mu pomoże. | Допомогти комусь у скруті знайти установу чи організацію, яка допоможе. |  |
+| `questions.activities[a46].text` | Czytać składy produktów w sklepie i ułożyć zdrowy jadłospis na cały tydzień. | Читати склад продуктів у магазині й скласти здорове меню на весь тиждень. |  |
+| `questions.activities[a47].text` | Pomagać przy zwierzętach w schronisku, w stajni albo u weterynarza. | Допомагати біля тварин у притулку, на стайні чи в ветеринара. |  |
+| `questions.activities[a48].text` | Czytać mapy i odkrywać, dlaczego miasto rośnie tu, a nie gdzie indziej. | Читати карти й дізнаватися, чому місто росте тут, а не деінде. |  |
+| `questions.activities[a49].text` | Poprowadzić grupę na górski szlak albo zorganizować obóz pod namiotami. | Повести групу гірською стежкою або організувати табір у наметах. |  |
+| `questions.situations[e1].text` | Wasza grupa oddaje jutro projekt. Wyniki się nie zgadzają, a jedna osoba jest zestresowana i chce odpuścić. Co robisz najpierw? | Ваша група завтра здає проєкт. Результати не сходяться, а одна людина через стрес хоче все кинути. Що робиш найперше? |  |
+| `questions.situations[e1].answers[a].text` | Siadam do danych i szukam błędu. | Сідаю за дані й шукаю помилку. |  |
+| `questions.situations[e1].answers[b].text` | Rozmawiam z tą osobą i dzielę zadania na nowo. | Говорю з цією людиною й заново розподіляю завдання. |  |
+| `questions.situations[e1].answers[c].text` | Proponuję inne podejście do całego problemu. | Пропоную інший підхід до всієї проблеми. |  |
+| `questions.situations[e1].answers[d].text` | Piszę do prowadzącego i pytam o przesunięcie terminu. | Пишу вчителю й питаю, чи можна перенести термін. |  |
+| `questions.situations[e2].text` | Masz wolny tydzień i trochę pieniędzy na własny projekt. Co wybierasz? | Маєш вільний тиждень і трохи грошей на власний проєкт. Що обираєш? |  |
+| `questions.situations[e2].answers[a].text` | Kurs albo książkę o czymś, co chcę wreszcie zrozumieć. | Курс або книжку про те, що хочу нарешті зрозуміти. |  |
+| `questions.situations[e2].answers[b].text` | Buduję albo naprawiam coś własnymi rękami. | Будую або лагоджу щось власними руками. |  |
+| `questions.situations[e2].answers[c].text` | Organizuję wyjazd albo wydarzenie dla znajomych. | Організовую поїздку або подію для друзів. |  |
+| `questions.situations[e2].answers[d].text` | Piszę, nagrywam albo tłumaczę coś własnego. | Пишу, записую або перекладаю щось своє. |  |
+| `questions.situations[e2].answers[e].text` | Zgłaszam się jako wolontariusz tam, gdzie brakuje rąk. | Іду у волонтери туди, де бракує рук. |  |
+| `questions.situations[e3].text` | Kolega skręca kostkę na treningu. Co robisz najpierw? | Друг на тренуванні підвертає кісточку. Що робиш найперше? |  |
+| `questions.situations[e3].answers[a].text` | Oglądam nogę, układam ją wyżej, przykładam coś zimnego. | Оглядаю ногу, піднімаю її вище, прикладаю щось холодне. |  |
+| `questions.situations[e3].answers[b].text` | Uspokajam go i z nim zostaję. | Заспокоюю його й лишаюся поруч. |  |
+| `questions.situations[e3].answers[c].text` | Dzwonię po pomoc i organizuję, jak wróci do domu. | Кличу на допомогу й організовую, як він дістанеться додому. |  |
+| `questions.situations[e3].answers[d].text` | Sprawdzam, co się robi przy skręceniu, i mówię innym. | Дізнаюся, що робити при розтягненні, і кажу іншим. |  |
+| `questions.situations[e4].text` | Klasa robi wspólny projekt o swoim mieście. Jaką rolę bierzesz? | Клас робить спільний проєкт про своє місто. Яку роль береш? |  |
+| `questions.situations[e4].answers[a].text` | Liczby, ankieta i wykresy. | Цифри, опитування й графіки. |  |
+| `questions.situations[e4].answers[b].text` | Teksty i opowieść. | Тексти й розповідь. |  |
+| `questions.situations[e4].answers[c].text` | Rozmowy z mieszkańcami. | Розмови з мешканцями. |  |
+| `questions.situations[e4].answers[d].text` | Plan, terminy i pilnowanie, żeby wszystko się złożyło. | План, терміни й нагляд, щоб усе склалося докупи. |  |
+| `questions.situations[e4].answers[e].text` | Strona techniczna: zdjęcia, mapa, montaż. | Технічна частина: фото, мапа, монтаж. |  |
+| `questions.situations[e5].text` | W szkole jest debata: czy zakazać telefonów na przerwach? Jaką rolę bierzesz? | У школі дебати: чи заборонити телефони на перервах? Яку роль береш? |  |
+| `questions.situations[e5].answers[a].text` | Zbieram dane i badania, żeby argumenty miały na czym stać. | Збираю дані й дослідження, щоб аргументи мали на що спертися. |  |
+| `questions.situations[e5].answers[b].text` | Wychodzę na środek i przekonuję salę. | Виходжу на середину й переконую зал. |  |
+| `questions.situations[e5].answers[c].text` | Słucham obu stron i szukam rozwiązania, które wszyscy przyjmą. | Слухаю обидві сторони й шукаю рішення, яке всіх влаштує. |  |
+| `questions.situations[e5].answers[d].text` | Robię plakat albo krótki film, który pokazuje problem. | Роблю плакат або коротке відео, що показує проблему. |  |
+| `questions.situations[e6].text` | Klasa ma 3000 zł na wycieczkę, a organizacja spada na ciebie. Od czego zaczynasz? | Клас має 3000 зл на поїздку, а організація лягає на тебе. З чого починаєш? |  |
+| `questions.situations[e6].answers[a].text` | Liczę koszty i porównuję oferty w tabeli. | Рахую витрати й порівнюю пропозиції в таблиці. |  |
+| `questions.situations[e6].answers[b].text` | Pytam wszystkich, czego chcą, i szukam kompromisu. | Питаю всіх, чого хочуть, і шукаю компроміс. |  |
+| `questions.situations[e6].answers[c].text` | Dzwonię do przewoźnika i negocjuję lepszą cenę. | Дзвоню перевізникові й торгуюся за кращу ціну. |  |
+| `questions.situations[e6].answers[d].text` | Sprawdzam trasę, sprzęt i co może pójść nie tak po drodze. | Перевіряю маршрут, спорядження і що може піти не так у дорозі. |  |
+| `questions.situations[e7].text` | Dostajesz tydzień i bilet w dowolne miejsce. Dokąd jedziesz? | Отримуєш тиждень і квиток будь-куди. Куди їдеш? |  |
+| `questions.situations[e7].answers[a].text` | Nad morze: żagle, nurkowanie i sprawdzanie, co żyje pod wodą. | До моря: вітрила, пірнання й дослідження, що живе під водою. |  |
+| `questions.situations[e7].answers[b].text` | Do miasta pełnego muzeów, starych kościołów i zamków. | У місто, повне музеїв, старих церков і замків. |  |
+| `questions.situations[e7].answers[c].text` | Samolotem jak najdalej, żeby poznać ludzi i inną kulturę. | Літаком якнайдалі, щоб пізнати людей і іншу культуру. |  |
+| `questions.situations[e7].answers[d].text` | W góry, z mapą i namiotem, z dala od ludzi. | В гори, з мапою й наметом, подалі від людей. |  |
+| `questions.situations[e8].text` | Prowadzisz zebranie klubu, który chce zbudować boisko przy szkole. Co bierzesz na siebie? | Ведеш збори клубу, який хоче збудувати спортмайданчик біля школи. Що береш на себе? |  |
+| `questions.situations[e8].answers[a].text` | Sprawdzam przepisy i zgody, które są do tego potrzebne. | Перевіряю правила й дозволи, потрібні для цього. |  |
+| `questions.situations[e8].answers[b].text` | Rysuję plan boiska i liczę, ile trzeba materiału. | Малюю план майданчика й рахую, скільки потрібно матеріалу. |  |
+| `questions.situations[e8].answers[c].text` | Szukam maszyn i ludzi do budowy i pilnuję, żeby wszystko działało. | Шукаю техніку й людей для будівництва й стежу, щоб усе працювало. |  |
+| `questions.situations[e8].answers[d].text` | Zbieram młodszych uczniów do pomocy i tłumaczę im, co mają robić. | Збираю молодших учнів на допомогу й пояснюю, що їм робити. |  |
+| `questions.situations[e9].text` | Szkoła świętuje 100-lecie i robi dzień otwarty. Co przygotowujesz? | Школа святкує 100-річчя і проводить день відкритих дверей. Що готуєш? |  |
+| `questions.situations[e9].answers[a].text` | Ankietę wśród absolwentów: co szkoła im dała i co by zmienili. | Опитування серед випускників: що школа їм дала і що б вони змінили. |  |
+| `questions.situations[e9].answers[b].text` | Pokaz doświadczeń z fizyki i chemii z wyjaśnieniem, co się dzieje. | Показ дослідів з фізики й хімії з поясненням, що відбувається. |  |
+| `questions.situations[e9].answers[c].text` | Koncert albo scenkę na otwarcie, na scenie przed wszystkimi. | Концерт або сценку на відкриття, на сцені перед усіма. |  |
+| `questions.situations[e9].answers[d].text` | Wystawę starych zdjęć i dokumentów z archiwum szkoły. | Виставку старих фото й документів зі шкільного архіву. |  |
+| `questions.situations[e10].text` | Klasa jedzie na tydzień na wieś pod Krakowem. Za co chcesz odpowiadać? | Клас їде на тиждень у село під Краковом. За що хочеш відповідати? |  |
+| `questions.situations[e10].answers[a].text` | Za jedzenie: co gotujemy, żeby było zdrowo i wszystkim smakowało. | За їжу: що готуємо, щоб було здорово й усім смакувало. |  |
+| `questions.situations[e10].answers[b].text` | Za pomoc w gospodarstwie przy koniach, krowach i kurach. | За допомогу в господарстві біля коней, корів і курей. |  |
+| `questions.situations[e10].answers[c].text` | Za mapę okolicy i trasy wycieczek. | За мапу околиці й маршрути походів. |  |
+| `questions.situations[e10].answers[d].text` | Za gry, ognisko i wieczorny program dla całej grupy. | За ігри, багаття й вечірню програму для всієї групи. |  |
+| `questions.certainty[pewny].label` | Wiem, co chcę studiować | Знаю, що хочу вивчати |  |
+| `questions.certainty[troche].label` | Mam pomysł, ale nie jestem pewny | Є ідея, але вагаюся |  |
+| `questions.certainty[niepewny].label` | Nie wiem jeszcze | Ще не знаю |  |
+| `questions.languages[pl].name` | polski | польська |  |
+| `questions.languages[en].name` | angielski | англійська |  |
+| `questions.languages[de].name` | niemiecki | німецька |  |
+| `questions.languages[uk].name` | ukraiński | українська |  |
+| `questions.languages[fr].name` | francuski | французька |  |
+| `questions.studyLength[krotko].label` | Chcę szybko zacząć pracować (do 3 lat) | Хочу швидко почати працювати (до 3 років) |  |
+| `questions.studyLength[srednio].label` | Mogę uczyć się 3–5 lat | Можу вчитися 3–5 років |  |
+| `questions.studyLength[dlugo].label` | Długie studia mi nie przeszkadzają | Довге навчання мене не лякає |  |
+| `questions.doubts[nie_wiem].label` | Nie wiem, co lubię | Не знаю, що люблю |  |
+| `questions.doubts[nie_wiem].card` | To normalne. Zobacz, co już pokazują twoje odpowiedzi: mocne strony na górze wyników są twoje, nie wymyślone. | Це нормально. Подивись, що вже показують твої відповіді: сильні сторони вгорі результатів справжні, ніхто їх не вигадав. |  |
+| `questions.doubts[zle].label` | Boję się, że wybiorę źle | Боюся обрати не те |  |
+| `questions.doubts[zle].card` | Pierwszy wybór to nie wyrok. Kierunek można zmienić, a umiejętności przechodzą między dziedzinami. | Перший вибір не вирок. Напрям можна змінити, а вміння переходять з однієї галузі в іншу. |  |
+| `questions.doubts[nie_dosc].label` | Nie jestem dość dobry z jakiegoś przedmiotu | Якийсь предмет мені не дається |  |
+| `questions.doubts[nie_dosc].card` | Przy każdej opcji widzisz, czego naprawdę wymaga i co możesz zrobić, jeśli czegoś brakuje. Brak rozszerzenia to sprawa do załatwienia, nie zamknięte drzwi. | Біля кожного варіанта видно, чого він справді вимагає і що можна зробити, якщо чогось бракує. Брак розширеного рівня з предмета це питання, яке можна вирішити, а не зачинені двері. |  |
+| `questions.doubts[inni].label` | Inni wiedzą, czego chcą | Інші знають, чого хочуть |  |
+| `questions.doubts[inni].card` | Pewność innych bywa mniejsza, niż się wydaje. Liczy się następny krok, nie cały plan. | Інші впевнені не так сильно, як здається. Важливий наступний крок, а не весь план. |  |
+| `questions.doubts[studia].label` | Nie wiem, czy dam radę na studiach | Не знаю, чи впораюся у виші |  |
+| `questions.doubts[studia].card` | Pierwszy rok to głównie nowy rytm: więcej samodzielnej nauki, mniej sprawdzania. Pomagają grupy nauki, konsultacje u prowadzących i biura wsparcia studentów, które ma każda duża uczelnia. | Перший рік це здебільшого новий ритм: більше самостійного навчання і менше перевірок. Допомагають навчальні групи, консультації з викладачами і бюро підтримки студентів, яке є в кожному великому виші. |  |
+| `questions.reflection[f1].text` | Kiedy ostatnio straciłeś poczucie czasu? Co wtedy robiłeś? | Коли востаннє час летів непомітно? Яке це було заняття? |  |
+| `questions.reflection[f1].ideas[0]` | grając | граючи |  |
+| `questions.reflection[f1].ideas[1]` | przy muzyce | під музику |  |
+| `questions.reflection[f1].ideas[2]` | w sporcie | у спорті |  |
+| `questions.reflection[f1].ideas[3]` | rysując albo tworząc | малюючи чи створюючи |  |
+| `questions.reflection[f1].ideas[4]` | ucząc się czegoś nowego | вивчаючи щось нове |  |
+| `questions.reflection[f1].ideas[5]` | pomagając komuś | допомагаючи комусь |  |
+| `questions.reflection[f2].text` | Czego na pewno nie chcesz robić za 10 lat? | Чого точно не хочеш робити за 10 років? |  |
+| `questions.reflection[f2].ideas[0]` | siedzieć cały dzień przy biurku | цілий день сидіти за столом |  |
+| `questions.reflection[f2].ideas[1]` | robić ciągle to samo | постійно робити те саме |  |
+| `questions.reflection[f2].ideas[2]` | pracować sam | працювати наодинці |  |
+| `questions.reflection[f2].ideas[3]` | pracować w hałasie i tłumie | працювати в шумі й натовпі |  |
+| `questions.reflection[f2].ideas[4]` | pracować w nocy | працювати вночі |  |
+| `questions.reflection[f2].ideas[5]` | ciągle się spieszyć | постійно поспішати |  |
+| `questions.reflection[f3].text` | Za co chwalą cię inni, nawet jeśli tobie to przychodzi łatwo? | За що тебе хвалять інші, навіть якщо тобі це дається легко? |  |
+| `questions.reflection[f3].ideas[0]` | za pomoc innym | за допомогу іншим |  |
+| `questions.reflection[f3].ideas[1]` | za tłumaczenie trudnych rzeczy | за пояснення складного |  |
+| `questions.reflection[f3].ideas[2]` | za spokój | за спокій |  |
+| `questions.reflection[f3].ideas[3]` | za poczucie humoru | за почуття гумору |  |
+| `questions.reflection[f3].ideas[4]` | za naprawianie rzeczy | за вміння щось лагодити |  |
+| `questions.reflection[f3].ideas[5]` | za dobrą organizację | за добру організацію |  |
+| `questions.privateOk[tak].label` | Tak, jeśli warto | Так, якщо варто |  |
+| `questions.privateOk[nie].label` | Tylko publiczne, bezpłatne | Лише публічні, безкоштовні |  |
+| `questions.subjectNames.polski` | (Polish name: polski) | польська мова |  |
+| `questions.subjectNames.matematyka` | (Polish name: matematyka) | математика |  |
+| `questions.subjectNames.angielski` | (Polish name: angielski) | англійська мова |  |
+| `questions.subjectNames.biologia` | (Polish name: biologia) | біологія |  |
+| `questions.subjectNames.chemia` | (Polish name: chemia) | хімія |  |
+| `questions.subjectNames.fizyka` | (Polish name: fizyka) | фізика |  |
+| `questions.subjectNames.geografia` | (Polish name: geografia) | географія |  |
+| `questions.subjectNames.historia` | (Polish name: historia) | історія |  |
+| `questions.subjectNames.historia sztuki` | (Polish name: historia sztuki) | історія мистецтва |  |
+| `questions.subjectNames.WOS` | (Polish name: WOS) | суспільствознавство (WOS) |  |
+| `questions.subjectNames.informatyka` | (Polish name: informatyka) | інформатика |  |
+| `questions.subjectNames.niemiecki` | (Polish name: niemiecki) | німецька мова |  |
+| `questions.placeNames.moje miasto` | (Polish name: moje miasto) | моє місто |  |
+| `questions.placeNames.cała Polska` | (Polish name: cała Polska) | уся Польща |  |
+| `questions.placeNames.Ukraina` | (Polish name: Ukraina) | Україна |  |
+| `questions.placeNames.Europa i świat` | (Polish name: Europa i świat) | Європа і світ |  |
+| `questions.placeNames.Kraków` | (Polish name: Kraków) | Краків |  |
+| `questions.placeNames.Małopolska` | (Polish name: Małopolska) | Малопольща |  |
+| `questions.placeNames.Polska` | (Polish name: Polska) | Польща |  |
+| `questions.placeNames.Europa` | (Polish name: Europa) | Європа |  |
+| `questions.placeNames.trudno powiedzieć` | (Polish name: trudno powiedzieć) | важко сказати |  |
+| `strengths[wytrwalosc].name` | wytrwałość | витривалість |  |
+| `strengths[wytrwalosc].example` | Wracałem do trudnej drogi wspinaczkowej, aż ją przeszedłem. | Повертаюся до складного скелелазного маршруту, доки його не пройду. |  |
+| `strengths[spokoj].name` | spokój pod presją | спокій під тиском |  |
+| `strengths[spokoj].example` | Na sprawdzianie, gdy reszta panikowała, zrobiłem plan i poszedłem po kolei. | На контрольній, коли решта панікує, складаю план і йду крок за кроком. |  |
+| `strengths[logika].name` | logiczne myślenie | логічне мислення |  |
+| `strengths[logika].example` | Znalazłem błąd w zadaniu, którego nie widział nikt w grupie. | Знаходжу помилку в задачі, якої ніхто в групі не помітив. |  |
+| `strengths[tlumaczenie].name` | tłumaczenie innym | пояснення іншим |  |
+| `strengths[tlumaczenie].example` | Wytłumaczyłem koledze temat przed kartkówką i zdał. | Пояснюю однокласнику тему перед самостійною, і він її здає. |  |
+| `strengths[empatia].name` | empatia | емпатія |  |
+| `strengths[empatia].example` | Zauważyłem, że ktoś ma gorszy dzień, i zagadałem. | Помічаю, що в когось гірший день, і заводжу розмову. |  |
+| `strengths[dokladnosc].name` | dokładność | точність |  |
+| `strengths[dokladnosc].example` | Sprawdzam tekst dwa razy, zanim go oddam. | Перевіряю текст двічі, перш ніж здати. |  |
+| `strengths[ciekawosc].name` | ciekawość świata | цікавість до світу |  |
+| `strengths[ciekawosc].example` | Czytam o czymś do nocy, bo chcę wiedzieć, jak to działa. | Читаю про щось до пізньої ночі, бо хочу знати, як це працює. |  |
+| `strengths[zespol].name` | praca w zespole | робота в команді |  |
+| `strengths[zespol].example` | W projekcie grupowym pilnowałem, żeby każdy miał swoje zadanie. | У груповому проєкті стежу, щоб кожен мав своє завдання. |  |
+| `strengths[dyscyplina].name` | dyscyplina i regularność | дисципліна і регулярність |  |
+| `strengths[dyscyplina].example` | Chodzę na siłownię regularnie, nawet gdy mi się nie chce. | Ходжу в спортзал регулярно, навіть коли не хочеться. |  |
+| `strengths[kondycja].name` | kondycja | форма |  |
+| `strengths[kondycja].example` | Trenuję kilka razy w tygodniu i widzę postępy. | Тренуюся кілька разів на тиждень і бачу прогрес. |  |
+| `strengths[jezyki].name` | języki | мови |  |
+| `strengths[jezyki].example` | Dogaduję się po angielsku bez stresu, po ukraińsku rozmawiam. | Без стресу спілкуюся англійською, українською теж розмовляю. |  |
+| `strengths[szybka_nauka].name` | szybkie uczenie się | швидке навчання |  |
+| `strengths[szybka_nauka].example` | Nowy program ogarnąłem w jeden wieczór. | Нову програму освоюю за один вечір. |  |
+| `strengths[organizowanie].name` | organizowanie | організаторство |  |
+| `strengths[organizowanie].example` | Zaplanowałem wyjazd ze znajomymi: bilety, nocleg, plan dnia. | Планую поїздку з друзями: квитки, нічліг, план дня. |  |
+| `strengths[pomyslowosc].name` | pomysłowość | винахідливість |  |
+| `strengths[pomyslowosc].example` | Wymyśliłem inny sposób na zadanie i zadziałał. | Вигадую інший спосіб розв’язати задачу, і він працює. |  |
+| `strengths[odpowiedzialnosc].name` | odpowiedzialność za innych | відповідальність за інших |  |
+| `strengths[odpowiedzialnosc].example` | Opiekowałem się młodszym bratem, gdy rodzice wyjeżdżali. | Доглядаю за молодшим братом, коли батьки від’їжджають. |  |
+| `strengths[rysunek].name` | rysowanie i wyobraźnia przestrzenna | малювання і просторова уява |  |
+| `strengths[rysunek].example` | Narysowałem plan pokoju w skali i przestawiłem meble tak, że zmieściło się biurko. | Малюю план кімнати в масштабі й переставляю меблі так, що стіл вміщується. |  |
+| `strengths[przekonywanie].name` | przekonywanie innych | переконування інших |  |
+| `strengths[przekonywanie].example` | Sprzedałem stary rower za lepszą cenę, niż się spodziewałem. | Продаю старий велосипед за кращу ціну, ніж очікувалося. |  |
+| `strengths[orientacja].name` | orientacja w terenie i na mapie | орієнтування на місцевості і за картою |  |
+| `strengths[orientacja].example` | Poprowadziłem rodzinę górskim szlakiem z mapą i nikt się nie zgubił. | Веду родину гірською стежкою за картою, і ніхто не губиться. |  |
+| `strengths[oko].name` | oko do sztuki i szczegółów | чуття до мистецтва і деталей |  |
+| `strengths[oko].example` | Na wycieczce zauważyłem, że dwa kościoły mają takie samo sklepienie. | У подорожі помічаю, що два костели мають однакове склепіння. |  |
+| `dimensions.interests[ana].name` | Analityczny | Аналітичний |  |
+| `dimensions.interests[ana].desc` | szukanie wzorów, rozumienie, jak coś działa | пошук закономірностей, розуміння, як щось працює |  |
+| `dimensions.interests[tec].name` | Techniczny | Технічний |  |
+| `dimensions.interests[tec].desc` | praca rękami, urządzenia, ciało w ruchu | робота руками, прилади, тіло в русі |  |
+| `dimensions.interests[spo].name` | Społeczny | Соціальний |  |
+| `dimensions.interests[spo].desc` | opieka, pomoc, rozmowa z ludźmi | турбота, допомога, розмови з людьми |  |
+| `dimensions.interests[twr].name` | Twórczy | Творчий |  |
+| `dimensions.interests[twr].desc` | słowa, obrazy, pomysły, wyrażanie | слова, образи, ідеї, самовираження |  |
+| `dimensions.interests[prz].name` | Przedsiębiorczy | Підприємливий |  |
+| `dimensions.interests[prz].desc` | organizowanie, przekonywanie, prowadzenie | організовувати, переконувати, вести за собою |  |
+| `dimensions.interests[sys].name` | Systemowy | Системний |  |
+| `dimensions.interests[sys].desc` | porządek, dokładność, procedury | порядок, точність, процедури |  |
+| `dimensions.workStyle[zespol].left` | sam | сам |  |
+| `dimensions.workStyle[zespol].right` | w zespole | у команді |  |
+| `dimensions.workStyle[ludzie].left` | z ludźmi | з людьми |  |
+| `dimensions.workStyle[ludzie].right` | z danymi i rzeczami | з даними і речами |  |
+| `dimensions.workStyle[ruch].left` | w ruchu | у русі |  |
+| `dimensions.workStyle[ruch].right` | przy biurku | за столом |  |
+| `dimensions.workStyle[konkret].left` | konkret | практика |  |
+| `dimensions.workStyle[konkret].right` | teoria | теорія |  |
+| `dimensions.workStyle[decyzje].left` | szybkie decyzje | швидкі рішення |  |
+| `dimensions.workStyle[decyzje].right` | dokładna analiza | ретельний аналіз |  |
+| `dimensions.workStyle[zmiana].left` | stabilność | стабільність |  |
+| `dimensions.workStyle[zmiana].right` | zmienność | зміни |  |
+| `dimensions.workStyle[projekty].left` | krótkie zadania | короткі завдання |  |
+| `dimensions.workStyle[projekty].right` | długie projekty | довгі проєкти |  |
+| `dimensions.workStyle[wspolpraca].left` | rywalizacja | суперництво |  |
+| `dimensions.workStyle[wspolpraca].right` | współpraca | співпраця |  |
+| `dimensions.values[pomaganie].name` | pomaganie ludziom | допомога людям |  |
+| `dimensions.values[zarobki].name` | zarobki | заробіток |  |
+| `dimensions.values[pewnosc].name` | pewność zatrudnienia | стабільна робота |  |
+| `dimensions.values[prestiz].name` | prestiż | престиж |  |
+| `dimensions.values[kreatywnosc].name` | kreatywność | творчість |  |
+| `dimensions.values[wplyw].name` | wpływ na świat | вплив на світ |  |
+| `dimensions.values[zagranica].name` | praca za granicą | робота за кордоном |  |
+| `dimensions.values[czas].name` | czas wolny | вільний час |  |
+| `dimensions.values[niezaleznosc].name` | niezależność | незалежність |  |
+| `dimensions.values[trudne].name` | rozwiązywanie trudnych problemów | розв’язування складних проблем |  |
+| `scenarios.scenarios[A].name` | Niezależna Europa | Незалежна Європа |  |
+| `scenarios.scenarios[A].text` | Pokój w Ukrainie, tania czysta energia, Polska jako centrum odbudowy Ukrainy. | Мир в Україні, дешева чиста енергія, Польща як центр відбудови України. |  |
+| `scenarios.scenarios[B].name` | Lawirowanie | Лавірування |  |
+| `scenarios.scenarios[B].text` | Słaba, ale groźna Rosja, zmienne ceny energii, atom spóźniony o 2–4 lata. | Слабка, але небезпечна Росія, мінливі ціни на енергію, АЕС запізнюється на 2–4 роки. |  |
+| `scenarios.scenarios[C].name` | Pod presją | Під тиском |  |
+| `scenarios.scenarios[C].text` | USA wycofują się z Europy, wysokie wydatki na obronność, szybszy spadek liczby ludności. | США йдуть з Європи, високі витрати на оборону, швидше скорочення кількості населення. |  |
+| `scenarios.forces[demografia].name` | Demografia | Демографія |  |
+| `scenarios.forces[demografia].text` | W 2025 r. urodziło się ok. 238 tys. dzieci, zmarło ok. 406 tys. osób. Co roku jest mniej ludzi do pracy. | У 2025 р. народилося близько 238 тис. дітей, померло близько 406 тис. осіб. Щороку людей для роботи менше. |  |
+| `scenarios.forces[demografia].line` | Każda para rąk będzie bardziej potrzebna, a część pracy przejmą maszyny. | Кожна пара рук буде потрібніша, а частину роботи візьмуть на себе машини. |  |
+| `scenarios.forces[starzenie].name` | Starzenie się | Старіння |  |
+| `scenarios.forces[starzenie].text` | Mediana wieku przekroczy 50 lat do 2060 r. Więcej osób będzie potrzebować opieki i rehabilitacji. | Медіанний вік перевищить 50 років до 2060 р. Більше людей потребуватиме догляду та реабілітації. |  |
+| `scenarios.forces[starzenie].line` | Coraz więcej osób będzie potrzebować leczenia, rehabilitacji i opieki. | Дедалі більше людей потребуватиме лікування, реабілітації та догляду. |  |
+| `scenarios.forces[energia].name` | Energia | Енергія |  |
+| `scenarios.forces[energia].text` | Pierwszy blok jądrowy planowany na 2036 r.; sieci i OZE do budowy przez dekady. | Перший атомний блок планують на 2036 р.; мережі та ВДЕ будуватимуть десятиліттями. |  |
+| `scenarios.forces[energia].line` | Nowe elektrownie i sieci budowane przez dekady. | Нові електростанції й мережі будують десятиліттями. |  |
+| `scenarios.forces[bezpieczenstwo].name` | Bezpieczeństwo | Безпека |  |
+| `scenarios.forces[bezpieczenstwo].text` | Polska zostaje krajem frontowym NATO. | Польща стає прифронтовою країною НАТО. |  |
+| `scenarios.forces[bezpieczenstwo].line` | Polska zostaje krajem frontowym NATO. | Польща стає прифронтовою країною НАТО. |  |
+| `scenarios.forces[automatyzacja].name` | Automatyzacja i AI | Автоматизація та ШІ |  |
+| `scenarios.forces[automatyzacja].text` | Mniej rąk do pracy oznacza więcej maszyn i oprogramowania. | Менше рук для роботи означає більше машин і програм. |  |
+| `scenarios.forces[automatyzacja].line` | Mniej rutyny, więcej pracy z ludźmi i z danymi. | Менше рутини, більше роботи з людьми та з даними. |  |
+| `scenarios.sectors[zdrowie].name` | ochrona zdrowia i opieka nad seniorami | охорона здоров’я і догляд за літніми |  |
+| `scenarios.sectors[energetyka].name` | energetyka i sieci | енергетика та мережі |  |
+| `scenarios.sectors[obronnosc].name` | obronność i cyberbezpieczeństwo | оборона та кібербезпека |  |
+| `scenarios.sectors[automatyzacja].name` | automatyzacja, robotyka, AI | автоматизація, роботи, ШІ |  |
+| `scenarios.sectors[logistyka].name` | logistyka i infrastruktura | логістика та інфраструктура |  |
+| `scenarios.sectors[woda].name` | woda i klimat | вода і клімат |  |
+| `scenarios.shrinking` | Kurczyć się mogą: węgiel, rutynowa praca biurowa, nowe budownictwo poza dużymi miastami. | Скорочуватися можуть: вугілля, рутинна офісна робота, нове будівництво поза великими містами. |  |

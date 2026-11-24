@@ -33,3 +33,9 @@ export function plural(n, key, params) {
   const form = !Number.isInteger(Number(n)) && has(`${key}.other`) ? 'other' : pluralForm(n);
   return t(`${key}.${form}`, { n, ...(params || {}) });
 }
+
+// Display names of identifiers that are stored in files in Polish (matura subjects). setNames('subject', {polish: shown});
+// nm('subject', id) gives the shown name, or the id itself (Polish keeps showing ids).
+const names = {};
+export const setNames = (kind, map) => { names[kind] = map || {}; };
+export const nm = (kind, id) => names[kind]?.[id] || id;

@@ -110,5 +110,35 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   else console.log('note: ua.json is still a stub (Ukrainian text arrives in v3.2)');
   for (const [k, v] of Object.entries(pl)) if (typeof v !== 'string') fail(`i18n: pl.json "${k}" is not a string`);
 }
+{ // Ukrainian overlays of the data texts (v3.3): every text field of every item must have a Ukrainian text (strict).
+  const q = json['studia/data/questions.json'] || {}, sc = json['studia/data/scenarios.json'] || {}, str = json['core/strengths.json'] || [], dim = json['core/dimensions.json'] || {};
+  const oq = json['studia/i18n/ua/questions.json'], os = json['studia/i18n/ua/strengths.json'], od = json['studia/i18n/ua/dimensions.json'], osc = json['studia/i18n/ua/scenarios.json'];
+  const PL = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/, clean = v => String(v).replace(/\([^)]*\)/g, '');
+  const bad = (what, v) => (typeof v !== 'string' || !v.trim()) ? fail(`overlay: ${what} has no Ukrainian text`) : PL.test(clean(v)) ? fail(`overlay: ${what} has Polish letters: ${v.slice(0, 50)}`) : 0;
+  const cover = (what, base, ov, fields) => {
+    const m = new Map((ov || []).map(x => [x.id, x]));
+    for (const b of base || []) { const o = m.get(b.id); if (!o) { fail(`overlay: ${what} "${b.id}" is missing`); continue; }
+      for (const f of fields) { if (Array.isArray(b[f])) { if (!Array.isArray(o[f]) || o[f].length !== b[f].length) fail(`overlay: ${what} "${b.id}".${f} list length differs`); else o[f].forEach(x => bad(`${what} "${b.id}".${f}`, x)); } else bad(`${what} "${b.id}".${f}`, o[f]); } }
+    for (const o of ov || []) if (!(base || []).some(b => b.id === o.id)) fail(`overlay: ${what} "${o.id}" is not in the Polish data`);
+  };
+  if (!oq || !os || !od || !osc) fail('overlay: studia/i18n/ua/{questions,strengths,dimensions,scenarios}.json must exist');
+  else {
+    cover('activity', q.activities, oq.activities, ['text']);
+    cover('situation', q.situations, oq.situations, ['text']);
+    for (const x of q.situations || []) cover(`situation ${x.id} answer`, x.answers, (oq.situations || []).find(o => o.id === x.id)?.answers, ['text']);
+    for (const k of ['certainty', 'studyLength', 'privateOk']) cover(k, q[k], oq[k], ['label']);
+    cover('doubt', q.doubts, oq.doubts, ['label', 'card']);
+    for (const pl of [...(q.neededWhere || []), ...(q.homePlaces || [])]) bad(`place "${pl}"`, oq.placeNames?.[pl]);
+    cover('language', q.languages, oq.languages, ['name']); cover('reflection', q.reflection, oq.reflection, ['text', 'ideas']);
+    for (const sub of q.subjects || []) bad(`subject "${sub}"`, oq.subjectNames?.[sub]);
+    cover('strength', str, os, ['name', 'example']);
+    cover('interest', dim.interests, od.interests, ['name', 'desc']); cover('workStyle', dim.workStyle, od.workStyle, ['left', 'right']);
+    cover('value', dim.values, od.values, Object.keys((dim.values || [{}])[0]).filter(k => k !== 'id'));
+    cover('scenario', sc.scenarios, osc.scenarios, ['name', 'text']); cover('force', sc.forces, osc.forces, ['name', 'text', 'line']); cover('sector', sc.sectors, osc.sectors, ['name']);
+    bad('scenarios.shrinking', osc.shrinking);
+    const nums = v => (String(v).match(/\d+/g) || []).join(',');
+    for (const f of sc.forces || []) { const o = (osc.forces || []).find(x => x.id === f.id); if (o && nums(f.text) !== nums(o.text)) fail(`overlay: force "${f.id}" numbers differ: ${nums(f.text)} vs ${nums(o.text)}`); }
+  }
+}
 console.log(bad ? `${bad} problem(s)` : `OK: ${files.filter(f => f.endsWith('.js')).length} scripts parse, ${Object.keys(json).length} data files valid, cross-references resolve, every source used`);
 process.exit(bad ? 1 : 0);

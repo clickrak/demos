@@ -1132,7 +1132,7 @@ fits the focus, take the first "next week" item that does.
 | v3.0 | Review | Radar at level 3; spec doc; declaration helper checked with all cards; every card in a top 3 (10 test kids), demand and pay gaps, open offers (Politologia, Praca socjalna, 11 `check`), UJ thresholds if reachable | Opus + Sonnet | pushed 21 Nov 2026 as 3.0.0 (SD5 UJ thresholds and pay for 12 cards moved to v4.0 on 24 Nov) |
 | v3.1 | Ukrainian 1a: foundation | `core/i18n.js`, texts out of the code into `pl.json` (Polish unchanged), language switch, `lang` in the file, Cyrillic fonts | Opus | **done 24 Nov 2026 (3.1.0)** |
 | v3.2 | Ukrainian 1b: main UI | Ukrainian interface texts, glossary page, layout check, review sheet for a native reader | Sonnet + Opus | **done 24 Nov 2026 (3.2.0)** |
-| v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | planned 24 Nov 2026 |
+| v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | **done 24 Nov 2026 (3.3.0)** |
 | v3.4 | Ukrainian 3a: directions | 42 cards (all texts), institution names with the Polish original | Sonnet + Opus | planned 24 Nov 2026 |
 | v3.5 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | planned 24 Nov 2026 |
 | v3.6 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
@@ -1785,7 +1785,10 @@ Original task list for v3.2 (all done):
    (test with a short allow-list); `?lang=ua` shows no Polish UI text on the 12 screens; export and report in Ukrainian;
    375/1280 px, three looks, no script errors. Release 3.2.0.
 
-**v3.3 – UK-2 Questions in Ukrainian.**
+**v3.3 – UK-2 Questions in Ukrainian: DONE 24 Nov 2026 (3.3.0).** Overlay files `studia/i18n/ua/{questions,strengths,dimensions,scenarios}.json` (same shape as the Polish data, only text fields, items matched by `id`) laid over the Polish data by `core/overlay.js`; missing texts stay Polish. In the app: `applyDataLang()` (on start, on language switch, on file load). Translated by four Sonnet helpers (49 activities, 10 situations with 4 answers each, certainty, study length, private/public, languages, 5 doubts with their answer cards, 3 reflection prompts with taps, 19 strengths with proofs in the present tense, interests/work-style/values, scenarios, forces, sectors) plus `subjectNames` (12 matura subjects) and `placeNames` (reach screen) written by Opus. Stored Polish identifiers (subjects, places) are shown through `nm('subject'|'place', id)` in `core/i18n.js`; answers and the saved file still hold the Polish ids, so a file made in one language opens in the other. Strict test in `tests/syntax.mjs`: every text field of every item has a Ukrainian text, no Polish letters outside brackets, forces keep their numbers, no overlay item without Polish original. `tools/i18n_review.py` now lists 270 data texts too (`review-ua.md`). Polish UI byte-identical to 3.2.0 on 54 screens; scoring unchanged (Polish snapshot of 30 kids).
+Still Polish in `?lang=ua` (v3.4 and v3.5): card names and texts, offer and university names, source titles; the kid's own typed answers stay as typed.
+Open wording for the reader: «установа» for «urząd»; «АЕС запізнюється» for «atom spóźniony»; «Лавірування» as a scenario name; «ВДЕ» for OZE.
+Original task list for v3.3 (all done):
 1. **UK3a (Sonnet) `studia/i18n/ua/questions.json`:** 49 activities, 10 situations with all answers, certainty, subjects (matura subjects with
    Polish name in brackets), languages and levels, doubts, reflection prompts, neededWhere, homePlaces, studyLength, privateOk.
 2. **UK3b (Sonnet) Strengths and dimensions:** `core/strengths.json` (19 names and examples) and `core/dimensions.json` as overlay files

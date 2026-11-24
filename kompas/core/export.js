@@ -1,6 +1,6 @@
 // Builds the markdown export. Everything happens in the browser; nothing is uploaded.
 import { provenStrengths, proofText, pathSteps, planFocus, planItems, declarationHelp, subjectFit, compareIds } from './scoring.js';
-import { t, plural } from './i18n.js';
+import { t, plural, nm } from './i18n.js';
 
 // "GUS, październik 2024" from a source's asOf ("2024-10"), so the words always match the data.
 export function payLabel(src) {
@@ -106,11 +106,11 @@ export function buildMarkdown(answers, result, data, today) {
     const h = declarationHelp(result, answers, data);
     const name = o => t('core.export.offer_label', { name: o.name, institution: o.institution });
     L.push(t('core.export.h_declaration'));
-    L.push(t('core.export.decl_for', { basis: h.basis === 'stars' ? t('core.export.decl_basis_stars', { total: h.total }) : t('core.export.decl_basis_options', { total: h.total }), subjects: ext.join(', ') }));
+    L.push(t('core.export.decl_for', { basis: h.basis === 'stars' ? t('core.export.decl_basis_stars', { total: h.total }) : t('core.export.decl_basis_options', { total: h.total }), subjects: ext.map(x => nm('subject', x)).join(', ') }));
     L.push(t('core.export.decl_counts', { full: h.full.length, part: h.part.length, weak: h.weak.length, closed: h.closed.length, free: h.free.length }));
-    for (const g of h.gains) L.push(t('core.export.gain_line', { subject: g.subject, parts: `${g.opens.length ? t('core.export.gain_opens', { list: g.opens.map(name).join('; ') }) : ''}${g.opens.length && g.better.length ? ' · ' : ''}${g.better.length ? t('core.export.gain_better', { n: g.better.length }) : ''}` }));
+    for (const g of h.gains) L.push(t('core.export.gain_line', { subject: nm('subject', g.subject), parts: `${g.opens.length ? t('core.export.gain_opens', { list: g.opens.map(name).join('; ') }) : ''}${g.opens.length && g.better.length ? ' · ' : ''}${g.better.length ? t('core.export.gain_better', { n: g.better.length }) : ''}` }));
     if (!h.gains.length) L.push(t('core.export.gain_none'));
-    if (h.keep.length) L.push(t('core.export.keep_line', { list: h.keep.map(k => t('core.export.keep_item', { subject: k.subject, n: k.needed.length })).join(', ') }));
+    if (h.keep.length) L.push(t('core.export.keep_line', { list: h.keep.map(k => t('core.export.keep_item', { subject: nm('subject', k.subject), n: k.needed.length })).join(', ') }));
     L.push(t('core.export.decl_note', { deadline: data.config.declarationDeadline }), '');
   }
 
@@ -121,7 +121,7 @@ export function buildMarkdown(answers, result, data, today) {
   }
   const scen = (data.scenarios.scenarios || []).find(x => x.id === answers.scenario);
   L.push(t('core.export.scenario_line', { scenario: scen ? scen.name : answers.scenario === '?' ? t('core.export.scenario_unknown') : '-' }));
-  L.push(t('core.export.home_line', { places: (answers.homePlaces || []).join(', ') || '-', needed: answers.neededWhere || '-' }), '');
+  L.push(t('core.export.home_line', { places: (answers.homePlaces || []).map(x => nm('place', x)).join(', ') || '-', needed: nm('place', answers.neededWhere) || '-' }), '');
 
   L.push(t('core.export.h_parents_talk'));
   L.push(t('core.export.q1'), t('core.export.q2'), t('core.export.q3'), '');

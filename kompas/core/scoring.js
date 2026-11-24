@@ -1,6 +1,6 @@
 // Kompas core: profile, fit, reasons, requirement checks and slots.
 // Pure functions, no DOM: used by the apps and by tests/run.mjs in Node.
-import { t } from './i18n.js';
+import { t, nm } from './i18n.js';
 
 const ROBUST = { wysoka: 3, 'średnia': 2, niska: 1 };
 
@@ -180,23 +180,23 @@ export function checkOffer(offer, answers, config) {
   // Art, music and drama schools: an entrance exam or audition decides (portfolio, playing, acting); subjects count little or not at all.
   if (r.exam) out.flags.push(t('core.check.exam'));
   for (const s of r.extended || []) {
-    if (ext.includes(s)) out.ok.push(t('core.check.has_ext', { subject: s }));
-    else out.blocked.push(t('core.check.missing_ext', { subject: s }));
+    if (ext.includes(s)) out.ok.push(t('core.check.has_ext', { subject: nm('subject', s) }));
+    else out.blocked.push(t('core.check.missing_ext', { subject: nm('subject', s) }));
   }
   if (r.must) {
-    for (const s of r.must) if (ext.includes(s)) out.ok.push(t('core.check.has_ext', { subject: s }));
+    for (const s of r.must) if (ext.includes(s)) out.ok.push(t('core.check.has_ext', { subject: nm('subject', s) }));
   }
   if (r.main) {
-    if (ext.includes(r.main)) out.ok.push(t('core.check.has_main', { subject: r.main }));
-    else { out.flags.push(t('core.check.missing_main', { subject: r.main })); out.soft = r.main; }
+    if (ext.includes(r.main)) out.ok.push(t('core.check.has_main', { subject: nm('subject', r.main) }));
+    else { out.flags.push(t('core.check.missing_main', { subject: nm('subject', r.main) })); out.soft = r.main; }
   }
   if (r.countFrom) {
     const hit = r.countFrom.filter(s => ext.includes(s));
-    if (hit.length) out.ok.push(t('core.check.from_list', { subjects: hit.join(', ') }));
+    if (hit.length) out.ok.push(t('core.check.from_list', { subjects: hit.map(x => nm('subject', x)).join(', ') }));
     else out.flags.push(t('core.check.none_on_list'));
   }
   if (!out.blocked.length && out.soft) {
-    out.fix = t('core.check.fix_soft', { subject: out.soft, deadline: config.declarationDeadline });
+    out.fix = t('core.check.fix_soft', { subject: nm('subject', out.soft), deadline: config.declarationDeadline });
   }
   if (out.blocked.length) {
     out.fix = t('core.check.fix_blocked', { deadline: config.declarationDeadline });
