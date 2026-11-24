@@ -2,7 +2,7 @@
 import { provenStrengths } from '../core/scoring.js';
 import { parseSaved } from '../core/export.js';
 import { loadDict } from '../core/i18n.js';
-import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT } from './points.js';
+import { visibleActivities, profilesFor, scoreLiceum, examPoints, certificatePoints, scoredSubjects, shortlist, levers, effectivePoints, LEVEL_TXT, CHANCE_TXT, SUBJECT_NAME, checkClass, LANG_TXT, ENTRY_KIND } from './points.js';
 import { icon } from '../studia/icons.js';
 import { LILLUS } from './illus.js';
 import { ILLUS } from '../studia/illus.js';
@@ -121,8 +121,11 @@ const acts = () => visibleActivities(A, data);
 const syncSort = () => { const v = acts(), i = v.findIndex(x => !(x.id in A.sort)); A.sortPos = i < 0 ? v.length : i; };
 // Bilingual track (v2.5): a small tag on every bilingual, international or preparatory class, and the test note.
 const BI_TAG = { 'dwujęzyczna': 'dwujęzyczna', 'międzynarodowa': 'międzynarodowa', 'wstępna': 'klasa wstępna' };
-const biTag = cls => cls.bilingual ? `<span class="bitag" title="Trzeba zdać test w szkole">${esc(BI_TAG[cls.bilingual.kind] || 'dwujęzyczna')}${cls.bilingual.lang ? ' · ' + esc(cls.bilingual.lang) : ''}</span>` : '';
-const biText = cls => cls.bilingual ? ` [${BI_TAG[cls.bilingual.kind] || 'dwujęzyczna'}${cls.bilingual.lang ? ', ' + cls.bilingual.lang : ''}, test w szkole]` : '';
+// Entrance exam (v2.12, A1): art and music schools get the tag "egzamin wstępny / przesłuchanie w szkole" in the same place.
+const ENTRY_TAG = 'egzamin wstępny / przesłuchanie w szkole';
+const entryTag = cls => cls.entry ? `<span class="bitag entrytag" title="${esc(ENTRY_KIND[cls.entry.kind] || ENTRY_TAG)}${cls.entry.note ? ': ' + esc(cls.entry.note) : ''}">${ENTRY_TAG}</span>` : '';
+const biTag = cls => (cls.bilingual ? `<span class="bitag" title="Trzeba zdać test w szkole">${esc(BI_TAG[cls.bilingual.kind] || 'dwujęzyczna')}${cls.bilingual.lang ? ' · ' + esc(cls.bilingual.lang) : ''}</span>` : '') + entryTag(cls);
+const biText = cls => (cls.bilingual ? ` [${BI_TAG[cls.bilingual.kind] || 'dwujęzyczna'}${cls.bilingual.lang ? ', ' + cls.bilingual.lang : ''}, test w szkole]` : '') + (cls.entry ? ` [${ENTRY_KIND[cls.entry.kind] || ENTRY_TAG}]` : '');
 const langNote = check => check && check.lang && check.lang.test ? LANG_TXT[check.lang.test] : check && check.lang ? 'test językowy w szkole' : '';
 const chip = (attrs, label, on) => `<button class="chip" ${attrs} aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
 const nameOf = id => (data.strengths.find(s => s.id === id) || {}).name || id;
@@ -383,7 +386,7 @@ function parentTable(rows) {
       ${e.assumed && e.assumed.length ? ` Przedmioty bez odpowiedzi liczone jak „dobrze”: ${e.assumed.map(s => esc(SUBJECT_NAME[s])).join(', ')}.` : ''}
       Progi z rekrutacji ${esc(data.config.thresholdYear)}; w 2027 mogą być inne.</p>
     <div class="tablewrap"><table class="ptable"><thead><tr><th>Szkoła i klasa</th><th>Próg</th><th>Szacunek</th><th>Różnica</th></tr></thead>
-      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)} · ${esc(x.cls.code)}${x.cls.bilingual ? ' (+ test)' : ''}</td><td>${th(x)}</td><td>${pts(x)}</td><td>${mg(x)}</td></tr>`).join('')}</tbody></table></div>
+      <tbody>${rows.map(x => `<tr><td>${esc(x.school.short)} · ${esc(x.cls.code)}${x.cls.bilingual ? ' (+ test)' : ''}${x.cls.entry ? ' (+ egzamin)' : ''}</td><td>${th(x)}</td><td>${pts(x)}</td><td>${mg(x)}</td></tr>`).join('')}</tbody></table></div>
     ${parentNote().replace('<details class="parent"><summary>Dla rodziców: jak to liczymy</summary>', '<div class="parentin">').replace(/<\/details>$/, '</div>')}</details>`;
 }
 
@@ -406,7 +409,7 @@ function studiaFor(card) {
 }
 
 function planItems(sel) {
-  const top = sel.classes.find(c => c.check.chance && c.check.chance !== 'unknown') || sel.classes[0];
+  const top = sel.classes.find(c => c.check.chance && c.check.chance !== 'unknown' && c.check.chance !== 'szkola') || sel.classes[0];
   const out = [{ id: 'exp', when: 'w ciągu 30 dni', text: sel.card.experiment }];
   if (top) {
     out.push({ id: 'dni', when: 'grudzień 2026 – kwiecień 2027', text: `Idź na dzień otwarty albo wejdź na stronę: ${top.school.short}. Zapytaj, które oceny ze świadectwa liczy klasa ${top.cls.code} (${top.cls.label}) i jak wygląda zwykły tydzień nauki.` });
@@ -576,7 +579,7 @@ function vParent() {
   const north = P[0], sel = P.find(x => x.profile.id === A.profile) || north;
   const rows = (liked.length ? liked : sel.classes.slice(0, 6)).slice(0, 8);
   const chance = x => (x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny');
-  const th = x => (x.cls.threshold != null ? f2(x.cls.threshold) : 'brak');
+  const th = x => (x.cls.entry ? 'egzamin w szkole' : x.cls.threshold != null ? f2(x.cls.threshold) : 'brak');
   const vals = A.values.map(v => (data.dimensions.values.find(x => x.id === v) || {}).name || v);
   const checks = A.checks || {}, plan = planItems({ card: sel.areas[0].card, classes: sel.classes });
   const likedSchools = l.schools.map(id => data.schools.find(s => s.id === id)).filter(s => s && !liked.some(x => x.school.id === s.id));
@@ -642,7 +645,7 @@ function schoolMatch(school, q) {
 }
 const rowPass = x => (!ui.bi || (ui.bi === 'dw') === !!x.cls.bilingual) && (!ui.travel || (mins(x.school) != null && mins(x.school) <= Number(ui.travel))) && (!ui.type || x.school.type === ui.type) && (!ui.chance || x.check.chance === ui.chance)
   && (!ui.subj || x.cls.cards.some(id => ((data.opportunities.find(o => o.id === id) || {}).worlds || []).includes(ui.subj)));
-const SHORT_CH = { realna: 'realna', zawalczenia: 'do zawalczenia', ambitna: 'ambitna' };
+const SHORT_CH = { realna: 'realna', zawalczenia: 'do zawalczenia', ambitna: 'ambitna', szkola: 'w szkole' };
 const SUBJ_F = ['matematyka', 'informatyka', 'fizyka', 'biologia', 'chemia', 'geografia'];
 function filterBar(full) {
   const c = (k, v, t) => `<button class="chip" data-f="${k}:${v}" aria-pressed="${ui[k] === v}">${t}</button>`;
@@ -795,7 +798,7 @@ function buildMarkdown() {
     for (const x of sel.classes.slice(0, 12)) L.push(`- ${x.school.short}, klasa ${x.cls.code} (${x.cls.label})${biText(x.cls)}: ${x.check.chance && x.check.chance !== 'unknown' ? CHANCE_TXT[x.check.chance] : 'bez oceny szans'}${mins(x.school) != null ? `, dojazd ${minTxt(x.school)}` : ''}`);
     L.push('', '## Dla rodziców: progi i szacunek', hasInput() ? (eff().approx ? 'Szacunek z odpowiedzi „słabo, dobrze, świetnie” (słabo = 3 i ok. 45%, dobrze = 4 i ok. 70%, świetnie = 5 i ok. 90%).' : 'Policzone z dokładnych ocen i wyników.') : 'Brak odpowiedzi o szkole, więc bez szacunku.', '');
     for (const x of sel.classes.slice(0, 12)) {
-      const th = x.cls.threshold != null ? `próg ${f2(x.cls.threshold)}` : x.school.range ? `zakres szkoły ${f2(x.school.range.min)}–${f2(x.school.range.max)}` : 'bez progu w źródłach';
+      const th = x.cls.entry ? 'egzamin wstępny w szkole, bez progu' : x.cls.threshold != null ? `próg ${f2(x.cls.threshold)}` : x.school.range ? `zakres szkoły ${f2(x.school.range.min)}–${f2(x.school.range.max)}` : 'bez progu w źródłach';
       L.push(`- ${x.school.short}, klasa ${x.cls.code}: ${th}${x.check.complete ? `, szacunek ${f1(x.check.points)}` : ''}`);
     }
     L.push('', '## Mój plan');

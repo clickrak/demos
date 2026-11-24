@@ -58,6 +58,12 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   refs('liceum profile area', (json['liceum/data/profiles.json'] || []).flatMap(p => p.areas || []), ids(cards));
   refs('liceum class card', schools.flatMap(s => s.classes.flatMap(c => c.cards || [])), ids(cards));
   refs('liceum class source', schools.flatMap(s => s.classes.map(c => c.sourceId)), src);
+  // Entrance exam (v2.12, A1): entry.kind from the list, entry.sourceId in sources.json, never a threshold next to it.
+  for (const s of schools) for (const c of s.classes) if (c.entry) {
+    if (!['plastyczny', 'muzyczny'].includes(c.entry.kind)) fail(`liceum class "${s.id} ${c.code}": entry.kind must be plastyczny or muzyczny`);
+    if (!src.has(c.entry.sourceId)) fail(`liceum class "${s.id} ${c.code}": entry.sourceId not in sources.json`);
+    if (c.threshold != null) fail(`liceum class "${s.id} ${c.code}": no threshold next to entry`);
+  }
   const codes = schools.flatMap(s => s.classes.map(c => s.id + '|' + c.code));
   if (new Set(codes).size !== codes.length) fail('liceum: a school has two classes with the same code');
 }

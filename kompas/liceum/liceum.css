@@ -51,6 +51,7 @@ body.wide main { max-width: 1040px; }
 .pill.close, .pill.range { background: var(--warn-soft); border-color: var(--warn); }
 .pill.under { background: var(--card); border-color: var(--check); color: var(--muted); }
 .pill.unknown { color: var(--muted); border-style: dashed; }
+.pill.szkola { color: var(--muted); } /* v2.12 A1: entrance exam, no points chance */
 .short { display: grid; gap: 10px; grid-template-columns: 1fr; }
 @media (min-width: 760px) { .short { grid-template-columns: repeat(3, 1fr); } }
 .short .role { font: 600 12px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }

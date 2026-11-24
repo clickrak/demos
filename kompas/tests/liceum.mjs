@@ -181,6 +181,17 @@ for (const t of ['krakow', 'tychy']) if (!biCls.some(x => x.s.town === t)) fail(
   if (good.chance !== 'realna' || good.lang.test !== 'w-zasiegu') fail('good English: bilingual chance as usual', good.chance);
   const prep = checkClass(pts(3), { ...bi, bilingual: { lang: 'hiszpański', kind: 'wstępna' } }, {}, data.config);
   if (prep.chance !== 'realna') fail('preparatory class does not depend on English', prep.chance); }
+// Entrance exam (v2.12, A1): a class with `entry` never gets a points chance or a gap, even with full marks and a school range.
+{ const full = { exam: { polski: 100, matematyka: 100, obcy: 100 }, grades: { polski: 6, matematyka: 6, angielski: 6, historia: 6 } };
+  const ent = checkClass(full, { scored: ['polski', 'matematyka', 'angielski', 'historia'], entry: { kind: 'plastyczny', note: 'rysunek i malarstwo' } }, { range: { min: 100, max: 150 } }, data.config);
+  if (ent.chance !== 'szkola' || ent.margin != null || ent.level !== 'entry') fail('entry class must say "do sprawdzenia w szkole" without a gap', ent.chance, ent.margin);
+  const none = checkClass({}, { entry: { kind: 'muzyczny' } }, {}, data.config);
+  if (none.chance !== 'szkola') fail('entry class without marks: still "w szkole"', none.chance);
+  const kid = j('../liceum/data/personas.json').find(p => p.id === 'P8');
+  const tmp = { ...data, schools: data.schools.map((s, i) => i ? s : { ...s, classes: [{ ...s.classes[0], code: 'TMP', threshold: null, cards: ['sztuka'], entry: { kind: 'plastyczny', note: 'test' } }, ...s.classes] }) };
+  const r = scoreLiceum(kid.answers, tmp), hit = r.cards.find(c => c.card.id === 'sztuka').classes.find(c => c.cls.code === 'TMP');
+  if (!hit || hit.check.chance !== 'szkola') fail('entry class should be listed for arts with chance "szkola"');
+  if (shortlist(r, kid.answers).some(x => x.c.cls.entry)) fail('entry class must not be in the points shortlist'); }
 console.log(`Bilingual: ${biCls.length} classes (${biCls.filter(x => x.s.town === 'krakow').length} Kraków, ${biCls.filter(x => x.s.town !== 'krakow').length} Tychy + GZM)`);
 // GZM ranked list (v2.6, G1): two lists, ordered, every school in a GZM gmina, both ranks kept, Tychy linked to Kompas.
 { const R = j('../liceum/data/db/pl/gzm/ranking.json');

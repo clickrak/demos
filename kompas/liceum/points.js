@@ -29,7 +29,7 @@ export function effectivePoints(answers, config) {
   return { exam, grades, stripe: !!p.stripe, volunteering: !!p.volunteering, achievements: p.achievements || 0, approx: true, assumed };
 }
 
-export const CHANCE_TXT = { realna: 'realna szansa', zawalczenia: 'do zawalczenia', ambitna: 'ambitna', unknown: 'wpisz, jak ci idzie' };
+export const CHANCE_TXT = { realna: 'realna szansa', zawalczenia: 'do zawalczenia', ambitna: 'ambitna', szkola: 'do sprawdzenia w szkole', unknown: 'wpisz, jak ci idzie' };
 
 export function examPoints(exam = {}) {
   const parts = { polski: 0.35 * pct(exam.polski), matematyka: 0.35 * pct(exam.matematyka), obcy: 0.3 * pct(exam.obcy) };
@@ -62,7 +62,11 @@ export function checkClass(p, cls, school, config) {
   const points = ex.total + ce.total;
   const cm = (config && config.chanceMargin) || 8;
   let level = 'unknown', margin = null, basis = null, chance = 'unknown';
-  if (complete) {
+  if (cls.entry) {
+    // Entrance exam or audition (v2.12, A1): art liceum and music schools admit after their own exam, not by a points
+    // threshold. Never a number or a points gap: the chance is "do sprawdzenia w szkole".
+    level = 'entry'; basis = 'entry'; chance = 'szkola';
+  } else if (complete) {
     if (cls.threshold != null) {
       margin = points - cls.threshold; basis = 'class';
       level = margin >= 6 ? 'over' : margin >= 0 ? 'near' : margin >= -6 ? 'close' : 'under';
@@ -91,11 +95,13 @@ export function langTest(p, cls) {
   return { kind: b.kind, lang: b.lang, test };
 }
 export const LANG_TXT = { 'w-zasiegu': 'test językowy w zasięgu', 'do-pracy': 'test językowy: trzeba popracować', trudny: 'test językowy będzie trudny', predyspozycje: 'test predyspozycji (nowy język od zera)' };
+// Entrance exam (v2.12, A1): plastyczny = art liceum exam, muzyczny = music school audition.
+export const ENTRY_KIND = { plastyczny: 'egzamin wstępny w szkole', muzyczny: 'przesłuchanie w szkole' };
 export const inTrack = (answers, cls) => !cls.bilingual || (answers && answers.bi === 'tak');
 
 export const LEVEL_TXT = {
   over: 'powyżej zeszłorocznego progu', near: 'blisko progu, ale nad nim', close: 'tuż pod progiem', under: 'poniżej progu',
-  range: 'w zakresie szkoły, próg klasy do sprawdzenia', unknown: 'wpisz punkty, żeby zobaczyć'
+  range: 'w zakresie szkoły, próg klasy do sprawdzenia', entry: 'egzamin wstępny albo przesłuchanie w szkole, bez progu punktowego', unknown: 'wpisz punkty, żeby zobaczyć'
 };
 
 // Worlds (v1.7): the kid first picks the worlds that attract him. Only those question cards are shown, plus a common
