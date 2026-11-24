@@ -5,6 +5,7 @@ import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
 import { ILLUS } from './illus.js';
 import { actPicto, sitPicto } from './pictos.js';
+import { t, setLang, getLang, loadDict, normLang, HTML_LANG } from '../core/i18n.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
@@ -12,7 +13,7 @@ let data, A;
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
-const blank = () => ({ name: '', certainty: null, direction: null, rozszerzenia: [], jezyki: { pl: 'bardzo dobry' }, sport: '',
+const blank = () => ({ lang: getLang(), name: '', certainty: null, direction: null, rozszerzenia: [], jezyki: { pl: 'bardzo dobry' }, sport: '',
   sort: {}, sortPos: 0, situations: {}, sitPos: 0, sliders: {}, values: [], strengths: [], scenario: null, neededWhere: null, homePlaces: [],
   studyLength: null, privateOk: null, startMin: 30, doubt: null, doubtStrong: false, reflection: {}, canDo: '', plan: null, checks: {}, stars: [], compare: [] });
 
@@ -26,7 +27,12 @@ async function load() {
   // Stops, lines and times computed from the Kraków GTFS timetables (kompas/tools/transport.py); optional.
   data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
   for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
+  // Interface texts: Polish is the base, Ukrainian overlays it (core/i18n.js). ?lang=ua (or uk) picks Ukrainian.
+  const [pl, ua] = await Promise.all(['i18n/pl.json', 'i18n/ua.json'].map(f => fetch(f).then(r => (r.ok ? r.json() : {})).catch(() => ({}))));
+  loadDict('pl', pl); loadDict('ua', ua);
+  setLang(new URLSearchParams(location.search).get('lang'));
   A = blank();
+  applyStatic();
   applyTheme(); applySkin();
   matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);
   window.addEventListener('hashchange', render);
@@ -35,7 +41,7 @@ async function load() {
 
 // Answers stay in memory only (no browser storage); the downloaded .md file is the saved copy.
 // The header shows a dot while there are answers not yet in a file, and leaving the page asks first.
-const answersKey = () => JSON.stringify({ ...A, lastScreen: undefined, sortPos: undefined, sitPos: undefined });
+const answersKey = () => JSON.stringify({ ...A, lang: undefined, lastScreen: undefined, sortPos: undefined, sitPos: undefined });
 let savedSnap = null;
 const hasAnswers = () => !!(A && (A.certainty || A.rozszerzenia.length || Object.keys(A.sort).length || A.strengths.length));
 const isDirty = () => hasAnswers() && answersKey() !== savedSnap;
@@ -53,7 +59,7 @@ const stamp = () => { const d = new Date(); return `${today()}-${String(d.getHou
 let theme = null;       // null follows the system; kept in memory only
 // Optional skins: "neon" (cyberpunk) and "pop" (pop art). Kept in the address (?skin=…), not in browser storage.
 const SKINS = [null, 'neon', 'pop'];
-const SKIN_NAME = { null: 'Spokojny', neon: 'Neon', pop: 'Pop art' };
+const skinName = k => t('skin.' + (k || 'calm'));
 let skin = SKINS.includes(new URLSearchParams(location.search).get('skin')) ? new URLSearchParams(location.search).get('skin') : null;
 let focusSel = null;    // a control to focus after the next re-render (keyboard users)
 let tapSel = null;      // the control just tapped, so it can pop once after the re-render
@@ -67,17 +73,35 @@ let compassSel = null;  // option picked on the compass (card id or 'quick'); th
 let kierSel = null;     // option shown as a vertical road in "Twoje kierunki"
 const seenParts = new Set(); // option to open and scroll to when the results show (from the compass)    // { date, snapshot, missing } after loading an old file
 
+// Texts that sit in index.html (data-i18n, data-i18n-attr), the <html lang>, the title and the switch.
+function applyStatic() {
+  const lang = getLang();
+  document.documentElement.lang = HTML_LANG[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => el.dataset.i18nAttr.split(',').forEach(pair => { const [a, k] = pair.split(':'); el.setAttribute(a, t(k)); }));
+  document.title = t('meta.title');
+  document.querySelector('meta[name="description"]')?.setAttribute('content', t('meta.desc', { v: data?.config?.appVersion || '' }));
+  document.querySelectorAll('[data-uilang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.uilang === lang)));
+  const u = new URL(location.href);
+  if (lang === 'pl') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
+  history.replaceState(null, '', u);
+}
+function switchLang(l) {
+  setLang(l); if (A) A.lang = getLang();
+  applyStatic(); applyTheme(); applySkin(); render();
+}
+
 function applyTheme() {
   const root = document.documentElement;
   if (theme) root.dataset.theme = theme; else delete root.dataset.theme;
   const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'); b.innerHTML = b.classList.contains('linkbtn') ? (dark ? 'Jasny motyw' : 'Ciemny motyw') : dark ? ICON.sun : ICON.moon; });
+  document.querySelectorAll('[data-themetoggle]').forEach(b => { b.setAttribute('aria-label', dark ? t('theme.toLight') : t('theme.toDark')); b.innerHTML = b.classList.contains('linkbtn') ? (dark ? t('theme.light') : t('theme.dark')) : dark ? ICON.sun : ICON.moon; });
 }
 function applySkin(animate) {
   const root = document.documentElement;
   if (skin) root.dataset.skin = skin; else delete root.dataset.skin;
   const next = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length];
-  document.querySelectorAll('[data-skintoggle]').forEach(b => { b.setAttribute('aria-pressed', String(!!skin)); b.setAttribute('aria-label', `Wygląd: ${SKIN_NAME[skin]}. Zmień na: ${SKIN_NAME[next]}`); b.title = `Wygląd: ${SKIN_NAME[skin]} (dotknij: ${SKIN_NAME[next]})`; b.innerHTML = ICON.palette; });
+  document.querySelectorAll('[data-skintoggle]').forEach(b => { b.setAttribute('aria-pressed', String(!!skin)); b.setAttribute('aria-label', t('skin.label', { cur: skinName(skin), next: skinName(next) })); b.title = t('skin.title', { cur: skinName(skin), next: skinName(next) }); b.innerHTML = ICON.palette; });
   document.querySelectorAll('[data-skinpick]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.skinpick || null) === skin)));
   const u = new URL(location.href);
   if (skin) u.searchParams.set('skin', skin); else u.searchParams.delete('skin');
@@ -1388,6 +1412,7 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button');
   if (!t) return;
   const d = t.dataset;
+  if (d.uilang !== undefined) { switchLang(d.uilang); return; }
   if (d.skintoggle !== undefined) { skin = SKINS[(SKINS.indexOf(skin) + 1) % SKINS.length]; applySkin(true); return; }
   if (d.skinpick !== undefined) { skin = d.skinpick || null; applySkin(true); return; }
   const tk = ['set', 'toggle', 'value', 'strength', 'lang', 'sector', 'sport', 'idea'].find(k => d[k] !== undefined);
@@ -1463,6 +1488,8 @@ function loadFile(text) {
     notice = 'To nie wygląda na plik z Kompasu Studia. Wybierz plik pobrany z tej aplikacji.'; render(); return;
   }
   const a = Object.assign(blank(), obj.answers), missing = [];
+  if (obj.answers.lang) { setLang(obj.answers.lang); a.lang = getLang(); applyStatic(); applyTheme(); applySkin(); } // loading keeps the saved language
+  else a.lang = getLang();
   const has = (list, id) => list.some(x => x.id === id);
   a.strengths = (a.strengths || []).filter(x => has(data.strengths, x.id) || (missing.push('mocna strona: ' + x.id), false));
   a.values = (a.values || []).filter(v => has(data.dimensions.values, v) || (missing.push('wartość: ' + v), false));

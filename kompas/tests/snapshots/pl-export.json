@@ -1,0 +1,152 @@
+{
+ "Persona A: języki i ludzie, niepewny": {
+  "md": "4b0b92619075",
+  "result": "76955b81b6f9",
+  "decl": "c38634593eba"
+ },
+ "Persona B: matematyka i fizyka, woli sam": {
+  "md": "6a1417753da3",
+  "result": "ad2345b14bae",
+  "decl": "00f6cab6b4a2"
+ },
+ "Persona C: lubi wszystko, niepewny": {
+  "md": "6edd13097b6a",
+  "result": "570dd9afe4f5",
+  "decl": "789c869f5c99"
+ },
+ "Persona D: rysuje i urządza wnętrza": {
+  "md": "9b626d992cf9",
+  "result": "b8350a134d89",
+  "decl": "163a5bbf8cd4"
+ },
+ "Persona E: sprzedaje i organizuje": {
+  "md": "3d66d02bb159",
+  "result": "d6a86be53b55",
+  "decl": "9732451d6727"
+ },
+ "Persona F: gra i projektuje gry": {
+  "md": "509fb02d74ae",
+  "result": "8329e460bf2a",
+  "decl": "b09642ba77d3"
+ },
+ "Persona G: morze, nurkowanie i biologia": {
+  "md": "5fb0001de1a9",
+  "result": "bc82138bcfad",
+  "decl": "7be50aac11c0"
+ },
+ "Persona H: latanie, samoloty i podróże": {
+  "md": "89a3e82412dd",
+  "result": "ce4b0cae8e47",
+  "decl": "69ebbb9baee7"
+ },
+ "Persona I: muzea, zabytki i historia sztuki": {
+  "md": "71c23b9d724d",
+  "result": "7884caa00c5b",
+  "decl": "e5f57d3c283f"
+ },
+ "Persona J: przepisy, debaty i sprawiedliwość": {
+  "md": "23ceef900685",
+  "result": "2be4cb288e1c",
+  "decl": "b2daa9f7e201"
+ },
+ "Persona K: rysuje domy i chodzi po budowach": {
+  "md": "49f93ee046ae",
+  "result": "9edb1b9c2a77",
+  "decl": "ceb0286c8c84"
+ },
+ "Persona L: maszyny, druk 3D i warsztat": {
+  "md": "01cf695a395a",
+  "result": "9408b943d314",
+  "decl": "8c2885cf10fd"
+ },
+ "Persona M: uczy młodszych i lubi dzieci": {
+  "md": "f3165f7b3da3",
+  "result": "19fa79280401",
+  "decl": "65cb227aed82"
+ },
+ "Persona N: ludzie, ankiety i sprawy społeczne": {
+  "md": "3a26a4acf82a",
+  "result": "5c0cddefc2ab",
+  "decl": "08674bc8b3d4"
+ },
+ "Persona O: dowody, wzory i olimpiady": {
+  "md": "e63ad1bddba3",
+  "result": "0f43d7ed5165",
+  "decl": "5097e4fc245c"
+ },
+ "Persona P: scena, muzyka i występy": {
+  "md": "326abfb78ec6",
+  "result": "e23fe6324f61",
+  "decl": "7061a0d33436"
+ },
+ "Persona Q: stare dokumenty, archiwa i historia": {
+  "md": "f7ba08346a42",
+  "result": "649f2f033c9f",
+  "decl": "9db3dfef3b5f"
+ },
+ "Persona R: gotowanie, zdrowe jedzenie i ludzie": {
+  "md": "8b2674c9ffd8",
+  "result": "7ea9782cf0ba",
+  "decl": "7219f6e4a657"
+ },
+ "Persona S: zwierzęta, konie i gospodarstwo": {
+  "md": "12f6648bcdd2",
+  "result": "bda2874a917b",
+  "decl": "e1f7a7615cf5"
+ },
+ "Persona T: mapy, miasta i klimat": {
+  "md": "9b99587a25ef",
+  "result": "771489577b53",
+  "decl": "ac0fb3b0ea28"
+ },
+ "Persona U: dane, programy i zdrowie": {
+  "md": "81b249d3a053",
+  "result": "1ba509f3a83d",
+  "decl": "bcf09ad508a7"
+ },
+ "Persona V: prąd, urządzenia i sieci": {
+  "md": "40cacc366b27",
+  "result": "dd324b3adbf3",
+  "decl": "cea1bb64a490"
+ },
+ "Persona W: języki, tłumaczenie i podróże": {
+  "md": "e70a3310d625",
+  "result": "a1023ea791f3",
+  "decl": "d32ecae18477"
+ },
+ "Persona X: ciało, laboratorium i pomaganie chorym": {
+  "md": "e90f5b0a3e5c",
+  "result": "87b90e37c962",
+  "decl": "e400cbfef98d"
+ },
+ "Persona Y: technika, dyscyplina i bezpieczeństwo kraju": {
+  "md": "00e72ec1bf4c",
+  "result": "b0a69b36d8dd",
+  "decl": "6d8909cc1709"
+ },
+ "Persona Z: lubi pomagać chorym": {
+  "md": "7bbdf800a112",
+  "result": "1ca0bac0dc5d",
+  "decl": "3aa34507a9b4"
+ },
+ "Persona AA: rozmowy, emocje i jak działa mózg": {
+  "md": "c30be58b0b8a",
+  "result": "1c7b3ae795d3",
+  "decl": "653f6e1abdd1"
+ },
+ "Persona AB: ratowanie, kondycja i spokój w trudnych chwilach": {
+  "md": "ae6e00de7293",
+  "result": "e99425a7608b",
+  "decl": "c3a0790473b8"
+ },
+ "Persona AC: trening, ruch i prowadzenie rozgrzewki": {
+  "md": "8671ecfcbcae",
+  "result": "27d5a844a7f4",
+  "decl": "20e4eb459a90"
+ },
+ "Persona AD: rzeki, pogoda i praca w terenie": {
+  "md": "11c0f308aceb",
+  "result": "a6e7c042d197",
+  "decl": "2cf035db3366"
+ }
+}

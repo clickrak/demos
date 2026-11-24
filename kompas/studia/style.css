@@ -571,3 +571,10 @@ html[data-skin] .themelink { display: none !important; }
   .top .savebtn { padding: 8px; }
   .iconbtn { width: 34px; height: 34px; }
 }
+
+/* Interface language switch (v3.1): two chips, 44 px touch height. */
+.langsw { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--card); }
+.langsw button { min-height: 44px; min-width: 44px; padding: 0 .55rem; border: 0; background: transparent; color: inherit; font: inherit; font-size: .8rem; font-weight: 600; letter-spacing: .04em; cursor: pointer; }
+.langsw button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.langsw button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+@media (max-width: 480px) { .langsw button { min-width: 30px; padding: 0 .3rem; font-size: .7rem; letter-spacing: 0; } .top { gap: 4px; } }
