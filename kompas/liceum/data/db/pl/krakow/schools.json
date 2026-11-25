@@ -8098,8 +8098,12 @@
     }
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-26"
+  "geo": {
+   "lat": 50.05602,
+   "lon": 19.91459,
+   "q": "Mlaskotów 6, Kraków"
+  },
+  "geoChecked": true
  },
  {
   "id": "posm2",
@@ -8134,8 +8138,12 @@
     }
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-26"
+  "geo": {
+   "lat": 50.06642,
+   "lon": 19.93683,
+   "q": "Basztowa 6, Kraków"
+  },
+  "geoChecked": true
  },
  {
   "id": "tps22",
@@ -8258,7 +8266,11 @@
     ]
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-26"
+  "geo": {
+   "lat": 50.08266,
+   "lon": 19.96616,
+   "q": "Macieja Miechowity 6, Kraków"
+  },
+  "geoChecked": true
  }
 ]
