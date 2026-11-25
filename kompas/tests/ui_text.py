@@ -27,6 +27,7 @@ with sync_playwright() as p:
     for ki, md in zip(KIDS, files):
         pg = b.new_page(viewport={'width': 1280, 'height': 900}); errs = []
         pg.on('pageerror', lambda e: errs.append(str(e)))
+        pg.clock.set_fixed_time('2026-11-21T12:00:00')  # same day as the export date: the results date line does not depend on today (v3.6 W0)
         pg.goto(f'http://127.0.0.1:{port}/studia/index.html' + (f'?lang={lang}' if lang else '')); pg.wait_for_timeout(700)
         Path('/tmp/kid.md').write_text(md)
         pg.set_input_files('[data-load]', '/tmp/kid.md'); pg.wait_for_timeout(500)
@@ -38,6 +39,7 @@ with sync_playwright() as p:
         if errs: print('JS errors', ki, errs[:2])
     b.close()
 if lang: json.dump(texts, open('/tmp/ui_texts_%s.json' % lang, 'w'), ensure_ascii=False); print('texts dumped to /tmp/ui_texts_%s.json' % lang); sys.exit(0)
+json.dump(texts, open('/tmp/ui_texts_pl.json', 'w'), ensure_ascii=False)
 if '--update' in sys.argv or not SNAP.exists():
     SNAP.write_text(json.dumps(out, indent=1)); json.dump(texts, open('/tmp/ui_texts_pl_base.json', 'w'), ensure_ascii=False); print('snapshot written', len(out)); sys.exit(0)
 old = json.loads(SNAP.read_text()); bad = [k for k in out if old.get(k) != out[k]]
