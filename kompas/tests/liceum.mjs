@@ -52,7 +52,10 @@ let classes = 0, check = 0;
 const seen = new Set();
 for (const s of data.schools) {
   if (seen.has(s.id)) fail('duplicate school', s.id); seen.add(s.id);
-  if (!s.range || !srcIds.has(s.range.sourceId)) fail('school range source', s.id);
+  // A2 (v2.13): a school where every class has an entrance exam (`entry`) has no points range.
+  const examOnly = s.classes.length && s.classes.every(c => c.entry);
+  if (!examOnly && (!s.range || !srcIds.has(s.range.sourceId))) fail('school range source', s.id);
+  if (examOnly && s.range) fail('exam-only school must not have a points range', s.id);
   if (s.range && !(s.range.min > 0 && s.range.max <= 200 && s.range.min <= s.range.max)) fail('school range values', s.id);
   for (const k of s.classes) {
     classes++; if (k.status !== 'sourced') check++;
@@ -235,7 +238,7 @@ for (const s of allSchools) { const r = s.range; if (!r) continue;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(s.geoPendingSince || '')) fail('waiting school needs geoPendingSince YYYY-MM-DD', s.id);
     else if ((today - new Date(s.geoPendingSince)) / 864e5 > 30) fail('waiting school stuck for more than 30 days (check the "Geocode schools" Action)', s.id, s.geoPendingSince);
     if (!s.address) fail('waiting school without an address', s.id);
-    if (s.town === 'krakow' && (!s.range || !srcIds.has(s.range.sourceId))) fail('waiting Kraków school needs a range with a source (checked once it is live)', s.id);
+    if (s.town === 'krakow' && !(s.classes.length && s.classes.every(c => c.entry)) && (!s.range || !srcIds.has(s.range.sourceId))) fail('waiting Kraków school needs a range with a source (checked once it is live)', s.id);
     if (s.range && !(s.range.min > 0 && s.range.max <= 200 && s.range.min <= s.range.max)) fail('waiting school range values', s.id);
     if (!towns.some(t => t.id === s.town)) fail('waiting school without a known town', s.id);
     for (const k of s.classes) {

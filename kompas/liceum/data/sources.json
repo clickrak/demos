@@ -776,5 +776,33 @@
   "title": "Technikum Mechaniczne nr 16 w ZSM nr 2, klasy i przedmioty rozszerzone",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "plsp-krk-regulamin",
+  "url": "https://www.gov.pl/web/plastykkrakow/regulamin-przyjmowania-kandydatow-do-plsp5",
+  "title": "PLSP im. J. Kluzy Kraków, regulamin przyjmowania kandydatów 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "plsp-krk-egzamin",
+  "url": "https://www.gov.pl/web/plastykkrakow/szczegolowy-harmonogram-egzaminow-do-panstwowego-liceum-sztuk-plastycznych-im-jozefa-kluzy-na-rok-szkolny-20262027",
+  "title": "PLSP im. J. Kluzy Kraków, harmonogram egzaminów 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "posm-krk-rekrutacja",
+  "url": "https://www.gov.pl/web/posmkrakow/rekrutacja-kandydatow-na-rok-szkolny-2026--2027",
+  "title": "POSM II st. im. F. Chopina Kraków, rekrutacja 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "posm-krk-regulamin",
+  "url": "https://www.gov.pl/web/posmkrakow/regulamin-egzaminu-wstepnego-2026-2027",
+  "title": "POSM II st. im. F. Chopina Kraków, regulamin egzaminu wstępnego 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

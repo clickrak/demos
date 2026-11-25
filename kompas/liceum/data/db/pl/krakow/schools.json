@@ -8043,5 +8043,98 @@
    "q": "Telimeny 9, Kraków"
   },
   "geoChecked": true
+ },
+ {
+  "id": "plsp",
+  "name": "Państwowe Liceum Sztuk Plastycznych im. Józefa Kluzy w Krakowie",
+  "short": "PLSP im. J. Kluzy",
+  "type": "liceum",
+  "town": "krakow",
+  "address": "ul. Mlaskotów 6, 30-117 Kraków",
+  "addressSourceId": "plsp-krk-regulamin",
+  "www": "https://www.gov.pl/web/plastykkrakow",
+  "classListSourceId": "plsp-krk-regulamin",
+  "classes": [
+   {
+    "code": "1G",
+    "label": "liceum plastyczne: techniki graficzne – projektowanie graficzne",
+    "extended": [],
+    "cards": [
+     "sztuka"
+    ],
+    "threshold": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "plsp-krk-regulamin",
+    "status": "sourced",
+    "fields": [
+     "ART"
+    ],
+    "entry": {
+     "kind": "plastyczny",
+     "note": "Egzamin w szkole: rysunek i malarstwo martwej natury (A3, po 90 min), kompozycja z plasteliny (90 min) i rozmowa o sztuce. W 2026 był pod koniec maja.",
+     "sourceId": "plsp-krk-egzamin"
+    }
+   },
+   {
+    "code": "1P",
+    "label": "liceum plastyczne: projektowanie użytkowe – projektowanie przestrzeni",
+    "extended": [],
+    "cards": [
+     "sztuka"
+    ],
+    "threshold": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "plsp-krk-regulamin",
+    "status": "sourced",
+    "fields": [
+     "ART"
+    ],
+    "entry": {
+     "kind": "plastyczny",
+     "note": "Egzamin w szkole: rysunek i malarstwo martwej natury (A3, po 90 min), kompozycja z plasteliny (90 min) i rozmowa o sztuce. W 2026 był pod koniec maja.",
+     "sourceId": "plsp-krk-egzamin"
+    }
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-26"
+ },
+ {
+  "id": "posm2",
+  "name": "Państwowa Ogólnokształcąca Szkoła Muzyczna II stopnia im. Fryderyka Chopina w Krakowie",
+  "short": "POSM II st. im. F. Chopina",
+  "type": "liceum",
+  "town": "krakow",
+  "address": "ul. Basztowa 6, 31-134 Kraków",
+  "addressSourceId": "posm-krk-rekrutacja",
+  "www": "https://www.gov.pl/web/posmkrakow",
+  "classListSourceId": "posm-krk-rekrutacja",
+  "classes": [
+   {
+    "code": "1M",
+    "label": "szkoła muzyczna II st. z liceum (4 lata, matura): instrumentalistyka, jazz, rytmika, wokalistyka",
+    "extended": [],
+    "cards": [
+     "sztuka"
+    ],
+    "threshold": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "posm-krk-rekrutacja",
+    "status": "sourced",
+    "fields": [
+     "ART"
+    ],
+    "entry": {
+     "kind": "muzyczny",
+     "note": "Egzamin w szkole: granie lub śpiew przygotowanych utworów, test słuchu i wiedzy o muzyce. Wcześniej obowiązkowe przesłuchanie wstępne (marzec). W 2026 egzamin był na początku maja.",
+     "sourceId": "posm-krk-regulamin"
+    }
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-26"
  }
 ]

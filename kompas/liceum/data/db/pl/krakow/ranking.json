@@ -490,7 +490,7 @@
    "town": "Kraków",
    "type": "liceum",
    "kind": "art",
-   "kompasId": null,
+   "kompasId": "plsp",
    "perspektywy": null,
    "otouczelnie": {
     "rank": 31,
@@ -516,7 +516,7 @@
    "town": "Kraków",
    "type": "liceum",
    "kind": "music",
-   "kompasId": null,
+   "kompasId": "posm2",
    "perspektywy": null,
    "otouczelnie": {
     "rank": 33,
