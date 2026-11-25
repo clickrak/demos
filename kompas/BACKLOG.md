@@ -1261,7 +1261,7 @@ fits the focus, take the first "next week" item that does.
 | v3.3 | Ukrainian 2: questions | Activities, situations, strengths, dimensions, scenarios, doubts and reflection prompts | Sonnet + Opus | **done 24 Nov 2026 (3.3.0)** |
 | v3.4 | English (set by Szymon 24 Nov 2026, 17:19) | Interface, questions, strengths, dimensions, scenarios and the glossary in English (`?lang=en`, third chip EN); cards, offers and universities stay Polish | Sonnet + Opus | **done 24 Nov 2026** |
 | v3.5 | Ukrainian 3a: directions | 42 cards (all texts); university names stay Polish in every language (Szymon, 24 Nov evening) | Sonnet + Opus | **done 24 Nov 2026 (3.5.0)** |
-| v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | planned 24 Nov 2026; concrete plan 25 Nov 2026 (one session, see "v3.6 concrete plan") |
+| v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | **done 25 Nov 2026 (3.6.0)** |
 | v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
 | v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
 | v3.9 | Functionality (was v3.2) | Travel time from Rynek or Dworzec (12) | Opus | after v3.7 |
@@ -1997,6 +1997,10 @@ Decided by Szymon (24 Nov 2026 evening): university names, full and short, stay 
    Check: strict test "every offer has a Ukrainian entry"; star, compare and declaration helper in Ukrainian for 3 kids at 375 and 1280 px,
    three looks; Polish snapshot unchanged. Release 3.5.0.
 
+**v3.6 – UK-3b Studies (offers) in Ukrainian: DONE 25 Nov 2026 (3.6.0).** `studia/i18n/ua/offers.json` (126 offers: `name`, `requires.note`, `next`, `cost` for 4) written by four Sonnet helpers (three batches of 42 offers for the notes, one helper for the 103 different study names, so the same Polish name always gets the same Ukrainian name) and reviewed by Opus (fixes: «право на самостійну роботу в будівництві (uprawnienia budowlane)», «просторове планування» for gospodarka przestrzenna, SOR spelled out, «Екстрена медична допомога», «Акторська майстерність», «Сільське господарство», «Стоматологія», «Фінанси та облік», «Гра на інструментах», «Польська філологія для вчителів»). Loaded **only for `?lang=ua`**; Polish and English keep the Polish offers (English UI text checked against 3.5.0 on 54 screens: the only change is the confidence fix below). `levelNames` (9 study levels) in `ua/questions.json`, shown with `nm('level', …)` in the offer detail, the compare row and the markdown export. The offer detail and the compare view show the official Polish study name in brackets after the Ukrainian one (`plName()` in `app.js`, rule UK-B); lists, road, chips and the compass show only the Ukrainian name. "Global business services" stays as it is (the official name is English). Strict test in `tests/syntax.mjs`: every offer has every text field, only those fields, numbers equal, no Polish letters outside brackets and university names, university names unchanged, one Ukrainian name per Polish name, name length, `levelNames` complete, no `en/offers.json`. `tests/ui_text.py` now runs with a fixed browser clock (2026-11-21), so it no longer depends on today's date (W0). Small fix: the line "Певність результатів: …" showed the Polish level (`średnia`) in Ukrainian and English; it now uses `story.need.*` (Polish unchanged). Layout: `?lang=ua` at 375 and 1280 px in three looks, 3 test kids, with stars and compare (table and swipe cards), cards, compass and results: nothing wider than the screen, no script errors; `?lang=en` once: offers Polish, no errors. Radar unchanged; scoring snapshot unchanged (30 kids). `review-ua.md` now lists 1253 data texts.
+Open wording for the reader (offers): «ліценціат» (from the glossary); «вчитель-асистент» for «nauczyciel wspierający»; «III спортивний розряд (klasa sportowa)»; «консультації (poradnia)»; «аплікація (aplikacja)» for the lawyer training; «Медична аналітика»; «Технік пожежної справи».
+Still Polish in `?lang=ua`, left for later (not in this release): campus names and addresses, university names (for good), source titles, the round label of thresholds («I cykl»), and the transport method line from `transport.json` ("z przystanków Dworzec Główny, wtorek rano…", inside a Ukrainian sentence on the results page; candidate for v3.8 or v3.9 together with the travel-time work). The markdown export writes "3.5 року" with a dot (older, also in Polish).
+
 **v3.6 concrete plan (planner, 25 Nov 2026; this is the "v3.5 – UK-3b Studies" list above, renumbered). Set `3.6.0`.**
 State before: 3.5.0 pushed (Ukrainian cards). Tests on 25 Nov: `snapshot.mjs` (30 kids), `syntax.mjs`, `run.mjs` (42 of 42 cards in a top 3),
 `liceum.mjs` pass; radar unchanged. **`ui_text.py` fails on `0/kompas`, `7/kompas`, `21/kompas` only**: the cause is the date line
@@ -2008,12 +2012,12 @@ Size: one session, about 1.5 h, light (no split needed). Order: W0 → W1 (three
 Offers and universities stay **Polish in English** (`?lang=en` must not change; no `en/offers.json`). University names stay Polish in every language.
 Not in this release: the Ukraine data stream (v3.7), campus names and addresses, source titles, thresholds and pay (v4.0).
 
-- [ ] **W0 (Opus, 10 min) `ui_text.py` without today's date.** Make the test independent of the day it runs: preferred, a fixed clock in the
+- [x] **W0 (Opus, 10 min) `ui_text.py` without today's date.** Make the test independent of the day it runs: preferred, a fixed clock in the
   browser (Playwright `page.clock.set_fixed_time(...)` before `goto`, same day as the export date `2026-11-21`), otherwise normalise the
   results date line in the hashed text (as the version number is now). Before `--update`, compare the dumped Polish texts with the
   24 Nov ones and make sure the only difference is the date. Commit "Kompas Studia v3.6 W0: UI text snapshot ignores today's date".
   Check: `python3 kompas/tests/ui_text.py` says "Polish UI text unchanged (54 screens)", also when run twice.
-- [ ] **W1 (Sonnet x3, in parallel; Opus reviews) `studia/i18n/ua/offers.json`.** A list like `offers.json`, items matched by `id`, only the
+- [x] **W1 (Sonnet x3, in parallel; Opus reviews) `studia/i18n/ua/offers.json`.** A list like `offers.json`, items matched by `id`, only the
   text fields `name`, `requires.note`, `next`, `cost` (when the Polish has it). Not: `institution`, `level`, `kind`, `campus`, `cards`,
   `field`, `status`, `sourceId`, `url`, `threshold`, `requires.countFrom/must/main/...` (ids, subject ids and codes stay as they are).
   Batches by position in the file: offers 1–42, 43–84, 85–126; each helper writes its own part file in the scratch folder, Opus joins them
@@ -2025,12 +2029,12 @@ Not in this release: the Ukraine data stream (v3.7), campus names and addresses,
   in a text; keep every number, year, 'Kraków' and abbreviations". Same name → same translation (103 different names for 126 offers:
   give each helper the full list of names with their ids so repeated names match across batches).
   Check: every id present once; numbers equal; no Polish letters outside brackets and university names.
-- [ ] **W2 (Opus, 15 min) Study level names.** `level` stays the Polish value (the regex in `levelTerm()` in `studia/app.js` and
+- [x] **W2 (Opus, 15 min) Study level names.** `level` stays the Polish value (the regex in `levelTerm()` in `studia/app.js` and
   `kind === 'policealna'` in `core/scoring.js` use it). Add `levelNames` (the 9 different `level` values → Ukrainian) to
   `studia/i18n/ua/questions.json` next to `subjectNames`, register it with `setNames('level', …)` in `applyDataLang()` and show it with
   `nm('level', o.level)` in the offer detail (`app.js` about line 703), the compare row "length" (about line 1112) and the export compare
   (`core/export.js` line 94). Polish and English: `nm` falls back to the Polish value, so nothing changes there.
-- [ ] **W3 (Opus) Wiring and tests.** `OV.ua` gets `'offers'` (English list unchanged); `dataPl` keeps the Polish `offers`; `applyDataLang()`
+- [x] **W3 (Opus) Wiring and tests.** `OV.ua` gets `'offers'` (English list unchanged); `dataPl` keeps the Polish `offers`; `applyDataLang()`
   lays `ua/offers.json` over `dataPl.offers` with `overlay()` (stars, compare and the saved file use ids, so a file made in one language
   opens in the other). In Ukrainian the offer detail and the compare table show the official Polish study name in brackets after the
   Ukrainian one (rule UK-B; small helper next to `shortInst`, reads `dataPl`); short places (road text cut at 30 characters, chips, compass
@@ -2042,11 +2046,11 @@ Not in this release: the Ukraine data stream (v3.7), campus names and addresses,
   `next`, and `cost` where the Polish has one; no overlay id missing in the Polish data; only those fields in the overlay; no Polish letters
   outside brackets and university names; `institution` never in the overlay; `levelNames` covers every `level` in `offers.json`;
   `studia/i18n/en/offers.json` must not exist. `tools/i18n_review.py`: add the offers and `levelNames` to `review-ua.md`.
-- [ ] **W4 (Opus, 15 min) Layout check.** `?lang=ua` at 375 and 1280 px, three looks (none, `?skin=pop`, `?skin=neon`), with 3 test kids:
+- [x] **W4 (Opus, 15 min) Layout check.** `?lang=ua` at 375 and 1280 px, three looks (none, `?skin=pop`, `?skin=neon`), with 3 test kids:
   Kierunki road and panel (long names cut well), offer detail with the Polish name in brackets, star list, declaration helper list,
   compare table (1280) and compare cards (375), plan steps, report, markdown export. No line wider than the screen, no script errors.
   Also `?lang=en` once: offers still Polish, no errors.
-- [ ] **W5 (Opus) Review and release 3.6.0.** Read the Sonnet text against the glossary (same terms in the three batches; same names for
+- [x] **W5 (Opus) Review and release 3.6.0.** Read the Sonnet text against the glossary (same terms in the three batches; same names for
   the same Polish name; subject names as in `subjectNames`). Run `snapshot.mjs`, `syntax.mjs`, `run.mjs`, `liceum.mjs`, `ui_text.py`
   (Polish 54 screens unchanged) and `UI_LANG=en python3 kompas/tests/ui_text.py` compared with a dump from 3.5.0 (English must not
   change); radar re-run (must not move). Version 3.6.0 in the four places (search "3.5.0" in `kompas/studia`). `REVIEWED.md`: one line
