@@ -576,5 +576,16 @@
   "Polska": "Польща",
   "Europa": "Європа",
   "trudno powiedzieć": "важко сказати"
+ },
+ "levelNames": {
+  "inżynier": "інженерний ступінь",
+  "inżynierskie": "інженерні студії",
+  "jednolite magisterskie": "єдина магістратура",
+  "licencjat": "ліценціат",
+  "licencjat (uczelnia niepubliczna, studia stacjonarne bezpłatne)": "ліценціат (недержавний виш, денна форма безкоштовна)",
+  "studia": "навчання у виші",
+  "studia I stopnia": "перший ступінь (studia I stopnia)",
+  "szkoła policealna (publiczna, bezpłatna)": "післясередня школа (державна, безкоштовна)",
+  "szkoła policealna w służbie kandydackiej PSP": "післясередня школа в кандидатській службі PSP"
  }
 }

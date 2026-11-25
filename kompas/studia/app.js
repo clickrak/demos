@@ -26,8 +26,8 @@ async function load() {
   ].map(get));
   data = { dimensions, strengths, config, questions, scenarios, opportunities, offers, campuses, sources, personas };
   // Stops, lines and times computed from the Kraków GTFS timetables (kompas/tools/transport.py); optional.
-  dataPl = { questions, strengths, dimensions, scenarios, opportunities }; // Polish originals; Ukrainian overlays (studia/i18n/ua/*.json) are laid over them
-  const OV = { ua: ['questions', 'strengths', 'dimensions', 'scenarios', 'opportunities'], en: ['questions', 'strengths', 'dimensions', 'scenarios'] }; // cards: Ukrainian only (v3.5), English keeps Polish cards
+  dataPl = { questions, strengths, dimensions, scenarios, opportunities, offers }; // Polish originals; Ukrainian overlays (studia/i18n/ua/*.json) are laid over them
+  const OV = { ua: ['questions', 'strengths', 'dimensions', 'scenarios', 'opportunities', 'offers'], en: ['questions', 'strengths', 'dimensions', 'scenarios'] }; // cards (v3.5) and offers (v3.6): Ukrainian only, English keeps them Polish
   for (const l of ['ua', 'en']) dataOv[l] = Object.fromEntries(await Promise.all(OV[l].map(async k => [k, await fetch(`i18n/${l}/${k}.json`).then(r => (r.ok ? r.json() : null)).catch(() => null)])));
   data.transport = await fetch('data/db/pl/krakow/transport.json').then(r => (r.ok ? r.json() : null)).catch(() => null);
   for (const c of campuses) Object.assign(c, { tr: data.transport?.campuses?.[c.id] || null });
@@ -96,8 +96,8 @@ function applyStatic() {
 // Question, strength, dimension, scenario and card texts: Polish, or the Ukrainian overlay laid over it (missing texts stay Polish).
 function applyDataLang() {
   const ov = dataOv[getLang()]; // undefined for Polish
-  for (const k of ['questions', 'strengths', 'dimensions', 'scenarios', 'opportunities']) data[k] = ov?.[k] ? overlay(dataPl[k], ov[k]) : dataPl[k];
-  setNames('subject', ov ? data.questions.subjectNames : null); setNames('place', ov ? data.questions.placeNames : null);
+  for (const k of ['questions', 'strengths', 'dimensions', 'scenarios', 'opportunities', 'offers']) data[k] = ov?.[k] ? overlay(dataPl[k], ov[k]) : dataPl[k];
+  setNames('subject', ov ? data.questions.subjectNames : null); setNames('place', ov ? data.questions.placeNames : null); setNames('level', ov ? data.questions.levelNames : null);
 }
 function switchLang(l) {
   setLang(l); if (A) A.lang = getLang();
@@ -535,6 +535,8 @@ function vCardsPreview() {
     <details class="card"><summary>${t('app.cards.show_all', { n: data.opportunities.length })}</summary><ul class="cardlist">${data.opportunities.map(c => `<li><b>${esc(c.name)}</b><span class="small muted">${esc(c.whoYouHelp)}</span></li>`).join('')}</ul></details>${growCompass(2)}`;
 }
 
+// The official Polish study name after the translated one (rule UK-B), only in the offer detail and the compare view (v3.6).
+const plName = o => { const p = getLang() === 'ua' && dataPl?.offers?.find(x => x.id === o.id); return p && p.name !== o.name ? ` <span class="muted plname">(${esc(p.name)})</span>` : ''; };
 const shortInst = n => n.replace(/^Uniwersytet Gdański.*$/, 'UG, Gdańsk').replace(/^Politechnika Rzeszowska$/, 'Politechnika Rzeszowska, Rzeszów').replace(/^Uniwersytet Jagielloński.*$/, 'UJ').replace(/^UJ Collegium Medicum$/, 'UJ CM').replace(/^Krakowska Medyczna Szkoła Policealna nr 1$/, 'Medyczna Szkoła Policealna nr 1')
   .replace(/^Uniwersytet Andrzeja Frycza Modrzewskiego$/, 'UAFM').replace(/^Politechnika Krakowska$/, 'PK').replace(/^Uniwersytet Rolniczy$/, 'UR').replace(/^Szkoła Aspirantów Państwowej Straży Pożarnej$/, 'SA PSP');
 
@@ -699,8 +701,8 @@ function offerHtml(o, chk) {
   const c = campus(o.campus);
   const route = routeUrl(c);
   return `<div class="offer">
-    ${starBtn(o)}<b>${esc(o.name)}</b>, ${esc(o.institution)}<br>
-    <span class="muted">${esc(o.level)} ${levelTerm(o.level)} · ${plural(o.durationYears, 'app.years', { n: num(o.durationYears) })}</span><br>
+    ${starBtn(o)}<b>${esc(o.name)}</b>${plName(o)}, ${esc(o.institution)}<br>
+    <span class="muted">${esc(nm('level', o.level))} ${levelTerm(o.level)} · ${plural(o.durationYears, 'app.years', { n: num(o.durationYears) })}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">${t('app.offer.requires', { note: esc(o.requires.note || '-') })}</div>
     ${thresholdHtml(o)}
@@ -1109,7 +1111,7 @@ function compareRows() {
   const ext = A.rozszerzenia || [];
   return [
     [t('app.compare.row_inst'), o => { const c = campus(o.campus); return `${esc(o.institution)}${c ? `<br><span class="small muted">${esc(c.name)}, ${esc(c.address)}</span>` : ''}`; }],
-    [t('app.compare.row_length'), o => `${plural(o.durationYears, 'app.years', { n: num(o.durationYears) })} · ${esc(o.level)}`],
+    [t('app.compare.row_length'), o => `${plural(o.durationYears, 'app.years', { n: num(o.durationYears) })} · ${esc(nm('level', o.level))}`],
     [t('app.compare.row_subjects'), o => { const f = subjectFit(o, ext); return `<b>${f === null ? (o.requires?.noMatura ? t('app.decl.no_matura') : o.requires?.exam ? t('app.compare.exam') : t('app.compare.indep')) : t(FIT_TXT[f])}</b><br><span class="small muted">${esc(o.requires?.note || '')}</span>`; }],
     [t('app.compare.row_threshold'), o => o.threshold ? `${t('app.compare.points', { p: o.threshold.points, m: o.threshold.max })}${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : o.requires?.exam ? '<span class="badge warn">' + t('app.compare.exam_audition') + '</span>' : '<span class="muted">' + t('app.compare.no_data') + '</span>'],
     [t('app.compare.row_commute'), o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
@@ -1123,9 +1125,9 @@ function compareHtml() {
   const ids = compareIds(A, data), offs = ids.map(id => data.offers.find(o => o.id === id)), rows = compareRows();
   const pick = stars.length > 2 ? `<p class="small muted">${t('app.compare.pick')}</p><div class="chips" role="group" aria-label="${t('app.compare.pick_aria')}">${stars.map(id => { const o = data.offers.find(x => x.id === id), on = ids.includes(id);
     return `<button class="chip" data-cmp="${esc(id)}" aria-pressed="${on}" ${!on && ids.length >= 3 ? 'disabled' : ''}>${esc(o.name)} <span class="muted">${esc(shortInst(o.institution))}</span></button>`; }).join('')}</div>` : '';
-  const table = `<div class="cmp-table"><table><thead><tr><td></td>${offs.map(o => `<th scope="col">${esc(o.name)}<br><span class="small muted">${esc(shortInst(o.institution))}</span></th>`).join('')}</tr></thead>
+  const table = `<div class="cmp-table"><table><thead><tr><td></td>${offs.map(o => `<th scope="col">${esc(o.name)}${plName(o)}<br><span class="small muted">${esc(shortInst(o.institution))}</span></th>`).join('')}</tr></thead>
     <tbody>${rows.map(([l, f]) => `<tr><th scope="row">${l}</th>${offs.map(o => `<td>${f(o)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-  const cards = `<div class="cmp-cards" role="list">${offs.map(o => `<div class="cmp-card" role="listitem"><h3>${esc(o.name)}</h3><p class="small muted">${esc(shortInst(o.institution))}</p>
+  const cards = `<div class="cmp-cards" role="list">${offs.map(o => `<div class="cmp-card" role="listitem"><h3>${esc(o.name)}${plName(o)}</h3><p class="small muted">${esc(shortInst(o.institution))}</p>
     <dl>${rows.map(([l, f]) => `<dt>${l}</dt><dd>${f(o)}</dd>`).join('')}</dl></div>`).join('')}</div>`;
   return `${head}<div class="card cmp">${pick}${table}${cards}${offs.length > 1 ? '<p class="small muted cmp-hint">' + t('app.compare.hint') + '</p>' : ''}</div>`;
 }
@@ -1314,7 +1316,7 @@ function panelHtml(o) {
 }
 
 function confLine(c) {
-  return `<p class="conf small">${t('app.conf.head', { level: c.level })} ${c.missing.length ? t('app.conf.low', { list: c.missing.map(esc).join(', ') }) : t('app.conf.full')}</p>`;
+  return `<p class="conf small">${t('app.conf.head', { level: ({ wysoka: t('story.need.wysoka'), 'średnia': t('story.need.srednia'), niska: t('story.need.niska') })[c.level] ?? c.level })} ${c.missing.length ? t('app.conf.low', { list: c.missing.map(esc).join(', ') }) : t('app.conf.full')}</p>`;
 }
 
 function vResults() {

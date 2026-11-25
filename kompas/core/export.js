@@ -91,7 +91,7 @@ export function buildMarkdown(answers, result, data, today) {
     const rows = [
       [t('core.export.cmp_institution'), o => o.institution],
       [t('core.export.cmp_place'), o => campOf(o) ? `${campOf(o).name}, ${campOf(o).address}` : '-'],
-      [t('core.export.cmp_length'), o => t('core.export.cmp_duration', { years: years(o.durationYears), level: o.level })],
+      [t('core.export.cmp_length'), o => t('core.export.cmp_duration', { years: years(o.durationYears), level: nm('level', o.level) })],
       [t('core.export.cmp_subjects'), o => { const f = subjectFit(o, ext); return f === null ? t('core.export.no_ext_dependence') : FIT[f]; }],
       [t('core.export.cmp_requirements'), o => o.requires?.note],
       [t('core.export.cmp_threshold'), o => o.threshold ? t('core.export.threshold_value', { points: o.threshold.points, max: o.threshold.max }) : t('core.export.no_data')],

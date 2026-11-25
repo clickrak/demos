@@ -26,8 +26,8 @@ def review(lg, name):
         elif isinstance(ov, str):
             out.append((path, base if isinstance(base, str) else (f'(Polish name: {path.rsplit(".", 1)[-1]})' if base is None else ''), ov))
     data_rows = []
-    for nm_, src in (('questions', 'studia/data/questions.json'), ('strengths', 'core/strengths.json'), ('dimensions', 'core/dimensions.json'), ('scenarios', 'studia/data/scenarios.json'), ('opportunities', 'studia/data/opportunities.json')):
-        if not (R / f'studia/i18n/{lg}/{nm_}.json').exists(): continue  # cards: Ukrainian only (v3.5)
+    for nm_, src in (('questions', 'studia/data/questions.json'), ('strengths', 'core/strengths.json'), ('dimensions', 'core/dimensions.json'), ('scenarios', 'studia/data/scenarios.json'), ('opportunities', 'studia/data/opportunities.json'), ('offers', 'studia/data/db/pl/krakow/offers.json')):
+        if not (R / f'studia/i18n/{lg}/{nm_}.json').exists(): continue  # cards (v3.5) and offers (v3.6): Ukrainian only
         walk(nm_, load(src), load(f'studia/i18n/{lg}/{nm_}.json'), data_rows)
     rows += [f'| `{k}` | {cell(a)} | {cell(b)} |  |' for k, a, b in data_rows]
     groups = {}

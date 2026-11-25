@@ -3,7 +3,7 @@
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.
 
-Interface keys: 853, translated: 853. Data texts: 862.
+Interface keys: 853, translated: 853. Data texts: 1253.
 
 | key | Polski | Українська | correction |
 |---|---|---|---|
@@ -1026,6 +1026,15 @@ Interface keys: 853, translated: 853. Data texts: 862.
 | `questions.placeNames.Polska` | (Polish name: Polska) | Польща |  |
 | `questions.placeNames.Europa` | (Polish name: Europa) | Європа |  |
 | `questions.placeNames.trudno powiedzieć` | (Polish name: trudno powiedzieć) | важко сказати |  |
+| `questions.levelNames.inżynier` | (Polish name: inżynier) | інженерний ступінь |  |
+| `questions.levelNames.inżynierskie` | (Polish name: inżynierskie) | інженерні студії |  |
+| `questions.levelNames.jednolite magisterskie` | (Polish name: jednolite magisterskie) | єдина магістратура |  |
+| `questions.levelNames.licencjat` | (Polish name: licencjat) | ліценціат |  |
+| `questions.levelNames.licencjat (uczelnia niepubliczna, studia stacjonarne bezpłatne)` | (Polish name: licencjat (uczelnia niepubliczna, studia stacjonarne bezpłatne)) | ліценціат (недержавний виш, денна форма безкоштовна) |  |
+| `questions.levelNames.studia` | (Polish name: studia) | навчання у виші |  |
+| `questions.levelNames.studia I stopnia` | (Polish name: studia I stopnia) | перший ступінь (studia I stopnia) |  |
+| `questions.levelNames.szkoła policealna (publiczna, bezpłatna)` | (Polish name: szkoła policealna (publiczna, bezpłatna)) | післясередня школа (державна, безкоштовна) |  |
+| `questions.levelNames.szkoła policealna w służbie kandydackiej PSP` | (Polish name: szkoła policealna w służbie kandydackiej PSP) | післясередня школа в кандидатській службі PSP |  |
 | `strengths[wytrwalosc].name` | wytrwałość | витривалість |  |
 | `strengths[wytrwalosc].example` | Wracałem do trudnej drogi wspinaczkowej, aż ją przeszedłem. | Повертаюся до складного скелелазного маршруту, доки його не пройду. |  |
 | `strengths[spokoj].name` | spokój pod presją | спокій під тиском |  |
@@ -1722,3 +1731,385 @@ Interface keys: 853, translated: 853. Data texts: 862.
 | `opportunities[geografia].growth[2]` | kierownik planowania, ekspert klimatu albo własna firma | керівник планування, експерт з клімату або власна фірма |  |
 | `opportunities[geografia].experiment` | Otwórz Geoportal (geoportal.gov.pl) i znajdź swoją okolicę na starej i nowej mapie. Opisz, co się zmieniło przez 50 lat. | Відкрий Geoportal (geoportal.gov.pl) і знайди свою місцевість на старій і новій карті. Опиши, що змінилося за 50 років. |  |
 | `opportunities[geografia].demand.text` | Geodeci i kartografowie oraz architekci i urbaniści są w Krakowie w równowadze. | Геодезисти й картографи та архітектори й урбаністи в Кракові в рівновазі. |  |
+| `offers[uj-psychologia].name` | Psychologia | Психологія |  |
+| `offers[uj-psychologia].requires.note` | dwa przedmioty z listy, która obejmuje polski, angielski i biologię; UJ liczy tylko wyniki z poziomu rozszerzonego | два предмети зі списку, де є польська мова, англійська мова і біологія; UJ враховує лише результати з розширеного рівня (rozszerzenie) |  |
+| `offers[uj-psychologia].next` | praca psychologa od razu po dyplomie; psychoterapia wymaga potem kilkuletniego szkolenia | робота психолога одразу після диплома; для психотерапії потім потрібне кількарічне навчання |  |
+| `offers[uj-logopedia].name` | Logopedia | Логопедія |  |
+| `offers[uj-logopedia].requires.note` | polski plus jeden przedmiot z listy, która obejmuje biologię | польська мова плюс один предмет зі списку, де є біологія |  |
+| `offers[uj-logopedia].next` | logopeda w szkole, poradni albo szpitalu | логопед у школі, консультації (poradnia) або лікарні |  |
+| `offers[uj-filologia-angielska].name` | Filologia angielska | Англійська філологія |  |
+| `offers[uj-filologia-angielska].requires.note` | angielski oraz jeden przedmiot z listy języków (m.in. polski, niemiecki); UJ liczy tylko poziom rozszerzony | англійська мова і ще один мовний предмет зі списку (зокрема польська мова, німецька мова); UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-filologia-angielska].next` | praca albo 2-letnie magisterskie, także w Monachium po angielsku | робота або 2-річна магістратура (studia magisterskie), також у Мюнхені англійською |  |
+| `offers[uj-filologia-germanska].name` | Filologia germańska | Германська філологія |  |
+| `offers[uj-filologia-germanska].requires.note` | dwa przedmioty z listy języków, w tym polski i angielski: niemiecki z matury nie jest konieczny. Wariant „z językiem angielskim” wymaga niemieckiego oraz angielskiego albo polskiego | два мовні предмети зі списку, зокрема польська мова і англійська мова: німецька мова на матурі не обов'язкова. Для варіанту «з англійською мовою» потрібні німецька мова та англійська мова або польська мова |  |
+| `offers[uj-filologia-germanska].next` | praca z niemieckim w Krakowie albo w Bawarii | робота з німецькою мовою в Кракові або в Баварії |  |
+| `offers[uj-filologia-ukrainska].name` | Filologia ukraińska z drugim językiem obcym | Українська філологія з другою іноземною |  |
+| `offers[uj-filologia-ukrainska].requires.note` | kierunek „filologia ukraińska z drugim językiem obcym”: jeden przedmiot z listy, która obejmuje polski i języki obce | напрям «українська філологія з другою іноземною мовою» (filologia ukraińska z drugim językiem obcym): один предмет зі списку, де є польська мова та іноземні мови |  |
+| `offers[uj-filologia-ukrainska].next` | tłumaczenia, współpraca z Ukrainą albo magisterskie | переклади, співпраця з Україною або магістратура (studia magisterskie) |  |
+| `offers[uj-europeistyka].name` | Studia europejskie albo stosunki międzynarodowe | Європеїстика або міжнародні відносини |  |
+| `offers[uj-europeistyka].requires.note` | kierunek „studia europejskie”: dwa przedmioty z listy (język obcy, polski, historia, WOS, geografia, matematyka). Stosunki międzynarodowe: język obcy plus jeden z listy | напрям «studia europejskie» (європейські студії): два предмети зі списку (іноземна мова, польська мова, історія, суспільствознавство (WOS), географія, математика). Міжнародні відносини (stosunki międzynarodowe): іноземна мова плюс один зі списку |  |
+| `offers[uj-europeistyka].next` | staż w instytucji albo magisterskie | стажування в інституції або магістратура (studia magisterskie) |  |
+| `offers[uj-informatyka-analityczna].name` | Informatyka analityczna | Аналітична інформатика |  |
+| `offers[uj-informatyka-analityczna].requires.note` | informatyka lub matematyka; UJ liczy tylko poziom rozszerzony | інформатика або математика; UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-informatyka-analityczna].next` | praca programisty albo 2-letnie magisterskie | робота програміста або 2-річна магістратура (studia magisterskie) |  |
+| `offers[ujcm-lekarski].name` | Kierunek lekarski | Лікувальна справа |  |
+| `offers[ujcm-lekarski].requires.note` | biologia i chemia oraz fizyka lub matematyka, na poziomie rozszerzonym; 252 bezpłatne miejsca w 2026/27 | біологія і хімія та ще фізика або математика, на розширеному рівні (rozszerzenie); 252 безкоштовні місця у 2026/27 |  |
+| `offers[ujcm-lekarski].next` | po dyplomie staż i egzamin państwowy, potem kilka lat specjalizacji | після диплома стажування та державний іспит, потім кілька років спеціалізації |  |
+| `offers[ujcm-pielegniarstwo].name` | Pielęgniarstwo | Медсестринство |  |
+| `offers[ujcm-pielegniarstwo].requires.note` | jeden z: biologia, chemia, angielski, matematyka | один із предметів: біологія, хімія, англійська мова, математика |  |
+| `offers[ujcm-pielegniarstwo].next` | praca od razu po licencjacie; dyplom uznawany w całej UE | робота одразу після ліценціата (licencjat); диплом визнають в усьому ЄС |  |
+| `offers[ujcm-ratownictwo].name` | Ratownictwo medyczne | Екстрена медична допомога |  |
+| `offers[ujcm-ratownictwo].requires.note` | jeden z: biologia, chemia, angielski, matematyka | один із предметів: біологія, хімія, англійська мова, математика |  |
+| `offers[ujcm-ratownictwo].next` | praca w zespole ratownictwa albo na SOR; potem np. magisterskie z zdrowia publicznego | робота в бригаді швидкої допомоги або у відділенні невідкладної допомоги (SOR); потім, наприклад, магістратура (studia magisterskie) з громадського здоров'я |  |
+| `offers[ujcm-poloznictwo].name` | Położnictwo | Акушерство |  |
+| `offers[ujcm-poloznictwo].requires.note` | jeden z: biologia, chemia, angielski, matematyka | один із предметів: біологія, хімія, англійська мова, математика |  |
+| `offers[ujcm-poloznictwo].next` | praca położnej albo magisterskie | робота акушерки або магістратура (studia magisterskie) |  |
+| `offers[ujcm-zdrowie-publiczne].name` | Zdrowie publiczne | Громадське здоров'я |  |
+| `offers[ujcm-zdrowie-publiczne].requires.note` | jeden przedmiot z długiej listy, która obejmuje polski, angielski i biologię | один предмет з довгого списку, де є польська мова, англійська мова і біологія |  |
+| `offers[ujcm-zdrowie-publiczne].next` | praca w programach zdrowotnych albo magisterskie | робота в програмах охорони здоров'я або магістратура (studia magisterskie) |  |
+| `offers[ujcm-fizjoterapia].name` | Fizjoterapia | Фізіотерапія |  |
+| `offers[ujcm-fizjoterapia].requires.note` | jeden z: chemia, biologia, angielski, matematyka; 100 miejsc w 2026/27 | один із предметів: хімія, біологія, англійська мова, математика; 100 місць у 2026/27 |  |
+| `offers[ujcm-fizjoterapia].next` | po dyplomie egzamin państwowy i praca fizjoterapeuty w szpitalu, przychodni albo klubie | після диплома державний іспит і робота фізіотерапевта в лікарні, поліклініці або клубі |  |
+| `offers[ujcm-farmacja].name` | Farmacja | Фармація |  |
+| `offers[ujcm-farmacja].requires.note` | chemia oraz biologia, fizyka albo matematyka | хімія та ще біологія, фізика або математика |  |
+| `offers[ujcm-farmacja].next` | praca farmaceuty w aptece, szpitalu albo przemyśle | робота фармацевта в аптеці, лікарні або на виробництві |  |
+| `offers[ujcm-analityka].name` | Analityka medyczna | Медична аналітика |  |
+| `offers[ujcm-analityka].requires.note` | chemia oraz biologia, fizyka albo matematyka | хімія та ще біологія, фізика або математика |  |
+| `offers[ujcm-analityka].next` | diagnosta laboratoryjny w szpitalu albo w laboratorium | лаборант-діагност (diagnosta laboratoryjny) у лікарні або в лабораторії |  |
+| `offers[agh-informatyka].name` | Informatyka | Інформатика |  |
+| `offers[agh-informatyka].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою: математика, фізика або інформатика |  |
+| `offers[agh-informatyka].next` | praca programisty albo 1,5-roczne magisterskie | робота програміста або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-cyber].name` | Cyberbezpieczeństwo | Кібербезпека |  |
+| `offers[agh-cyber].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka albo fizyka | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою: математика або фізика |  |
+| `offers[agh-cyber].next` | praca w zespole bezpieczeństwa IT albo 1,5-roczne magisterskie | робота в команді з ІТ-безпеки або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-automatyka].name` | Automatyka i robotyka | Автоматика і робототехніка |  |
+| `offers[agh-automatyka].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka albo informatyka | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою: математика, фізика або інформатика |  |
+| `offers[agh-automatyka].next` | praca przy automatyzacji produkcji i robotach albo 1,5-roczne magisterskie | робота з автоматизацією виробництва і роботами або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-energetyka].name` | Energetyka | Енергетика |  |
+| `offers[agh-energetyka].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą: matematyka, fizyka, chemia albo informatyka | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою: математика, фізика, хімія або інформатика |  |
+| `offers[agh-energetyka].next` | praca w elektrowniach, sieciach i OZE albo 1,5-roczne magisterskie | робота на електростанціях, в електромережах і відновлюваній енергетиці (OZE) або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-elektrotechnika].name` | Elektrotechnika | Електротехніка |  |
+| `offers[agh-elektrotechnika].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą (lista do sprawdzenia w tabeli) | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою (список перевір у таблиці) |  |
+| `offers[agh-elektrotechnika].next` | praca przy sieciach i urządzeniach elektrycznych albo 1,5-roczne magisterskie | робота з електромережами та електричними пристроями або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-inz-biomed].name` | Inżynieria biomedyczna | Біомедична інженерія |  |
+| `offers[agh-inz-biomed].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia może być przedmiotem z największą wagą | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою; біологія може бути предметом з найбільшою вагою |  |
+| `offers[agh-inz-biomed].next` | praca przy sprzęcie medycznym i w firmach medycznych albo 1,5-roczne magisterskie | робота з медичним обладнанням і в медичних компаніях або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-fizyka-medyczna].name` | Fizyka medyczna | Медична фізика |  |
+| `offers[agh-fizyka-medyczna].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia jest na liście | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою; біологія є в списку |  |
+| `offers[agh-fizyka-medyczna].next` | praca przy aparaturze w szpitalach, np. w radioterapii, albo magisterskie | робота з апаратурою в лікарнях, наприклад у радіотерапії, або магістратура (studia magisterskie) |  |
+| `offers[agh-fizyka-techniczna].name` | Fizyka techniczna | Технічна фізика |  |
+| `offers[agh-fizyka-techniczna].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою |  |
+| `offers[agh-fizyka-techniczna].next` | praca w laboratoriach i przemyśle albo 1,5-roczne magisterskie | робота в лабораторіях і промисловості або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-iiad].name` | Inżynieria i analiza danych | Інженерія та аналіз даних |  |
+| `offers[agh-iiad].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy (biologia jest na liście) i drugi z listy z językiem obcym | AGH: математика враховується завжди, а до неї ще один предмет зі списку (біологія є в списку) і другий зі списку з іноземною мовою |  |
+| `offers[agh-iiad].next` | praca analityka danych albo 1,5-roczne magisterskie | робота аналітика даних або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[agh-iios].name` | Inżynieria i ochrona środowiska | Інженерія і захист довкілля |  |
+| `offers[agh-iios].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą; biologia i geografia są na liście | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою; біологія і географія є в списку |  |
+| `offers[agh-iios].next` | praca przy wodzie, powietrzu i odpadach w firmach i urzędach albo magisterskie | робота з водою, повітрям і відходами у компаніях та установах або магістратура (studia magisterskie) |  |
+| `offers[agh-ekonometria].name` | Informatyka i ekonometria | Інформатика та економетрика |  |
+| `offers[agh-ekonometria].requires.note` | AGH: matematyka zawsze się liczy, do tego jeden przedmiot z listy z największą wagą i drugi z mniejszą | AGH: математика враховується завжди, а до неї ще один предмет зі списку з найбільшою вагою і другий з меншою |  |
+| `offers[agh-ekonometria].next` | praca analityka w banku albo firmie, albo 2-letnie magisterskie | робота аналітика в банку чи компанії або 2-річна магістратура (studia magisterskie) |  |
+| `offers[pk-informatyka].name` | Informatyka | Інформатика |  |
+| `offers[pk-informatyka].requires.note` | matematyka oraz fizyka, informatyka albo matematyka | математика та ще фізика, інформатика або математика |  |
+| `offers[pk-informatyka].next` | praca programisty albo 1,5-roczne magisterskie | робота програміста або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[pk-inz-srodowiska].name` | Inżynieria środowiska | Інженерія довкілля |  |
+| `offers[pk-inz-srodowiska].requires.note` | matematyka oraz jeden z listy, która obejmuje biologię i chemię | математика та ще один предмет зі списку, де є біологія і хімія |  |
+| `offers[pk-inz-srodowiska].next` | praca przy wodzie, powietrzu i odpadach w firmach i urzędach albo magisterskie | робота з водою, повітрям і відходами у компаніях та установах або магістратура (studia magisterskie) |  |
+| `offers[pk-energetyka].name` | Energetyka | Енергетика |  |
+| `offers[pk-energetyka].requires.note` | matematyka oraz jeden z: chemia, fizyka, geografia, informatyka, matematyka | математика та ще один із предметів: хімія, фізика, географія, інформатика, математика |  |
+| `offers[pk-energetyka].next` | praca w elektrowniach, sieciach i OZE albo 1,5-roczne magisterskie | робота на електростанціях, в електромережах і відновлюваній енергетиці (OZE) або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[pk-transport].name` | Transport i logistyka | Транспорт і логістика |  |
+| `offers[pk-transport].requires.note` | kierunek „transport i logistyka”: matematyka oraz fizyka, geografia, informatyka albo matematyka | напрям «transport i logistyka» (транспорт і логістика): математика та ще фізика, географія, інформатика або математика |  |
+| `offers[pk-transport].next` | praca w firmach transportowych i logistycznych albo 1,5-roczne magisterskie | робота в транспортних і логістичних компаніях або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[uek-informatyka-stosowana].name` | Informatyka stosowana | Прикладна інформатика |  |
+| `offers[uek-informatyka-stosowana].requires.note` | matematyka oraz fizyka, informatyka albo angielski | математика та ще фізика, інформатика або англійська мова |  |
+| `offers[uek-informatyka-stosowana].next` | praca programisty lub analityka systemów albo magisterskie | робота програміста чи аналітика систем або магістратура (studia magisterskie) |  |
+| `offers[uek-finanse].name` | Finanse i rachunkowość | Фінанси та облік |  |
+| `offers[uek-finanse].requires.note` | matematyka oraz jeden z listy, która obejmuje polski i języki obce | математика та ще один предмет зі списку, де є польська мова та іноземні мови |  |
+| `offers[uek-finanse].next` | księgowość, analityka albo magisterskie | бухгалтерія, аналітика або магістратура (studia magisterskie) |  |
+| `offers[uek-stosunki].name` | Stosunki międzynarodowe | Міжнародні відносини |  |
+| `offers[uek-stosunki].requires.note` | język obcy oraz jeden z listy, która obejmuje polski | іноземна мова та ще один предмет зі списку, де є польська мова |  |
+| `offers[uek-stosunki].next` | handel zagraniczny, instytucje albo magisterskie | зовнішня торгівля, інституції або магістратура (studia magisterskie) |  |
+| `offers[uken-logopedia].name` | Logopedia | Логопедія |  |
+| `offers[uken-logopedia].requires.note` | liczy się polski | враховується польська мова |  |
+| `offers[uken-logopedia].next` | logopeda w szkole, poradni albo szpitalu | логопед у школі, консультації (poradnia) або лікарні |  |
+| `offers[uken-psychologia].name` | Psychologia | Психологія |  |
+| `offers[uken-psychologia].requires.note` | polski, język obcy i jeden z: biologia, historia, matematyka, informatyka; poziom podstawowy albo rozszerzony | польська мова, іноземна мова і один із предметів: біологія, історія, математика, інформатика; базовий (poziom podstawowy) або розширений рівень (rozszerzenie) |  |
+| `offers[uken-psychologia].next` | praca psychologa od razu po dyplomie; psychoterapia wymaga potem kilkuletniego szkolenia | робота психолога одразу після диплома; для психотерапії потім потрібне кількарічне навчання |  |
+| `offers[uken-pedagogika].name` | Pedagogika specjalna | Спеціальна педагогіка |  |
+| `offers[uken-pedagogika].requires.note` | liczy się polski, poziom podstawowy albo rozszerzony | враховується польська мова, базовий (poziom podstawowy) або розширений рівень (rozszerzenie) |  |
+| `offers[uken-pedagogika].next` | nauczyciel wspierający albo terapeuta; w Krakowie brakuje takich osób | вчитель-асистент або терапевт; у Кракові таких людей бракує |  |
+| `offers[uken-filologia-angielska].name` | Filologia angielska | Англійська філологія |  |
+| `offers[uken-filologia-angielska].requires.note` | angielski na poziomie rozszerzonym | англійська мова на розширеному рівні (rozszerzenie) |  |
+| `offers[uken-filologia-angielska].next` | nauczyciel angielskiego (w Krakowie brakuje) albo tłumacz | вчитель англійської мови (у Кракові бракує) або перекладач |  |
+| `offers[uken-bezpieczenstwo].name` | Bezpieczeństwo narodowe | Національна безпека |  |
+| `offers[uken-bezpieczenstwo].requires.note` | polski i język obcy, poziom podstawowy albo rozszerzony | польська мова та іноземна мова, базовий (poziom podstawowy) або розширений рівень (rozszerzenie) |  |
+| `offers[uken-bezpieczenstwo].next` | służby, administracja albo Legia Akademicka i kariera oficerska | служби, адміністрація або Академічний легіон (Legia Akademicka) і офіцерська кар'єра |  |
+| `offers[awf-fizjoterapia].name` | Fizjoterapia | Фізіотерапія |  |
+| `offers[awf-fizjoterapia].requires.note` | jeden z: biologia, fizyka, chemia, matematyka | один із предметів: біологія, фізика, хімія, математика |  |
+| `offers[awf-fizjoterapia].next` | po dyplomie egzamin państwowy i praca fizjoterapeuty w szpitalu, przychodni albo klubie | після диплома державний іспит і робота фізіотерапевта в лікарні, поліклініці або клубі |  |
+| `offers[awf-wf].name` | Wychowanie fizyczne | Фізичне виховання |  |
+| `offers[awf-wf].requires.note` | trzy przedmioty do wyboru; rozszerzenie liczy się półtora raza | три предмети на вибір; розширений рівень (rozszerzenie) рахується в півтора раза |  |
+| `offers[awf-wf].next` | trener, instruktor albo nauczyciel WF po magisterskich | тренер, інструктор або вчитель фізкультури (WF) після магістратури (studia magisterskie) |  |
+| `offers[awf-sport].name` | Sport w szkolnym wychowaniu fizycznym | Спорт у шкільному фізвихованні |  |
+| `offers[awf-sport].requires.note` | trzy przedmioty do wyboru oraz co najmniej III klasa sportowa | три предмети на вибір і щонайменше III спортивний розряд (klasa sportowa) |  |
+| `offers[awf-sport].next` | trener albo przygotowanie motoryczne | тренер або фізична підготовка (przygotowanie motoryczne) |  |
+| `offers[ur-biotechnologia].name` | Biotechnologia | Біотехнологія |  |
+| `offers[ur-biotechnologia].requires.note` | biologia oraz chemia albo matematyka | біологія та ще хімія або математика |  |
+| `offers[ur-biotechnologia].next` | praca w laboratorium lub firmie biotechnologicznej albo magisterskie | робота в лабораторії чи біотехнологічній компанії або магістратура (studia magisterskie) |  |
+| `offers[ur-woda].name` | Inżynieria i gospodarka wodna | Інженерія та водне господарство |  |
+| `offers[ur-woda].requires.note` | język obcy (albo łacina) oraz jeden z: biologia, chemia, fizyka, geografia, matematyka | іноземна мова (або латина) та один із предметів: біологія, хімія, фізика, географія, математика |  |
+| `offers[ur-woda].next` | praca przy gospodarce wodnej i ochronie przed powodzią albo magisterskie | робота у сфері водного господарства та захисту від повені або магістратура (studia magisterskie) |  |
+| `offers[uafm-fizjoterapia].name` | Fizjoterapia | Фізіотерапія |  |
+| `offers[uafm-fizjoterapia].requires.note` | przyjęcie na podstawie dokumentów, do wyczerpania miejsc | вступ за документами, доки є вільні місця |  |
+| `offers[uafm-fizjoterapia].next` | po dyplomie egzamin państwowy i praca fizjoterapeuty w szpitalu, przychodni albo klubie | після диплома державний іспит і робота фізіотерапевтом у лікарні, поліклініці або клубі |  |
+| `offers[uafm-fizjoterapia].cost` | płatne | платно |  |
+| `offers[uafm-lekarski].name` | Kierunek lekarski | Лікувальна справа |  |
+| `offers[uafm-lekarski].requires.note` | przyjęcie na podstawie dokumentów; opłata od ok. 60 tys. zł za pierwszy rok (2026/27) | вступ за документами; оплата від бл. 60 тис. зл за перший рік (2026/27) |  |
+| `offers[uafm-lekarski].next` | po dyplomie staż i egzamin państwowy, potem kilka lat specjalizacji | після диплома стажування і державний іспит, потім кілька років спеціалізації |  |
+| `offers[uafm-lekarski].cost` | od ok. 60 tys. zł za rok | від бл. 60 тис. зл за рік |  |
+| `offers[uafm-pielegniarstwo].name` | Pielęgniarstwo | Медсестринство |  |
+| `offers[uafm-pielegniarstwo].requires.note` | przyjęcie na podstawie dokumentów | вступ за документами |  |
+| `offers[uafm-pielegniarstwo].next` | praca od razu po licencjacie; dyplom uznawany w całej UE | робота одразу після ліценціата (licencjat); диплом визнають в усьому ЄС |  |
+| `offers[uafm-pielegniarstwo].cost` | płatne | платно |  |
+| `offers[uafm-ratownictwo].name` | Ratownictwo medyczne | Екстрена медична допомога |  |
+| `offers[uafm-ratownictwo].requires.note` | przyjęcie na podstawie dokumentów, do wyczerpania miejsc | вступ за документами, доки є вільні місця |  |
+| `offers[uafm-ratownictwo].next` | praca w zespole ratownictwa albo na SOR | робота в бригаді швидкої допомоги або у відділенні невідкладної допомоги (SOR) |  |
+| `offers[uafm-ratownictwo].cost` | płatne | платно |  |
+| `offers[ksm-technik-farmaceutyczny].name` | Technik farmaceutyczny | Технік-фармацевт |  |
+| `offers[ksm-technik-farmaceutyczny].requires.note` | świadectwo szkoły średniej i zaświadczenie od lekarza medycyny pracy; bez matury i egzaminu | свідоцтво про закінчення середньої школи (świadectwo szkoły średniej) і довідка від лікаря з медицини праці; без матури та іспиту |  |
+| `offers[ksm-technik-farmaceutyczny].next` | praca w aptece; później można iść na farmację | робота в аптеці; пізніше можна вступити на фармацію |  |
+| `offers[ksm-elektroradiolog].name` | Technik elektroradiolog | Технік-електрорадіолог |  |
+| `offers[ksm-elektroradiolog].requires.note` | świadectwo szkoły średniej i zaświadczenie lekarskie | свідоцтво про закінчення середньої школи (świadectwo szkoły średniej) і медична довідка |  |
+| `offers[ksm-elektroradiolog].next` | badania RTG i inne badania obrazowe w szpitalach | рентген та інші візуальні обстеження в лікарнях |  |
+| `offers[ksm-dentystyczny].name` | Technik dentystyczny | Зубний технік |  |
+| `offers[ksm-dentystyczny].requires.note` | świadectwo szkoły średniej i zaświadczenie lekarskie | свідоцтво про закінчення середньої школи (świadectwo szkoły średniej) і медична довідка |  |
+| `offers[ksm-dentystyczny].next` | praca w pracowni protetycznej: precyzyjna praca rękami | робота в протезній лабораторії: точна робота руками |  |
+| `offers[ksm-higienistka].name` | Higienistka stomatologiczna | Стоматологічна гігієністка |  |
+| `offers[ksm-higienistka].requires.note` | świadectwo szkoły średniej i zaświadczenie lekarskie | свідоцтво про закінчення середньої школи (świadectwo szkoły średniej) і медична довідка |  |
+| `offers[ksm-higienistka].next` | profilaktyka w gabinetach stomatologicznych | профілактика в стоматологічних кабінетах |  |
+| `offers[zse1-administracja].name` | Technik administracji | Технік-адміністратор |  |
+| `offers[zse1-administracja].requires.note` | świadectwo szkoły średniej, bez matury; nauka 2 lata | свідоцтво про закінчення середньої школи (świadectwo szkoły średniej), без матури; навчання 2 роки |  |
+| `offers[zse1-administracja].next` | praca w urzędzie albo biurze; potem np. administracja zaocznie | робота в установі або офісі; потім, наприклад, адміністрація на заочній формі |  |
+| `offers[sapsp-pozarnictwo].name` | Technik pożarnictwa (Szkoła Aspirantów PSP) | Технік пожежної справи (Szkoła Aspirantów PSP) |  |
+| `offers[sapsp-pozarnictwo].requires.note` | matura (pisemna matematyka i język obcy), wiek do 25 lat, test sprawności i pływania, badania; zgłoszenia w 2026 r. do 31 maja, czyli wcześniej niż na studia; czas nauki do sprawdzenia | матура (письмова математика та іноземна мова), вік до 25 років, тест на фізичну форму та плавання, медичний огляд; заяви у 2026 р. до 31 травня, тобто раніше, ніж на навчання у виші; тривалість навчання треба перевірити |  |
+| `offers[sapsp-pozarnictwo].next` | strażak w PSP; dalej oficerska szkoła pożarnicza | пожежник у PSP; далі офіцерська пожежна школа |  |
+| `offers[pk-automatyka].name` | Automatyka i robotyka | Автоматика і робототехніка |  |
+| `offers[pk-automatyka].requires.note` | matematyka oraz fizyka albo informatyka | математика та фізика або інформатика |  |
+| `offers[pk-automatyka].next` | praca przy automatyzacji produkcji i robotach albo 1,5-roczne magisterskie | робота з автоматизацією виробництва і роботами або 1,5-річна магістратура (studia magisterskie) |  |
+| `offers[uken-cyber].name` | Cyberbezpieczeństwo | Кібербезпека |  |
+| `offers[uken-cyber].requires.note` | informatyka albo matematyka | інформатика або математика |  |
+| `offers[uken-cyber].next` | praca w zespole bezpieczeństwa IT albo magisterskie | робота в команді з ІТ-безпеки або магістратура (studia magisterskie) |  |
+| `offers[uj-bezpieczenstwo].name` | Bezpieczeństwo narodowe | Національна безпека |  |
+| `offers[uj-bezpieczenstwo].requires.note` | język obcy oraz jeden z: geografia, historia, polski, matematyka, WOS; UJ liczy tylko poziom rozszerzony | іноземна мова та один із предметів: географія, історія, польська мова, математика, суспільствознавство (WOS); UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-bezpieczenstwo].next` | służby, administracja i zarządzanie kryzysowe albo magisterskie | спецслужби, адміністрація та кризове управління або магістратура (studia magisterskie) |  |
+| `offers[uj-jpks].name` | Język polski w komunikacji społecznej | Польська мова в соціальній комунікації |  |
+| `offers[uj-jpks].requires.note` | polski oraz jeden z: historia, język obcy, WOS; UJ liczy tylko poziom rozszerzony | польська мова та один із предметів: історія, іноземна мова, суспільствознавство (WOS); UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-jpks].next` | redakcja, komunikacja w firmach i instytucjach albo magisterskie | редакція, комунікація у фірмах і установах або магістратура (studia magisterskie) |  |
+| `offers[uj-polonistyka-nauczycielska].name` | Filologia polska nauczycielska | Польська філологія для вчителів |  |
+| `offers[uj-polonistyka-nauczycielska].requires.note` | polski oraz historia albo język obcy; UJ liczy tylko poziom rozszerzony | польська мова та історія або іноземна мова; UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-polonistyka-nauczycielska].next` | nauczyciel polskiego po 2-letnich magisterskich | вчитель польської мови після 2-річної магістратури (studia magisterskie) |  |
+| `offers[uj-dziennikarstwo].name` | Dziennikarstwo i komunikacja społeczna | Журналістика і соціальна комунікація |  |
+| `offers[uj-dziennikarstwo].requires.note` | dwa przedmioty z szerokiej listy, m.in. polski, język obcy, historia, WOS, biologia; UJ liczy tylko poziom rozszerzony | два предмети з широкого списку, зокрема польська мова, іноземна мова, історія, суспільствознавство (WOS), біологія; UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-dziennikarstwo].next` | media, komunikacja i promocja albo magisterskie | медіа, комунікація та промоція або магістратура (studia magisterskie) |  |
+| `offers[uj-informatyka].name` | Informatyka | Інформатика |  |
+| `offers[uj-informatyka].requires.note` | informatyka lub matematyka; UJ liczy tylko poziom rozszerzony | інформатика або математика; UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-informatyka].next` | praca programisty albo 2-letnie magisterskie | робота програмістом або 2-річна магістратура (studia magisterskie) |  |
+| `offers[ujcm-elektroradiologia].name` | Elektroradiologia | Електрорадіологія |  |
+| `offers[ujcm-elektroradiologia].requires.note` | jeden z: biologia, chemia, angielski, matematyka | один із предметів: біологія, хімія, англійська мова, математика |  |
+| `offers[ujcm-elektroradiologia].next` | badania RTG, tomografia i rezonans w szpitalach albo magisterskie | рентген, томографія та МРТ у лікарнях або магістратура (studia magisterskie) |  |
+| `offers[ujcm-lekarsko-dentystyczny].name` | Kierunek lekarsko-dentystyczny | Стоматологія |  |
+| `offers[ujcm-lekarsko-dentystyczny].requires.note` | biologia i chemia, na poziomie rozszerzonym | біологія і хімія на розширеному рівні (rozszerzenie) |  |
+| `offers[ujcm-lekarsko-dentystyczny].next` | po dyplomie staż i egzamin państwowy, potem praca dentysty | після диплома стажування і державний іспит, потім робота стоматологом |  |
+| `offers[ksm-asystentka].name` | Asystentka stomatologiczna | Асистентка стоматолога |  |
+| `offers[ksm-asystentka].requires.note` | świadectwo szkoły średniej i zaświadczenie od lekarza medycyny pracy | свідоцтво про закінчення середньої школи (świadectwo szkoły średniej) і довідка від лікаря з медицини праці |  |
+| `offers[ksm-asystentka].next` | praca przy fotelu u boku dentysty; potem np. higienistka stomatologiczna | робота біля крісла поруч зі стоматологом; потім, наприклад, стоматологічна гігієністка |  |
+| `offers[uken-pr].name` | Public relations i kultury cyfrowe | Public relations і цифрові культури |  |
+| `offers[uken-pr].requires.note` | jeden z: polski, historia, matematyka, WOS, język obcy | один із предметів: польська мова, історія, математика, суспільствознавство (WOS), іноземна мова |  |
+| `offers[uken-pr].next` | dział komunikacji w firmie, urzędzie albo agencja PR; albo magisterskie | відділ комунікації у фірмі чи установі або PR-агенція; або магістратура (studia magisterskie) |  |
+| `offers[ignatianum-dziennikarstwo].name` | Dziennikarstwo i komunikacja społeczna | Журналістика і соціальна комунікація |  |
+| `offers[ignatianum-dziennikarstwo].requires.note` | polski, język obcy oraz jeden z: biologia, chemia, historia, matematyka, informatyka, WOS i innych | польська мова, іноземна мова та один із предметів: біологія, хімія, історія, математика, інформатика, суспільствознавство (WOS) та інші |  |
+| `offers[ignatianum-dziennikarstwo].next` | redakcja, dziennikarstwo audiowizualne, komunikacja; albo magisterskie | редакція, аудіовізуальна журналістика, комунікація; або магістратура (studia magisterskie) |  |
+| `offers[uek-marketing].name` | Marketing i komunikacja rynkowa | Маркетинг і ринкова комунікація |  |
+| `offers[uek-marketing].requires.note` | język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS | іноземна мова та один із предметів: географія, історія, інформатика, математика, суспільствознавство (WOS) |  |
+| `offers[uek-marketing].next` | marketing, sprzedaż, e-commerce w firmie albo agencji; albo magisterskie | маркетинг, продаж, e-commerce у фірмі або агенції; або магістратура (studia magisterskie) |  |
+| `offers[uek-zarzadzanie].name` | Zarządzanie | Менеджмент |  |
+| `offers[uek-zarzadzanie].requires.note` | język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS | іноземна мова та один із предметів: географія, історія, інформатика, математика, суспільствознавство (WOS) |  |
+| `offers[uek-zarzadzanie].next` | sprzedaż, zakupy, praca z klientem i zespołem; albo magisterskie | продаж, закупівлі, робота з клієнтами і командою; або магістратура (studia magisterskie) |  |
+| `offers[uek-msg].name` | Międzynarodowe stosunki gospodarcze | Міжнародні економічні відносини |  |
+| `offers[uek-msg].requires.note` | język obcy oraz jeden z: fizyka, geografia, historia, informatyka, matematyka, WOS | іноземна мова та один із предметів: фізика, географія, історія, інформатика, математика, суспільствознавство (WOS) |  |
+| `offers[uek-msg].next` | handel zagraniczny, eksport i import w firmach; albo magisterskie | зовнішня торгівля, експорт та імпорт у фірмах; або магістратура (studia magisterskie) |  |
+| `offers[uken-ekonomia].name` | Ekonomia (specjalność: gospodarka cyfrowa i e-biznes) | Економіка (цифрова економіка і е-бізнес) |  |
+| `offers[uken-ekonomia].requires.note` | polski i język obcy; uczelnia podaje też dodatkowe kryteria | польська мова та іноземна мова; виш подає також додаткові критерії |  |
+| `offers[uken-ekonomia].next` | sklepy internetowe, sprzedaż i analiza w firmach; albo magisterskie | інтернет-магазини, продаж і аналіз у фірмах; або магістратура (studia magisterskie) |  |
+| `offers[asp-architektura-wnetrz].name` | Architektura wnętrz | Дизайн інтер'єру |  |
+| `offers[asp-architektura-wnetrz].requires.note` | decyduje egzamin wstępny: teczka prac (online), zadanie praktyczne (rysunek, malarstwo albo konstrukcja) i rozmowa | вирішує вступний іспит (egzamin wstępny): портфоліо робіт (онлайн), практичне завдання (малюнок, живопис або конструкція) і розмова |  |
+| `offers[asp-architektura-wnetrz].next` | architekt wnętrz w pracowni albo własna pracownia | архітектор інтер'єрів у студії або власна студія |  |
+| `offers[asp-wzornictwo].name` | Wzornictwo | Дизайн виробів |  |
+| `offers[asp-wzornictwo].requires.note` | egzamin wstępny: rysunek martwej natury, konstrukcja z papieru bez kleju, teczka do 20 dużych prac i rozmowa | вступний іспит (egzamin wstępny): малюнок натюрморту, конструкція з паперу без клею, портфоліо до 20 великих робіт і розмова |  |
+| `offers[asp-wzornictwo].next` | projektant mebli, sprzętu i przedmiotów w firmie albo studiu | дизайнер меблів, обладнання та предметів у фірмі або студії |  |
+| `offers[uken-design].name` | Design | Дизайн |  |
+| `offers[uken-design].requires.note` | egzamin: teczka prac i rozmowa, potem zadanie projektowe | іспит: портфоліо робіт і розмова, потім проєктне завдання |  |
+| `offers[uken-design].next` | projektant w studiu albo firmie; albo magisterskie | дизайнер у студії або фірмі; або магістратура (studia magisterskie) |  |
+| `offers[uken-komunikacja-wizualna].name` | Komunikacja wizualna | Візуальна комунікація |  |
+| `offers[uken-komunikacja-wizualna].requires.note` | egzamin zdalny: zadanie rysunkowo-projektowe, potem rozmowa i ocena teczki | дистанційний іспит: завдання з малювання та проєктування, потім розмова й оцінка портфоліо |  |
+| `offers[uken-komunikacja-wizualna].next` | grafik, projektant identyfikacji i stron, praca w agencji; albo magisterskie | графік, дизайнер айдентики та сайтів, робота в агенції; або магістратура (studia magisterskie) |  |
+| `offers[pk-architektura].name` | Architektura | Архітектура |  |
+| `offers[pk-architektura].requires.note` | matematyka oraz historia, historia sztuki albo polski; sprawdź na stronie PK, czy w 2027 jest też sprawdzian z rysunku | математика та історія, історія мистецтва або польська мова; перевір на сайті PK, чи у 2027 є ще й перевірка з малювання |  |
+| `offers[pk-architektura].next` | magisterskie, potem praktyka i egzamin na uprawnienia architekta | магістратура (studia magisterskie), потім практика та іспит на права архітектора |  |
+| `offers[agh-gry].name` | Tworzenie przestrzeni wirtualnych i gier | Віртуальні простори та ігри |  |
+| `offers[agh-gry].requires.note` | matematyka oraz dwa przedmioty z list, które obejmują m.in. fizykę, informatykę, polski, historię sztuki i filozofię | математика та два предмети зі списків, які містять, зокрема, фізику, інформатику, польську мову, історію мистецтва і філософію |  |
+| `offers[agh-gry].next` | projektant gier i światów wirtualnych, twórca VR, praca w studiu gier; albo magisterskie | дизайнер ігор і віртуальних світів, VR-творець, робота в ігровій студії; або магістратура (studia magisterskie) |  |
+| `offers[agh-informatyka-spoleczna].name` | Informatyka społeczna | Соціальна інформатика |  |
+| `offers[agh-informatyka-spoleczna].requires.note` | matematyka oraz jeden z: fizyka, informatyka, język obcy i jeden z: fizyka, informatyka, polski, WOS | математика та один із предметів: фізика, інформатика, іноземна мова, і один із предметів: фізика, інформатика, польська мова, суспільствознавство (WOS) |  |
+| `offers[agh-informatyka-spoleczna].next` | analityk danych o ludziach, specjalista social media, UX research, e-commerce; albo magisterskie | аналітик даних про людей, фахівець із соцмереж, UX-дослідження, e-commerce; або магістратура (studia magisterskie) |  |
+| `offers[agh-kulturoznawstwo].name` | Kulturoznawstwo (m.in. komunikacja wizualna) | Культурологія (зокрема візуальна комунікація) |  |
+| `offers[agh-kulturoznawstwo].requires.note` | matematyka oraz dwa przedmioty z list, które obejmują fizykę, historię, informatykę, polski, WOS i język obcy | математика та два предмети зі списків, які містять фізику, історію, інформатику, польську мову, суспільствознавство (WOS) та іноземну мову |  |
+| `offers[agh-kulturoznawstwo].next` | projekty kulturalne i medialne, grafika i komunikacja wizualna; albo magisterskie | культурні та медійні проєкти, графіка і візуальна комунікація; або магістратура (studia magisterskie) |  |
+| `offers[uj-film-nowe-media].name` | Filmoznawstwo i wiedza o nowych mediach | Кінознавство і нові медіа |  |
+| `offers[uj-film-nowe-media].requires.note` | dwa przedmioty z szerokiej listy (m.in. polski, język obcy, historia, historia sztuki, WOS, informatyka); UJ liczy tylko poziom rozszerzony | два предмети з широкого списку (зокрема польська мова, іноземна мова, історія, історія мистецтва, суспільствознавство (WOS), інформатика); UJ враховує лише розширений рівень (rozszerzenie) |  |
+| `offers[uj-film-nowe-media].next` | film, telewizja, gry i media cyfrowe: redakcja, programowanie treści, krytyka; albo magisterskie | кіно, телебачення, ігри та цифрові медіа: редакція, програмування контенту, критика; або магістратура (studia magisterskie) |  |
+| `offers[uek-gbs].name` | Global business services | Global business services |  |
+| `offers[uek-gbs].requires.note` | język angielski oraz jeden z: geografia, historia, informatyka, matematyka | англійська мова та один із предметів: географія, історія, інформатика, математика |  |
+| `offers[uek-gbs].next` | centra usług dla firm (finanse, obsługa klienta, zakupy) w Krakowie, praca po angielsku; albo magisterskie | центри послуг для компаній (фінанси, обслуговування клієнтів, закупівлі) у Кракові, робота англійською; або магістратура (studia magisterskie) |  |
+| `offers[uek-przedsiebiorczosc].name` | Przedsiębiorczość i innowacje w gospodarce | Підприємництво та інновації в економіці |  |
+| `offers[uek-przedsiebiorczosc].requires.note` | język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS | іноземна мова та один із предметів: географія, історія, інформатика, математика, суспільствознавство (WOS) |  |
+| `offers[uek-przedsiebiorczosc].next` | własna firma, start-upy, sprzedaż i rozwój produktów; albo magisterskie | власна фірма, стартапи, продаж і розвиток продуктів; або магістратура (studia magisterskie) |  |
+| `offers[uek-innowacje-biznes].name` | Innowacje w biznesie | Інновації в бізнесі |  |
+| `offers[uek-innowacje-biznes].requires.note` | język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS | іноземна мова та один із предметів: географія, історія, інформатика, математика, суспільствознавство (WOS) |  |
+| `offers[uek-innowacje-biznes].next` | nowe produkty i usługi, e-commerce, marketing w firmie; albo magisterskie | нові продукти і послуги, e-commerce, маркетинг у фірмі; або магістратура (studia magisterskie) |  |
+| `offers[ug-oceanografia].name` | Oceanografia | Океанографія |  |
+| `offers[ug-oceanografia].requires.note` | język obcy, matematyka oraz jeden przedmiot z listy, która obejmuje biologię, chemię i fizykę | іноземна мова, математика та один предмет зі списку, який містить біологію, хімію і фізику |  |
+| `offers[ug-oceanografia].next` | instytuty morskie, ochrona środowiska, energetyka na morzu; albo magisterskie | морські інститути, охорона довкілля, енергетика на морі; або магістратура (studia magisterskie) |  |
+| `offers[prz-lotnictwo].name` | Lotnictwo i kosmonautyka | Авіація і космонавтика |  |
+| `offers[prz-lotnictwo].requires.note` | matematyka oraz jeden z: fizyka, chemia, informatyka albo język obcy | математика та один із предметів: фізика, хімія, інформатика або іноземна мова |  |
+| `offers[prz-lotnictwo].next` | przemysł lotniczy (Dolina Lotnicza wokół Rzeszowa), obsługa samolotów, drony; albo magisterskie | авіаційна промисловість (Dolina Lotnicza навколо Жешува), обслуговування літаків, дрони; або магістратура (studia magisterskie) |  |
+| `offers[uek-turystyka].name` | Turystyka i rekreacja | Туризм і рекреація |  |
+| `offers[uek-turystyka].requires.note` | język obcy oraz jeden z: geografia, historia, informatyka, matematyka, WOS | іноземна мова та один із предметів: географія, історія, інформатика, математика, суспільствознавство (WOS) |  |
+| `offers[uek-turystyka].next` | biura podróży, hotele, organizacja wydarzeń i wyjazdów; albo magisterskie | туристичні агенції, готелі, організація подій і поїздок; або магістратура (studia magisterskie) |  |
+| `offers[uj-historia-sztuki].name` | Historia sztuki | Історія мистецтва |  |
+| `offers[uj-historia-sztuki].requires.note` | dwa przedmioty z: historia, historia sztuki, język polski; UJ liczy tylko poziom rozszerzony | два предмети з: історія, історія мистецтва, польська мова; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-historia-sztuki].next` | muzea, galerie, ochrona zabytków, rynek sztuki, turystyka kulturowa; albo magisterskie | музеї, галереї, охорона пам'яток, ринок мистецтва, культурний туризм; або магістратура (studia magisterskie) |  |
+| `offers[uj-prawo].name` | Prawo | Право |  |
+| `offers[uj-prawo].requires.note` | dwa z: historia, polski, matematyka, WOS oraz jeszcze jeden przedmiot; UJ liczy tylko poziom rozszerzony | два з: історія, польська мова, математика, суспільствознавство (WOS) та ще один предмет; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-prawo].next` | aplikacja adwokacka, radcowska, sędziowska albo praca w urzędzie i firmie | аплікація (aplikacja) адвокатська, юрисконсультська чи суддівська, або робота в установі й фірмі |  |
+| `offers[uj-administracja].name` | Administracja | Адміністрування |  |
+| `offers[uj-administracja].requires.note` | jeden przedmiot z bardzo szerokiej listy (m.in. biologia, chemia, geografia, historia); UJ liczy tylko poziom rozszerzony | один предмет з дуже широкого списку (зокрема біологія, хімія, географія, історія); UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-administracja].next` | urzędy, samorząd, firmy; albo magisterskie | установи, самоврядування, фірми; або магістратура (studia magisterskie) |  |
+| `offers[uek-prawo].name` | Prawo | Право |  |
+| `offers[uek-prawo].requires.note` | język polski oraz jeden z: historia, język obcy, matematyka, WOS | польська мова та один з: історія, іноземна мова, математика, суспільствознавство (WOS) |  |
+| `offers[uek-prawo].next` | aplikacje prawnicze, prawo gospodarcze w firmach i kancelariach | правничі аплікації (aplikacje), господарське право у фірмах і юридичних конторах |  |
+| `offers[uek-administracja].name` | Administracja | Адміністрування |  |
+| `offers[uek-administracja].requires.note` | język obcy oraz jeden z: geografia, historia, polski, matematyka, WOS | іноземна мова та один з: географія, історія, польська мова, математика, суспільствознавство (WOS) |  |
+| `offers[uek-administracja].next` | urzędy, samorząd, administracja w firmach; albo magisterskie | установи, самоврядування, адміністрація у фірмах; або магістратура (studia magisterskie) |  |
+| `offers[pk-budownictwo].name` | Budownictwo | Будівництво |  |
+| `offers[pk-budownictwo].requires.note` | matematyka oraz jeden przedmiot z listy, która obejmuje fizykę | математика та один предмет зі списку, де є фізика |  |
+| `offers[pk-budownictwo].next` | projektowanie konstrukcji, kierowanie budową, drogi i mosty; uprawnienia budowlane | проєктування конструкцій, керування будівництвом, дороги й мости; право на самостійну роботу в будівництві (uprawnienia budowlane) |  |
+| `offers[agh-budownictwo].name` | Budownictwo | Будівництво |  |
+| `offers[agh-budownictwo].requires.note` | matematyka oraz jeden z: chemia, fizyka, informatyka, matematyka | математика та один з: хімія, фізика, інформатика, математика |  |
+| `offers[agh-budownictwo].next` | budowy, biura projektowe, geotechnika; albo magisterskie | будівництво, проєктні бюро, геотехніка; або магістратура (studia magisterskie) |  |
+| `offers[uek-gospodarka-przestrzenna].name` | Gospodarka przestrzenna | Просторове планування |  |
+| `offers[uek-gospodarka-przestrzenna].requires.note` | język obcy oraz jeden z: geografia, historia, polski, matematyka, WOS | іноземна мова та один з: географія, історія, польська мова, математика, суспільствознавство (WOS) |  |
+| `offers[uek-gospodarka-przestrzenna].next` | planowanie miast, urzędy, firmy deweloperskie; albo magisterskie | планування міст, установи, будівельні компанії-девелопери; або магістратура (studia magisterskie) |  |
+| `offers[pk-mibm].name` | Mechanika i budowa maszyn | Механіка і машинобудування |  |
+| `offers[pk-mibm].requires.note` | matematyka oraz jeden z: fizyka, matematyka | математика та один з: фізика, математика |  |
+| `offers[pk-mibm].next` | konstruktor, technolog, przemysł motoryzacyjny i maszynowy; albo magisterskie | конструктор, технолог, автомобільна й машинобудівна промисловість; або магістратура (studia magisterskie) |  |
+| `offers[agh-mibm].name` | Mechanika i budowa maszyn | Механіка і машинобудування |  |
+| `offers[agh-mibm].requires.note` | matematyka oraz jeden z: fizyka, informatyka, matematyka i jeden z: fizyka, informatyka, język obcy | математика та один з: фізика, інформатика, математика і один з: фізика, інформатика, іноземна мова |  |
+| `offers[agh-mibm].next` | projektowanie i budowa maszyn, energetyka, przemysł; albo magisterskie | проєктування й будівництво машин, енергетика, промисловість; або магістратура (studia magisterskie) |  |
+| `offers[uek-zip].name` | Zarządzanie i inżynieria produkcji | Менеджмент та інженерія виробництва |  |
+| `offers[uek-zip].requires.note` | matematyka oraz jeden z: chemia, fizyka, geografia, informatyka, język obcy, WOS | математика та один з: хімія, фізика, географія, інформатика, іноземна мова, суспільствознавство (WOS) |  |
+| `offers[uek-zip].next` | kierownik produkcji, logistyka i jakość w fabrykach; albo magisterskie | керівник виробництва, логістика й якість на заводах; або магістратура (studia magisterskie) |  |
+| `offers[uek-jakosc].name` | Inżynieria jakości produktu | Інженерія якості продукції |  |
+| `offers[uek-jakosc].requires.note` | matematyka oraz jeden z: biologia, chemia, fizyka, geografia, historia, język obcy, polski, WOS | математика та один з: біологія, хімія, фізика, географія, історія, іноземна мова, польська мова, суспільствознавство (WOS) |  |
+| `offers[uek-jakosc].next` | kontrola jakości w produkcji, laboratoria, certyfikacja | контроль якості у виробництві, лабораторії, сертифікація |  |
+| `offers[uken-pedagogika-przedszkolna].name` | Pedagogika przedszkolna i wczesnoszkolna | Дошкільна і початкова педагогіка |  |
+| `offers[uken-pedagogika-przedszkolna].requires.note` | język polski i język obcy | польська мова та іноземна мова |  |
+| `offers[uken-pedagogika-przedszkolna].next` | nauczyciel w przedszkolu i klasach 1–3 | вихователь у дитячому садку й учитель 1–3 класів |  |
+| `offers[uken-pedagogika-specjalna].name` | Pedagogika specjalna | Спеціальна педагогіка |  |
+| `offers[uken-pedagogika-specjalna].requires.note` | język polski | польська мова |  |
+| `offers[uken-pedagogika-specjalna].next` | nauczyciel i terapeuta dzieci z niepełnosprawnościami, szkoły integracyjne i specjalne | учитель і терапевт для дітей з інвалідністю, інтеграційні та спеціальні школи |  |
+| `offers[uj-socjologia].name` | Socjologia | Соціологія |  |
+| `offers[uj-socjologia].requires.note` | język obcy oraz jeden z: filozofia, geografia, historia, historia muzyki, historia sztuki, informatyka, polski, matematyka, WOS; UJ liczy tylko poziom rozszerzony | іноземна мова та один з: філософія, географія, історія, історія музики, історія мистецтва, інформатика, польська мова, математика, суспільствознавство (WOS); UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-socjologia].next` | badania społeczne i rynku, samorząd, organizacje; albo magisterskie | соціальні й ринкові дослідження, самоврядування, організації; або магістратура (studia magisterskie) |  |
+| `offers[agh-socjologia].name` | Socjologia | Соціологія |  |
+| `offers[agh-socjologia].requires.note` | matematyka oraz dwa przedmioty z list, które obejmują m.in. filozofię, geografię, historię, informatykę, polski, WOS i język obcy | математика та два предмети зі списків, де є, зокрема, філософія, географія, історія, інформатика, польська мова, суспільствознавство (WOS) та іноземна мова |  |
+| `offers[agh-socjologia].next` | analiza danych społecznych, badania, HR; albo magisterskie | аналіз соціальних даних, дослідження, HR; або магістратура (studia magisterskie) |  |
+| `offers[uek-nauki-spoleczne].name` | Nauki społeczne stosowane | Прикладні соціальні науки |  |
+| `offers[uek-nauki-spoleczne].requires.note` | język obcy oraz jeden z: filozofia, fizyka, geografia, historia, informatyka, polski, matematyka, WOS | іноземна мова та один з: філософія, фізика, географія, історія, інформатика, польська мова, математика, суспільствознавство (WOS) |  |
+| `offers[uek-nauki-spoleczne].next` | samorząd, organizacje, badania i projekty społeczne; albo magisterskie | самоврядування, організації, соціальні дослідження й проєкти; або магістратура (studia magisterskie) |  |
+| `offers[uj-fizyka].name` | Fizyka | Фізика |  |
+| `offers[uj-fizyka].requires.note` | jeden z: chemia, fizyka, informatyka, matematyka; UJ liczy tylko poziom rozszerzony | один з: хімія, фізика, інформатика, математика; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-fizyka].next` | badania, przemysł wysokich technologii, analiza danych; albo magisterskie | дослідження, високотехнологічна промисловість, аналіз даних; або магістратура (studia magisterskie) |  |
+| `offers[uj-astronomia].name` | Astronomia | Астрономія |  |
+| `offers[uj-astronomia].requires.note` | jeden z: chemia, fizyka, informatyka, matematyka; UJ liczy tylko poziom rozszerzony | один з: хімія, фізика, інформатика, математика; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-astronomia].next` | badania kosmosu, przemysł kosmiczny, analiza danych; albo magisterskie | дослідження космосу, космічна промисловість, аналіз даних; або магістратура (studia magisterskie) |  |
+| `offers[uj-chemia].name` | Chemia | Хімія |  |
+| `offers[uj-chemia].requires.note` | chemia oraz jeden z: biologia, fizyka, matematyka; UJ liczy tylko poziom rozszerzony | хімія та один з: біологія, фізика, математика; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-chemia].next` | laboratoria, przemysł chemiczny i farmaceutyczny; albo magisterskie | лабораторії, хімічна й фармацевтична промисловість; або магістратура (studia magisterskie) |  |
+| `offers[agh-matematyka].name` | Matematyka | Математика |  |
+| `offers[agh-matematyka].requires.note` | matematyka (rozszerzona) oraz jeden z: fizyka, informatyka, język obcy | математика (розширений рівень, rozszerzenie) та один з: фізика, інформатика, іноземна мова |  |
+| `offers[agh-matematyka].next` | analiza danych, finanse, programowanie, badania; albo magisterskie | аналіз даних, фінанси, програмування, дослідження; або магістратура (studia magisterskie) |  |
+| `offers[ast-aktorstwo].name` | Aktorstwo | Акторська майстерність |  |
+| `offers[ast-aktorstwo].requires.note` | egzamin wstępny w kilku etapach (m.in. wiersze, proza, piosenka, ruch); matura wymagana, ale o przyjęciu decyduje egzamin | вступний іспит (egzamin wstępny) у кілька етапів (зокрема вірші, проза, пісня, рух); матура потрібна, але про вступ вирішує іспит |  |
+| `offers[ast-aktorstwo].next` | teatr, film, telewizja, dubbing, radio | театр, кіно, телебачення, дубляж, радіо |  |
+| `offers[amuz-instrumentalistyka].name` | Instrumentalistyka | Гра на інструментах |  |
+| `offers[amuz-instrumentalistyka].requires.note` | egzamin wstępny z gry na instrumencie (przesłuchanie); o przyjęciu decyduje wynik egzaminu | вступний іспит (egzamin wstępny) з гри на інструменті (прослуховування); про вступ вирішує результат іспиту |  |
+| `offers[amuz-instrumentalistyka].next` | orkiestry, zespoły, nauczanie gry, koncerty; albo magisterskie | оркестри, ансамблі, навчання гри, концерти; або магістратура (studia magisterskie) |  |
+| `offers[asp-malarstwo].name` | Malarstwo | Живопис |  |
+| `offers[asp-malarstwo].requires.note` | egzamin wstępny: najpierw portfolio online, potem egzamin praktyczny z rysunku i malarstwa | вступний іспит (egzamin wstępny): спершу портфоліо онлайн, потім практичний іспит з малюнка й живопису |  |
+| `offers[asp-malarstwo].next` | własna twórczość, wystawy, scenografia, nauczanie sztuki | власна творчість, виставки, сценографія, викладання мистецтва |  |
+| `offers[uj-historia].name` | Historia | Історія |  |
+| `offers[uj-historia].requires.note` | historia oraz jeden przedmiot z listy, która obejmuje m.in. filozofię, geografię, historię muzyki, historię sztuki; UJ liczy tylko poziom rozszerzony | історія та один предмет зі списку, де є, зокрема, філософія, географія, історія музики, історія мистецтва; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-historia].next` | muzea, archiwa, szkoły, wydawnictwa, media; albo magisterskie | музеї, архіви, школи, видавництва, медіа; або магістратура (studia magisterskie) |  |
+| `offers[uj-archeologia].name` | Archeologia | Археологія |  |
+| `offers[uj-archeologia].requires.note` | jeden z: geografia, historia, historia sztuki oraz jeden z: filozofia, język obcy, łacina; UJ liczy tylko poziom rozszerzony | один з: географія, історія, історія мистецтва та один з: філософія, іноземна мова, латина; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-archeologia].next` | wykopaliska, ochrona zabytków, muzea; albo magisterskie | розкопки, охорона пам'яток, музеї; або магістратура (studia magisterskie) |  |
+| `offers[uj-etnologia].name` | Etnologia i antropologia kulturowa | Етнологія і культурна антропологія |  |
+| `offers[uj-etnologia].requires.note` | język obcy oraz jeden przedmiot z bardzo szerokiej listy; UJ liczy tylko poziom rozszerzony | іноземна мова та один предмет з дуже широкого списку; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-etnologia].next` | muzea, kultura, organizacje, badania terenowe; albo magisterskie | музеї, культура, організації, польові дослідження; або магістратура (studia magisterskie) |  |
+| `offers[uj-filozofia].name` | Filozofia | Філософія |  |
+| `offers[uj-filozofia].requires.note` | dwa z listy, która obejmuje m.in. biologię, filozofię, fizykę, historię, historię sztuki, informatykę, języki; UJ liczy tylko poziom rozszerzony | два зі списку, де є, зокрема, біологія, філософія, фізика, історія, історія мистецтва, інформатика, мови; UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-filozofia].next` | etyka AI, media, HR, nauczanie, badania; albo magisterskie | етика ШІ, медіа, HR, викладання, дослідження; або магістратура (studia magisterskie) |  |
+| `offers[uj-dietetyka].name` | Dietetyka | Дієтологія |  |
+| `offers[uj-dietetyka].requires.note` | biologia i chemia, obie na poziomie rozszerzonym; miejsce zajęć sprawdź na stronie UJ CM | біологія і хімія, обидві на розширеному рівні (rozszerzenie); місце занять дивись на сайті UJ CM |  |
+| `offers[uj-dietetyka].next` | poradnie, szpitale, sport, edukacja zdrowotna; albo magisterskie | консультації, лікарні, спорт, освіта про здоров'я; або магістратура (studia magisterskie) |  |
+| `offers[urk-dietetyka].name` | Dietetyka | Дієтологія |  |
+| `offers[urk-dietetyka].requires.note` | język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, matematyka | іноземна мова або латина та один з: біологія, хімія, фізика, математика |  |
+| `offers[urk-dietetyka].next` | poradnie, zakłady żywienia, gastronomia, sport; albo magisterskie | консультації, заклади харчування, гастрономія, спорт; або магістратура (studia magisterskie) |  |
+| `offers[urk-technologia-zywnosci].name` | Technologia żywności i żywienie człowieka | Харчові технології та дієтика |  |
+| `offers[urk-technologia-zywnosci].requires.note` | język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, matematyka | іноземна мова або латина та один з: біологія, хімія, фізика, математика |  |
+| `offers[urk-technologia-zywnosci].next` | zakłady spożywcze, kontrola jakości, laboratoria żywności | харчові підприємства, контроль якості, лабораторії харчових продуктів |  |
+| `offers[urk-weterynaria].name` | Weterynaria | Ветеринарія |  |
+| `offers[urk-weterynaria].requires.note` | biologia, chemia, matematyka oraz łacina albo język obcy | біологія, хімія, математика та латина або іноземна мова |  |
+| `offers[urk-weterynaria].next` | kliniki dla zwierząt, inspekcja weterynaryjna, hodowla, badania | ветеринарні клініки, ветеринарна інспекція, розведення тварин, дослідження |  |
+| `offers[urk-zootechnika].name` | Zootechnika | Зоотехнія |  |
+| `offers[urk-zootechnika].requires.note` | język obcy albo łacina oraz jeden z: biologia, chemia, geografia, informatyka, matematyka | іноземна мова або латина та один з: біологія, хімія, географія, інформатика, математика |  |
+| `offers[urk-zootechnika].next` | hodowla zwierząt, żywienie zwierząt, doradztwo; albo magisterskie | розведення тварин, годівля тварин, консультування; або магістратура (studia magisterskie) |  |
+| `offers[urk-rolnictwo].name` | Rolnictwo | Сільське господарство |  |
+| `offers[urk-rolnictwo].requires.note` | język obcy albo łacina oraz jeden z: biologia, chemia, fizyka, geografia, matematyka | іноземна мова або латина та один з: біологія, хімія, фізика, географія, математика |  |
+| `offers[urk-rolnictwo].next` | gospodarstwo, doradztwo rolnicze, przetwórstwo, agencje rolne; albo magisterskie | господарство, сільськогосподарське консультування, переробка, аграрні агентства; або магістратура (studia magisterskie) |  |
+| `offers[uj-ggp].name` | Geografia i gospodarka przestrzenna | Географія і просторове планування |  |
+| `offers[uj-ggp].requires.note` | geografia oraz jeden z długiej listy (m.in. biologia, chemia, fizyka, historia, informatyka, języki, matematyka); ścieżki: geografia fizyczna, społeczno-ekonomiczna, gospodarka przestrzenna, turystyka | географія та один з довгого списку (зокрема біологія, хімія, фізика, історія, інформатика, мови, математика); спеціалізації: фізична географія, соціально-економічна, просторове планування, туризм |  |
+| `offers[uj-ggp].next` | urzędy, planowanie, GIS, turystyka; albo magisterskie | установи, планування, GIS, туризм; або магістратура (studia magisterskie) |  |
+| `offers[uken-geografia].name` | Geografia | Географія |  |
+| `offers[uken-geografia].requires.note` | liczy się średnia ze wszystkich zdanych przedmiotów; geografia waży najwięcej (rozszerzona razy 2) | враховується середнє з усіх складених предметів; найбільше важить географія (розширений рівень, rozszerzenie, з коефіцієнтом 2) |  |
+| `offers[uken-geografia].next` | szkoła (nauczyciel geografii), urzędy, GIS, turystyka; albo magisterskie | школа (вчитель географії), установи, GIS, туризм; або магістратура (studia magisterskie) |  |
+| `offers[uj-geologia].name` | Geologia | Геологія |  |
+| `offers[uj-geologia].requires.note` | jeden z: biologia, chemia, fizyka, geografia, informatyka, matematyka oraz jeden z: język obcy, polski, WOS; UJ liczy tylko poziom rozszerzony | один з: біологія, хімія, фізика, географія, інформатика, математика та один з: іноземна мова, польська мова, суспільствознавство (WOS); UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-geologia].next` | geologia inżynierska, surowce, ochrona środowiska; albo magisterskie | інженерна геологія, корисні копалини, охорона довкілля; або магістратура (studia magisterskie) |  |
+| `offers[awf-turystyka].name` | Turystyka i rekreacja | Туризм і рекреація |  |
+| `offers[awf-turystyka].requires.note` | język obcy oraz dowolny przedmiot; bez rozszerzeń | іноземна мова та будь-який предмет; без розширеного рівня (rozszerzenie) |  |
+| `offers[awf-turystyka].next` | biura podróży, hotele, animacja czasu wolnego, rekreacja; albo magisterskie | туристичні агенції, готелі, дозвілля й анімація, рекреація; або магістратура (studia magisterskie) |  |
+| `offers[awf-turystyka-przygodowa].name` | Turystyka przygodowa | Пригодницький туризм |  |
+| `offers[awf-turystyka-przygodowa].requires.note` | dwa różne przedmioty z matury: dowolny oraz język obcy (podstawa albo rozszerzenie) | два різні предмети матури: будь-який та іноземна мова (базовий рівень (poziom podstawowy) або розширений, rozszerzenie) |  |
+| `offers[awf-turystyka-przygodowa].next` | przewodnik, organizator wypraw, instruktor, turystyka górska | гід, організатор походів, інструктор, гірський туризм |  |
+| `offers[awf-trener].name` | Trener zdrowia i sprawności fizycznej | Тренер зі здоров'я і фізичної форми |  |
+| `offers[awf-trener].requires.note` | trzy przedmioty z matury do wyboru z: polski, język obcy, matematyka, fizyka, biologia, chemia, geografia, historia (podstawa albo rozszerzenie) | три предмети матури на вибір з: польська мова, іноземна мова, математика, фізика, біологія, хімія, географія, історія (базовий рівень (poziom podstawowy) або розширений, rozszerzenie) |  |
+| `offers[awf-trener].next` | trener personalny, kluby fitness, rekreacja, praca z seniorami | персональний тренер, фітнес-клуби, рекреація, робота з літніми людьми |  |
+| `offers[uj-politologia].name` | Politologia | Політологія |  |
+| `offers[uj-politologia].requires.note` | język obcy oraz jeden z: filozofia, geografia, historia, polski, matematyka, WOS; UJ liczy tylko poziom rozszerzony | іноземна мова та один з: філософія, географія, історія, польська мова, математика, суспільствознавство (WOS); UJ враховує тільки розширений рівень (rozszerzenie) |  |
+| `offers[uj-politologia].next` | samorząd, urzędy, organizacje, media, analizy polityczne; albo magisterskie | самоврядування, установи, організації, медіа, політичний аналіз; або магістратура (studia magisterskie) |  |
+| `offers[uken-praca-socjalna].name` | Praca socjalna | Соціальна робота |  |
+| `offers[uken-praca-socjalna].requires.note` | język polski (poziom podstawowy albo rozszerzony; rozszerzony liczy się razy 1,5) | польська мова: базовий рівень (poziom podstawowy) або розширений (rozszerzenie); розширений рахується з коефіцієнтом 1,5 |  |
+| `offers[uken-praca-socjalna].next` | ośrodki pomocy społecznej, domy dziecka, organizacje pomagające ludziom; albo magisterskie | центри соціальної допомоги, дитячі будинки, організації, що допомагають людям; або магістратура (studia magisterskie) |  |

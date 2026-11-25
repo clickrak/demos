@@ -179,5 +179,36 @@ for (const lg of ['ua', 'en']) { // Overlays of the data texts (v3.3, English v3
     }
   }
 }
+{ // Offers (v3.6): Ukrainian only (studia/i18n/ua/offers.json); English keeps the Polish offers. University names stay Polish.
+  const offs = json['studia/data/db/pl/krakow/offers.json'] || [], ou = json['studia/i18n/ua/offers.json'], lv = json['studia/i18n/ua/questions.json']?.levelNames || {};
+  if (json['studia/i18n/en/offers.json']) fail('overlay: studia/i18n/en/offers.json must not exist (offers stay Polish in English)');
+  if (!ou) fail('overlay: studia/i18n/ua/offers.json must exist');
+  else {
+    const PL = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/, nums = v => (String(v).match(/\d+/g) || []).sort().join(',');
+    const insts = [...new Set(offs.map(o => o.institution).filter(Boolean)), 'Szkoła Aspirantów PSP'].sort((a, b) => b.length - a.length);
+    const strip = v => insts.reduce((x, n) => x.split(n).join(''), String(v)).replace(/\([^)]*\)/g, '');
+    const m = new Map(), seen = new Set();
+    for (const o of ou) { if (seen.has(o.id)) fail(`overlay: ua offer "${o.id}" twice`); seen.add(o.id); m.set(o.id, o);
+      for (const k of Object.keys(o)) if (!['id', 'name', 'requires', 'next', 'cost'].includes(k)) fail(`overlay: ua offer "${o.id}" must not hold "${k}" (only name, requires.note, next, cost)`);
+      if (o.requires && Object.keys(o.requires).some(k => k !== 'note')) fail(`overlay: ua offer "${o.id}" requires may hold only "note"`);
+      if (!offs.some(b => b.id === o.id)) fail(`overlay: ua offer "${o.id}" is not in the Polish data`); }
+    for (const b of offs) {
+      const o = m.get(b.id); if (!o) { fail(`overlay: ua offer "${b.id}" is missing`); continue; }
+      const pairs = [['name', b.name, o.name], ['requires.note', b.requires?.note, o.requires?.note], ['next', b.next, o.next], ...(b.cost ? [['cost', b.cost, o.cost]] : [])];
+      if (!b.cost && o.cost) fail(`overlay: ua offer "${b.id}" has a cost the Polish has not`);
+      for (const [f, pv, uv] of pairs) {
+        if (pv === undefined) continue;
+        if (typeof uv !== 'string' || !uv.trim()) { fail(`overlay: ua offer "${b.id}".${f} is empty`); continue; }
+        if (PL.test(strip(uv))) fail(`overlay: ua offer "${b.id}".${f} has Polish letters outside brackets: ${uv.slice(0, 50)}`);
+        if (uv === pv && pv !== 'Global business services' && /[ąćęłńóśźż]|[a-z]{5} [a-z]{3}/i.test(pv)) fail(`overlay: ua offer "${b.id}".${f} is still the Polish text`);
+        if (nums(pv) !== nums(uv)) fail(`overlay: ua offer "${b.id}".${f} numbers differ: ${nums(pv)} vs ${nums(uv)}`);
+      }
+      for (const n of insts) if ([b.requires?.note, b.next].join(' ').includes(n) && ![o.requires?.note, o.next].join(' ').includes(n)) fail(`overlay: ua offer "${b.id}" changed the university name "${n}"`);
+      if (o.name.length > Math.max(24, 1.4 * b.name.length)) fail(`overlay: ua offer "${b.id}" name too long (${o.name.length})`);
+      if (!lv[b.level]) fail(`overlay: levelNames has no Ukrainian name for "${b.level}"`);
+    }
+    const names = new Map(); for (const b of offs) { const u = m.get(b.id)?.name; if (names.has(b.name) && names.get(b.name) !== u) fail(`overlay: the study name "${b.name}" has two Ukrainian names`); names.set(b.name, u); }
+  }
+}
 console.log(bad ? `${bad} problem(s)` : `OK: ${files.filter(f => f.endsWith('.js')).length} scripts parse, ${Object.keys(json).length} data files valid, cross-references resolve, every source used`);
 process.exit(bad ? 1 : 0);
