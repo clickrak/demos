@@ -8136,5 +8136,126 @@
   ],
   "geoPending": true,
   "geoPendingSince": "2026-11-26"
+ },
+ {
+  "id": "tps22",
+  "name": "Technikum Przemysłu Spożywczego nr 22 im. św. Maksymiliana Marii Kolbe w Zespole Szkół Przemysłu Spożywczego",
+  "short": "Technikum Przemysłu Spożywczego nr 22",
+  "type": "technikum",
+  "town": "krakow",
+  "address": "ul. Macieja Miechowity 6, 31-469 Kraków",
+  "addressSourceId": "zsps-krk-dostepnosc",
+  "range": {
+   "min": 52.7,
+   "max": 79.05,
+   "year": "2026/27",
+   "sourceId": "otou-tps22"
+  },
+  "classListSourceId": "otou-tps22-klasy",
+  "classes": [
+   {
+    "code": "1TA",
+    "label": "technik żywienia i usług gastronomicznych",
+    "extended": [
+     "polski"
+    ],
+    "cards": [
+     "turystyka"
+    ],
+    "threshold": 65.9,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tps22",
+    "status": "sourced",
+    "occupation": "technik żywienia i usług gastronomicznych",
+    "fields": [
+     "TUR"
+    ]
+   },
+   {
+    "code": "1TB",
+    "label": "technik usług kelnerskich",
+    "extended": [
+     "polski"
+    ],
+    "cards": [
+     "turystyka"
+    ],
+    "threshold": 79.05,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tps22",
+    "status": "sourced",
+    "occupation": "technik usług kelnerskich",
+    "fields": [
+     "TUR"
+    ]
+   },
+   {
+    "code": "1TC",
+    "label": "technik technologii żywności",
+    "extended": [
+     "polski"
+    ],
+    "cards": [
+     "chemia",
+     "biologia"
+    ],
+    "threshold": 52.7,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tps22",
+    "status": "sourced",
+    "occupation": "technik technologii żywności",
+    "fields": [
+     "BIO"
+    ]
+   },
+   {
+    "code": "1TA-i",
+    "label": "technik żywienia i usług gastronomicznych (klasa integracyjna)",
+    "extended": [
+     "polski"
+    ],
+    "cards": [
+     "turystyka"
+    ],
+    "threshold": 60.25,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tps22",
+    "status": "sourced",
+    "occupation": "technik żywienia i usług gastronomicznych",
+    "fields": [
+     "TUR"
+    ]
+   },
+   {
+    "code": "1TB-i",
+    "label": "technik usług kelnerskich (klasa integracyjna)",
+    "extended": [
+     "polski"
+    ],
+    "cards": [
+     "turystyka"
+    ],
+    "threshold": 59.1,
+    "thresholdYear": "2026/27",
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "otou-tps22",
+    "status": "sourced",
+    "occupation": "technik usług kelnerskich",
+    "fields": [
+     "TUR"
+    ]
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-26"
  }
 ]

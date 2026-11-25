@@ -1241,7 +1241,7 @@
    "town": "Kraków",
    "type": "technikum",
    "kind": "pub",
-   "kompasId": null,
+   "kompasId": "tps22",
    "perspektywy": null,
    "otouczelnie": {
     "rank": 25,

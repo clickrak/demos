@@ -804,5 +804,26 @@
   "title": "POSM II st. im. F. Chopina Kraków, regulamin egzaminu wstępnego 2026/27",
   "asOf": "2026-11",
   "status": "sourced"
+ },
+ {
+  "id": "otou-tps22",
+  "url": "https://www.otouczelnie.pl/artykul/3007/Technika-w-Krakowie/1736/Technikum-Przemyslu-Spozywczego-nr-22-im-sw-Maksymiliana-Marii-Kolbe-w-ZSPS/progi-punktowe",
+  "title": "Technikum Przemysłu Spożywczego nr 22 w ZSPS, progi 2026/27",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "otou-tps22-klasy",
+  "url": "https://www.otouczelnie.pl/artykul/3007/Technika-w-Krakowie/1736/Technikum-Przemyslu-Spozywczego-nr-22-im-sw-Maksymiliana-Marii-Kolbe-w-ZSPS/klasy",
+  "title": "Technikum Przemysłu Spożywczego nr 22 w ZSPS, klasy i przedmioty rozszerzone",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "zsps-krk-dostepnosc",
+  "url": "https://zsps.krakow.pl/wp-content/uploads/2026/04/Deklaracja-Dostepnosci-2026.pdf",
+  "title": "Zespół Szkół Przemysłu Spożywczego w Krakowie: deklaracja dostępności (adres)",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]
