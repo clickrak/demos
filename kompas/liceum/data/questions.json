@@ -669,6 +669,40 @@
    "worlds": [
     "jezyki"
    ]
+  },
+  {
+   "id": "r1",
+   "text": "Opiekować się roślinami albo zwierzętami: podlewać, karmić, sprawdzać, czy rosną zdrowo.",
+   "w": {
+    "tec": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "natura"
+   ]
+  },
+  {
+   "id": "r2",
+   "text": "Sprawdzić, jak powstaje chleb, ser albo sok: od pola do sklepu.",
+   "w": {
+    "ana": 1,
+    "tec": 1,
+    "sys": 1
+   },
+   "worlds": [
+    "natura"
+   ]
+  },
+  {
+   "id": "r3",
+   "text": "Pracować na dworze: w ogrodzie, w sadzie albo na działce, nawet gdy jest zimno.",
+   "w": {
+    "tec": 2,
+    "prz": 1
+   },
+   "worlds": [
+    "natura"
+   ]
   }
  ],
  "situations": [

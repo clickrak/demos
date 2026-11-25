@@ -1481,5 +1481,73 @@
   "field": [
    "TUR"
   ]
+ },
+ {
+  "id": "rolnictwo",
+  "name": "Rolnictwo, żywność i przyroda stosowana",
+  "cluster": "earth",
+  "interests": {
+   "ana": 45,
+   "tec": 75,
+   "spo": 30,
+   "twr": 40,
+   "prz": 50,
+   "sys": 60
+  },
+  "workStyle": {
+   "zespol": 0,
+   "ludzie": 1,
+   "ruch": -3,
+   "konkret": -2,
+   "decyzje": 0,
+   "zmiana": 0,
+   "projekty": 0,
+   "wspolpraca": 1
+  },
+  "values": [
+   "pewnosc",
+   "niezaleznosc",
+   "wplyw",
+   "pomaganie"
+  ],
+  "strengths": [
+   "kondycja",
+   "odpowiedzialnosc",
+   "wytrwalosc",
+   "dokladnosc",
+   "ciekawosc"
+  ],
+  "roles": "technik technologii żywności, technik żywienia, technik architektury krajobrazu, ogrodnik, rolnik, technik weterynarii",
+  "whoYouHelp": "Wszyscy, którzy codziennie jedzą: rodziny, sklepy, szkoły i szpitale. Także zwierzęta, ogrody i parki.",
+  "whatYouGet": "Praca rękami, często na dworze albo w zakładzie, gdzie powstaje jedzenie. Widać, co zrobiłeś.",
+  "dayInLife": [
+   "Rano: obchód w szklarni, w parku albo przy zwierzętach.",
+   "Potem: badasz próbkę mąki albo mleka w małym laboratorium.",
+   "Po południu: planujesz, co i kiedy posadzić albo wyprodukować."
+  ],
+  "experiment": "Wyhoduj coś przez miesiąc: zioła na parapecie albo fasolę w słoiku. Zapisuj co tydzień, jak rośnie. Albo upiecz chleb na zakwasie.",
+  "related": [
+   "srodowisko",
+   "biologia",
+   "turystyka"
+  ],
+  "afterSchool": "Technologia żywności, dietetyka, ogrodnictwo, architektura krajobrazu i zootechnika na Uniwersytecie Rolniczym w Krakowie. Technikum spożywcze, gastronomiczne albo architektury krajobrazu daje zawód po 4 latach i zostawia otwartą maturę.",
+  "studiaCards": [
+   "zywienie",
+   "weterynaria",
+   "geografia"
+  ],
+  "robustness": {
+   "A": "wysoka",
+   "B": "wysoka",
+   "C": "średnia"
+  },
+  "icon": "woda",
+  "worlds": [
+   "natura"
+  ],
+  "field": [
+   "BIO"
+  ]
  }
 ]
