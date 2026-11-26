@@ -106,6 +106,10 @@ Turystyka i usługi 1 → 3 (10 classes, direction `turystyka`). Item counts unc
 10 → 14 (Technikum Przemysłu Spożywczego nr 22), Przyroda i środowisko 52 → 53 (new direction `rolnictwo`); levels unchanged, every
 Liceum field at 3 or more. Studia columns unchanged.
 
+**Liceum 2.14.0 (27 Nov 2026), radar re-run.** Moved: Sztuka i design 7 → 8 items (PLSP Katowice, waiting); levels unchanged,
+every Liceum field at 3 or more. Final discovery audit (CD4): every world has 5+ tap cards (ludzie 4 → 6), every one of the 23
+directions is in the top 3 of a test kid (18 kids), none in more than a third. Audit table: "Minor v2.14" in Part 1. Studia unchanged.
+
 **Studia 3.7.0 (26 Nov 2026), radar re-run.** Moved: Języki i filologie 5 → 7 items (Studia polsko-ukraińskie, East European Studies UJ); levels unchanged, every Studia field at 3 or more. Liceum columns unchanged.
 
 **Rules for the waves.**
@@ -151,7 +155,34 @@ UI/UX moved after v3.0: calm look and exam taps v3.1, profile drawings v3.2, par
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
-## Next minor: v2.14 (planned 2026-11-26, re-checked 2026-11-26 evening)
+## Next minor: v2.15 (planned 2026-11-27)
+
+Current `appVersion` 2.14.0 (released 27 Nov 2026, night run). Planned by that run: the two Sonnet tasks that could not be finished
+in v2.14 move here first (database completeness, Kraków then Tychy), then the sports work that the release table already lists for
+v2.15. L1-12 (5 more links) is folded into task 2, so the night does not grow. Web tip from 26–27 Nov still holds: a page opens
+only when its URL came from a web search in the same run; the permission check also refused one bip.krakow.pl page (ZSL) on 27 Nov.
+One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5.
+
+1. [ ] **K5 (Sonnet) Technikum Poligraficzno-Medialne nr 20, Kraków** (from v2.14). Opened on 27 Nov: otouczelnie "jezyki" tab
+   (`…/1443/Technikum-Poligraficzno-Medialne-nr-20-im-Z-Klemensiewicza/jezyki`: name, os. Tysiąclecia 38, 31-610 Kraków, site
+   zspm.malopolska.pl, angielski + niemiecki, "Rekrutacja 2026/2027") and the otouczelnie Kraków technika list 2025/26 (range
+   72.40–107.10). **Blockers found:** (a) the "klasy" and "progi-punktowe-2026-2027" tabs never came up in a search, so the class list
+   (1AG, 1BCF, 1DR from the 26 Nov read) has no opened page; (b) `tests/liceum.mjs` needs a sourced `range` for a waiting Kraków
+   school, and only the 2025/26 range is sourced. **Decision for Szymon:** may a waiting school use last year's range when it is
+   labelled `year: "2025/26"` (10 schools already carry such a label)? Until he answers: add the school only if the 2026/27 progi tab
+   or the school's own class list opens. Files and check as in v2.14 task 1 ("51 of 55", "Waiting schools: 1+").
+2. [ ] **L1-11 + L1-12 (Sonnet) School links, up to 8 schools.** Same rule. Leads from 27 Nov: `tps22` → the school's own
+   accessibility PDF (zsps.krakow.pl, opened) lists **https://www.szkolyzsps.krakow.pl**: search for that site, open it, set `www`
+   if it names Technikum nr 22. `tl14` → the statute is on **tl.krakow.pl** (opened, names Technikum Łączności nr 14, Monte Cassino
+   31): open the site root from a search result. `ty-t6` → site still not opened (otouczelnie says zs4.oswiata.tychy.pl); name
+   unchanged. infozawodowe searches returned only other cities. Then `tm16`, `tee7`, `lo41`, `lo27`, `lo43` (L1-12).
+   Check: syntax test; "strona szkoły" opens on two cards; `old_sources.py`.
+3. [ ] **V1a (Opus) 2027 rules for sports classes and exact points.** Task text as in "v2.13 – Wave 3" item 4 (kuratorium Kraków and
+   Katowice, MEN rozporządzenie; if the 2027/28 act is still out, use 2026/27 and say so on screen).
+4. [ ] **V1b (Sonnet) Mark sports classes** (needs 3). Task text as in "v2.13 – Wave 3" item 5.
+5. [ ] **R2.15 (Opus) Review and release v2.15.0** (same steps as R2.14).
+
+## Minor v2.14 (planned 2026-11-26, re-checked 2026-11-26 evening, released 2026-11-27 as 2.14.0)
 
 Current `appVersion` 2.13.0 (released 26 Nov, early morning). The v2.14 plan below was written by that release run and **v2.14 is not
 released yet**, so tonight's planner did **not** stack a new plan: it kept this one, re-ran the checks and **trimmed it from 6 to 5 tasks**
@@ -165,7 +196,7 @@ Order: database completeness first (Kraków, then Tychy/GZM), then the wave-3 qu
 result URLs. otouczelnie.pl rate-limits: open its pages one at a time, a few minutes apart, and never more than 3–4 in a row.
 One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5.
 
-1. [ ] **K5 (Sonnet) Technikum Poligraficzno-Medialne nr 20 im. Z. Klemensiewicza, Kraków** (technika order 8).
+1. [ ] **K5 (Sonnet) → moved to v2.15 (27 Nov: class list and 2026/27 thresholds not on an opened page; test needs a sourced range) Technikum Poligraficzno-Medialne nr 20 im. Z. Klemensiewicza, Kraków** (technika order 8).
    Read on 26 Nov (otouczelnie, "klasy" tab, year tab not marked): os. Tysiąclecia 38, 31-610 Kraków; site link zspm.malopolska.pl;
    1AG technik grafiki i poligrafii cyfrowej (rozszerzona matematyka) 114.05 · 1BCF technik fotografii i multimediów (informatyka)
    88.15 · 1DR technik reklamy (polski) 91.45; languages angielski, niemiecki. City list 2025/26: range 72.40–107.10.
@@ -176,7 +207,7 @@ One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5.
    `geoPendingSince` = run date), `cards` media / sztuka (reklama, grafika), `fields`, `kompasId` in `krakow/ranking.json`.
    Files: `krakow/schools.json`, `krakow/ranking.json`, `sources.json`. Check: three tests; "Kompas schools with a place: 51 of 55";
    "Waiting schools (geoPending): 1".
-2. [ ] **L1-11 (Sonnet) School links, 5–7 schools.** Rule as before: `www` only when the page opens and names the school, or an official
+2. [ ] **L1-11 (Sonnet) → moved to v2.15 (27 Nov: no school site could be opened and confirmed) School links, 5–7 schools.** Rule as before: `www` only when the page opens and names the school, or an official
    list shows it. New leads (26 Nov evening):
    - `ty-t6`: otouczelnie "kontakt" (opened 26 Nov evening) gives "Technikum nr 6 ZS", ul. Browarowa 1A, www.zs4.oswiata.tychy.pl,
      e-mail zs4@oswiata.tychy.pl. Our record says "Zespół Szkół nr 7": search for the site, open it and set `www` only if it names
@@ -189,7 +220,7 @@ One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5.
    keep `ty-informator-2025` and leave the note in `old_sources.py` output.
    Files: `krakow/schools.json`, `tychy/schools.json`, `sources.json`. Check: syntax test; "strona szkoły" opens on two cards;
    `python3 kompas/tools/old_sources.py`.
-3. [ ] **A3 (Sonnet) Art school in Katowice (and Gliwice if official).** Same as A2 (`entry` class, no threshold, waiting school, gov.pl
+3. [x] **A3 (Sonnet) Art school in Katowice (and Gliwice if official).** Same as A2 (`entry` class, no threshold, waiting school, gov.pl
    pages). Lead opened on 26 Nov evening: **Państwowe Liceum Sztuk Plastycznych im. Józefa Pankiewicza w Katowicach**, ul. Ułańska 7A,
    40-887 Katowice (gov.pl/web/plastykkatowice/o-szkole3; menu links "Rekrutacja na rok szkolny 2026/2027" and "Rekrutacja do szkoły";
    entrance exam required; e-registration 30 Mar–25 May 2026). Open the rekrutacja page (search for it first) for the exam parts and
@@ -197,7 +228,7 @@ One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5.
    official page, else skip and say so. Area `katowice` / `gliwice` (GZM area only).
    Files: `katowice/schools.json` (+ `gliwice/schools.json`), `gzm/ranking.json` (`kompasId`), `sources.json`. Check: three tests;
    GZM ranking "linked to Kompas" 15 → 16 (or more); P7 classes outside the area still 0.
-4. [ ] **Q4 + CD4 (Opus) Even out the worlds, then the final discovery audit.** Goal: at least 5 activities in each world. Now (26 Nov
+4. [x] **Q4 + CD4 (Opus) Even out the worlds, then the final discovery audit.** Goal: at least 5 activities in each world. Now (26 Nov
    evening, `questions_audit.py`): natura 10, tech 7, spoleczenstwo 7, jezyki/biznes/budowa/sport 6, sztuka 5, **ludzie 4**. Add 1–2
    tap cards to `ludzie` (health/care: the audit column "opieka i zdrowie" has no world and 0 strengths, so also add one strength
    that points to `zdrowie`), optionally 1 to `sztuka`; do not add to natura. Then CD4: one test kid per direction (23) ends with it in
@@ -205,10 +236,51 @@ One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5.
    (list them in the commit). Paste the new audit table into "Coverage waves".
    Files: `liceum/data/questions.json`, `profiles.json` (only if a strength is added), `tests/liceum.mjs`, `tools/questions_audit.py`.
    Check: three tests + snapshot; audit shows every world ≥ 5.
-5. [ ] **R2.14 (Opus) Review and release v2.14.0** (same steps as R2.13): review Sonnet commits (opened sources, no guessed threshold,
+5. [x] **R2.14 (Opus) Review and release v2.14.0** (same steps as R2.13): review Sonnet commits (opened sources, no guessed threshold,
    no threshold next to `entry`, areas not mixed, new schools waiting); click-through at 375 and 1280 px in three looks with P8 and a
    health kid, compass and map first; 2.14.0 in the four places and `dataVersion`; radar re-run; "Database status" updated; spec doc
    section "Kompas Liceum v2.14.0"; push; then check that the "Geocode schools" Action cleared the new waiting schools.
+
+**Result 2.14.0 (27 Nov 2026).**
+- A3: Państwowe Liceum Sztuk Plastycznych im. J. Pankiewicza, Katowice (`ka-plsp`, ul. Ułańska 7A), waiting school, `www` gov.pl
+  page, one class `1` with `entry` plastyczny and no threshold (source `plsp-kat-oszkole`, opened). Review fix: the Sonnet draft had 4
+  classes (one per specialisation); the page says pupils are assigned to a specialisation after a diagnosis in September, so it is
+  one class whose label lists the 4 specialisations (5-year school). The rekrutacja pages did not load (server error): the exam
+  parts stay unlisted. POSM II st. Katowice and LSP Gliwice skipped (no official page in search). GZM ranking linked 15 → 16.
+- Q4 + CD4: world `ludzie` 4 → 6 tap cards (h3 helping an older person, h4 exercise after an injury); every world now ≥ 5. Two new
+  test kids P17 (physics) and P18 (biology lab), because `fizyka` and `biologia` were in no kid's top 3. New tests: every direction
+  (23) in the top 3 of at least one of 18 kids, none in more than a third (max 5: programowanie, cyber); every world ≥ 5 cards.
+  P1–P16 keep their north. **No new strength:** strengths are in `core/strengths.json`, shared with Studia and its Ukrainian files,
+  so a "care" strength would change Studia too; `zdrowie` is already reached by empatia, spokój, odpowiedzialność. Ask Szymon if he
+  wants one in both apps.
+- Fix found in review: since Studia 3.1.0 the activities drawing in Liceum showed the raw key "illus.zajecia.scale"; Liceum now loads
+  the `illus.*` labels from `studia/i18n/pl.json`.
+- **Skipped → v2.15:** K5 (class list and 2026/27 thresholds not on an opened page; the waiting-school test needs a sourced range,
+  only 2025/26 exists; one command in the agent was refused by the permission check and not retried) and L1-11 (no school site
+  opened and confirmed; one bip.krakow.pl page refused by the permission check).
+- Review: three tests + Studia snapshot + UI text check green; headless Chromium at 375 and 1280 px in three looks with P18, P9
+  (health) and P7 (Tychy): kompas, szkoły with map, lista, rodzic: nothing wider than the screen, no script errors (map tiles blocked
+  in the check); the waiting `ka-plsp` stays hidden. h3/h4 appear for a kid who picks the world "ludzie".
+
+| | nauki ścisłe/IT | języki | ekonomia i biznes | socjologia i psychologia | prawo i media | sztuka | sport | opieka i zdrowie | praca rękami | ogólne | razem |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| światy | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 0 | 9 |
+| czynności (wszystkie) | 13 | 4 | 8 | 4 | 7 | 6 | 6 | 6 | 11 | 3 | 68 |
+| mocne strony | 1 | 1 | 2 | 2 | 0 | 2 | 1 | 0 | 1 | 9 | 19 |
+| kierunki | 9 | 2 | 2 | 1 | 3 | 1 | 2 | 1 | 2 | 0 | 23 |
+
+czynności na świat: tech 7, natura 10, ludzie 6, jezyki 6, biznes 6, budowa 6, sport 6, spoleczenstwo 7, sztuka 5
+
+**Database status (27 Nov 2026, after 2.14.0).** Run: three tests, `coverage_radar.py`, `old_sources.py`, a count over `schools.json`.
+
+| Area | Schools in DB / known | Public missing (next in order) | Missing `www` | Classes "check" | No threshold (excl. exam classes) | No `scored` | No `extended` | Old sources (> 12 months) |
+|---|---|---|---|---|---|---|---|---|
+| Kraków | 54 / 90 | 10: TPM 20 (→ K5, v2.15), PGNiG 9, TEH 5, TG 11, TIŚ 13, TGH 10, TO 18, T 2, TEE 23; OSM II st. 19 (no official page) | 32 | 143 of 254 | 38 | 104 | 5 | 0 |
+| Tychy | 10 / 13 | 0 | 1 (`ty-t6` → v2.15) | 42 of 42 | 26 | 33 | 6 | 1 (`ty-informator-2025`) |
+| GZM other towns | 6 / 197 (Katowice 4 incl. 1 waiting: `ka-plsp`; Gliwice 1, Sosnowiec 1) | POSM II st. Katowice, LSP Gliwice (no official page yet); the rest after v3.0 | 0 | 36 of 37 | 13 | 28 | 2 | 0 |
+
+Radar (Liceum): every field at level 3 or more; moved: Sztuka i design 7 → 8 items (level 3). The Geocode Action should clear
+`ka-plsp` after the push.
 
 **Database status (26 Nov 2026, evening; no data change since 2.13.0).** Run: three tests (green), `coverage_radar.py`,
 `old_sources.py`, `questions_audit.py`, a count over `schools.json`. The Geocode Action (commit 8749771, 25 Nov 23:32 UTC) cleared the
@@ -998,8 +1070,8 @@ the 16 thresholds and IV LO 1MS against school or city pages; sports classes as 
 | v2.11 | Wave 1b: directions Mechanika/pojazdy/produkcja and Transport/logistyka, classes remapped (W1L1, W1L2); Technikum Mechaniczne nr 16 Kraków (K4); links (L1-10) — released 22 Nov as 2.11.0 | Opus + Sonnet |
 | v2.12 | Wave 2: Mundurowe, Turystyka and gastronomia (W2L1, CD3 folded in); entrance-exam classes (A1) — released 25 Nov as 2.12.0; A2 and L1-11 moved to v2.13 (web pages could not be opened that night) | Opus + Sonnet |
 | v2.13 | Art liceum and music school Kraków (A2); Technikum Przemysłu Spożywczego nr 22 (K6); first wave-3 slice: direction Rolnictwo, żywność i przyroda stosowana with its classes (W3L1 + W3L2) — released 26 Nov as 2.13.0; links L1-11 and K5 moved to v2.14 | Opus + Sonnet |
-| v2.14 | Rest of wave 3: even worlds + final discovery audit (Q4 + CD4); art school Katowice (A3); K5 and links L1-11 (moved from v2.13). Trimmed on 26 Nov evening to 5 tasks | Opus + Sonnet |
-| v2.15 | Sports rules and data (V1a, V1b); links L1-12; next Kraków technikum (PGNiG 9) if a page opens. Moved from v2.14 on 26 Nov | Opus + Sonnet |
+| v2.14 | Rest of wave 3: even worlds + final discovery audit (Q4 + CD4); art school Katowice (A3) — released 27 Nov as 2.14.0; K5 and links L1-11 moved to v2.15 | Opus + Sonnet |
+| v2.15 | K5 and links L1-11 + L1-12 (from v2.14); sports rules and data (V1a, V1b); next Kraków technikum (PGNiG 9) after that if a page opens | Opus + Sonnet |
 | v3.0 | Sports track and exact points (V1c); coverage review with the radar | Opus |
 | v3.1 | UI/UX: calm look by default (U8), exam % by taps (U9) | Opus + Sonnet |
 | v3.2 | UI/UX: line drawings for all profiles (IL1, IL2) | Opus + Sonnet |
