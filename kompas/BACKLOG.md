@@ -1342,7 +1342,7 @@ fits the focus, take the first "next week" item that does.
 | v3.4 | English (set by Szymon 24 Nov 2026, 17:19) | Interface, questions, strengths, dimensions, scenarios and the glossary in English (`?lang=en`, third chip EN); cards, offers and universities stay Polish | Sonnet + Opus | **done 24 Nov 2026** |
 | v3.5 | Ukrainian 3a: directions | 42 cards (all texts); university names stay Polish in every language (Szymon, 24 Nov evening) | Sonnet + Opus | **done 24 Nov 2026 (3.5.0)** |
 | v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | **done 25 Nov 2026 (3.6.0)** |
-| v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026 |
+| v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026; concrete plan 26 Nov 2026 (trimmed: 7 big Kraków universities, no new card; cuts in X6) |
 | v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
 | v3.9 | Functionality (was v3.2) | Travel time from Rynek or Dworzec (12) | Opus | after v3.7 |
 | v3.10 | UI/UX (was v3.3) | Parent summary (9) | Opus | after v3.8 |
@@ -2167,6 +2167,69 @@ rest in `campuses.json`); a programme outside Kraków only when it is not taught
    route D reachable from the footer (both languages; Polish text too). Ukrainian text from the start (rule UK-G), Polish original kept.
    Check: every `ukraine` entry has a `sourceId` that resolves and an http(s) `url` (test); types in the allowed list; radar re-run; the
    42 cards still reach a top 3 (+ the new card if any); tests pass; 375/1280 px, three looks, both languages. Release 3.6.0.
+
+**v3.7 concrete plan (planner, 26 Nov 2026; this is the "v3.6 – UK-4 Ukraine data stream" list above, renumbered). Set `3.7.0`.**
+State before: 3.6.0 pushed (offers in Ukrainian). Tests on 26 Nov: `snapshot.mjs` (30 kids), `syntax.mjs`, `run.mjs` (42 of 42 cards in a
+top 3), `liceum.mjs`, `ui_text.py` (54 screens) all pass; radar unchanged (every field at level 3 or more). Two offers already link to
+Ukraine: `uj-filologia-ukrainska` and `uj-europeistyka` (card `ukraina`).
+**Size and trim.** UK6a–UK6c in full (about 15 universities, six types, a new card) is more than one light session; web research is the
+expensive part. So v3.7 is **trimmed, not split** (no renumbering; v3.8–v3.10 stay as they are): research is time-boxed to the 7 big
+Kraków universities, there is **no new card** in this release, type E (scholarships) is only what the national pages (NAWA, gov.pl) say,
+and offers outside Kraków wait. What is cut is listed in X6 for a later release (the weekend review decides where it goes).
+About 1.5–2 h. Order: X0 → X1 (two Sonnet research helpers in parallel, Opus checks) → X2 → X3 (Sonnet translation in parallel with the
+Opus screen work) → X4 → X5.
+**This release changes the Polish app on purpose** (new chip, badge, footer page, report lines). So the Polish snapshot tests will change:
+before `--update`, diff the old and new dumps and make sure **only** the new Ukraine lines differ (write the diff summary in the commit
+message). English: cards and offers stay Polish; only the new UI strings are in English (UK-G).
+
+- [ ] **X0 (Opus, 10 min) Field and test first.** In `tests/syntax.mjs`: optional `ukraine` on an offer =
+  `{ type, note, sourceId, url, partner? }`, `type` in `A|B|C|F` (D is the page, E is the page), `sourceId` resolves in
+  `studia/data/sources.json`, `url` is http(s), `note` at most about 160 characters. Extend the strict ua-overlay check of offers so
+  `ukraine.note` (and only it) may appear in `ua/offers.json` and must be there when the Polish offer has `ukraine`.
+  Tag the two offers already in the data (A for filologia ukraińska, F for studia europejskie) **only if** their current official page
+  says so (UJ pages; a new source with `asOf` 2026-11). Commit "Kompas Studia v3.7 X0: ukraine field and test".
+- [ ] **X1 (Sonnet x2 web research, in parallel; Opus decides and checks, time box 15 min per university).** Fill the table
+  "Ukraine-linked education in Kraków, 2026/27" in this file (columns: university, programme, type A/B/C/F, what exactly links to
+  Ukraine, language, source url, status `sourced`/`check`). Helper 1: UJ, UJ CM, UKEN, UEK. Helper 2: AGH, PK, URK.
+  Plus helper 1 also: **route D facts** (Polish rules for a holder of a Ukrainian school certificate: recognition of the certificate,
+  Polish language level asked, where to apply; official pages only: gov.pl, NAWA, a university recruitment page for foreigners) and
+  **type E** (only national scholarships or support named on NAWA or gov.pl, with the deadline if shown). Plus helper 2: the CKE page on
+  matura languages (is Ukrainian a matura subject or a minority language, from which year).
+  Brief for both: official pages only (otouczelnie only as a pointer), never from memory, a row without an opened official page stays out
+  and is listed with the reason; return url, page title, the quoted sentence that proves the link, `asOf` 2026-11.
+  Opus opens each quoted page once (spot check) before it goes in the data.
+- [ ] **X2 (Opus, 20 min) Data.** `ukraine` on existing offers from X1 (`status` of the offer unchanged); **at most 3 new offers** for
+  Kraków programmes of type A or F that are not yet in `offers.json` (usual fields, `requires`, `url`, `cards` only `ukraina` and/or
+  `jezyki`, no threshold); new sources with `asOf`. No new card (see X6). `dataVersion` = release day.
+  Check: `run.mjs` still 42 of 42 cards in a top 3; scoring snapshot unchanged except new offers in lists; radar re-run (must not drop).
+- [ ] **X3 (Opus screen + Sonnet translation) Screen and texts.** All new texts through `t()` with strings in `pl.json`, `ua.json`
+  **and** `en.json` (UK-G; key-parity test).
+  - Kierunki: one tap chip "Związane z Ukrainą / Пов'язано з Україною / Linked to Ukraine" next to the existing filters (filter shows only
+    offers with `ukraine`; with none in the kid's list, one line says how many exist in Kraków and offers to show them).
+  - A small badge with the type name (`app.ukr.type.A/B/C/F`, short words: "filologia", "wspólny dyplom", "nauka po ukraińsku/angielsku",
+    "odbudowa i współpraca") on tagged offers in the road panel and the offer detail; the `note` in the detail, with the source link.
+  - Compare table: one row "Ukraina" (badge or "–"). Report and markdown export: a short section listing the tagged offers in the kid's
+    results, only when there is at least one (so most kids' exports do not change).
+  - Information page `#/ukraina` (same pattern as `slownik`), footer link: "Z ukraińskim świadectwem szkolnym" — route D facts and type E
+    from X1, each line with its source link, plus "this is information, not part of the result" (UK-D). Polish written by Opus;
+    Ukrainian by one Sonnet helper (brief: glossary, Polish original, rules UK-B/E/F, university names stay Polish); English by Opus.
+  - `ua/offers.json`: `ukraine.note` for every tagged offer, full entries (name, requires.note, next) for the new offers (same Sonnet helper,
+    same name rules as W1). `tools/i18n_review.py` picks up the new keys.
+- [ ] **X4 (Opus, 15 min) Layout check.** `?lang=pl`, `?lang=ua`, `?lang=en` at 375 and 1280 px, three looks (none, `?skin=pop`,
+  `?skin=neon`), 3 test kids (one with the `ukraina` card high): chip row wraps, badge does not push names out, compare (table and swipe
+  cards), page `#/ukraina`, report. Nothing wider than the screen, no script errors.
+- [ ] **X5 (Opus) Review and release 3.7.0.** Read the Sonnet texts against the glossary. Run `snapshot.mjs`, `syntax.mjs`, `run.mjs`,
+  `liceum.mjs`, `ui_text.py`, and `UI_LANG=en python3 kompas/tests/ui_text.py`; for each Polish/English snapshot change, diff first and
+  update only if the difference is the new Ukraine chip, badge, footer link, page or report lines. Radar re-run. Version 3.7.0 in the four
+  places (search "3.6.0" in `kompas/studia`). `REVIEWED.md`: "Ukraine page and notes, written by AI, not yet read". Release table row
+  v3.7 → done; short "Kompas Studia v3.7.0" section in the spec doc (Claude Docs). One task = one commit; `git pull --rebase` before pushing
+  (Liceum may push the same night; keep both sides).
+- **X6 Cut from v3.7 (for a later release, the weekend review picks the slot):** the other Kraków schools (AKF, ASP, AMUZ, AST, Ignatianum,
+  KSM, AFM and the rest of `campuses.json`); offers outside Kraków (`outside: true`); university scholarships (only national ones now);
+  a second card "Ukrainistyka i studia wschodnie" with its test kid, tap card and radar mapping (Opus writes a yes/no recommendation from
+  X1 into this file); route D per university.
+Safest reading used (Szymon can change it): the reader is a teenager in the Polish school system, so route D is one information page, not
+part of the scoring; "ukraiński" is not added as a language skill in this release (open question 3 stays open).
 
 **After v3.6:** v3.7 (links in Kierunki, strengths as the foundation, sources page), v3.8 (travel from Rynek or Dworzec), v3.9 (parent summary),
 then **v4.0** (exact thresholds, GUS pay, points estimate). The weekend review asks Szymon only about what is new.
