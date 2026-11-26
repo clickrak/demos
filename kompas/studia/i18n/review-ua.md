@@ -3,7 +3,7 @@
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.
 
-Interface keys: 853, translated: 853. Data texts: 1253.
+Interface keys: 882, translated: 882. Data texts: 1262.
 
 | key | Polski | Українська | correction |
 |---|---|---|---|
@@ -171,6 +171,9 @@ Interface keys: 853, translated: 853. Data texts: 1253.
 | `core.export.q3` | - Jaki jest najmniejszy krok, który zrobisz w tym miesiącu? | - Який найменший крок ти зробиш цього місяця? |  |
 | `core.export.h_parent` | ## Dla rodzica | ## Для батьків |  |
 | `core.export.parent_text` | Pytaj, nie mów. Reaguj na dowody, nie na opcję. Bez porównań między braćmi. Jeden mały krok w tym miesiącu. | Став запитання, не давай порад. Реагуй на докази, а не на варіант. Без порівнянь між братами й сестрами. Один маленький крок цього місяця. |  |
+| `core.export.h_ukr` | ## Ukraina: co jest w Krakowie | ## Україна: що є в Кракові |  |
+| `core.export.ukr_line` | - {name}, {institution}: {note} ({url}) | - {name}, {institution}: {note} ({url}) |  |
+| `core.export.ukr_info` | To informacja, nie część wyniku. | Це довідка, а не частина результату. |  |
 | `meta.title` | Kompas Studia | Kompas Studia |  |
 | `meta.desc` | Od tego, w czym jesteś dobry, do konkretnych kierunków w Krakowie. Wersja {v}. | Від твоїх сильних сторін до конкретних напрямів навчання в Кракові. Версія {v}. |  |
 | `nav.chapters` | Rozdziały | Розділи |  |
@@ -860,6 +863,32 @@ Interface keys: 853, translated: 853. Data texts: 1253.
 | `gloss.lead` | Polskie słowa, które spotkasz w szkole i na stronach uczelni. Przy każdym krótkie wyjaśnienie. | Польські слова, які ти зустрінеш у школі та на сайтах вишів. Біля кожного коротке пояснення. |  |
 | `gloss.back` | ← Wróć | ← Назад |  |
 | `gloss.pl_label` | po polsku | польською |  |
+| `foot.ukr` | Z ukraińskim świadectwem szkolnym | З українським атестатом |  |
+| `app.ukr.chip` | Związane z Ukrainą | Пов'язано з Україною |  |
+| `app.ukr.title` | Studia związane z Ukrainą | Навчання, пов'язане з Україною |  |
+| `app.ukr.none_mine` | Wśród twoich kierunków nie ma takich studiów. W naszych danych z Krakowa jest ich {n}. | Серед твоїх напрямів такого навчання немає. У наших даних по Кракову таких напрямів: {n}. |  |
+| `app.ukr.show_all` | Pokaż je | Показати |  |
+| `app.ukr.info` | To informacja, nie część wyniku. | Це довідка, а не частина результату. |  |
+| `app.ukr.source` | źródło | джерело |  |
+| `app.ukr.type.A` | ukrainistyka | україністика |  |
+| `app.ukr.type.B` | wspólny dyplom | спільний диплом |  |
+| `app.ukr.type.C` | nauka po ukraińsku/angielsku | українською/англійською |  |
+| `app.ukr.type.F` | odbudowa i współpraca | відбудова і співпраця |  |
+| `app.ukr.report_title` | Ukraina: co jest w Krakowie | Україна: що є в Кракові |  |
+| `app.ukr.kicker` | Informacja | Довідка |  |
+| `app.ukr.page_title` | Z ukraińskim świadectwem szkolnym | З українським атестатом |  |
+| `app.ukr.page_lead` | Ta strona jest dla kogoś, kto skończył szkołę na Ukrainie i chce studiować w Polsce. Jeśli zdajesz maturę w Polsce, wszystko w Kompasie działa jak zwykle. To informacja, nie część wyniku. | Ця сторінка для тих, хто закінчив школу в Україні й хоче вчитися в Польщі. Якщо ти складаєш матуру (matura) в Польщі, у Компасі все працює як завжди. Це довідка, а не частина результату. |  |
+| `app.ukr.facts` | Co mówią oficjalne strony | Що кажуть офіційні сайти |  |
+| `app.ukr.check` | Zasady mogą się zmienić. Zawsze sprawdź stronę rekrutacji wybranej uczelni. | Правила можуть змінитися. Завжди перевіряй сторінку вступної кампанії обраного вишу. |  |
+| `app.ukr.studies` | Studia związane z Ukrainą w Krakowie | Навчання, пов'язане з Україною, у Кракові |  |
+| `app.ukr.page.cert` | Ukraińskie świadectwo pełnego wykształcenia średniego (атестат) wydane od 20 czerwca 2006 r. daje prawo ubiegać się o studia pierwszego stopnia i jednolite magisterskie w Polsce. | Український атестат про повну загальну середню освіту, виданий від 20 червня 2006 р., дає право вступати на навчання за першим ступенем (studia pierwszego stopnia) та на єдину магістратуру (jednolite studia magisterskie) в Польщі. |  |
+| `app.ukr.page.govpl` | Strona gov.pl dla obywateli Ukrainy wyjaśnia po ukraińsku, jak w Polsce uznaje się szkołę i studia z Ukrainy. | Сторінка gov.pl для громадян України українською мовою пояснює, як у Польщі визнають українську школу й навчання у виші. |  |
+| `app.ukr.page.uek_doc` | Przykład UEK: przy świadectwie z Ukrainy nie trzeba osobnego dokumentu, że daje ono prawo do studiów. Po zakwalifikowaniu trzeba potwierdzić, że świadectwo jest prawdziwe (legalizacja albo apostille). | Приклад UEK: з українським атестатом не потрібен окремий документ про право на навчання. Коли пройдеш відбір, треба підтвердити, що атестат справжній: легалізація (legalizacja) або апостиль (apostille). |  |
+| `app.ukr.page.uek_lang` | UEK prosi też o dokument, który potwierdza znajomość polskiego (albo angielskiego, jeśli studia są po angielsku). Każda uczelnia ma własne zasady. | UEK також просить документ, що підтверджує знання польської мови (або англійської, якщо навчання англійською). Кожен виш має свої правила. |  |
+| `app.ukr.page.agh_fee` | AGH: obywatele Ukrainy, którzy przyjechali do Polski od 24 lutego 2022 r. i mają ochronę czasową (do 4 marca 2027 r.), nie płacą za studia stacjonarne po polsku. | AGH: громадяни України, які приїхали до Польщі від 24 лютого 2022 р. і мають тимчасовий захист (ochrona czasowa) до 4 березня 2027 р., не платять за денну форму (studia stacjonarne) польською мовою. |  |
+| `app.ukr.page.agh_dd` | AGH ma umowy o podwójnym dyplomie także z uczelniami na Ukrainie (lista na stronie AGH). | AGH має угоди про подвійний диплом і з вишами в Україні (список на сайті AGH). |  |
+| `app.ukr.page.matura` | Jeśli uczysz się w polskiej szkole: CKE ma egzamin maturalny z języka ukraińskiego (informator od roku szkolnego 2025/2026). | Якщо ти вчишся в польській школі: CKE має іспит матури з української мови (довідник діє від 2025/2026 навчального року). |  |
+| `app.compare.row_ukr` | Ukraina | Україна |  |
 | `questions.activities[a1].text` | Znaleźć błąd w programie albo w arkuszu kalkulacyjnym. | Знайти помилку в програмі чи в електронній таблиці. |  |
 | `questions.activities[a2].text` | Wytłumaczyć koledze trudny temat tak, żeby zrozumiał. | Пояснити другові складну тему так, щоб він зрозумів. |  |
 | `questions.activities[a3].text` | Zaopiekować się kimś po kontuzji. | Доглянути когось після травми. |  |
@@ -1746,9 +1775,18 @@ Interface keys: 853, translated: 853. Data texts: 1253.
 | `offers[uj-filologia-ukrainska].name` | Filologia ukraińska z drugim językiem obcym | Українська філологія з другою іноземною |  |
 | `offers[uj-filologia-ukrainska].requires.note` | kierunek „filologia ukraińska z drugim językiem obcym”: jeden przedmiot z listy, która obejmuje polski i języki obce | напрям «українська філологія з другою іноземною мовою» (filologia ukraińska z drugim językiem obcym): один предмет зі списку, де є польська мова та іноземні мови |  |
 | `offers[uj-filologia-ukrainska].next` | tłumaczenia, współpraca z Ukrainą albo magisterskie | переклади, співпраця з Україною або магістратура (studia magisterskie) |  |
+| `offers[uj-filologia-ukrainska].ukraine.note` | Nowe studia od roku 2026/27: język ukraiński do poziomu C1 i drugi język obcy. | Новий напрям від 2026/27: українська мова до рівня C1 і друга іноземна мова. |  |
 | `offers[uj-europeistyka].name` | Studia europejskie albo stosunki międzynarodowe | Європеїстика або міжнародні відносини |  |
 | `offers[uj-europeistyka].requires.note` | kierunek „studia europejskie”: dwa przedmioty z listy (język obcy, polski, historia, WOS, geografia, matematyka). Stosunki międzynarodowe: język obcy plus jeden z listy | напрям «studia europejskie» (європейські студії): два предмети зі списку (іноземна мова, польська мова, історія, суспільствознавство (WOS), географія, математика). Міжнародні відносини (stosunki międzynarodowe): іноземна мова плюс один зі списку |  |
 | `offers[uj-europeistyka].next` | staż w instytucji albo magisterskie | стажування в інституції або магістратура (studia magisterskie) |  |
+| `offers[uj-studia-polsko-ukrainskie].name` | Studia polsko-ukraińskie | Польсько-українські студії |  |
+| `offers[uj-studia-polsko-ukrainskie].requires.note` | studia po polsku; które wyniki matury się liczą, podaje IRK UJ (strona kierunku ich nie wymienia) | навчання польською мовою; які результати матури враховуються, вказує електронна реєстрація (IRK) UJ (на сторінці напряму їх немає) |  |
+| `offers[uj-studia-polsko-ukrainskie].next` | instytucje publiczne, firmy i media polskie albo ukraińskie, albo magisterskie na tym kierunku | державні установи, польські чи українські фірми та медіа, або магістратура на цьому напрямі |  |
+| `offers[uj-studia-polsko-ukrainskie].ukraine.note` | Dwie ścieżki: polska (intensywny ukraiński) i ukraińska (intensywny polski). | Два шляхи: польський (інтенсивна українська) та український (інтенсивна польська). |  |
+| `offers[uj-east-european-studies].name` | East European Studies: Languages and Discourses | Східноєвропейські студії: мови та дискурси |  |
+| `offers[uj-east-european-studies].requires.note` | studia po angielsku; które wyniki matury się liczą i jaki poziom angielskiego, podaje IRK UJ | навчання англійською мовою; які результати матури враховуються і який рівень англійської потрібен, вказує IRK UJ |  |
+| `offers[uj-east-european-studies].next` | instytucje międzynarodowe, organizacje pozarządowe i firmy | міжнародні установи, неурядові організації та фірми |  |
+| `offers[uj-east-european-studies].ukraine.note` | Studia po angielsku z intensywną nauką dwóch języków: rosyjskiego i ukraińskiego. | Навчання англійською з інтенсивним вивченням двох мов: російської та української. |  |
 | `offers[uj-informatyka-analityczna].name` | Informatyka analityczna | Аналітична інформатика |  |
 | `offers[uj-informatyka-analityczna].requires.note` | informatyka lub matematyka; UJ liczy tylko poziom rozszerzony | інформатика або математика; UJ враховує лише розширений рівень (rozszerzenie) |  |
 | `offers[uj-informatyka-analityczna].next` | praca programisty albo 2-letnie magisterskie | робота програміста або 2-річна магістратура (studia magisterskie) |  |

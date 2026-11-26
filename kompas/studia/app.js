@@ -1,5 +1,5 @@
-// Kompas Studia v3.6.0. Screens, navigation, results, export.
-import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit } from '../core/scoring.js';
+// Kompas Studia v3.7.0. Screens, navigation, results, export.
+import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit, ukraineInResults } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
 import { storyHtml, storyInit, storyClick } from './story.js';
@@ -10,7 +10,7 @@ import { overlay } from '../core/overlay.js';
 
 const $app = document.getElementById('app');
 const TEST = new URLSearchParams(location.search).has('test');
-let data, A, glossary = [], dataPl = null, dataOv = {}; // dataOv[lang][kind] = overlay file
+let data, A, glossary = [], ukrPage = { lines: [] }, dataPl = null, dataOv = {}; // dataOv[lang][kind] = overlay file
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
@@ -35,6 +35,7 @@ async function load() {
   const [pl, ua, cpl, cua, en, cen] = await Promise.all(['i18n/pl.json', 'i18n/ua.json', '../core/i18n/pl.json', '../core/i18n/ua.json', 'i18n/en.json', '../core/i18n/en.json'].map(f => fetch(f).then(r => (r.ok ? r.json() : {})).catch(() => ({}))));
   loadDict('pl', { ...cpl, ...pl }); loadDict('ua', { ...cua, ...ua }); loadDict('en', { ...cen, ...en });
   glossary = await fetch('i18n/glossary.json').then(r => (r.ok ? r.json() : [])).catch(() => []);
+  ukrPage = await fetch('data/ukraina.json').then(r => (r.ok ? r.json() : { lines: [] })).catch(() => ({ lines: [] })); // v3.7: route D facts, each with a source
   setLang(new URLSearchParams(location.search).get('lang'));
   A = blank();
   applyDataLang();
@@ -190,9 +191,11 @@ function railHtml(s) {
 
 // The glossary page (Ukrainian interface) is not a step of the flow, so it stays out of `screens`.
 const glossaryScreen = { id: 'slownik', ch: null, view: vGlossary };
+const ukrScreen = { id: 'ukraina', ch: null, view: vUkraine }; // v3.7: information page for a holder of a Ukrainian school certificate
 function current() {
   const id = (location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start';
   if (id === 'slownik') return glossaryScreen;
+  if (id === 'ukraina') return ukrScreen;
   return screens.find(s => s.id === id) || screens[0];
 }
 
@@ -274,6 +277,20 @@ function vGlossary() {
   const items = glossary.map(g => `<div class="glossitem"><dt><b>${esc(en ? g.en : g.ua)}</b> <span class="glosspl">${t('gloss.pl_label')}: ${esc(g.pl)}</span></dt><dd>${esc(en ? g.expl_en : g.expl)}</dd></div>`).join('');
   return `<span class="kicker2">${t('gloss.kicker')}</span><h1>${t('gloss.title')}</h1><p class="lead">${t('gloss.lead')}</p>
     <dl class="gloss">${items}</dl>
+    <div class="nav"><button class="btn ghost" data-go="start">${t('gloss.back')}</button></div>`;
+}
+
+// v3.7: offers linked to Ukraine. Badge with the type, the note with its source; information only, never part of the result.
+const ukrBadge = o => o.ukraine ? `<span class="badge ukr">${t('app.ukr.type.' + o.ukraine.type)}</span>` : '';
+const ukrNote = o => o.ukraine ? `<div class="small ukrnote">${ukrBadge(o)} ${esc(o.ukraine.note)} <a href="${esc(o.ukraine.url)}" target="_blank" rel="noopener">${t('app.ukr.source')}</a></div>` : '';
+const ukrAll = () => data.offers.filter(o => o.ukraine);
+const ukrList = offs => `<ul class="ukrlist">${offs.map(o => `<li><b>${esc(o.name)}</b>${plName(o)}, ${esc(o.institution)}${ukrNote(o)}</li>`).join('')}</ul>`;
+function vUkraine() {
+  const src = id => data.sources.find(s => s.id === id);
+  const lines = (ukrPage.lines || []).map(l => { const s = src(l.sourceId); return `<li>${t('app.ukr.page.' + l.key)}${s ? ` <a href="${esc(s.url)}" target="_blank" rel="noopener">${t('app.ukr.source')}</a>` : ''}</li>`; }).join('');
+  return `<span class="kicker2">${t('app.ukr.kicker')}</span><h1>${t('app.ukr.page_title')}</h1><p class="lead">${t('app.ukr.page_lead')}</p>
+    <div class="card"><h3>${t('app.ukr.facts')}</h3><ul class="ukrfacts">${lines}</ul><p class="small muted">${t('app.ukr.check')}</p></div>
+    <div class="card"><h3>${t('app.ukr.studies')}</h3>${ukrList(ukrAll())}<p class="small muted">${t('app.ukr.info')}</p></div>
     <div class="nav"><button class="btn ghost" data-go="start">${t('gloss.back')}</button></div>`;
 }
 
@@ -706,6 +723,7 @@ function offerHtml(o, chk) {
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">${t('app.offer.requires', { note: esc(o.requires.note || '-') })}</div>
     ${thresholdHtml(o)}
+    ${ukrNote(o)}
     ${chk.fix ? `<div class="small fix">${t('app.offer.fix', { fix: esc(chk.fix) })}</div>` : ''}
     <div class="small">${[`${esc(c.name)}${c.outside ? '' : `, ${esc(c.address)}`}`, transit(c), commute(c), `<a href="${route}" target="_blank" rel="noopener">${c.outside ? t('app.common.route_map') : t('app.common.route_plan')}</a>`].filter(Boolean).join(' · ')}</div>
   </div>`;
@@ -1001,6 +1019,17 @@ function vPartStrengths() {
     ${nextPart('w-mocne')}`;
 }
 
+// v3.7: tap chip "Związane z Ukrainą" under "Kierunki z bliska" (story page). On: the tagged offers among his options; none: how many exist in Kraków, and a tap shows them.
+let ukrOn = false, ukrAllOn = false;
+function ukrFilter(r) {
+  const mine = ukraineInResults(r.slots), all = ukrAll();
+  const chipRow = `<div class="chips filt ukrchip">${chip('data-ukr="1"', t('app.ukr.chip'), ukrOn)}</div>`;
+  if (!ukrOn) return chipRow;
+  const body = mine.length ? ukrList(mine)
+    : `<p class="small">${t('app.ukr.none_mine', { n: all.length })}</p>${ukrAllOn ? ukrList(all) : `<button class="chip" data-ukrall="1">${t('app.ukr.show_all')}</button>`}`;
+  return `${chipRow}<div class="card ukrbox"><h3>${t('app.ukr.title')}</h3>${body}<p class="small muted">${t('app.ukr.info')}</p></div>`;
+}
+
 // ---- Kierunki: one option at a time as a vertical road, then its full card
 function vPartDirections() {
   if (needResults()) return vResults();
@@ -1116,7 +1145,8 @@ function compareRows() {
     [t('app.compare.row_threshold'), o => o.threshold ? `${t('app.compare.points', { p: o.threshold.points, m: o.threshold.max })}${o.threshold.round ? ` <span class="small muted">(${esc(o.threshold.round)})</span>` : ''}` : o.requires?.exam ? '<span class="badge warn">' + t('app.compare.exam_audition') + '</span>' : '<span class="muted">' + t('app.compare.no_data') + '</span>'],
     [t('app.compare.row_commute'), o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
     [t('app.compare.row_type'), o => o.private ? `${t('app.compare.private')}${o.cost ? `<br><span class="small muted">${esc(o.cost)}</span>` : ''}` : t('app.compare.public')],
-    [t('app.compare.row_next'), o => esc(o.next || '-')]];
+    [t('app.compare.row_next'), o => esc(o.next || '-')],
+    [t('app.compare.row_ukr'), o => ukrBadge(o) || '–']];
 }
 function compareHtml() {
   const stars = (A.stars || []).filter(id => data.offers.some(o => o.id === id));
@@ -1229,6 +1259,7 @@ function makeStoryCtx() {
     tramLines: r => { const opts = shownOptions(r);
       return tramLines(r).map(l => { const o = opts.find(x => l.quick ? x.quick : (!x.quick && x.c === l.c)); return { ...l, no: o?.no || '?', color: o?.color || l.color }; }); },
     panelHtml: o => panelHtml(o),
+    ukrHtml: r => ukrFilter(r),
     planHtml: () => planHtml(ctx.r),
     touch: () => save(),
     studyHtml: id => studyHtml(id),
@@ -1365,6 +1396,7 @@ function vResults() {
     ${s.surprise ? cardHtml(t('app.slot.surprise'), s.surprise, false, sc) : ''}
     ${s.rest.length ? `<details class="card"><summary>${t('app.results.more', { n: s.rest.length })}</summary>${s.rest.map(c => cardHtml(t('app.slot.other'), c, false, sc)).join('')}</details>` : ''}
 
+    ${(u => u.length ? `<div class="card ukrbox"><h3>${t('app.ukr.report_title')}</h3>${ukrList(u)}<p class="small muted">${t('app.ukr.info')}</p></div>` : '')(ukraineInResults(s))}
     <div id="cmpwrap">${compareHtml()}</div>
     <div id="declwrap">${declarationHtml(r, 'report')}</div>
     <h2 id="r-linie">${t('app.results.lines')}</h2>
@@ -1464,6 +1496,8 @@ document.addEventListener('click', e => {
   if (d.pick !== undefined) { pickDirection(d.pick, Number(t.dataset.ang)); return; }
   if (d.goopt) { kierSel = d.goopt; location.hash = '#/w-kierunki'; return; }
   if (d.kier) { kierSel = d.kier; render(); return; }
+  if (d.ukr || d.ukrall) { if (d.ukr) ukrOn = !ukrOn; else ukrAllOn = true;
+    const w = document.getElementById('ukrwrap'); if (w) w.innerHTML = ukrFilter(storyCtx?.r || scoreAll(A, data)); else render(); return; }
   if (d.star) { toggleStar(d.star); return; }
   if (d.cmp) { tapCompare(d.cmp); return; }
   if (d.cando !== undefined) { tapCando(d.cando); return; }

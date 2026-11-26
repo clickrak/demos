@@ -106,6 +106,8 @@ Turystyka i usługi 1 → 3 (10 classes, direction `turystyka`). Item counts unc
 10 → 14 (Technikum Przemysłu Spożywczego nr 22), Przyroda i środowisko 52 → 53 (new direction `rolnictwo`); levels unchanged, every
 Liceum field at 3 or more. Studia columns unchanged.
 
+**Studia 3.7.0 (26 Nov 2026), radar re-run.** Moved: Języki i filologie 5 → 7 items (Studia polsko-ukraińskie, East European Studies UJ); levels unchanged, every Studia field at 3 or more. Liceum columns unchanged.
+
 **Rules for the waves.**
 1. **Offer and questions together.** A new Studia card or Liceum direction is done only when (a) it has real offers or classes with a source,
    and (b) the discovery questions reach it: at least 2 activity cards and, where it fits, a strength, one test kid per new card ends with
@@ -1389,7 +1391,7 @@ fits the focus, take the first "next week" item that does.
 | v3.4 | English (set by Szymon 24 Nov 2026, 17:19) | Interface, questions, strengths, dimensions, scenarios and the glossary in English (`?lang=en`, third chip EN); cards, offers and universities stay Polish | Sonnet + Opus | **done 24 Nov 2026** |
 | v3.5 | Ukrainian 3a: directions | 42 cards (all texts); university names stay Polish in every language (Szymon, 24 Nov evening) | Sonnet + Opus | **done 24 Nov 2026 (3.5.0)** |
 | v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | **done 25 Nov 2026 (3.6.0)** |
-| v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | planned 24 Nov 2026; concrete plan 26 Nov 2026 (trimmed: 7 big Kraków universities, no new card; cuts in X6) |
+| v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | **done 26 Nov 2026 (3.7.0)**; trimmed (7 big Kraków universities, no new card); moved items in X6 |
 | v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
 | v3.9 | Functionality (was v3.2) | Travel time from Rynek or Dworzec (12) | Opus | after v3.7 |
 | v3.10 | UI/UX (was v3.3) | Parent summary (9) | Opus | after v3.8 |
@@ -2229,13 +2231,13 @@ Opus screen work) → X4 → X5.
 before `--update`, diff the old and new dumps and make sure **only** the new Ukraine lines differ (write the diff summary in the commit
 message). English: cards and offers stay Polish; only the new UI strings are in English (UK-G).
 
-- [ ] **X0 (Opus, 10 min) Field and test first.** In `tests/syntax.mjs`: optional `ukraine` on an offer =
+- [x] **X0 (Opus, 10 min) Field and test first.** In `tests/syntax.mjs`: optional `ukraine` on an offer =
   `{ type, note, sourceId, url, partner? }`, `type` in `A|B|C|F` (D is the page, E is the page), `sourceId` resolves in
   `studia/data/sources.json`, `url` is http(s), `note` at most about 160 characters. Extend the strict ua-overlay check of offers so
   `ukraine.note` (and only it) may appear in `ua/offers.json` and must be there when the Polish offer has `ukraine`.
   Tag the two offers already in the data (A for filologia ukraińska, F for studia europejskie) **only if** their current official page
   says so (UJ pages; a new source with `asOf` 2026-11). Commit "Kompas Studia v3.7 X0: ukraine field and test".
-- [ ] **X1 (Sonnet x2 web research, in parallel; Opus decides and checks, time box 15 min per university).** Fill the table
+- [x] **X1 (Sonnet x2 web research, in parallel; Opus decides and checks, time box 15 min per university).** Fill the table
   "Ukraine-linked education in Kraków, 2026/27" in this file (columns: university, programme, type A/B/C/F, what exactly links to
   Ukraine, language, source url, status `sourced`/`check`). Helper 1: UJ, UJ CM, UKEN, UEK. Helper 2: AGH, PK, URK.
   Plus helper 1 also: **route D facts** (Polish rules for a holder of a Ukrainian school certificate: recognition of the certificate,
@@ -2245,11 +2247,11 @@ message). English: cards and offers stay Polish; only the new UI strings are in 
   Brief for both: official pages only (otouczelnie only as a pointer), never from memory, a row without an opened official page stays out
   and is listed with the reason; return url, page title, the quoted sentence that proves the link, `asOf` 2026-11.
   Opus opens each quoted page once (spot check) before it goes in the data.
-- [ ] **X2 (Opus, 20 min) Data.** `ukraine` on existing offers from X1 (`status` of the offer unchanged); **at most 3 new offers** for
+- [x] **X2 (Opus, 20 min) Data.** `ukraine` on existing offers from X1 (`status` of the offer unchanged); **at most 3 new offers** for
   Kraków programmes of type A or F that are not yet in `offers.json` (usual fields, `requires`, `url`, `cards` only `ukraina` and/or
   `jezyki`, no threshold); new sources with `asOf`. No new card (see X6). `dataVersion` = release day.
   Check: `run.mjs` still 42 of 42 cards in a top 3; scoring snapshot unchanged except new offers in lists; radar re-run (must not drop).
-- [ ] **X3 (Opus screen + Sonnet translation) Screen and texts.** All new texts through `t()` with strings in `pl.json`, `ua.json`
+- [x] **X3 (Opus screen + Sonnet translation) Screen and texts.** All new texts through `t()` with strings in `pl.json`, `ua.json`
   **and** `en.json` (UK-G; key-parity test).
   - Kierunki: one tap chip "Związane z Ukrainą / Пов'язано з Україною / Linked to Ukraine" next to the existing filters (filter shows only
     offers with `ukraine`; with none in the kid's list, one line says how many exist in Kraków and offers to show them).
@@ -2262,10 +2264,10 @@ message). English: cards and offers stay Polish; only the new UI strings are in 
     Ukrainian by one Sonnet helper (brief: glossary, Polish original, rules UK-B/E/F, university names stay Polish); English by Opus.
   - `ua/offers.json`: `ukraine.note` for every tagged offer, full entries (name, requires.note, next) for the new offers (same Sonnet helper,
     same name rules as W1). `tools/i18n_review.py` picks up the new keys.
-- [ ] **X4 (Opus, 15 min) Layout check.** `?lang=pl`, `?lang=ua`, `?lang=en` at 375 and 1280 px, three looks (none, `?skin=pop`,
+- [x] **X4 (Opus, 15 min) Layout check.** `?lang=pl`, `?lang=ua`, `?lang=en` at 375 and 1280 px, three looks (none, `?skin=pop`,
   `?skin=neon`), 3 test kids (one with the `ukraina` card high): chip row wraps, badge does not push names out, compare (table and swipe
   cards), page `#/ukraina`, report. Nothing wider than the screen, no script errors.
-- [ ] **X5 (Opus) Review and release 3.7.0.** Read the Sonnet texts against the glossary. Run `snapshot.mjs`, `syntax.mjs`, `run.mjs`,
+- [x] **X5 (Opus) Review and release 3.7.0.** Read the Sonnet texts against the glossary. Run `snapshot.mjs`, `syntax.mjs`, `run.mjs`,
   `liceum.mjs`, `ui_text.py`, and `UI_LANG=en python3 kompas/tests/ui_text.py`; for each Polish/English snapshot change, diff first and
   update only if the difference is the new Ukraine chip, badge, footer link, page or report lines. Radar re-run. Version 3.7.0 in the four
   places (search "3.6.0" in `kompas/studia`). `REVIEWED.md`: "Ukraine page and notes, written by AI, not yet read". Release table row
@@ -2273,8 +2275,48 @@ message). English: cards and offers stay Polish; only the new UI strings are in 
   (Liceum may push the same night; keep both sides).
 - **X6 Cut from v3.7 (for a later release, the weekend review picks the slot):** the other Kraków schools (AKF, ASP, AMUZ, AST, Ignatianum,
   KSM, AFM and the rest of `campuses.json`); offers outside Kraków (`outside: true`); university scholarships (only national ones now);
+  **added 26 Nov:** UKEN Filologia ukraińska as an offer (needs the faculty address), UJ Filologia ukraińska z językiem rosyjskim and Język
+  ukraiński w biznesie i turystyce (need 2026/27 confirmation), URK (pages refuse automated fetch), PK pages "PK dla Ukrainy" (did not load),
+  the matura status of Ukrainian (minority or foreign language), the Polish level rule per university, type E scholarships;
   a second card "Ukrainistyka i studia wschodnie" with its test kid, tap card and radar mapping (Opus writes a yes/no recommendation from
   X1 into this file); route D per university.
+**v3.7 – UK-4 Ukraine data stream: DONE 26 Nov 2026 (3.7.0).** New optional offer field `ukraine {type A|B|C|F, note, sourceId, url, partner?}`
+with a test (`tests/syntax.mjs`; the Ukrainian overlay holds `ukraine.note`). Tagged: `uj-filologia-ukrainska` (A). **Not** tagged:
+`uj-europeistyka` (its official page does not mention Ukraine or Eastern Europe). Two new offers (type A, `status: "check"` because the
+2026/27 recruitment and the counted matura subjects are not on the programme page; no rule in `requires`, so they never block):
+`uj-studia-polsko-ukrainskie` (WSMiP, campus `uj-wsmip`) and `uj-east-european-studies` (in English, Wydział Filologiczny, campus
+`uj-filologie`). Screen: chip "Związane z Ukrainą" under "Kierunki z bliska" (story page; the old `vPartDirections` is not routed),
+badge + note + source link in the offer detail, row "Ukraina" in the compare table and cards, a report box and an export section
+"Ukraina: co jest w Krakowie" only when a tagged offer is among the kid's options (8 of 30 test kids), page `#/ukraina` with 7 sourced
+facts (`studia/data/ukraina.json`, texts `app.ukr.page.*`) and a footer link in every language. Polish snapshot diffs: only the new
+offers in lists and declaration counts, the Ukraine box/section/chip and the footer link; scoring of all 30 kids unchanged.
+Radar: Języki i filologie 5 → 7 items (level 3). Sources spot-checked by Opus (one fetch per page) before use.
+
+**Ukraine-linked education in Kraków, 2026/27 (X1, 26 Nov 2026; official pages, asOf 2026-11)**
+
+| University | Programme | Type | What links to Ukraine | Language | Source | Status |
+|---|---|---|---|---|---|---|
+| UJ | Filologia ukraińska z drugim językiem obcym (I st.) | A | new in 2026/27; Ukrainian to C1 + a second language | pl | https://studia.uj.edu.pl/kierunki/wfilg/filolo.ukra.drug.jezy.obcy | sourced, in data |
+| UJ | Studia polsko-ukraińskie (I st., also II st.) | A | Polish path (intensive Ukrainian) and Ukrainian path (intensive Polish) | pl | https://studia.uj.edu.pl/kierunki/wsmip/studia.pols.ukra | sourced, in data (`check`) |
+| UJ | East European Studies: Languages and Discourses (I st.) | A | intensive Russian and Ukrainian | en | https://studia.uj.edu.pl/kierunki/wfilg/east.euro.stud | sourced, in data (`check`) |
+| UJ | Filologia ukraińska z językiem rosyjskim (I st.) | A | modified path for graduates of Ukrainian schools | pl | https://studia.uj.edu.pl/kierunki/wfilg/filolo.ukra.rosy | check (2026/27 not shown) |
+| UJ | Język ukraiński w biznesie i turystyce (I st.) | A | Ukrainian to C1, exchange in Kyiv | pl | https://studia.uj.edu.pl/kierunki/wfilg/jezyk.ukra.bizn.tury | check (2026/27 not shown) |
+| UJ | Studia eurazjatyckie | F (weak) | content mention only (Russia and Ukraine) | pl | https://studia.uj.edu.pl/kierunki/wsmip/studia.eura | not used |
+| UKEN | Filologia ukraińska (I st., licencjat, 6 sem.) | A | Ukrainian to C1; 2nd round 2026/27 (closed 18 Sep 2026) | pl | https://fukr.uken.krakow.pl/2026/07/31/druga-rekrutacja-na-rok-akademicki-2026-2027/ | sourced, **not in data** (campus address of the faculty not confirmed) |
+| AGH | double diplomas (Lviv Polytechnic, Ivano-Frankivsk Oil and Gas, Poltava, Lutsk, Precarpathian, Donetsk NTU) | B | faculty-level agreements, no programme named | pl | https://csm.agh.edu.pl/studenci/podwojne-dyplomy | sourced (page line only; not mapped to offers) |
+| AGH | fee exemption for Ukrainian citizens with temporary protection | (E) | full-time studies in Polish free | pl | https://www.international.agh.edu.pl/studenci-zagraniczni/cudzoziemiec-w-agh/student-na-pelnym-cyklu-ksztalcenia | sourced (page line) |
+| PK | 30-week Polish preparatory course | C | not Ukraine-specific | pl | https://mck.pk.edu.pl/rekrutacja/o-kursie/ | not used |
+| UJ CM, UEK, URK | – | – | nothing found (UEK double diplomas: DE, FR, FI, US only); URK pages refuse automated fetch | – | – | – |
+
+Route D (page `#/ukraina`): NAWA guide (atestat from 20 Jun 2006 → first-cycle and long-cycle studies), gov.pl/ua recognition page,
+UEK rules for foreigners (no extra entitlement document for Ukrainian certificates; legalisation or apostille; proof of Polish), AGH
+fee exemption and double diplomas, CKE matura in Ukrainian (informator from 2025/2026). Not confirmed: a B2 Polish level rule (UJ
+foreigners' pages refuse automated fetch); whether Ukrainian is a minority or a foreign-language matura subject (two CKE informators
+point different ways), so the page only says that the exam exists. Type E: no open national scholarship for new students found on
+NAWA or gov.pl (the 2022 programmes are closed), so the page has no scholarship line.
+**Second card "Ukrainistyka i studia wschodnie": recommendation no (for now).** Three UJ type-A offers fit the existing cards
+`ukraina` and `jezyki`; a new card would hold the same 3–5 offers. Revisit if UKEN and the two UJ `check` programmes are confirmed.
+
 Safest reading used (Szymon can change it): the reader is a teenager in the Polish school system, so route D is one information page, not
 part of the scoring; "ukraiński" is not added as a language skill in this release (open question 3 stays open).
 

@@ -298,6 +298,13 @@ export function pathSteps(offer, campusName) {
 }
 
 // The option he wants to check first: card id of a shown slot, or 'quick'. Falls back to the best fit.
+// v3.7: offers linked to Ukraine (field `ukraine`) among the options he was shown. Information only, not part of the scoring.
+export function ukraineInResults(slots) {
+  const offs = [...(slots.best || []), slots.most, slots.surprise].filter(Boolean).flatMap(c => c.offers.filter(o => !o.check.hidden).map(o => o.offer));
+  if (slots.quick) offs.push(slots.quick.o.offer);
+  return [...new Map(offs.filter(o => o.ukraine).map(o => [o.id, o])).values()];
+}
+
 export function planFocus(slots, answers) {
   const key = answers.plan && answers.plan.focus;
   if (key === 'quick' && slots.quick) return { key, c: slots.quick.c, o: slots.quick.o, quick: true };

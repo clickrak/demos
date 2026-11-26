@@ -3,7 +3,7 @@
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.
 
-Interface keys: 853, translated: 853. Data texts: 270.
+Interface keys: 882, translated: 882. Data texts: 270.
 
 | key | Polski | English | correction |
 |---|---|---|---|
@@ -171,6 +171,9 @@ Interface keys: 853, translated: 853. Data texts: 270.
 | `core.export.q3` | - Jaki jest najmniejszy krok, który zrobisz w tym miesiącu? | - What is the smallest step you will take this month? |  |
 | `core.export.h_parent` | ## Dla rodzica | ## For parents |  |
 | `core.export.parent_text` | Pytaj, nie mów. Reaguj na dowody, nie na opcję. Bez porównań między braćmi. Jeden mały krok w tym miesiącu. | Ask, don’t tell. React to the evidence, not to the option. No comparing siblings. One small step this month. |  |
+| `core.export.h_ukr` | ## Ukraina: co jest w Krakowie | ## Ukraine: what Kraków offers |  |
+| `core.export.ukr_line` | - {name}, {institution}: {note} ({url}) | - {name}, {institution}: {note} ({url}) |  |
+| `core.export.ukr_info` | To informacja, nie część wyniku. | This is information, not part of your result. |  |
 | `meta.title` | Kompas Studia | Kompas Studia |  |
 | `meta.desc` | Od tego, w czym jesteś dobry, do konkretnych kierunków w Krakowie. Wersja {v}. | From what you are good at to real study programmes in Kraków. Version {v}. |  |
 | `nav.chapters` | Rozdziały | Chapters |  |
@@ -860,6 +863,32 @@ Interface keys: 853, translated: 853. Data texts: 270.
 | `gloss.lead` | Polskie słowa, które spotkasz w szkole i na stronach uczelni. Przy każdym krótkie wyjaśnienie. | Polish words you will meet at school and on university websites. Each one has a short explanation. |  |
 | `gloss.back` | ← Wróć | ← Back |  |
 | `gloss.pl_label` | po polsku | in Polish |  |
+| `foot.ukr` | Z ukraińskim świadectwem szkolnym | With a Ukrainian school certificate |  |
+| `app.ukr.chip` | Związane z Ukrainą | Linked to Ukraine |  |
+| `app.ukr.title` | Studia związane z Ukrainą | Studies linked to Ukraine |  |
+| `app.ukr.none_mine` | Wśród twoich kierunków nie ma takich studiów. W naszych danych z Krakowa jest ich {n}. | None of your directions has such studies. Our Kraków data has {n} of them. |  |
+| `app.ukr.show_all` | Pokaż je | Show them |  |
+| `app.ukr.info` | To informacja, nie część wyniku. | This is information, not part of your result. |  |
+| `app.ukr.source` | źródło | source |  |
+| `app.ukr.type.A` | ukrainistyka | Ukrainian studies |  |
+| `app.ukr.type.B` | wspólny dyplom | joint diploma |  |
+| `app.ukr.type.C` | nauka po ukraińsku/angielsku | taught in Ukrainian/English |  |
+| `app.ukr.type.F` | odbudowa i współpraca | rebuilding and cooperation |  |
+| `app.ukr.report_title` | Ukraina: co jest w Krakowie | Ukraine: what Kraków offers |  |
+| `app.ukr.kicker` | Informacja | Information |  |
+| `app.ukr.page_title` | Z ukraińskim świadectwem szkolnym | With a Ukrainian school certificate |  |
+| `app.ukr.page_lead` | Ta strona jest dla kogoś, kto skończył szkołę na Ukrainie i chce studiować w Polsce. Jeśli zdajesz maturę w Polsce, wszystko w Kompasie działa jak zwykle. To informacja, nie część wyniku. | This page is for someone who finished school in Ukraine and wants to study in Poland. If you take the matura in Poland, everything in Kompas works as usual. This is information, not part of your result. |  |
+| `app.ukr.facts` | Co mówią oficjalne strony | What the official pages say |  |
+| `app.ukr.check` | Zasady mogą się zmienić. Zawsze sprawdź stronę rekrutacji wybranej uczelni. | Rules can change. Always check the admissions page of the university you choose. |  |
+| `app.ukr.studies` | Studia związane z Ukrainą w Krakowie | Studies linked to Ukraine in Kraków |  |
+| `app.ukr.page.cert` | Ukraińskie świadectwo pełnego wykształcenia średniego (атестат) wydane od 20 czerwca 2006 r. daje prawo ubiegać się o studia pierwszego stopnia i jednolite magisterskie w Polsce. | A Ukrainian certificate of complete secondary education (atestat) issued from 20 June 2006 lets you apply for first-cycle and long-cycle master's studies in Poland. |  |
+| `app.ukr.page.govpl` | Strona gov.pl dla obywateli Ukrainy wyjaśnia po ukraińsku, jak w Polsce uznaje się szkołę i studia z Ukrainy. | The gov.pl page for Ukrainian citizens explains in Ukrainian how Poland recognises school and studies from Ukraine. |  |
+| `app.ukr.page.uek_doc` | Przykład UEK: przy świadectwie z Ukrainy nie trzeba osobnego dokumentu, że daje ono prawo do studiów. Po zakwalifikowaniu trzeba potwierdzić, że świadectwo jest prawdziwe (legalizacja albo apostille). | Example, UEK: with a certificate from Ukraine you do not need a separate document saying it gives the right to study. After you qualify, you must confirm the certificate is genuine (legalisation or apostille). |  |
+| `app.ukr.page.uek_lang` | UEK prosi też o dokument, który potwierdza znajomość polskiego (albo angielskiego, jeśli studia są po angielsku). Każda uczelnia ma własne zasady. | UEK also asks for a document that shows your Polish (or English, if the studies are in English). Every university has its own rules. |  |
+| `app.ukr.page.agh_fee` | AGH: obywatele Ukrainy, którzy przyjechali do Polski od 24 lutego 2022 r. i mają ochronę czasową (do 4 marca 2027 r.), nie płacą za studia stacjonarne po polsku. | AGH: Ukrainian citizens who came to Poland from 24 February 2022 and have temporary protection (until 4 March 2027) do not pay for full-time studies in Polish. |  |
+| `app.ukr.page.agh_dd` | AGH ma umowy o podwójnym dyplomie także z uczelniami na Ukrainie (lista na stronie AGH). | AGH has double-diploma agreements with universities in Ukraine too (list on the AGH page). |  |
+| `app.ukr.page.matura` | Jeśli uczysz się w polskiej szkole: CKE ma egzamin maturalny z języka ukraińskiego (informator od roku szkolnego 2025/2026). | If you go to a Polish school: CKE has a matura exam in Ukrainian (guide valid from the 2025/2026 school year). |  |
+| `app.compare.row_ukr` | Ukraina | Ukraine |  |
 | `questions.activities[a1].text` | Znaleźć błąd w programie albo w arkuszu kalkulacyjnym. | Find a bug in a program or a spreadsheet. |  |
 | `questions.activities[a2].text` | Wytłumaczyć koledze trudny temat tak, żeby zrozumiał. | Explain a hard topic to a friend so that they understand it. |  |
 | `questions.activities[a3].text` | Zaopiekować się kimś po kontuzji. | Look after someone who has an injury. |  |

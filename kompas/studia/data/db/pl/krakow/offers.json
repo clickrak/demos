@@ -128,7 +128,13 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
-  "next": "tłumaczenia, współpraca z Ukrainą albo magisterskie"
+  "next": "tłumaczenia, współpraca z Ukrainą albo magisterskie",
+  "ukraine": {
+   "type": "A",
+   "note": "Nowe studia od roku 2026/27: język ukraiński do poziomu C1 i drugi język obcy.",
+   "sourceId": "uj-filukr-2026",
+   "url": "https://studia.uj.edu.pl/kierunki/wfilg/filolo.ukra.drug.jezy.obcy"
+  }
  },
  {
   "id": "uj-europeistyka",
@@ -158,6 +164,58 @@
   "status": "sourced",
   "sourceId": "otou-uj-2026",
   "next": "staż w instytucji albo magisterskie"
+ },
+ {
+  "id": "uj-studia-polsko-ukrainskie",
+  "name": "Studia polsko-ukraińskie",
+  "institution": "Uniwersytet Jagielloński, Wydział Studiów Międzynarodowych i Politycznych",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-wsmip",
+  "cards": [
+   "ukraina",
+   "jezyki"
+  ],
+  "requires": {
+   "note": "studia po polsku; które wyniki matury się liczą, podaje IRK UJ (strona kierunku ich nie wymienia)"
+  },
+  "status": "check",
+  "sourceId": "uj-polukr-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wsmip/studia.pols.ukra",
+  "next": "instytucje publiczne, firmy i media polskie albo ukraińskie, albo magisterskie na tym kierunku",
+  "ukraine": {
+   "type": "A",
+   "note": "Dwie ścieżki: polska (intensywny ukraiński) i ukraińska (intensywny polski).",
+   "sourceId": "uj-polukr-2026",
+   "url": "https://studia.uj.edu.pl/kierunki/wsmip/studia.pols.ukra"
+  }
+ },
+ {
+  "id": "uj-east-european-studies",
+  "name": "East European Studies: Languages and Discourses",
+  "institution": "Uniwersytet Jagielloński, Wydział Filologiczny",
+  "kind": "programme",
+  "level": "licencjat",
+  "durationYears": 3,
+  "campus": "uj-filologie",
+  "cards": [
+   "jezyki",
+   "ukraina"
+  ],
+  "requires": {
+   "note": "studia po angielsku; które wyniki matury się liczą i jaki poziom angielskiego, podaje IRK UJ"
+  },
+  "status": "check",
+  "sourceId": "uj-ees-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilg/east.euro.stud",
+  "next": "instytucje międzynarodowe, organizacje pozarządowe i firmy",
+  "ukraine": {
+   "type": "A",
+   "note": "Studia po angielsku z intensywną nauką dwóch języków: rosyjskiego i ukraińskiego.",
+   "sourceId": "uj-ees-2026",
+   "url": "https://studia.uj.edu.pl/kierunki/wfilg/east.euro.stud"
+  }
  },
  {
   "id": "uj-informatyka-analityczna",

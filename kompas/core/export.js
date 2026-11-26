@@ -1,5 +1,5 @@
 // Builds the markdown export. Everything happens in the browser; nothing is uploaded.
-import { provenStrengths, proofText, pathSteps, planFocus, planItems, declarationHelp, subjectFit, compareIds } from './scoring.js';
+import { provenStrengths, proofText, pathSteps, planFocus, planItems, declarationHelp, subjectFit, compareIds, ukraineInResults } from './scoring.js';
 import { t, plural, nm } from './i18n.js';
 
 // "GUS, październik 2024" from a source's asOf ("2024-10"), so the words always match the data.
@@ -61,6 +61,13 @@ export function buildMarkdown(answers, result, data, today) {
     L.push(t('core.export.quick_head', { name: o.name, institution: o.institution, years: o.durationYears }), '');
   }
   card(t('core.export.card_surprise'), slots.surprise);
+  // v3.7: studies linked to Ukraine among his options (only when there is at least one, so most files do not change).
+  const ukr = ukraineInResults(slots);
+  if (ukr.length) {
+    L.push(t('core.export.h_ukr'));
+    for (const o of ukr) L.push(t('core.export.ukr_line', { name: o.name, institution: o.institution, note: o.ukraine.note, url: o.ukraine.url }));
+    L.push(t('core.export.ukr_info'), '');
+  }
 
   // The plan: the option he checks first, with small dated steps; ticks come from the app.
   const focus = planFocus(slots, answers), checks = answers.checks || {};

@@ -1,0 +1,33 @@
+{
+ "_note": "v3.7: facts for the page #/ukraina (route D). Texts are app.ukr.page.<key> in studia/i18n/{pl,ua,en}.json; each line points to a source.",
+ "lines": [
+  {
+   "key": "cert",
+   "sourceId": "nawa-ua-2025"
+  },
+  {
+   "key": "govpl",
+   "sourceId": "govpl-ua-uznanie"
+  },
+  {
+   "key": "uek_doc",
+   "sourceId": "uek-cudzoziemcy-2026"
+  },
+  {
+   "key": "uek_lang",
+   "sourceId": "uek-cudzoziemcy-2026"
+  },
+  {
+   "key": "agh_fee",
+   "sourceId": "agh-oplaty-cudzoziemcy"
+  },
+  {
+   "key": "agh_dd",
+   "sourceId": "agh-podwojne-dyplomy"
+  },
+  {
+   "key": "matura",
+   "sourceId": "cke-matura-ukr"
+  }
+ ]
+}

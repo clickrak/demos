@@ -1,5 +1,5 @@
 {
- "0/start": "094e95fe121d",
+ "0/start": "7ae511b57d44",
  "0/pewnosc": "6c49270f028b",
  "0/matura": "b6fe98fffaf9",
  "0/jezyki": "f527f354bda2",
@@ -15,9 +15,9 @@
  "0/zasieg": "243189d46692",
  "0/niepokoj": "df72923a2e91",
  "0/refleksja": "69e5e39506ac",
- "0/kompas": "e3b8ac7c41d1",
- "0/wyniki": "c9f7141d799a",
- "7/start": "094e95fe121d",
+ "0/kompas": "2578108b0eca",
+ "0/wyniki": "fb7b23ff32bc",
+ "7/start": "7ae511b57d44",
  "7/pewnosc": "6c49270f028b",
  "7/matura": "b6fe98fffaf9",
  "7/jezyki": "74dca8cbfb13",
@@ -33,9 +33,9 @@
  "7/zasieg": "243189d46692",
  "7/niepokoj": "2c91c5114535",
  "7/refleksja": "69e5e39506ac",
- "7/kompas": "a5d79bb081ca",
- "7/wyniki": "1415ed073d9e",
- "21/start": "4edf1f6d6f04",
+ "7/kompas": "1e0747363d9d",
+ "7/wyniki": "e42939b8b1fc",
+ "21/start": "377084853424",
  "21/pewnosc": "7fbaacfee900",
  "21/matura": "c3c045967b65",
  "21/jezyki": "961a1d90654d",
@@ -51,6 +51,6 @@
  "21/zasieg": "8095dfed02b8",
  "21/niepokoj": "c5ff5fd1ab4b",
  "21/refleksja": "a278e35dc570",
- "21/kompas": "2fec3ce4f6e3",
- "21/wyniki": "bab2772e21f2"
+ "21/kompas": "c3adcf256e8f",
+ "21/wyniki": "47299c1c4b63"
 }

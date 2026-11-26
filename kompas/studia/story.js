@@ -209,6 +209,7 @@ export function storyHtml(ctx) {
         <div class="elist" role="tablist" aria-label="${t('story.dirs.aria')}">${opts.map((o, i) => `<button role="tab" class="eitem" data-pickopt="${esc(o.key)}" aria-selected="${i === 0}" style="--c:${o.color}">${badge(o)}<span><b>${esc(o.quick ? t('story.quick_start') : o.c.card.name)}</b><span class="small muted">${esc(o.slot)}</span></span></button>`).join('')}</div>
         <div class="epanel" id="epanel" role="tabpanel" aria-live="polite">${ctx.panelHtml(opts[0])}</div>
       </div>
+      <div id="ukrwrap">${ctx.ukrHtml(r)}</div>
     </div>
   </section>
 

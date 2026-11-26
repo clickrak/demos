@@ -162,5 +162,8 @@
  "core.export.q2": "- Która opcja daje ci najwięcej energii?",
  "core.export.q3": "- Jaki jest najmniejszy krok, który zrobisz w tym miesiącu?",
  "core.export.h_parent": "## Dla rodzica",
- "core.export.parent_text": "Pytaj, nie mów. Reaguj na dowody, nie na opcję. Bez porównań między braćmi. Jeden mały krok w tym miesiącu."
+ "core.export.parent_text": "Pytaj, nie mów. Reaguj na dowody, nie na opcję. Bez porównań między braćmi. Jeden mały krok w tym miesiącu.",
+ "core.export.h_ukr": "## Ukraina: co jest w Krakowie",
+ "core.export.ukr_line": "- {name}, {institution}: {note} ({url})",
+ "core.export.ukr_info": "To informacja, nie część wyniku."
 }

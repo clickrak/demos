@@ -588,3 +588,9 @@ html[data-skin] .themelink { display: none !important; }
 [data-onlylang][hidden] { display: none !important; }
 /* Ukrainian words are longer: keep all four chapter names visible in the header on narrow phones. */
 @media (max-width: 400px) { html[lang="uk"] .chapters button { padding: 6px 3px; font-size: .74rem; } html[lang="uk"] .langsw button { min-width: 28px; } }
+/* v3.7: studies linked to Ukraine (badge, note, lists) */
+.badge.ukr { background: transparent; border: 1px solid var(--accent); color: var(--ink); }
+.ukrnote { margin-top: 4px; }
+.ukrlist, .ukrfacts { padding-left: 1.1em; }
+.ukrlist li, .ukrfacts li { margin: 8px 0; overflow-wrap: anywhere; }
+.ukrchip { margin-top: 8px; }

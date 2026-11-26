@@ -628,5 +628,68 @@
   "title": "URK, Wydział Technologii Żywności: kierunki, długość i przedmioty (otouczelnie)",
   "asOf": "2026-06",
   "status": "sourced"
+ },
+ {
+  "id": "uj-filukr-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilg/filolo.ukra.drug.jezy.obcy",
+  "title": "Filologia ukraińska z drugim językiem obcym – Oferta dydaktyczna UJ",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uj-polukr-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wsmip/studia.pols.ukra",
+  "title": "Studia polsko-ukraińskie – Oferta dydaktyczna UJ",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uj-ees-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilg/east.euro.stud",
+  "title": "East European Studies: Languages and Discourses – Oferta dydaktyczna UJ",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "nawa-ua-2025",
+  "url": "https://nawa.gov.pl/images/OPRACOWANIA-2025/Ukraina.pdf",
+  "title": "NAWA (ENIC-NARIC Polska): przewodnik po uznawalności wykształcenia, Ukraina (2025)",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "govpl-ua-uznanie",
+  "url": "https://www.gov.pl/web/ua/Vyznannya-osvity-z-Ukrayiny",
+  "title": "Визнання освіти з України – gov.pl",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "uek-cudzoziemcy-2026",
+  "url": "https://studiuj.uek.krakow.pl/rekrutacja/proces-rekrutacji-cudzoziemcy-studia-stacjonarne-i-niestacjonarne-1-stopnia-oraz-jednolite-magisterskie/",
+  "title": "UEK: proces rekrutacji – cudzoziemcy, studia I stopnia i jednolite magisterskie",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "agh-oplaty-cudzoziemcy",
+  "url": "https://www.international.agh.edu.pl/studenci-zagraniczni/cudzoziemiec-w-agh/student-na-pelnym-cyklu-ksztalcenia",
+  "title": "AGH, Dział Studentów Zagranicznych: student na pełnym cyklu kształcenia",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "agh-podwojne-dyplomy",
+  "url": "https://csm.agh.edu.pl/studenci/podwojne-dyplomy",
+  "title": "AGH, Centrum Spraw Międzynarodowych: podwójne dyplomy",
+  "asOf": "2026-11",
+  "status": "sourced"
+ },
+ {
+  "id": "cke-matura-ukr",
+  "url": "https://bip.cke.gov.pl/attachments/download/10080",
+  "title": "CKE: informator o egzaminie maturalnym z języka ukraińskiego od roku szkolnego 2025/2026",
+  "asOf": "2026-11",
+  "status": "sourced"
  }
 ]

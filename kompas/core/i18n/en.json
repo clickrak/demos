@@ -162,5 +162,8 @@
  "core.export.q2": "- Which option gives you the most energy?",
  "core.export.q3": "- What is the smallest step you will take this month?",
  "core.export.h_parent": "## For parents",
- "core.export.parent_text": "Ask, don’t tell. React to the evidence, not to the option. No comparing siblings. One small step this month."
+ "core.export.parent_text": "Ask, don’t tell. React to the evidence, not to the option. No comparing siblings. One small step this month.",
+ "core.export.h_ukr": "## Ukraine: what Kraków offers",
+ "core.export.ukr_line": "- {name}, {institution}: {note} ({url})",
+ "core.export.ukr_info": "This is information, not part of your result."
 }
