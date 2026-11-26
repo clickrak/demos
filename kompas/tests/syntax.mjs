@@ -35,6 +35,16 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   const offers = json['studia/data/db/pl/krakow/offers.json'] || [];
   refs('studia offer source', offers.map(o => o.sourceId), src);
   for (const o of offers) if (o.url !== undefined && !/^https?:\/\//.test(o.url)) fail(`studia offer "${o.id}": url must be http(s)`); // v2.7: official page per offer
+  for (const o of offers) if (o.ukraine !== undefined) { // v3.7: Ukraine-linked offer (A philology, B joint diploma, C taught in Ukrainian/English, F reconstruction)
+    const u = o.ukraine, keys = ['type', 'note', 'sourceId', 'url', 'partner'];
+    if (!u || typeof u !== 'object') { fail(`studia offer "${o.id}": ukraine must be an object`); continue; }
+    for (const k of Object.keys(u)) if (!keys.includes(k)) fail(`studia offer "${o.id}": ukraine must not hold "${k}"`);
+    if (!['A', 'B', 'C', 'F'].includes(u.type)) fail(`studia offer "${o.id}": ukraine.type must be A, B, C or F`);
+    if (typeof u.note !== 'string' || !u.note.trim() || u.note.length > 170) fail(`studia offer "${o.id}": ukraine.note must be 1–170 characters`);
+    if (!src.has(u.sourceId)) fail(`studia offer "${o.id}": ukraine has unknown sourceId "${u.sourceId}"`);
+    if (!/^https?:\/\//.test(u.url || '')) fail(`studia offer "${o.id}": ukraine.url must be http(s)`);
+    if (u.partner !== undefined && (typeof u.partner !== 'string' || !u.partner.trim())) fail(`studia offer "${o.id}": ukraine.partner must be text`);
+  }
   for (const o of offers) if (o.threshold) { // ST2: last year's threshold, shown as information only
     const t = o.threshold;
     if (!Number.isInteger(t.year) || t.year < 2020) fail(`studia offer "${o.id}": threshold needs a year`);
@@ -189,12 +199,14 @@ for (const lg of ['ua', 'en']) { // Overlays of the data texts (v3.3, English v3
     const strip = v => insts.reduce((x, n) => x.split(n).join(''), String(v)).replace(/\([^)]*\)/g, '');
     const m = new Map(), seen = new Set();
     for (const o of ou) { if (seen.has(o.id)) fail(`overlay: ua offer "${o.id}" twice`); seen.add(o.id); m.set(o.id, o);
-      for (const k of Object.keys(o)) if (!['id', 'name', 'requires', 'next', 'cost'].includes(k)) fail(`overlay: ua offer "${o.id}" must not hold "${k}" (only name, requires.note, next, cost)`);
+      for (const k of Object.keys(o)) if (!['id', 'name', 'requires', 'next', 'cost', 'ukraine'].includes(k)) fail(`overlay: ua offer "${o.id}" must not hold "${k}" (only name, requires.note, next, cost, ukraine.note)`);
+      if (o.ukraine && (typeof o.ukraine !== 'object' || Object.keys(o.ukraine).some(k => k !== 'note'))) fail(`overlay: ua offer "${o.id}" ukraine may hold only "note"`);
       if (o.requires && Object.keys(o.requires).some(k => k !== 'note')) fail(`overlay: ua offer "${o.id}" requires may hold only "note"`);
       if (!offs.some(b => b.id === o.id)) fail(`overlay: ua offer "${o.id}" is not in the Polish data`); }
     for (const b of offs) {
       const o = m.get(b.id); if (!o) { fail(`overlay: ua offer "${b.id}" is missing`); continue; }
-      const pairs = [['name', b.name, o.name], ['requires.note', b.requires?.note, o.requires?.note], ['next', b.next, o.next], ...(b.cost ? [['cost', b.cost, o.cost]] : [])];
+      const pairs = [['name', b.name, o.name], ['requires.note', b.requires?.note, o.requires?.note], ['next', b.next, o.next], ...(b.cost ? [['cost', b.cost, o.cost]] : []), ...(b.ukraine ? [['ukraine.note', b.ukraine.note, o.ukraine?.note]] : [])];
+      if (!b.ukraine && o.ukraine) fail(`overlay: ua offer "${b.id}" has a ukraine note the Polish has not`);
       if (!b.cost && o.cost) fail(`overlay: ua offer "${b.id}" has a cost the Polish has not`);
       for (const [f, pv, uv] of pairs) {
         if (pv === undefined) continue;
