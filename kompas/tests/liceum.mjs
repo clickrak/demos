@@ -113,9 +113,9 @@ for (const o of data.opportunities) {
 { const old = j('../liceum/data/personas.json')[0].answers, r = scoreLiceum({ ...old, sort: Object.fromEntries(Object.entries(old.sort).filter(([k]) => !/^(c|h|l|m|k|t|u|g|r)\d$/.test(k))) }, data);
   if (profilesFor(r, data).length !== data.profiles.length) fail('old file: compass should list every profile'); }
 // Compass: the expected North for each test kid.
-const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'], P8: ['artystyczny'], P9: ['przyrodniczy', 'spoleczny'], P10: ['humanistyczny'], P11: ['humanistyczny'], P12: ['inzynierski', 'scisly'], P13: ['ekonomiczny'], P14: ['sportowy'], P15: ['jezykowy'], P16: ['przyrodniczy'] };
+const NORTH = { P7: ['scisly', 'inzynierski'], P1: ['scisly'], P2: ['spoleczny', 'przyrodniczy'], P3: ['scisly', 'inzynierski'], P4: ['scisly'], P5: ['jezykowy', 'spoleczny'], P6: ['ekonomiczny', 'inzynierski'], P8: ['artystyczny'], P9: ['przyrodniczy', 'spoleczny'], P10: ['humanistyczny'], P11: ['humanistyczny'], P12: ['inzynierski', 'scisly'], P13: ['ekonomiczny'], P14: ['sportowy'], P15: ['jezykowy'], P16: ['przyrodniczy'], P17: ['scisly'], P18: ['przyrodniczy'] };
 // CD1 (v2.10): each new direction is in the top 3 for its test kid, and its compass profile is N, NNE or NNW.
-const DIRKID = { P8: 'sztuka', P9: 'zdrowie', P10: 'prawo', P11: 'media', P12: 'mechanika', P13: 'transport', P14: 'mundurowe', P15: 'turystyka', P16: 'rolnictwo' };
+const DIRKID = { P8: 'sztuka', P9: 'zdrowie', P10: 'prawo', P11: 'media', P12: 'mechanika', P13: 'transport', P14: 'mundurowe', P15: 'turystyka', P16: 'rolnictwo', P17: 'fizyka', P18: 'biologia' };
 const northCount = {};
 for (const p of j('../liceum/data/personas.json')) {
   const P = profilesFor(scoreLiceum(p.answers, forKid(p.answers)), forKid(p.answers));
@@ -129,6 +129,14 @@ for (const p of j('../liceum/data/personas.json')) {
     if (!P.slice(0, 3).some(x => x.profile.areas.includes(d))) fail('CD1: profile of', d, 'not N/NNE/NNW for', p.id);
   }
 }
+// CD4 (v2.14): every direction is in the top 3 of at least one test kid, and no direction is in the top 3 of more than a third of them.
+{ const kids = j('../liceum/data/personas.json'), top3 = {};
+  for (const p of kids) for (const c of scoreLiceum(p.answers, forKid(p.answers)).slots.best.slice(0, 3)) top3[c.card.id] = (top3[c.card.id] || 0) + 1;
+  for (const o of data.opportunities) if (!top3[o.id]) fail('CD4: direction never in a test kid top 3', o.id);
+  for (const [id, c] of Object.entries(top3)) if (c > Math.ceil(kids.length / 3)) fail('CD4: direction in the top 3 of too many kids', id, c, 'of', kids.length);
+  console.log('CD4 top 3:', Object.entries(top3).sort((a, b) => b[1] - a[1]).map(([k, v]) => k + ' ' + v).join(', ')); }
+// Q4 (v2.14): every world has at least 5 activity cards.
+for (const w of data.questions.worlds) { const n = data.questions.activities.filter(a => (a.worlds || []).includes(w.id)).length; if (n < 5) fail('Q4: world with fewer than 5 activity cards', w.id, n); }
 // CD2 (v2.11): no compass profile is North for more than a third of the test kids.
 { const n = j('../liceum/data/personas.json').length; for (const [id, c] of Object.entries(northCount)) if (c > Math.ceil(n / 3)) fail('CD2: profile north for too many kids', id, c, 'of', n); }
 // Every school in every town: a town, an address, a map point inside that town, sources and links that resolve.

@@ -23,7 +23,8 @@ FIELD_ACT = {'a1': S, 'a2': H, 'a3': S, 'a4': S, 'a5': S, 'a6': C, 'a7': S, 'a8'
              'c1': A, 'c2': A, 'c3': A, 'c4': A, 'c5': A, 'h1': C, 'h2': C, 'l1': M, 'l2': M, 'm1': M, 'm2': M,  # v2.10
              'k1': H, 'k2': H, 'k3': H, 't1': E, 't2': E, 't3': E,  # v2.11
              'u1': SP, 'u2': SP, 'u3': SP, 'g1': L, 'g2': H, 'g3': E,  # v2.12 (mundurowe in sport, turystyka in języki)
-             'r1': H, 'r2': S, 'r3': H}  # v2.13 (rolnictwo: hands-on work and food science)
+             'r1': H, 'r2': S, 'r3': H,  # v2.13 (rolnictwo: hands-on work and food science)
+             'h3': C, 'h4': C}  # v2.14 (Q4: world ludzie, care and health)
 FIELD_STR = {'wytrwalosc': G, 'spokoj': G, 'logika': S, 'tlumaczenie': P, 'empatia': P, 'dokladnosc': G, 'ciekawosc': G,
              'zespol': G, 'dyscyplina': G, 'kondycja': SP, 'jezyki': L, 'szybka_nauka': G, 'organizowanie': E,
              'pomyslowosc': G, 'odpowiedzialnosc': G, 'rysunek': A, 'przekonywanie': E, 'orientacja': H, 'oko': A}

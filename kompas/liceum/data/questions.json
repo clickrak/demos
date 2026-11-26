@@ -493,6 +493,29 @@
    ]
   },
   {
+   "id": "h3",
+   "text": "Pomóc starszej osobie: zrobić zakupy, przypomnieć o lekach albo po prostu pogadać.",
+   "w": {
+    "spo": 2,
+    "sys": 1
+   },
+   "worlds": [
+    "ludzie"
+   ]
+  },
+  {
+   "id": "h4",
+   "text": "Sprawdzić, jak dobre ćwiczenia pomagają komuś wrócić do formy po kontuzji.",
+   "w": {
+    "spo": 1,
+    "ana": 1,
+    "tec": 1
+   },
+   "worlds": [
+    "ludzie"
+   ]
+  },
+  {
    "id": "l1",
    "text": "Przeczytać regulamin i znaleźć w nim haczyk.",
    "w": {
