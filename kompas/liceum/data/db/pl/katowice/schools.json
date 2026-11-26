@@ -703,5 +703,41 @@
    "q": "Bartosza Głowackiego 6, Katowice"
   },
   "geoChecked": true
+ },
+ {
+  "id": "ka-plsp",
+  "name": "Państwowe Liceum Sztuk Plastycznych im. Józefa Pankiewicza w Katowicach",
+  "short": "PLSP im. J. Pankiewicza",
+  "type": "liceum",
+  "town": "katowice",
+  "address": "ul. Ułańska 7A, 40-887 Katowice",
+  "addressSourceId": "plsp-kat-oszkole",
+  "www": "https://www.gov.pl/web/plastykkatowice",
+  "classListSourceId": "plsp-kat-oszkole",
+  "classes": [
+   {
+    "code": "1",
+    "label": "liceum plastyczne, 5 lat (specjalność przydzielana we wrześniu: projektowanie graficzne, formy rzeźbiarskie, złotnictwo albo film i fotografia)",
+    "extended": [],
+    "cards": [
+     "sztuka"
+    ],
+    "threshold": null,
+    "scored": null,
+    "scoredSourced": false,
+    "sourceId": "plsp-kat-oszkole",
+    "status": "sourced",
+    "fields": [
+     "ART"
+    ],
+    "entry": {
+     "kind": "plastyczny",
+     "note": "Egzamin wstępny w szkole. Wcześniej zapisujesz się w internecie i pokazujesz swoje prace na konsultacji (w 2026: od 30 marca do 25 maja).",
+     "sourceId": "plsp-kat-oszkole"
+    }
+   }
+  ],
+  "geoPending": true,
+  "geoPendingSince": "2026-11-27"
  }
 ]
