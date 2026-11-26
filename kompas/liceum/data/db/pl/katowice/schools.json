@@ -737,7 +737,11 @@
     }
    }
   ],
-  "geoPending": true,
-  "geoPendingSince": "2026-11-27"
+  "geo": {
+   "lat": 50.28401,
+   "lon": 18.96935,
+   "q": "Ułańska 7A, Katowice"
+  },
+  "geoChecked": true
  }
 ]
