@@ -1464,7 +1464,7 @@ fits the focus, take the first "next week" item that does.
 | v3.5 | Ukrainian 3a: directions | 42 cards (all texts); university names stay Polish in every language (Szymon, 24 Nov evening) | Sonnet + Opus | **done 24 Nov 2026 (3.5.0)** |
 | v3.6 | Ukrainian 3b: studies | 126 offers (name, notes, next steps), subject names in `requires`, declaration helper and compare in Ukrainian | Sonnet + Opus | **done 25 Nov 2026 (3.6.0)** |
 | v3.7 | Ukrainian 4: Ukraine data stream | Research and tags for Ukraine-related education and dedicated diplomas, filter and badges, certificate route page | Opus + Sonnet | **done 26 Nov 2026 (3.7.0)**; trimmed (7 big Kraków universities, no new card); moved items in X6 |
-| v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | moved behind the Ukrainian track 24 Nov 2026 (see "v3.7 tasks") |
+| v3.8 | UI/UX (was v3.1) | Links in Kierunki with an official `url` per offer (11), strengths as the foundation (10), sources page (7) | Opus + Sonnet | **planned 27 Nov 2026** (concrete plan under "v3.7 tasks"; trimmed: url for 4 big universities only, ST5 out) |
 | v3.9 | Functionality (was v3.2) | Travel time from Rynek or Dworzec (12) | Opus | after v3.7 |
 | v3.10 | UI/UX (was v3.3) | Parent summary (9) | Opus | after v3.8 |
 | v4.0 | Major | Exact thresholds (UJ and UJ CM, SD5), GUS 2024 pay (6, ST5), points estimate (8) | Opus + Sonnet | Szymon 24 Nov 2026: "can wait for 4.0" |
@@ -2461,3 +2461,61 @@ ST1–ST3 and SR3.1 must be in. One task = one commit; `git pull --rebase` befor
    Push to main.
 
 **Not in v3.1:** travel from the centre (12) and points estimate (8, with SD5 UJ thresholds) → v3.2; parent summary (9) → v3.3.
+
+**v3.8 concrete plan (planner, 27 Nov 2026; this is the ST list above, renumbered: read "v3.1" as v3.8, `uk.json` as `ua.json`). Set `3.8.0`.**
+State before: 3.7.0 pushed 26 Nov (Ukraine data stream); appVersion 3.7.0. Tests on 27 Nov: `snapshot.mjs` (30 kids), `syntax.mjs`
+(43 data files), `run.mjs` (42 of 42 cards in a top 3), `liceum.mjs`, `ui_text.py` (54 screens, Polish unchanged), `UI_LANG=en ui_text.py`
+all pass; radar unchanged (every Studia field at level 3 or 4). 128 offers, **85 without `url`** (uj 14, agh 14, ujcm 10, uek 10, uken 10,
+pk 6, ksm 5, uafm 4, awf 3, ur 2, asp 2, one each zse1, sapsp, ignatianum, ug, prz). 99 sources, all `asOf` + `status`. The offer `url` is
+not shown anywhere on screen yet. Note: since 3.7 the live "Kierunki" view is the story section "Kierunki z bliska" (`story.js` about line
+205: `elist` tabs + `epanel` = `ctx.panelHtml`), not the old `vPartDirections` road; ST2 targets the story panel and the offer detail.
+**Size and trim.** Web research for 85 links is the expensive part (the 22/23 Nov runs hit the usage limit). So v3.8 is **trimmed, not
+split** (no renumbering): **ST5 is out** (GUS pay is v4.0, Szymon 24 Nov); **ST1 is time-boxed** to the four big universities (UJ + UJ CM,
+AGH, UEK, UKEN = 58 offers); PK and the 21 small-school offers wait (listed in Y-cut below). ST2 works with whatever `url` exists (no dead
+link when missing). About 1.5 h. Order: ST1 (two Sonnet helpers in parallel, in the background) while Opus does ST3 → ST2 → ST4
+(+ one Sonnet translation helper for all new strings) → layout check → SR3.8.
+**This release changes the Polish app on purpose** (new link, compare row, footer link, page, plinth in the compass). Before any
+`--update`, diff the old and new dumps and make sure **only** these differ; write the diff summary in the commit message. Scoring of all 30
+kids must stay unchanged. Every new text through `t()` with strings in `pl.json`, `ua.json` **and** `en.json` (UK-G, key-parity test).
+University names stay Polish in every language; source titles stay Polish (as decided in v3.5).
+
+- [ ] **ST1 (Sonnet x2, web, in parallel; time box 30 min in total; Opus spot-checks 5 links).** Official course or recruitment page as
+  `url` on offers without one. Helper A: UJ (14) + UJ CM (10), start from the catalogue `studia.uj.edu.pl/kierunki` (the 3 UJ offers that
+  already have a url show the pattern). Helper B: AGH (14), UEK (10), UKEN (10), from each university's own recruitment catalogue.
+  Brief: one listing page per university first, open a single course page only when the listing name is ambiguous; official pages only
+  (never otouczelnie or lists); never from memory; programme for 2026/27 or the current catalogue; return id → url + page title. No change to
+  `requires`, thresholds or `status` (differences go here as notes). Files: `studia/data/db/pl/krakow/offers.json`. One commit per helper
+  ("Kompas Studia v3.8 ST1: url for N UJ and UJ CM offers"). `tests/syntax.mjs`: add a printed count "studia offers without url: N" (keep
+  the test non-strict; strict only when N = 0). Check: `syntax.mjs` passes, the count and the ids still missing are written here.
+- [ ] **ST3 (Opus, 25 min) Strengths as the foundation (item 10).** `studia/story.js`, `sceneSvg` (line 22: `sy = 664`): move the strengths
+  lower, onto **one plinth** (flat base, CSS-variable colours) with the strengths as stones, thin lines rising to the compass; keep the
+  `in in-<id>` classes (scroll highlight); grow the `viewBox`; 1–5 stones centred; long names via `wrap`. No new text (if a label is needed,
+  `t()` in three languages). Check: scroll steps still highlight; personas with 1 and 5 strengths; 375/1280 px, three looks; `?lang=ua`
+  (longer Cyrillic names wrap). One commit.
+- [ ] **ST2 (Opus, 25 min) "strona kierunku ↗" (item 11, screen).** New key `app.offer.page_link` (pl "strona kierunku ↗", ua and en from
+  the helper). Show the university name and the link (`target="_blank" rel="noopener"`) under each study in the story panel
+  (`ctx.panelHtml`, the `vstudy` rows) and in the offer detail; the link must not open the detail (stop the click); tap area ≥ 44 px on
+  phones. Compare table and swipe cards: one row `app.compare.row_page` ("strona"). One-page report: the link next to each option. Markdown
+  export (`core/export.js`): the url after the offer line **only if** it fits the current line format without breaking `snapshot.mjs`
+  for Liceum; otherwise leave the export as it is and say so. Offers without `url`: name only, no link. Files: `studia/app.js`,
+  `studia/story.js`, `studia/style.css`, `studia/i18n/*.json`. One commit.
+- [ ] **ST4 (Opus code + Sonnet strings, 20 min) Sources page (item 7).** Route `#/zrodla` (same pattern as `slownik`/`ukraina`: screen
+  object + `vSources`), footer link in `index.html` next to the Ukraine link (`data-i18n="foot.sources"`). Content like Liceum
+  (`liceum/app.js` line 674): lead with the count and how many have `status` other than `sourced`, then every source of
+  `studia/data/sources.json` once: title (Polish), link in a new tab, `asOf`, "do sprawdzenia" mark. Keys `app.src.page.*`. Do **not**
+  refactor Liceum (copy the pattern; a shared helper only if it is under 20 lines and `liceum.mjs` stays green). One commit.
+- [ ] **Translation helper (Sonnet, one call, after ST2–ST4 keys exist).** Brief: `studia/i18n/glossary.json`, the Polish strings of the new
+  keys, rules UK-B/E/F; returns ua and en; Opus reviews against the glossary. `tools/i18n_review.py` picks up the new keys.
+- [ ] **Layout check (Opus, 10 min).** `?lang=pl|ua|en`, 375 and 1280 px, three looks (none, `?skin=pop`, `?skin=neon`), 2 test kids: panel
+  link does not push names out, compare, `#/zrodla`, plinth, report. Nothing wider than the screen, no script errors.
+- [ ] **SR3.8 (Opus) Review and release 3.8.0.** All tests (`snapshot.mjs`, `syntax.mjs`, `run.mjs`, `liceum.mjs`, `ui_text.py`,
+  `UI_LANG=en python3 kompas/tests/ui_text.py`); snapshot diffs checked before `--update`; radar re-run (must not move). Version 3.8.0 in
+  the four places (search "3.7.0" in `kompas/studia`). `REVIEWED.md`: new ua/en strings "written by AI, not yet read". Release table row
+  v3.8 → done; short "Kompas Studia v3.8.0" section in the spec doc (Claude Docs). One task = one commit; `git pull --rebase` before
+  pushing (Liceum may push the same night; keep both sides).
+- **Y-cut from v3.8 (later; the weekend review picks the slot):** `url` for PK (6) and the small schools (ksm 5, uafm 4, awf 3, ur 2, asp 2,
+  zse1, sapsp, ignatianum, ug, prz) and any big-university offer the time box did not reach; strict url test; ST5 GUS pay (v4.0).
+  The Polish transport line inside Ukrainian sentences stays for v3.9 (travel time work).
+Safest readings used (Szymon can change them before 22:45): one plinth with stones, not pillars; the link text says "strona kierunku ↗"
+in every view; the sources page is a footer link, not a tab.
+
