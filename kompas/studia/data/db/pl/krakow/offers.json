@@ -23,6 +23,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-psych",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilz/psychologia",
   "next": "praca psychologa od razu po dyplomie; psychoterapia wymaga potem kilkuletniego szkolenia"
  },
  {
@@ -50,6 +51,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-logo-uj",
+  "url": "https://studia.uj.edu.pl/kierunki/wpol/logopedia",
   "next": "logopeda w szkole, poradni albo szpitalu"
  },
  {
@@ -76,6 +78,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilg/filolo.angi",
   "next": "praca albo 2-letnie magisterskie, także w Monachium po angielsku"
  },
  {
@@ -100,6 +103,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilg/filolo.germ",
   "next": "praca z niemieckim w Krakowie albo w Bawarii"
  },
  {
@@ -128,6 +132,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfilg/filolo.ukra.drug.jezy.obcy",
   "next": "tłumaczenia, współpraca z Ukrainą albo magisterskie",
   "ukraine": {
    "type": "A",
@@ -163,6 +168,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wsmip/studia.euro",
   "next": "staż w instytucji albo magisterskie"
  },
  {
@@ -239,6 +245,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wmii/inform.anali",
   "next": "praca programisty albo 2-letnie magisterskie"
  },
  {
@@ -266,6 +273,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-lekarski",
+  "url": "https://studia.uj.edu.pl/kierunki/wlek/kierun.leka",
   "next": "po dyplomie staż i egzamin państwowy, potem kilka lat specjalizacji"
  },
  {
@@ -291,6 +299,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-pielegniarstwo",
+  "url": "https://studia.uj.edu.pl/kierunki/wnoz/pielegniarstwo",
   "next": "praca od razu po licencjacie; dyplom uznawany w całej UE",
   "firstJob": true
  },
@@ -318,6 +327,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-ratownictwo",
+  "url": "https://studia.uj.edu.pl/kierunki/wnoz/ratown.medy",
   "next": "praca w zespole ratownictwa albo na SOR; potem np. magisterskie z zdrowia publicznego",
   "firstJob": true
  },
@@ -344,6 +354,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wnoz/poloznictwo",
   "next": "praca położnej albo magisterskie",
   "firstJob": true
  },
@@ -377,6 +388,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wnoz/zdrowi.publ",
   "next": "praca w programach zdrowotnych albo magisterskie"
  },
  {
@@ -402,6 +414,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-fizjo-pub",
+  "url": "https://studia.uj.edu.pl/kierunki/wnoz/fizjoterapia",
   "next": "po dyplomie egzamin państwowy i praca fizjoterapeuty w szpitalu, przychodni albo klubie"
  },
  {
@@ -430,6 +443,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfarm/farmacja",
   "next": "praca farmaceuty w aptece, szpitalu albo przemyśle"
  },
  {
@@ -458,6 +472,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wfarm/analit.medy",
   "next": "diagnosta laboratoryjny w szpitalu albo w laboratorium"
  },
  {
@@ -491,6 +506,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/informatyka/",
   "next": "praca programisty albo 1,5-roczne magisterskie"
  },
  {
@@ -523,6 +539,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/cyberbezpieczenstwo/",
   "next": "praca w zespole bezpieczeństwa IT albo 1,5-roczne magisterskie"
  },
  {
@@ -556,6 +573,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/automatyka-i-robotyka/",
   "next": "praca przy automatyzacji produkcji i robotach albo 1,5-roczne magisterskie"
  },
  {
@@ -589,6 +607,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/energetyka/",
   "next": "praca w elektrowniach, sieciach i OZE albo 1,5-roczne magisterskie"
  },
  {
@@ -620,6 +639,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/elektrotechnika/",
   "next": "praca przy sieciach i urządzeniach elektrycznych albo 1,5-roczne magisterskie"
  },
  {
@@ -654,6 +674,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/inzynieria-biomedyczna/",
   "next": "praca przy sprzęcie medycznym i w firmach medycznych albo 1,5-roczne magisterskie"
  },
  {
@@ -688,6 +709,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/fizyka-medyczna/",
   "next": "praca przy aparaturze w szpitalach, np. w radioterapii, albo magisterskie"
  },
  {
@@ -720,6 +742,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/fizyka-techniczna/",
   "next": "praca w laboratoriach i przemyśle albo 1,5-roczne magisterskie"
  },
  {
@@ -756,6 +779,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-agh-iiad",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/inzynieria-i-analiza-danych/",
   "next": "praca analityka danych albo 1,5-roczne magisterskie"
  },
  {
@@ -790,6 +814,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/inzynieria-i-ochrona-srodowiska/",
   "next": "praca przy wodzie, powietrzu i odpadach w firmach i urzędach albo magisterskie"
  },
  {
@@ -822,6 +847,7 @@
   },
   "status": "sourced",
   "sourceId": "agh-2027",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/informatyka-i-ekonometria/",
   "next": "praca analityka w banku albo firmie, albo 2-letnie magisterskie"
  },
  {
@@ -949,6 +975,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/informatyka-stosowana-1-stopien/",
   "next": "praca programisty lub analityka systemów albo magisterskie"
  },
  {
@@ -979,6 +1006,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/finanse-i-rachunkowosc-1-stopien/",
   "next": "księgowość, analityka albo magisterskie",
   "firstJob": true
  },
@@ -1010,6 +1038,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/stosunki-miedzynarodowe-1-stopien/",
   "next": "handel zagraniczny, instytucje albo magisterskie"
  },
  {
@@ -1031,6 +1060,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-logo-uken",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/LOG-SJ/?from=field:LOG",
   "next": "logopeda w szkole, poradni albo szpitalu"
  },
  {
@@ -1059,6 +1089,7 @@
   },
   "status": "sourced",
   "sourceId": "uken-inf-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/PSY-SJ/?from=field:PSY",
   "next": "praca psychologa od razu po dyplomie; psychoterapia wymaga potem kilkuletniego szkolenia"
  },
  {
@@ -1080,6 +1111,7 @@
   },
   "status": "sourced",
   "sourceId": "uken-inf-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/PES-SJ/?from=field:PES",
   "next": "nauczyciel wspierający albo terapeuta; w Krakowie brakuje takich osób"
  },
  {
@@ -1101,6 +1133,7 @@
   },
   "status": "sourced",
   "sourceId": "uken-inf-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/FAN-SL/?from=field:FIA",
   "next": "nauczyciel angielskiego (w Krakowie brakuje) albo tłumacz"
  },
  {
@@ -1128,6 +1161,7 @@
   },
   "status": "sourced",
   "sourceId": "uken-inf-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/BEN-SL/?from=field:BEN",
   "next": "służby, administracja albo Legia Akademicka i kariera oficerska"
  },
  {
@@ -1516,6 +1550,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uken-cyber",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/CYB-SI/?from=field:CYB",
   "next": "praca w zespole bezpieczeństwa IT albo magisterskie"
  },
  {
@@ -1545,6 +1580,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wsmip/bezpie.naro",
   "next": "służby, administracja i zarządzanie kryzysowe albo magisterskie"
  },
  {
@@ -1573,6 +1609,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wpol/jezyk.pols.komu.spol",
   "next": "redakcja, komunikacja w firmach i instytucjach albo magisterskie"
  },
  {
@@ -1601,6 +1638,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wpol/filolo.pols.nauc",
   "next": "nauczyciel polskiego po 2-letnich magisterskich"
  },
  {
@@ -1634,6 +1672,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wziks/dzienn.komu.spol",
   "next": "media, komunikacja i promocja albo magisterskie"
  },
  {
@@ -1657,6 +1696,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wmii/informatyka",
   "next": "praca programisty albo 2-letnie magisterskie"
  },
  {
@@ -1683,6 +1723,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wnoz/elektroradiologia",
   "next": "badania RTG, tomografia i rezonans w szpitalach albo magisterskie",
   "firstJob": true
  },
@@ -1706,6 +1747,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-2026",
+  "url": "https://studia.uj.edu.pl/kierunki/wlek/kierun.leka.dent",
   "next": "po dyplomie staż i egzamin państwowy, potem praca dentysty"
  },
  {
@@ -1753,6 +1795,7 @@
   },
   "status": "sourced",
   "sourceId": "uken-inf-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/PRK-SL/?from=field:PRK",
   "next": "dział komunikacji w firmie, urzędzie albo agencja PR; albo magisterskie"
  },
  {
@@ -1811,6 +1854,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/marketing-i-komunikacja-rynkowa-1-stopien/",
   "next": "marketing, sprzedaż, e-commerce w firmie albo agencji; albo magisterskie"
  },
  {
@@ -1839,6 +1883,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/zarzadzanie-1-stopien/",
   "next": "sprzedaż, zakupy, praca z klientem i zespołem; albo magisterskie"
  },
  {
@@ -1869,6 +1914,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/miedzynarodowe-stosunki-gospodarcze-1-stopien/",
   "next": "handel zagraniczny, eksport i import w firmach; albo magisterskie"
  },
  {
@@ -1895,6 +1941,7 @@
   },
   "status": "sourced",
   "sourceId": "uken-inf-2026",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/EKO-SL/?from=field:EKO",
   "next": "sklepy internetowe, sprzedaż i analiza w firmach; albo magisterskie"
  },
  {
@@ -1952,6 +1999,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uken-isd",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/DES-SL/?from=field:DES",
   "next": "projektant w studiu albo firmie; albo magisterskie"
  },
  {
@@ -1972,6 +2020,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uken-isd",
+  "url": "https://usosirk.uken.krakow.pl/pl/offer/2026_2027_Z_I_1_1/programme/KOW-SL/?from=field:KOW",
   "next": "grafik, projektant identyfikacji i stron, praca w agencji; albo magisterskie"
  },
  {
@@ -2026,6 +2075,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-agh-wh",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/tworzenie-przestrzeni-wirtualnych-i-gier/",
   "next": "projektant gier i światów wirtualnych, twórca VR, praca w studiu gier; albo magisterskie"
  },
  {
@@ -2057,6 +2107,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-agh-wh",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/informatyka-spoleczna/",
   "next": "analityk danych o ludziach, specjalista social media, UX research, e-commerce; albo magisterskie"
  },
  {
@@ -2089,6 +2140,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-agh-wh",
+  "url": "https://rekrutacja.agh.edu.pl/kierunki-studiow/kulturoznawstwo/",
   "next": "projekty kulturalne i medialne, grafika i komunikacja wizualna; albo magisterskie"
  },
  {
@@ -2123,6 +2175,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-film",
+  "url": "https://studia.uj.edu.pl/kierunki/wziks/filmoz.wied.nowy.medi",
   "next": "film, telewizja, gry i media cyfrowe: redakcja, programowanie treści, krytyka; albo magisterskie"
  },
  {
@@ -2152,6 +2205,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/global-business-services-1-stopien/",
   "next": "centra usług dla firm (finanse, obsługa klienta, zakupy) w Krakowie, praca po angielsku; albo magisterskie"
  },
  {
@@ -2180,6 +2234,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/przedsiebiorczosc-i-innowacje-w-gospodarce-1-stopien/",
   "next": "własna firma, start-upy, sprzedaż i rozwój produktów; albo magisterskie"
  },
  {
@@ -2208,6 +2263,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/innowacje-w-biznesie-1-stopien/",
   "next": "nowe produkty i usługi, e-commerce, marketing w firmie; albo magisterskie"
  },
  {
@@ -2296,6 +2352,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uek-zasady-2026",
+  "url": "https://studiuj.uek.krakow.pl/forma-studiow/turystyka-i-rekreacja-1-stopien/",
   "next": "biura podróży, hotele, organizacja wydarzeń i wyjazdów; albo magisterskie"
  },
  {
@@ -2320,6 +2377,7 @@
   },
   "status": "sourced",
   "sourceId": "otou-uj-hsz",
+  "url": "https://studia.uj.edu.pl/kierunki/whist/histor.sztu",
   "next": "muzea, galerie, ochrona zabytków, rynek sztuki, turystyka kulturowa; albo magisterskie"
  },
  {

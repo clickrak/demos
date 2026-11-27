@@ -35,6 +35,7 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
   const offers = json['studia/data/db/pl/krakow/offers.json'] || [];
   refs('studia offer source', offers.map(o => o.sourceId), src);
   for (const o of offers) if (o.url !== undefined && !/^https?:\/\//.test(o.url)) fail(`studia offer "${o.id}": url must be http(s)`); // v2.7: official page per offer
+  { const noUrl = offers.filter(o => !o.url); console.log(`studia offers without url: ${noUrl.length}${noUrl.length ? ' (' + noUrl.map(o => o.id).join(', ') + ')' : ''}`); } // v3.8: printed count, strict when 0
   for (const o of offers) if (o.ukraine !== undefined) { // v3.7: Ukraine-linked offer (A philology, B joint diploma, C taught in Ukrainian/English, F reconstruction)
     const u = o.ukraine, keys = ['type', 'note', 'sourceId', 'url', 'partner'];
     if (!u || typeof u !== 'object') { fail(`studia offer "${o.id}": ukraine must be an object`); continue; }
