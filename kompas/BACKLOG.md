@@ -10,6 +10,7 @@ Three parts:
 "Next minor: v2.15" and "Liceum Ukrainian track"). Reason: he wants to share Liceum with the Ukrainian children's choir group in Kraków
 (kids about 12–14, many families new to the Polish school system) and the app must be in Ukrainian first. The old v2.15 data plan
 moves to v2.18 unchanged; V1 sports and the rest follow after.**
+**v2.15 (Ukrainian 1, interface) released 28 Nov 2026; next: v2.16 (Ukrainian 2, the data texts of the flow).**
 
 **Coverage waves (since 21 Nov 2026, 15:13):** they come after the Liceum Ukrainian track in Part 1 and before every other task; UI/UX work waits until they are done.
 
@@ -160,7 +161,29 @@ UI/UX moved after v3.0: calm look and exam taps v3.1, profile drawings v3.2, par
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
-## Next minor: v2.15 (planned 2026-11-27, 22:25, by Szymon's request: Ukrainian 1, foundation + main interface)
+## Next minor: v2.16 (planned 2026-11-28 by the v2.15 release run: Ukrainian 2, everything the kid reads in the flow)
+
+Current `appVersion` 2.15.0 (released 28 Nov 2026). Goal: with `?lang=ua` the kid reads Ukrainian on every step of the flow; the Polish
+app stays identical (`python3 kompas/tests/liceum_ui.py` must say "unchanged"). Same overlay method as Studia v3.3
+(`studia/i18n/ua/*.json`, `core/overlay.js`): Polish data files stay the only source of facts, `liceum/i18n/ua/*.json` hold only text
+fields keyed by the same ids; a missing text falls back to Polish. **School names, class codes and class labels stay Polish.**
+Use `liceum/i18n/glossary.json` and the wording already in `liceum/i18n/ua.json`. One commit per task. Order: 1 → 2 → 3 → 4.
+
+1. [ ] **UA4 (Opus) Overlay loading for Liceum data.** In `load()` keep the Polish originals, lay `liceum/i18n/ua/{questions,opportunities,
+   profiles,dimensions,strengths}.json` over them when the language is `ua` (reuse `core/overlay.js`; the shared strengths and dimensions can
+   reuse Studia's `studia/i18n/ua/{strengths,dimensions}.json` if the ids match). Region `transit` names stay. Add a strict overlay
+   test in `syntax.mjs` like Studia's (every text field of every item covered, ids unknown to Polish fail). Check: all tests; Polish snapshot unchanged.
+2. [ ] **UA5 (Sonnet) Translate the Liceum data texts:** `questions.json` (activities, situations, worlds name + hint, reflection),
+   `opportunities.json` (direction name, whoYouHelp, dayInLife, experiment, afterSchool, roles), `profiles.json` (name, short, desc).
+   Simple words for 12–14; official Polish school terms in brackets the first time. Check: the overlay test; `UI_LANG=ua python3 kompas/tests/liceum_ui.py`
+   and read P1/P4/P8 screens.
+3. [ ] **UA6 (Opus) Look and review.** Click-through at 375 and 1280 px in three looks with `?lang=ua`: worlds tiles, activity cards
+   (longer words), situations chips, compass labels (`profile.short` in the SVG must not overlap), profile page, export file. Add the
+   data texts to `liceum/i18n/review-ua.md`.
+4. [ ] **R2.16 (Opus) Review and release v2.16.0** (four places, tests, spec doc section, push; link `…/kompas/liceum/?lang=ua`).
+   If the budget runs low: release task 1 + the questions part of task 2 only, never a half-translated screen.
+
+## Minor v2.15 (planned 2026-11-27, 22:25, by Szymon's request: Ukrainian 1, foundation + main interface; released 2026-11-28 as 2.15.0)
 
 Current `appVersion` 2.14.0. **Replaces the data plan written earlier tonight** (that plan is kept below unchanged as "Minor v2.18").
 Goal: the whole Liceum interface can be switched to Ukrainian with `?lang=ua` and a PL / UA chip, the Polish app stays identical.
@@ -168,24 +191,24 @@ Copy what Studia did in v3.1 + v3.2 (24 Nov, Part 3, "Ukrainian version"): same 
 UK-A to UK-H and `studia/i18n/glossary.json`. **Language code `ua`, never `uk`** (only `<html lang="uk">` via `HTML_LANG`).
 No English chip in Liceum yet (EN comes after the Ukrainian track). One commit per task (rule 8). Order: 1 → 2 → 3 → 4.
 
-1. [ ] **UA1 (Opus) Texts out of the code.** Move every Polish screen text of `liceum/app.js` (about 130 lines with Polish text),
+1. [x] **UA1 (Opus) Texts out of the code.** *Done 28 Nov: 479 keys in `liceum/i18n/pl.json`; new test `tests/liceum_ui.py` (Polish text of 79 screens and result files unchanged).* Move every Polish screen text of `liceum/app.js` (about 130 lines with Polish text),
    `liceum/points.js` (`LEVEL_TXT`, `CHANCE_TXT`, `LANG_TXT`, `ENTRY_KIND`, `BI_TAG`, `SUBJECT_NAME` display names via `setNames`)
    and `liceum/index.html` (`data-i18n` like Studia) into `liceum/i18n/pl.json`; use `t()`, `plural()`, `num()` from `core/i18n.js`
    (do not write a second i18n). Reuse `core/i18n/{pl,ua}.json` for shared texts (strengths, export). Language chip PL / UA in the
    header, `?lang=` in the URL, `<html lang>` set, local Cyrillic fonts from `studia/fonts` (no new network call).
    Data stays Polish in this task (questions, profiles, schools). Check: all tests; the Polish app looks and reads exactly as 2.14.0
    (add a Liceum text snapshot like `tests/snapshot.mjs` / `tests/ui_text.py` if Studia's does not cover Liceum).
-2. [ ] **UA2 (Sonnet) Ukrainian interface texts.** `liceum/i18n/ua.json` with every key of `pl.json`. Simple words for a 12–14 year
+2. [x] **UA2 (Sonnet) Ukrainian interface texts.** *Done 28 Nov: 480 keys in `liceum/i18n/ua.json`, 11 terms in `liceum/i18n/glossary.json` (Liceum glossary kept apart from Studia's, which also needs English fields).* `liceum/i18n/ua.json` with every key of `pl.json`. Simple words for a 12–14 year
    old and for parents who do not know the Polish school system. Keep official Polish terms in brackets the first time on a screen:
    ліцей (liceum), технікум (technikum), галузева школа (szkoła branżowa), клас з поглибленим вивченням / розширені предмети
    (rozszerzenia), прохідний бал (próg punktowy), іспит восьмикласника (egzamin ósmoklasisty). Add these to the glossary
    (Liceum section) with the same check as Studia. School and class names stay Polish everywhere (Szymon, 24 Nov, same rule as
    universities). Footer note that the translation was made by AI and not yet read by a native speaker (copy Studia's `foot.ai`).
    Check: `tests/syntax.mjs` for `ua`; no missing key (a missing key shows the key itself).
-3. [ ] **UA3 (Opus) Look and review.** Click-through with `?lang=ua` at 375 and 1280 px in the three looks: start, questions screen,
+3. [x] **UA3 (Opus) Look and review.** *Done 28 Nov: header fixed for phones (look button hidden ≤ 480 px, chapters scroll at 320 px), school drawing labels translated, `liceum/i18n/review-ua.md` written.* Click-through with `?lang=ua` at 375 and 1280 px in the three looks: start, questions screen,
    compass, classes, school card, map, export file. Longer Ukrainian words must not break buttons or chips. Write
    `liceum/i18n/review-ua.md` (list of screens and terms for one read by a Ukrainian speaker; Szymon's wife may read it).
-4. [ ] **R2.15 (Opus) Review and release v2.15.0**: 2.15.0 in the four places, tests, spec doc section "Kompas Liceum v2.15.0
+4. [x] **R2.15 (Opus) Review and release v2.15.0** *(released 28 Nov 2026)*: 2.15.0 in the four places, tests, spec doc section "Kompas Liceum v2.15.0
    (Ukrainian 1)", push. In the notification give the link https://clickrak.github.io/demos/kompas/liceum/?lang=ua .
    **If the budget runs low:** release task 1 alone as 2.15.0 (Polish only, chip hidden) and move tasks 2–3 to v2.16; never release
    a half-translated screen with the chip visible.
@@ -194,7 +217,7 @@ No English chip in Liceum yet (EN comes after the Ukrainian track). One commit p
 
 | Release | Content | Agent |
 |---|---|---|
-| v2.15 | Ukrainian 1: foundation + interface (above) | Opus + Sonnet |
+| v2.15 | Ukrainian 1: foundation + interface — **released 28 Nov 2026** | Opus + Sonnet |
 | v2.16 | Ukrainian 2: everything the kid reads in the flow: questions, activities, worlds, situations, profiles (compass), directions, personas, opportunities, parent note, export file. Overlays in `liceum/i18n/ua/*.json` like `studia/i18n/ua/` | Sonnet (translation) + Opus (review, layout) |
 | v2.17 | Ukrainian 3: classes explained (what "mat-fiz-inf", "biol-chem" mean, subject names), short help page "How choosing a liceum works in Poland" for Ukrainian families (8th-grade exam, points, electronic recruitment, dates; **every fact with an opened source**, kuratorium / city pages), Słowniczek link in the footer like Studia | Opus + Sonnet |
 | v2.18 | The data plan from 27 Nov evening (K5, links, Tychy check, V1a, V1b), unchanged | Opus + Sonnet |
@@ -249,7 +272,7 @@ One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5 → 6.
    threshold, areas not mixed, new schools waiting); click-through at 375 and 1280 px in three looks, compass and map first;
    2.15.0 in the four places and `dataVersion`; radar re-run; "Database status" updated; spec doc section; push.
 
-**Database status (27 Nov 2026, evening re-check; no data change since 2.14.0).** Run: three tests (green), `old_sources.py`, a count
+**Database status (28 Nov 2026, v2.15.0 release: no data change since 2.14.0, numbers below still hold; three tests green, `old_sources.py` 0 old Liceum sources besides `ty-informator-2025`).** Run: three tests (green), `old_sources.py`, a count
 over `schools.json`. The Geocode Action cleared `ka-plsp`: **0 waiting, every school has an address and a map point.**
 
 | Area | Schools in DB / known | Public missing (next in order) | Missing `www` | Classes "check" | No threshold (excl. exam classes) | No `scored` | No `extended` | Old sources (> 12 months) |
@@ -1287,7 +1310,8 @@ Liceum jobs (D2–D6, U6) are now scheduled in Part 1; Studia jobs stay here.
    ```
    node kompas/tests/syntax.mjs && node kompas/tests/run.mjs && node kompas/tests/liceum.mjs
    ```
-   All three must exit with 0. Then open the changed screen at 375 px and 1280 px wide in all three looks
+   All three must exit with 0. For Liceum screen changes also run `python3 kompas/tests/liceum_ui.py` (Polish text must be
+   "unchanged"; `--update` only when a Polish text change is wanted). Then open the changed screen at 375 px and 1280 px wide in all three looks
    (`?skin=neon`, `?skin=pop`, none) and make sure nothing is wider than the screen.
    Test people are under "Tryb testowy" on the start screen when the address has `?test`.
 7. **After data changes** set `dataVersion` in that app's `data/config.json` to today's date. After screen changes raise the
