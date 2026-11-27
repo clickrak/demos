@@ -24,6 +24,10 @@ Interface languages: Polish (default), English (`?lang=en`), Ukrainian (`?lang=u
 - Travel times are rough indicative estimates only (Kompas is not a routing app).
 - The app is meant for orientation, with minimal typing: sliders, choices and taps.
 
+## License
+
+Free for personal and non-profit use (code: PolyForm Noncommercial 1.0.0; data and texts: CC BY-NC 4.0). Commercial use needs the author's written permission first. See [LICENSE.md](https://github.com/clickrak/demos/blob/main/kompas/LICENSE.md).
+
 ## Optional
 
 - [Source repository](https://github.com/clickrak/demos): code and backlog (`kompas/BACKLOG.md`).
