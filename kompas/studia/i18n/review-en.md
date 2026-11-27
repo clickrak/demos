@@ -3,7 +3,7 @@
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.
 
-Interface keys: 882, translated: 882. Data texts: 270.
+Interface keys: 891, translated: 891. Data texts: 270.
 
 | key | Polski | English | correction |
 |---|---|---|---|
@@ -889,6 +889,15 @@ Interface keys: 882, translated: 882. Data texts: 270.
 | `app.ukr.page.agh_dd` | AGH ma umowy o podwójnym dyplomie także z uczelniami na Ukrainie (lista na stronie AGH). | AGH has double-diploma agreements with universities in Ukraine too (list on the AGH page). |  |
 | `app.ukr.page.matura` | Jeśli uczysz się w polskiej szkole: CKE ma egzamin maturalny z języka ukraińskiego (informator od roku szkolnego 2025/2026). | If you go to a Polish school: CKE has a matura exam in Ukrainian (guide valid from the 2025/2026 school year). |  |
 | `app.compare.row_ukr` | Ukraina | Ukraine |  |
+| `app.offer.page_link` | strona kierunku ↗ | programme page ↗ |  |
+| `app.offer.page_link_aria` | Strona kierunku {name} ({inst}) na stronie uczelni, otwiera się w nowej karcie | Programme page for {name} ({inst}) on the university website, opens in a new tab |  |
+| `app.compare.row_page` | Strona kierunku | Programme page |  |
+| `foot.sources` | Źródła danych | Data sources |  |
+| `app.src.page.kicker` | Informacja | Information |  |
+| `app.src.page.title` | Źródła danych | Data sources |  |
+| `app.src.page.lead` | Każda informacja w Kompasie ma źródło. Tu jest pełna lista. Źródła: {n}, w tym „do sprawdzenia”: {check}. | Every fact in Kompas has a source. Here is the full list. Sources: {n}, marked “to check”: {check}. |  |
+| `app.src.page.check` | do sprawdzenia | to check |  |
+| `app.src.page.note` | Kompas nie łączy się z tymi stronami w czasie działania: dane są zapisane w aplikacji, a źródła możesz sprawdzić sam. Data przy źródle to miesiąc, z którego są dane. | Kompas does not connect to these sites while you use it: the data is saved in the app, and you can check the sources yourself. The date next to a source is the month the data is from. |  |
 | `questions.activities[a1].text` | Znaleźć błąd w programie albo w arkuszu kalkulacyjnym. | Find a bug in a program or a spreadsheet. |  |
 | `questions.activities[a2].text` | Wytłumaczyć koledze trudny temat tak, żeby zrozumiał. | Explain a hard topic to a friend so that they understand it. |  |
 | `questions.activities[a3].text` | Zaopiekować się kimś po kontuzji. | Look after someone who has an injury. |  |

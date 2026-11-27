@@ -238,6 +238,11 @@ body.story input[type=text] { font-size: 17px; padding: 14px 16px; border-radius
 
 /* studies in the road: details only on click */
 .vroad .vstudy { cursor: pointer; }
+.vroad .vsep { stroke: var(--line); stroke-width: 1; } /* v3.8 link strip */
+.vroad .vlink .vlink-hit { fill: transparent; stroke: none; }
+.vroad .vlink .vlink-t { fill: var(--accent); font: 600 14px var(--sans2); text-decoration: underline; }
+.vroad .vlink:hover .vlink-t, .vroad .vlink:focus-visible .vlink-t { fill: var(--ink); }
+.vroad .vlink:focus-visible { outline: none; } .vroad .vlink:focus-visible .vlink-hit { stroke: var(--ink); stroke-width: 2; }
 .vroad .vstudy:hover rect, .vroad .vstudy:focus-visible rect { stroke: var(--ink); }
 .vroad .vstudy:focus-visible { outline: none; }
 .vroad .vstudy.sel rect { stroke: var(--accent); stroke-width: 2.5; fill: var(--accent-soft); }

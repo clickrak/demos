@@ -713,5 +713,14 @@
  "app.ukr.page.agh_fee": "AGH: obywatele Ukrainy, którzy przyjechali do Polski od 24 lutego 2022 r. i mają ochronę czasową (do 4 marca 2027 r.), nie płacą za studia stacjonarne po polsku.",
  "app.ukr.page.agh_dd": "AGH ma umowy o podwójnym dyplomie także z uczelniami na Ukrainie (lista na stronie AGH).",
  "app.ukr.page.matura": "Jeśli uczysz się w polskiej szkole: CKE ma egzamin maturalny z języka ukraińskiego (informator od roku szkolnego 2025/2026).",
- "app.compare.row_ukr": "Ukraina"
+ "app.compare.row_ukr": "Ukraina",
+ "app.offer.page_link": "strona kierunku ↗",
+ "app.offer.page_link_aria": "Strona kierunku {name} ({inst}) na stronie uczelni, otwiera się w nowej karcie",
+ "app.compare.row_page": "Strona kierunku",
+ "foot.sources": "Źródła danych",
+ "app.src.page.kicker": "Informacja",
+ "app.src.page.title": "Źródła danych",
+ "app.src.page.lead": "Każda informacja w Kompasie ma źródło. Tu jest pełna lista. Źródła: {n}, w tym „do sprawdzenia”: {check}.",
+ "app.src.page.check": "do sprawdzenia",
+ "app.src.page.note": "Kompas nie łączy się z tymi stronami w czasie działania: dane są zapisane w aplikacji, a źródła możesz sprawdzić sam. Data przy źródle to miesiąc, z którego są dane."
 }

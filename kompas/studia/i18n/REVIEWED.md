@@ -11,3 +11,4 @@ When the whole interface has been read, remove the AI notice (`foot.ai`) in the 
 2026-11-24, Sonnet + Opus (AI), Ukrainian card texts (42 cards, `studia/i18n/ua/opportunities.json`), written; not yet read by a native speaker (in `review-ua.md`)
 2026-11-25, Sonnet + Opus (AI), Ukrainian offer texts (126 offers, `studia/i18n/ua/offers.json`) and study level names (`levelNames`), written; not yet read by a native speaker (in `review-ua.md`)
 2026-11-26, Sonnet + Opus (AI), Ukraine page and notes (`app.ukr.*`, `core.export.*ukr*`, `ukraine.note`, 2 new offers), written; not yet read by a native speaker (in `review-ua.md`)
+2026-11-27, Sonnet + Opus (AI), v3.8 strings (`app.offer.page_link*`, `app.compare.row_page`, `foot.sources`, `app.src.page.*`) in Ukrainian and English, written; not yet read by a native speaker

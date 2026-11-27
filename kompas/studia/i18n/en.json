@@ -713,5 +713,14 @@
  "app.ukr.page.agh_fee": "AGH: Ukrainian citizens who came to Poland from 24 February 2022 and have temporary protection (until 4 March 2027) do not pay for full-time studies in Polish.",
  "app.ukr.page.agh_dd": "AGH has double-diploma agreements with universities in Ukraine too (list on the AGH page).",
  "app.ukr.page.matura": "If you go to a Polish school: CKE has a matura exam in Ukrainian (guide valid from the 2025/2026 school year).",
- "app.compare.row_ukr": "Ukraine"
+ "app.compare.row_ukr": "Ukraine",
+ "app.offer.page_link": "programme page ↗",
+ "app.offer.page_link_aria": "Programme page for {name} ({inst}) on the university website, opens in a new tab",
+ "app.compare.row_page": "Programme page",
+ "foot.sources": "Data sources",
+ "app.src.page.kicker": "Information",
+ "app.src.page.title": "Data sources",
+ "app.src.page.lead": "Every fact in Kompas has a source. Here is the full list. Sources: {n}, marked “to check”: {check}.",
+ "app.src.page.check": "to check",
+ "app.src.page.note": "Kompas does not connect to these sites while you use it: the data is saved in the app, and you can check the sources yourself. The date next to a source is the month the data is from."
 }

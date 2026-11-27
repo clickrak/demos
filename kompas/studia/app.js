@@ -1,4 +1,4 @@
-// Kompas Studia v3.7.0. Screens, navigation, results, export.
+// Kompas Studia v3.8.0. Screens, navigation, results, export.
 import { scoreAll, provenStrengths, pathSteps, planFocus, planItems, WHERE, isWhere, proofText, declarationHelp, compareIds, subjectFit, ukraineInResults } from '../core/scoring.js';
 import { buildMarkdown, fileName, parseSaved, payLabel } from '../core/export.js';
 import { icon, scenArt, FORCE_ICON } from './icons.js';
@@ -192,10 +192,12 @@ function railHtml(s) {
 // The glossary page (Ukrainian interface) is not a step of the flow, so it stays out of `screens`.
 const glossaryScreen = { id: 'slownik', ch: null, view: vGlossary };
 const ukrScreen = { id: 'ukraina', ch: null, view: vUkraine }; // v3.7: information page for a holder of a Ukrainian school certificate
+const srcScreen = { id: 'zrodla', ch: null, view: vSources }; // v3.8: every source of the app on one page
 function current() {
   const id = (location.hash.match(/^#\/([\w-]+)/) || [])[1] || 'start';
   if (id === 'slownik') return glossaryScreen;
   if (id === 'ukraina') return ukrScreen;
+  if (id === 'zrodla') return srcScreen;
   return screens.find(s => s.id === id) || screens[0];
 }
 
@@ -291,6 +293,17 @@ function vUkraine() {
   return `<span class="kicker2">${t('app.ukr.kicker')}</span><h1>${t('app.ukr.page_title')}</h1><p class="lead">${t('app.ukr.page_lead')}</p>
     <div class="card"><h3>${t('app.ukr.facts')}</h3><ul class="ukrfacts">${lines}</ul><p class="small muted">${t('app.ukr.check')}</p></div>
     <div class="card"><h3>${t('app.ukr.studies')}</h3>${ukrList(ukrAll())}<p class="small muted">${t('app.ukr.info')}</p></div>
+    <div class="nav"><button class="btn ghost" data-go="start">${t('gloss.back')}</button></div>`;
+}
+
+// v3.8: "Źródła danych", like Liceum's page: every source once, title (Polish), link in a new tab, date of the data.
+function vSources() {
+  const all = [...data.sources].sort((a, b) => a.title.localeCompare(b.title, 'pl'));
+  const nCheck = all.filter(x => x.status !== 'sourced').length;
+  return `<span class="kicker2">${t('app.src.page.kicker')}</span><h1>${t('app.src.page.title')}</h1>
+    <p class="lead">${t('app.src.page.lead', { n: all.length, check: nCheck })}</p>
+    <div class="card"><ul class="srclist">${all.map(x => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> <span class="small muted">· ${esc(x.asOf || '')}</span>${x.status !== 'sourced' ? ` <span class="badge warn">${t('app.src.page.check')}</span>` : ''}</li>`).join('')}</ul>
+    <p class="small muted">${t('app.src.page.note')}</p></div>
     <div class="nav"><button class="btn ghost" data-go="start">${t('gloss.back')}</button></div>`;
 }
 
@@ -714,11 +727,13 @@ function toggleStar(id) {
   if (w) w.innerHTML = declarationHtml(scoreAll(A, data));
   refreshCompare();
 }
+// v3.8: the official course page of an offer, opened in a new tab; nothing when the offer has no url (no dead link).
+const pageLink = o => /^https?:\/\//.test(o.url || '') ? `<a class="plink" href="${esc(o.url)}" target="_blank" rel="noopener">${t('app.offer.page_link')}</a>` : '';
 function offerHtml(o, chk) {
   const c = campus(o.campus);
   const route = routeUrl(c);
   return `<div class="offer">
-    ${starBtn(o)}<b>${esc(o.name)}</b>${plName(o)}, ${esc(o.institution)}<br>
+    ${starBtn(o)}<b>${esc(o.name)}</b>${plName(o)}, ${esc(o.institution)}${pageLink(o) ? ' · ' + pageLink(o) : ''}<br>
     <span class="muted">${esc(nm('level', o.level))} ${levelTerm(o.level)} · ${plural(o.durationYears, 'app.years', { n: num(o.durationYears) })}</span><br>
     ${chk.ok.map(t => `<span class="badge">${esc(t)}</span>`).join('')}${chk.blocked.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}${chk.flags.map(t => `<span class="badge warn">${esc(t)}</span>`).join('')}
     <div class="small">${t('app.offer.requires', { note: esc(o.requires.note || '-') })}</div>
@@ -1066,8 +1081,10 @@ function vRoadSvg(o) {
   const top = rows(roots, 48);
   const yS = 48 + top.h + 44, label = wrap(o.quick ? t('app.slot.quick') : c.card.name, 26);
   const yStud0 = yS + 100 + label.length * 17; // room for the curve to reach the trunk above the caption (2.5 fix)
-  const SH = 50, studY = studies.map((_, i) => yStud0 + i * (SH + 10));
-  const yJobs = yStud0 + studies.length * (SH + 10) + 44;
+  // v3.8: a study with an official url gets a taller box with a "strona kierunku" link at the bottom (tap area about 44 px on phones).
+  const hasUrl = st => /^https?:\/\//.test(st.offer.url || ''), shOf = st => hasUrl(st) ? 92 : 50;
+  const studY = studies.map((_, i) => yStud0 + studies.slice(0, i).reduce((a, x) => a + shOf(x) + 10, 0));
+  const yJobs = yStud0 + studies.reduce((a, x) => a + shOf(x) + 10, 0) + 44;
   const jb = rows(jobs, yJobs + 22);
   const H = yJobs + 22 + jb.h + 14;
   const curve = (x1, y1, x2, y2) => { const m = (y1 + y2) / 2; return `M${x1.toFixed(1)},${y1} C${x1.toFixed(1)},${m} ${x2.toFixed(1)},${m} ${x2.toFixed(1)},${y2}`; };
@@ -1081,12 +1098,14 @@ function vRoadSvg(o) {
   // The curve reaches the trunk above the caption, and the caption sits right of the trunk, so the line never crosses text.
   g += `<path class="vl" style="--d:.7s" pathLength="1" d="M${W / 2},${yName} C${W / 2},${yTurn - 6} ${trunkX},${yName + 4} ${trunkX},${yTurn} L${trunkX},${yJobs - 10}" stroke="${col}"/>`;
   g += `<text x="${trunkX + 18}" y="${yStud0 - 12}" class="vcap">${t('app.road.where')}</text>`;
-  studies.forEach((st, i) => { const y = studY[i], ok = st.check.reachable, warn = !ok || st.check.soft;
+  studies.forEach((st, i) => { const y = studY[i], ok = st.check.reachable, warn = !ok || st.check.soft, SH = shOf(st);
     g += `<g class="vstudy" style="--d:${(0.9 + i * 0.15).toFixed(2)}s" data-study="${esc(st.offer.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${t('app.road.study_aria', { name: esc(st.offer.name), inst: esc(st.offer.institution) })}"><path d="M${trunkX},${y + SH / 2} H${trunkX + 20}" stroke="${col}" class="vtick"/><circle cx="${trunkX}" cy="${y + SH / 2}" r="6" fill="var(--card)" stroke="${col}" stroke-width="3"/>
       <rect x="${trunkX + 20}" y="${y}" width="${W - trunkX - 32}" height="${SH}" rx="12" class="${warn ? 'warnbox' : ''}"/>
       <text x="${trunkX + 34}" y="${y + 21}" class="vst">${esc(st.offer.name.length > 30 ? st.offer.name.slice(0, 29) + '…' : st.offer.name)}</text>
-      <text x="${W - 26}" y="${y + 30}" text-anchor="end" class="vmore">›</text>
-      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc((t => t.length > 46 ? t.slice(0, 45) + '…' : t)(`${shortInst(st.offer.institution)} · ${plural(st.offer.durationYears, 'app.years', { n: num(st.offer.durationYears) })}${!ok ? ' · ' + t('app.road.needs_change') : st.check.soft ? ' · ' + t('app.road.add_ext') : ''}`))}</text></g>`; });
+      <text x="${W - 26}" y="${y + 30}" text-anchor="end" class="vmore">›</text>${hasUrl(st) ? `<path d="M${trunkX + 34},${y + 52} H${W - 26}" class="vsep"/>` : ''}
+      <text x="${trunkX + 34}" y="${y + 39}" class="vsub">${esc((t => t.length > 46 ? t.slice(0, 45) + '…' : t)(`${shortInst(st.offer.institution)} · ${plural(st.offer.durationYears, 'app.years', { n: num(st.offer.durationYears) })}${!ok ? ' · ' + t('app.road.needs_change') : st.check.soft ? ' · ' + t('app.road.add_ext') : ''}`))}</text></g>`;
+    // the link is a sibling of the study row (not inside it), so a tap opens the page and never the study detail
+    if (hasUrl(st)) g += `<a class="vlink" href="${esc(st.offer.url)}" target="_blank" rel="noopener" aria-label="${esc(t('app.offer.page_link_aria', { name: st.offer.name, inst: shortInst(st.offer.institution) }))}"><rect x="${trunkX + 20}" y="${y + 48}" width="${W - trunkX - 32}" height="54" class="vlink-hit"/><text x="${trunkX + 34}" y="${y + 77}" class="vlink-t">${t('app.offer.page_link')}</text></a>`; });
   if (!studies.length) g += `<text x="${trunkX + 20}" y="${yStud0 + 20}" class="vsub">${t('app.card.no_study')}</text>`;
   g += `<path class="vl" style="--d:1.3s" pathLength="1" d="M${trunkX},${yJobs - 10} C${trunkX},${yJobs + 4} ${W / 2},${yJobs - 4} ${W / 2},${yJobs + 6}" stroke="${col}"/>`;
   g += `<text x="12" y="${yJobs - 18}" class="vcap" text-anchor="start" dx="${trunkX + 10}">${o.quick ? t('app.road.first_job') : t('app.road.jobs')}</text>`;
@@ -1146,6 +1165,7 @@ function compareRows() {
     [t('app.compare.row_commute'), o => { const c = campus(o.campus); return c ? esc(commute(c)) : '-'; }],
     [t('app.compare.row_type'), o => o.private ? `${t('app.compare.private')}${o.cost ? `<br><span class="small muted">${esc(o.cost)}</span>` : ''}` : t('app.compare.public')],
     [t('app.compare.row_next'), o => esc(o.next || '-')],
+    [t('app.compare.row_page'), o => pageLink(o) || '–'],
     [t('app.compare.row_ukr'), o => ukrBadge(o) || '–']];
 }
 function compareHtml() {

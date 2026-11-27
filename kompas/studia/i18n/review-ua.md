@@ -3,7 +3,7 @@
 Read the right column. Write a better wording in the last column where it sounds wrong, stiff or too Polish.
 HTML tags (`<b>`, `<a ...>`) and `{placeholders}` must stay as they are.
 
-Interface keys: 882, translated: 882. Data texts: 1262.
+Interface keys: 891, translated: 891. Data texts: 1262.
 
 | key | Polski | Українська | correction |
 |---|---|---|---|
@@ -889,6 +889,15 @@ Interface keys: 882, translated: 882. Data texts: 1262.
 | `app.ukr.page.agh_dd` | AGH ma umowy o podwójnym dyplomie także z uczelniami na Ukrainie (lista na stronie AGH). | AGH має угоди про подвійний диплом і з вишами в Україні (список на сайті AGH). |  |
 | `app.ukr.page.matura` | Jeśli uczysz się w polskiej szkole: CKE ma egzamin maturalny z języka ukraińskiego (informator od roku szkolnego 2025/2026). | Якщо ти вчишся в польській школі: CKE має іспит матури з української мови (довідник діє від 2025/2026 навчального року). |  |
 | `app.compare.row_ukr` | Ukraina | Україна |  |
+| `app.offer.page_link` | strona kierunku ↗ | сторінка напряму ↗ |  |
+| `app.offer.page_link_aria` | Strona kierunku {name} ({inst}) na stronie uczelni, otwiera się w nowej karcie | Сторінка напряму {name} ({inst}) на сайті вишу, відкривається в новій вкладці |  |
+| `app.compare.row_page` | Strona kierunku | Сторінка напряму |  |
+| `foot.sources` | Źródła danych | Джерела даних |  |
+| `app.src.page.kicker` | Informacja | Довідка |  |
+| `app.src.page.title` | Źródła danych | Джерела даних |  |
+| `app.src.page.lead` | Każda informacja w Kompasie ma źródło. Tu jest pełna lista. Źródła: {n}, w tym „do sprawdzenia”: {check}. | Кожен факт у Компасі має джерело. Ось повний список. Джерел: {n}, з них «до перевірки»: {check}. |  |
+| `app.src.page.check` | do sprawdzenia | до перевірки |  |
+| `app.src.page.note` | Kompas nie łączy się z tymi stronami w czasie działania: dane są zapisane w aplikacji, a źródła możesz sprawdzić sam. Data przy źródle to miesiąc, z którego są dane. | Компас не підключається до цих сайтів під час роботи: дані збережені в застосунку, а джерела ти можеш перевірити сам. Дата біля джерела — це місяць, з якого взято дані. |  |
 | `questions.activities[a1].text` | Znaleźć błąd w programie albo w arkuszu kalkulacyjnym. | Знайти помилку в програмі чи в електронній таблиці. |  |
 | `questions.activities[a2].text` | Wytłumaczyć koledze trudny temat tak, żeby zrozumiał. | Пояснити другові складну тему так, щоб він зрозумів. |  |
 | `questions.activities[a3].text` | Zaopiekować się kimś po kontuzji. | Доглянути когось після травми. |  |

@@ -594,3 +594,6 @@ html[data-skin] .themelink { display: none !important; }
 .ukrlist, .ukrfacts { padding-left: 1.1em; }
 .ukrlist li, .ukrfacts li { margin: 8px 0; overflow-wrap: anywhere; }
 .ukrchip { margin-top: 8px; }
+/* v3.8: official course page link next to an offer; taller tap area on phones without moving the text */
+.plink { display: inline-block; padding: 12px 2px; margin: -12px 0; white-space: nowrap; font-weight: 600; }
+.srclist { padding-left: 1.1em; } .srclist li { margin: 8px 0; overflow-wrap: anywhere; } /* v3.8 sources page */
