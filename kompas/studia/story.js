@@ -10,7 +10,7 @@ const f1 = n => n.toFixed(1);
 // ---------------------------------------------------------------- scene
 // Inputs (strengths) enter the compass from below; outputs (options) leave it at N, NNE, NNW, E, W, S.
 function sceneSvg(ctx) {
-  const { r, esc, wrap, tspans } = ctx, W = 800, H = 720, C = { x: 400, y: 345 }, R = 168;
+  const { r, esc, wrap, tspans } = ctx, W = 800, H = 812, C = { x: 400, y: 345 }, R = 168;
   const opts = ctx.options(r), byDir = {};
   const dirs = ['n', 'nne', 'nnw', 'e', 'w', 's'];
   opts.filter(o => !o.quick).forEach((o, i) => { byDir[['n', 'nne', 'nnw'][i] || (o.no === 'M' ? 'e' : 'w')] = o; });
@@ -18,11 +18,15 @@ function sceneSvg(ctx) {
   const LP = { n: [400, 48], nnw: [140, 100], nne: [660, 100], e: [604, 345], w: [196, 345], s: [598, 552] };
   const anchor = { n: 'middle', nnw: 'middle', nne: 'middle', e: 'start', w: 'end', s: 'start' };
   const strengths = ctx.proven();
-  const pillW = Math.min(150, (W - 40) / Math.max(1, strengths.length) - 10);
-  const sx = i => 20 + (W - 40) / strengths.length * (i + .5), sy = 664;
+  // v3.8: the strengths are stones standing on one plinth, well below the compass; thin lines rise from them.
+  const n = Math.max(1, strengths.length), slot = Math.min(156, (W - 80) / n), pillW = slot - 12;
+  const sx = i => W / 2 + (i - (strengths.length - 1) / 2) * slot;
+  const stoneLines = strengths.map(s => wrap(ctx.strengthName(s.id), 16));
+  const stoneH = 22 + 16 * Math.max(1, ...stoneLines.map(l => l.length)), PT = 748, sy = PT - stoneH; // sy = top of the stones
+  const plX = W / 2 - n * slot / 2 - 18, plW = n * slot + 36;
   let g = `<svg id="scene" class="scene" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('story.scene.aria')}">`;
   // inputs: roads from each strength into the compass
-  strengths.forEach((s, i) => { g += `<path class="in in-${s.id}" pathLength="1" d="M${f1(sx(i))},${sy - 18} C${f1(sx(i))},${sy - 120} ${C.x},${C.y + R + 90} ${C.x},${C.y + R - 4}"/>`; });
+  strengths.forEach((s, i) => { g += `<path class="in in-${s.id}" pathLength="1" d="M${f1(sx(i))},${sy} C${f1(sx(i))},${sy - 110} ${C.x},${C.y + R + 100} ${C.x},${C.y + R - 4}"/>`; });
   // outputs: roads from the compass to each option label
   for (const d of dirs) {
     const o = byDir[d]; if (!o) continue;
@@ -53,10 +57,11 @@ function sceneSvg(ctx) {
       <text class="oname" text-anchor="${anchor[d]}" style="fill:${o.quick ? 'var(--muted)' : o.color}">${side ? tspans(lines, textX, ly + 2, 19) : tspans(lines, textX, ly - 6 - (lines.length - 1) * 9.5, 19)}</text>
       ${tag ? `<text class="otag" x="${textX}" y="${ly + 2 + lines.length * 9.5 + 12}" text-anchor="${anchor[d]}">${esc(tag)}</text>` : ''}</g>`;
   }
-  // strength pills
-  strengths.forEach((s, i) => { const x = sx(i), name = ctx.strengthName(s.id), lines = wrap(name, 16);
-    g += `<g class="spill sp-${s.id}" style="--i:${i}"><rect x="${f1(x - pillW / 2)}" y="${sy - 18}" width="${f1(pillW)}" height="${lines.length > 1 ? 50 : 36}" rx="18"/><text text-anchor="middle">${tspans(lines, x, sy + (lines.length > 1 ? 5 : 5), 17)}</text></g>`; });
-  g += `<text class="scap" x="${W / 2}" y="${sy - 34}" text-anchor="middle">${t('story.scene.strengths_cap')}</text>`;
+  // the plinth (one flat base with a step) and the strength stones standing on it
+  g += `<g class="plinth"><rect class="pl-top" x="${f1(plX)}" y="${PT}" width="${f1(plW)}" height="30" rx="6"/><rect class="pl-base" x="${f1(plX - 14)}" y="${PT + 30}" width="${f1(plW + 28)}" height="12" rx="4"/>`
+    + `<text class="scap" x="${W / 2}" y="${PT + 20}" text-anchor="middle">${t('story.scene.strengths_cap')}</text></g>`;
+  strengths.forEach((s, i) => { const x = sx(i), lines = stoneLines[i];
+    g += `<g class="spill sp-${s.id}" style="--i:${i}"><rect x="${f1(x - pillW / 2)}" y="${sy}" width="${f1(pillW)}" height="${stoneH}" rx="12"/><text text-anchor="middle">${tspans(lines, x, sy + stoneH / 2 + 5, 16)}</text></g>`; });
   return { svg: g + '</svg>', byDir };
 }
 
