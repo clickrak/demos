@@ -3,11 +3,12 @@
 const draw = (vb, inner) => `<div class="illus" aria-hidden="true"><svg viewBox="${vb}" fill="none" stroke-linecap="round" stroke-linejoin="round">${inner}</svg></div>`;
 const P = (d, c, w = 3, i = 0) => `<path class="dl" style="--i:${i};stroke:${c}" stroke-width="${w}" pathLength="1" d="${d}"/>`;
 const T = (x, y, t, c, i = 0, size = 13) => `<text class="dt" style="--i:${i};fill:${c}" x="${x}" y="${y}" font-size="${size}">${t}</text>`;
+import { t } from '../core/i18n.js';
 const circle = (cx, cy, r) => `M${cx - r} ${cy} a${r} ${r} 0 1 0 ${2 * r} 0 a${r} ${r} 0 1 0 ${-2 * r} 0`;
 
 export const LILLUS = {
   // School step: a report card with three bars (słabo / dobrze / świetnie) and a pencil ticking one.
-  szkola: draw('0 0 520 260', `
+  get szkola() { return draw('0 0 520 260', `
     ${P('M30 238 H490', 'var(--line)', 2, 0)}
     ${P('M120 30 H330 V230 H120 Z', 'var(--ink)', 3, 0)}
     ${P('M145 62 H250 M145 84 H210', 'var(--muted)', 3, 1)}
@@ -17,7 +18,7 @@ export const LILLUS = {
     ${P('M145 210 H305', 'var(--muted)', 2, 2)}
     ${P('M360 190 L440 70 L462 84 L382 204 L356 214 Z M432 82 L454 96', 'var(--l2)', 3, 5)}
     ${P('M372 120 l14 14 l26 -30', 'var(--l5)', 4, 6)}
-    ${T(150, 225, 'słabo', 'var(--muted)', 6, 11)}${T(200, 225, 'dobrze', 'var(--muted)', 6, 11)}${T(248, 225, 'świetnie', 'var(--muted)', 6, 11)}`),
+    ${T(150, 225, t('lic.soft.slabo'), 'var(--muted)', 6, 11)}${T(200, 225, t('lic.soft.dobrze'), 'var(--muted)', 6, 11)}${T(248, 225, t('lic.soft.swietnie'), 'var(--muted)', 6, 11)}`); }, // getter: texts in the chosen language (v2.15)
 
   // School catalogue: a small Kraków skyline (two church towers, Wawel tower, blocks) with map pins over it.
   szkoly: draw('0 0 520 250', `

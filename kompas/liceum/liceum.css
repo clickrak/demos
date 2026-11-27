@@ -374,3 +374,9 @@ html.big #app { overflow-x: clip; } /* pop-art offset shadows must not widen the
 @font-face { font-family: 'Inter'; font-weight: 400; font-display: swap; src: url(../studia/fonts/inter-cyrillic-ext-400-normal.woff2) format('woff2'); unicode-range: U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F; }
 @font-face { font-family: 'Inter'; font-weight: 600; font-display: swap; src: url(../studia/fonts/inter-cyrillic-ext-600-normal.woff2) format('woff2'); unicode-range: U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F; }
 @font-face { font-family: 'JetBrains Mono'; font-weight: 500; font-display: swap; src: url(../studia/fonts/jetbrains-mono-cyrillic-ext-500-normal.woff2) format('woff2'); unicode-range: U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F; }
+
+/* PL / UA switch (v2.15): never squeezed. On phones the look switch leaves the header (the start screen keeps "Wygląd")
+   so the chapters, the list heart and the switch still fit at 320–375 px. */
+.top .langsw { flex: none; }
+@media (max-width: 480px) { .top [data-skintoggle] { display: none; } }
+@media (max-width: 480px) { .top .chapters { min-width: 0; overflow-x: auto; scrollbar-width: none; } .top .chapters::-webkit-scrollbar { display: none; } }
