@@ -6,7 +6,12 @@ Three parts:
 2. **Small jobs** (D1–D8, U1–U7) left after the review of 13 Nov 2026. The roadmap points to them by id.
 3. **Kompas Studia roadmap** (started 19 Nov 2026), at the end of this file. One minor release per night, focus by rotation.
 
-**Top priority since 21 Nov 2026, 15:13: the coverage waves (next section). They come before every other task in Part 1 and Part 3, and UI/UX work waits until they are done.**
+**Top priority for Liceum since 27 Nov 2026, 22:20 (Szymon): the Ukrainian version of Kompas Liceum, releases v2.15–v2.17 (Part 1,
+"Next minor: v2.15" and "Liceum Ukrainian track"). Reason: he wants to share Liceum with the Ukrainian children's choir group in Kraków
+(kids about 12–14, many families new to the Polish school system) and the app must be in Ukrainian first. The old v2.15 data plan
+moves to v2.18 unchanged; V1 sports and the rest follow after.**
+
+**Coverage waves (since 21 Nov 2026, 15:13):** they come after the Liceum Ukrainian track in Part 1 and before every other task; UI/UX work waits until they are done.
 
 The Liceum roadmap is in the spec doc (section "Kompas Liceum roadmap (19 Nov)"); the Studia v3.0 goals are in "Kompas Studia roadmap: v3.0 goals (weekend review, 21 Nov)".
 
@@ -151,11 +156,52 @@ Details: "Studia v2.7 … v3.0 tasks" at the end of Part 3. UI/UX items of the o
 | 3 | Rolnictwo, żywność i przyroda stosowana · even worlds (Q4) · sports data (V1a, V1b) | Small groups; new technikum professions from Sept 2026 | v2.13 (direction) + v2.14 (worlds) + v2.15 (sports data) |
 | review | Sports track and exact points (V1c); radar check | | v3.0 |
 
-UI/UX moved after v3.0: calm look and exam taps v3.1, profile drawings v3.2, parent page v3.3, Ukrainian v3.4 (see "v3.0 tasks" below).
+UI/UX moved after v3.0: calm look and exam taps v3.1, profile drawings v3.2, parent page v3.3 (see "v3.0 tasks" below). Ukrainian moved forward to v2.15–v2.17 (27 Nov 2026).
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
-## Next minor: v2.15 (planned 2026-11-27, re-checked 2026-11-27 evening)
+## Next minor: v2.15 (planned 2026-11-27, 22:25, by Szymon's request: Ukrainian 1, foundation + main interface)
+
+Current `appVersion` 2.14.0. **Replaces the data plan written earlier tonight** (that plan is kept below unchanged as "Minor v2.18").
+Goal: the whole Liceum interface can be switched to Ukrainian with `?lang=ua` and a PL / UA chip, the Polish app stays identical.
+Copy what Studia did in v3.1 + v3.2 (24 Nov, Part 3, "Ukrainian version"): same `core/i18n.js`, same chip, same fonts, same rules
+UK-A to UK-H and `studia/i18n/glossary.json`. **Language code `ua`, never `uk`** (only `<html lang="uk">` via `HTML_LANG`).
+No English chip in Liceum yet (EN comes after the Ukrainian track). One commit per task (rule 8). Order: 1 → 2 → 3 → 4.
+
+1. [ ] **UA1 (Opus) Texts out of the code.** Move every Polish screen text of `liceum/app.js` (about 130 lines with Polish text),
+   `liceum/points.js` (`LEVEL_TXT`, `CHANCE_TXT`, `LANG_TXT`, `ENTRY_KIND`, `BI_TAG`, `SUBJECT_NAME` display names via `setNames`)
+   and `liceum/index.html` (`data-i18n` like Studia) into `liceum/i18n/pl.json`; use `t()`, `plural()`, `num()` from `core/i18n.js`
+   (do not write a second i18n). Reuse `core/i18n/{pl,ua}.json` for shared texts (strengths, export). Language chip PL / UA in the
+   header, `?lang=` in the URL, `<html lang>` set, local Cyrillic fonts from `studia/fonts` (no new network call).
+   Data stays Polish in this task (questions, profiles, schools). Check: all tests; the Polish app looks and reads exactly as 2.14.0
+   (add a Liceum text snapshot like `tests/snapshot.mjs` / `tests/ui_text.py` if Studia's does not cover Liceum).
+2. [ ] **UA2 (Sonnet) Ukrainian interface texts.** `liceum/i18n/ua.json` with every key of `pl.json`. Simple words for a 12–14 year
+   old and for parents who do not know the Polish school system. Keep official Polish terms in brackets the first time on a screen:
+   ліцей (liceum), технікум (technikum), галузева школа (szkoła branżowa), клас з поглибленим вивченням / розширені предмети
+   (rozszerzenia), прохідний бал (próg punktowy), іспит восьмикласника (egzamin ósmoklasisty). Add these to the glossary
+   (Liceum section) with the same check as Studia. School and class names stay Polish everywhere (Szymon, 24 Nov, same rule as
+   universities). Footer note that the translation was made by AI and not yet read by a native speaker (copy Studia's `foot.ai`).
+   Check: `tests/syntax.mjs` for `ua`; no missing key (a missing key shows the key itself).
+3. [ ] **UA3 (Opus) Look and review.** Click-through with `?lang=ua` at 375 and 1280 px in the three looks: start, questions screen,
+   compass, classes, school card, map, export file. Longer Ukrainian words must not break buttons or chips. Write
+   `liceum/i18n/review-ua.md` (list of screens and terms for one read by a Ukrainian speaker; Szymon's wife may read it).
+4. [ ] **R2.15 (Opus) Review and release v2.15.0**: 2.15.0 in the four places, tests, spec doc section "Kompas Liceum v2.15.0
+   (Ukrainian 1)", push. In the notification give the link https://clickrak.github.io/demos/kompas/liceum/?lang=ua .
+   **If the budget runs low:** release task 1 alone as 2.15.0 (Polish only, chip hidden) and move tasks 2–3 to v2.16; never release
+   a half-translated screen with the chip visible.
+
+### Liceum Ukrainian track (set 27 Nov 2026, 22:20; before v2.18 and v3.0)
+
+| Release | Content | Agent |
+|---|---|---|
+| v2.15 | Ukrainian 1: foundation + interface (above) | Opus + Sonnet |
+| v2.16 | Ukrainian 2: everything the kid reads in the flow: questions, activities, worlds, situations, profiles (compass), directions, personas, opportunities, parent note, export file. Overlays in `liceum/i18n/ua/*.json` like `studia/i18n/ua/` | Sonnet (translation) + Opus (review, layout) |
+| v2.17 | Ukrainian 3: classes explained (what "mat-fiz-inf", "biol-chem" mean, subject names), short help page "How choosing a liceum works in Poland" for Ukrainian families (8th-grade exam, points, electronic recruitment, dates; **every fact with an opened source**, kuratorium / city pages), Słowniczek link in the footer like Studia | Opus + Sonnet |
+| v2.18 | The data plan from 27 Nov evening (K5, links, Tychy check, V1a, V1b), unchanged | Opus + Sonnet |
+
+After v2.17 Szymon shares Liceum (`?lang=ua`) with the choir group together with Studia (`?lang=ua`).
+
+## Minor v2.18 (was v2.15: planned 2026-11-27, re-checked 2026-11-27 evening; moved 27 Nov 22:20 behind the Ukrainian track, not for tonight)
 
 Current `appVersion` 2.14.0 (released 27 Nov 2026, night run). The v2.15 plan was written by that release run and **v2.15 is not
 released yet**, so tonight's planner did **not** stack a new plan: it kept this one and re-ran the checks (three tests green,
@@ -1111,15 +1157,18 @@ the 16 thresholds and IV LO 1MS against school or city pages; sports classes as 
 | v2.12 | Wave 2: Mundurowe, Turystyka and gastronomia (W2L1, CD3 folded in); entrance-exam classes (A1) — released 25 Nov as 2.12.0; A2 and L1-11 moved to v2.13 (web pages could not be opened that night) | Opus + Sonnet |
 | v2.13 | Art liceum and music school Kraków (A2); Technikum Przemysłu Spożywczego nr 22 (K6); first wave-3 slice: direction Rolnictwo, żywność i przyroda stosowana with its classes (W3L1 + W3L2) — released 26 Nov as 2.13.0; links L1-11 and K5 moved to v2.14 | Opus + Sonnet |
 | v2.14 | Rest of wave 3: even worlds + final discovery audit (Q4 + CD4); art school Katowice (A3) — released 27 Nov as 2.14.0; K5 and links L1-11 moved to v2.15 | Opus + Sonnet |
-| v2.15 | K5 and links L1-11 + L1-12 (from v2.14); Tychy class check batch 1 (D4-T1, added 27 Nov evening); sports rules and data (V1a, V1b); next Kraków technikum (PGNiG 9) moves to v3.0 data extras | Opus + Sonnet |
+| v2.15 | Ukrainian 1: foundation + interface (UA1–UA3; set by Szymon 27 Nov 22:20) | Opus + Sonnet |
+| v2.16 | Ukrainian 2: questions, profiles, directions, parent note, export | Sonnet + Opus |
+| v2.17 | Ukrainian 3: classes explained, help page on Polish recruitment for Ukrainian families, Słowniczek | Opus + Sonnet |
+| v2.18 | K5 and links L1-11 + L1-12 (from v2.14); Tychy class check batch 1 (D4-T1); sports rules and data (V1a, V1b); next Kraków technikum (PGNiG 9) moves to v3.0 data extras (was v2.15) | Opus + Sonnet |
 | v3.0 | Sports track and exact points (V1c); coverage review with the radar | Opus |
 | v3.1 | UI/UX: calm look by default (U8), exam % by taps (U9) | Opus + Sonnet |
 | v3.2 | UI/UX: line drawings for all profiles (IL1, IL2) | Opus + Sonnet |
 | v3.3 | UI/UX: one-page parent summary (P2) | Opus |
-| v3.4 | Ukrainian interface (I1, I2) | Opus + Sonnet |
+| v3.4 | ~~Ukrainian interface (I1, I2)~~ moved to v2.15–v2.17 on 27 Nov 2026 | – |
 | later | New areas (Kraków okolice towns, Chorzów, Tarnowskie Góry), G3 schools, Q1 extra situations if Szymon says yes | Opus + Sonnet |
 
-Every v2 release also does **L1**: website links for 5–10 schools. English and French interface come after v3.4.
+Every v2 release also does **L1**: website links for 5–10 schools. English and French interface come after the Ukrainian track (v2.17).
 
 *Release table reordered on 21 Nov 2026, 15:13 (coverage waves). Task texts further down that still say v2.11, v3.1 etc. keep their wording; the order is the one in this table and in "v3.0 tasks".*
 
