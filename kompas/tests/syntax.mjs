@@ -161,6 +161,11 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
     if (/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(v.replace(/\([^)]*\)/g, '').replace(/<[^>]*>/g, ''))) fail(`i18n: liceum ua "${k}" has Polish letters outside brackets: ${v.slice(0, 60)}`);
   }
 }
+{ // Liceum glossary (v2.15): one Ukrainian wording per Polish school term, used by the translation and later by the glossary page.
+  const g = json['liceum/i18n/glossary.json'];
+  if (!Array.isArray(g) || !g.length) fail('i18n: liceum/i18n/glossary.json must be a non-empty array');
+  else for (const e of g) for (const f of ['id', 'pl', 'ua', 'expl']) if (typeof e[f] !== 'string' || !e[f].trim()) fail(`i18n: liceum glossary "${e.id}" lacks ${f}`);
+}
 for (const lg of ['ua', 'en']) { // Overlays of the data texts (v3.3, English v3.4): every text field of every item must have a translation (strict).
   const q = json['studia/data/questions.json'] || {}, sc = json['studia/data/scenarios.json'] || {}, str = json['core/strengths.json'] || [], dim = json['core/dimensions.json'] || {};
   const oq = json[`studia/i18n/${lg}/questions.json`], os = json[`studia/i18n/${lg}/strengths.json`], od = json[`studia/i18n/${lg}/dimensions.json`], osc = json[`studia/i18n/${lg}/scenarios.json`];
