@@ -155,32 +155,72 @@ UI/UX moved after v3.0: calm look and exam taps v3.1, profile drawings v3.2, par
 
 ## Part 1: Kompas Liceum roadmap to v3.0
 
-## Next minor: v2.15 (planned 2026-11-27)
+## Next minor: v2.15 (planned 2026-11-27, re-checked 2026-11-27 evening)
 
-Current `appVersion` 2.14.0 (released 27 Nov 2026, night run). Planned by that run: the two Sonnet tasks that could not be finished
-in v2.14 move here first (database completeness, Kraków then Tychy), then the sports work that the release table already lists for
-v2.15. L1-12 (5 more links) is folded into task 2, so the night does not grow. Web tip from 26–27 Nov still holds: a page opens
-only when its URL came from a web search in the same run; the permission check also refused one bip.krakow.pl page (ZSL) on 27 Nov.
-One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5.
+Current `appVersion` 2.14.0 (released 27 Nov 2026, night run). The v2.15 plan was written by that release run and **v2.15 is not
+released yet**, so tonight's planner did **not** stack a new plan: it kept this one and re-ran the checks (three tests green,
+`old_sources.py`, a count over `schools.json`; numbers unchanged since 2.14.0, see "Database status" below). It is not too big
+(2 Opus + 4 Sonnet), so nothing is trimmed; one small Sonnet job is added as task 3 (Tychy class check) because Tychy has 42 of 42
+classes on "check" and K5 may be blocked again, so the night still moves the database. Roadmap order unchanged (V1c stays in v3.0).
+Web tip from 26–27 Nov still holds: a page opens only when its URL came from a web search in the same run; the permission check
+also refused one bip.krakow.pl page (ZSL) on 27 Nov. otouczelnie.pl: one page at a time, a few minutes apart.
+One commit per task (rule 8). Order: 1 → 2 → 3 → 4 → 5 → 6.
 
-1. [ ] **K5 (Sonnet) Technikum Poligraficzno-Medialne nr 20, Kraków** (from v2.14). Opened on 27 Nov: otouczelnie "jezyki" tab
+1. [ ] **K5 (Sonnet) Technikum Poligraficzno-Medialne nr 20, Kraków** (from v2.14, third try). Goal: add TPM 20 as a waiting school
+   only with an opened 2026/27 class list. Opened on 27 Nov: otouczelnie "jezyki" tab
    (`…/1443/Technikum-Poligraficzno-Medialne-nr-20-im-Z-Klemensiewicza/jezyki`: name, os. Tysiąclecia 38, 31-610 Kraków, site
    zspm.malopolska.pl, angielski + niemiecki, "Rekrutacja 2026/2027") and the otouczelnie Kraków technika list 2025/26 (range
-   72.40–107.10). **Blockers found:** (a) the "klasy" and "progi-punktowe-2026-2027" tabs never came up in a search, so the class list
-   (1AG, 1BCF, 1DR from the 26 Nov read) has no opened page; (b) `tests/liceum.mjs` needs a sourced `range` for a waiting Kraków
-   school, and only the 2025/26 range is sourced. **Decision for Szymon:** may a waiting school use last year's range when it is
-   labelled `year: "2025/26"` (10 schools already carry such a label)? Until he answers: add the school only if the 2026/27 progi tab
-   or the school's own class list opens. Files and check as in v2.14 task 1 ("51 of 55", "Waiting schools: 1+").
-2. [ ] **L1-11 + L1-12 (Sonnet) School links, up to 8 schools.** Same rule. Leads from 27 Nov: `tps22` → the school's own
-   accessibility PDF (zsps.krakow.pl, opened) lists **https://www.szkolyzsps.krakow.pl**: search for that site, open it, set `www`
-   if it names Technikum nr 22. `tl14` → the statute is on **tl.krakow.pl** (opened, names Technikum Łączności nr 14, Monte Cassino
-   31): open the site root from a search result. `ty-t6` → site still not opened (otouczelnie says zs4.oswiata.tychy.pl); name
-   unchanged. infozawodowe searches returned only other cities. Then `tm16`, `tee7`, `lo41`, `lo27`, `lo43` (L1-12).
+   72.40–107.10). **Blockers:** (a) the "klasy" and "progi-punktowe-2026-2027" tabs never came up in a search (searched again on
+   27 Nov evening: only the "jezyki" tab, the ranking and the 2025/26 city list; the school's own site did not come up either);
+   (b) `tests/liceum.mjs` needs a sourced `range` for a waiting Kraków school, and only the 2025/26 range is sourced.
+   **Decision for Szymon (open):** may a waiting school use last year's range when labelled `year: "2025/26"` (10 schools already
+   carry such a label)? Until he answers: try two searches (progi tab, school site); if neither gives an opened 2026/27 class list,
+   **stop after 15 minutes**, move K5 to v3.0 as a data extra and say so. No guessed class or threshold.
+   Files: `krakow/schools.json`, `krakow/ranking.json` (`kompasId`), `sources.json`. Check: three tests; "Kompas schools with a
+   place: 50 of 55"; "Waiting schools (geoPending): 1".
+2. [ ] **L1-11 + L1-12 (Sonnet) School links, up to 8 schools.** Goal: `www` only when the page opens and names the school, or an
+   official list shows it. Leads from 27 Nov: `tps22` → the school's own accessibility PDF (zsps.krakow.pl, opened) lists
+   **https://www.szkolyzsps.krakow.pl**: search for that site, open it, set `www` if it names Technikum nr 22. `tl14` → the statute
+   is on **tl.krakow.pl** (opened, names Technikum Łączności nr 14, Monte Cassino 31): open the site root from a search result.
+   `ty-t6` → otouczelnie says zs4.oswiata.tychy.pl; open it from a search result; fix the school name only with that page as source.
+   Then `tm16`, `tee7`, `lo41`, `lo27`, `lo43` (L1-12). Files: `krakow/schools.json`, `tychy/schools.json`, `sources.json`.
    Check: syntax test; "strona szkoły" opens on two cards; `old_sources.py`.
-3. [ ] **V1a (Opus) 2027 rules for sports classes and exact points.** Task text as in "v2.13 – Wave 3" item 4 (kuratorium Kraków and
-   Katowice, MEN rozporządzenie; if the 2027/28 act is still out, use 2026/27 and say so on screen).
-4. [ ] **V1b (Sonnet) Mark sports classes** (needs 3). Task text as in "v2.13 – Wave 3" item 5.
-5. [ ] **R2.15 (Opus) Review and release v2.15.0** (same steps as R2.14).
+3. [ ] **D4-T1 (Sonnet) Tychy class check, batch 1 (up to 3 schools).** Goal: move Tychy classes from "check" to "sourced" where an
+   opened 2026/27 page confirms `extended`, `scored` and `threshold` (otouczelnie Tychy licea "progi-punktowe-2026-2027" tabs or the
+   school's own rekrutacja page, URLs from a search). Order: Tychy licea by matura ranking (otouczelnie "Ranking liceów w Tychach
+   2026", seen in a search on 27 Nov). Fill missing `scored` (33 of 42 empty) only from such a page. Never guess a threshold; a class
+   not on the page stays "check". Files: `tychy/schools.json`, `sources.json`. Check: three tests; commit says how many classes moved
+   (start: 42 of 42 "check", 26 without threshold, 33 without `scored`).
+4. [ ] **V1a (Opus) Rules for sports classes and exact points.** Task text as in "v2.13 – Wave 3" item 4. Re-check on 27 Nov evening:
+   no 2027/28 recruitment act yet in Małopolska or Śląskie, and no new MEN act on fitness tests for admission; so use 2026/27
+   (Kraków: zarządzenie 10/26 MKO and its annexes on kuratorium.krakow.pl, searched 27 Nov; Katowice: kuratorium act from a search)
+   and say "zasady z roku 2026/27" on screen when it is used. Files: `BACKLOG.md`, `tests/syntax.mjs`, `sources.json`.
+   Check: three tests pass; method written under this task.
+5. [ ] **V1b (Sonnet) Mark sports classes** (needs 4). Task text as in "v2.13 – Wave 3" item 5. Small: a scan on 27 Nov found one
+   clear sports class (Tychy `ty-lo4` 1MS, mistrzostwa sportowego GKS Tychy); check the Kraków ranking for SMS / sports licea not in
+   the data and list them for later (do not add schools in this task). Files: school files, `sources.json`. Check: three tests.
+6. [ ] **R2.15 (Opus) Review and release v2.15.0** (same steps as R2.14): review Sonnet commits (opened sources, no guessed
+   threshold, areas not mixed, new schools waiting); click-through at 375 and 1280 px in three looks, compass and map first;
+   2.15.0 in the four places and `dataVersion`; radar re-run; "Database status" updated; spec doc section; push.
+
+**Database status (27 Nov 2026, evening re-check; no data change since 2.14.0).** Run: three tests (green), `old_sources.py`, a count
+over `schools.json`. The Geocode Action cleared `ka-plsp`: **0 waiting, every school has an address and a map point.**
+
+| Area | Schools in DB / known | Public missing (next in order) | Missing `www` | Classes "check" | No threshold (excl. exam classes) | No `scored` | No `extended` | Old sources (> 12 months) |
+|---|---|---|---|---|---|---|---|---|
+| Kraków | 54 / 90 | 10: TPM 20 (→ K5), PGNiG 9, TEH 5, TG 11, TIŚ 13, TGH 10, TO 18, T 2, TEE 23; OSM II st. 19 (no official page) | 32 | 143 of 254 | 38 | 104 | 5 | 0 |
+| Tychy | 10 / 13 | 0 | 1 (`ty-t6` → task 2) | 42 of 42 (→ task 3) | 26 | 33 | 6 | 1 (`ty-informator-2025`, 18 months; no newer informator found) |
+| GZM other towns | 6 / 197 (Katowice 4, Gliwice 1, Sosnowiec 1) | POSM II st. Katowice, LSP Gliwice (no official page yet); the rest after v3.0 | 0 | 36 of 37 | 13 | 28 | 2 | 0 |
+
+Kraków ranking: "Kompas schools with a place: 50 of 54" (the 2.14 note "51 of 55" assumed K5). Studia has 6 stale sources (Part 3).
+
+**News found while planning (27 Nov 2026, evening).**
+- 2027/28 recruitment: still no act in Małopolska or Śląskie; the newest Kraków act stays zarządzenie 10/26 MKO for 2026/27
+  (kuratorium.krakow.pl/wp-content/uploads/2026/01/zarzadzenie-10_26-mko-rekrutacja-2026-2027.pdf). Expect January 2027.
+- Tychy: no 2027/28 page, no new or closed classes found (search returned only the 2025/26 KOKiS paper and otouczelnie pages).
+- Sports: no new MEN act on fitness tests for admission to sports classes; news items on fitness tests in PE lessons do not change
+  recruitment. Nothing to enter.
+- POSM Kraków: gov.pl page "Rekrutacja kandydatów na rok szkolny 2026 / 2027" (gov.pl/web/posmkrakow) came up; already covered by A2.
 
 ## Minor v2.14 (planned 2026-11-26, re-checked 2026-11-26 evening, released 2026-11-27 as 2.14.0)
 
@@ -1071,7 +1111,7 @@ the 16 thresholds and IV LO 1MS against school or city pages; sports classes as 
 | v2.12 | Wave 2: Mundurowe, Turystyka and gastronomia (W2L1, CD3 folded in); entrance-exam classes (A1) — released 25 Nov as 2.12.0; A2 and L1-11 moved to v2.13 (web pages could not be opened that night) | Opus + Sonnet |
 | v2.13 | Art liceum and music school Kraków (A2); Technikum Przemysłu Spożywczego nr 22 (K6); first wave-3 slice: direction Rolnictwo, żywność i przyroda stosowana with its classes (W3L1 + W3L2) — released 26 Nov as 2.13.0; links L1-11 and K5 moved to v2.14 | Opus + Sonnet |
 | v2.14 | Rest of wave 3: even worlds + final discovery audit (Q4 + CD4); art school Katowice (A3) — released 27 Nov as 2.14.0; K5 and links L1-11 moved to v2.15 | Opus + Sonnet |
-| v2.15 | K5 and links L1-11 + L1-12 (from v2.14); sports rules and data (V1a, V1b); next Kraków technikum (PGNiG 9) after that if a page opens | Opus + Sonnet |
+| v2.15 | K5 and links L1-11 + L1-12 (from v2.14); Tychy class check batch 1 (D4-T1, added 27 Nov evening); sports rules and data (V1a, V1b); next Kraków technikum (PGNiG 9) moves to v3.0 data extras | Opus + Sonnet |
 | v3.0 | Sports track and exact points (V1c); coverage review with the radar | Opus |
 | v3.1 | UI/UX: calm look by default (U8), exam % by taps (U9) | Opus + Sonnet |
 | v3.2 | UI/UX: line drawings for all profiles (IL1, IL2) | Opus + Sonnet |
