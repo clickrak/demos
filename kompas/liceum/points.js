@@ -3,10 +3,15 @@
 // Exam: Polish and maths 0.35 × %, foreign language 0.30 × %. Certificate: four graded subjects (Polish, maths and two the class
 // counts) at 18/17/14/8/2 points, special achievements up to 18, distinction 7, volunteering 3.
 import { computeProfile, fitCard, band, pathsTo, reasonsFor, makeSlots } from '../core/scoring.js';
+import { t } from '../core/i18n.js';
+// Screen texts (v2.15, UA1) live in liceum/i18n/{pl,ua}.json. tx('lic.chance') reads 'lic.chance.<id>' in the chosen language.
+const tx = pre => new Proxy({}, { get: (_, k) => (typeof k === 'string' ? t(`${pre}.${k}`) : undefined) });
 
 export const GRADE_PTS = { 6: 18, 5: 17, 4: 14, 3: 8, 2: 2 };
+// Subject ids with their Polish names: the keys are used in the rules below; the screen shows subjectName(id) in the chosen language.
 export const SUBJECT_NAME = { polski: 'język polski', matematyka: 'matematyka', angielski: 'język angielski', fizyka: 'fizyka', informatyka: 'informatyka',
   biologia: 'biologia', chemia: 'chemia', geografia: 'geografia', historia: 'historia', wos: 'wiedza o społeczeństwie' };
+export const subjectName = s => (SUBJECT_NAME[s] ? t(`lic.subj.${s}`) : s);
 
 const pct = v => Math.max(0, Math.min(100, Number(v) || 0));
 
@@ -29,7 +34,7 @@ export function effectivePoints(answers, config) {
   return { exam, grades, stripe: !!p.stripe, volunteering: !!p.volunteering, achievements: p.achievements || 0, approx: true, assumed };
 }
 
-export const CHANCE_TXT = { realna: 'realna szansa', zawalczenia: 'do zawalczenia', ambitna: 'ambitna', szkola: 'do sprawdzenia w szkole', unknown: 'wpisz, jak ci idzie' };
+export const CHANCE_TXT = tx('lic.chance'); // realna, zawalczenia, ambitna, szkola, unknown
 
 export function examPoints(exam = {}) {
   const parts = { polski: 0.35 * pct(exam.polski), matematyka: 0.35 * pct(exam.matematyka), obcy: 0.3 * pct(exam.obcy) };
@@ -94,15 +99,12 @@ export function langTest(p, cls) {
   const test = !g ? null : g >= 5 ? 'w-zasiegu' : g === 4 ? 'do-pracy' : 'trudny';
   return { kind: b.kind, lang: b.lang, test };
 }
-export const LANG_TXT = { 'w-zasiegu': 'test językowy w zasięgu', 'do-pracy': 'test językowy: trzeba popracować', trudny: 'test językowy będzie trudny', predyspozycje: 'test predyspozycji (nowy język od zera)' };
+export const LANG_TXT = tx('lic.langtest'); // w-zasiegu, do-pracy, trudny, predyspozycje
 // Entrance exam (v2.12, A1): plastyczny = art liceum exam, muzyczny = music school audition.
-export const ENTRY_KIND = { plastyczny: 'egzamin wstępny w szkole', muzyczny: 'przesłuchanie w szkole' };
+export const ENTRY_KIND = tx('lic.entry'); // plastyczny, muzyczny
 export const inTrack = (answers, cls) => !cls.bilingual || (answers && answers.bi === 'tak');
 
-export const LEVEL_TXT = {
-  over: 'powyżej zeszłorocznego progu', near: 'blisko progu, ale nad nim', close: 'tuż pod progiem', under: 'poniżej progu',
-  range: 'w zakresie szkoły, próg klasy do sprawdzenia', entry: 'egzamin wstępny albo przesłuchanie w szkole, bez progu punktowego', unknown: 'wpisz punkty, żeby zobaczyć'
-};
+export const LEVEL_TXT = tx('lic.level'); // over, near, close, under, range, entry, unknown
 
 // Worlds (v1.7): the kid first picks the worlds that attract him. Only those question cards are shown, plus a common
 // core. No pick (or "show me a bit of everything") shows the core and two cards from each world. Old answer files
@@ -172,23 +174,21 @@ export function levers(p = {}, cls) {
   const sc = scoredSubjects(cls).list, g = p.grades || {};
   for (const s of sc) {
     const cur = g[s];
-    if (cur && cur < 6) out.push({ text: `ocena z przedmiotu „${SUBJECT_NAME[s]}” o stopień wyżej (${cur} → ${cur + 1}) to ${GRADE_PTS[cur + 1] - GRADE_PTS[cur]} pkt`, pts: GRADE_PTS[cur + 1] - GRADE_PTS[cur] });
+    if (cur && cur < 6) out.push({ text: t('lic.lever.grade', { subj: subjectName(s), a: cur, b: cur + 1, n: GRADE_PTS[cur + 1] - GRADE_PTS[cur] }), pts: GRADE_PTS[cur + 1] - GRADE_PTS[cur] });
   }
   out.sort((a, b) => b.pts - a.pts);
-  out.push({ text: 'każde 10 punktów procentowych więcej z matematyki albo polskiego na egzaminie to 3,5 pkt, z języka obcego 3 pkt', pts: 3.5 });
-  if (!p.stripe) out.push({ text: 'świadectwo z wyróżnieniem (czerwony pasek) to 7 pkt', pts: 7 });
-  if (!p.volunteering) out.push({ text: 'wolontariat wpisany na świadectwie to 3 pkt', pts: 3 });
+  out.push({ text: t('lic.lever.exam'), pts: 3.5 });
+  if (!p.stripe) out.push({ text: t('lic.lever.stripe'), pts: 7 });
+  if (!p.volunteering) out.push({ text: t('lic.lever.volunteering'), pts: 3 });
   return out.slice(0, 4);
 }
 
 // ---- the compass (v1.8) -------------------------------------------------------------------------------------------
 // Eight high-level profiles group the 14 directions. The best profile points North, the next two are the close
 // alternatives (NNE, NNW), and the least fitting one sits in the South. Only the order matters, not exact numbers.
-export const COMPASS = [
-  { pos: 'N', deg: 0, label: 'północ: najlepiej pasuje' }, { pos: 'NNE', deg: 22.5, label: 'bliska alternatywa' }, { pos: 'NNW', deg: -22.5, label: 'bliska alternatywa' },
-  { pos: 'NE', deg: 50, label: 'też warto zajrzeć' }, { pos: 'NW', deg: -50, label: 'też warto zajrzeć' }, { pos: 'E', deg: 95, label: 'dalej od ciebie' },
-  { pos: 'W', deg: -95, label: 'dalej od ciebie' }, { pos: 'SE', deg: 140, label: 'daleko od ciebie' }, { pos: 'S', deg: 180, label: 'najmniej pasuje teraz' }
-];
+// label: 'lic.compass.<pos>' in the chosen language (v2.15).
+export const COMPASS = [['N', 0], ['NNE', 22.5], ['NNW', -22.5], ['NE', 50], ['NW', -50], ['E', 95], ['W', -95], ['SE', 140], ['S', 180]]
+  .map(([pos, deg]) => ({ pos, deg, get label() { return t(`lic.compass.${pos}`); } }));
 export function profilesFor(result, data) {
   const byId = Object.fromEntries(result.cards.map(c => [c.card.id, c]));
   const list = data.profiles.map(p => {

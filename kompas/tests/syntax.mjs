@@ -133,6 +133,34 @@ const refs = (what, wanted, known) => { for (const id of wanted) if (id && !know
     }
   }
 }
+{ // Liceum interface texts (v2.15, UA1): liceum/i18n/pl.json is the base (keys "lic.*"); ua.json needs exactly the same keys once it has any.
+  const pl = json['liceum/i18n/pl.json'] || {}, plKeys = new Set(Object.keys(pl));
+  if (!plKeys.size) fail('i18n: liceum/i18n/pl.json is missing or empty');
+  for (const k of plKeys) if (!k.startsWith('lic.')) fail(`i18n: liceum key "${k}" must start with "lic."`);
+  const code = files.filter(f => /liceum\/[^/]+\.(js|html)$/.test(f)).map(f => readFileSync(f, 'utf8')).join('\n');
+  const used = new Set(), bases = new Set(), dynamic = new Set();
+  for (const m of code.matchAll(/\b(?:t|tOr)\(\s*'(lic\.[\w.-]+)'/g)) used.add(m[1]);
+  for (const m of code.matchAll(/\bplural\([^,]+,\s*'(lic\.[\w.]+)'/g)) bases.add(m[1]);
+  for (const m of code.matchAll(/data-i18n="(lic\.[\w.]+)"/g)) used.add(m[1]);
+  for (const m of code.matchAll(/data-i18n-attr="([^"]+)"/g)) for (const pair of m[1].split(',')) used.add(pair.split(':')[1]);
+  for (const m of code.matchAll(/[`'](lic\.[\w.]*\.)(?:\$\{|'\s*\+)/g)) dynamic.add(m[1]);
+  for (const m of code.matchAll(/\btx\(\s*'(lic\.[\w.]+)'\)/g)) dynamic.add(m[1] + '.');
+  for (const k of used) if (!plKeys.has(k)) fail(`i18n: liceum t('${k}') is not in liceum/i18n/pl.json`);
+  for (const b of bases) for (const f of ['one', 'few', 'many']) if (!plKeys.has(`${b}.${f}`)) fail(`i18n: liceum plural '${b}' lacks ${b}.${f}`);
+  for (const k of plKeys) if (!used.has(k) && !code.includes(`'${k}'`) && ![...dynamic].some(d => k.startsWith(d)) && ![...bases].some(b => k.startsWith(b + '.'))) fail(`i18n: liceum key "${k}" is not used in the code`);
+  for (const [k, v] of Object.entries(pl)) if (typeof v !== 'string') fail(`i18n: liceum pl.json "${k}" is not a string`);
+  const ph = v => (String(v).match(/\{\w+\}/g) || []).sort().join(','), tags = v => (String(v).match(/<\/?[a-z][^>]*>/gi) || []).join('');
+  const tr = json['liceum/i18n/ua.json'] || {}, keys = Object.keys(tr);
+  for (const k of keys) if (!plKeys.has(k) && !(k.endsWith('.other') && plKeys.has(k.replace(/\.other$/, '.one')))) fail(`i18n: liceum ua.json has a key pl.json does not: ${k}`);
+  if (!keys.length) console.log('note: liceum/i18n/ua.json is still a stub');
+  else for (const k of plKeys) {
+    const v = tr[k];
+    if (typeof v !== 'string' || !v.trim()) { fail(`i18n: liceum ua "${k}" is missing or empty`); continue; }
+    if (ph(v) !== ph(pl[k])) fail(`i18n: liceum ua "${k}" placeholders differ: ${ph(pl[k])} vs ${ph(v)}`);
+    if (tags(v) !== tags(pl[k])) fail(`i18n: liceum ua "${k}" HTML tags differ from Polish`);
+    if (/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(v.replace(/\([^)]*\)/g, '').replace(/<[^>]*>/g, ''))) fail(`i18n: liceum ua "${k}" has Polish letters outside brackets: ${v.slice(0, 60)}`);
+  }
+}
 for (const lg of ['ua', 'en']) { // Overlays of the data texts (v3.3, English v3.4): every text field of every item must have a translation (strict).
   const q = json['studia/data/questions.json'] || {}, sc = json['studia/data/scenarios.json'] || {}, str = json['core/strengths.json'] || [], dim = json['core/dimensions.json'] || {};
   const oq = json[`studia/i18n/${lg}/questions.json`], os = json[`studia/i18n/${lg}/strengths.json`], od = json[`studia/i18n/${lg}/dimensions.json`], osc = json[`studia/i18n/${lg}/scenarios.json`];

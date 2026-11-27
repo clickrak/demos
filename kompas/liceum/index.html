@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Kompas Liceum</title>
+  <title data-i18n="lic.meta.title">Kompas Liceum</title>
   <meta name="description" content="Od tego, co lubisz, do klas w liceach i technikach w Krakowie albo w Tychach i Metropolii GZM. Wersja 2.14.0.">
   <!-- site-head -->
 <link rel="canonical" href="https://clickrak.github.io/demos/kompas/liceum/">
@@ -38,22 +38,24 @@
 <body>
   <header class="top">
     <a class="brand" href="#/start"><svg class="bcomp" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><g class="bneedle"><path class="bn-n" d="M12 4.5 14.6 12H9.4Z"/><path class="bn-s" d="M12 19.5 9.4 12h5.2Z"/></g></svg>Kompas <span>Liceum</span></a>
-    <nav class="chapters" aria-label="Rozdziały">
-      <button data-go="swiaty" data-ch="ja">Ja</button><button data-go="szkola" data-ch="szkola">Szkoła</button><button data-go="wyniki" data-ch="wyniki">Kompas</button><button data-go="szkoly" data-ch="szkoly">Szkoły</button><button data-go="lista" data-ch="lista" class="listbtn" aria-label="Moja lista"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.3 3 4.8 6.4 4.5c2-.2 3.6 1 4.6 2.5 1-1.5 2.6-2.7 4.6-2.5 3.4.3 5.2 3.8 3.6 6.9C19 15.6 12 20 12 20z" fill="currentColor"/></svg><span class="lc" data-likecount hidden></span></button>
+    <nav class="chapters" aria-label="Rozdziały" data-i18n-attr="aria-label:lic.nav.chapters">
+      <button data-go="swiaty" data-ch="ja" data-i18n="lic.nav.ja">Ja</button><button data-go="szkola" data-ch="szkola" data-i18n="lic.nav.szkola">Szkoła</button><button data-go="wyniki" data-ch="wyniki" data-i18n="lic.nav.wyniki">Kompas</button><button data-go="szkoly" data-ch="szkoly" data-i18n="lic.nav.szkoly">Szkoły</button><button data-go="lista" data-ch="lista" class="listbtn" aria-label="Moja lista" data-i18n-attr="aria-label:lic.nav.lista"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.3 3 4.8 6.4 4.5c2-.2 3.6 1 4.6 2.5 1-1.5 2.6-2.7 4.6-2.5 3.4.3 5.2 3.8 3.6 6.9C19 15.6 12 20 12 20z" fill="currentColor"/></svg><span class="lc" data-likecount hidden></span></button>
     </nav>
-    <button class="savebtn" data-export="download" title="Pobierz plik z odpowiedziami, żeby wrócić później"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg><span>Zapisz</span></button>
-    <button class="iconbtn comfortbtn" data-comfort aria-expanded="false" aria-controls="comfortbar" aria-label="Wygodniej: większy tekst, mniej ruchu" title="Większy tekst, mniej ruchu">Aa</button>
+    <button class="savebtn" data-export="download" title="Pobierz plik z odpowiedziami, żeby wrócić później" data-i18n-attr="title:lic.head.save.title"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg><span data-i18n="lic.head.save">Zapisz</span></button>
+    <div class="langsw" role="group" aria-label="Język" data-i18n-attr="aria-label:lic.head.lang" data-langsw hidden><button data-uilang="pl" aria-pressed="true">PL</button><button data-uilang="ua" aria-pressed="false">UA</button></div>
+    <button class="iconbtn comfortbtn" data-comfort aria-expanded="false" aria-controls="comfortbar" aria-label="Wygodniej: większy tekst, mniej ruchu" title="Większy tekst, mniej ruchu" data-i18n-attr="aria-label:lic.head.comfort,title:lic.head.comfort.title">Aa</button>
     <button class="iconbtn" data-skintoggle aria-label="Zmień wygląd" aria-pressed="false"></button>
     <button class="iconbtn" data-themetoggle aria-label="Zmień motyw"></button>
   </header>
-  <div class="comfortbar" id="comfortbar" role="group" aria-label="Wygoda" hidden><button class="chip" data-big aria-pressed="false">większy tekst</button><button class="chip" data-calm aria-pressed="false">spokojniej (mniej ruchu)</button></div>
-  <main id="app" tabindex="-1"><p class="loading">Ładuję…</p></main>
+  <div class="comfortbar" id="comfortbar" role="group" aria-label="Wygoda" data-i18n-attr="aria-label:lic.comfort.group" hidden><button class="chip" data-big aria-pressed="false" data-i18n="lic.comfort.big">większy tekst</button><button class="chip" data-calm aria-pressed="false" data-i18n="lic.comfort.calm">spokojniej (mniej ruchu)</button></div>
+  <main id="app" tabindex="-1"><p class="loading" data-i18n="lic.loading">Ładuję…</p></main>
   <footer class="foot noprint">
-    <p>Odpowiedzi są tylko w tej karcie przeglądarki. Zapisujesz je w pliku, który zostaje u ciebie.</p>
-    <p><button class="linkbtn" data-export="download">Zapisz postęp do pliku</button> · <label class="linkbtn">Wczytaj plik<input type="file" accept=".md,text/markdown,text/plain" data-load></label><span class="themelink"> · <button class="linkbtn" data-themetoggle></button></span></p>
-    <p><button class="linkbtn" data-go="zrodla">Źródła danych</button></p>
+    <p data-i18n="lic.foot.privacy">Odpowiedzi są tylko w tej karcie przeglądarki. Zapisujesz je w pliku, który zostaje u ciebie.</p>
+    <p><button class="linkbtn" data-export="download" data-i18n="lic.foot.save">Zapisz postęp do pliku</button> · <label class="linkbtn"><span data-i18n="lic.foot.load">Wczytaj plik</span><input type="file" accept=".md,text/markdown,text/plain" data-load></label><span class="themelink"> · <button class="linkbtn" data-themetoggle></button></span></p>
+    <p><button class="linkbtn" data-go="zrodla" data-i18n="lic.foot.sources">Źródła danych</button></p>
     <p id="fmsg" role="status"></p>
-    <p class="ver">Kompas Liceum v2.14.0 · listopad 2026 · Kraków albo Tychy i GZM</p>
+    <p class="ainote" data-onlylang="ua" hidden data-i18n="lic.foot.ai">Tłumaczenie zrobiła sztuczna inteligencja i nie przeczytał go jeszcze nikt, kto zna ukraiński jak ojczysty.</p>
+    <p class="ver"><span>Kompas Liceum v2.14.0</span> · <span data-i18n="lic.foot.month">listopad 2026</span> · <span data-i18n="lic.foot.areas">Kraków albo Tychy i GZM</span></p>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script type="module" src="app.js"></script>
